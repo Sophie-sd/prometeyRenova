@@ -75,19 +75,19 @@
 
 
 .hero-content {
-    max-width: 1200px;
-    padding: 0 40px;
+    max-width: 1000px;
+    padding: 0 30px;
     z-index: 3;
     position: relative;
 }
 
 .hero-title {
-    font-size: 120px;
+    font-size: 100px;
     font-weight: 700;
     line-height: 0.85;
     letter-spacing: -2px;
     color: #FFFFFF;
-    margin: 0 0 40px 0;
+    margin: 0 0 25px 0;
     text-transform: uppercase;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -95,7 +95,7 @@
 .hero-title .highlight {
     color: #FFFFFF;
     display: block;
-    margin-top: 20px;
+    margin-top: 10px;
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
 }
 
@@ -107,11 +107,11 @@
 .hero-description {
     font-size: 18px;
     font-weight: 800;
-    line-height: 1.5;
+    line-height: 1.4;
     color: #FFFFFF;
     margin: 0;
     opacity: 0.9;
-    max-width: 600px;
+    max-width: 550px;
     margin: 0 auto;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
@@ -150,24 +150,27 @@
     transform: scale(1.01);
 }
 
-/* НОВА СТРУКТУРА - ВІДЕО ЗАЙМАЄ 60% */
+/* КОМПАКТНА СТРУКТУРА - FLEX КОНТЕЙНЕР */
 .project-content {
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    grid-template-columns: 60% 40%;
+    max-width: 1400px;
+    width: 100%;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 60px 40px;
+    gap: 40px;
 }
 
 .project-video {
-    width: 100%;
-    height: 60vh;
+    flex: 1.5;
+    height: 70vh;
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 40px;
+    padding: 0;
 }
 
 .project-video video {
@@ -206,16 +209,18 @@
 }
 
 .project-info {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 40px;
-    padding: 0 60px 0 40px;
+    justify-content: center;
+    gap: 25px;
+    padding: 0;
     text-align: left;
 }
 
 .project-title {
-    font-size: 80px;
+    font-size: 70px;
     font-weight: 700;
     line-height: 0.8;
     letter-spacing: -2px;
@@ -228,15 +233,15 @@
     background: #e14811;
     border: 2px solid #e14811;
     color: #000000;
-    padding: 24px 48px;
-    font-size: 20px;
+    padding: 20px 40px;
+    font-size: 18px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
     border-radius: 0;
-    min-width: 240px;
+    min-width: 220px;
 }
 
 .project-button:hover {
@@ -256,8 +261,9 @@
 /* Планшети (768px - 1024px) */
 @media (max-width: 1024px) {
     .hero-title {
-        font-size: 80px;
+        font-size: 75px;
         letter-spacing: -1px;
+        margin-bottom: 20px;
     }
 
     .hero-description {
@@ -265,12 +271,13 @@
     }
 
     .project-content {
-        grid-template-columns: 65% 35%;
+        max-width: 1200px;
+        padding: 40px 30px;
+        gap: 30px;
     }
 
     .project-video {
-        height: 50vh;
-        padding: 0 30px;
+        height: 60vh;
     }
 
     .project-video video {
@@ -282,13 +289,12 @@
     }
 
     .project-title {
-        font-size: 60px;
+        font-size: 55px;
         letter-spacing: -1px;
     }
 
     .project-info {
-        padding: 0 40px 0 20px;
-        gap: 30px;
+        gap: 20px;
     }
 
     .project-button {
@@ -354,23 +360,23 @@
     }
 
     .project-section {
-        height: 120vh;
-        height: calc(var(--vh, 1vh) * 120);
-        min-height: 120vh;
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        min-height: 100vh;
     }
 
     .project-content {
-        width: 100vw;
-        height: 120vh;
-        grid-template-columns: 1fr;
-        grid-template-rows: 50% 50%;
-        padding: 0;
+        width: 100%;
+        flex-direction: column;
+        padding: 30px 20px;
+        gap: 20px;
+        max-width: none;
     }
 
     .project-video {
-        width: 100vw;
-        height: 100%;
-        padding: 40px 20px;
+        width: 100%;
+        height: 60vh;
+        flex: none;
         order: -1;
     }
 
@@ -395,14 +401,13 @@
     .project-info {
         align-items: center;
         text-align: center;
-        gap: 30px;
-        padding: 15px 20px;
-        justify-content: flex-start;
-        margin-top: -40px;
+        gap: 20px;
+        flex: none;
+        justify-content: center;
     }
 
     .project-title {
-        font-size: 48px;
+        font-size: 45px;
         letter-spacing: -1px;
     }
 
@@ -421,18 +426,18 @@
     }
 
     .project-section {
-        height: 110vh;
-        height: calc(var(--vh, 1vh) * 110);
-        min-height: 110vh;
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        min-height: 100vh;
     }
 
     .project-content {
-        height: 110vh;
-        grid-template-rows: 50% 50%;
+        padding: 25px 15px;
+        gap: 15px;
     }
 
     .project-video {
-        padding: 30px 15px;
+        height: 55vh;
     }
 
     .project-video video {
@@ -445,13 +450,11 @@
     }
 
     .project-title {
-        font-size: 36px;
+        font-size: 38px;
     }
 
     .project-info {
-        padding: 10px 15px;
-        gap: 25px;
-        margin-top: -60px;
+        gap: 18px;
     }
 
     .project-button {
@@ -481,17 +484,17 @@
 
     @media (max-width: 767px) {
         .project-section {
-            height: 120vh;
-            height: calc(var(--vh, 1vh) * 120);
-            min-height: 120vh;
+            height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
+            min-height: 100vh;
         }
     }
 
     @media (max-width: 480px) {
         .project-section {
-            height: 110vh;
-            height: calc(var(--vh, 1vh) * 110);
-            min-height: 110vh;
+            height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
+            min-height: 100vh;
         }
     }
 }

@@ -18,15 +18,25 @@ if DEBUG:
 
 if not DEBUG:
     # Продакшн - PostgreSQL на Render
-    import dj_database_url
-    DATABASES = {
-        'default': dj_database_url.parse(
-            os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3'), 
-            conn_max_age=600, 
-            ssl_require=True,
-            conn_health_checks=True
-        )
-    }
+    DATABASE_URL = os.getenv('DATABASE_URL', '')
+    if DATABASE_URL:
+        import dj_database_url  # Імпорт всередині if блоку для продакшн
+        DATABASES = {
+            'default': dj_database_url.parse(
+                DATABASE_URL, 
+                conn_max_age=600, 
+                ssl_require=True,
+                conn_health_checks=True
+            )
+        }
+    else:
+        # Fallback до SQLite якщо DATABASE_URL не встановлена
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
 else:
     # Розробка - SQLite
     DATABASES = {
