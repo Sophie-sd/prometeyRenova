@@ -1,44 +1,45 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView
 from django.db.models import Q
 from .models import BlogPost
 
 
-class BlogListView(ListView):
-    model = BlogPost
-    template_name = 'pages/blog.html'
-    context_object_name = 'page_obj'
-    paginate_by = 9
-    
-    def get_queryset(self):
-        try:
-            queryset = BlogPost.objects.filter(is_published=True)
-            category = self.request.GET.get('category')
-            if category:
-                queryset = queryset.filter(category=category)
-            return queryset
-        except Exception:
-            # Fallback якщо таблиця не існує
-            return BlogPost.objects.none()
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['page_title'] = 'Блог про веб-розробку та курси програмування'
-        context['meta_description'] = 'Корисні статті про веб-розробку, курси програмування, створення сайтів під ключ та Telegram ботів. Читайте експертні поради та навчальні матеріали.'
-        context['og_title'] = 'Блог про веб-розробку та курси програмування'
-        context['keywords'] = 'блог веб-розробка, курси програмування, створення сайтів, розробка сайтів під ключ, telegram боти, python django'
-        context['category'] = self.request.GET.get('category')
+def blog_list(request):
+    """Список статей блогу з фільтрацією"""
+    try:
+        posts = BlogPost.objects.filter(is_published=True)
+        category = request.GET.get('category')
+        if category:
+            posts = posts.filter(category=category)
         
-        # Додаємо популярні статті з безпечним fallback
-        try:
-            context['popular_posts'] = BlogPost.objects.filter(
-                is_published=True
-            ).order_by('-created_at')[:3]
-        except Exception:
-            context['popular_posts'] = []
+        # Пагінація
+        paginator = Paginator(posts, 9)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         
-        return context
+        # Популярні статті
+        popular_posts = BlogPost.objects.filter(
+            is_published=True
+        ).order_by('-created_at')[:3]
+        
+    except Exception:
+        # Fallback якщо таблиці не існують
+        paginator = Paginator([], 9)
+        page_obj = paginator.get_page(1)
+        popular_posts = []
+        category = None
+    
+    context = {
+        'page_obj': page_obj,
+        'popular_posts': popular_posts,
+        'category': category,
+        'page_title': 'Блог про веб-розробку та курси програмування',
+        'meta_description': 'Корисні статті про веб-розробку, курси програмування, створення сайтів під ключ та Telegram ботів. Читайте експертні поради та навчальні матеріали.',
+        'og_title': 'Блог про веб-розробку та курси програмування',
+        'keywords': 'блог веб-розробка, курси програмування, створення сайтів, розробка сайтів під ключ, telegram боти, python django',
+    }
+    return render(request, 'pages/blog.html', context)
 
 
 class BlogDetailView(DetailView):
