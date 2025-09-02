@@ -8,33 +8,40 @@ from .models import Event, EventCategory, EventRegistration
 
 def events_list(request):
     """Список подій з фільтрацією"""
-    events = Event.objects.filter(is_published=True).select_related('category')
-    
-    # Фільтри
-    category_slug = request.GET.get('category')
-    event_type = request.GET.get('type')
-    status = request.GET.get('status')
-    
-    if category_slug:
-        events = events.filter(category__slug=category_slug)
-    
-    if event_type:
-        events = events.filter(event_type=event_type)
-    
-    if status:
-        events = events.filter(status=status)
-    
-    # Сортування
-    sort_by = request.GET.get('sort', '-start_date')
-    events = events.order_by(sort_by)
-    
-    # Пагінація
-    paginator = Paginator(events, 6)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    
-    # Категорії для фільтрів
-    categories = EventCategory.objects.all()
+    try:
+        events = Event.objects.filter(is_published=True).select_related('category')
+        
+        # Фільтри
+        category_slug = request.GET.get('category')
+        event_type = request.GET.get('type')
+        status = request.GET.get('status')
+        
+        if category_slug:
+            events = events.filter(category__slug=category_slug)
+        
+        if event_type:
+            events = events.filter(event_type=event_type)
+        
+        if status:
+            events = events.filter(status=status)
+        
+        # Сортування
+        sort_by = request.GET.get('sort', '-start_date')
+        events = events.order_by(sort_by)
+        
+        # Пагінація
+        paginator = Paginator(events, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        
+        # Категорії для фільтрів
+        categories = EventCategory.objects.all()
+    except Exception:
+        # Fallback якщо таблиці не існують
+        from django.core.paginator import Paginator
+        paginator = Paginator([], 6)
+        page_obj = paginator.get_page(1)
+        categories = []
     
     context = {
         'page_obj': page_obj,
@@ -53,21 +60,32 @@ def events_list(request):
 
 def event_detail(request, slug):
     """Детальна сторінка події"""
-    event = get_object_or_404(Event, slug=slug, is_published=True)
+    try:
+        event = get_object_or_404(Event, slug=slug, is_published=True)
+    except Exception:
+        # Fallback якщо таблиця не існує
+        from django.http import Http404
+        raise Http404("Події не знайдено")
     
     # Перевіряємо чи користувач вже реєструвався
     user_registered = False
     if request.user.is_authenticated:
-        user_registered = EventRegistration.objects.filter(
-            event=event, 
-            email=request.user.email
-        ).exists()
+        try:
+            user_registered = EventRegistration.objects.filter(
+                event=event, 
+                email=request.user.email
+            ).exists()
+        except Exception:
+            user_registered = False
     
     # Схожі події
-    similar_events = Event.objects.filter(
-        is_published=True,
-        category=event.category
-    ).exclude(id=event.id)[:3]
+    try:
+        similar_events = Event.objects.filter(
+            is_published=True,
+            category=event.category
+        ).exclude(id=event.id)[:3]
+    except Exception:
+        similar_events = []
     
     context = {
         'event': event,
@@ -84,7 +102,11 @@ def event_detail(request, slug):
 def event_registration(request, event_id):
     """Реєстрація на подію"""
     if request.method == 'POST':
-        event = get_object_or_404(Event, id=event_id, is_published=True)
+        try:
+            event = get_object_or_404(Event, id=event_id, is_published=True)
+        except Exception:
+            messages.error(request, 'Подію не знайдено.')
+            return redirect('events_list')
         
         # Перевіряємо чи можна реєструватися
         if not event.is_registration_open:
@@ -96,9 +118,13 @@ def event_registration(request, event_id):
             return redirect('event_detail', slug=event.slug)
         
         # Перевіряємо чи користувач вже реєструвався
-        if EventRegistration.objects.filter(event=event, email=request.POST.get('email')).exists():
-            messages.warning(request, 'Ви вже зареєстровані на цю подію.')
-            return redirect('event_detail', slug=event.slug)
+        try:
+            if EventRegistration.objects.filter(event=event, email=request.POST.get('email')).exists():
+                messages.warning(request, 'Ви вже зареєстровані на цю подію.')
+                return redirect('event_detail', slug=event.slug)
+        except Exception:
+            # Якщо таблиця не існує, просто продовжуємо
+            pass
         
         # Створюємо реєстрацію
         try:
@@ -124,7 +150,10 @@ def event_registration(request, event_id):
 def events_ajax_filter(request):
     """AJAX фільтрація подій"""
     if request.is_ajax():
-        events = Event.objects.filter(is_published=True).select_related('category')
+        try:
+            events = Event.objects.filter(is_published=True).select_related('category')
+        except Exception:
+            return JsonResponse({'error': 'Database not available'})
         
         # Застосовуємо фільтри
         category_slug = request.GET.get('category')

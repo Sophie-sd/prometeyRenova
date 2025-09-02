@@ -12,11 +12,15 @@ class BlogListView(ListView):
     paginate_by = 9
     
     def get_queryset(self):
-        queryset = BlogPost.objects.filter(is_published=True)
-        category = self.request.GET.get('category')
-        if category:
-            queryset = queryset.filter(category=category)
-        return queryset
+        try:
+            queryset = BlogPost.objects.filter(is_published=True)
+            category = self.request.GET.get('category')
+            if category:
+                queryset = queryset.filter(category=category)
+            return queryset
+        except Exception:
+            # Fallback якщо таблиця не існує
+            return BlogPost.objects.none()
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -26,10 +30,13 @@ class BlogListView(ListView):
         context['keywords'] = 'блог веб-розробка, курси програмування, створення сайтів, розробка сайтів під ключ, telegram боти, python django'
         context['category'] = self.request.GET.get('category')
         
-        # Додаємо популярні статті
-        context['popular_posts'] = BlogPost.objects.filter(
-            is_published=True
-        ).order_by('-created_at')[:3]
+        # Додаємо популярні статті з безпечним fallback
+        try:
+            context['popular_posts'] = BlogPost.objects.filter(
+                is_published=True
+            ).order_by('-created_at')[:3]
+        except Exception:
+            context['popular_posts'] = []
         
         return context
 
@@ -40,7 +47,10 @@ class BlogDetailView(DetailView):
     context_object_name = 'post'
     
     def get_queryset(self):
-        return BlogPost.objects.filter(is_published=True)
+        try:
+            return BlogPost.objects.filter(is_published=True)
+        except Exception:
+            return BlogPost.objects.none()
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -66,14 +76,17 @@ class BlogDetailView(DetailView):
 def blog_search(request):
     """Пошук по блогу"""
     query = request.GET.get('q', '')
-    posts = BlogPost.objects.filter(is_published=True)
-    
-    if query:
-        posts = posts.filter(
-            Q(title__icontains=query) |
-            Q(content__icontains=query) |
-            Q(keywords__icontains=query)
-        )
+    try:
+        posts = BlogPost.objects.filter(is_published=True)
+        
+        if query:
+            posts = posts.filter(
+                Q(title__icontains=query) |
+                Q(content__icontains=query) |
+                Q(keywords__icontains=query)
+            )
+    except Exception:
+        posts = BlogPost.objects.none()
     
     paginator = Paginator(posts, 9)
     page_number = request.GET.get('page')
