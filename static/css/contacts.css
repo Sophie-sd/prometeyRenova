@@ -20,7 +20,7 @@
     letter-spacing: -3px;
     line-height: 0.85;
     margin: 100px 0;
-    color: #DC143C;
+    color: #e14811;
     /* Домінуючий червоний */
 }
 
@@ -92,7 +92,7 @@
 }
 
 .contact-link:hover {
-    color: #DC143C;
+    color: #e14811;
 }
 
 .messengers,
@@ -112,7 +112,7 @@
 
 .messenger-link:hover,
 .social-link:hover {
-    color: #DC143C;
+    color: #e14811;
 }
 
 .messenger-link::after,
@@ -123,7 +123,7 @@
     left: 0;
     width: 0;
     height: 1px;
-    background-color: #DC143C;
+    background-color: #e14811;
     transition: width 0.3s ease-out;
 }
 
@@ -163,7 +163,7 @@
 }
 
 .required {
-    color: #DC143C;
+    color: #e14811;
 }
 
 .form-input,
@@ -179,7 +179,7 @@
 
 .form-input:focus,
 .form-textarea:focus {
-    border-color: #DC143C;
+    border-color: #e14811;
     outline: none;
 }
 
@@ -189,7 +189,7 @@
 }
 
 .submit-btn {
-    background-color: #DC143C;
+    background-color: #e14811;
     color: #FFFFFF;
     border: none;
     padding: 14px 30px;
@@ -217,7 +217,7 @@
 }
 
 .red-star {
-    color: #DC143C;
+    color: #e14811;
     font-size: 32px;
     display: inline-block;
     transform: rotate(15deg);
@@ -270,7 +270,7 @@
 
 .direction-list li::before {
     content: '•';
-    color: #DC143C;
+    color: #e14811;
     position: absolute;
     left: 0;
 }

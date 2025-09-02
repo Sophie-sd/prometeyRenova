@@ -7,7 +7,7 @@
 
 .payment-box {
     background: #fff;
-    border: 2px solid var(--color-red, #DC143C);
+    border: 2px solid var(--color-red, #e14811);
     padding: 20px;
     border-radius: 8px;
     max-width: 520px;

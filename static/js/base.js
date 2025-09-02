@@ -379,8 +379,8 @@ class PrometeyApp {
                     transform: translateX(400px);
                     transition: transform 0.3s ease-out;
                 }
-                .notification-success { border-color: #DC143C; color: #DC143C; }
-                .notification-error { border-color: #DC143C; color: #DC143C; background: #ffebee; }
+                .notification-success { border-color: #e14811; color: #e14811; }
+                .notification-error { border-color: #e14811; color: #e14811; background: #ffebee; }
                 .notification.show { transform: translateX(0); }
                 .notification-close {
                     background: none;
