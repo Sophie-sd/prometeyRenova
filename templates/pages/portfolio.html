@@ -1,128 +1,130 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ page_title }}{% endblock %}
-{% block description %}{{ meta_description }}{% endblock %}
+{% block title %}Портфоліо - Prometey{% endblock %}
+{% block description %}Наше портфоліо веб-сайтів під ключ. Приклади сучасних веб-рішень для різних сфер бізнесу.{% endblock %}
 
-{% block extra_head %}
-{% endblock %}
-
-{% block page_css %}
+{% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
 {% endblock %}
 
 {% block content %}
-<!-- Portfolio Hero з фоновим відео -->
-<section class="portfolio-hero full-height">
-    <!-- Фонові відео для декстопу та мобільних -->
-    <video class="video-background desktop-video" autoplay muted loop playsinline>
-        <source src="{% static 'videos/desktop/portfolio.mp4' %}" type="video/mp4">
-    </video>
-    <video class="video-background mobile-video" autoplay muted loop playsinline>
-        <source src="{% static 'videos/mobile/portfoliomobile.mp4' %}" type="video/mp4">
-    </video>
-
-    <!-- Overlay для кращої читабельності -->
-    <div class="video-overlay"></div>
-
+<!-- Hero секція -->
+<section class="portfolio-hero">
     <div class="hero-content">
-        <div class="container">
-            <div class="hero-text text-center">
-                <h1 class="text-mega color-red mb-lg">
-                    Створені нами <span class="seo-highlight">сайти під ключ</span>
-                </h1>
-                <p class="text-large color-white">
-                    Приклади наших робіт - сучасні веб-рішення для різних сфер бізнесу
-                </p>
-            </div>
-        </div>
+        <h1 class="hero-title">СТВОРЕНІ НАМИ <span class="highlight">САЙТИ ПІД КЛЮЧ</span></h1>
+        <p class="hero-description">Приклади наших робіт - сучасні веб-рішення для різних сфер бізнесу</p>
     </div>
 </section>
 
-<!-- Portfolio Projects - Sticky Scroll Effect -->
+<!-- Проектні секції -->
 <section class="portfolio-projects">
-    <!-- PROJECT 01 - Prometey Labs -->
-    <div class="project-card sticky-section" data-project="1">
-        <video class="project-video desktop-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/desktop/prometeylabs.mp4' %}" type="video/mp4">
-        </video>
-        <video class="project-video mobile-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/mobile/prometeylabs_mb.mp4' %}" type="video/mp4">
-        </video>
-
-        <button class="btn btn-primary" data-modal="site-request-modal">
-            Замовити подібний
-        </button>
+    <!-- PROJECT 01 - DoUIT -->
+    <div class="project-section" data-project="1">
+        <div class="project-content">
+            <div class="project-video">
+                <video autoplay muted loop playsinline class="desktop-video">
+                    <source src="{% static 'videos/projects/desktop/douit.mp4' %}" type="video/mp4">
+                </video>
+                <video autoplay muted loop playsinline class="mobile-video">
+                    <source src="{% static 'videos/projects/mobile/douit_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 01</h2>
+                <button class="project-button" data-project="douit">ЗАМОВИТИ САЙТ</button>
+            </div>
+        </div>
     </div>
 
-    <!-- PROJECT 02 - Frame Journey -->
-    <div class="project-card sticky-section" data-project="2">
-        <video class="project-video desktop-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/desktop/framejorney.mp4' %}" type="video/mp4">
-        </video>
-        <video class="project-video mobile-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/mobile/framejorney_mb.mp4' %}" type="video/mp4">
-        </video>
-
-        <button class="btn btn-primary" data-modal="site-request-modal">
-            Замовити подібний
-        </button>
+    <!-- PROJECT 02 - Framejorney -->
+    <div class="project-section" data-project="2">
+        <div class="project-content">
+            <div class="project-video">
+                <video autoplay muted loop playsinline class="desktop-video">
+                    <source src="{% static 'videos/projects/desktop/framejorney.mp4' %}" type="video/mp4">
+                </video>
+                <video autoplay muted loop playsinline class="mobile-video">
+                    <source src="{% static 'videos/projects/mobile/framejorney_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 02</h2>
+                <button class="project-button" data-project="framejorney">ЗАМОВИТИ САЙТ</button>
+            </div>
+        </div>
     </div>
 
-    <!-- PROJECT 03 - Do It -->
-    <div class="project-card sticky-section" data-project="3">
-        <video class="project-video desktop-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/desktop/douit.mp4' %}" type="video/mp4">
-        </video>
-        <video class="project-video mobile-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/mobile/douit_mb.mp4' %}" type="video/mp4">
-        </video>
-
-        <button class="btn btn-primary" data-modal="site-request-modal">
-            Замовити подібний
-        </button>
+    <!-- PROJECT 03 - Guide White Energy -->
+    <div class="project-section" data-project="3">
+        <div class="project-content">
+            <div class="project-video">
+                <video autoplay muted loop playsinline class="desktop-video">
+                    <source src="{% static 'videos/projects/desktop/guide.mp4' %}" type="video/mp4">
+                </video>
+                <video autoplay muted loop playsinline class="mobile-video">
+                    <source src="{% static 'videos/projects/mobile/guidewhitenergy_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 03</h2>
+                <button class="project-button" data-project="guide">ЗАМОВИТИ САЙТ</button>
+            </div>
+        </div>
     </div>
 
-    <!-- PROJECT 04 - Pulvas -->
-    <div class="project-card sticky-section" data-project="4">
-        <video class="project-video desktop-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/desktop/pulvas.mp4' %}" type="video/mp4">
-        </video>
-        <video class="project-video mobile-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/mobile/pulvasshop_mb.mp4' %}" type="video/mp4">
-        </video>
-
-        <button class="btn btn-primary" data-modal="site-request-modal">
-            Замовити подібний
-        </button>
+    <!-- PROJECT 04 - Polygraph -->
+    <div class="project-section" data-project="4">
+        <div class="project-content">
+            <div class="project-video">
+                <video autoplay muted loop playsinline class="desktop-video">
+                    <source src="{% static 'videos/projects/desktop/polygraph.mp4' %}" type="video/mp4">
+                </video>
+                <video autoplay muted loop playsinline class="mobile-video">
+                    <source src="{% static 'videos/projects/mobile/polygraph_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 04</h2>
+                <button class="project-button" data-project="polygraph">ЗАМОВИТИ САЙТ</button>
+            </div>
+        </div>
     </div>
 
-    <!-- PROJECT 05 - Guide -->
-    <div class="project-card sticky-section" data-project="5">
-        <video class="project-video desktop-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/desktop/guide.mp4' %}" type="video/mp4">
-        </video>
-        <video class="project-video mobile-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/mobile/guidewhitenergy_mb.mp4' %}" type="video/mp4">
-        </video>
-
-        <button class="btn btn-primary" data-modal="site-request-modal">
-            Замовити подібний
-        </button>
+    <!-- PROJECT 05 - PrometeyLabs -->
+    <div class="project-section" data-project="5">
+        <div class="project-content">
+            <div class="project-video">
+                <video autoplay muted loop playsinline class="desktop-video">
+                    <source src="{% static 'videos/projects/desktop/prometeylabs.mp4' %}" type="video/mp4">
+                </video>
+                <video autoplay muted loop playsinline class="mobile-video">
+                    <source src="{% static 'videos/projects/mobile/prometeylabs_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 05</h2>
+                <button class="project-button" data-project="prometeylabs">ЗАМОВИТИ САЙТ</button>
+            </div>
+        </div>
     </div>
 
-    <!-- PROJECT 06 - Polygraph -->
-    <div class="project-card sticky-section" data-project="6">
-        <video class="project-video desktop-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/desktop/polygraph.mp4' %}" type="video/mp4">
-        </video>
-        <video class="project-video mobile-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/mobile/polygraph_mb.mp4' %}" type="video/mp4">
-        </video>
-
-        <button class="btn btn-primary" data-modal="site-request-modal">
-            Замовити подібний
-        </button>
+    <!-- PROJECT 06 - Pulvas Shop -->
+    <div class="project-section" data-project="6">
+        <div class="project-content">
+            <div class="project-video">
+                <video autoplay muted loop playsinline class="desktop-video">
+                    <source src="{% static 'videos/projects/desktop/pulvas.mp4' %}" type="video/mp4">
+                </video>
+                <video autoplay muted loop playsinline class="mobile-video">
+                    <source src="{% static 'videos/projects/mobile/pulvasshop_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 06</h2>
+                <button class="project-button" data-project="pulvas">ЗАМОВИТИ САЙТ</button>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}
