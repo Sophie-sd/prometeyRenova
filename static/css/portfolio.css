@@ -99,6 +99,11 @@
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
 }
 
+.hero-title .highlight.orange {
+    color: #e14811;
+    text-shadow: 2px 2px 6px rgba(225, 72, 17, 0.5);
+}
+
 .hero-description {
     font-size: 18px;
     font-weight: 800;
@@ -345,7 +350,7 @@
 
     .hero-description {
         font-size: 22px;
-        
+
     }
 
     .project-section {
