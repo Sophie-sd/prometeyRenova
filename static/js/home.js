@@ -220,12 +220,34 @@ function initViewportHeight() {
     function setVH() {
         const vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+        // Додатковий фікс для iOS Safari
+        const realVh = window.innerHeight;
+        document.documentElement.style.setProperty('--real-vh', `${realVh}px`);
+
+        // Фікс для hero секцій
+        const heroSections = document.querySelectorAll('.hero-section');
+        heroSections.forEach(section => {
+            section.style.height = `${realVh}px`;
+        });
     }
 
     setVH();
-    window.addEventListener('resize', setVH);
+
+    // Покращена обробка events
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(setVH, 150);
+    });
+
     window.addEventListener('orientationchange', () => {
-        setTimeout(setVH, 100);
+        setTimeout(setVH, 500);
+    });
+
+    // Фікс при завантаженні
+    window.addEventListener('load', () => {
+        setTimeout(setVH, 200);
     });
 }
 

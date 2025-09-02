@@ -479,13 +479,41 @@ class PrometeyApp {
         const setVH = () => {
             const vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+            // Додатковий фікс для iOS Safari
+            const realVh = window.innerHeight;
+            document.documentElement.style.setProperty('--real-vh', `${realVh}px`);
+
+            // Фікс для full height секцій
+            const fullHeightElements = document.querySelectorAll('.hero-section, .developer-hero, .dark-split-section');
+            fullHeightElements.forEach(el => {
+                el.style.height = `${realVh}px`;
+            });
         };
 
         setVH();
-        window.addEventListener('resize', setVH);
+
+        // Більш точне відслідковування змін
+        window.addEventListener('resize', () => {
+            clearTimeout(this.resizeTimeout);
+            this.resizeTimeout = setTimeout(setVH, 150);
+        });
+
         window.addEventListener('orientationchange', () => {
             setTimeout(setVH, 500);
         });
+
+        // Додатковий фікс при загрузці сторінки
+        window.addEventListener('load', () => {
+            setTimeout(setVH, 200);
+        });
+
+        // Фікс при scroll (iOS Safari змінює розмір)
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(setVH, 100);
+        }, { passive: true });
     }
 
     preventIOSZoom() {

@@ -416,13 +416,90 @@
 
 /* ===== iOS SAFARI СПЕЦИФІКА ===== */
 @supports (-webkit-touch-callout: none) {
+    .developer-hero {
+        height: 100vh;
+        height: -webkit-fill-available;
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+    }
+
     .dark-split-section {
         height: 100vh;
         height: -webkit-fill-available;
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
     }
 
     .split-container {
         height: 100vh;
         height: -webkit-fill-available;
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+    }
+
+    .video-background {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        will-change: transform;
+    }
+
+    /* Фікси для мобільної версії iOS Safari */
+    @media (max-width: 767px) {
+        .developer-hero {
+            height: 100vh;
+            height: -webkit-fill-available;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+        }
+
+        .hero-text h1 {
+            font-size: 50px;
+            line-height: 0.9;
+            letter-spacing: -1px;
+            margin-bottom: var(--space-md);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .hero-text p {
+            font-size: 16px;
+            line-height: 1.4;
+            margin-bottom: var(--space-md);
+        }
+
+        .dark-split-section {
+            height: auto;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+        }
+
+        .split-container {
+            grid-template-columns: 1fr;
+            grid-template-rows: 80% 20%;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+        }
+
+        .split-left {
+            padding: var(--space-md) max(var(--space-xs), env(safe-area-inset-left));
+            padding-right: max(var(--space-xs), env(safe-area-inset-right));
+        }
+
+        .dark-content h1 {
+            font-size: 40px;
+            line-height: 0.9;
+            letter-spacing: -1px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .dark-content h2 {
+            font-size: 18px;
+            line-height: 1.2;
+        }
+
+        .courses-section {
+            padding-left: max(var(--space-xs), env(safe-area-inset-left));
+            padding-right: max(var(--space-xs), env(safe-area-inset-right));
+            padding-bottom: max(var(--space-md), env(safe-area-inset-bottom));
+        }
     }
 }

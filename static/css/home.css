@@ -393,15 +393,59 @@
     .hero-section {
         height: 100vh;
         height: -webkit-fill-available;
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
     }
 
     .video-background {
         -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        will-change: transform;
     }
 
     .hero-buttons .btn {
         -webkit-appearance: none;
         -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Фікси для мобільної версії iOS Safari */
+    @media (max-width: 767px) {
+        .hero-section {
+            height: 100vh;
+            height: -webkit-fill-available;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            position: relative;
+        }
+
+        .hero-text h1 {
+            font-size: 50px;
+            line-height: 0.9;
+            letter-spacing: -1px;
+            margin-bottom: var(--space-lg);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .hero-text p {
+            font-size: 16px;
+            line-height: 1.4;
+            margin-bottom: var(--space-lg);
+        }
+
+        .hero-buttons .btn {
+            font-size: 16px;
+            padding: 15px 20px;
+            min-height: 48px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .services-section {
+            padding-top: max(var(--space-lg), env(safe-area-inset-top));
+            padding-left: max(var(--space-xs), env(safe-area-inset-left));
+            padding-right: max(var(--space-xs), env(safe-area-inset-right));
+            padding-bottom: max(var(--space-lg), env(safe-area-inset-bottom));
+        }
     }
 }
 
