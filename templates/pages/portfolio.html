@@ -1,128 +1,340 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ page_title }}{% endblock %}
-{% block description %}{{ meta_description }}{% endblock %}
+{% block title %}Портфоліо - PrometeyLabs | Наші кращі проекти{% endblock %}
 
-{% block extra_head %}
-{% endblock %}
+{% block description %}Перегляньте наші кращі веб-проекти: корпоративні сайти, інтернет-магазини, Telegram боти. Професійна розробка з гарантією якості.{% endblock %}
+
+{% block keywords %}портфоліо, веб проекти, сайти PrometeyLabs, корпоративні сайти, інтернет магазини, telegram боти{% endblock %}
 
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
 {% endblock %}
 
 {% block content %}
-<!-- Portfolio Hero з фоновим відео -->
-<section class="portfolio-hero full-height">
-    <!-- Фонові відео для декстопу та мобільних -->
-    <video class="video-background desktop-video" autoplay muted loop playsinline>
-        <source src="{% static 'videos/desktop/portfolio.mp4' %}" type="video/mp4">
-    </video>
-    <video class="video-background mobile-video" autoplay muted loop playsinline>
-        <source src="{% static 'videos/mobile/portfoliomobile.mp4' %}" type="video/mp4">
-    </video>
-
-    <!-- Overlay для кращої читабельності -->
-    <div class="video-overlay"></div>
-
-    <div class="hero-content">
-        <div class="container">
-            <div class="hero-text text-center">
-                <h1 class="text-mega color-red mb-lg">
-                    Створені нами <span class="seo-highlight">сайти під ключ</span>
-                </h1>
-                <p class="text-large color-white">
-                    Приклади наших робіт - сучасні веб-рішення для різних сфер бізнесу
+<!-- Portfolio Hero Section -->
+<section class="portfolio-hero page-section" id="portfolio-hero">
+    <div class="container">
+        <div class="hero-content section-content text-center">
+            <h1 class="hero-title text-primary">
+                PORTFOLIO
+            </h1>
+            <p class="hero-subtitle">
+                Наші кращі проекти та реалізовані рішення
+            </p>
+            <div class="hero-description">
+                <p>
+                    Кожен проект — це унікальна історія успіху наших клієнтів. 
+                    Від ідеї до запуску, ми створюємо цифрові рішення, 
+                    які приносять реальні результати.
                 </p>
+            </div>
+            
+            <div class="portfolio-stats">
+                <div class="stat-item">
+                    <div class="stat-number text-primary">50+</div>
+                    <div class="stat-label">Проектів реалізовано</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number text-primary">100%</div>
+                    <div class="stat-label">Задоволених клієнтів</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number text-primary">24/7</div>
+                    <div class="stat-label">Технічна підтримка</div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Portfolio Projects - Sticky Scroll Effect -->
-<section class="portfolio-projects">
-    <!-- PROJECT 01 - Prometey Labs -->
-    <div class="project-card sticky-section" data-project="1">
-        <video class="project-video desktop-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/desktop/prometeylabs.mp4' %}" type="video/mp4">
-        </video>
-        <video class="project-video mobile-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/mobile/prometeylabs_mb.mp4' %}" type="video/mp4">
-        </video>
-
-        <button class="btn btn-primary" data-modal="site-request-modal">
-            Замовити подібний
-        </button>
+<!-- Portfolio Projects Sticky Scroll -->
+<section class="portfolio-projects" id="portfolio-projects">
+    
+    <!-- Project 1: FrameJourney -->
+    <div class="sticky-section project-section" data-project="framejorney">
+        <div class="project-container">
+            <div class="project-content">
+                <div class="project-info">
+                    <div class="project-number">01</div>
+                    <h2 class="project-title">FrameJourney</h2>
+                    <p class="project-description">
+                        Інноваційна платформа для створення та редагування відео контенту. 
+                        Сучасний інтерфейс, потужний функціонал, хмарне зберігання.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Django</span>
+                        <span class="tag">React</span>
+                        <span class="tag">Video Processing</span>
+                        <span class="tag">Cloud Storage</span>
+                    </div>
+                    <div class="project-features">
+                        <div class="feature">✓ Відео редактор</div>
+                        <div class="feature">✓ Хмарне зберігання</div>
+                        <div class="feature">✓ Командна робота</div>
+                        <div class="feature">✓ API інтеграція</div>
+                    </div>
+                    <a href="#" class="project-link btn btn-primary">
+                        Переглянути проект
+                    </a>
+                </div>
+                <div class="project-visual">
+                    <div class="project-video-container">
+                        <video class="project-video" muted loop preload="metadata">
+                            <source src="{% static 'videos/projects/desktop/framejorney.mp4' %}" type="video/mp4" media="(min-width: 769px)">
+                            <source src="{% static 'videos/projects/mobile/framejorney_mb.mp4' %}" type="video/mp4" media="(max-width: 768px)">
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- PROJECT 02 - Frame Journey -->
-    <div class="project-card sticky-section" data-project="2">
-        <video class="project-video desktop-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/desktop/framejorney.mp4' %}" type="video/mp4">
-        </video>
-        <video class="project-video mobile-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/mobile/framejorney_mb.mp4' %}" type="video/mp4">
-        </video>
-
-        <button class="btn btn-primary" data-modal="site-request-modal">
-            Замовити подібний
-        </button>
+    <!-- Project 2: GuideWhiteEnergy -->
+    <div class="sticky-section project-section" data-project="guide">
+        <div class="project-container">
+            <div class="project-content">
+                <div class="project-info">
+                    <div class="project-number">02</div>
+                    <h2 class="project-title">GuideWhiteEnergy</h2>
+                    <p class="project-description">
+                        Корпоративний сайт для енергетичної компанії. Сучасний дизайн, 
+                        інтеграція з CRM системою, мультимовність.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">WordPress</span>
+                        <span class="tag">CRM Integration</span>
+                        <span class="tag">Multilingual</span>
+                        <span class="tag">SEO</span>
+                    </div>
+                    <div class="project-features">
+                        <div class="feature">✓ Корпоративний сайт</div>
+                        <div class="feature">✓ CRM інтеграція</div>
+                        <div class="feature">✓ Мультимовність</div>
+                        <div class="feature">✓ SEO оптимізація</div>
+                    </div>
+                    <a href="#" class="project-link btn btn-primary">
+                        Переглянути проект
+                    </a>
+                </div>
+                <div class="project-visual">
+                    <div class="project-video-container">
+                        <video class="project-video" muted loop preload="metadata">
+                            <source src="{% static 'videos/projects/desktop/guide.mp4' %}" type="video/mp4" media="(min-width: 769px)">
+                            <source src="{% static 'videos/projects/mobile/guidewhitenergy_mb.mp4' %}" type="video/mp4" media="(max-width: 768px)">
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- PROJECT 03 - Do It -->
-    <div class="project-card sticky-section" data-project="3">
-        <video class="project-video desktop-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/desktop/douit.mp4' %}" type="video/mp4">
-        </video>
-        <video class="project-video mobile-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/mobile/douit_mb.mp4' %}" type="video/mp4">
-        </video>
-
-        <button class="btn btn-primary" data-modal="site-request-modal">
-            Замовити подібний
-        </button>
+    <!-- Project 3: DoUIT -->
+    <div class="sticky-section project-section" data-project="douit">
+        <div class="project-container">
+            <div class="project-content">
+                <div class="project-info">
+                    <div class="project-number">03</div>
+                    <h2 class="project-title">DoUIT</h2>
+                    <p class="project-description">
+                        Платформа для управління проектами та командами. 
+                        Канбан дошки, тайм-трекінг, звітність, інтеграції.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Django</span>
+                        <span class="tag">Vue.js</span>
+                        <span class="tag">Project Management</span>
+                        <span class="tag">Real-time</span>
+                    </div>
+                    <div class="project-features">
+                        <div class="feature">✓ Канбан дошки</div>
+                        <div class="feature">✓ Тайм-трекінг</div>
+                        <div class="feature">✓ Командна робота</div>
+                        <div class="feature">✓ Аналітика</div>
+                    </div>
+                    <a href="#" class="project-link btn btn-primary">
+                        Переглянути проект
+                    </a>
+                </div>
+                <div class="project-visual">
+                    <div class="project-video-container">
+                        <video class="project-video" muted loop preload="metadata">
+                            <source src="{% static 'videos/projects/desktop/douit.mp4' %}" type="video/mp4" media="(min-width: 769px)">
+                            <source src="{% static 'videos/projects/mobile/douit_mb.mp4' %}" type="video/mp4" media="(max-width: 768px)">
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- PROJECT 04 - Pulvas -->
-    <div class="project-card sticky-section" data-project="4">
-        <video class="project-video desktop-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/desktop/pulvas.mp4' %}" type="video/mp4">
-        </video>
-        <video class="project-video mobile-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/mobile/pulvasshop_mb.mp4' %}" type="video/mp4">
-        </video>
-
-        <button class="btn btn-primary" data-modal="site-request-modal">
-            Замовити подібний
-        </button>
+    <!-- Project 4: Polygraph -->
+    <div class="sticky-section project-section" data-project="polygraph">
+        <div class="project-container">
+            <div class="project-content">
+                <div class="project-info">
+                    <div class="project-number">04</div>
+                    <h2 class="project-title">Polygraph</h2>
+                    <p class="project-description">
+                        Система для проведення поліграфічних досліджень. 
+                        Автоматизація процесів, звітність, клієнтська база.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Django</span>
+                        <span class="tag">PostgreSQL</span>
+                        <span class="tag">Analytics</span>
+                        <span class="tag">Reporting</span>
+                    </div>
+                    <div class="project-features">
+                        <div class="feature">✓ Клієнтська база</div>
+                        <div class="feature">✓ Автоматизація</div>
+                        <div class="feature">✓ Звітність</div>
+                        <div class="feature">✓ Безпека даних</div>
+                    </div>
+                    <a href="#" class="project-link btn btn-primary">
+                        Переглянути проект
+                    </a>
+                </div>
+                <div class="project-visual">
+                    <div class="project-video-container">
+                        <video class="project-video" muted loop preload="metadata">
+                            <source src="{% static 'videos/projects/desktop/polygraph.mp4' %}" type="video/mp4" media="(min-width: 769px)">
+                            <source src="{% static 'videos/projects/mobile/polygraph_mb.mp4' %}" type="video/mp4" media="(max-width: 768px)">
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- PROJECT 05 - Guide -->
-    <div class="project-card sticky-section" data-project="5">
-        <video class="project-video desktop-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/desktop/guide.mp4' %}" type="video/mp4">
-        </video>
-        <video class="project-video mobile-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/mobile/guidewhitenergy_mb.mp4' %}" type="video/mp4">
-        </video>
-
-        <button class="btn btn-primary" data-modal="site-request-modal">
-            Замовити подібний
-        </button>
+    <!-- Project 5: PrometeyLabs -->
+    <div class="sticky-section project-section" data-project="prometeylabs">
+        <div class="project-container">
+            <div class="project-content">
+                <div class="project-info">
+                    <div class="project-number">05</div>
+                    <h2 class="project-title">PrometeyLabs</h2>
+                    <p class="project-description">
+                        Корпоративний сайт нашої веб-студії. Портфоліо, блог, 
+                        система замовлень, інтеграція з платіжними системами.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Django</span>
+                        <span class="tag">PostgreSQL</span>
+                        <span class="tag">Payment Integration</span>
+                        <span class="tag">Blog System</span>
+                    </div>
+                    <div class="project-features">
+                        <div class="feature">✓ Портфоліо система</div>
+                        <div class="feature">✓ Блог</div>
+                        <div class="feature">✓ Оплата онлайн</div>
+                        <div class="feature">✓ CRM інтеграція</div>
+                    </div>
+                    <a href="#" class="project-link btn btn-primary">
+                        Переглянути проект
+                    </a>
+                </div>
+                <div class="project-visual">
+                    <div class="project-video-container">
+                        <video class="project-video" muted loop preload="metadata">
+                            <source src="{% static 'videos/projects/desktop/prometeylabs.mp4' %}" type="video/mp4" media="(min-width: 769px)">
+                            <source src="{% static 'videos/projects/mobile/prometeylabs_mb.mp4' %}" type="video/mp4" media="(max-width: 768px)">
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- PROJECT 06 - Polygraph -->
-    <div class="project-card sticky-section" data-project="6">
-        <video class="project-video desktop-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/desktop/polygraph.mp4' %}" type="video/mp4">
-        </video>
-        <video class="project-video mobile-video" autoplay muted loop playsinline>
-            <source src="{% static 'videos/projects/mobile/polygraph_mb.mp4' %}" type="video/mp4">
-        </video>
+    <!-- Project 6: PulvasShop -->
+    <div class="sticky-section project-section" data-project="pulvas">
+        <div class="project-container">
+            <div class="project-content">
+                <div class="project-info">
+                    <div class="project-number">06</div>
+                    <h2 class="project-title">PulvasShop</h2>
+                    <p class="project-description">
+                        Інтернет-магазин спортивного харчування. Каталог товарів, 
+                        кошик, оплата, система знижок, інтеграція з CRM.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Django</span>
+                        <span class="tag">E-commerce</span>
+                        <span class="tag">Payment Gateway</span>
+                        <span class="tag">Inventory</span>
+                    </div>
+                    <div class="project-features">
+                        <div class="feature">✓ Каталог товарів</div>
+                        <div class="feature">✓ Система оплати</div>
+                        <div class="feature">✓ Управління складом</div>
+                        <div class="feature">✓ Програма лояльності</div>
+                    </div>
+                    <a href="#" class="project-link btn btn-primary">
+                        Переглянути проект
+                    </a>
+                </div>
+                <div class="project-visual">
+                    <div class="project-video-container">
+                        <video class="project-video" muted loop preload="metadata">
+                            <source src="{% static 'videos/projects/desktop/pulvas.mp4' %}" type="video/mp4" media="(min-width: 769px)">
+                            <source src="{% static 'videos/projects/mobile/pulvasshop_mb.mp4' %}" type="video/mp4" media="(max-width: 768px)">
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <button class="btn btn-primary" data-modal="site-request-modal">
-            Замовити подібний
-        </button>
+</section>
+
+<!-- Portfolio Navigation -->
+<div class="portfolio-navigation" id="portfolio-nav">
+    <div class="nav-container">
+        <div class="nav-dots">
+            <button class="nav-dot active" data-section="0" aria-label="Проект 1"></button>
+            <button class="nav-dot" data-section="1" aria-label="Проект 2"></button>
+            <button class="nav-dot" data-section="2" aria-label="Проект 3"></button>
+            <button class="nav-dot" data-section="3" aria-label="Проект 4"></button>
+            <button class="nav-dot" data-section="4" aria-label="Проект 5"></button>
+            <button class="nav-dot" data-section="5" aria-label="Проект 6"></button>
+        </div>
+        <div class="nav-arrows">
+            <button class="nav-arrow nav-prev" aria-label="Попередній проект">
+                <span>←</span>
+            </button>
+            <button class="nav-arrow nav-next" aria-label="Наступний проект">
+                <span>→</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Contact CTA Section -->
+<section class="portfolio-cta-section page-section" id="portfolio-cta">
+    <div class="container">
+        <div class="section-content text-center">
+            <h2 class="cta-title">
+                Готові створити щось <span class="text-primary">особливе</span>?
+            </h2>
+            <p class="cta-description">
+                Розкажіть нам про свою ідею, і ми втілимо її в життя
+            </p>
+            
+            <div class="cta-actions">
+                <a href="/calculator/" class="btn btn-primary btn-large">
+                    Розрахувати проект
+                </a>
+                <a href="/contacts/" class="btn btn-secondary btn-large">
+                    Обговорити ідею
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}

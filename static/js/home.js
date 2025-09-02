@@ -1,258 +1,342 @@
-// HOME.JS - JavaScript для головної сторінки з відео
+/* =================================
+   HOME PAGE JAVASCRIPT
+   Scroll animations and interactions
+   ================================= */
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Ініціалізація всіх систем
-    initVideoSystem();
-    initScrollNavigation();
-    initServiceAnimations();
-    initModalSystem();
-    initViewportHeight();
+'use strict';
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🏠 Home page loaded');
+    
+    initScrollAnimations();
+    initParallaxEffects();
+    initCounterAnimations();
+    initSmoothScrolling();
+    
+    console.log('✅ Home page initialized');
 });
 
-// Система фонових відео
-function initVideoSystem() {
-    const videos = document.querySelectorAll('.video-background');
+/* =================================
+   SCROLL ANIMATIONS
+   ================================= */
 
-    videos.forEach(video => {
-        // Забезпечуємо автоплей на iOS
-        video.setAttribute('playsinline', '');
-        video.setAttribute('webkit-playsinline', '');
-        video.muted = true;
-
-        // Перезапуск відео при завершенні (fallback)
-        video.addEventListener('ended', () => {
-            video.currentTime = 0;
-            video.play();
-        });
-
-        // Обробка помилок завантаження відео
-        video.addEventListener('error', () => {
-            console.log('Video loading error, applying fallback background');
-            video.style.display = 'none';
-            document.querySelector('.hero-section').style.background =
-                'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)';
-        });
-    });
-
-    // Оптимізація для мобільних пристроїв
-    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        optimizeForMobile();
-    }
-}
-
-// Оптимізація для мобільних
-function optimizeForMobile() {
-    const mobileVideo = document.querySelector('.mobile-video');
-    if (mobileVideo) {
-        // Зменшуємо якість для мобільних
-        mobileVideo.setAttribute('preload', 'metadata');
-
-        // Призупиняємо відео при переході в background
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                mobileVideo.pause();
-            } else {
-                mobileVideo.play();
-            }
-        });
-    }
-}
-
-// Навігація з прозорим хедером для відео сторінок
-function initScrollNavigation() {
-    const nav = document.querySelector('.main-navigation');
-
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset;
-
-        if (scrollTop > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
-}
-
-// Анімація сервісів при скролі
-function initServiceAnimations() {
-    const serviceItems = document.querySelectorAll('.service-item');
-
+function initScrollAnimations() {
+    const animatedElements = document.querySelectorAll(
+        '.service-card, .feature-item, .project-preview-card, .badge'
+    );
+    
+    if (!animatedElements.length) return;
+    
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-
+    
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                // Add delay for staggered animation
+                setTimeout(() => {
+                    entry.target.classList.add('in-view');
+                }, index * 100);
+                
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
-
-    serviceItems.forEach(item => {
-        observer.observe(item);
+    
+    animatedElements.forEach(element => {
+        observer.observe(element);
     });
+    
+    console.log(`📱 Scroll animations initialized for ${animatedElements.length} elements`);
 }
 
-// Система модальних вікон
-function initModalSystem() {
-    // Кнопки відкриття модалок
-    const modalTriggers = document.querySelectorAll('[data-modal]');
-    modalTriggers.forEach(trigger => {
-        trigger.addEventListener('click', (e) => {
-            e.preventDefault();
-            const modalId = trigger.getAttribute('data-modal');
-            openModal(modalId);
-        });
-    });
+/* =================================
+   PARALLAX EFFECTS
+   ================================= */
 
-    // Кнопки закриття модалок
-    const closeButtons = document.querySelectorAll('.modal-close');
-    closeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            closeAllModals();
+function initParallaxEffects() {
+    const parallaxElements = document.querySelectorAll('.hero-visual, .tech-stack');
+    
+    if (!parallaxElements.length) return;
+    
+    let ticking = false;
+    
+    function updateParallax() {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        
+        parallaxElements.forEach(element => {
+            element.style.transform = `translateY(${rate}px)`;
         });
-    });
+        
+        ticking = false;
+    }
+    
+    function requestParallaxUpdate() {
+        if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }
+    
+    // Only enable parallax on non-mobile devices and if user doesn't prefer reduced motion
+    const isMobile = window.innerWidth <= 768;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (!isMobile && !prefersReducedMotion) {
+        window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
+        console.log('🎭 Parallax effects enabled');
+    } else {
+        console.log('🎭 Parallax effects disabled (mobile or reduced motion)');
+    }
+}
 
-    // Закриття при кліку на backdrop
-    const modals = document.querySelectorAll('.modal');
-    modals.forEach(modal => {
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal || e.target.classList.contains('modal-backdrop')) {
-                closeAllModals();
+/* =================================
+   COUNTER ANIMATIONS
+   ================================= */
+
+function initCounterAnimations() {
+    const counters = document.querySelectorAll('.stat-number');
+    
+    if (!counters.length) return;
+    
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
             }
         });
+    }, observerOptions);
+    
+    counters.forEach(counter => {
+        observer.observe(counter);
     });
+    
+    console.log(`🔢 Counter animations initialized for ${counters.length} counters`);
+}
 
-    // Закриття по ESC
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeAllModals();
+function animateCounter(element) {
+    const target = parseInt(element.textContent);
+    const duration = 2000; // 2 seconds
+    const step = target / (duration / 16); // 60fps
+    let current = 0;
+    
+    const timer = setInterval(() => {
+        current += step;
+        
+        if (current >= target) {
+            element.textContent = target + (element.textContent.includes('+') ? '+' : '');
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current) + (element.textContent.includes('+') ? '+' : '');
         }
-    });
-
-    // Обробка форм в модалках
-    initModalForms();
+    }, 16);
 }
 
-// Відкриття модального вікна
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.add('active');
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
+/* =================================
+   SMOOTH SCROLLING
+   ================================= */
 
-        // Фокус на першому input
-        const firstInput = modal.querySelector('input[type="text"], input[type="tel"]');
-        if (firstInput) {
-            setTimeout(() => firstInput.focus(), 100);
-        }
-    }
-}
-
-// Закриття всіх модальних вікон
-function closeAllModals() {
-    const modals = document.querySelectorAll('.modal.active');
-    modals.forEach(modal => {
-        modal.classList.remove('active');
-        modal.setAttribute('aria-hidden', 'true');
-    });
-    document.body.style.overflow = '';
-}
-
-// Глобальна функція для закриття конкретної модалки (викликається з HTML)
-window.closeModal = function (modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.remove('active');
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-    }
-};
-
-// Обробка форм в модалках
-function initModalForms() {
-    const forms = document.querySelectorAll('.modal-form');
-
-    forms.forEach(form => {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const submitButton = form.querySelector('.form-submit');
-            const originalText = submitButton.textContent;
-
-            // Показуємо стан завантаження
-            submitButton.textContent = 'Відправляємо...';
-            submitButton.disabled = true;
-
-            try {
-                const formData = new FormData(form);
-                const response = await fetch('/forms/submit/', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                    }
+function initSmoothScrolling() {
+    const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
+    
+    smoothScrollLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            
+            if (href === '#') {
+                e.preventDefault();
+                return;
+            }
+            
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                e.preventDefault();
+                
+                const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+                const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
-
-                if (response.ok) {
-                    closeAllModals();
-                    openModal('thank-you-modal');
-                    form.reset();
-                } else {
-                    alert('Помилка відправки. Спробуйте ще раз.');
-                }
-            } catch (error) {
-                console.error('Form submission error:', error);
-                alert('Помилка відправки. Перевірте інтернет з\'єднання.');
-            } finally {
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
             }
         });
     });
+    
+    console.log(`🔗 Smooth scrolling initialized for ${smoothScrollLinks.length} links`);
 }
 
-// Viewport height для iOS Safari
-function initViewportHeight() {
-    function setVH() {
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
+/* =================================
+   HERO INTERACTIONS
+   ================================= */
 
-    setVH();
-    window.addEventListener('resize', setVH);
-    window.addEventListener('orientationchange', () => {
-        setTimeout(setVH, 100);
-    });
-}
-
-// Tracking для аналітики
-function trackButtonClick(buttonText) {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'button_click', {
-            button_text: buttonText,
-            page_location: window.location.href
+// Add hover effects to hero badges
+document.addEventListener('DOMContentLoaded', function() {
+    const badges = document.querySelectorAll('.badge');
+    
+    badges.forEach(badge => {
+        badge.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px) scale(1.05)';
         });
+        
+        badge.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+});
+
+/* =================================
+   SERVICE CARDS INTERACTIONS
+   ================================= */
+
+function initServiceCardInteractions() {
+    const serviceCards = document.querySelectorAll('.service-card');
+    
+    serviceCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            // Add glow effect
+            this.style.boxShadow = '0 20px 50px rgba(220, 20, 60, 0.2)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            // Remove glow effect
+            this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.08)';
+        });
+    });
+    
+    console.log(`🎨 Service card interactions initialized for ${serviceCards.length} cards`);
+}
+
+// Initialize service card interactions when DOM is loaded
+document.addEventListener('DOMContentLoaded', initServiceCardInteractions);
+
+/* =================================
+   PERFORMANCE OPTIMIZATIONS
+   ================================= */
+
+// Throttle function for scroll events
+function throttle(func, delay) {
+    let timeoutId;
+    let lastExecTime = 0;
+    
+    return function (...args) {
+        const currentTime = Date.now();
+        
+        if (currentTime - lastExecTime > delay) {
+            func.apply(this, args);
+            lastExecTime = currentTime;
+        } else {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+                lastExecTime = Date.now();
+            }, delay - (currentTime - lastExecTime));
+        }
+    };
+}
+
+// Debounce function for resize events
+function debounce(func, delay) {
+    let timeoutId;
+    
+    return function (...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+/* =================================
+   RESPONSIVE ADJUSTMENTS
+   ================================= */
+
+function handleResponsiveChanges() {
+    const isMobile = window.innerWidth <= 768;
+    const heroStats = document.querySelector('.hero-stats');
+    
+    if (isMobile && heroStats) {
+        heroStats.style.flexDirection = 'column';
+        heroStats.style.gap = '20px';
+    } else if (heroStats) {
+        heroStats.style.flexDirection = 'row';
+        heroStats.style.gap = '40px';
     }
 }
 
-// Додаємо tracking до кнопок
-document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('btn')) {
-        trackButtonClick(e.target.textContent.trim());
+// Handle resize events
+window.addEventListener('resize', debounce(handleResponsiveChanges, 250));
+
+// Initial check
+document.addEventListener('DOMContentLoaded', handleResponsiveChanges);
+
+/* =================================
+   ACCESSIBILITY IMPROVEMENTS
+   ================================= */
+
+// Add keyboard navigation for interactive elements
+document.addEventListener('DOMContentLoaded', function() {
+    const interactiveElements = document.querySelectorAll('.btn, .service-link, .contact-value');
+    
+    interactiveElements.forEach(element => {
+        element.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+    
+    console.log(`♿ Accessibility improvements applied to ${interactiveElements.length} elements`);
+});
+
+/* =================================
+   ERROR HANDLING
+   ================================= */
+
+// Global error handler for this page
+window.addEventListener('error', function(e) {
+    console.error('Home page error:', e.error);
+    
+    // Don't break the page functionality
+    return false;
+});
+
+// Promise rejection handler
+window.addEventListener('unhandledrejection', function(e) {
+    console.error('Home page promise rejection:', e.reason);
+    e.preventDefault();
+});
+
+/* =================================
+   PERFORMANCE MONITORING
+   ================================= */
+
+// Log page load performance
+window.addEventListener('load', function() {
+    if (window.performance && window.performance.timing) {
+        const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
+        console.log(`📊 Home page loaded in ${loadTime}ms`);
     }
 });
 
-// SEO Enhancement - відслідковування часу на сторінці
-let timeOnPage = 0;
-setInterval(() => {
-    timeOnPage += 1;
-    if (timeOnPage === 30 && typeof gtag !== 'undefined') {
-        gtag('event', 'engaged_session', {
-            time_on_page: timeOnPage
-        });
-    }
-}, 1000); 
+// Export functions for testing
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        initScrollAnimations,
+        initParallaxEffects,
+        initCounterAnimations,
+        initSmoothScrolling,
+        throttle,
+        debounce
+    };
+}
