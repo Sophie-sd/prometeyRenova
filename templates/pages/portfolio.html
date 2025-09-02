@@ -11,6 +11,15 @@
 {% block content %}
 <!-- Hero секція -->
 <section class="portfolio-hero">
+    <div class="hero-bg-video">
+        <video autoplay muted loop playsinline class="hero-video desktop-hero-video">
+            <source src="{% static 'videos/desktop/portfolio.mp4' %}" type="video/mp4">
+        </video>
+        <video autoplay muted loop playsinline class="hero-video mobile-hero-video">
+            <source src="{% static 'videos/mobile/portfoliomobile.mp4' %}" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
     <div class="hero-content">
         <h1 class="hero-title">СТВОРЕНІ НАМИ <span class="highlight">САЙТИ ПІД КЛЮЧ</span></h1>
         <p class="hero-description">Приклади наших робіт - сучасні веб-рішення для різних сфер бізнесу</p>
@@ -32,7 +41,7 @@
             </div>
             <div class="project-info">
                 <h2 class="project-title">PROJECT 01</h2>
-                <button class="project-button" data-project="douit">ЗАМОВИТИ САЙТ</button>
+                <button class="project-button" data-project="douit">Замовити подібний</button>
             </div>
         </div>
     </div>
@@ -50,7 +59,7 @@
             </div>
             <div class="project-info">
                 <h2 class="project-title">PROJECT 02</h2>
-                <button class="project-button" data-project="framejorney">ЗАМОВИТИ САЙТ</button>
+                <button class="project-button" data-project="framejorney">Замовити подібний</button>
             </div>
         </div>
     </div>
@@ -68,7 +77,7 @@
             </div>
             <div class="project-info">
                 <h2 class="project-title">PROJECT 03</h2>
-                <button class="project-button" data-project="guide">ЗАМОВИТИ САЙТ</button>
+                <button class="project-button" data-project="guide">Замовити подібний</button>
             </div>
         </div>
     </div>
@@ -86,7 +95,7 @@
             </div>
             <div class="project-info">
                 <h2 class="project-title">PROJECT 04</h2>
-                <button class="project-button" data-project="polygraph">ЗАМОВИТИ САЙТ</button>
+                <button class="project-button" data-project="polygraph">Замовити подібний</button>
             </div>
         </div>
     </div>
@@ -104,7 +113,7 @@
             </div>
             <div class="project-info">
                 <h2 class="project-title">PROJECT 05</h2>
-                <button class="project-button" data-project="prometeylabs">ЗАМОВИТИ САЙТ</button>
+                <button class="project-button" data-project="prometeylabs">Замовити подібний</button>
             </div>
         </div>
     </div>
@@ -122,7 +131,7 @@
             </div>
             <div class="project-info">
                 <h2 class="project-title">PROJECT 06</h2>
-                <button class="project-button" data-project="pulvas">ЗАМОВИТИ САЙТ</button>
+                <button class="project-button" data-project="pulvas">Замовити подібний</button>
             </div>
         </div>
     </div>

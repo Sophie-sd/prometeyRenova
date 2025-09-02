@@ -7,6 +7,19 @@
     --vh: 1vh;
 }
 
+/* Оптимізації для мобільних (селективні) */
+@media (max-width: 767px) {
+
+    /* ТИМЧАСОВО ВІДКЛЮЧЕНО - ТЕСТУВАННЯ МЕНЮ
+    .portfolio-projects .project-section,
+    .portfolio-projects .project-video {
+        -webkit-overflow-scrolling: touch;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+    */
+}
+
 /* =================================
    HERO SECTION
    ================================= */
@@ -14,7 +27,6 @@
 .portfolio-hero {
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -23,10 +35,50 @@
     overflow: hidden;
 }
 
+.hero-bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.desktop-hero-video {
+    display: block;
+}
+
+.mobile-hero-video {
+    display: none;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+
 .hero-content {
     max-width: 1200px;
     padding: 0 40px;
-    z-index: 2;
+    z-index: 3;
+    position: relative;
 }
 
 .hero-title {
@@ -37,12 +89,14 @@
     color: #FFFFFF;
     margin: 0 0 40px 0;
     text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-title .highlight {
-    color: #DC143C;
+    color: #FFFFFF;
     display: block;
     margin-top: 20px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .hero-description {
@@ -51,9 +105,10 @@
     line-height: 1.5;
     color: #FFFFFF;
     margin: 0;
-    opacity: 0.8;
+    opacity: 0.9;
     max-width: 600px;
     margin: 0 auto;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 /* =================================
@@ -69,13 +124,15 @@
     top: 0;
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
-    background: #000000;
+    background: #F5F1ED;
     display: flex;
     align-items: center;
     justify-content: center;
     border-bottom: 4px solid #333333;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
     overflow: hidden;
+    will-change: auto;
+    transform: translateZ(0);
 }
 
 .project-section:last-child {
@@ -83,8 +140,8 @@
 }
 
 .project-section.active {
-    background: #111111;
-    border-bottom-color: #DC143C;
+    background: #E8E0D8;
+    border-bottom-color: #e14811;
     transform: scale(1.01);
 }
 
@@ -115,24 +172,24 @@
     height: auto;
     object-fit: contain;
     border-radius: 12px;
-    transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.3s ease;
-    box-shadow: 0 8px 32px rgba(220, 20, 60, 0.2);
-    opacity: 0;
-    transform: scale(0.95);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 32px rgba(225, 72, 17, 0.2);
+    will-change: transform, box-shadow;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 .project-video video.loaded {
-    opacity: 1;
-    transform: scale(1);
+    transform: translateZ(0) scale(1);
 }
 
 .project-video video:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 48px rgba(220, 20, 60, 0.4);
+    transform: translateZ(0) scale(1.05);
+    box-shadow: 0 12px 48px rgba(225, 72, 17, 0.3);
 }
 
 .project-section.active .project-video video {
-    box-shadow: 0 16px 64px rgba(220, 20, 60, 0.25);
+    box-shadow: 0 16px 64px rgba(225, 72, 17, 0.25);
 }
 
 .desktop-video {
@@ -157,29 +214,29 @@
     font-weight: 700;
     line-height: 0.8;
     letter-spacing: -2px;
-    color: #DC143C;
+    color: #e14811;
     margin: 0;
     text-transform: uppercase;
 }
 
 .project-button {
-    background: #DC143C;
-    border: 2px solid #DC143C;
-    color: #FFFFFF;
+    background: #e14811;
+    border: 2px solid #e14811;
+    color: #000000;
     padding: 24px 48px;
     font-size: 20px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     border-radius: 0;
     min-width: 240px;
 }
 
 .project-button:hover {
     background: transparent;
-    color: #DC143C;
+    color: #e14811;
     transform: translateY(-3px);
 }
 
@@ -238,6 +295,44 @@
 
 /* Мобільні пристрої (320px - 767px) - ВІДЕО 60% ВИСОТИ */
 @media (max-width: 767px) {
+    .desktop-hero-video {
+        display: none;
+    }
+
+    .mobile-hero-video {
+        display: block;
+    }
+
+    /* ТИМЧАСОВО ВІДКЛЮЧЕНО - ТЕСТУВАННЯ МЕНЮ
+    .project-section,
+    .project-section.active {
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .project-video video {
+        transition: none !important;
+        transform: translateZ(0) !important;
+    }
+
+    .project-video video:hover {
+        transform: translateZ(0) !important;
+    }
+    
+    .portfolio-projects .project-button {
+        transition: none !important;
+    }
+
+    .portfolio-projects .project-section,
+    .portfolio-projects .project-video video,
+    .portfolio-projects .project-content * {
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+    }
+    */
+
     .hero-title {
         font-size: 48px;
         letter-spacing: -1px;
@@ -263,7 +358,7 @@
         width: 100vw;
         height: 120vh;
         grid-template-columns: 1fr;
-        grid-template-rows: 60% 40%;
+        grid-template-rows: 50% 50%;
         padding: 0;
     }
 
@@ -281,7 +376,7 @@
         height: auto;
         object-fit: contain;
         border-radius: 16px;
-        box-shadow: 0 6px 24px rgba(220, 20, 60, 0.15);
+        box-shadow: 0 6px 24px rgba(225, 72, 17, 0.15);
     }
 
     .desktop-video {
@@ -296,8 +391,9 @@
         align-items: center;
         text-align: center;
         gap: 30px;
-        padding: 40px 20px;
-        justify-content: center;
+        padding: 15px 20px;
+        justify-content: flex-start;
+        margin-top: -40px;
     }
 
     .project-title {
@@ -327,7 +423,7 @@
 
     .project-content {
         height: 110vh;
-        grid-template-rows: 60% 40%;
+        grid-template-rows: 50% 50%;
     }
 
     .project-video {
@@ -348,8 +444,9 @@
     }
 
     .project-info {
-        padding: 30px 15px;
+        padding: 10px 15px;
         gap: 25px;
+        margin-top: -60px;
     }
 
     .project-button {
@@ -374,9 +471,6 @@
         height: 100vh;
         height: calc(var(--vh, 1vh) * 100);
         min-height: 100vh;
-        -webkit-overflow-scrolling: touch;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
         will-change: transform;
     }
 
@@ -450,7 +544,6 @@ html {
 
 .project-section {
     contain: layout style paint;
-    transform: translateZ(0);
     backface-visibility: hidden;
 }
 

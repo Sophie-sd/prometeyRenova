@@ -20,6 +20,16 @@
     height: 100%;
     object-fit: cover;
     z-index: 1;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.desktop-video {
+    display: block;
+}
+
+.mobile-video {
+    display: none;
 }
 
 .video-overlay {
@@ -380,6 +390,14 @@
 
 /* Mobile */
 @media (max-width: 767px) {
+    .desktop-video {
+        display: none;
+    }
+
+    .mobile-video {
+        display: block;
+    }
+
     .hero-text h1 {
         font-size: 60px;
         line-height: 0.9;

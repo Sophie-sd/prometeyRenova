@@ -75,14 +75,26 @@ function initStickyScroll() {
     // Початкова активна секція
     updateActiveSection();
 
-    // Слухач скролу з throttle
+    // Слухач скролу з оптимізованим throttle для мобільних
     let ticking = false;
+    const isMobile = window.innerWidth <= 767;
+    const throttleDelay = isMobile ? 100 : 16; // Більша затримка на мобільних
+
     window.addEventListener('scroll', function () {
         if (!ticking) {
-            requestAnimationFrame(function () {
-                updateActiveSection();
-                ticking = false;
-            });
+            if (isMobile) {
+                // На мобільних - використовуємо setTimeout замість RAF
+                setTimeout(() => {
+                    updateActiveSection();
+                    ticking = false;
+                }, throttleDelay);
+            } else {
+                // На десктопі - RAF як звичайно
+                requestAnimationFrame(function () {
+                    updateActiveSection();
+                    ticking = false;
+                });
+            }
             ticking = true;
         }
     }, { passive: true });
@@ -97,6 +109,7 @@ function updateActiveSection() {
     const scrollTop = window.pageYOffset;
     const heroHeight = heroSection.offsetHeight;
     const scrollAfterHero = Math.max(0, scrollTop - heroHeight);
+    const isMobile = window.innerWidth <= 767;
 
     // Визначення висоти секції залежно від розміру екрану
     let sectionHeight = window.innerHeight;
@@ -112,26 +125,32 @@ function updateActiveSection() {
         projectSections.length - 1
     );
 
-    // Оновлення активних класів з покращеною логікою
+    // Оптимізована логіка для мобільних
     projectSections.forEach((section, index) => {
         const isActive = index === currentSectionIndex && scrollTop >= heroHeight;
 
         if (isActive && !section.classList.contains('active')) {
             section.classList.add('active');
-            // Оптимізація відео при активації секції
-            const video = section.querySelector('video');
-            if (video) {
-                video.play().catch(() => { }); // Ignore autoplay policy errors
-                // Додати клас loaded якщо відео готове
-                if (video.readyState >= 2) {
-                    video.classList.add('loaded');
+
+            // Менш агресивна робота з відео на мобільних
+            if (!isMobile) {
+                const video = section.querySelector('video');
+                if (video) {
+                    video.play().catch(() => { }); // Ignore autoplay policy errors
+                    if (video.readyState >= 2) {
+                        video.classList.add('loaded');
+                    }
                 }
             }
         } else if (!isActive && section.classList.contains('active')) {
             section.classList.remove('active');
-            const video = section.querySelector('video');
-            if (video && !video.paused) {
-                video.pause();
+
+            // Менш частий pause на мобільних
+            if (!isMobile) {
+                const video = section.querySelector('video');
+                if (video && !video.paused) {
+                    video.pause();
+                }
             }
         }
     });
@@ -269,22 +288,20 @@ function initVideoOptimizations() {
             video.setAttribute('preload', 'auto');
         }
 
-        // Плавне з'явлення відео з класами
-        video.addEventListener('loadstart', function () {
-            this.classList.remove('loaded');
-        });
-
-        video.addEventListener('loadeddata', function () {
-            this.classList.add('loaded');
-        });
+        // Видаляємо плавне з'явлення для усунення мерехтінь
+        video.style.willChange = 'transform, box-shadow';
 
         // Додати клас loaded для відео які вже завантажені
         if (video.readyState >= 2) {
             video.classList.add('loaded');
+        } else {
+            video.addEventListener('loadeddata', function () {
+                this.classList.add('loaded');
+            }, { once: true });
         }
 
-        // Intersection Observer для кращої продуктивності з великими відео
-        if ('IntersectionObserver' in window) {
+        // Intersection Observer тільки для десктопу (на мобільних може викликати мерехтіння)
+        if ('IntersectionObserver' in window && window.innerWidth > 767) {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -314,7 +331,8 @@ function preloadCriticalResources() {
 }
 
 function initIntersectionObserver() {
-    if ('IntersectionObserver' in window) {
+    // Intersection Observer тільки на десктопі для уникнення мерехтінь на мобільних
+    if ('IntersectionObserver' in window && window.innerWidth > 767) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -374,10 +392,13 @@ function debounce(func, wait) {
     return function executedFunction(...args) {
         const later = () => {
             clearTimeout(timeout);
+            timeout = null;
             func(...args);
         };
+        const callNow = !timeout;
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
+        if (callNow) func(...args);
     };
 }
 
