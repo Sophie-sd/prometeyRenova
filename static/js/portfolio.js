@@ -183,16 +183,7 @@ function initIOSOptimizations() {
             );
         }
 
-        // iOS Safari специфічні оптимізації
-        if (isSafari) {
-            // Примусове перерисування при скролі
-            window.addEventListener('scroll', function () {
-                document.body.style.transform = 'translateZ(0)';
-                setTimeout(() => {
-                    document.body.style.transform = '';
-                }, 0);
-            }, { passive: true });
-        }
+        // iOS Safari специфічні оптимізації - ВИДАЛЕНО ПРОБЛЕМНИЙ КОД
     }
 }
 

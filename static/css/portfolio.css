@@ -101,7 +101,7 @@
 
 .hero-description {
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 800;
     line-height: 1.5;
     color: #FFFFFF;
     margin: 0;
@@ -344,8 +344,8 @@
     }
 
     .hero-description {
-        font-size: 16px;
-        line-height: 1.6;
+        font-size: 22px;
+        
     }
 
     .project-section {
