@@ -1,11 +1,8 @@
 import json
-from decimal import Decimal
-from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
-from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest, JsonResponse, HttpResponseForbidden
+from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.csrf import csrf_exempt
-from django.utils import timezone
 
 from .models import PaymentLink, PaymentSettings
 from .monobank_service import MonobankAcquiringService

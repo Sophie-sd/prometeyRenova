@@ -1,405 +1,216 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Події - PrometeyLabs | Вебінари, курси та зустрічі{% endblock %}
-
-{% block description %}Актуальні події PrometeyLabs: вебінари з веб-розробки, безкоштовні курси, знижки на послуги та зустрічі з розробниками.{% endblock %}
-
-{% block keywords %}події PrometeyLabs, вебінари веб-розробка, безкоштовні курси, знижки, зустрічі розробників{% endblock %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block description %}{{ meta_description }}{% endblock %}
+{% block og_title %}{{ og_title }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
 
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/events.css' %}">
 {% endblock %}
 
 {% block content %}
-<!-- Events Hero Section -->
-<section class="events-hero page-section" id="events-hero">
-    <div class="container">
-        <div class="hero-content section-content text-center">
-            <h1 class="hero-title text-primary">
-                EVENTS
-            </h1>
-            <p class="hero-subtitle">
-                Освітні події, вебінари та спеціальні пропозиції
-            </p>
-            <div class="hero-description">
-                <p>
-                    Приєднуйтесь до нашої спільноти розробників! Ми регулярно проводимо 
-                    вебінари, майстер-класи та пропонуємо спеціальні знижки на наші послуги.
+<!-- Hero Section -->
+<section class="hero-section full-height bg-beige">
+    <!-- Фонові відео для декстопу та мобільних -->
+    <video class="video-background desktop-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
+    </video>
+    <video class="video-background mobile-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
+    </video>
+
+    <!-- Overlay для кращої читабельності -->
+    <div class="video-overlay"></div>
+    <div class="hero-content">
+        <div class="container">
+            <div class="hero-text text-center">
+                <h1 class="text-mega color-red mb-lg">Актуальні події та акції</h1>
+                <p class="text-large color-white mb-xl">
+                    <span class="hero-services">вебінари</span> ·
+                    <span class="hero-services">курси програмування</span> ·
+                    <span class="hero-services">знижки</span> ·
+                    <span class="hero-services">майстер-класи</span> ·
+                    <span class="hero-services">зустрічі розробників</span>
                 </p>
             </div>
-            
-            <div class="events-stats">
-                <div class="stat-item">
-                    <div class="stat-number text-primary">{{ total_events }}</div>
-                    <div class="stat-label">Всього подій</div>
+        </div>
+    </div>
+</section>
+
+<!-- Events Filter Section -->
+<section class="events-filter bg-beige">
+    <div class="container">
+        <div class="filter-container">
+            <!-- Категорії -->
+            <div class="filter-group">
+                <label class="filter-label text-base">Категорія:</label>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-category="">Всі</button>
+                    {% for category in categories %}
+                    <button class="filter-btn" data-category="{{ category.slug }}"
+                        style="--category-color: {{ category.color }}">
+                        {{ category.name }}
+                    </button>
+                    {% endfor %}
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number text-primary">{{ upcoming_events }}</div>
-                    <div class="stat-label">Майбутніх подій</div>
+            </div>
+
+            <!-- Тип події -->
+            <div class="filter-group">
+                <label class="filter-label text-base">Тип:</label>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-type="">Всі</button>
+                    <button class="filter-btn" data-type="webinar">Вебінари</button>
+                    <button class="filter-btn" data-type="course">Курси</button>
+                    <button class="filter-btn" data-type="discount">Знижки</button>
+                    <button class="filter-btn" data-type="workshop">Майстер-класи</button>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number text-primary">{{ participants_count|default:"500+" }}</div>
-                    <div class="stat-label">Учасників</div>
+            </div>
+
+            <!-- Сортування -->
+            <div class="filter-group">
+                <label class="filter-label text-base">Сортування:</label>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-sort="-start_date">Найближчі</button>
+                    <button class="filter-btn" data-sort="price">За ціною</button>
+                    <button class="filter-btn" data-sort="-is_featured">Рекомендовані</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Event Types Section -->
-<section class="event-types-section page-section" id="event-types">
+<!-- Events Grid -->
+<section class="events-grid bg-white">
     <div class="container">
-        <div class="section-content">
-            <h2 class="section-title text-center mb-5">
-                Типи <span class="text-primary">подій</span>
-            </h2>
-            
-            <div class="event-types-grid">
-                <div class="event-type-card">
-                    <div class="event-type-icon">🎥</div>
-                    <h3 class="event-type-title">Вебінари</h3>
-                    <p class="event-type-description">
-                        Онлайн лекції з актуальних тем веб-розробки, 
-                        Django, JavaScript та сучасних технологій.
-                    </p>
-                    <div class="event-type-features">
-                        <div class="feature">✓ Безкоштовно</div>
-                        <div class="feature">✓ Запис доступний</div>
-                        <div class="feature">✓ Q&A сесії</div>
+        <div class="events-container">
+            {% for event in page_obj %}
+            <article class="event-card" data-event="{{ forloop.counter }}">
+                <div class="card-header">
+                    <span class="event-number text-page color-red">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <div class="event-meta">
+                        <time class="event-date text-small">{{ event.start_date|date:"d.m.Y H:i" }}</time>
+                        <span class="event-type" style="background-color: {{ event.category.color }}">
+                            {{ event.get_event_type_display }}
+                        </span>
                     </div>
                 </div>
-                
-                <div class="event-type-card">
-                    <div class="event-type-icon">💰</div>
-                    <h3 class="event-type-title">Знижки</h3>
-                    <p class="event-type-description">
-                        Спеціальні пропозиції на розробку сайтів, 
-                        Telegram ботів та інші наші послуги.
-                    </p>
-                    <div class="event-type-features">
-                        <div class="feature">✓ До 50% знижки</div>
-                        <div class="feature">✓ Обмежений час</div>
-                        <div class="feature">✓ Ексклюзивні умови</div>
-                    </div>
-                </div>
-                
-                <div class="event-type-card">
-                    <div class="event-type-icon">🎓</div>
-                    <h3 class="event-type-title">Курси</h3>
-                    <p class="event-type-description">
-                        Інтенсивні курси з програмування, 
-                        веб-розробки та digital-маркетингу.
-                    </p>
-                    <div class="event-type-features">
-                        <div class="feature">✓ Практичні завдання</div>
-                        <div class="feature">✓ Підтримка менторів</div>
-                        <div class="feature">✓ Сертифікати</div>
-                    </div>
-                </div>
-                
-                <div class="event-type-card">
-                    <div class="event-type-icon">🤝</div>
-                    <h3 class="event-type-title">Зустрічі</h3>
-                    <p class="event-type-description">
-                        Неформальні зустрічі розробників, 
-                        нетворкінг та обмін досвідом.
-                    </p>
-                    <div class="event-type-features">
-                        <div class="feature">✓ Нетворкінг</div>
-                        <div class="feature">✓ Обмін досвідом</div>
-                        <div class="feature">✓ Кави та закуски</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- Current Events -->
-<section class="current-events-section page-section" id="current-events">
-    <div class="container">
-        <div class="section-content">
-            <div class="section-header text-center mb-5">
-                <h2 class="section-title">
-                    Актуальні <span class="text-primary">події</span>
-                </h2>
-                <p class="section-description">
-                    Не пропустіть найближчі заходи та спеціальні пропозиції
-                </p>
-            </div>
-            
-            {% if events %}
-            <div class="events-timeline">
-                {% for event in events %}
-                <article class="event-card {% if event.status == 'active' %}featured{% endif %}" data-event-type="{{ event.event_type }}">
-                    <div class="event-date-badge">
-                        <div class="event-day">{{ event.start_date|date:"d" }}</div>
-                        <div class="event-month">{{ event.start_date|date:"M" }}</div>
-                        {% if event.status == 'active' %}
-                        <div class="event-status-indicator active"></div>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="event-content">
-                        <div class="event-meta">
-                            <div class="event-category">
-                                {% if event.event_type == 'webinar' %}🎥 Вебінар
-                                {% elif event.event_type == 'discount' %}💰 Знижка
-                                {% elif event.event_type == 'course' %}🎓 Курс
-                                {% elif event.event_type == 'workshop' %}🔧 Майстер-клас
-                                {% elif event.event_type == 'meetup' %}🤝 Зустріч
-                                {% else %}📅 Подія{% endif %}
-                            </div>
-                            
-                            <div class="event-time">
-                                {% if event.is_online %}
-                                🌐 Онлайн
-                                {% else %}
-                                📍 {{ event.location|default:"Київ" }}
-                                {% endif %}
-                            </div>
+                <div class="card-content">
+                    <h2 class="text-medium mb-xs">
+                        <a href="{{ event.get_absolute_url }}" class="event-link">{{ event.title }}</a>
+                    </h2>
+                    <p class="text-base mb-sm event-excerpt">{{ event.excerpt }}</p>
+
+                    <div class="event-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Категорія:</span>
+                            <span class="detail-value">{{ event.category.name }}</span>
                         </div>
-                        
-                        <h3 class="event-title">{{ event.title }}</h3>
-                        
-                        <p class="event-excerpt">{{ event.excerpt }}</p>
-                        
-                        <div class="event-details">
-                            <div class="event-datetime">
-                                <strong>📅 Дата:</strong> 
-                                {{ event.start_date|date:"d.m.Y" }}
-                                {% if event.start_date != event.end_date %}
-                                - {{ event.end_date|date:"d.m.Y" }}
-                                {% endif %}
-                            </div>
-                            
-                            <div class="event-time-duration">
-                                <strong>⏰ Час:</strong> 
-                                {{ event.start_date|date:"H:i" }}
-                                {% if event.end_date %}
-                                - {{ event.end_date|date:"H:i" }}
-                                {% endif %}
-                            </div>
-                            
-                            {% if event.price %}
-                            <div class="event-price">
-                                <strong>💰 Вартість:</strong> 
-                                {% if event.price == 0 %}
-                                Безкоштовно
+
+                        {% if event.price %}
+                        <div class="detail-item">
+                            <span class="detail-label">Ціна:</span>
+                            <span class="detail-value price-value">
+                                {% if event.discount_percent > 0 %}
+                                <span class="original-price">{{ event.original_price }} грн</span>
+                                <span class="discount-price">{{ event.price }} грн</span>
+                                <span class="discount-badge">-{{ event.discount_percent }}%</span>
                                 {% else %}
                                 {{ event.price }} грн
                                 {% endif %}
-                            </div>
-                            {% endif %}
+                            </span>
                         </div>
-                        
-                        <div class="event-actions">
-                            {% if event.status == 'upcoming' or event.status == 'active' %}
-                            {% if event.registration_deadline and event.registration_deadline > today %}
-                            <a href="#" class="btn btn-primary register-btn" data-event-id="{{ event.id }}">
-                                {% if event.event_type == 'webinar' %}Реєструватися на вебінар
-                                {% elif event.event_type == 'discount' %}Отримати знижку
-                                {% elif event.event_type == 'course' %}Записатися на курс
-                                {% else %}Взяти участь{% endif %}
-                            </a>
-                            {% if event.meeting_link %}
-                            <a href="{{ event.meeting_link }}" class="btn btn-secondary" target="_blank" rel="noopener">
-                                Приєднатися
-                            </a>
-                            {% endif %}
-                            {% else %}
-                            <span class="registration-closed">Реєстрація закрита</span>
-                            {% endif %}
-                            {% else %}
-                            <span class="event-completed">Подія завершена</span>
-                            {% endif %}
+                        {% else %}
+                        <div class="detail-item">
+                            <span class="detail-label">Ціна:</span>
+                            <span class="detail-value free-price">Безкоштовно</span>
                         </div>
+                        {% endif %}
+
+                        {% if event.is_online %}
+                        <div class="detail-item">
+                            <span class="detail-label">Формат:</span>
+                            <span class="detail-value online-badge">Онлайн</span>
+                        </div>
+                        {% endif %}
+
+                        {% if event.available_spots %}
+                        <div class="detail-item">
+                            <span class="detail-label">Місця:</span>
+                            <span class="detail-value spots-available">{{ event.available_spots }} з {{
+                                event.max_participants }}</span>
+                        </div>
+                        {% endif %}
                     </div>
-                </article>
-                {% endfor %}
-            </div>
-            {% else %}
-            <div class="no-events">
-                <div class="no-events-icon">📅</div>
-                <h3 class="no-events-title">Зараз немає активних подій</h3>
-                <p class="no-events-description">
-                    Підпишіться на оновлення, щоб першими дізнаватися про нові події
-                </p>
-                <a href="#newsletter" class="btn btn-primary">Підписатися на оновлення</a>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-</section>
-
-<!-- Newsletter Subscription -->
-<section class="newsletter-section page-section" id="newsletter">
-    <div class="container">
-        <div class="section-content text-center">
-            <h2 class="newsletter-title">
-                Підпишіться на <span class="text-primary">події</span>
-            </h2>
-            <p class="newsletter-description">
-                Будьте першими, хто дізнається про нові вебінари, курси та спеціальні пропозиції
-            </p>
-            
-            <form class="newsletter-form" data-ajax="true" action="/forms/submit/" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="form_type" value="events_newsletter">
-                
-                <div class="newsletter-input-group">
-                    <input 
-                        type="email" 
-                        name="email" 
-                        placeholder="Ваш email для сповіщень" 
-                        required
-                        class="newsletter-input"
-                    >
-                    <button type="submit" class="newsletter-button btn btn-primary">
-                        Підписатися
-                    </button>
                 </div>
-                
-                <div class="newsletter-preferences">
-                    <label class="preference-item">
-                        <input type="checkbox" name="preferences" value="webinars" checked>
-                        <span class="checkmark"></span>
-                        Вебінари та майстер-класи
-                    </label>
-                    
-                    <label class="preference-item">
-                        <input type="checkbox" name="preferences" value="discounts" checked>
-                        <span class="checkmark"></span>
-                        Знижки та спеціальні пропозиції
-                    </label>
-                    
-                    <label class="preference-item">
-                        <input type="checkbox" name="preferences" value="courses" checked>
-                        <span class="checkmark"></span>
-                        Нові курси та програми
-                    </label>
-                </div>
-                
-                <p class="newsletter-privacy">
-                    Натискаючи "Підписатися", ви погоджуєтесь з обробкою персональних даних
-                </p>
-            </form>
-        </div>
-    </div>
-</section>
 
-<!-- Past Events Archive -->
-{% if past_events %}
-<section class="past-events-section page-section" id="past-events">
-    <div class="container">
-        <div class="section-content">
-            <h2 class="section-title text-center mb-5">
-                Архів <span class="text-primary">подій</span>
-            </h2>
-            
-            <div class="past-events-grid">
-                {% for event in past_events|slice:":6" %}
-                <div class="past-event-card">
-                    <div class="past-event-date">{{ event.start_date|date:"d.m.Y" }}</div>
-                    <h4 class="past-event-title">{{ event.title }}</h4>
-                    <p class="past-event-description">{{ event.excerpt|truncatewords:15 }}</p>
-                    {% if event.meeting_link %}
-                    <a href="{{ event.meeting_link }}" class="past-event-link" target="_blank" rel="noopener">
-                        Переглянути запис
+                <div class="card-footer">
+                    <a href="{{ event.get_absolute_url }}" class="event-details-link text-base color-red">
+                        Детальніше →
                     </a>
+
+                    {% if event.is_registration_open %}
+                    <button class="register-btn btn btn-primary" data-event-id="{{ event.id }}">
+                        Реєстрація
+                    </button>
+                    {% else %}
+                    <span class="registration-closed text-small">Реєстрація закрита</span>
                     {% endif %}
                 </div>
-                {% endfor %}
+            </article>
+            {% empty %}
+            <div class="no-events">
+                <h3 class="text-medium color-red mb-sm">Події готуються</h3>
+                <p class="text-base">Найближчим часом тут з'являться актуальні події та акції</p>
             </div>
-            
-            {% if past_events.count > 6 %}
-            <div class="text-center mt-4">
-                <button class="btn btn-secondary load-more-events">
-                    Показати більше подій
-                </button>
-            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <div class="events-pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">← Попередня</a>
+            {% endif %}
+
+            <span class="pagination-info text-base">
+                Сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Наступна →</a>
             {% endif %}
         </div>
+        {% endif %}
     </div>
 </section>
-{% endif %}
 
-<!-- Call to Action -->
-<section class="events-cta-section page-section" id="events-cta">
+<!-- Events SEO Section -->
+<section class="events-seo bg-beige">
     <div class="container">
-        <div class="section-content text-center">
-            <h2 class="cta-title">
-                Хочете провести <span class="text-primary">власну подію</span>?
-            </h2>
-            <p class="cta-description">
-                Ми допоможемо організувати ваш вебінар, курс або зустріч
+        <div class="seo-content">
+            <h2 class="text-large color-black mb-md">Події та акції PrometeyLabs</h2>
+            <p class="text-base mb-sm">
+                <strong>Вебінари та курси програмування</strong> - регулярні онлайн зустрічі для розробників.
+                Безкоштовні вебінари з Python, Django, React та інших технологій.
+                Практичні майстер-класи з реальними проектами.
             </p>
-            
-            <div class="cta-actions">
-                <a href="/contacts/" class="btn btn-primary btn-large">
-                    Обговорити ідею
-                </a>
-                <a href="/developer/" class="btn btn-secondary btn-large">
-                    Дізнатися більше
-                </a>
-            </div>
+            <p class="text-base mb-sm">
+                <strong>Сезонні знижки</strong> на курси програмування та розробку сайтів.
+                Спеціальні пропозиції для студентів та початківців.
+                Гнучкі умови оплати та розстрочка.
+            </p>
+            <p class="text-base">
+                <strong>Зустрічі розробників</strong> - networking події для обміну досвідом.
+                Презентації нових технологій, case studies успішних проектів,
+                можливості для співпраці та кар'єрного росту.
+            </p>
         </div>
     </div>
 </section>
-
-<!-- Event Registration Modal -->
-<div class="modal" id="event-registration-modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title">Реєстрація на подію</h3>
-            <button class="modal-close" aria-label="Закрити">&times;</button>
-        </div>
-        
-        <div class="modal-body">
-            <form class="event-registration-form" data-ajax="true" action="/forms/submit/" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="form_type" value="event_registration">
-                <input type="hidden" name="event_id" id="registration-event-id">
-                
-                <div class="form-group">
-                    <label for="registration-name" class="form-label">Ім'я та прізвище *</label>
-                    <input type="text" id="registration-name" name="name" class="form-input" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="registration-email" class="form-label">Email *</label>
-                    <input type="email" id="registration-email" name="email" class="form-input" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="registration-phone" class="form-label">Телефон</label>
-                    <input type="tel" id="registration-phone" name="phone" class="form-input">
-                </div>
-                
-                <div class="form-group">
-                    <label for="registration-experience" class="form-label">Рівень досвіду</label>
-                    <select id="registration-experience" name="experience" class="form-select">
-                        <option value="">Оберіть рівень</option>
-                        <option value="beginner">Початківець</option>
-                        <option value="intermediate">Середній</option>
-                        <option value="advanced">Просунутий</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="registration-questions" class="form-label">Питання або коментарі</label>
-                    <textarea id="registration-questions" name="questions" class="form-textarea" rows="3"></textarea>
-                </div>
-                
-                <div class="modal-actions">
-                    <button type="submit" class="btn btn-primary">Зареєструватися</button>
-                    <button type="button" class="btn btn-secondary modal-cancel">Скасувати</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block extra_js %}

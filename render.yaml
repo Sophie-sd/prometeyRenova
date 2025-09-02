@@ -6,6 +6,7 @@ services:
     plan: starter
     region: oregon
     preDeployCommand: |
+      python init_db.py || true
       python manage.py migrate --noinput
       python manage.py collectstatic --noinput
     buildCommand: |

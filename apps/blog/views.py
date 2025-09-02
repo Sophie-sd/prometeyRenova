@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.views.generic import ListView, DetailView
+from django.db.models import Q
 from .models import BlogPost
-from django.db import models
 
 
 class BlogListView(ListView):
@@ -70,9 +70,9 @@ def blog_search(request):
     
     if query:
         posts = posts.filter(
-            models.Q(title__icontains=query) |
-            models.Q(content__icontains=query) |
-            models.Q(keywords__icontains=query)
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(keywords__icontains=query)
         )
     
     paginator = Paginator(posts, 9)

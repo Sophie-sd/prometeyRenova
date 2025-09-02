@@ -1,631 +1,368 @@
-/* =================================
-   PORTFOLIO PAGE STYLES
-   Advanced Sticky Scroll System
-   ================================= */
+/* PORTFOLIO.CSS - Sticky Scroll ефект з фоновими відео згідно STYLE.MDC */
 
-/* Portfolio Hero Section */
+/* ===== PORTFOLIO HERO З ВІДЕО ===== */
 .portfolio-hero {
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-    background: var(--bg-light);
-}
-
-.hero-title {
-    font-size: clamp(60px, 12vw, 120px);
-    font-weight: 700;
-    line-height: 0.8;
-    letter-spacing: -3px;
-    margin-bottom: 30px;
-}
-
-.hero-subtitle {
-    font-size: clamp(18px, 3vw, 24px);
-    color: var(--text-light);
-    margin-bottom: 30px;
-    font-weight: 500;
-}
-
-.hero-description {
-    max-width: 600px;
-    margin: 0 auto 40px;
-}
-
-.hero-description p {
-    font-size: clamp(16px, 2.5vw, 18px);
-    line-height: 1.6;
-    color: var(--text-light);
-}
-
-.portfolio-stats {
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 40px;
-}
-
-.stat-item {
-    text-align: center;
-}
-
-.stat-number {
-    font-size: clamp(24px, 4vw, 32px);
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 8px;
-    display: block;
-}
-
-.stat-label {
-    font-size: 14px;
-    color: var(--text-light);
-    font-weight: 500;
-}
-
-/* =================================
-   STICKY SCROLL SYSTEM
-   ================================= */
-
-.portfolio-projects {
     position: relative;
-    background: #000;
-    height: 600vh; /* 6 sections × 100vh */
-}
-
-.sticky-section {
-    position: sticky;
-    top: 0;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
+    max-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: #000;
-    z-index: 1;
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
-/* Section States */
-.sticky-section.active {
-    z-index: 10;
-    opacity: 1;
-    transform: scale(1);
-}
-
-.sticky-section.passed {
-    z-index: 5;
-    opacity: 0.3;
-    transform: scale(0.95);
-}
-
-.sticky-section.pending {
-    z-index: 1;
-    opacity: 0.1;
-    transform: scale(1.05);
-}
-
-.sticky-section.transition-in {
-    animation: slideInProject 0.8s ease-out forwards;
-}
-
-.sticky-section.transition-out {
-    animation: slideOutProject 0.8s ease-out forwards;
-}
-
-@keyframes slideInProject {
-    from {
-        opacity: 0;
-        transform: translateY(50px) scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes slideOutProject {
-    from {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-    to {
-        opacity: 0.3;
-        transform: translateY(-50px) scale(0.95);
-    }
-}
-
-/* Project Container */
-.project-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 40px;
-    display: flex;
-    align-items: center;
-    z-index: 10;
-}
-
-.project-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-    width: 100%;
-    position: relative;
-    z-index: 20;
-}
-
-/* Project Info */
-.project-info {
-    color: var(--white);
-    max-width: 500px;
-}
-
-.project-number {
-    font-size: clamp(80px, 12vw, 120px);
-    font-weight: 700;
-    line-height: 0.8;
-    color: var(--primary-red);
-    margin-bottom: 20px;
-    opacity: 0.8;
-}
-
-.project-title {
-    font-size: clamp(32px, 6vw, 48px);
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 20px;
-    line-height: 1.2;
-}
-
-.project-description {
-    font-size: clamp(16px, 2.5vw, 18px);
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 30px;
-}
-
-.project-tags {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
-}
-
-.tag {
-    background: rgba(220, 20, 60, 0.2);
-    color: var(--primary-red);
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-    border: 1px solid rgba(220, 20, 60, 0.3);
-}
-
-.project-features {
-    margin-bottom: 40px;
-}
-
-.feature {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-    margin-bottom: 8px;
-    padding-left: 20px;
-    position: relative;
-}
-
-.feature::before {
-    content: '✓';
+/* Фонове відео для hero */
+.video-background {
     position: absolute;
+    top: 0;
     left: 0;
-    color: var(--primary-red);
-    font-weight: bold;
-}
-
-.project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--primary-red);
-    color: var(--white);
-    padding: 16px 32px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease-out;
-}
-
-.project-link:hover {
-    background: #B71C1C;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(220, 20, 60, 0.4);
-}
-
-/* Project Visual */
-.project-visual {
-    position: relative;
-    height: 60vh;
-    max-height: 500px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-.project-video-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-.project-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 20px;
+    z-index: 1;
 }
 
+/* Overlay для читабельності */
 .video-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        135deg,
-        rgba(0, 0, 0, 0.1) 0%,
-        rgba(220, 20, 60, 0.1) 50%,
-        rgba(0, 0, 0, 0.2) 100%
-    );
-    pointer-events: none;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2;
 }
 
-/* =================================
-   PORTFOLIO NAVIGATION
-   ================================= */
-
-.portfolio-navigation {
-    position: fixed;
-    right: 40px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-    border-radius: 25px;
-    padding: 20px 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.nav-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.nav-dots {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.nav-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease-out;
+.hero-content {
     position: relative;
+    z-index: 3;
+    width: 100%;
+    padding: var(--space-xl) 0;
 }
 
-.nav-dot.active {
-    background: var(--primary-red);
-    transform: scale(1.3);
+.hero-text {
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.nav-dot:hover {
-    background: rgba(255, 255, 255, 0.6);
-    transform: scale(1.2);
+.hero-text h1 {
+    margin-bottom: var(--space-lg);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.nav-arrows {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.hero-text p {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
-.nav-arrow {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(220, 20, 60, 0.2);
-    border: 1px solid rgba(220, 20, 60, 0.3);
-    color: var(--primary-red);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
-    transition: all 0.3s ease-out;
+/* SEO виділення */
+.seo-highlight {
+    font-weight: 900;
+    text-decoration: underline;
+    text-decoration-color: var(--color-red);
+    text-underline-offset: 8px;
+    text-decoration-thickness: 3px;
 }
 
-.nav-arrow:hover {
-    background: var(--primary-red);
-    color: var(--white);
-    transform: scale(1.1);
-}
-
-.nav-arrow:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.nav-arrow:disabled:hover {
-    background: rgba(220, 20, 60, 0.2);
-    color: var(--primary-red);
-}
-
-/* =================================
-   PORTFOLIO CTA SECTION
-   ================================= */
-
-.portfolio-cta-section {
-    background: var(--bg-light);
+/* ===== STICKY SCROLL EFFECT SYSTEM ===== */
+.portfolio-projects {
     position: relative;
-    z-index: 100;
-}
-
-.cta-title {
-    font-size: clamp(32px, 6vw, 56px);
-    font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.1;
-}
-
-.cta-description {
-    font-size: clamp(16px, 2.5vw, 18px);
-    color: var(--text-light);
-    margin-bottom: 40px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.cta-actions {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-/* =================================
-   RESPONSIVE DESIGN
-   ================================= */
-
-@media (max-width: 1200px) {
-    .project-container {
-        padding: 0 30px;
-    }
-    
-    .project-content {
-        gap: 60px;
-    }
-    
-    .portfolio-navigation {
-        right: 20px;
-    }
-}
-
-@media (max-width: 992px) {
-    .project-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
-    }
-    
-    .project-visual {
-        height: 50vh;
-        max-height: 400px;
-    }
-    
-    .portfolio-stats {
-        gap: 30px;
-    }
-}
-
-@media (max-width: 768px) {
-    .portfolio-projects {
-        height: auto;
-    }
-    
-    .sticky-section {
-        position: relative;
-        height: auto;
-        min-height: 100vh;
-        background: var(--black);
-        margin-bottom: 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .sticky-section.active,
-    .sticky-section.passed,
-    .sticky-section.pending {
-        opacity: 1;
-        transform: none;
-        z-index: 1;
-    }
-    
-    .project-container {
-        padding: 60px 20px;
-    }
-    
-    .project-content {
-        gap: 30px;
-    }
-    
-    .project-visual {
-        height: 40vh;
-        max-height: 300px;
-    }
-    
-    .portfolio-navigation {
-        position: static;
-        transform: none;
-        margin: 40px auto 0;
-        width: fit-content;
-        background: var(--white);
-        border: 1px solid var(--border-light);
-    }
-    
-    .nav-container {
-        flex-direction: row;
-        gap: 15px;
-    }
-    
-    .nav-dots {
-        flex-direction: row;
-        gap: 8px;
-    }
-    
-    .nav-dot {
-        background: var(--border-light);
-    }
-    
-    .nav-dot.active {
-        background: var(--primary-red);
-    }
-    
-    .nav-arrows {
-        flex-direction: row;
-        gap: 8px;
-    }
-    
-    .nav-arrow {
-        width: 35px;
-        height: 35px;
-        font-size: 14px;
-    }
-    
-    .portfolio-stats {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .cta-actions {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-@media (max-width: 576px) {
-    .project-container {
-        padding: 40px 15px;
-    }
-    
-    .project-number {
-        text-align: center;
-    }
-    
-    .project-tags {
-        justify-content: center;
-    }
-    
-    .project-visual {
-        height: 35vh;
-        max-height: 250px;
-    }
-    
-    .hero-description {
-        padding: 0 15px;
-    }
-}
-
-/* =================================
-   PERFORMANCE OPTIMIZATIONS
-   ================================= */
-
-/* Reduce motion for accessibility */
-@media (prefers-reduced-motion: reduce) {
-    .sticky-section {
-        transition: none;
-    }
-    
-    .sticky-section.transition-in,
-    .sticky-section.transition-out {
-        animation: none;
-    }
-    
-    .project-link,
-    .nav-dot,
-    .nav-arrow {
-        transition: none;
-    }
-}
-
-/* GPU acceleration for smooth scrolling */
-.sticky-section,
-.project-container,
-.project-video {
-    will-change: transform, opacity;
-    transform: translateZ(0);
-}
-
-/* Optimize video loading */
-.project-video {
     background: #000;
+    display: block;
+    visibility: visible;
+    opacity: 1;
 }
 
-.project-video:not([src]) {
-    background: linear-gradient(135deg, var(--primary-red), #FF6B6B);
+/* Sticky секції для кожного проекту */
+.portfolio-projects .sticky-section {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    max-height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    background: #000;
+    opacity: 1;
+    visibility: visible;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
 }
 
-.project-video:not([src])::after {
-    content: '🎬';
-    font-size: 48px;
-    opacity: 0.6;
+/* Фонові відео для проектів */
+.portfolio-projects .project-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 1;
+    visibility: visible;
+    transform: translateZ(0);
+    will-change: opacity;
 }
 
-/* Loading states */
-.portfolio-projects.loading .sticky-section {
-    opacity: 0.5;
-    pointer-events: none;
+/* Кнопка позиціонування */
+.portfolio-projects .sticky-section .btn-primary {
+    position: absolute;
+    top: 60px;
+    left: 60px;
+    z-index: 4;
+    opacity: 1;
+    visibility: visible;
 }
 
-.portfolio-navigation.loading {
-    opacity: 0.5;
-    pointer-events: none;
+/* ===== STICKY SCROLL STATES ===== */
+
+/* Активна секція (поточна) */
+.portfolio-projects .sticky-section.active {
+    z-index: 50;
 }
 
-/* Intersection observer fallback */
-.no-js .sticky-section {
-    position: relative;
-    height: auto;
-    min-height: 100vh;
+/* Секція що зникає (йде вгору) */
+.portfolio-projects .sticky-section.exiting {
+    z-index: 60;
+    transform: translateY(-100vh);
 }
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-    .project-visual {
-        border: 2px solid var(--white);
+/* Секція що входить (знизу) */
+.portfolio-projects .sticky-section.entering {
+    z-index: 40;
+    transform: translateY(100vh);
+}
+
+/* Секції що чекають знизу */
+.portfolio-projects .sticky-section.pending {
+    z-index: 30;
+    transform: translateY(20px);
+}
+
+/* Секції що вже пройшли */
+.portfolio-projects .sticky-section.passed {
+    z-index: 20;
+    transform: translateY(-20px);
+    opacity: 0.8;
+}
+
+/* ===== RESPONSIVE ВІДЕО ===== */
+
+/* Десктоп відео */
+@media (min-width: 768px) {
+    .mobile-video {
+        display: none;
     }
-    
-    .nav-dot {
-        border: 2px solid var(--white);
+
+    .desktop-video {
+        display: block;
+        object-fit: contain;
+        background: #000;
     }
-    
-    .tag {
-        border-width: 2px;
+}
+
+/* Мобільні відео */
+@media (max-width: 767px) {
+    .desktop-video {
+        display: none;
+    }
+
+    .mobile-video {
+        display: block;
+        object-fit: cover;
+    }
+
+    .portfolio-projects .sticky-section .desktop-video {
+        display: none;
+    }
+
+    .portfolio-projects .sticky-section .mobile-video {
+        display: block;
+    }
+}
+
+/* ===== АДАПТАЦІЯ ПЛАНШЕТИ ===== */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .portfolio-hero {
+        min-height: 80vh;
+        padding: var(--space-md) 0;
+    }
+
+    .hero-content {
+        padding: var(--space-md) 0;
+    }
+
+    .sticky-section {
+        padding: var(--space-md) 0;
+    }
+
+    .portfolio-projects .sticky-section .btn-primary {
+        top: 40px;
+        left: 40px;
+    }
+}
+
+/* ===== АДАПТАЦІЯ МОБІЛЬНІ (iOS Safari) ===== */
+@media (max-width: 767px) {
+    .portfolio-hero {
+        min-height: 100vh;
+        max-height: 100vh;
+        padding: var(--space-lg) 0;
+    }
+
+    .hero-content {
+        padding: var(--space-md) 0;
+    }
+
+    .hero-text h1 {
+        font-size: var(--font-mega);
+        margin-bottom: var(--space-md);
+    }
+
+    .hero-text p {
+        font-size: var(--font-medium);
+    }
+
+    /* Мобільні sticky секції */
+    .portfolio-projects .sticky-section {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        max-height: 100vh;
+        height: -webkit-fill-available;
+        max-height: -webkit-fill-available;
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #000;
+        -webkit-overflow-scrolling: touch;
+        transform: translateZ(0);
+        will-change: transform;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Мобільні sticky states */
+    .portfolio-projects .sticky-section.active {
+        z-index: 50;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .portfolio-projects .sticky-section.exiting {
+        z-index: 60;
+        transform: translateY(-100vh) translateZ(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .portfolio-projects .sticky-section.entering {
+        z-index: 40;
+        transform: translateY(100vh) translateZ(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .portfolio-projects .sticky-section.pending {
+        z-index: 30;
+        transform: translateY(10px) translateZ(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .portfolio-projects .sticky-section.passed {
+        z-index: 20;
+        transform: translateY(-10px) translateZ(0);
+        opacity: 0.8;
+        visibility: visible;
+    }
+
+    .portfolio-projects .sticky-section .btn-primary {
+        top: 63px;
+        left: 20px;
+        font-size: 14px;
+        padding: 12px 20px;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    /* Мобільні відео */
+    .portfolio-projects .project-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 90%;
+        object-fit: fill;
+        z-index: 1;
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* ===== iOS SAFARI СПЕЦИФІКА ===== */
+@supports (-webkit-touch-callout: none) {
+
+    .portfolio-hero,
+    .portfolio-projects .sticky-section {
+        height: 100vh;
+        max-height: 100vh;
+        height: -webkit-fill-available;
+        max-height: -webkit-fill-available;
+    }
+
+    .portfolio-projects .project-video,
+    .video-background {
+        -webkit-transform: translateZ(0);
+    }
+
+    .portfolio-projects .sticky-section {
+        -webkit-overflow-scrolling: touch;
+        -webkit-transform: translateZ(0);
+        will-change: transform;
+    }
+
+    .portfolio-projects .sticky-section .btn-primary {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    /* iPhone safe areas */
+    @supports (padding: max(0px)) {
+        .portfolio-projects .sticky-section .btn-primary {
+            top: max(30px, env(safe-area-inset-top) + 10px);
+            left: max(20px, env(safe-area-inset-left) + 10px);
+        }
+    }
+}
+
+/* ===== АНІМАЦІЇ ===== */
+@media (prefers-reduced-motion: no-preference) {
+    .portfolio-projects .sticky-section {
+        transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .seo-highlight {
+        transition: all 0.3s ease-out;
+    }
+
+    .seo-highlight:hover {
+        text-decoration-thickness: 4px;
+        text-underline-offset: 10px;
+    }
+}
+
+/* ===== HOVER ЕФЕКТИ (тільки для декстопу) ===== */
+@media (hover: hover) {
+    .portfolio-projects .sticky-section .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(220, 20, 60, 0.4);
     }
 }

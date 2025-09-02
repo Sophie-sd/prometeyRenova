@@ -1,4 +1,4 @@
-/* PROMETEY LABS - BASE JAVASCRIPT WITH PARALLAX VIDEO SYSTEM */
+/* BASE.JS - Базовий JavaScript для PrometeyLabs */
 
 class PrometeyApp {
     constructor() {
