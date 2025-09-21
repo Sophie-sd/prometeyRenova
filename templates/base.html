@@ -26,15 +26,16 @@
         content="{% block og_description %}Створюємо сайти під ключ, Telegram боти, налаштовуємо рекламу. Сучасні технології, конкурентні ціни.{% endblock %}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:image"
-        content="{% block og_image %}{% load static %}{% static 'images/og-image.jpg' %}{% endblock %}">
+    <!-- Load static files ONCE at the top -->
+    {% load static %}
+
+    <meta property="og:image" content="{% block og_image %}{% static 'images/og-image.jpg' %}{% endblock %}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{% load static %}{% static 'images/favicon.ico' %}">
-    <link rel="apple-touch-icon" href="{% load static %}{% static 'images/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
 
     <!-- CSS -->
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block page_css %}{% endblock %}
     {% block extra_css %}{% endblock %}

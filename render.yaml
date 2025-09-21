@@ -25,13 +25,13 @@ services:
       - key: DEBUG
         value: "False"
       - key: ALLOWED_HOSTS
-        value: ""
+        value: "prometeylabs-web-prod.onrender.com,prometeyrenova.onrender.com,*.onrender.com"
       - key: SECURE_SSL_REDIRECT
         value: "True"
       - key: DATABASE_URL
         value: ""  # Буде встановлено вручну через Dashboard
       - key: SITE_URL
-        sync: false
+        value: "https://prometeylabs-web-prod.onrender.com"
       - key: MONOBANK_TOKEN
         sync: false
     autoDeploy: true

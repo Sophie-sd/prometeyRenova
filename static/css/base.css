@@ -572,10 +572,112 @@ body {
     }
 }
 
-/* ===== ІМПОРТ МОБІЛЬНИХ ОПТИМІЗАЦІЙ ===== */
-@import url('components/mobile-optimizations.css');
+/* ===== МОБІЛЬНІ ОПТИМІЗАЦІЇ (включено напряму) ===== */
+/* Замість @import включаємо напряму для сумісності з WhiteNoise */
 
-/* Застарілі iOS фікси замінено на централізовану систему в mobile-optimizations.css */
+/* MODERN VIEWPORT SYSTEM (2025) */
+:root {
+    /* Стандартні viewport одиниці */
+    --vw: 1vw;
+    --vh: 1vh;
+    --safe-vh: 1vh;
+
+    /* Dynamic viewport одиниці (сучасні браузери) */
+    --dvh: 1dvh;
+    --svh: 1svh;
+    --lvh: 1lvh;
+
+    /* Fallbacks для старих браузерів */
+    --mobile-vh: 100vh;
+    --mobile-safe-area-top: 0px;
+    --mobile-safe-area-bottom: 0px;
+    --mobile-safe-area-left: 0px;
+    --mobile-safe-area-right: 0px;
+}
+
+/* Сучасна підтримка dynamic viewport */
+@supports (height: 100dvh) {
+    :root {
+        --mobile-vh: 100dvh;
+    }
+}
+
+/* Safe areas для пристроїв з вирізами */
+@supports (padding-top: env(safe-area-inset-top)) {
+    :root {
+        --mobile-safe-area-top: env(safe-area-inset-top);
+        --mobile-safe-area-bottom: env(safe-area-inset-bottom);
+        --mobile-safe-area-left: env(safe-area-inset-left);
+        --mobile-safe-area-right: env(safe-area-inset-right);
+    }
+}
+
+/* Fallback для старих браузерів iOS */
+@supports (padding-top: constant(safe-area-inset-top)) {
+    :root {
+        --mobile-safe-area-top: constant(safe-area-inset-top);
+        --mobile-safe-area-bottom: constant(safe-area-inset-bottom);
+        --mobile-safe-area-left: constant(safe-area-inset-left);
+        --mobile-safe-area-right: constant(safe-area-inset-right);
+    }
+}
+
+/* UNIVERSAL MOBILE CLASSES */
+
+/* Універсальна висота екрану */
+.mobile-full-height {
+    height: var(--mobile-vh);
+    min-height: var(--mobile-vh);
+}
+
+/* Безпечна область */
+.mobile-safe-area {
+    padding-top: var(--mobile-safe-area-top);
+    padding-bottom: var(--mobile-safe-area-bottom);
+    padding-left: var(--mobile-safe-area-left);
+    padding-right: var(--mobile-safe-area-right);
+}
+
+/* TOUCH OPTIMIZATIONS */
+
+/* Універсальні touch стилі */
+.mobile-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Touch feedback */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+    /* Smooth transitions */
+    transition: transform 0.1s ease-out, background-color 0.1s ease-out;
+}
+
+/* Active touch state */
+.mobile-touch-target:active,
+.mobile-touch-target.touch-active {
+    transform: scale(0.98);
+}
+
+/* FORM OPTIMIZATIONS */
+
+/* Мобільні форми */
+.mobile-form-input {
+    /* Збільшені розміри для touch */
+    min-height: 44px;
+    padding: 12px 16px;
+    font-size: 16px; /* Запобігання zoom в iOS Safari */
+
+    /* Touch оптимізації */
+    -webkit-appearance: none;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
 
 /* ===== ФОРМИ ===== */
 .form-group {
