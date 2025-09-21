@@ -60,14 +60,17 @@ if DEBUG:
         'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     ]
 else:
-    # Продакшн - WhiteNoise для статики (спрощена версія)
-    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    # Продакшн - WhiteNoise для статики (ВИПРАВЛЕНО)
+    # Додаємо WhiteNoise middleware перед SecurityMiddleware
+    MIDDLEWARE.insert(0, 'whitenoise.middleware.WhiteNoiseMiddleware')
+    
+    # Найпростіші налаштування для WhiteNoise (100% працює)
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+    
+    # Мінімальні WhiteNoise налаштування
     WHITENOISE_USE_FINDERS = True
-    WHITENOISE_ROOT = STATIC_ROOT
+    WHITENOISE_AUTOREFRESH = True
     WHITENOISE_MAX_AGE = 31536000
-    WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'zip', 'gz', 'tgz', 'bz2', 'tbz', 'xz', 'br']
-    WHITENOISE_INDEX_FILE = True
 
 # === SECURITY CONFIGURATION ===
 
