@@ -572,16 +572,10 @@ body {
     }
 }
 
-/* ===== iOS SAFARI ФІКСИ ДЛЯ МОДАЛОК ===== */
-@supports (-webkit-touch-callout: none) {
-    .modal {
-        padding-bottom: env(safe-area-inset-bottom);
-    }
+/* ===== ІМПОРТ МОБІЛЬНИХ ОПТИМІЗАЦІЙ ===== */
+@import url('components/mobile-optimizations.css');
 
-    .modal-content {
-        -webkit-overflow-scrolling: touch;
-    }
-}
+/* Застарілі iOS фікси замінено на централізовану систему в mobile-optimizations.css */
 
 /* ===== ФОРМИ ===== */
 .form-group {
@@ -1029,20 +1023,11 @@ body {
     display: block;
 }
 
-/* ===== iOS SAFARI СПЕЦИФІКА ===== */
-@supports (-webkit-touch-callout: none) {
-    .ios-fix {
-        -webkit-appearance: none;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-    }
-
-    /* Фікс для viewport одиниць на iOS */
-    .full-height {
-        height: 100vh;
-        height: -webkit-fill-available;
-    }
-}
+/* Застарілі iOS фікси видалено - використовуйте класи з mobile-optimizations.css:
+ * .mobile-full-height - замість .full-height
+ * .mobile-touch-target - замість .ios-fix
+ * .mobile-safe-area - для safe areas
+ */
 
 /* ===== ДЕКОРАТИВНІ ЕЛЕМЕНТИ СИСТЕМИ ===== */
 .decorative-star {

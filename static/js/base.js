@@ -6,12 +6,31 @@ class PrometeyApp {
     }
 
     init() {
+        // Чекаємо ініціалізації MobileCore
+        if (window.MobileCore && !window.MobileCore.isInitialized()) {
+            document.addEventListener('mobilecore:initialized', () => {
+                this.initWithMobileCore();
+            });
+        } else {
+            this.initWithMobileCore();
+        }
+    }
+
+    initWithMobileCore() {
+        this.device = window.MobileCore?.getDevice() || {};
+        this.capabilities = window.MobileCore?.getCapabilities() || {};
+
         this.setupEventListeners();
         this.setupScrollNavigation();
         this.setupMobileMenu();
         this.setupModals();
         this.setupAnimations();
-        this.setupIOSSafariSupport();
+
+        // Застарілі iOS фікси замінено на MobileCore
+        if (!window.MobileCore) {
+            console.warn('MobileCore not found, using legacy iOS support');
+            this.setupIOSSafariSupport();
+        }
     }
 
     // ===== НАЛАШТУВАННЯ EVENT LISTENERS =====
@@ -517,28 +536,20 @@ class PrometeyApp {
     }
 
     preventIOSZoom() {
-        // Запобігання зуму при фокусі на input в iOS Safari
-        const inputs = document.querySelectorAll('input, textarea, select');
+        // ЗАСТАРІЛИЙ МЕТОД - замінено на MobileCore
+        // Використовуйте MobileCore.setupTouchOptimizations() замість цього
+        console.warn('preventIOSZoom is deprecated, use MobileCore instead');
 
-        inputs.forEach(input => {
-            input.addEventListener('focus', () => {
-                const viewport = document.querySelector('meta[name="viewport"]');
-                if (viewport) {
-                    viewport.setAttribute('content',
-                        'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
-                    );
+        // Базовий fallback тільки якщо MobileCore недоступний
+        if (!window.MobileCore) {
+            const inputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], textarea');
+            inputs.forEach(input => {
+                // Встановлюємо font-size 16px для запобігання zoom
+                if (!input.style.fontSize) {
+                    input.style.fontSize = '16px';
                 }
             });
-
-            input.addEventListener('blur', () => {
-                const viewport = document.querySelector('meta[name="viewport"]');
-                if (viewport) {
-                    viewport.setAttribute('content',
-                        'width=device-width, initial-scale=1.0'
-                    );
-                }
-            });
-        });
+        }
     }
 
     // ===== УТИЛІТАРНІ ФУНКЦІЇ =====

@@ -9,18 +9,21 @@
         </div>
 
         <!-- Desktop Navigation -->
-        <nav class="nav-menu" role="navigation" aria-label="Основне меню">
-            <a href="{% url 'home' %}" class="nav-link">головна</a>
-            <a href="{% url 'portfolio' %}" class="nav-link">портфоліо</a>
-            <a href="{% url 'calculator' %}" class="nav-link">розрахувати пропозицію</a>
-            <a href="{% url 'developer' %}" class="nav-link">стати розробником</a>
-            <a href="{% url 'blog:blog_list' %}" class="nav-link">блог</a>
-            <a href="{% url 'events' %}" class="nav-link">події</a>
-            <a href="{% url 'contacts' %}" class="nav-link">контакти</a>
+        <nav class="nav-menu mobile-navigation" role="navigation" aria-label="Основне меню">
+            <a href="{% url 'home' %}" class="nav-link mobile-touch-target mobile-focus-visible">головна</a>
+            <a href="{% url 'portfolio' %}" class="nav-link mobile-touch-target mobile-focus-visible">портфоліо</a>
+            <a href="{% url 'calculator' %}" class="nav-link mobile-touch-target mobile-focus-visible">розрахувати
+                пропозицію</a>
+            <a href="{% url 'developer' %}" class="nav-link mobile-touch-target mobile-focus-visible">стати
+                розробником</a>
+            <a href="{% url 'blog:blog_list' %}" class="nav-link mobile-touch-target mobile-focus-visible">блог</a>
+            <a href="{% url 'events' %}" class="nav-link mobile-touch-target mobile-focus-visible">події</a>
+            <a href="{% url 'contacts' %}" class="nav-link mobile-touch-target mobile-focus-visible">контакти</a>
         </nav>
 
         <!-- Mobile Burger Button -->
-        <button class="burger-menu" aria-label="Відкрити мобільне меню" aria-expanded="false">
+        <button class="burger-menu mobile-touch-target mobile-focus-visible" aria-label="Відкрити мобільне меню"
+            aria-expanded="false">
             <span class="burger-line"></span>
             <span class="burger-line"></span>
             <span class="burger-line"></span>

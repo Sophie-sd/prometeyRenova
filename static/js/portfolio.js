@@ -22,6 +22,14 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Portfolio page initialized');
 });
 
+// ===== UTILITY FUNCTIONS =====
+function isMobile() {
+    return window.innerWidth <= 767 ||
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0;
+}
+
 // =================================
 // VIEWPORT HEIGHT ДЛЯ iOS SAFARI
 // =================================
@@ -168,12 +176,18 @@ function initIOSOptimizations() {
         // Додати клас для iOS-специфічних стилів
         document.body.classList.add('ios-device');
 
-        // Вимкнути scroll bounce
-        document.addEventListener('touchmove', function (e) {
-            if (e.target.closest('.project-section')) {
-                e.preventDefault();
-            }
-        }, { passive: false });
+        // ВИПРАВЛЕНО: Розумний scroll control тільки для desktop
+        if (!isMobile()) {
+            // Sticky scroll тільки для desktop
+            document.addEventListener('touchmove', function (e) {
+                if (e.target.closest('.project-section') && !e.target.closest('.scrollable-content')) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+        } else {
+            // Мобільна версія: звичайний scroll без блокування
+            console.log('Mobile detected: using standard scroll for portfolio');
+        }
 
         // Оптимізація viewport
         const viewport = document.querySelector('meta[name="viewport"]');

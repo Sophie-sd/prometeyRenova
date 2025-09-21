@@ -12,10 +12,13 @@
 {% block content %}
 <!-- Hero Section з фоновим відео -->
 <section class="hero-section full-height">
-    <!-- Фонові відео для декстопу та мобільних -->
+    <!-- Фонові відео для декстопу та мобільних (ВИПРАВЛЕНО) -->
+    <!-- Desktop відео (показується тільки на >=768px) -->
     <video class="video-background desktop-video" autoplay muted loop playsinline>
         <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
     </video>
+
+    <!-- Mobile відео (показується тільки на <=767px) -->
     <video class="video-background mobile-video" autoplay muted loop playsinline>
         <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
     </video>
@@ -37,13 +40,14 @@
 
                 <!-- CTA Buttons -->
                 <div class="hero-buttons">
-                    <a href="https://t.me/prometeylabs" class="btn btn-primary" target="_blank">
+                    <a href="https://t.me/prometeylabs" class="btn btn-primary mobile-touch-target" target="_blank"
+                        rel="noopener">
                         хочу консультацію зараз
                     </a>
-                    <button class="btn btn-secondary" data-modal="developer-modal">
+                    <button class="btn btn-secondary mobile-touch-target" data-modal="developer-modal">
                         хочу стати розробником
                     </button>
-                    <button class="btn btn-secondary" data-modal="site-request-modal">
+                    <button class="btn btn-secondary mobile-touch-target" data-modal="site-request-modal">
                         залишити заявку на сайт
                     </button>
                 </div>
@@ -178,5 +182,10 @@
 {% endblock %}
 
 {% block extra_js %}
+<!-- Тимчасово відключаємо VideoSystem для відлагодження -->
+<script>
+    // Відключити VideoSystem для цієї сторінки
+    window.VideoSystemDisabled = true;
+</script>
 <script src="{% static 'js/home.js' %}"></script>
 {% endblock %}

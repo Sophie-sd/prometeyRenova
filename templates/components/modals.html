@@ -21,17 +21,17 @@
 
             <div class="form-group">
                 <label for="dev-name" class="form-label">Ім'я</label>
-                <input type="text" id="dev-name" name="name" class="form-input" required
-                    placeholder="Введіть ваше ім'я">
+                <input type="text" id="dev-name" name="name" class="form-input mobile-form-input mobile-touch-target"
+                    autocomplete="given-name" inputmode="text" required placeholder="Введіть ваше ім'я">
             </div>
 
             <div class="form-group">
                 <label for="dev-phone" class="form-label">Номер телефону</label>
-                <input type="tel" id="dev-phone" name="phone" class="form-input" required
-                    placeholder="+380XX XXX XX XX">
+                <input type="tel" id="dev-phone" name="phone" class="form-input mobile-form-input mobile-touch-target"
+                    autocomplete="tel" inputmode="tel" required placeholder="+380XX XXX XX XX">
             </div>
 
-            <button type="submit" class="btn btn-primary form-submit">
+            <button type="submit" class="btn btn-primary form-submit mobile-touch-target">
                 Записатися на курс
             </button>
         </form>
@@ -59,17 +59,17 @@
 
             <div class="form-group">
                 <label for="site-name" class="form-label">Ім'я</label>
-                <input type="text" id="site-name" name="name" class="form-input" required
-                    placeholder="Введіть ваше ім'я">
+                <input type="text" id="site-name" name="name" class="form-input mobile-form-input mobile-touch-target"
+                    autocomplete="given-name" inputmode="text" required placeholder="Введіть ваше ім'я">
             </div>
 
             <div class="form-group">
                 <label for="site-phone" class="form-label">Номер телефону</label>
-                <input type="tel" id="site-phone" name="phone" class="form-input" required
-                    placeholder="+380XX XXX XX XX">
+                <input type="tel" id="site-phone" name="phone" class="form-input mobile-form-input mobile-touch-target"
+                    autocomplete="tel" inputmode="tel" required placeholder="+380XX XXX XX XX">
             </div>
 
-            <button type="submit" class="btn btn-primary form-submit">
+            <button type="submit" class="btn btn-primary form-submit mobile-touch-target">
                 Розрахувати вартість
             </button>
         </form>
@@ -141,11 +141,12 @@
 </div>
 
 <!-- Модалка "Реєстрація на подію" -->
-<div class="modal" id="event-registration-modal" role="dialog" aria-labelledby="event-registration-modal-title" aria-hidden="true">
+<div class="modal" id="event-registration-modal" role="dialog" aria-labelledby="event-registration-modal-title"
+    aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content">
         <button class="modal-close" type="button" aria-label="Закрити модальне вікно">&times;</button>
-        
+
         <div class="modal-header">
             <h3 class="text-medium color-red mb-sm" id="event-registration-modal-title">
                 Реєстрація на подію
@@ -154,42 +155,42 @@
                 Заповніть форму для реєстрації на подію
             </p>
         </div>
-        
+
         <form class="modal-form" id="event-registration-form" method="post">
             {% csrf_token %}
             <input type="hidden" name="form_type" value="event_registration">
             <input type="hidden" name="event_id" id="event-id-input">
-            
+
             <div class="form-group">
                 <label for="event-reg-name" class="form-label">Ім'я</label>
-                <input type="text" id="event-reg-name" name="name" class="form-input" required 
-                       placeholder="Введіть ваше ім'я">
+                <input type="text" id="event-reg-name" name="name" class="form-input" required
+                    placeholder="Введіть ваше ім'я">
             </div>
-            
+
             <div class="form-group">
                 <label for="event-reg-email" class="form-label">Email</label>
-                <input type="email" id="event-reg-email" name="email" class="form-input" required 
-                       placeholder="your@email.com">
+                <input type="email" id="event-reg-email" name="email" class="form-input" required
+                    placeholder="your@email.com">
             </div>
-            
+
             <div class="form-group">
                 <label for="event-reg-phone" class="form-label">Телефон</label>
-                <input type="tel" id="event-reg-phone" name="phone" class="form-input" required 
-                       placeholder="+380XX XXX XX XX">
+                <input type="tel" id="event-reg-phone" name="phone" class="form-input" required
+                    placeholder="+380XX XXX XX XX">
             </div>
-            
+
             <div class="form-group">
                 <label for="event-reg-company" class="form-label">Компанія (необов'язково)</label>
-                <input type="text" id="event-reg-company" name="company" class="form-input" 
-                       placeholder="Назва компанії">
+                <input type="text" id="event-reg-company" name="company" class="form-input"
+                    placeholder="Назва компанії">
             </div>
-            
+
             <div class="form-group">
                 <label for="event-reg-message" class="form-label">Додаткова інформація</label>
-                <textarea id="event-reg-message" name="message" class="form-input" rows="3" 
-                          placeholder="Ваші питання або побажання"></textarea>
+                <textarea id="event-reg-message" name="message" class="form-input" rows="3"
+                    placeholder="Ваші питання або побажання"></textarea>
             </div>
-            
+
             <button type="submit" class="btn btn-primary form-submit">
                 Зареєструватися
             </button>
