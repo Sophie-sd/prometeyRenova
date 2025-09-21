@@ -671,7 +671,8 @@ body {
     /* Збільшені розміри для touch */
     min-height: 44px;
     padding: 12px 16px;
-    font-size: 16px; /* Запобігання zoom в iOS Safari */
+    font-size: 16px;
+    /* Запобігання zoom в iOS Safari */
 
     /* Touch оптимізації */
     -webkit-appearance: none;

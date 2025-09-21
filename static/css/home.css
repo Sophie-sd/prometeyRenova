@@ -4,14 +4,14 @@
 .hero-section {
     position: relative;
     width: 100%;
-    min-height: 100vh;
-    max-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
+    /* ВИПРАВЛЕНО: Сучасний viewport підхід */
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100); /* Динамічний iOS Safari viewport */
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-
+    
     /* Fallback gradient якщо відео не завантажується */
     background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
 }
@@ -298,7 +298,7 @@
 
     .hero-buttons .btn {
         width: 100%;
-        max-width: 300px;
+        max-width: 270px;
         padding: 15px 20px;
         min-width: auto;
     }

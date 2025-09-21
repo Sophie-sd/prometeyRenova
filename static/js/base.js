@@ -20,6 +20,9 @@ class PrometeyApp {
         this.device = window.MobileCore?.getDevice() || {};
         this.capabilities = window.MobileCore?.getCapabilities() || {};
 
+        // КРИТИЧНО: Встановлюємо viewport змінні для iOS
+        this.setupViewportVars();
+        
         this.setupEventListeners();
         this.setupScrollNavigation();
         this.setupMobileMenu();
@@ -30,6 +33,50 @@ class PrometeyApp {
         if (!window.MobileCore) {
             console.warn('MobileCore not found, using legacy iOS support');
             this.setupIOSSafariSupport();
+        }
+    }
+
+    // Встановлення правильних viewport змінних для iOS Safari
+    setupViewportVars() {
+        const setViewportVars = () => {
+            const vh = window.innerHeight * 0.01;
+            const vw = window.innerWidth * 0.01;
+            
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            document.documentElement.style.setProperty('--vw', `${vw}px`);
+            
+            // Для iOS Safari - враховуємо URL bar
+            if (this.device.iOS) {
+                const availableHeight = window.innerHeight;
+                document.documentElement.style.setProperty('--mobile-vh', `${availableHeight}px`);
+                document.body.classList.add('ios-device');
+                
+                // URL bar detection
+                if (availableHeight !== screen.height) {
+                    document.body.classList.add('ios-url-bar-visible');
+                } else {
+                    document.body.classList.remove('ios-url-bar-visible');
+                }
+            }
+        };
+
+        // Встановити при завантаженні
+        setViewportVars();
+
+        // Оновлювати при зміні орієнтації та resize
+        window.addEventListener('resize', setViewportVars);
+        window.addEventListener('orientationchange', () => {
+            // Затримка для iOS Safari
+            setTimeout(setViewportVars, 100);
+        });
+
+        // Для iOS - оновлювати при скролі (URL bar hide/show)
+        if (this.device.iOS) {
+            let resizeTimer;
+            window.addEventListener('scroll', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(setViewportVars, 50);
+            });
         }
     }
 

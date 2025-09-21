@@ -415,20 +415,11 @@
 }
 
 /* ===== iOS SAFARI СПЕЦИФІКА ===== */
-@supports (-webkit-touch-callout: none) {
-    .developer-hero {
-        height: 100vh;
-        height: -webkit-fill-available;
-        min-height: 100vh;
-        min-height: -webkit-fill-available;
-    }
-
-    .dark-split-section {
-        height: 100vh;
-        height: -webkit-fill-available;
-        min-height: 100vh;
-        min-height: -webkit-fill-available;
-    }
+/* iOS Safari - використовуємо сучасний підхід */
+.ios-device .developer-hero,
+.ios-device .dark-split-section {
+    height: calc(var(--vh, 1vh) * 100);
+}
 
     .split-container {
         height: 100vh;
