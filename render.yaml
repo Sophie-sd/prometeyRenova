@@ -17,7 +17,7 @@ services:
       - key: DJANGO_SETTINGS_MODULE
         value: "prometey_project.settings"
       - key: PYTHON_VERSION
-        value: "3.11.0"
+        value: "3.13.0"
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
