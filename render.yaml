@@ -1,5 +1,6 @@
 # Render.com Configuration for PrometeyRenova
-# ВАЖЛИВО: Переконайтеся, що в Render Dashboard немає override налаштувань!
+# WORKAROUND: Створено config/ модуль для обходу Dashboard override
+# Render Dashboard має hardcoded 'config.wsgi:application' - тому створено redirect
 services:
   - type: web
     name: prometeylabs-web-prod
@@ -13,10 +14,10 @@ services:
     buildCommand: |
       ./build.sh
     startCommand: |
-      gunicorn prometey_project.wsgi:application --preload --log-file - --bind 0.0.0.0:$PORT
+      gunicorn config.wsgi:application --preload --log-file - --bind 0.0.0.0:$PORT
     envVars:
       - key: DJANGO_SETTINGS_MODULE
-        value: "prometey_project.settings"
+        value: "config.settings"
       - key: PYTHON_VERSION
         value: "3.13.0"
       - key: SECRET_KEY
