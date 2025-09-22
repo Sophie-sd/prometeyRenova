@@ -4,9 +4,8 @@
 .developer-hero {
     position: relative;
     width: 100%;
+    height: 100vh;
     min-height: 100vh;
-    max-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,9 +72,8 @@
 /* ===== DARK SPLIT SECTION 50/50 ===== */
 .dark-split-section {
     height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
+    min-height: 100vh;
     overflow: hidden;
-    /* iOS Safari viewport optimization */
     position: relative;
 }
 
@@ -216,9 +214,6 @@
 .courses-section {
     padding: var(--space-xl) 0;
     position: relative;
-    /* Safe area підтримка за замовчуванням */
-    padding-left: max(var(--space-sm), env(safe-area-inset-left, 0px));
-    padding-right: max(var(--space-sm), env(safe-area-inset-right, 0px));
 }
 
 .section-header h2 {
@@ -349,7 +344,7 @@
 /* ===== АДАПТАЦІЯ МОБІЛЬНІ (iOS Safari 2025) ===== */
 @media (max-width: 767px) {
 
-    /* Hero секція з інтеграцією mobile-core */
+    /* Hero секція - використовуємо mobile viewport */
     .developer-hero {
         height: var(--mobile-vh);
         min-height: var(--mobile-vh);
@@ -387,7 +382,7 @@
         text-align: center;
     }
 
-    /* Dark split section - фікс для iOS Safari */
+    /* Dark split section - використовуємо mobile viewport */
     .dark-split-section {
         height: var(--mobile-vh);
         min-height: var(--mobile-vh);
@@ -405,8 +400,7 @@
     .split-left {
         flex: 1;
         min-height: 0;
-        padding: var(--space-md) max(var(--space-xs), var(--mobile-safe-area-left));
-        padding-right: max(var(--space-xs), var(--mobile-safe-area-right));
+        padding: var(--space-md) var(--space-xs);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -447,8 +441,8 @@
     }
 
     .page-number {
-        top: max(var(--space-xs), var(--mobile-safe-area-top));
-        right: max(var(--space-xs), var(--mobile-safe-area-right));
+        top: var(--space-xs);
+        right: var(--space-xs);
         font-size: 20px;
     }
 
@@ -460,9 +454,8 @@
 
     /* Courses секція */
     .courses-section {
-        padding: var(--space-md) max(var(--space-xs), var(--mobile-safe-area-left));
-        padding-right: max(var(--space-xs), var(--mobile-safe-area-right));
-        padding-bottom: max(var(--space-md), var(--mobile-safe-area-bottom));
+        padding: var(--space-md) var(--space-xs);
+        padding-bottom: var(--space-md);
     }
 
     .stats-grid {
@@ -491,10 +484,8 @@
     }
 }
 
-/* ===== iOS SAFARI ОПТИМІЗАЦІЇ (2025) ===== */
-/* Використовуємо ті ж самі стилі що й звичайні мобільні */
-
-/* Performance оптимізації відео */
+/* ===== PERFORMANCE ОПТИМІЗАЦІЇ ===== */
+/* Загальні оптимізації для всіх браузерів */
 .video-background {
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
@@ -503,18 +494,18 @@
     backface-visibility: hidden;
 }
 
-/* Мінімальні iOS фікси - тільки performance та overscroll */
+/* Overscroll фікс для всіх мобільних */
 @media (max-width: 767px) {
 
-    .ios .developer-hero,
-    .ios .dark-split-section {
+    .developer-hero,
+    .dark-split-section {
         overscroll-behavior: contain;
         -webkit-overflow-scrolling: touch;
     }
 
-    /* Touch target optimization */
-    .ios .btn,
-    .ios [data-modal] {
+    /* Apple touch target стандарт */
+    .btn,
+    [data-modal] {
         min-height: 44px;
         min-width: 44px;
     }

@@ -39,6 +39,8 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <!-- Mobile system (2025) - обов'язково після base.css -->
+    <link rel="stylesheet" href="{% static 'css/components/mobile-optimizations.css' %}">
     {% block page_css %}{% endblock %}
     {% block extra_css %}{% endblock %}
 

@@ -60,11 +60,8 @@ function initDeveloperWithMobileCore() {
 
     console.log('Initializing developer page with MobileCore', { device, capabilities });
 
-    // iOS Safari - використовуємо ті ж самі стилі що й звичайні мобільні
-    if (device.iOS && device.safari) {
-        console.log('iOS Safari detected - using standard mobile styles without overrides');
-        // Не додаємо специфічних iOS оптимізацій
-    }
+    // Всі мобільні пристрої використовують однакові стилі
+    console.log('Mobile device detected:', device.isMobile ? 'Yes' : 'No');
 
     // Touch device optimizations
     if (device.isTouch) {
@@ -77,7 +74,7 @@ function initDeveloperWithMobileCore() {
     }
 }
 
-// setupIOSDeveloperOptimizations функція видалена - використовуємо стандартні мобільні стилі
+// iOS та Android використовують однакові мобільні оптимізації
 
 function setupTouchDeveloperOptimizations() {
     // Touch-friendly кнопки
