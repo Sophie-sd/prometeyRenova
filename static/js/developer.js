@@ -1,58 +1,132 @@
-/* DEVELOPER.JS - JavaScript для курсів */
+/* DEVELOPER.JS - JavaScript для курсів (2025) */
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Developer page loaded');
 
     setupCourseCards();
-    initDeveloperViewport();
+    setupDeveloperOptimizations();
+
+    // Чекаємо ініціалізації MobileCore
+    if (window.MobileCore && window.MobileCore.isInitialized()) {
+        initDeveloperWithMobileCore();
+    } else {
+        document.addEventListener('mobilecore:initialized', initDeveloperWithMobileCore);
+    }
 });
 
 function setupCourseCards() {
     const courseCards = document.querySelectorAll('.course-card');
 
     courseCards.forEach(card => {
-        card.addEventListener('mouseenter', function () {
-            this.style.transform = 'translateY(-5px)';
-        });
+        // Desktop hover effects
+        if (!('ontouchstart' in window)) {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-5px)';
+            });
 
-        card.addEventListener('mouseleave', function () {
-            this.style.transform = 'translateY(0)';
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+            });
+        }
+
+        // Mobile touch feedback integration
+        if (window.MobileCore && window.MobileCore.getDevice().isTouch) {
+            card.classList.add('mobile-touch-target');
+        }
+    });
+}
+
+function setupDeveloperOptimizations() {
+    // Performance optimizations для відео
+    const videoElements = document.querySelectorAll('.video-background');
+    videoElements.forEach(video => {
+        video.classList.add('mobile-video');
+
+        // Lazy loading для мобільних
+        if (window.MobileCore && window.MobileCore.getDevice().isMobile) {
+            video.setAttribute('preload', 'metadata');
+        }
+    });
+
+    // Оптимізація анімацій на слабких пристроях
+    if (window.MobileCore && window.MobileCore.getDevice().isLowEnd) {
+        document.documentElement.classList.add('reduce-motion');
+    }
+}
+
+function initDeveloperWithMobileCore() {
+    const device = window.MobileCore.getDevice();
+    const capabilities = window.MobileCore.getCapabilities();
+
+    console.log('Initializing developer page with MobileCore', { device, capabilities });
+
+    // iOS specific optimizations
+    if (device.iOS && device.safari) {
+        setupIOSDeveloperOptimizations();
+    }
+
+    // Touch device optimizations
+    if (device.isTouch) {
+        setupTouchDeveloperOptimizations();
+    }
+
+    // Video autoplay optimization
+    if (!capabilities.canAutoplay) {
+        setupVideoFallbacks();
+    }
+}
+
+function setupIOSDeveloperOptimizations() {
+    // Додаємо клас для CSS таргетинга
+    document.documentElement.classList.add('ios', 'safari');
+
+    // Prevent elastic scrolling для developer секцій
+    const sections = document.querySelectorAll('.developer-hero, .dark-split-section');
+    sections.forEach(section => {
+        section.addEventListener('touchmove', (e) => {
+            // Allow scrolling only within scrollable elements
+            if (!e.target.closest('[data-scrollable]')) {
+                const scrollTop = section.scrollTop;
+                const scrollHeight = section.scrollHeight;
+                const clientHeight = section.clientHeight;
+
+                // Prevent overscroll at boundaries
+                if ((scrollTop === 0 && e.deltaY < 0) ||
+                    (scrollTop + clientHeight >= scrollHeight && e.deltaY > 0)) {
+                    e.preventDefault();
+                }
+            }
+        }, { passive: false });
+    });
+}
+
+function setupTouchDeveloperOptimizations() {
+    // Touch-friendly кнопки
+    const buttons = document.querySelectorAll('.btn, [data-modal]');
+    buttons.forEach(btn => {
+        btn.classList.add('mobile-touch-target');
+    });
+
+    // Haptic feedback для course cards
+    const courseCards = document.querySelectorAll('.course-card');
+    courseCards.forEach(card => {
+        card.addEventListener('touchstart', () => {
+            if ('vibrate' in navigator) {
+                navigator.vibrate(10);
+            }
         });
     });
 }
 
-// Viewport height для iOS Safari на сторінці розробника
-function initDeveloperViewport() {
-    function setVH() {
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-        // Додатковий фікс для iOS Safari
-        const realVh = window.innerHeight;
-        document.documentElement.style.setProperty('--real-vh', `${realVh}px`);
-
-        // Фікс для developer секцій
-        const developerSections = document.querySelectorAll('.developer-hero, .dark-split-section');
-        developerSections.forEach(section => {
-            section.style.height = `${realVh}px`;
-        });
-    }
-
-    setVH();
-
-    // Покращена обробка events
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(setVH, 150);
-    });
-
-    window.addEventListener('orientationchange', () => {
-        setTimeout(setVH, 500);
-    });
-
-    // Фікс при завантаженні
-    window.addEventListener('load', () => {
-        setTimeout(setVH, 200);
+function setupVideoFallbacks() {
+    const videos = document.querySelectorAll('.video-background');
+    videos.forEach(video => {
+        const container = video.closest('.developer-hero');
+        if (container) {
+            // Додаємо fallback background
+            container.style.backgroundImage = 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23000\'/%3E%3C/svg%3E")';
+            container.style.backgroundSize = 'cover';
+            container.style.backgroundPosition = 'center';
+        }
     });
 } 

@@ -75,12 +75,16 @@
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
     overflow: hidden;
+    /* iOS Safari viewport optimization */
+    position: relative;
 }
 
 .split-container {
     display: grid;
     grid-template-columns: 50% 50%;
     height: 100%;
+    /* iOS Safari optimization */
+    min-height: 0;
 }
 
 /* Ліва частина - чорна */
@@ -212,6 +216,9 @@
 .courses-section {
     padding: var(--space-xl) 0;
     position: relative;
+    /* Safe area підтримка за замовчуванням */
+    padding-left: max(var(--space-sm), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--space-sm), env(safe-area-inset-right, 0px));
 }
 
 .section-header h2 {
@@ -339,52 +346,101 @@
     }
 }
 
-/* ===== АДАПТАЦІЯ МОБІЛЬНІ (iOS Safari) ===== */
+/* ===== АДАПТАЦІЯ МОБІЛЬНІ (iOS Safari 2025) ===== */
 @media (max-width: 767px) {
+
+    /* Hero секція з інтеграцією mobile-core */
     .developer-hero {
-        min-height: 100vh;
-        min-height: calc(var(--vh, 1vh) * 100);
+        height: var(--mobile-vh);
+        min-height: var(--mobile-vh);
     }
 
     .hero-content {
         padding: var(--space-md) 0;
     }
 
+    .hero-text {
+        /* Safe area підтримка */
+        padding-left: max(var(--space-xs), var(--mobile-safe-area-left));
+        padding-right: max(var(--space-xs), var(--mobile-safe-area-right));
+    }
+
     .hero-text h1 {
         font-size: 50px;
+        line-height: 0.9;
+        letter-spacing: -1px;
         margin-bottom: var(--space-md);
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        -webkit-font-smoothing: antialiased;
     }
 
     .hero-text p {
         font-size: 16px;
+        line-height: 1.4;
         margin-bottom: var(--space-md);
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     }
 
+    /* Dark split section - фікс для iOS Safari */
     .dark-split-section {
-        height: auto;
-        min-height: 100vh;
-        min-height: -webkit-fill-available;
+        height: var(--mobile-vh);
+        min-height: var(--mobile-vh);
+        overflow: hidden;
     }
 
     .split-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: 80% 20%;
-        min-height: 100vh;
+        height: var(--mobile-vh);
+        min-height: var(--mobile-vh);
+        display: flex;
+        flex-direction: column;
+        /* Замість grid використовуємо flexbox для кращого контролю на iOS */
     }
 
     .split-left {
-        padding: var(--space-md) var(--space-xs);
+        flex: 1;
+        min-height: 0;
+        padding: var(--space-md) max(var(--space-xs), var(--mobile-safe-area-left));
+        padding-right: max(var(--space-xs), var(--mobile-safe-area-right));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .split-right {
+        flex: 0 0 30%;
+        min-height: 0;
     }
 
     .dark-content {
         max-width: 100%;
+        width: 100%;
+    }
+
+    .dark-content h1 {
+        font-size: 40px;
+        line-height: 0.9;
+        letter-spacing: -1px;
+        margin-bottom: var(--space-sm);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .dark-content h2 {
+        font-size: 18px;
+        line-height: 1.2;
+        margin-bottom: var(--space-sm);
+    }
+
+    .dark-content .features-list {
+        margin: var(--space-sm) 0;
+    }
+
+    .dark-content .feature-item {
+        margin-bottom: var(--space-xs);
     }
 
     .page-number {
-        top: var(--space-xs);
-        right: var(--space-xs);
+        top: max(var(--space-xs), var(--mobile-safe-area-top));
+        right: max(var(--space-xs), var(--mobile-safe-area-right));
         font-size: 20px;
     }
 
@@ -392,6 +448,13 @@
         font-size: 20px;
         line-height: 1.2;
         max-width: 95%;
+    }
+
+    /* Courses секція */
+    .courses-section {
+        padding: var(--space-md) max(var(--space-xs), var(--mobile-safe-area-left));
+        padding-right: max(var(--space-xs), var(--mobile-safe-area-right));
+        padding-bottom: max(var(--space-md), var(--mobile-safe-area-bottom));
     }
 
     .stats-grid {
@@ -409,88 +472,92 @@
         gap: var(--space-sm);
     }
 
-    .courses-section {
-        padding: var(--space-md) 0;
+    .course-card {
+        /* Touch optimizations */
+        min-height: 44px;
+    }
+
+    .course-card .btn {
+        min-height: 44px;
+        padding: 12px 16px;
     }
 }
 
-/* ===== iOS SAFARI СПЕЦИФІКА ===== */
-/* iOS Safari - використовуємо сучасний підхід */
-.ios-device .developer-hero,
-.ios-device .dark-split-section {
-    height: calc(var(--vh, 1vh) * 100);
+/* ===== iOS SAFARI СПЕЦИФІКА (2025) ===== */
+/* Використовуємо mobile-core систему */
+.ios.safari .developer-hero,
+.ios.safari .dark-split-section {
+    height: var(--mobile-vh);
+    min-height: var(--mobile-vh);
 }
 
-    .split-container {
-        height: 100vh;
-        height: -webkit-fill-available;
-        min-height: 100vh;
-        min-height: -webkit-fill-available;
-    }
+/* Performance оптимізації відео */
+.video-background {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
 
-    .video-background {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        will-change: transform;
-    }
-
-    /* Фікси для мобільної версії iOS Safari */
+/* iOS specific viewport handling */
+@supports (height: 100dvh) {
     @media (max-width: 767px) {
-        .developer-hero {
-            height: 100vh;
-            height: -webkit-fill-available;
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
+
+        .ios .developer-hero,
+        .ios .dark-split-section {
+            height: 100dvh;
+            min-height: 100dvh;
         }
 
-        .hero-text h1 {
-            font-size: 50px;
-            line-height: 0.9;
-            letter-spacing: -1px;
-            margin-bottom: var(--space-md);
-            -webkit-font-smoothing: antialiased;
+        .ios .split-container {
+            height: 100dvh;
+            min-height: 100dvh;
         }
+    }
+}
 
-        .hero-text p {
-            font-size: 16px;
-            line-height: 1.4;
-            margin-bottom: var(--space-md);
-        }
+/* Overscroll behavior для iOS */
+@media (max-width: 767px) {
 
-        .dark-split-section {
-            height: auto;
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
-        }
+    .ios .developer-hero,
+    .ios .dark-split-section {
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
 
-        .split-container {
-            grid-template-columns: 1fr;
-            grid-template-rows: 80% 20%;
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
-        }
+    /* Fix для elastic scroll */
+    .ios .split-container {
+        position: relative;
+        overflow: hidden;
+    }
 
-        .split-left {
-            padding: var(--space-md) max(var(--space-xs), env(safe-area-inset-left));
-            padding-right: max(var(--space-xs), env(safe-area-inset-right));
-        }
+    /* Додаткові safe area оптимізації */
+    .ios .developer-hero .hero-text {
+        padding-top: max(var(--space-md), env(safe-area-inset-top, 0px));
+    }
 
-        .dark-content h1 {
-            font-size: 40px;
-            line-height: 0.9;
-            letter-spacing: -1px;
-            -webkit-font-smoothing: antialiased;
-        }
+    .ios .split-left .page-number {
+        top: max(var(--space-xs), env(safe-area-inset-top, 0px));
+        right: max(var(--space-xs), env(safe-area-inset-right, 0px));
+    }
 
-        .dark-content h2 {
-            font-size: 18px;
-            line-height: 1.2;
-        }
+    /* Container optimizations для safe area */
+    .ios .container {
+        padding-left: max(var(--space-xs), env(safe-area-inset-left, 0px));
+        padding-right: max(var(--space-xs), env(safe-area-inset-right, 0px));
+    }
 
-        .courses-section {
-            padding-left: max(var(--space-xs), env(safe-area-inset-left));
-            padding-right: max(var(--space-xs), env(safe-area-inset-right));
-            padding-bottom: max(var(--space-md), env(safe-area-inset-bottom));
-        }
+    /* Кнопки та touch targets */
+    .ios .btn,
+    .ios [data-modal] {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px 16px;
+    }
+
+    /* Відступи від bottom safe area */
+    .ios .courses-section {
+        padding-bottom: max(var(--space-md), calc(env(safe-area-inset-bottom, 0px) + var(--space-md)));
     }
 }

@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <!-- iOS Safari оптимізований viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- Відключення кешування для розробки -->
@@ -38,6 +39,8 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <!-- Mobile optimizations (2025) - має підключатися перед сторінковими стилями -->
+    <link rel="stylesheet" href="{% static 'css/components/mobile-optimizations.css' %}">
     {% block page_css %}{% endblock %}
     {% block extra_css %}{% endblock %}
 
