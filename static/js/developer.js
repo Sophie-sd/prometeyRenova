@@ -60,9 +60,10 @@ function initDeveloperWithMobileCore() {
 
     console.log('Initializing developer page with MobileCore', { device, capabilities });
 
-    // iOS specific optimizations
+    // iOS Safari - використовуємо ті ж самі стилі що й звичайні мобільні
     if (device.iOS && device.safari) {
-        setupIOSDeveloperOptimizations();
+        console.log('iOS Safari detected - using standard mobile styles without overrides');
+        // Не додаємо специфічних iOS оптимізацій
     }
 
     // Touch device optimizations
@@ -76,29 +77,7 @@ function initDeveloperWithMobileCore() {
     }
 }
 
-function setupIOSDeveloperOptimizations() {
-    // Додаємо клас для CSS таргетинга
-    document.documentElement.classList.add('ios', 'safari');
-
-    // Prevent elastic scrolling для developer секцій
-    const sections = document.querySelectorAll('.developer-hero, .dark-split-section');
-    sections.forEach(section => {
-        section.addEventListener('touchmove', (e) => {
-            // Allow scrolling only within scrollable elements
-            if (!e.target.closest('[data-scrollable]')) {
-                const scrollTop = section.scrollTop;
-                const scrollHeight = section.scrollHeight;
-                const clientHeight = section.clientHeight;
-
-                // Prevent overscroll at boundaries
-                if ((scrollTop === 0 && e.deltaY < 0) ||
-                    (scrollTop + clientHeight >= scrollHeight && e.deltaY > 0)) {
-                    e.preventDefault();
-                }
-            }
-        }, { passive: false });
-    });
-}
+// setupIOSDeveloperOptimizations функція видалена - використовуємо стандартні мобільні стилі
 
 function setupTouchDeveloperOptimizations() {
     // Touch-friendly кнопки

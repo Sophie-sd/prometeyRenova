@@ -818,11 +818,8 @@ body {
         font-size: 16px;
     }
 
-    /* iOS Safari viewport fixes */
     .container {
         padding: 0 var(--space-xs);
-        padding-left: max(var(--space-xs), env(safe-area-inset-left));
-        padding-right: max(var(--space-xs), env(safe-area-inset-right));
     }
 
     .main-navigation {
