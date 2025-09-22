@@ -6,12 +6,13 @@
     width: 100%;
     /* ВИПРАВЛЕНО: Сучасний viewport підхід */
     height: 100vh;
-    height: calc(var(--vh, 1vh) * 100); /* Динамічний iOS Safari viewport */
+    height: calc(var(--vh, 1vh) * 100);
+    /* Динамічний iOS Safari viewport */
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    
+
     /* Fallback gradient якщо відео не завантажується */
     background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
 }
