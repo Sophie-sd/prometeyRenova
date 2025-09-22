@@ -67,10 +67,16 @@ else:
     # Найпростіші налаштування для WhiteNoise (100% працює)
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
     
-    # Мінімальні WhiteNoise налаштування
+    # WhiteNoise налаштування з compression та optimization
     WHITENOISE_USE_FINDERS = True
     WHITENOISE_AUTOREFRESH = True
     WHITENOISE_MAX_AGE = 31536000
+    
+    # Compression налаштування (БЕЗПЕЧНО - не змінює URL структуру) 
+    WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'zip', 'gz', 'bz2']
+    
+    # Гарні cache headers для performance (БЕЗПЕЧНО)
+    WHITENOISE_IMMUTABLE_FILE_TEST = lambda path, url: url.startswith('/static/') and ('.' in url)
 
 # === SECURITY CONFIGURATION ===
 

@@ -61,7 +61,11 @@ def events_list(request):
 def event_detail(request, slug):
     """Детальна сторінка події"""
     try:
-        event = get_object_or_404(Event, slug=slug, is_published=True)
+        event = get_object_or_404(
+            Event.objects.select_related('category'), 
+            slug=slug, 
+            is_published=True
+        )
     except Exception:
         # Fallback якщо таблиця не існує
         from django.http import Http404
@@ -80,7 +84,7 @@ def event_detail(request, slug):
     
     # Схожі події
     try:
-        similar_events = Event.objects.filter(
+        similar_events = Event.objects.select_related('category').filter(
             is_published=True,
             category=event.category
         ).exclude(id=event.id)[:3]
@@ -103,7 +107,11 @@ def event_registration(request, event_id):
     """Реєстрація на подію"""
     if request.method == 'POST':
         try:
-            event = get_object_or_404(Event, id=event_id, is_published=True)
+            event = get_object_or_404(
+                Event.objects.select_related('category'), 
+                id=event_id, 
+                is_published=True
+            )
         except Exception:
             messages.error(request, 'Подію не знайдено.')
             return redirect('events_list')

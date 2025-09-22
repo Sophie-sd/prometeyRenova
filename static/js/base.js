@@ -1,7 +1,24 @@
 /* BASE.JS - Базовий JavaScript для PrometeyLabs */
 
+// Performance monitoring (безпечне логування)
+window.PrometeyPerformance = {
+    start: Date.now(),
+    marks: {},
+
+    mark(name) {
+        this.marks[name] = Date.now() - this.start;
+    },
+
+    log() {
+        if (typeof console !== 'undefined' && console.log) {
+            console.log('PrometeyLabs Performance:', this.marks);
+        }
+    }
+};
+
 class PrometeyApp {
     constructor() {
+        window.PrometeyPerformance.mark('app-constructor');
         this.init();
     }
 
@@ -17,17 +34,21 @@ class PrometeyApp {
     }
 
     initWithMobileCore() {
+        window.PrometeyPerformance.mark('init-start');
+
         this.device = window.MobileCore?.getDevice() || {};
         this.capabilities = window.MobileCore?.getCapabilities() || {};
 
         // КРИТИЧНО: Встановлюємо viewport змінні для iOS
         this.setupViewportVars();
-        
+
         this.setupEventListeners();
         this.setupScrollNavigation();
         this.setupMobileMenu();
         this.setupModals();
         this.setupAnimations();
+
+        window.PrometeyPerformance.mark('init-complete');
 
         // Застарілі iOS фікси замінено на MobileCore
         if (!window.MobileCore) {
@@ -41,16 +62,16 @@ class PrometeyApp {
         const setViewportVars = () => {
             const vh = window.innerHeight * 0.01;
             const vw = window.innerWidth * 0.01;
-            
+
             document.documentElement.style.setProperty('--vh', `${vh}px`);
             document.documentElement.style.setProperty('--vw', `${vw}px`);
-            
+
             // Для iOS Safari - враховуємо URL bar
             if (this.device.iOS) {
                 const availableHeight = window.innerHeight;
                 document.documentElement.style.setProperty('--mobile-vh', `${availableHeight}px`);
                 document.body.classList.add('ios-device');
-                
+
                 // URL bar detection
                 if (availableHeight !== screen.height) {
                     document.body.classList.add('ios-url-bar-visible');
@@ -105,9 +126,17 @@ class PrometeyApp {
     }
 
     onDOMReady() {
+        window.PrometeyPerformance.mark('dom-ready');
         console.log('PrometeyLabs готово до роботи');
+
         this.setupForms();
         this.setupSmoothScroll();
+
+        // Логування performance через 2 секунди (після завантаження)
+        setTimeout(() => {
+            window.PrometeyPerformance.mark('page-loaded');
+            window.PrometeyPerformance.log();
+        }, 2000);
     }
 
     // ===== НАВІГАЦІЯ З ПРОЗОРІСТЮ =====

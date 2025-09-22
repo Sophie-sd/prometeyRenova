@@ -3,9 +3,20 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.csrf import csrf_exempt
+from django.core.cache import cache
 
 from .models import PaymentLink, PaymentSettings
 from .monobank_service import MonobankAcquiringService
+
+
+def get_payment_settings():
+    """Кешована функція для отримання PaymentSettings (оптимізація)"""
+    settings = cache.get('payment_settings')
+    if settings is None:
+        settings = PaymentSettings.objects.first()
+        # Кешуємо на 1 годину (settings рідко змінюються)
+        cache.set('payment_settings', settings, 3600)
+    return settings
 
 
 def payment_page(request: HttpRequest, unique_id):
@@ -22,7 +33,7 @@ def payment_page(request: HttpRequest, unique_id):
         payment_link.save(update_fields=['status'])
         return render(request, 'payment/link_inactive.html', {'payment_link': payment_link})
 
-    payment_settings = PaymentSettings.objects.first()
+    payment_settings = get_payment_settings()
     return render(request, 'payment/payment_page.html', {
         'payment_link': payment_link,
         'payment_settings': payment_settings,
