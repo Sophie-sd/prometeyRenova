@@ -35,24 +35,20 @@ function isMobile() {
 // =================================
 
 function initViewportHeight() {
-    function updateVH() {
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-        // Також оновити активну секцію при зміні viewport
+    function updateActiveOnViewportChange() {
+        // Viewport встановлює base.js/MobileCore, ми тільки оновлюємо активну секцію
         setTimeout(updateActiveSection, 150);
     }
 
-    // Оновити при завантаженні
-    updateVH();
+    // Оновити активну секцію при завантаженні
+    setTimeout(updateActiveSection, 150);
 
     // Оновити при зміні розміру з дебаунсом
     let resizeTimeout;
     window.addEventListener('resize', function () {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            updateVH();
-            updateActiveSection();
+            updateActiveOnViewportChange();
         }, 100);
     });
 
@@ -60,8 +56,7 @@ function initViewportHeight() {
     if (navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
         window.addEventListener('orientationchange', function () {
             setTimeout(() => {
-                updateVH();
-                updateActiveSection();
+                updateActiveOnViewportChange();
             }, 150);
         });
     }
