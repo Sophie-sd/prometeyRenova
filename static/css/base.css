@@ -240,6 +240,17 @@ body {
     margin-left: var(--space-xs);
 }
 
+/* DESKTOP NAVIGATION ГАРАНТІЇ */
+@media (min-width: 768px) {
+    .nav-menu {
+        display: flex !important;
+    }
+
+    .burger-menu {
+        display: none !important;
+    }
+}
+
 /* ===== BURGER MENU ===== */
 .burger-menu {
     display: none;
