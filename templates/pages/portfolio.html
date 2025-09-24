@@ -2,20 +2,26 @@
 {% load static %}
 
 {% block title %}Портфоліо - Prometey{% endblock %}
-{% block description %}Наше портфоліо веб-сайтів під ключ. Приклади сучасних веб-рішень для різних сфер бізнесу.{% endblock %}
+{% block description %}Наше портфоліо веб-сайтів під ключ. Приклади сучасних веб-рішень для різних сфер бізнесу.{%
+endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+<!-- Preload критичних ресурсів -->
+<link rel="preload" href="{% static 'videos/desktop/portfolio.mp4' %}" as="video" type="video/mp4"
+    media="(min-width: 768px)">
+<link rel="preload" href="{% static 'videos/mobile/portfoliomobile.mp4' %}" as="video" type="video/mp4"
+    media="(max-width: 767px)">
 {% endblock %}
 
 {% block content %}
 <!-- Hero секція -->
 <section class="portfolio-hero">
     <div class="hero-bg-video">
-        <video autoplay muted loop playsinline class="hero-video desktop-hero-video">
+        <video autoplay muted loop playsinline preload="auto" class="hero-video desktop-hero-video">
             <source src="{% static 'videos/desktop/portfolio.mp4' %}" type="video/mp4">
         </video>
-        <video autoplay muted loop playsinline class="hero-video mobile-hero-video">
+        <video autoplay muted loop playsinline preload="auto" class="hero-video mobile-hero-video">
             <source src="{% static 'videos/mobile/portfoliomobile.mp4' %}" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
@@ -32,11 +38,13 @@
     <div class="project-section" data-project="1">
         <div class="project-content">
             <div class="project-video">
-                <video autoplay muted loop playsinline class="desktop-video">
-                    <source src="{% static 'videos/projects/desktop/douit.mp4' %}" type="video/mp4">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/douit.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/douit.mp4' %}" type="video/mp4">
                 </video>
-                <video autoplay muted loop playsinline class="mobile-video">
-                    <source src="{% static 'videos/projects/mobile/douit_mb.mp4' %}" type="video/mp4">
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/douit_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/douit_mb.mp4' %}" type="video/mp4">
                 </video>
             </div>
             <div class="project-info">
@@ -50,11 +58,13 @@
     <div class="project-section" data-project="2">
         <div class="project-content">
             <div class="project-video">
-                <video autoplay muted loop playsinline class="desktop-video">
-                    <source src="{% static 'videos/projects/desktop/framejorney.mp4' %}" type="video/mp4">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/framejorney.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/framejorney.mp4' %}" type="video/mp4">
                 </video>
-                <video autoplay muted loop playsinline class="mobile-video">
-                    <source src="{% static 'videos/projects/mobile/framejorney_mb.mp4' %}" type="video/mp4">
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/framejorney_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/framejorney_mb.mp4' %}" type="video/mp4">
                 </video>
             </div>
             <div class="project-info">
@@ -68,11 +78,13 @@
     <div class="project-section" data-project="3">
         <div class="project-content">
             <div class="project-video">
-                <video autoplay muted loop playsinline class="desktop-video">
-                    <source src="{% static 'videos/projects/desktop/guide.mp4' %}" type="video/mp4">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/guide.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/guide.mp4' %}" type="video/mp4">
                 </video>
-                <video autoplay muted loop playsinline class="mobile-video">
-                    <source src="{% static 'videos/projects/mobile/guidewhitenergy_mb.mp4' %}" type="video/mp4">
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/guidewhitenergy_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/guidewhitenergy_mb.mp4' %}" type="video/mp4">
                 </video>
             </div>
             <div class="project-info">
@@ -86,11 +98,13 @@
     <div class="project-section" data-project="4">
         <div class="project-content">
             <div class="project-video">
-                <video autoplay muted loop playsinline class="desktop-video">
-                    <source src="{% static 'videos/projects/desktop/polygraph.mp4' %}" type="video/mp4">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/polygraph.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/polygraph.mp4' %}" type="video/mp4">
                 </video>
-                <video autoplay muted loop playsinline class="mobile-video">
-                    <source src="{% static 'videos/projects/mobile/polygraph_mb.mp4' %}" type="video/mp4">
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/polygraph_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/polygraph_mb.mp4' %}" type="video/mp4">
                 </video>
             </div>
             <div class="project-info">
@@ -104,11 +118,13 @@
     <div class="project-section" data-project="5">
         <div class="project-content">
             <div class="project-video">
-                <video autoplay muted loop playsinline class="desktop-video">
-                    <source src="{% static 'videos/projects/desktop/prometeylabs.mp4' %}" type="video/mp4">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/prometeylabs.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/prometeylabs.mp4' %}" type="video/mp4">
                 </video>
-                <video autoplay muted loop playsinline class="mobile-video">
-                    <source src="{% static 'videos/projects/mobile/prometeylabs_mb.mp4' %}" type="video/mp4">
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/prometeylabs_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/prometeylabs_mb.mp4' %}" type="video/mp4">
                 </video>
             </div>
             <div class="project-info">
@@ -122,11 +138,13 @@
     <div class="project-section" data-project="6">
         <div class="project-content">
             <div class="project-video">
-                <video autoplay muted loop playsinline class="desktop-video">
-                    <source src="{% static 'videos/projects/desktop/pulvas.mp4' %}" type="video/mp4">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/pulvas.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/pulvas.mp4' %}" type="video/mp4">
                 </video>
-                <video autoplay muted loop playsinline class="mobile-video">
-                    <source src="{% static 'videos/projects/mobile/pulvasshop_mb.mp4' %}" type="video/mp4">
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/pulvasshop_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/pulvasshop_mb.mp4' %}" type="video/mp4">
                 </video>
             </div>
             <div class="project-info">
@@ -139,5 +157,10 @@
 {% endblock %}
 
 {% block extra_js %}
+<!-- Відключити VideoSystem для портфоліо - у нас власна відео логіка -->
+<script>
+    window.VideoSystemDisabled = true;
+    console.log('Portfolio: VideoSystem disabled for custom lazy loading');
+</script>
 <script src="{% static 'js/portfolio.js' %}" defer></script>
 {% endblock %}

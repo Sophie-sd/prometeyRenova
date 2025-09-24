@@ -12,15 +12,45 @@ let scrollTimeout = null;
 // ІНІЦІАЛІЗАЦІЯ
 // =================================
 
-document.addEventListener('DOMContentLoaded', function () {
+// ПРАВИЛЬНА ІНІЦІАЛІЗАЦІЯ - чекаємо MobileCore
+function initPortfolio() {
     initViewportHeight();
     initStickyScroll();
     initIOSOptimizations();
     initProjectButtons();
     initScrollOptimizations();
 
-    console.log('Portfolio page initialized');
-});
+    console.log('Portfolio page initialized with MobileCore support');
+}
+
+// Чекаємо ініціалізації MobileCore або fallback до DOMContentLoaded
+if (window.MobileCore && typeof window.MobileCore.isInitialized === 'function' && window.MobileCore.isInitialized()) {
+    // MobileCore вже готовий
+    console.log('Portfolio: MobileCore already initialized');
+    document.addEventListener('DOMContentLoaded', initPortfolio);
+} else {
+    console.log('Portfolio: Waiting for MobileCore or using fallback');
+    // Чекаємо події MobileCore або fallback
+    let portfolioInitialized = false;
+
+    document.addEventListener('mobilecore:initialized', function () {
+        if (!portfolioInitialized) {
+            portfolioInitialized = true;
+            initPortfolio();
+        }
+    });
+
+    // Fallback якщо MobileCore не завантажився через 2 секунди
+    document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(() => {
+            if (!portfolioInitialized) {
+                console.warn('Portfolio: MobileCore timeout, initializing without it');
+                portfolioInitialized = true;
+                initPortfolio();
+            }
+        }, 2000);
+    });
+}
 
 // ===== UTILITY FUNCTIONS =====
 function isMobile() {
@@ -45,11 +75,13 @@ function initViewportHeight() {
     setTimeout(updateActiveSection, 100);
 
     // Слухаємо події від MobileCore замість дублювання обробників
-    if (window.MobileCore && window.MobileCore.isInitialized()) {
+    if (window.MobileCore && typeof window.MobileCore.isInitialized === 'function' && window.MobileCore.isInitialized()) {
         // MobileCore вже керує viewport - тільки реагуємо на зміни
         document.addEventListener('mobilecore:viewportchange', updateActiveOnViewportChange);
+        console.log('Portfolio: Using MobileCore viewport events');
     } else {
         // Fallback якщо MobileCore недоступний
+        console.log('Portfolio: Using fallback viewport handling');
         let resizeTimeout;
         window.addEventListener('resize', function () {
             clearTimeout(resizeTimeout);
@@ -90,8 +122,9 @@ function initStickyScroll() {
     }, { passive: true });
 
     // Оновлення при зміні розміру (тільки якщо MobileCore не керує цим)
-    if (!window.MobileCore || !window.MobileCore.isInitialized()) {
+    if (!window.MobileCore || typeof window.MobileCore.isInitialized !== 'function' || !window.MobileCore.isInitialized()) {
         window.addEventListener('resize', debounce(updateActiveSection, 150), { passive: true });
+        console.log('Portfolio: Added fallback resize listener');
     }
 }
 
@@ -112,19 +145,70 @@ function updateActiveSection() {
         projectSections.length - 1
     );
 
-    // СПРОЩЕНА логіка активації секцій
+    // ОПТИМІЗОВАНА логіка активації секцій з lazy loading відео
     projectSections.forEach((section, index) => {
         const isActive = index === currentSectionIndex && scrollTop >= heroHeight;
 
-        // Просто додаємо/видаляємо клас без складної відео логіки
         if (isActive && !section.classList.contains('active')) {
             section.classList.add('active');
+
+            // LAZY LOAD відео тільки для активної секції
+            loadVideoForSection(section);
         } else if (!isActive && section.classList.contains('active')) {
             section.classList.remove('active');
+
+            // Паузимо відео в неактивних секціях для економії ресурсів
+            pauseVideoForSection(section);
         }
     });
+}
 
-    // ВИДАЛЕНО всю складну відео логіку - викликала тормоза
+// ===== LAZY LOADING ВІДЕО =====
+function loadVideoForSection(section) {
+    const videos = section.querySelectorAll('video.lazy-video');
+    const isMobile = window.innerWidth <= 767;
+
+    videos.forEach(video => {
+        // Завантажуємо тільки потрібне відео (mobile/desktop)
+        const shouldLoad = (isMobile && video.classList.contains('mobile-video')) ||
+            (!isMobile && video.classList.contains('desktop-video'));
+
+        if (shouldLoad && video.hasAttribute('data-src')) {
+            // Переносимо src з data-src
+            const dataSrc = video.getAttribute('data-src');
+            const source = video.querySelector('source');
+
+            if (source && source.hasAttribute('data-src')) {
+                source.src = source.getAttribute('data-src');
+                source.removeAttribute('data-src');
+            }
+
+            video.src = dataSrc;
+            video.removeAttribute('data-src');
+            video.classList.remove('lazy-video');
+
+            // Починаємо відтворення після завантаження
+            video.addEventListener('loadeddata', () => {
+                if (section.classList.contains('active')) {
+                    video.play().catch(() => {
+                        console.log('Autoplay prevented for video in section', section);
+                    });
+                }
+            }, { once: true });
+
+            // Завантажуємо відео
+            video.load();
+        }
+    });
+}
+
+function pauseVideoForSection(section) {
+    const videos = section.querySelectorAll('video:not(.lazy-video)');
+    videos.forEach(video => {
+        if (!video.paused) {
+            video.pause();
+        }
+    });
 }
 
 // =================================
@@ -235,39 +319,50 @@ function initScrollOptimizations() {
 }
 
 function initVideoOptimizations() {
-    const videos = document.querySelectorAll('.project-video video');
-    const isMobile = window.innerWidth <= 767;
+    console.log('Portfolio: Video optimization initialized with lazy loading');
 
-    videos.forEach(video => {
-        // СПРОЩЕНА логіка для кращої продуктивності
-        if (isMobile) {
-            // На мобільних - мінімальні налаштування для швидкодії
-            video.setAttribute('preload', 'none'); // Не завантажуємо відео заздалегідь
-            video.setAttribute('muted', 'true');
-            video.removeAttribute('autoplay'); // Відключаємо autoplay на мобільних
-        } else {
-            // На десктопі - можемо дозволити більше
-            video.setAttribute('preload', 'metadata');
-            video.setAttribute('muted', 'true');
-        }
-
-        // Простий контроль завантаження без надмірної логіки
+    // Hero відео завантажуємо одразу (тільки одне буде видиме)
+    const heroVideos = document.querySelectorAll('.hero-video');
+    heroVideos.forEach(video => {
         video.addEventListener('loadeddata', function () {
             this.classList.add('loaded');
+            console.log('Hero video loaded:', video.className);
         }, { once: true });
-
-        // ВИДАЛЕНО INTERSECTION OBSERVER - викликав конфлікти
-        // Замість цього використовуємо просту логіку в updateActiveSection
     });
+
+    // Project відео будуть завантажені через lazy loading в updateActiveSection
+    const projectVideos = document.querySelectorAll('.project-video video.lazy-video');
+    console.log(`Portfolio: ${projectVideos.length} project videos will be lazy loaded`);
+
+    // Предзавантажити перше відео для кращого UX
+    setTimeout(() => {
+        const firstSection = document.querySelector('.project-section[data-project="1"]');
+        if (firstSection) {
+            console.log('Portfolio: Pre-loading first project video');
+            loadVideoForSection(firstSection);
+        }
+    }, 2000); // Через 2 секунди після завантаження сторінки
 }
 
 function preloadCriticalResources() {
-    // Preload критичних стилів
-    const criticalCSS = document.querySelector('link[href*="portfolio.css"]');
-    if (criticalCSS) {
-        criticalCSS.setAttribute('rel', 'preload');
-        criticalCSS.setAttribute('as', 'style');
-        criticalCSS.setAttribute('onload', "this.onload=null;this.rel='stylesheet'");
+    console.log('Portfolio: Critical resources preloaded via HTML preload tags');
+
+    // Перевіряємо чи завантажились критичні відео
+    const isMobile = window.innerWidth <= 767;
+    const heroVideoSrc = isMobile ?
+        '/static/videos/mobile/portfoliomobile.mp4' :
+        '/static/videos/desktop/portfolio.mp4';
+
+    // Простий метод перевірки готовності відео
+    const heroVideo = document.querySelector(isMobile ? '.mobile-hero-video' : '.desktop-hero-video');
+    if (heroVideo && heroVideo.readyState < 2) {
+        console.log('Portfolio: Waiting for hero video to load...');
+        heroVideo.addEventListener('canplaythrough', () => {
+            console.log('Portfolio: Hero video ready');
+            document.body.classList.add('portfolio-ready');
+        }, { once: true });
+    } else {
+        document.body.classList.add('portfolio-ready');
     }
 }
 
