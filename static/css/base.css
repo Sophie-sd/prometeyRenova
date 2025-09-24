@@ -1134,12 +1134,6 @@ body {
     display: block;
 }
 
-/* Застарілі iOS фікси видалено - використовуйте класи з mobile-optimizations.css:
- * .mobile-full-height - замість .full-height
- * .mobile-touch-target - замість .ios-fix
- * .mobile-safe-area - для safe areas
- */
-
 /* ===== ДЕКОРАТИВНІ ЕЛЕМЕНТИ СИСТЕМИ ===== */
 .decorative-star {
     position: absolute;
@@ -1210,13 +1204,11 @@ body {
     opacity: 0.4;
 }
 
-/* Збільшення відступів для заголовків згідно STYLE.MDC */
-.text-mega {
-    margin-top: var(--space-xl);
-    margin-bottom: var(--space-xl);
-}
-
-.text-large {
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-lg);
+/* ===== ФІКС: Повернення .full-height для сумісності ===== */
+.full-height {
+    height: 100vh;
+    min-height: 100vh;
+    /* iOS Safari фікс з fallback */
+    height: var(--mobile-vh, 100vh);
+    min-height: var(--mobile-vh, 100vh);
 }
