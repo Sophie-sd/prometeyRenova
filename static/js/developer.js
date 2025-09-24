@@ -40,11 +40,15 @@ function setupDeveloperOptimizations() {
     // Performance optimizations для відео
     const videoElements = document.querySelectorAll('.video-background');
     videoElements.forEach(video => {
-        video.classList.add('mobile-video');
+        // ВИДАЛЕНО ПРОБЛЕМНИЙ КОД: video.classList.add('mobile-video');
+        // Тепер CSS правила .desktop-video/.mobile-video працюватимуть правильно
 
         // Lazy loading для мобільних
         if (window.MobileCore && window.MobileCore.getDevice().isMobile) {
             video.setAttribute('preload', 'metadata');
+        } else {
+            // Для desktop - повне завантаження
+            video.setAttribute('preload', 'auto');
         }
     });
 
@@ -68,9 +72,10 @@ function initDeveloperWithMobileCore() {
         setupTouchDeveloperOptimizations();
     }
 
-    // Video autoplay optimization
+    // Video autoplay optimization - тільки якщо не підтримується
     if (!capabilities.canAutoplay) {
-        setupVideoFallbacks();
+        console.log('Autoplay not supported, video will require user interaction');
+        // ВИДАЛЕНО: setupVideoFallbacks(); - дозволяємо відео показуватись
     }
 }
 
@@ -94,15 +99,4 @@ function setupTouchDeveloperOptimizations() {
     });
 }
 
-function setupVideoFallbacks() {
-    const videos = document.querySelectorAll('.video-background');
-    videos.forEach(video => {
-        const container = video.closest('.developer-hero');
-        if (container) {
-            // Додаємо fallback background
-            container.style.backgroundImage = 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23000\'/%3E%3C/svg%3E")';
-            container.style.backgroundSize = 'cover';
-            container.style.backgroundPosition = 'center';
-        }
-    });
-} 
+// ФУНКЦІЯ setupVideoFallbacks ВИДАЛЕНА - дозволяємо відео працювати

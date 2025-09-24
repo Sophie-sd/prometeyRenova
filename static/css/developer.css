@@ -295,15 +295,8 @@
         min-height: 80vh;
     }
 
-    .hero-text h1 {
-        font-size: 80px;
-        margin-bottom: var(--space-lg);
-    }
-
-    .hero-text p {
-        font-size: 18px;
-        margin-bottom: var(--space-lg);
-    }
+    /* ВИДАЛЕНО КОНФЛІКТНІ ПРАВИЛА для .hero-text h1 та p */
+    /* Тепер використовуються базові класи .text-mega та .text-large */
 
     .split-left {
         padding: var(--space-md);
