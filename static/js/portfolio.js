@@ -31,34 +31,30 @@ function isMobile() {
 }
 
 // =================================
-// VIEWPORT HEIGHT ДЛЯ iOS SAFARI
+// VIEWPORT HEIGHT - ВИКОРИСТОВУЄМО MOBILECORE
 // =================================
 
 function initViewportHeight() {
+    // Делегуємо viewport управління MobileCore
+    // Тільки оновлюємо активну секцію при зміні viewport
     function updateActiveOnViewportChange() {
-        // Viewport встановлює base.js/MobileCore, ми тільки оновлюємо активну секцію
-        setTimeout(updateActiveSection, 150);
+        setTimeout(updateActiveSection, 100);
     }
 
-    // Оновити активну секцію при завантаженні
-    setTimeout(updateActiveSection, 150);
+    // Початкове оновлення
+    setTimeout(updateActiveSection, 100);
 
-    // Оновити при зміні розміру з дебаунсом
-    let resizeTimeout;
-    window.addEventListener('resize', function () {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            updateActiveOnViewportChange();
-        }, 100);
-    });
-
-    // iOS Safari viewport fix
-    if (navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)) {
-        window.addEventListener('orientationchange', function () {
-            setTimeout(() => {
-                updateActiveOnViewportChange();
-            }, 150);
-        });
+    // Слухаємо події від MobileCore замість дублювання обробників
+    if (window.MobileCore && window.MobileCore.isInitialized()) {
+        // MobileCore вже керує viewport - тільки реагуємо на зміни
+        document.addEventListener('mobilecore:viewportchange', updateActiveOnViewportChange);
+    } else {
+        // Fallback якщо MobileCore недоступний
+        let resizeTimeout;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(updateActiveOnViewportChange, 150);
+        }, { passive: true });
     }
 }
 
@@ -78,32 +74,25 @@ function initStickyScroll() {
     // Початкова активна секція
     updateActiveSection();
 
-    // Слухач скролу з оптимізованим throttle для мобільних
+    // СПРОЩЕНИЙ scroll handler - менше навантаження
     let ticking = false;
     const isMobile = window.innerWidth <= 767;
-    const throttleDelay = isMobile ? 100 : 16; // Більша затримка на мобільних
 
+    // Використовуємо більш простий підхід для всіх пристроїв
     window.addEventListener('scroll', function () {
         if (!ticking) {
-            if (isMobile) {
-                // На мобільних - використовуємо setTimeout замість RAF
-                setTimeout(() => {
-                    updateActiveSection();
-                    ticking = false;
-                }, throttleDelay);
-            } else {
-                // На десктопі - RAF як звичайно
-                requestAnimationFrame(function () {
-                    updateActiveSection();
-                    ticking = false;
-                });
-            }
+            requestAnimationFrame(() => {
+                updateActiveSection();
+                ticking = false;
+            });
             ticking = true;
         }
     }, { passive: true });
 
-    // Оновлення при зміні розміру
-    window.addEventListener('resize', debounce(updateActiveSection, 100));
+    // Оновлення при зміні розміру (тільки якщо MobileCore не керує цим)
+    if (!window.MobileCore || !window.MobileCore.isInitialized()) {
+        window.addEventListener('resize', debounce(updateActiveSection, 150), { passive: true });
+    }
 }
 
 function updateActiveSection() {
@@ -114,13 +103,8 @@ function updateActiveSection() {
     const scrollAfterHero = Math.max(0, scrollTop - heroHeight);
     const isMobile = window.innerWidth <= 767;
 
-    // Визначення висоти секції залежно від розміру екрану
-    let sectionHeight = window.innerHeight;
-    if (window.innerWidth <= 480) {
-        sectionHeight = window.innerHeight * 1.1; // 110vh для дуже маленьких екранів
-    } else if (window.innerWidth <= 767) {
-        sectionHeight = window.innerHeight * 1.2; // 120vh для мобільних
-    }
+    // СПРОЩЕНА логіка висоти секції
+    const sectionHeight = window.innerHeight;
 
     // Визначення поточної активної секції
     const currentSectionIndex = Math.min(
@@ -128,72 +112,46 @@ function updateActiveSection() {
         projectSections.length - 1
     );
 
-    // Оптимізована логіка для мобільних
+    // СПРОЩЕНА логіка активації секцій
     projectSections.forEach((section, index) => {
         const isActive = index === currentSectionIndex && scrollTop >= heroHeight;
 
+        // Просто додаємо/видаляємо клас без складної відео логіки
         if (isActive && !section.classList.contains('active')) {
             section.classList.add('active');
-
-            // Менш агресивна робота з відео на мобільних
-            if (!isMobile) {
-                const video = section.querySelector('video');
-                if (video) {
-                    video.play().catch(() => { }); // Ignore autoplay policy errors
-                    if (video.readyState >= 2) {
-                        video.classList.add('loaded');
-                    }
-                }
-            }
         } else if (!isActive && section.classList.contains('active')) {
             section.classList.remove('active');
-
-            // Менш частий pause на мобільних
-            if (!isMobile) {
-                const video = section.querySelector('video');
-                if (video && !video.paused) {
-                    video.pause();
-                }
-            }
         }
     });
+
+    // ВИДАЛЕНО всю складну відео логіку - викликала тормоза
 }
 
 // =================================
-// iOS ОПТИМІЗАЦІЇ
+// iOS ОПТИМІЗАЦІЇ - ДЕЛЕГУЄМО MOBILECORE
 // =================================
 
 function initIOSOptimizations() {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+    // MobileCore тепер відповідає за всі iOS оптимізації
+    // Тут залишаємо тільки portfolio-специфічні налаштування
 
-    if (isIOS || isSafari) {
-        // Додати клас для iOS-специфічних стилів
-        document.body.classList.add('ios-device');
+    const isMobile = window.innerWidth <= 767;
 
-        // ВИПРАВЛЕНО: Розумний scroll control тільки для desktop
-        if (!isMobile()) {
-            // Sticky scroll тільки для desktop
-            document.addEventListener('touchmove', function (e) {
-                if (e.target.closest('.project-section') && !e.target.closest('.scrollable-content')) {
-                    e.preventDefault();
-                }
-            }, { passive: false });
-        } else {
-            // Мобільна версія: звичайний scroll без блокування
-            console.log('Mobile detected: using standard scroll for portfolio');
-        }
+    if (isMobile) {
+        // Мобільна версія: звичайний scroll без блокування
+        console.log('Portfolio: Mobile mode - using standard scroll');
 
-        // Оптимізація viewport
-        const viewport = document.querySelector('meta[name="viewport"]');
-        if (viewport) {
-            viewport.setAttribute('content',
-                'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover'
-            );
-        }
-
-        // iOS Safari специфічні оптимізації - ВИДАЛЕНО ПРОБЛЕМНИЙ КОД
+        // Видаляємо всі sticky ефекти на мобільних для покращення швидкодії
+        projectSections.forEach(section => {
+            section.style.position = 'relative';
+            section.style.top = 'auto';
+        });
+    } else {
+        // Desktop: залишаємо sticky поведінку
+        console.log('Portfolio: Desktop mode - using sticky sections');
     }
+
+    // Всі інші iOS оптимізації делегуємо MobileCore
 }
 
 // =================================
@@ -278,45 +236,28 @@ function initScrollOptimizations() {
 
 function initVideoOptimizations() {
     const videos = document.querySelectorAll('.project-video video');
+    const isMobile = window.innerWidth <= 767;
 
     videos.forEach(video => {
-        // Покращена оптимізація для мобільних пристроїв
-        if (window.innerWidth < 768) {
+        // СПРОЩЕНА логіка для кращої продуктивності
+        if (isMobile) {
+            // На мобільних - мінімальні налаштування для швидкодії
+            video.setAttribute('preload', 'none'); // Не завантажуємо відео заздалегідь
+            video.setAttribute('muted', 'true');
+            video.removeAttribute('autoplay'); // Відключаємо autoplay на мобільних
+        } else {
+            // На десктопі - можемо дозволити більше
             video.setAttribute('preload', 'metadata');
             video.setAttribute('muted', 'true');
-        } else {
-            video.setAttribute('preload', 'auto');
         }
 
-        // Видаляємо плавне з'явлення для усунення мерехтінь
-        video.style.willChange = 'transform, box-shadow';
+        // Простий контроль завантаження без надмірної логіки
+        video.addEventListener('loadeddata', function () {
+            this.classList.add('loaded');
+        }, { once: true });
 
-        // Додати клас loaded для відео які вже завантажені
-        if (video.readyState >= 2) {
-            video.classList.add('loaded');
-        } else {
-            video.addEventListener('loadeddata', function () {
-                this.classList.add('loaded');
-            }, { once: true });
-        }
-
-        // Intersection Observer тільки для десктопу (на мобільних може викликати мерехтіння)
-        if ('IntersectionObserver' in window && window.innerWidth > 767) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        video.play().catch(() => { });
-                    } else {
-                        video.pause();
-                    }
-                });
-            }, {
-                threshold: 0.3, // 30% відео видимо
-                rootMargin: '10%'
-            });
-
-            observer.observe(video);
-        }
+        // ВИДАЛЕНО INTERSECTION OBSERVER - викликав конфлікти
+        // Замість цього використовуємо просту логіку в updateActiveSection
     });
 }
 
@@ -331,56 +272,15 @@ function preloadCriticalResources() {
 }
 
 function initIntersectionObserver() {
-    // Intersection Observer тільки на десктопі для уникнення мерехтінь на мобільних
-    if ('IntersectionObserver' in window && window.innerWidth > 767) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-viewport');
-                } else {
-                    entry.target.classList.remove('in-viewport');
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '50px'
-        });
-
-        projectSections.forEach(section => {
-            observer.observe(section);
-        });
-    }
+    // ВИДАЛЕНО - викликало конфлікти з іншими системами
+    // Тепер використовуємо тільки просту scroll логіку в updateActiveSection
+    console.log('Portfolio: Intersection Observer disabled for better performance');
 }
 
 function optimizeScrollEvents() {
-    // Passive scroll listeners для кращої продуктивності
-    let scrollPosition = 0;
-    let ticking = false;
-
-    function updateScrollPosition() {
-        scrollPosition = window.pageYOffset;
-
-        // Оптимізація: приховати/показати елементи поза viewport
-        projectSections.forEach((section, index) => {
-            const rect = section.getBoundingClientRect();
-            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-
-            if (isVisible && !section.classList.contains('visible')) {
-                section.classList.add('visible');
-            } else if (!isVisible && section.classList.contains('visible')) {
-                section.classList.remove('visible');
-            }
-        });
-
-        ticking = false;
-    }
-
-    window.addEventListener('scroll', function () {
-        if (!ticking) {
-            requestAnimationFrame(updateScrollPosition);
-            ticking = true;
-        }
-    }, { passive: true });
+    // ВИДАЛЕНО - дублювало функціональність з initStickyScroll
+    // Тепер використовуємо тільки один scroll handler в initStickyScroll
+    console.log('Portfolio: Scroll optimization delegated to main handler');
 }
 
 // =================================

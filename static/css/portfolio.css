@@ -125,8 +125,8 @@
 }
 
 .project-section {
-    position: sticky;
-    top: 0;
+    /* МОБІЛЬНІ: використовуємо звичайний relative positioning */
+    position: relative;
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
     background: #F5F1ED;
@@ -134,10 +134,18 @@
     align-items: center;
     justify-content: center;
     border-bottom: 4px solid #333333;
-    transition: background-color 0.3s ease;
     overflow: hidden;
-    will-change: auto;
-    transform: translateZ(0);
+}
+
+/* DESKTOP: sticky тільки на великих екранах */
+@media (min-width: 1025px) {
+    .project-section {
+        position: sticky;
+        top: 0;
+        transition: background-color 0.3s ease;
+        will-change: auto;
+        transform: translateZ(0);
+    }
 }
 
 .project-section:last-child {
@@ -147,7 +155,13 @@
 .project-section.active {
     background: #E8E0D8;
     border-bottom-color: #e14811;
-    transform: scale(1.01);
+}
+
+/* DESKTOP: активний ефект масштабування тільки на великих екранах */
+@media (min-width: 1025px) {
+    .project-section.active {
+        transform: scale(1.01);
+    }
 }
 
 /* КОМПАКТНА СТРУКТУРА - FLEX КОНТЕЙНЕР */
@@ -180,24 +194,30 @@
     height: auto;
     object-fit: contain;
     border-radius: 12px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 8px 32px rgba(225, 72, 17, 0.2);
-    will-change: transform, box-shadow;
-    backface-visibility: hidden;
-    transform: translateZ(0);
 }
 
-.project-video video.loaded {
-    transform: translateZ(0) scale(1);
-}
+/* DESKTOP: анімації та hover ефекти тільки на великих екранах */
+@media (min-width: 1025px) {
+    .project-video video {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        will-change: transform, box-shadow;
+        backface-visibility: hidden;
+        transform: translateZ(0);
+    }
 
-.project-video video:hover {
-    transform: translateZ(0) scale(1.05);
-    box-shadow: 0 12px 48px rgba(225, 72, 17, 0.3);
-}
+    .project-video video.loaded {
+        transform: translateZ(0) scale(1);
+    }
 
-.project-section.active .project-video video {
-    box-shadow: 0 16px 64px rgba(225, 72, 17, 0.25);
+    .project-video video:hover {
+        transform: translateZ(0) scale(1.05);
+        box-shadow: 0 12px 48px rgba(225, 72, 17, 0.3);
+    }
+
+    .project-section.active .project-video video {
+        box-shadow: 0 16px 64px rgba(225, 72, 17, 0.25);
+    }
 }
 
 .desktop-video {
@@ -239,19 +259,33 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
     border-radius: 0;
     min-width: 220px;
 }
 
-.project-button:hover {
-    background: transparent;
-    color: #e14811;
-    transform: translateY(-3px);
+/* DESKTOP: hover ефекти та анімації тільки на великих екранах */
+@media (min-width: 1025px) {
+    .project-button {
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .project-button:hover {
+        background: transparent;
+        color: #e14811;
+        transform: translateY(-3px);
+    }
+
+    .project-button:active {
+        transform: translateY(0);
+    }
 }
 
-.project-button:active {
-    transform: translateY(0);
+/* МОБІЛЬНІ: простий active стан для тач */
+@media (max-width: 1024px) {
+    .project-button:active {
+        background: transparent;
+        color: #e14811;
+    }
 }
 
 /* =================================

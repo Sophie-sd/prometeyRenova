@@ -130,7 +130,11 @@ class MobileCore {
 
         const debouncedCallback = () => {
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(callback, 100);
+            resizeTimeout = setTimeout(() => {
+                callback();
+                // Відправляємо подію для інших систем (наприклад portfolio.js)
+                this.dispatchViewportChangeEvent();
+            }, 100);
         };
 
         // Standard resize
@@ -142,6 +146,7 @@ class MobileCore {
             orientationTimeout = setTimeout(() => {
                 callback();
                 this.handleOrientationChange();
+                this.dispatchViewportChangeEvent();
             }, 250);
         });
 
@@ -354,6 +359,17 @@ class MobileCore {
             detail: {
                 device: this.device,
                 capabilities: this.capabilities
+            }
+        });
+        document.dispatchEvent(event);
+    }
+
+    dispatchViewportChangeEvent() {
+        const event = new CustomEvent('mobilecore:viewportchange', {
+            detail: {
+                viewportWidth: window.innerWidth,
+                viewportHeight: window.innerHeight,
+                device: this.device
             }
         });
         document.dispatchEvent(event);
