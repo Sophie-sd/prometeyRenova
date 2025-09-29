@@ -1,12 +1,45 @@
+{% load i18n %}
 <!-- Mobile Menu -->
 <nav class="mobile-menu" role="navigation" aria-label="Мобільне меню">
-    <a href="{% url 'home' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">Головна</a>
-    <a href="{% url 'portfolio' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">Портфоліо</a>
-    <a href="{% url 'calculator' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">Розрахувати
-        пропозицію</a>
-    <a href="{% url 'developer' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">Стати
-        розробником</a>
-    <a href="{% url 'blog:blog_list' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">Блог</a>
-    <a href="{% url 'events' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">Події</a>
-    <a href="{% url 'contacts' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">Контакти</a>
+    <a href="{% url 'home' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Головна"
+        %}</a>
+    <a href="{% url 'portfolio' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans
+        "Портфоліо" %}</a>
+    <a href="{% url 'calculator' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans
+        "Розрахувати пропозицію" %}</a>
+    <a href="{% url 'developer' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Стати
+        розробником" %}</a>
+    <a href="{% url 'blog:blog_list' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans
+        "Блог" %}</a>
+    <a href="{% url 'events' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Події"
+        %}</a>
+    <a href="{% url 'contacts' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Контакти"
+        %}</a>
+
+    <!-- Mobile Language Switcher -->
+    <div class="mobile-language-switcher">
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+
+        <div class="lang-dropdown">
+            <button class="lang-dropdown-btn mobile-touch-target mobile-focus-visible">
+                <span>{{ LANGUAGE_CODE|upper }}</span>
+                <svg class="lang-dropdown-icon" width="12" height="8" fill="none" stroke="currentColor"
+                    viewBox="0 0 12 8">
+                    <path d="M1 1l5 5 5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+            <div class="lang-dropdown-menu">
+                {% for language_code, language_name in LANGUAGES %}
+                {% language language_code %}
+                <a href="{% url 'set_language' %}" class="lang-dropdown-item mobile-touch-target mobile-focus-visible"
+                    onclick="setLanguage('{{ language_code }}'); return false;">
+                    <span class="lang-flag">{% if language_code == 'uk' %}🇺🇦{% else %}🇺🇸{% endif %}</span>
+                    {{ language_name }}
+                </a>
+                {% endlanguage %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </nav>

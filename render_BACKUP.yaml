@@ -1,0 +1,37 @@
+# Render.com Configuration for PrometeyRenova
+# WORKAROUND: Створено config/ модуль для обходу Dashboard override
+# Render Dashboard має hardcoded 'config.wsgi:application' - тому створено redirect
+services:
+  - type: web
+    name: prometeylabs-web-prod
+    branch: main
+    runtime: python
+    plan: starter
+    region: oregon
+    preDeployCommand: |
+      python manage.py migrate --noinput
+    buildCommand: |
+      ./build.sh
+    startCommand: |
+      gunicorn config.wsgi:application --preload --log-file - --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: "config.settings"
+      - key: PYTHON_VERSION
+        value: "3.13.0"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: "prometeylabs-web-prod.onrender.com,prometeyrenova.onrender.com,*.onrender.com"
+      - key: SECURE_SSL_REDIRECT
+        value: "True"
+      - key: DATABASE_URL
+        value: ""  # Буде встановлено вручну через Dashboard
+      - key: SITE_URL
+        value: "https://prometeylabs-web-prod.onrender.com"
+      - key: MONOBANK_TOKEN
+        sync: false
+    autoDeploy: true
+

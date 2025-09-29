@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}{{ page_title }}{% endblock %}
 {% block description %}{{ meta_description }}{% endblock %}
@@ -12,11 +13,11 @@
 <!-- Info Section -->
 <section class="calculator-info bg-beige">
     <div class="container">
-        <h1 class="text-large color-red mb-md text-center">Розрахувати вартість проекту</h1>
+        <h1 class="text-large color-red mb-md text-center">{% trans "Розрахувати вартість проекту" %}</h1>
 
         <div class="grid-70-30">
             <div class="info-content">
-                <h2 class="text-medium mb-sm">Чому наші ціни конкурентні?</h2>
+                <h2 class="text-medium mb-sm">{% trans "Чому наші ціни конкурентні?" %}</h2>
                 <p class="text-base mb-sm">
                     Ми використовуємо найновіші технології та сучасні інструменти розробки,
                     що значно скорочує час на створення проекту. Це означає, що клієнту потрібно

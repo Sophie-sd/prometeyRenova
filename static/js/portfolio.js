@@ -145,28 +145,34 @@ function updateActiveSection() {
         projectSections.length - 1
     );
 
-    // ОПТИМІЗОВАНА логіка активації секцій з lazy loading відео
+    // ОПТИМІЗОВАНА логіка активації секцій - стилі + автопрогравання
     projectSections.forEach((section, index) => {
         const isActive = index === currentSectionIndex && scrollTop >= heroHeight;
 
         if (isActive && !section.classList.contains('active')) {
             section.classList.add('active');
-
-            // LAZY LOAD відео тільки для активної секції
-            loadVideoForSection(section);
+            // Відтворюємо відео якщо воно вже завантажене
+            if (section.classList.contains('video-loaded')) {
+                playVideoForActiveSection(section);
+            }
         } else if (!isActive && section.classList.contains('active')) {
             section.classList.remove('active');
-
-            // Паузимо відео в неактивних секціях для економії ресурсів
+            // Паузимо відео при деактивації
             pauseVideoForSection(section);
         }
     });
 }
 
-// ===== LAZY LOADING ВІДЕО =====
+// ===== LAZY LOADING ВІДЕО ПРИ ПОЯВІ НА ЕКРАНІ =====
 function loadVideoForSection(section) {
     const videos = section.querySelectorAll('video.lazy-video');
     const isMobile = window.innerWidth <= 767;
+
+    if (videos.length === 0) {
+        // Відео вже завантажені
+        section.classList.add('video-loaded');
+        return;
+    }
 
     videos.forEach(video => {
         // Завантажуємо тільки потрібне відео (mobile/desktop)
@@ -187,16 +193,28 @@ function loadVideoForSection(section) {
             video.removeAttribute('data-src');
             video.classList.remove('lazy-video');
 
-            // Починаємо відтворення після завантаження
+            // Відстежуємо завантаження
             video.addEventListener('loadeddata', () => {
+                console.log(`Portfolio: Video loaded for section ${section.dataset.project}`);
+                section.classList.add('video-loaded');
+                section.classList.remove('video-loading');
+
+                // Автовідтворення тільки для активних секцій
                 if (section.classList.contains('active')) {
                     video.play().catch(() => {
-                        console.log('Autoplay prevented for video in section', section);
+                        console.log('Portfolio: Autoplay prevented for section', section.dataset.project);
                     });
                 }
             }, { once: true });
 
-            // Завантажуємо відео
+            // Обробляємо помилки завантаження
+            video.addEventListener('error', () => {
+                console.error(`Portfolio: Failed to load video for section ${section.dataset.project}`);
+                section.classList.add('video-error');
+                section.classList.remove('video-loading');
+            }, { once: true });
+
+            // Починаємо завантаження
             video.load();
         }
     });
@@ -207,6 +225,25 @@ function pauseVideoForSection(section) {
     videos.forEach(video => {
         if (!video.paused) {
             video.pause();
+            console.log(`Portfolio: Paused video for section ${section.dataset.project}`);
+        }
+    });
+}
+
+// ===== ВІДЕО АВТОПРОГРАВАННЯ ДЛЯ АКТИВНИХ СЕКЦІЙ =====
+function playVideoForActiveSection(section) {
+    const videos = section.querySelectorAll('video:not(.lazy-video)');
+    const isMobile = window.innerWidth <= 767;
+
+    videos.forEach(video => {
+        // Відтворюємо тільки відповідне відео для пристрою
+        const shouldPlay = (isMobile && video.classList.contains('mobile-video')) ||
+            (!isMobile && video.classList.contains('desktop-video'));
+
+        if (shouldPlay && video.paused && video.readyState >= 2) {
+            video.play().catch(() => {
+                console.log(`Portfolio: Autoplay prevented for section ${section.dataset.project}`);
+            });
         }
     });
 }
@@ -308,8 +345,8 @@ function initScrollOptimizations() {
     // Preload критичних ресурсів
     preloadCriticalResources();
 
-    // Intersection Observer для lazy loading
-    initIntersectionObserver();
+    // Intersection Observer для lazy loading відео при появі на екрані
+    initVideoVisibilityObserver();
 
     // Throttle scroll events
     optimizeScrollEvents();
@@ -334,14 +371,8 @@ function initVideoOptimizations() {
     const projectVideos = document.querySelectorAll('.project-video video.lazy-video');
     console.log(`Portfolio: ${projectVideos.length} project videos will be lazy loaded`);
 
-    // Предзавантажити перше відео для кращого UX
-    setTimeout(() => {
-        const firstSection = document.querySelector('.project-section[data-project="1"]');
-        if (firstSection) {
-            console.log('Portfolio: Pre-loading first project video');
-            loadVideoForSection(firstSection);
-        }
-    }, 2000); // Через 2 секунди після завантаження сторінки
+    // Intersection Observer керує завантаженням, не потрібно примусове предзавантаження
+    console.log('Portfolio: Videos will be loaded when sections become visible');
 }
 
 function preloadCriticalResources() {
@@ -366,10 +397,44 @@ function preloadCriticalResources() {
     }
 }
 
-function initIntersectionObserver() {
-    // ВИДАЛЕНО - викликало конфлікти з іншими системами
-    // Тепер використовуємо тільки просту scroll логіку в updateActiveSection
-    console.log('Portfolio: Intersection Observer disabled for better performance');
+// ===== INTERSECTION OBSERVER ДЛЯ РАННЬОГО ЗАВАНТАЖЕННЯ ВІДЕО =====
+function initVideoVisibilityObserver() {
+    // Перевіряємо підтримку Intersection Observer
+    if (!('IntersectionObserver' in window)) {
+        console.log('Portfolio: Intersection Observer not supported, using fallback');
+        return;
+    }
+
+    // Створюємо observer для project sections
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const section = entry.target;
+
+            if (entry.isIntersecting) {
+                // Секція з'явилася на екрані - завантажуємо відео
+                if (!section.classList.contains('video-loading') && !section.classList.contains('video-loaded')) {
+                    section.classList.add('video-loading');
+                    console.log(`Portfolio: Loading video for section ${section.dataset.project}`);
+                    loadVideoForSection(section);
+                }
+            } else {
+                // Секція поза екраном - паузимо відео для економії ресурсів
+                pauseVideoForSection(section);
+            }
+        });
+    }, {
+        // Починаємо завантаження коли 20% секції видимо
+        threshold: 0.2,
+        // Додаємо трохи простору для раннього завантаження
+        rootMargin: '100px 0px'
+    });
+
+    // Спостерігаємо за всіма project sections
+    projectSections.forEach(section => {
+        observer.observe(section);
+    });
+
+    console.log(`Portfolio: Video visibility observer initialized for ${projectSections.length} sections`);
 }
 
 function optimizeScrollEvents() {

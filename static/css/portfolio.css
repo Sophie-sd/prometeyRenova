@@ -626,3 +626,49 @@ html {
 .project-button.animating {
     will-change: transform, background-color;
 }
+
+/* Стани завантаження відео */
+.project-section.video-loading .project-video::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #e14811;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: video-loading-spin 1s linear infinite;
+    z-index: 10;
+}
+
+.project-section.video-error .project-video::after {
+    content: "⚠";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #e14811;
+    z-index: 10;
+}
+
+@keyframes video-loading-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Приховуємо індикатори на малих екранах */
+@media (max-width: 767px) {
+
+    .project-section.video-loading .project-video::after,
+    .project-section.video-error .project-video::after {
+        display: none;
+    }
+}

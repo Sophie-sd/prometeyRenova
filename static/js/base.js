@@ -656,6 +656,66 @@ class PrometeyApp {
     }
 }
 
+// Функція зміни мови
+function setLanguage(langCode) {
+    // Створюємо форму для відправки POST запиту
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/i18n/set_language/';
+
+    // CSRF токен
+    let csrfToken = window.csrfToken;
+    if (!csrfToken) {
+        const csrfTokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
+        csrfToken = csrfTokenElement ? csrfTokenElement.value : '';
+    }
+
+    if (csrfToken) {
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = 'csrfmiddlewaretoken';
+        csrfInput.value = csrfToken;
+        form.appendChild(csrfInput);
+    }
+
+    // Мова
+    const langInput = document.createElement('input');
+    langInput.type = 'hidden';
+    langInput.name = 'language';
+    langInput.value = langCode;
+    form.appendChild(langInput);
+
+    // Поточна сторінка
+    const nextInput = document.createElement('input');
+    nextInput.type = 'hidden';
+    nextInput.name = 'next';
+    nextInput.value = window.location.pathname;
+    form.appendChild(nextInput);
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
+// Ініціалізація dropdown для мобільного меню
+document.addEventListener('DOMContentLoaded', function () {
+    const dropdown = document.querySelector('.lang-dropdown');
+    const dropdownBtn = document.querySelector('.lang-dropdown-btn');
+
+    if (dropdownBtn) {
+        dropdownBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            dropdown.classList.toggle('active');
+        });
+
+        // Закривати при кліку поза межами
+        document.addEventListener('click', function (e) {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+    }
+});
+
 // Ініціалізація
 const app = PrometeyApp.getInstance();
 

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}{{ page_title }}{% endblock %}
 {% block description %}{{ meta_description }}{% endblock %}
@@ -31,11 +32,11 @@
             <div class="hero-text text-center">
                 <h1 class="text-mega color-red mb-lg">PrometeyLabs</h1>
                 <p class="text-large color-white mb-xl">
-                    <span class="hero-services">сайти</span> ·
-                    <span class="hero-services">telegram боти</span> ·
-                    <span class="hero-services">реклама</span> ·
-                    <span class="hero-services">ведення соціальних мереж</span> ·
-                    <span class="hero-services">навчання на веб розробника</span>
+                    <span class="hero-services">{% trans "сайти" %}</span> ·
+                    <span class="hero-services">{% trans "telegram боти" %}</span> ·
+                    <span class="hero-services">{% trans "реклама" %}</span> ·
+                    <span class="hero-services">{% trans "ведення соціальних мереж" %}</span> ·
+                    <span class="hero-services">{% trans "навчання на веб розробника" %}</span>
                 </p>
 
                 <!-- CTA Buttons -->

@@ -1,22 +1,23 @@
+{% load i18n %}
 <!-- Footer - SEO оптимізований згідно STYLE.MDC -->
 <footer class="main-footer" role="contentinfo">
     <div class="container">
         <div class="footer-content">
             <!-- Послуги -->
             <div class="footer-section">
-                <h3>Наші послуги</h3>
-                <a href="{% url 'portfolio' %}" class="footer-link">Розробка сайтів під ключ</a>
-                <a href="{% url 'calculator' %}" class="footer-link">Створення Telegram ботів</a>
-                <a href="{% url 'calculator' %}" class="footer-link">Налаштування реклами Google Ads</a>
-                <a href="{% url 'calculator' %}" class="footer-link">Ведення соціальних мереж</a>
-                <a href="{% url 'developer' %}" class="footer-link">Навчання веб-розробки</a>
-                <a href="{% url 'calculator' %}" class="footer-link">Інтернет-магазини</a>
-                <a href="{% url 'calculator' %}" class="footer-link">Мобільні додатки</a>
+                <h3>{% trans "Наші послуги" %}</h3>
+                <a href="{% url 'portfolio' %}" class="footer-link">{% trans "Розробка сайтів під ключ" %}</a>
+                <a href="{% url 'calculator' %}" class="footer-link">{% trans "Створення Telegram ботів" %}</a>
+                <a href="{% url 'calculator' %}" class="footer-link">{% trans "Налаштування реклами Google Ads" %}</a>
+                <a href="{% url 'calculator' %}" class="footer-link">{% trans "Ведення соціальних мереж" %}</a>
+                <a href="{% url 'developer' %}" class="footer-link">{% trans "Навчання веб-розробки" %}</a>
+                <a href="{% url 'calculator' %}" class="footer-link">{% trans "Інтернет-магазини" %}</a>
+                <a href="{% url 'calculator' %}" class="footer-link">{% trans "Мобільні додатки" %}</a>
             </div>
 
             <!-- Технології -->
             <div class="footer-section">
-                <h3>Технології</h3>
+                <h3>{% trans "Технології" %}</h3>
                 <a href="{% url 'blog:blog_list' %}" class="footer-link">HTML5 / CSS3 / JavaScript</a>
                 <a href="{% url 'blog:blog_list' %}" class="footer-link">React / Vue.js / Angular</a>
                 <a href="{% url 'blog:blog_list' %}" class="footer-link">Python / Django / FastAPI</a>
@@ -28,19 +29,19 @@
 
             <!-- Телефон та Email -->
             <div class="footer-section">
-                <h3>Зв'язок</h3>
+                <h3>{% trans "Зв'язок" %}</h3>
                 <a href="tel:+380xxxxxxxxx" class="footer-link">+380 XX XXX XX XX</a>
                 <a href="mailto:info@prometeylabs.com" class="footer-link">info@prometeylabs.com</a>
                 <a href="https://t.me/prometeylabs" class="footer-link" target="_blank" rel="noopener">Telegram</a>
                 <a href="https://instagram.com/prometeylabs" class="footer-link" target="_blank"
                     rel="noopener">Instagram</a>
-                <a href="{% url 'contacts' %}" class="footer-link">Контакти</a>
+                <a href="{% url 'contacts' %}" class="footer-link">{% trans "Контакти" %}</a>
                 <a href="#" class="footer-link">м. Київ, Україна</a>
             </div>
 
             <!-- Корисне -->
             <div class="footer-section">
-                <h3>Корисна інформація</h3>
+                <h3>{% trans "Корисна інформація" %}</h3>
                 <a href="{% url 'blog:blog_list' %}" class="footer-link">Блог про веб-розробку</a>
                 <a href="{% url 'events' %}" class="footer-link">Події та вебінари</a>
                 <a href="{% url 'calculator' %}" class="footer-link">Калькулятор вартості сайту</a>

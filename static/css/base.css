@@ -1212,3 +1212,125 @@ body {
     height: var(--mobile-vh, 100vh);
     min-height: var(--mobile-vh, 100vh);
 }
+
+/* === LANGUAGE SWITCHER STYLES === */
+
+/* Десктопна версія */
+.language-switcher {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.lang-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    color: var(--color-black);
+    border: 1px solid transparent;
+}
+
+.lang-btn:hover {
+    background: var(--color-gray);
+    color: var(--color-red);
+}
+
+.lang-btn.active {
+    background: var(--color-red);
+    color: white;
+    border-color: var(--color-red);
+}
+
+/* Мобільна версія */
+.mobile-language-switcher {
+    margin: 16px 0;
+}
+
+.lang-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.lang-dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--color-white);
+    border: 1px solid var(--color-red);
+    border-radius: 8px;
+    color: var(--color-black);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.lang-dropdown-btn:hover {
+    background: var(--color-gray);
+}
+
+.lang-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-white);
+    border: 1px solid var(--color-red);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+    margin-top: 4px;
+}
+
+.lang-dropdown.active .lang-dropdown-menu {
+    display: block;
+}
+
+.lang-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: var(--color-black);
+    transition: background 0.2s ease;
+    border-bottom: 1px solid var(--color-gray);
+}
+
+.lang-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.lang-dropdown-item:hover {
+    background: var(--color-gray);
+}
+
+.lang-flag {
+    font-size: 18px;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .language-switcher {
+        display: none;
+    }
+
+    .mobile-language-switcher {
+        display: block;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-language-switcher {
+        display: none;
+    }
+}
+
+/* === END LANGUAGE SWITCHER STYLES === */
