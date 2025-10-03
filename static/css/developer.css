@@ -19,6 +19,94 @@
     display: grid;
     grid-template-columns: 50% 50%;
     height: 100%;
+    min-height: 0;
+}
+
+.split-left {
+    background: var(--color-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xl);
+    position: relative;
+}
+
+.dark-content {
+    max-width: 400px;
+    width: 100%;
+}
+
+.page-number {
+    position: absolute;
+    top: var(--space-sm);
+    right: var(--space-sm);
+}
+
+.features-list {
+    margin: var(--space-lg) 0;
+}
+
+.feature-item {
+    border-left: 2px solid var(--color-red);
+    padding-left: var(--space-xs);
+    margin-bottom: var(--space-sm);
+}
+
+.split-right {
+    background: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-beige) 0%, var(--color-white) 50%, var(--color-gray) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.image-placeholder::after {
+    content: 'Якщо революції не уникнути - очоль її';
+    white-space: pre;
+    color: var(--color-red);
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
+    letter-spacing: -1px;
+    opacity: 0.9;
+    max-width: 90%;
+    word-wrap: break-word;
+}
+
+/* ===== DARK SPLIT SECTION продовження ===== */
+.dark-split-section {
+    position: relative;
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    overflow: hidden;
+    background: #000000;
+    z-index: 10;
+    border-radius: 20px 20px 0 0;
+    margin-top: -20px;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.split-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    height: 100%;
     /* iOS Safari optimization */
     min-height: 0;
 }
