@@ -73,6 +73,8 @@
 .hero-text {
     max-width: 900px;
     margin: 0 auto;
+    position: relative;
+    z-index: 10;
 }
 
 .hero-text h1 {
@@ -88,6 +90,21 @@
 .hero-services {
     font-weight: 600;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--space-xl);
+}
+
+.hero-buttons .btn {
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
+    min-width: 200px;
 }
 
 /* ===== ПЕРША СЕКЦІЯ ПІСЛЯ HERO ===== */
