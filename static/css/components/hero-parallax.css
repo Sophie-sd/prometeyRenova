@@ -16,7 +16,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 0;
+    z-index: 1;
+    overflow: visible;
 }
 
 /* ===== ФІКСОВАНЕ ВІДЕО (всі варіанти класів) ===== */
@@ -65,16 +66,18 @@
 .hero-parallax__content,
 .hero-content {
     position: relative;
-    z-index: 3;
+    z-index: 100;
     width: 100%;
     padding: var(--space-xl) 0;
+    pointer-events: auto;
 }
 
 .hero-text {
     max-width: 900px;
     margin: 0 auto;
     position: relative;
-    z-index: 10;
+    z-index: 101;
+    pointer-events: auto;
 }
 
 .hero-text h1 {
@@ -107,6 +110,49 @@
     min-width: 200px;
 }
 
+/* ===== АНІМАЦІЇ HERO КОНТЕНТУ ===== */
+.hero-text h1 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-text p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-buttons {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .hero-text h1 {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1s ease-out 0.3s forwards;
+    }
+
+    .hero-text p {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1s ease-out 0.6s forwards;
+    }
+
+    .hero-buttons {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1s ease-out 0.9s forwards;
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
 /* ===== ПЕРША СЕКЦІЯ ПІСЛЯ HERO ===== */
 /* Має особливий дизайн з rounded top */
 .content-section--first,
@@ -137,6 +183,7 @@
 
 /* Mobile only */
 @media (max-width: 767px) {
+
     /* Показати mobile відео */
     .hero-parallax__video--desktop,
     .desktop-video {
@@ -179,6 +226,7 @@
 
 /* ===== LANDSCAPE MODE (низькі екрани) ===== */
 @media (max-height: 500px) and (orientation: landscape) {
+
     /* Вимкнути fixed для дуже низьких екранів */
     .hero-parallax__video {
         position: absolute;
@@ -192,4 +240,3 @@
         min-height: 100vh;
     }
 }
-
