@@ -17,7 +17,8 @@
     {% endif %}
 
     <!-- SEO Meta Tags -->
-    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock %}</title>
+    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock
+        %}</title>
     <meta name="description"
         content="{% block description %}PrometeyLabs - розробка сайтів під ключ, Telegram боти, налаштування реклами Google Ads, ведення соцмереж, навчання веб-розробки. Конкурентні ціни, сучасні технології.{% endblock %}">
     <meta name="keywords"
@@ -93,9 +94,10 @@
     {% include 'components/footer.html' %}
 
     <!-- Call Button -->
-    <a href="tel:+380xxxxxxxxx" class="call-button" aria-label="{% trans 'Замовити дзвінок' %}">
+    <button class="call-button mobile-touch-target" data-modal="call-request-modal"
+        aria-label="{% trans 'Замовити дзвінок' %}">
         {% trans "Замовити дзвінок" %}
-    </a>
+    </button>
 
     <!-- Modals -->
     {% include 'components/modals.html' %}

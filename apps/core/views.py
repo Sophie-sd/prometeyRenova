@@ -65,7 +65,8 @@ def handle_form_submission(request):
             'site-request': handle_site_request,
             'developer': handle_developer_request,
             'consultation': handle_consultation_request,
-            'contact': handle_contact_request
+            'contact': handle_contact_request,
+            'call_request': handle_call_request
         }
         
         handler = handlers.get(form_type)
@@ -204,5 +205,20 @@ def handle_test_submission(request):
     except Exception as e:
         logger.error(f"Test submission error: {e}")
         return create_form_response(False, 'Помилка при обробці тесту')
+
+def handle_call_request(request, name, phone):
+    """Обробка заявки на дзвінок"""
+    form_data = create_form_data(
+        'Замовлення дзвінка', name, phone, request
+    )
+    
+    send_form_email(form_data)
+    save_form_submission('call-request', form_data)
+    
+    return create_form_response(
+        True, 
+        'Дякуємо! Наш менеджер зателефонує вам протягом 15 хвилин.',
+        redirect=None
+    )
 
 # Всі допоміжні функції перенесені в form_handlers.py для кращої організації коду

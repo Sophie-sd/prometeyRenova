@@ -119,18 +119,21 @@
     margin-bottom: var(--space-xl);
 }
 
-/* Service Card з фоновим зображенням - вищі картки */
+/* Service Card - напівпрозорі з витягнутими цифрами */
 .service-card {
     position: relative;
     min-height: 500px;
-    overflow: hidden;
+    overflow: visible;
     cursor: pointer;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     transition: all 0.4s ease-out;
-    border: 3px solid transparent;
-    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Фонові зображення для карток послуг */
@@ -169,14 +172,15 @@
 }
 
 .service-card:hover .service-card-overlay {
-    background: linear-gradient(180deg, rgba(225, 72, 17, 0.2) 0%, rgba(0, 0, 0, 0.7) 100%);
+    background: linear-gradient(180deg, rgba(225, 72, 17, 0.1) 0%, rgba(0, 0, 0, 0.5) 100%);
     opacity: 1;
 }
 
 .service-card:hover {
-    border-color: var(--color-red);
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 50px rgba(225, 72, 17, 0.4);
+    border-color: rgba(225, 72, 17, 0.6);
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 25px 60px rgba(225, 72, 17, 0.3);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Контент картки - без постійних тіней */
@@ -195,20 +199,26 @@
 
 .service-number {
     position: absolute;
-    top: var(--space-sm);
-    right: var(--space-sm);
-    font-size: 42px;
+    top: -30px;
+    right: -20px;
+    font-size: 120px;
     font-weight: 900;
     color: var(--color-red);
-    opacity: 1;
+    opacity: 0.8;
     line-height: 1;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
-    transition: all 0.3s ease-out;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease-out;
+    z-index: 10;
+    background: linear-gradient(135deg, var(--color-red), #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .service-card:hover .service-number {
-    transform: scale(1.1);
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+    transform: scale(1.1) rotate(-5deg);
+    opacity: 1;
+    text-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 .service-title {
@@ -324,7 +334,9 @@
     }
 
     .service-number {
-        font-size: 38px;
+        font-size: 80px;
+        top: -20px;
+        right: -15px;
     }
 
     .service-title {
@@ -408,9 +420,9 @@
     }
 
     .service-number {
-        font-size: 38px;
-        top: var(--space-sm);
-        right: var(--space-sm);
+        font-size: 70px;
+        top: -15px;
+        right: -10px;
     }
 
     .service-title {
