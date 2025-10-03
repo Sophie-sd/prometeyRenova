@@ -1,0 +1,197 @@
+/* =================================
+   BUTTONS COMPONENT
+   Всі типи кнопок: primary, secondary, call button
+   БЕЗ .mobile-touch-target (він в mobile-optimizations.css)
+   ================================= */
+
+/* ===== BASE BUTTON STYLES ===== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    font-size: var(--font-base);
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all var(--transition-normal) var(--easing-default);
+    text-align: center;
+    background: transparent;
+    min-width: 140px;
+    border-radius: 0;
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
+}
+
+/* ===== BUTTON VARIANTS ===== */
+
+/* Primary button - червона кнопка */
+.btn-primary {
+    background: var(--color-red);
+    color: var(--color-white);
+    border-color: var(--color-red);
+}
+
+.btn-primary:hover {
+    background: var(--color-white);
+    color: var(--color-red);
+    border-color: var(--color-red);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-red-md);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Secondary button - прозора з червоною рамкою */
+.btn-secondary {
+    background: transparent;
+    color: var(--color-red);
+    border-color: var(--color-red);
+}
+
+.btn-secondary:hover {
+    background: var(--color-red);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-red-md);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* ===== FIXED CALL BUTTON ===== */
+.call-button {
+    position: fixed;
+    bottom: var(--space-xs);
+    left: var(--space-xs);
+    z-index: var(--z-sticky);
+    background: var(--color-red);
+    color: var(--color-white);
+    padding: 15px 20px;
+    border: none;
+    font-weight: 600;
+    font-size: var(--font-base);
+    cursor: pointer;
+    transition: all var(--transition-normal) var(--easing-default);
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+}
+
+.call-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+    background: var(--color-black);
+}
+
+.call-button:active {
+    transform: translateY(0);
+}
+
+/* ===== BUTTON SIZES ===== */
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 12px;
+    min-width: 100px;
+}
+
+.btn-large {
+    padding: 16px 32px;
+    font-size: 16px;
+    min-width: 180px;
+}
+
+/* ===== BUTTON STATES ===== */
+
+.btn:disabled,
+.btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btn-loading {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: video-loading-spin 0.6s linear infinite;
+}
+
+/* ===== BUTTON GROUPS ===== */
+
+.btn-group {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+}
+
+.btn-group-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 767px) {
+    .btn {
+        min-width: 120px;
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .btn-large {
+        padding: 14px 24px;
+        font-size: 15px;
+        min-width: 140px;
+    }
+
+    .call-button {
+        bottom: var(--space-xs);
+        left: var(--space-xs);
+        right: var(--space-xs);
+        width: calc(100% - var(--space-xs) * 2);
+        text-align: center;
+        padding: 14px 20px;
+        /* Враховуємо safe area для iPhone */
+        bottom: max(env(safe-area-inset-bottom), var(--space-xs));
+    }
+
+    .btn-group {
+        flex-direction: column;
+    }
+
+    .btn-group .btn {
+        width: 100%;
+    }
+}
+
+/* ===== iOS SAFARI ОПТИМІЗАЦІЇ ===== */
+
+@supports (-webkit-touch-callout: none) {
+    .call-button {
+        /* Додатковий відступ для iOS Safari */
+        bottom: max(env(safe-area-inset-bottom, 20px), 20px);
+    }
+}
+
