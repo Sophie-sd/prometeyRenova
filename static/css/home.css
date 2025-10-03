@@ -1,31 +1,27 @@
 /* HOME.CSS - Головна сторінка з фоновими відео згідно STYLE.MDC */
 
-/* ===== HERO SECTION З ВІДЕО ===== */
+/* ===== HERO SECTION З ПАРАЛАКС ВІДЕО ===== */
 .hero-section {
     position: relative;
     width: 100%;
-    /* ВИПРАВЛЕНО: Сучасний viewport підхід */
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
-    /* Динамічний iOS Safari viewport */
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-
-    /* Fallback gradient якщо відео не завантажується */
+    z-index: 0;
     background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
 }
 
-/* Фонове відео */
-.video-background {
-    position: absolute;
+/* Фіксоване відео на фоні */
+.hero-section .video-background {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 1;
+    z-index: -1;
 }
 
 /* Responsive відео */
@@ -41,15 +37,15 @@
     }
 }
 
-/* Overlay для читабельності тексту */
-.video-overlay {
-    position: absolute;
+/* Фіксований overlay */
+.hero-section .video-overlay {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 2;
+    z-index: -1;
 }
 
 .hero-content {
@@ -99,12 +95,17 @@
     min-width: 200px;
 }
 
-/* ===== SERVICES SECTION - 100% ШИРИНИ ===== */
+/* ===== SERVICES SECTION - ПЕРША СЕКЦІЯ ПІСЛЯ HERO ===== */
 .services-section {
+    position: relative;
     width: 100%;
     padding: var(--space-xl) 0;
-    background: var(--color-beige);
-    position: relative;
+    padding-top: 60px;
+    background: #090407;
+    z-index: 10;
+    border-radius: 20px 20px 0 0;
+    margin-top: -20px;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .services-content h2 {
@@ -354,6 +355,15 @@
 
     .cta-buttons .btn {
         width: 250px;
+    }
+}
+
+/* ===== АДАПТАЦІЯ ПАРАЛАКС ДЛЯ МОБІЛЬНИХ ===== */
+@media (max-width: 767px) {
+    .services-section {
+        border-radius: 16px 16px 0 0;
+        margin-top: -16px;
+        padding-top: 40px;
     }
 }
 

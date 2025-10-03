@@ -1,6 +1,6 @@
 /* ===== EVENTS PAGE STYLES - STYLE.MDC ===== */
 
-/* ===== HERO SECTION ===== */
+/* ===== HERO SECTION З ПАРАЛАКС ВІДЕО ===== */
 .hero-section {
     position: relative;
     width: 100%;
@@ -9,19 +9,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    z-index: 0;
 }
 
-.video-background {
-    position: absolute;
+/* Фіксоване відео на фоні */
+.hero-section .video-background {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 1;
-    will-change: transform;
-    transform: translateZ(0);
+    z-index: -1;
 }
 
 .desktop-video {
@@ -32,14 +31,15 @@
     display: none;
 }
 
-.video-overlay {
-    position: absolute;
+/* Фіксований overlay */
+.hero-section .video-overlay {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 2;
+    z-index: -1;
 }
 
 .hero-content {
@@ -58,9 +58,16 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* ===== FILTER SECTION ===== */
+/* ===== FILTER SECTION - ПЕРША СЕКЦІЯ ПІСЛЯ HERO ===== */
 .events-filter {
+    position: relative;
     padding: var(--space-lg) 0;
+    padding-top: 60px;
+    background: #090407;
+    z-index: 10;
+    border-radius: 20px 20px 0 0;
+    margin-top: -20px;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
     border-bottom: 3px solid var(--color-red);
 }
 
@@ -385,6 +392,15 @@
 
     .filter-buttons {
         width: 100%;
+    }
+}
+
+/* ===== АДАПТАЦІЯ ПАРАЛАКС ДЛЯ МОБІЛЬНИХ ===== */
+@media (max-width: 767px) {
+    .events-filter {
+        border-radius: 16px 16px 0 0;
+        margin-top: -16px;
+        padding-top: 40px;
     }
 }
 

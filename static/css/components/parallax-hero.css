@@ -1,0 +1,135 @@
+/* ===================================
+   PARALLAX HERO SYSTEM
+   Фіксоване відео з паралакс ефектом
+   =================================== */
+
+/* Контейнер для фіксованого відео */
+.hero-video-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* Відео залишається фіксованим */
+.hero-video-fixed .video-background,
+.hero-video-fixed .hero-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Overlay для затемнення */
+.hero-video-fixed .video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+}
+
+/* Hero контент скролиться */
+.hero-parallax {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+}
+
+/* Контент поверх відео */
+.hero-parallax .hero-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+}
+
+/* Секції після hero */
+.content-section {
+    position: relative;
+    background: #090407;
+    z-index: 5;
+    min-height: 100vh;
+}
+
+/* Перша секція після hero - особливий дизайн */
+.content-section-first {
+    position: relative;
+    background: #090407;
+    z-index: 10;
+    border-radius: 20px 20px 0 0;
+    margin-top: -20px;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+    padding-top: 40px;
+}
+
+/* Адаптивність для мобільних */
+@media (max-width: 767px) {
+    .hero-video-fixed {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+    }
+
+    .hero-parallax {
+        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
+    }
+
+    .content-section-first {
+        border-radius: 16px 16px 0 0;
+        margin-top: -16px;
+        padding-top: 30px;
+    }
+}
+
+/* iOS Safari підтримка */
+@supports (-webkit-touch-callout: none) {
+    .hero-video-fixed {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        min-height: 100vh;
+    }
+
+    .hero-parallax {
+        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
+    }
+}
+
+/* Відключаємо паралакс для дуже низьких екранів */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero-video-fixed {
+        position: absolute;
+    }
+
+    .hero-video-fixed .video-background,
+    .hero-video-fixed .hero-video,
+    .hero-video-fixed .video-overlay {
+        position: absolute;
+    }
+}
+
+/* Забезпечуємо що контент завжди поверх відео */
+.content-section,
+.content-section-first,
+.events-filter,
+.blog-header,
+.services-section,
+.portfolio-projects {
+    position: relative;
+    z-index: 10;
+    background: #090407;
+}

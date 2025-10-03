@@ -17,7 +17,8 @@
     {% endif %}
 
     <!-- SEO Meta Tags -->
-    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock %}</title>
+    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock
+        %}</title>
     <meta name="description"
         content="{% block description %}PrometeyLabs - розробка сайтів під ключ, Telegram боти, налаштування реклами Google Ads, ведення соцмереж, навчання веб-розробки. Конкурентні ціни, сучасні технології.{% endblock %}">
     <meta name="keywords"
@@ -42,6 +43,8 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <!-- Mobile system (2025) - обов'язково після base.css -->
     <link rel="stylesheet" href="{% static 'css/components/mobile-optimizations.css' %}">
+    <!-- Parallax hero system для hero відео -->
+    <link rel="stylesheet" href="{% static 'css/components/parallax-hero.css' %}">
     {% block page_css %}{% endblock %}
     {% block extra_css %}{% endblock %}
 

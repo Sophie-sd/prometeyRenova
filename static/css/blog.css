@@ -1,27 +1,26 @@
 /* BLOG.CSS - Блог в стилі журналу згідно STYLE.MDC */
 
-/* ===== BLOG HERO З ВІДЕО ===== */
+/* ===== BLOG HERO З ПАРАЛАКС ВІДЕО ===== */
 .blog-hero {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    max-height: 100vh;
     min-height: calc(var(--vh, 1vh) * 100);
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    z-index: 0;
 }
 
-/* Фонове відео */
-.video-background {
-    position: absolute;
+/* Фіксоване відео на фоні */
+.blog-hero .video-background {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 1;
+    z-index: -1;
 }
 
 /* Responsive відео */
@@ -37,15 +36,15 @@
     }
 }
 
-/* Overlay для читабельності тексту */
-.video-overlay {
-    position: absolute;
+/* Фіксований overlay */
+.blog-hero .video-overlay {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 2;
+    z-index: -1;
 }
 
 .hero-content {
@@ -70,11 +69,16 @@
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
-/* ===== BLOG HEADER ===== */
+/* ===== BLOG HEADER - ПЕРША СЕКЦІЯ ПІСЛЯ HERO ===== */
 .blog-header {
-    padding: var(--space-xl) 0;
-    background: var(--color-beige);
     position: relative;
+    padding: var(--space-xl) 0;
+    padding-top: 60px;
+    background: #090407;
+    z-index: 10;
+    border-radius: 20px 20px 0 0;
+    margin-top: -20px;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .blog-intro h1 {
@@ -780,6 +784,15 @@
         width: 50px;
         height: 2px;
         bottom: -8px;
+    }
+}
+
+/* ===== АДАПТАЦІЯ ПАРАЛАКС ДЛЯ МОБІЛЬНИХ ===== */
+@media (max-width: 767px) {
+    .blog-header {
+        border-radius: 16px 16px 0 0;
+        margin-top: -16px;
+        padding-top: 40px;
     }
 }
 
