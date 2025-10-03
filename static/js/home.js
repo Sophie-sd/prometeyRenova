@@ -75,7 +75,7 @@ function initScrollNavigation() {
 
 // Анімація сервісів при скролі
 function initServiceAnimations() {
-    const serviceItems = document.querySelectorAll('.service-item');
+    const serviceCards = document.querySelectorAll('.service-card');
 
     const observerOptions = {
         threshold: 0.1,
@@ -90,8 +90,8 @@ function initServiceAnimations() {
         });
     }, observerOptions);
 
-    serviceItems.forEach(item => {
-        observer.observe(item);
+    serviceCards.forEach(card => {
+        observer.observe(card);
     });
 }
 

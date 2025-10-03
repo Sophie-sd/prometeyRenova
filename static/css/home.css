@@ -111,69 +111,110 @@
     margin-bottom: var(--space-xl);
 }
 
-/* Services Grid */
+/* Services Grid - 4 картки */
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: var(--space-lg);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
     margin-bottom: var(--space-xl);
 }
 
-/* Service Item */
-.service-item {
-    background: var(--color-white);
-    padding: var(--space-md);
-    border: 3px solid transparent;
-    transition: all 0.4s ease-out;
+/* Service Card з фоновим зображенням */
+.service-card {
     position: relative;
-    border-left: 5px solid var(--color-red);
+    min-height: 400px;
+    overflow: hidden;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: all 0.4s ease-out;
+    border: 3px solid transparent;
 }
 
-.service-item:hover {
+/* Placeholder backgrounds - замініть на реальні зображення */
+.service-card[data-service="1"] {
+    background-image: url('/static/images/services/service-1.jpg');
+    background-color: #1a1a1a;
+}
+
+.service-card[data-service="2"] {
+    background-image: url('/static/images/services/service-2.jpg');
+    background-color: #2a2a2a;
+}
+
+.service-card[data-service="3"] {
+    background-image: url('/static/images/services/service-3.jpg');
+    background-color: #1a1a1a;
+}
+
+.service-card[data-service="4"] {
+    background-image: url('/static/images/services/service-4.jpg');
+    background-color: #2a2a2a;
+}
+
+/* Overlay для читабельності тексту */
+.service-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%);
+    transition: all 0.4s ease-out;
+    z-index: 1;
+}
+
+.service-card:hover .service-card-overlay {
+    background: linear-gradient(180deg, rgba(225, 72, 17, 0.2) 0%, rgba(0, 0, 0, 0.9) 100%);
+}
+
+.service-card:hover {
     border-color: var(--color-red);
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(220, 20, 60, 0.15);
+    box-shadow: 0 15px 40px rgba(225, 72, 17, 0.3);
+}
+
+/* Контент картки */
+.service-card-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-lg);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: var(--color-white);
 }
 
 .service-number {
     position: absolute;
-    top: var(--space-xs);
-    right: var(--space-xs);
-    opacity: 0.7;
-}
-
-.service-item h3 {
-    font-weight: 700;
-    margin-bottom: var(--space-sm);
-    padding-top: var(--space-xs);
-}
-
-.service-item p {
-    line-height: 1.6;
-    margin-bottom: var(--space-sm);
-}
-
-.service-item strong {
+    top: var(--space-sm);
+    right: var(--space-sm);
+    font-size: 48px;
+    font-weight: 900;
     color: var(--color-red);
-    font-weight: 600;
+    opacity: 0.9;
+    line-height: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Service Keywords */
-.service-keywords {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: var(--space-xs);
-}
-
-.keyword {
-    font-size: 10px;
-    background: var(--color-red);
+.service-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
     color: var(--color-white);
-    padding: 3px 6px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.service-description {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-white);
+    opacity: 0.95;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 /* ===== CTA СЕКЦІЯ ===== */
@@ -249,12 +290,24 @@
     }
 
     .services-grid {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: 1fr;
         gap: var(--space-md);
     }
 
-    .service-item {
-        padding: var(--space-sm);
+    .service-card {
+        min-height: 350px;
+    }
+
+    .service-number {
+        font-size: 36px;
+    }
+
+    .service-title {
+        font-size: 28px;
+    }
+
+    .service-description {
+        font-size: 15px;
     }
 
     .cta-buttons {
@@ -311,18 +364,30 @@
 
     .services-grid {
         grid-template-columns: 1fr;
-        gap: var(--space-md);
+        gap: var(--space-sm);
     }
 
-    .service-item {
-        padding: var(--space-sm);
-        border-left-width: 3px;
+    .service-card {
+        min-height: 300px;
+    }
+
+    .service-card-content {
+        padding: var(--space-md);
     }
 
     .service-number {
-        font-size: 18px;
-        top: 10px;
-        right: 10px;
+        font-size: 32px;
+        top: var(--space-xs);
+        right: var(--space-xs);
+    }
+
+    .service-title {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+
+    .service-description {
+        font-size: 14px;
     }
 
     .services-cta {
@@ -373,13 +438,13 @@
         animation: fadeInUp 1s ease-out 0.9s forwards;
     }
 
-    .service-item {
+    .service-card {
         opacity: 0;
         transform: translateY(20px);
         transition: all 0.6s ease-out;
     }
 
-    .service-item.visible {
+    .service-card.visible {
         opacity: 1;
         transform: translateY(0);
     }
