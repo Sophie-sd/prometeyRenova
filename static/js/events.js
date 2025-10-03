@@ -319,32 +319,27 @@ function openRegistrationModal(eventId) {
                 
                 <div class="form-group">
                     <label for="event-name" class="form-label">Ім'я</label>
-                    <input type="text" id="event-name" name="name" class="form-input" required 
-                           placeholder="Введіть ваше ім'я">
+                    <input type="text" id="event-name" name="name" class="form-input" required placeholder="Введіть ваше ім'я">
                 </div>
                 
                 <div class="form-group">
                     <label for="event-email" class="form-label">Email</label>
-                    <input type="email" id="event-email" name="email" class="form-input" required 
-                           placeholder="your@email.com">
+                    <input type="email" id="event-email" name="email" class="form-input" required placeholder="your@email.com">
                 </div>
                 
                 <div class="form-group">
                     <label for="event-phone" class="form-label">Телефон</label>
-                    <input type="tel" id="event-phone" name="phone" class="form-input" required 
-                           placeholder="+380XX XXX XX XX">
+                    <input type="tel" id="event-phone" name="phone" class="form-input" required placeholder="+380XX XXX XX XX">
                 </div>
                 
                 <div class="form-group">
                     <label for="event-company" class="form-label">Компанія (необов'язково)</label>
-                    <input type="text" id="event-company" name="company" class="form-input" 
-                           placeholder="Назва компанії">
+                    <input type="text" id="event-company" name="company" class="form-input" placeholder="Назва компанії">
                 </div>
                 
                 <div class="form-group">
                     <label for="event-message" class="form-label">Додаткова інформація</label>
-                    <textarea id="event-message" name="message" class="form-input" rows="3" 
-                              placeholder="Ваші питання або побажання"></textarea>
+                    <textarea id="event-message" name="message" class="form-input" rows="3" placeholder="Ваші питання або побажання"></textarea>
                 </div>
                 
                 <button type="submit" class="btn btn-primary form-submit">
