@@ -1,0 +1,136 @@
+/* =================================
+   HERO-PARALLAX COMPONENT
+   Універсальний паралакс hero з фіксованим відео
+   Використовується на: home, blog, events, developer
+   НЕ використовується на: portfolio (має свою логіку)
+   ================================= */
+
+/* ===== BASE HERO PARALLAX ===== */
+.hero-parallax {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+}
+
+/* ===== ФІКСОВАНЕ ВІДЕО ===== */
+.hero-parallax__video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: var(--z-below);
+}
+
+/* Desktop відео */
+.hero-parallax__video--desktop {
+    display: block;
+}
+
+/* Mobile відео */
+.hero-parallax__video--mobile {
+    display: none;
+}
+
+/* ===== OVERLAY ===== */
+.hero-parallax__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: var(--z-below);
+}
+
+/* ===== КОНТЕНТ ===== */
+.hero-parallax__content {
+    position: relative;
+    z-index: var(--z-above);
+    width: 100%;
+    padding: var(--space-xl) 0;
+}
+
+/* ===== ПЕРША СЕКЦІЯ ПІСЛЯ HERO ===== */
+/* Має особливий дизайн з rounded top */
+.content-section--first {
+    position: relative;
+    background: #090407;
+    z-index: var(--z-dropdown);
+    border-radius: 20px 20px 0 0;
+    margin-top: -20px;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+    padding-top: 60px;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablet і Mobile */
+@media (max-width: 1024px) {
+    .hero-parallax {
+        min-height: calc(var(--vh, 1vh) * 100);
+    }
+
+    .content-section--first {
+        padding-top: 50px;
+    }
+}
+
+/* Mobile only */
+@media (max-width: 767px) {
+    /* Показати mobile відео */
+    .hero-parallax__video--desktop {
+        display: none;
+    }
+
+    .hero-parallax__video--mobile {
+        display: block;
+    }
+
+    /* Адаптація spacing */
+    .hero-parallax__content {
+        padding: var(--space-md) 0;
+    }
+
+    .content-section--first {
+        border-radius: 16px 16px 0 0;
+        margin-top: -16px;
+        padding-top: 40px;
+    }
+}
+
+/* ===== iOS SAFARI ПІДТРИМКА ===== */
+@supports (-webkit-touch-callout: none) {
+    .hero-parallax {
+        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
+    }
+
+    .hero-parallax__video {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+    }
+}
+
+/* ===== LANDSCAPE MODE (низькі екрани) ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+    /* Вимкнути fixed для дуже низьких екранів */
+    .hero-parallax__video {
+        position: absolute;
+    }
+
+    .hero-parallax__overlay {
+        position: absolute;
+    }
+
+    .hero-parallax {
+        min-height: 100vh;
+    }
+}
+

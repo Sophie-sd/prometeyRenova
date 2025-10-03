@@ -1,0 +1,152 @@
+/* =================================
+   FORMS COMPONENT
+   Всі форми, inputs, labels
+   ================================= */
+
+/* ===== FORM GROUP ===== */
+.form-group {
+    margin-bottom: var(--space-xs);
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+/* ===== FORM LABELS ===== */
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--color-black);
+    font-size: var(--font-base);
+}
+
+.required {
+    color: var(--color-red);
+    margin-left: 2px;
+}
+
+/* ===== FORM INPUTS ===== */
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--color-gray);
+    font-size: var(--font-base);
+    color: var(--color-black);
+    background: var(--color-white);
+    transition: all var(--transition-normal) var(--easing-default);
+    font-family: inherit;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    border-color: var(--color-red);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.1);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: #999999;
+}
+
+/* Textarea specific */
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* ===== FORM VALIDATION ===== */
+.form-input.error,
+.form-textarea.error {
+    border-color: var(--color-red);
+}
+
+.form-input.success,
+.form-textarea.success {
+    border-color: #28a745;
+}
+
+.form-error {
+    color: var(--color-red);
+    font-size: var(--font-small);
+    margin-top: 4px;
+    display: none;
+}
+
+.form-input.error + .form-error,
+.form-textarea.error + .form-error {
+    display: block;
+}
+
+/* ===== FORM RESPONSE ===== */
+.form-response {
+    margin-top: var(--space-sm);
+    padding: var(--space-xs);
+    border-radius: var(--radius-sm);
+    display: none;
+}
+
+.form-response.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    display: block;
+}
+
+.form-response.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    display: block;
+}
+
+/* ===== CHECKBOX & RADIO ===== */
+.form-checkbox,
+.form-radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.form-checkbox input[type="checkbox"],
+.form-radio input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* ===== SELECT ===== */
+.form-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--color-gray);
+    font-size: var(--font-base);
+    color: var(--color-black);
+    background: var(--color-white);
+    cursor: pointer;
+    transition: all var(--transition-normal) var(--easing-default);
+}
+
+.form-select:focus {
+    border-color: var(--color-red);
+    outline: none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 767px) {
+    .form-input,
+    .form-textarea,
+    .form-select {
+        font-size: 16px;
+        /* iOS Safari: 16px запобігає zoom */
+        padding: 14px 16px;
+    }
+
+    .form-textarea {
+        min-height: 100px;
+    }
+}
+
