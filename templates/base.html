@@ -17,7 +17,8 @@
     {% endif %}
 
     <!-- SEO Meta Tags -->
-    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock %}</title>
+    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock
+        %}</title>
     <meta name="description"
         content="{% block description %}PrometeyLabs - розробка сайтів під ключ, Telegram боти, налаштування реклами Google Ads, ведення соцмереж, навчання веб-розробки. Конкурентні ціни, сучасні технології.{% endblock %}">
     <meta name="keywords"
@@ -44,7 +45,7 @@
     <link rel="stylesheet" href="{% static 'css/core/typography.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/layout.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/animations.css' %}">
-    
+
     <!-- CSS Components -->
     <link rel="stylesheet" href="{% static 'css/components/navigation.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/buttons.css' %}">
@@ -53,7 +54,7 @@
     <link rel="stylesheet" href="{% static 'css/components/footer.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/hero-parallax.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/mobile-optimizations.css' %}">
-    
+
     <!-- Page specific CSS -->
     {% block page_css %}{% endblock %}
     {% block extra_css %}{% endblock %}
