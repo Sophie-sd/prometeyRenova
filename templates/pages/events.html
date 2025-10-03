@@ -51,7 +51,7 @@
                     <button class="filter-btn active" data-category="">Всі</button>
                     {% for category in categories %}
                     <button class="filter-btn" data-category="{{ category.slug }}"
-                        style="--category-color: {{ category.color }}">
+                        data-color="{{ category.color }}">
                         {{ category.name }}
                     </button>
                     {% endfor %}
