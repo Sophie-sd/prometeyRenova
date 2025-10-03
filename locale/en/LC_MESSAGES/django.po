@@ -1242,115 +1242,115 @@ msgstr ""
 
 #: templates/base.html:20
 msgid "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама"
-msgstr ""
+msgstr "PrometeyLabs - Turnkey Website Development | Telegram Bots | Advertising"
 
 #: templates/base.html:97 templates/base.html:98
 msgid "Замовити дзвінок"
-msgstr ""
+msgstr "Request a Call"
 
 #: templates/components/burger_menu.html:4
 msgid "Головна"
-msgstr ""
+msgstr "Home"
 
 #: templates/components/burger_menu.html:5
 msgid "Портфоліо"
-msgstr ""
+msgstr "Portfolio"
 
 #: templates/components/burger_menu.html:6
 msgid "Розрахувати пропозицію"
-msgstr ""
+msgstr "Calculate Proposal"
 
 #: templates/components/burger_menu.html:7
 msgid "Стати розробником"
-msgstr ""
+msgstr "Become a Developer"
 
 #: templates/components/burger_menu.html:8
 msgid "Блог"
-msgstr ""
+msgstr "Blog"
 
 #: templates/components/burger_menu.html:9
 msgid "Події"
-msgstr ""
+msgstr "Events"
 
 #: templates/components/footer.html:8
 msgid "Наші послуги"
-msgstr ""
+msgstr "Our Services"
 
 #: templates/components/footer.html:9
 msgid "Розробка сайтів під ключ"
-msgstr ""
+msgstr "Turnkey Website Development"
 
 #: templates/components/footer.html:10
 msgid "Створення Telegram ботів"
-msgstr ""
+msgstr "Telegram Bot Development"
 
 #: templates/components/footer.html:11
 msgid "Налаштування реклами Google Ads"
-msgstr ""
+msgstr "Google Ads Setup"
 
 #: templates/components/footer.html:12
 msgid "Ведення соціальних мереж"
-msgstr ""
+msgstr "Social Media Management"
 
 #: templates/components/footer.html:13
 msgid "Навчання веб-розробки"
-msgstr ""
+msgstr "Web Development Training"
 
 #: templates/components/footer.html:14
 msgid "Інтернет-магазини"
-msgstr ""
+msgstr "E-commerce Stores"
 
 #: templates/components/footer.html:15
 msgid "Мобільні додатки"
-msgstr ""
+msgstr "Mobile Apps"
 
 #: templates/components/footer.html:20
 msgid "Технології"
-msgstr ""
+msgstr "Technologies"
 
 #: templates/components/footer.html:32
 msgid "Зв'язок"
-msgstr ""
+msgstr "Contact"
 
 #: templates/components/footer.html:38
 msgid "Контакти"
-msgstr ""
+msgstr "Contacts"
 
 #: templates/components/footer.html:44
 msgid "Корисна інформація"
-msgstr ""
+msgstr "Useful Information"
 
 #: templates/components/header.html:14
 msgid "головна"
-msgstr ""
+msgstr "home"
 
 #: templates/components/header.html:15
 msgid "портфоліо"
-msgstr ""
+msgstr "portfolio"
 
 #: templates/components/header.html:16
 msgid "розрахувати пропозицію"
-msgstr ""
+msgstr "calculate proposal"
 
 #: templates/components/header.html:17
 msgid "стати розробником"
-msgstr ""
+msgstr "become a developer"
 
 #: templates/components/header.html:18
 msgid "блог"
-msgstr ""
+msgstr "blog"
 
 #: templates/components/header.html:19
 msgid "події"
-msgstr ""
+msgstr "events"
 
 #: templates/pages/calculator.html:16
 msgid "Розрахувати вартість проекту"
-msgstr "Calculate project cost"
+msgstr "Calculate Project Cost"
 
 #: templates/pages/calculator.html:20
 msgid "Чому наші ціни конкурентні?"
-msgstr "Why are our prices competitive?"
+msgstr "Why Are Our Prices Competitive?"
 
 #: templates/pages/home.html:35
 msgid "сайти"
@@ -1380,7 +1380,7 @@ msgstr "Portfolio - Prometey"
 msgid ""
 "Наше портфоліо веб-сайтів під ключ. Приклади сучасних веб-рішень для різних "
 "сфер бізнесу."
-msgstr ""
+msgstr "Our turnkey website portfolio. Examples of modern web solutions for various business sectors."
 
 #: templates/pages/portfolio.html:30
 msgid "СТВОРЕНІ НАМИ"
@@ -1392,4 +1392,4 @@ msgstr "TURNKEY WEBSITES"
 
 #: templates/pages/portfolio.html:31
 msgid "Приклади наших робіт - сучасні веб-рішення для різних сфер бізнесу"
-msgstr ""
+msgstr "Examples of our work - modern web solutions for various business sectors"

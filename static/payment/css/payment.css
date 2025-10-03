@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-beige, #F5F1ED);
+    background: var(--color-beige, #090407);
 }
 
 .payment-box {

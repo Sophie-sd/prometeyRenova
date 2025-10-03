@@ -1242,43 +1242,43 @@ msgstr ""
 
 #: templates/base.html:20
 msgid "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама"
-msgstr ""
+msgstr "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама"
 
 #: templates/base.html:97 templates/base.html:98
 msgid "Замовити дзвінок"
-msgstr ""
+msgstr "Замовити дзвінок"
 
 #: templates/components/burger_menu.html:4
 msgid "Головна"
-msgstr ""
+msgstr "Головна"
 
 #: templates/components/burger_menu.html:5
 msgid "Портфоліо"
-msgstr ""
+msgstr "Портфоліо"
 
 #: templates/components/burger_menu.html:6
 msgid "Розрахувати пропозицію"
-msgstr ""
+msgstr "Розрахувати пропозицію"
 
 #: templates/components/burger_menu.html:7
 msgid "Стати розробником"
-msgstr ""
+msgstr "Стати розробником"
 
 #: templates/components/burger_menu.html:8
 msgid "Блог"
-msgstr ""
+msgstr "Блог"
 
 #: templates/components/burger_menu.html:9
 msgid "Події"
-msgstr ""
+msgstr "Події"
 
 #: templates/components/footer.html:8
 msgid "Наші послуги"
-msgstr ""
+msgstr "Наші послуги"
 
 #: templates/components/footer.html:9
 msgid "Розробка сайтів під ключ"
-msgstr ""
+msgstr "Розробка сайтів під ключ"
 
 #: templates/components/footer.html:10
 msgid "Створення Telegram ботів"
