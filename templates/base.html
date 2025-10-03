@@ -38,12 +38,23 @@
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <!-- Mobile system (2025) - обов'язково після base.css -->
+    <!-- CSS Core (завантажуються першими) -->
+    <link rel="stylesheet" href="{% static 'css/core/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/core/variables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/core/typography.css' %}">
+    <link rel="stylesheet" href="{% static 'css/core/layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/core/animations.css' %}">
+    
+    <!-- CSS Components -->
+    <link rel="stylesheet" href="{% static 'css/components/navigation.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/buttons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/modals.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/hero-parallax.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/mobile-optimizations.css' %}">
-    <!-- Parallax hero system для hero відео -->
-    <link rel="stylesheet" href="{% static 'css/components/parallax-hero.css' %}">
+    
+    <!-- Page specific CSS -->
     {% block page_css %}{% endblock %}
     {% block extra_css %}{% endblock %}
 
