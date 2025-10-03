@@ -253,25 +253,66 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 }
 
-/* ===== CTA СЕКЦІЯ ===== */
-.services-cta {
-    background: var(--color-white);
-    padding: var(--space-lg);
-    border: 3px solid var(--color-red);
-    max-width: 600px;
-    margin: 0 auto;
+/* ===== CTA СЕКЦІЯ З ВІДЕО ФОНОМ ===== */
+.cta-section {
     position: relative;
+    width: 100%;
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+    overflow: hidden;
 }
 
-.services-cta::before {
-    content: '★';
-    position: absolute;
-    top: -12px;
-    left: var(--space-sm);
-    color: var(--color-red);
+/* Фіксоване відео на фоні для CTA */
+.cta-section .video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Фіксований overlay для CTA */
+.cta-section .video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 3;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+}
+
+.cta-content h2 {
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -2px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+    margin-bottom: var(--space-md);
+}
+
+.cta-content p {
     font-size: 20px;
-    background: var(--color-white);
-    padding: 0 5px;
+    line-height: 1.6;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    margin-bottom: var(--space-lg);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .cta-buttons {
@@ -364,6 +405,20 @@
         border-radius: 16px 16px 0 0;
         margin-top: -16px;
         padding-top: 40px;
+    }
+
+    .cta-section {
+        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
+    }
+
+    .cta-content h2 {
+        font-size: 48px;
+        letter-spacing: -1px;
+    }
+
+    .cta-content p {
+        font-size: 16px;
     }
 }
 

@@ -106,21 +106,36 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
 
-            <!-- CTA секція -->
-            <div class="services-cta text-center mt-xl">
-                <h3 class="text-medium color-red mb-sm">Готові почати?</h3>
-                <p class="text-base mb-md">
-                    Зв'яжіться з нами для безкоштовної консультації та розрахунку вартості проєкту
-                </p>
-                <div class="cta-buttons">
-                    <a href="{% url 'calculator' %}" class="btn btn-primary">
-                        Розрахувати вартість
-                    </a>
-                    <a href="https://t.me/prometeylabs" class="btn btn-secondary" target="_blank">
-                        Telegram консультація
-                    </a>
-                </div>
+<!-- CTA секція з відео фоном -->
+<section class="cta-section">
+    <!-- Фонові відео -->
+    <video class="video-background desktop-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
+    </video>
+    <video class="video-background mobile-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
+    </video>
+
+    <!-- Overlay для контрасту -->
+    <div class="video-overlay"></div>
+
+    <div class="container">
+        <div class="cta-content text-center">
+            <h2 class="text-large color-white mb-md">Готові почати?</h2>
+            <p class="text-base color-white mb-lg">
+                Зв'яжіться з нами для безкоштовної консультації та розрахунку вартості проєкту
+            </p>
+            <div class="cta-buttons">
+                <a href="{% url 'calculator' %}" class="btn btn-primary">
+                    Розрахувати вартість
+                </a>
+                <a href="https://t.me/prometeylabs" class="btn btn-secondary" target="_blank">
+                    Telegram консультація
+                </a>
             </div>
         </div>
     </div>
