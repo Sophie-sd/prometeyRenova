@@ -9,6 +9,8 @@
     padding: var(--space-xl) 0 var(--space-md);
     margin-top: var(--space-xl);
     border-top: 3px solid var(--color-red);
+    position: relative;
+    z-index: 100;
 }
 
 /* ===== FOOTER CONTENT ===== */

@@ -10,17 +10,35 @@
     top: 0;
     left: 0;
     right: 0;
-    z-index: var(--z-fixed);
+    z-index: 1000;
     padding: var(--space-xs) 0;
     transition: all var(--transition-normal) var(--easing-default);
     background: transparent;
 }
 
+/* Прозора навігація - білий текст */
+.main-navigation:not(.scrolled) .nav-link {
+    color: var(--color-white);
+}
+
+.main-navigation:not(.scrolled) .nav-logo {
+    color: var(--color-white);
+}
+
+/* Scrolled навігація - темний текст */
 .main-navigation.scrolled {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.main-navigation.scrolled .nav-link {
+    color: #666666;
+}
+
+.main-navigation.scrolled .nav-logo {
+    color: var(--color-red);
 }
 
 .nav-container {
@@ -64,7 +82,7 @@
 .nav-link {
     font-size: var(--font-base);
     font-weight: 700;
-    color: #666666;
+    color: var(--color-white);
     text-decoration: none;
     transition: color var(--transition-normal) var(--easing-default);
     position: relative;
@@ -141,13 +159,25 @@
     border: none;
 }
 
+/* КРИТИЧНО: burger menu НЕ показувати на desktop */
+@media (min-width: 768px) {
+    .burger-menu {
+        display: none;
+    }
+}
+
 .burger-line {
     width: 25px;
     height: 2px;
-    background: var(--color-red);
+    background: var(--color-white);
     margin: 3px 0;
     transition: all var(--transition-normal) var(--easing-default);
     transform-origin: center;
+}
+
+/* Scrolled - червоні лінії */
+.main-navigation.scrolled .burger-line {
+    background: var(--color-red);
 }
 
 /* Burger анімація при відкритті */
@@ -171,8 +201,8 @@
     width: 100%;
     height: 100vh;
     height: 100dvh;
-    background: var(--color-beige);
-    z-index: var(--z-tooltip);
+    background: var(--color-white);
+    z-index: 10000;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
