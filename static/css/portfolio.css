@@ -24,8 +24,11 @@
     }
 
     .project-section {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
+        will-change: auto;
+    }
+
+    body.menu-open .project-section {
+        pointer-events: none;
     }
 }
 
@@ -603,12 +606,11 @@ html {
 
 @media (max-width: 767px) {
     .project-section {
-        contain: paint;
-        transform: translateZ(0);
+        contain: layout;
     }
 
     .project-video {
-        transform: translateZ(0);
+        will-change: auto;
     }
 }
 

@@ -237,6 +237,10 @@ class PrometeyApp {
             burgerBtn.classList.add('active');
             mobileMenu.classList.add('active');
             body.style.overflow = 'hidden';
+            body.classList.add('menu-open');
+
+            // Сповіщаємо інші скрипти про відкриття меню
+            window.dispatchEvent(new CustomEvent('menu:opened'));
         }
     }
 
@@ -248,6 +252,10 @@ class PrometeyApp {
         burgerBtn.classList.remove('active');
         mobileMenu.classList.remove('active');
         body.style.overflow = '';
+        body.classList.remove('menu-open');
+
+        // Сповіщаємо інші скрипти про закриття меню
+        window.dispatchEvent(new CustomEvent('menu:closed'));
 
         // Скидання анімацій для iOS Safari
         const mobileLinks = document.querySelectorAll('.mobile-nav-link');

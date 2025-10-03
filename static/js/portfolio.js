@@ -7,6 +7,8 @@ let projectSections = [];
 let heroSection = null;
 let isScrolling = false;
 let scrollTimeout = null;
+let isMenuOpen = false;
+let scrollHandler = null;
 
 // =================================
 // ІНІЦІАЛІЗАЦІЯ
@@ -106,12 +108,14 @@ function initStickyScroll() {
     // Початкова активна секція
     updateActiveSection();
 
-    // СПРОЩЕНИЙ scroll handler - менше навантаження
+    // ОПТИМІЗОВАНИЙ scroll handler - відключається коли меню відкрите
     let ticking = false;
     const isMobile = window.innerWidth <= 767;
 
-    // Використовуємо більш простий підхід для всіх пристроїв
-    window.addEventListener('scroll', function () {
+    scrollHandler = function () {
+        // Не обробляємо scroll якщо меню відкрите
+        if (isMenuOpen) return;
+
         if (!ticking) {
             requestAnimationFrame(() => {
                 updateActiveSection();
@@ -119,7 +123,21 @@ function initStickyScroll() {
             });
             ticking = true;
         }
-    }, { passive: true });
+    };
+
+    // Використовуємо більш простий підхід для всіх пристроїв
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+
+    // Слухаємо події меню
+    window.addEventListener('menu:opened', () => {
+        isMenuOpen = true;
+        console.log('Portfolio: Menu opened, scroll handlers paused');
+    });
+
+    window.addEventListener('menu:closed', () => {
+        isMenuOpen = false;
+        console.log('Portfolio: Menu closed, scroll handlers resumed');
+    });
 
     // Оновлення при зміні розміру (тільки якщо MobileCore не керує цим)
     if (!window.MobileCore || typeof window.MobileCore.isInitialized !== 'function' || !window.MobileCore.isInitialized()) {
@@ -130,6 +148,9 @@ function initStickyScroll() {
 
 function updateActiveSection() {
     if (!heroSection || projectSections.length === 0) return;
+
+    // Пропускаємо якщо меню відкрите
+    if (isMenuOpen) return;
 
     const scrollTop = window.pageYOffset;
     const heroHeight = heroSection.offsetHeight;
