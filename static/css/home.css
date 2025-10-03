@@ -154,21 +154,23 @@
     background-color: #2a2a2a;
 }
 
-/* Overlay для читабельності тексту - оновлений */
+/* Overlay - тільки для hover ефекту */
 .service-card-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.85) 100%);
+    background: transparent;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 1;
     border-radius: 12px;
+    opacity: 0;
 }
 
 .service-card:hover .service-card-overlay {
-    background: linear-gradient(180deg, rgba(225, 72, 17, 0.3) 0%, rgba(0, 0, 0, 0.9) 100%);
+    background: linear-gradient(180deg, rgba(225, 72, 17, 0.2) 0%, rgba(0, 0, 0, 0.7) 100%);
+    opacity: 1;
 }
 
 .service-card:hover {
@@ -177,7 +179,7 @@
     box-shadow: 0 20px 50px rgba(225, 72, 17, 0.4);
 }
 
-/* Контент картки - переписаний для вищих карток */
+/* Контент картки - без постійних тіней */
 .service-card-content {
     position: relative;
     z-index: 2;
@@ -187,6 +189,8 @@
     flex-direction: column;
     justify-content: flex-end;
     color: var(--color-white);
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 70%);
+    border-radius: 12px;
 }
 
 .service-number {
@@ -196,15 +200,15 @@
     font-size: 42px;
     font-weight: 900;
     color: var(--color-red);
-    opacity: 0.95;
+    opacity: 1;
     line-height: 1;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
     transition: all 0.3s ease-out;
 }
 
 .service-card:hover .service-number {
     transform: scale(1.1);
-    opacity: 1;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
 }
 
 .service-title {
@@ -212,7 +216,7 @@
     font-weight: 700;
     margin-bottom: var(--space-xs);
     color: var(--color-white);
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
     line-height: 1.1;
     letter-spacing: -0.5px;
     transition: all 0.3s ease-out;
@@ -220,20 +224,22 @@
 
 .service-card:hover .service-title {
     transform: translateY(-2px);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
 }
 
 .service-description {
     font-size: 14px;
     line-height: 1.4;
     color: var(--color-white);
-    opacity: 0.9;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    opacity: 0.95;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
     transition: all 0.3s ease-out;
 }
 
 .service-card:hover .service-description {
     opacity: 1;
     transform: translateY(-1px);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 }
 
 /* ===== CTA СЕКЦІЯ ===== */
@@ -397,6 +403,8 @@
 
     .service-card-content {
         padding: var(--space-sm);
+        background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.75) 60%);
+        border-radius: 8px;
     }
 
     .service-number {
