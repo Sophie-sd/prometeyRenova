@@ -1,0 +1,400 @@
+/* =================================
+   NAVIGATION COMPONENT
+   Header, Desktop меню, Mobile menu, Language switcher
+   З animation cascade для mobile menu
+   ================================= */
+
+/* ===== HEADER & NAVIGATION ===== */
+.main-navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-fixed);
+    padding: var(--space-xs) 0;
+    transition: all var(--transition-normal) var(--easing-default);
+    background: transparent;
+}
+
+.main-navigation.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-xs);
+}
+
+/* ===== ЛОГОТИП ===== */
+.nav-logo-section {
+    flex: 0 0 auto;
+}
+
+.nav-logo {
+    font-size: var(--font-medium);
+    font-weight: 700;
+    color: var(--color-red);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    transition: color var(--transition-normal) var(--easing-default);
+}
+
+.nav-logo:hover {
+    color: var(--color-black);
+}
+
+/* ===== DESKTOP МЕНЮ ===== */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    font-size: var(--font-base);
+    font-weight: 700;
+    color: #666666;
+    text-decoration: none;
+    transition: color var(--transition-normal) var(--easing-default);
+    position: relative;
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--color-red);
+}
+
+/* Анімована підкреслення */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-red);
+    transition: width var(--transition-normal) var(--easing-default);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* ===== PAGE NUMBER ===== */
+.nav-page-number {
+    font-size: var(--font-page);
+    font-weight: 700;
+    color: var(--color-red);
+    margin-left: var(--space-xs);
+}
+
+/* ===== LANGUAGE SWITCHER (Desktop) ===== */
+.language-switcher {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.lang-btn {
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all var(--transition-normal) ease;
+    color: var(--color-black);
+    border: 1px solid transparent;
+}
+
+.lang-btn:hover {
+    background: var(--color-gray);
+    color: var(--color-red);
+}
+
+.lang-btn.active {
+    background: var(--color-red);
+    color: white;
+    border-color: var(--color-red);
+}
+
+/* ===== BURGER MENU BUTTON ===== */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 5px;
+    background: transparent;
+    border: none;
+}
+
+.burger-line {
+    width: 25px;
+    height: 2px;
+    background: var(--color-red);
+    margin: 3px 0;
+    transition: all var(--transition-normal) var(--easing-default);
+    transform-origin: center;
+}
+
+/* Burger анімація при відкритті */
+.burger-menu.active .burger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger-menu.active .burger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active .burger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    background: var(--color-beige);
+    z-index: var(--z-tooltip);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    transform: translateX(-100%);
+    transition: transform 0.4s var(--easing-default);
+    padding: max(env(safe-area-inset-top), 120px) max(env(safe-area-inset-right), 40px) max(env(safe-area-inset-bottom), 40px) max(env(safe-area-inset-left), 40px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mobile-menu.active {
+    transform: translateX(0);
+}
+
+.mobile-nav-link {
+    font-size: var(--font-large);
+    font-weight: 700;
+    color: var(--color-black);
+    text-decoration: none;
+    transition: all var(--transition-normal) var(--easing-default);
+    padding: var(--space-sm) 0;
+    display: block;
+    width: 100%;
+    text-align: left;
+    letter-spacing: -0.5px;
+    line-height: 0.9;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.mobile-nav-link:hover {
+    color: var(--color-red);
+    transform: translateX(10px);
+}
+
+.mobile-nav-link:active {
+    color: var(--color-red);
+    transform: translateX(15px);
+}
+
+.mobile-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-red);
+    transition: width var(--transition-normal) var(--easing-default);
+}
+
+.mobile-nav-link:hover::after {
+    width: 100%;
+}
+
+/* ===== ANIMATION CASCADE ДЛЯ MOBILE MENU ===== */
+/* ВАЖЛИВО: Це створює каскадний ефект появи посилань */
+
+.mobile-menu.active .mobile-nav-link {
+    animation: slideInFromLeft 0.5s ease-out forwards;
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+/* Animation delays для cascade ефекту */
+.mobile-menu.active .mobile-nav-link:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.mobile-menu.active .mobile-nav-link:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.mobile-menu.active .mobile-nav-link:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.mobile-menu.active .mobile-nav-link:nth-child(4) {
+    animation-delay: 0.25s;
+}
+
+.mobile-menu.active .mobile-nav-link:nth-child(5) {
+    animation-delay: 0.3s;
+}
+
+.mobile-menu.active .mobile-nav-link:nth-child(6) {
+    animation-delay: 0.35s;
+}
+
+.mobile-menu.active .mobile-nav-link:nth-child(7) {
+    animation-delay: 0.4s;
+}
+
+/* ===== MOBILE LANGUAGE SWITCHER ===== */
+.mobile-language-switcher {
+    margin: 16px 0;
+}
+
+.lang-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.lang-dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--color-white);
+    border: 1px solid var(--color-red);
+    border-radius: var(--radius-sm);
+    color: var(--color-black);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all var(--transition-normal) ease;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.lang-dropdown-btn:hover {
+    background: var(--color-gray);
+}
+
+.lang-dropdown-icon {
+    transition: transform var(--transition-normal) ease;
+}
+
+.lang-dropdown.active .lang-dropdown-icon {
+    transform: rotate(180deg);
+}
+
+.lang-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--color-white);
+    border: 1px solid var(--color-red);
+    border-radius: var(--radius-sm);
+    margin-top: 4px;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition-normal) ease;
+    z-index: 10;
+}
+
+.lang-dropdown.active .lang-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.lang-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    color: var(--color-black);
+    text-decoration: none;
+    transition: background var(--transition-fast) ease;
+}
+
+.lang-dropdown-item:hover {
+    background: var(--color-gray);
+    color: var(--color-red);
+}
+
+.lang-flag {
+    font-size: 18px;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Desktop - показати desktop navigation */
+@media (min-width: 768px) {
+    .nav-menu {
+        display: flex;
+    }
+
+    .burger-menu {
+        display: none;
+    }
+
+    .language-switcher {
+        display: flex;
+    }
+
+    .mobile-language-switcher {
+        display: none;
+    }
+}
+
+/* Mobile - показати burger menu */
+@media (max-width: 767px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .burger-menu {
+        display: flex;
+    }
+
+    .language-switcher {
+        display: none;
+    }
+
+    .mobile-language-switcher {
+        display: block;
+    }
+
+    /* Адаптація mobile menu для маленьких екранів */
+    .mobile-nav-link {
+        font-size: clamp(28px, 6vw, 50px);
+        padding: var(--space-xs) 0;
+    }
+
+    .mobile-menu {
+        padding: max(env(safe-area-inset-top), 100px) max(env(safe-area-inset-right), 20px) max(env(safe-area-inset-bottom), 20px) max(env(safe-area-inset-left), 20px);
+    }
+}
+

@@ -1,0 +1,95 @@
+/* =================================
+   CORE RESET - CSS Reset & Base
+   Базові стилі для всього додатку
+   ================================= */
+
+/* ===== CSS RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #000000;
+    background-color: #090407;
+    overflow-x: hidden;
+}
+
+/* ===== LINK RESET ===== */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition-normal) var(--easing-default);
+}
+
+a:hover {
+    color: var(--color-red);
+}
+
+/* ===== BUTTON RESET ===== */
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* ===== IMAGE RESET ===== */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ===== LIST RESET ===== */
+ul,
+ol {
+    list-style: none;
+}
+
+/* ===== FORM ELEMENT RESET ===== */
+input,
+textarea,
+select {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* ===== FOCUS STYLES ===== */
+:focus {
+    outline: 2px solid var(--color-red);
+    outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ===== SELECTION STYLES ===== */
+::selection {
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
+
+::-moz-selection {
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+    position: relative;
+    z-index: 1;
+}
+

@@ -1,0 +1,86 @@
+/* =================================
+   CORE VARIABLES - CSS змінні проєкту
+   Кольори, розміри, spacing, breakpoints
+   
+   ВАЖЛИВО: Mobile viewport змінні (--vh, --vw) 
+   знаходяться в mobile-optimizations.css
+   ================================= */
+
+:root {
+    /* ===== КОЛЬОРОВА СИСТЕМА ===== */
+    --color-red: #e14811;
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+    --color-beige: #090407;
+    --color-beige-alt: #090407;
+    --color-gray: #F8F8F8;
+
+    /* ===== ТИПОГРАФІЧНА ШКАЛА ===== */
+    /* Використовуємо clamp() для fluid typography */
+    --font-mega: clamp(60px, 12vw, 120px);
+    --font-large: clamp(32px, 6vw, 50px);
+    --font-medium: clamp(20px, 3vw, 24px);
+    --font-sub: 16px;
+    --font-base: 14px;
+    --font-small: 12px;
+    --font-page: clamp(24px, 4vw, 32px);
+
+    /* ===== SPACING ШКАЛА ===== */
+    /* Responsive spacing використовуючи clamp() */
+    --space-xs: clamp(16px, 2vw, 20px);
+    --space-sm: clamp(24px, 4vw, 40px);
+    --space-md: clamp(40px, 6vw, 60px);
+    --space-lg: clamp(60px, 8vw, 80px);
+    --space-xl: clamp(80px, 12vw, 120px);
+
+    /* ===== BREAKPOINTS (для використання в JS) ===== */
+    /* Доступні через getComputedStyle */
+    --breakpoint-mobile: 767px;
+    --breakpoint-tablet: 1024px;
+    --breakpoint-desktop: 1200px;
+
+    /* ===== TRANSITIONS ===== */
+    --transition-fast: 150ms;
+    --transition-normal: 300ms;
+    --transition-slow: 500ms;
+    --easing-default: ease-out;
+    --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --easing-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* ===== BORDER RADIUS ===== */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+
+    /* ===== SHADOWS ===== */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 25px 60px rgba(0, 0, 0, 0.3);
+    
+    /* Червоні тіні для акцентів */
+    --shadow-red-sm: 0 2px 8px rgba(225, 72, 17, 0.1);
+    --shadow-red-md: 0 4px 12px rgba(225, 72, 17, 0.2);
+    --shadow-red-lg: 0 25px 60px rgba(225, 72, 17, 0.3);
+
+    /* ===== Z-INDEX ШКАЛА ===== */
+    --z-below: -1;
+    --z-normal: 0;
+    --z-above: 1;
+    --z-dropdown: 10;
+    --z-sticky: 100;
+    --z-fixed: 1000;
+    --z-modal-backdrop: 9998;
+    --z-modal: 9999;
+    --z-tooltip: 10000;
+}
+
+/* ===== ТЕМНА ТЕМА (для майбутнього) ===== */
+/* 
+[data-theme="dark"] {
+    --color-beige: #1a1a1a;
+    --color-black: #ffffff;
+    --color-white: #000000;
+}
+*/
+

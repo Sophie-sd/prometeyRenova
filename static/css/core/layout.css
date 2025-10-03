@@ -1,0 +1,316 @@
+/* =================================
+   CORE LAYOUT - Layout utilities
+   Container, Grid, Flexbox utilities
+   ================================= */
+
+/* ===== CONTAINER СИСТЕМА ===== */
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-xs);
+}
+
+.container-fluid {
+    width: 100%;
+    padding: 0 var(--space-xs);
+}
+
+.container-narrow {
+    max-width: 1000px;
+}
+
+.container-wide {
+    max-width: 1600px;
+}
+
+/* ===== GRID СИСТЕМА ===== */
+
+/* Асиметричні сітки згідно STYLE.MDC */
+.grid-70-30 {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    gap: var(--space-sm);
+    align-items: start;
+}
+
+.grid-60-40 {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    gap: var(--space-sm);
+    align-items: start;
+}
+
+.grid-50-50 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+    align-items: start;
+}
+
+/* Auto-fill responsive grid */
+.grid-auto {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md);
+}
+
+/* ===== FLEXBOX UTILITIES ===== */
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex-start {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.flex-end {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+/* Gap utilities */
+.gap-xs {
+    gap: var(--space-xs);
+}
+
+.gap-sm {
+    gap: var(--space-sm);
+}
+
+.gap-md {
+    gap: var(--space-md);
+}
+
+.gap-lg {
+    gap: var(--space-lg);
+}
+
+/* ===== SECTION UTILITIES ===== */
+
+.full-width {
+    width: 100%;
+}
+
+.full-height {
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+}
+
+.section-padding {
+    padding: var(--space-xl) 0;
+}
+
+.section-padding-sm {
+    padding: var(--space-md) 0;
+}
+
+.section-padding-lg {
+    padding: calc(var(--space-xl) * 1.5) 0;
+}
+
+/* ===== BACKGROUND UTILITIES ===== */
+
+.bg-beige {
+    background-color: var(--color-beige);
+}
+
+.bg-white {
+    background-color: var(--color-white);
+}
+
+.bg-black {
+    background-color: var(--color-black);
+}
+
+.bg-gray {
+    background-color: var(--color-gray);
+}
+
+/* ===== PADDING UTILITIES ===== */
+
+.p-xs {
+    padding: var(--space-xs);
+}
+
+.p-sm {
+    padding: var(--space-sm);
+}
+
+.p-md {
+    padding: var(--space-md);
+}
+
+.p-lg {
+    padding: var(--space-lg);
+}
+
+.p-xl {
+    padding: var(--space-xl);
+}
+
+/* Padding по сторонах */
+.px-xs {
+    padding-left: var(--space-xs);
+    padding-right: var(--space-xs);
+}
+
+.px-sm {
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+}
+
+.py-xs {
+    padding-top: var(--space-xs);
+    padding-bottom: var(--space-xs);
+}
+
+.py-sm {
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-sm);
+}
+
+.py-md {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+}
+
+.py-lg {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+}
+
+/* ===== DISPLAY UTILITIES ===== */
+
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+/* ===== POSITION UTILITIES ===== */
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.sticky {
+    position: sticky;
+}
+
+/* ===== RESPONSIVE UTILITIES ===== */
+
+/* Desktop only */
+@media (max-width: 767px) {
+    .desktop-only {
+        display: none;
+    }
+}
+
+/* Mobile only */
+@media (min-width: 768px) {
+    .mobile-only {
+        display: none;
+    }
+}
+
+/* Tablet only */
+@media (max-width: 767px), (min-width: 1025px) {
+    .tablet-only {
+        display: none;
+    }
+}
+
+/* ===== RESPONSIVE GRID ===== */
+
+/* Планшети */
+@media (max-width: 1024px) {
+    .grid-70-30,
+    .grid-60-40 {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 0 var(--space-sm);
+    }
+}
+
+/* Мобільні */
+@media (max-width: 767px) {
+    .grid-70-30,
+    .grid-60-40,
+    .grid-50-50 {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+    }
+
+    .grid-auto {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+    }
+
+    .container {
+        padding: 0 var(--space-xs);
+    }
+
+    .flex-column-mobile {
+        flex-direction: column;
+    }
+
+    .section-padding {
+        padding: var(--space-md) 0;
+    }
+
+    .section-padding-lg {
+        padding: var(--space-lg) 0;
+    }
+}
+
