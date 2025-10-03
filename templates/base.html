@@ -17,7 +17,8 @@
     {% endif %}
 
     <!-- SEO Meta Tags -->
-    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock %}</title>
+    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock
+        %}</title>
     <meta name="description"
         content="{% block description %}PrometeyLabs - розробка сайтів під ключ, Telegram боти, налаштування реклами Google Ads, ведення соцмереж, навчання веб-розробки. Конкурентні ціни, сучасні технології.{% endblock %}">
     <meta name="keywords"
@@ -41,6 +42,7 @@
     <!-- CSS Core (завантажуються першими) -->
     <link rel="stylesheet" href="{% static 'css/core/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/variables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/core/z-index-system.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/typography.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/layout.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/animations.css' %}">

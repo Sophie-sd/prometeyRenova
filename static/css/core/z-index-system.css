@@ -1,0 +1,97 @@
+/* =================================
+   Z-INDEX СИСТЕМА - ЄДИНА ДЛЯ ВСЬОГО ПРОЄКТУ
+   Ця система забезпечує відсутність конфліктів
+   ================================= */
+
+/* ===== ГЛОБАЛЬНІ Z-INDEX РІВНІ ===== */
+:root {
+    /* Фонові елементи (найнижчий рівень) */
+    --z-background: -1;
+    --z-video-background: 0;
+    --z-overlay-background: 1;
+
+    /* Основний контент */
+    --z-content-base: 10;
+    --z-content-elevated: 50;
+    --z-content-hero: 100;
+
+    /* Навігація */
+    --z-navigation: 1000;
+    --z-mobile-menu: 10000;
+    --z-burger-button: 10001;
+
+    /* UI елементи */
+    --z-dropdown: 500;
+    --z-tooltip: 800;
+    --z-fixed-buttons: 999;
+
+    /* Модальні вікна (найвищий рівень) */
+    --z-modal-backdrop: 2000;
+    --z-modal-content: 2001;
+}
+
+/* ===== СЕКЦІЇ З ВІДЕО ФОНОМ ===== */
+/* Hero секції (фіксоване відео) */
+.hero-section,
+.hero-parallax,
+.blog-hero,
+.developer-hero {
+    z-index: var(--z-content-base);
+}
+
+.hero-section .video-background,
+.hero-parallax .video-background {
+    z-index: var(--z-background);
+}
+
+.hero-section .video-overlay,
+.hero-parallax .video-overlay {
+    z-index: var(--z-video-background);
+}
+
+.hero-content,
+.hero-parallax__content {
+    z-index: var(--z-content-hero);
+}
+
+/* CTA секції (абсолютне відео в межах секції) */
+.cta-section {
+    z-index: var(--z-content-base);
+}
+
+/* ===== НАВІГАЦІЯ ===== */
+.main-navigation {
+    z-index: var(--z-navigation);
+}
+
+.mobile-menu {
+    z-index: var(--z-mobile-menu);
+}
+
+.burger-menu {
+    z-index: var(--z-burger-button);
+}
+
+/* ===== КНОПКИ ===== */
+.call-button {
+    z-index: var(--z-fixed-buttons);
+}
+
+/* ===== МОДАЛЬНІ ВІКНА ===== */
+.modal {
+    z-index: var(--z-modal-backdrop);
+}
+
+.modal-backdrop {
+    z-index: var(--z-modal-backdrop);
+}
+
+.modal-content {
+    z-index: var(--z-modal-content);
+}
+
+/* ===== DROPDOWN МЕНЮ ===== */
+.lang-dropdown-menu,
+.dropdown-menu {
+    z-index: var(--z-dropdown);
+}

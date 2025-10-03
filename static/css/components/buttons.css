@@ -68,7 +68,7 @@
     position: fixed;
     bottom: var(--space-xs);
     left: var(--space-xs);
-    z-index: var(--z-sticky);
+    z-index: var(--z-fixed-buttons, 999);
     background: var(--color-red);
     color: var(--color-white);
     padding: 15px 20px;
@@ -194,4 +194,3 @@
         bottom: max(env(safe-area-inset-bottom, 20px), 20px);
     }
 }
-
