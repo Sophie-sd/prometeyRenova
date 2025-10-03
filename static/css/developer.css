@@ -1,26 +1,26 @@
-/* DEVELOPER.CSS - Темна сторінка з 50/50 розподілом згідно STYLE.MDC */
+/* DEVELOPER.CSS - Темна сторінка з паралакс відео згідно STYLE.MDC */
 
-/* ===== DEVELOPER HERO З ВІДЕО ===== */
+/* ===== DEVELOPER HERO З ПАРАЛАКС ВІДЕО ===== */
 .developer-hero {
     position: relative;
     width: 100%;
-    height: 100vh;
     min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    z-index: 0;
 }
 
-/* Фонове відео */
-.video-background {
-    position: absolute;
+/* Фіксоване відео на фоні */
+.developer-hero .video-background {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 1;
+    z-index: -1;
 }
 
 /* Responsive відео */
@@ -36,15 +36,15 @@
     }
 }
 
-/* Overlay для читабельності тексту */
-.video-overlay {
-    position: absolute;
+/* Фіксований overlay */
+.developer-hero .video-overlay {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 2;
+    z-index: -1;
 }
 
 .hero-content {
@@ -69,12 +69,17 @@
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
-/* ===== DARK SPLIT SECTION 50/50 ===== */
+/* ===== DARK SPLIT SECTION 50/50 - ПЕРША СЕКЦІЯ ПІСЛЯ HERO ===== */
 .dark-split-section {
-    height: 100vh;
-    min-height: 100vh;
-    overflow: hidden;
     position: relative;
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    overflow: hidden;
+    background: #000000;
+    z-index: 10;
+    border-radius: 20px 20px 0 0;
+    margin-top: -20px;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .split-container {
@@ -212,8 +217,10 @@
 
 /* ===== COURSES SECTION ===== */
 .courses-section {
-    padding: var(--space-xl) 0;
     position: relative;
+    padding: var(--space-xl) 0;
+    background: #090407;
+    z-index: 10;
 }
 
 .section-header h2 {
@@ -334,13 +341,21 @@
     }
 }
 
+/* ===== АДАПТАЦІЯ ПАРАЛАКС ДЛЯ МОБІЛЬНИХ ===== */
+@media (max-width: 767px) {
+    .dark-split-section {
+        border-radius: 16px 16px 0 0;
+        margin-top: -16px;
+    }
+}
+
 /* ===== АДАПТАЦІЯ МОБІЛЬНІ (iOS Safari 2025) ===== */
 @media (max-width: 767px) {
 
     /* Hero секція - використовуємо mobile viewport */
     .developer-hero {
-        height: var(--mobile-vh);
-        min-height: var(--mobile-vh);
+        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
     }
 
     .hero-content {
