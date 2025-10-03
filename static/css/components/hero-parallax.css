@@ -86,10 +86,13 @@
 
 /* ===== ПЕРША СЕКЦІЯ ПІСЛЯ HERO ===== */
 /* Має особливий дизайн з rounded top */
-.content-section--first {
+.content-section--first,
+.services-section,
+.blog-header,
+.events-filter {
     position: relative;
     background: #090407;
-    z-index: var(--z-dropdown);
+    z-index: 10;
     border-radius: 20px 20px 0 0;
     margin-top: -20px;
     box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
