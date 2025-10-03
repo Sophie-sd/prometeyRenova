@@ -1,52 +1,6 @@
 /* HOME.CSS - Головна сторінка з фоновими відео згідно STYLE.MDC */
 
-/* ===== HERO SECTION З ПАРАЛАКС ВІДЕО ===== */
-.hero-section {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 0;
-    background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
-}
-
-/* Фіксоване відео на фоні */
-.hero-section .video-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
-
-/* Responsive відео */
-@media (min-width: 768px) {
-    .mobile-video {
-        display: none;
-    }
-}
-
-@media (max-width: 767px) {
-    .desktop-video {
-        display: none;
-    }
-}
-
-/* Фіксований overlay */
-.hero-section .video-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: -1;
-}
+/* Hero використовує hero-parallax.css компонент */
 
 .hero-content {
     position: relative;
