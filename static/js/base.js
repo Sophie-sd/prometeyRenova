@@ -171,6 +171,7 @@ class PrometeyApp {
         const burgerBtn = document.querySelector('.burger-menu');
         const mobileMenu = document.querySelector('.mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        const closeBtn = document.querySelector('.mobile-menu-close');
 
         if (!burgerBtn || !mobileMenu) return;
 
@@ -179,6 +180,14 @@ class PrometeyApp {
             e.preventDefault();
             this.toggleMobileMenu();
         });
+
+        // Закриття через кнопку закриття
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.closeMobileMenu();
+            });
+        }
 
         // Закриття при кліку на посилання
         mobileLinks.forEach(link => {
@@ -671,13 +680,33 @@ function setLanguage(langCode) {
     form.method = 'POST';
     form.action = '/i18n/set_language/';
 
-    // CSRF токен
-    let csrfToken = window.csrfToken;
-    if (!csrfToken) {
-        const csrfTokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
-        csrfToken = csrfTokenElement ? csrfTokenElement.value : '';
+    // CSRF токен - пробуємо кілька методів
+    let csrfToken = null;
+
+    // Метод 1: З window
+    if (window.csrfToken) {
+        csrfToken = window.csrfToken;
     }
 
+    // Метод 2: З hidden input
+    if (!csrfToken) {
+        const csrfInput = document.querySelector('[name=csrfmiddlewaretoken]');
+        if (csrfInput) {
+            csrfToken = csrfInput.value;
+        }
+    }
+
+    // Метод 3: З cookie
+    if (!csrfToken) {
+        const cookieValue = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('csrftoken='));
+        if (cookieValue) {
+            csrfToken = cookieValue.split('=')[1];
+        }
+    }
+
+    // Додаємо CSRF токен якщо знайшли
     if (csrfToken) {
         const csrfInput = document.createElement('input');
         csrfInput.type = 'hidden';
@@ -697,9 +726,10 @@ function setLanguage(langCode) {
     const nextInput = document.createElement('input');
     nextInput.type = 'hidden';
     nextInput.name = 'next';
-    nextInput.value = window.location.pathname;
+    nextInput.value = window.location.pathname + window.location.search;
     form.appendChild(nextInput);
 
+    // Додаємо форму до body і відправляємо
     document.body.appendChild(form);
     form.submit();
 }

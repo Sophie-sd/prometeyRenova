@@ -75,7 +75,7 @@
 
 .footer-bottom p {
     font-size: var(--font-small);
-    color: #666666;
+    color: #333333;
     margin-bottom: var(--space-xs);
     line-height: 1.6;
 }
@@ -125,4 +125,3 @@
         font-size: 11px;
     }
 }
-

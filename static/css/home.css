@@ -556,6 +556,21 @@
 }
 
 /* ===== АНІМАЦІЇ ===== */
+.hero-text h1 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-text p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-buttons {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: no-preference) {
     .hero-text h1 {
         opacity: 0;
