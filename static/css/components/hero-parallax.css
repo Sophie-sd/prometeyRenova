@@ -4,9 +4,11 @@
    Підтримує обидва варіанти класів: .hero-parallax та .hero-section
    ================================= */
 
-/* ===== BASE HERO PARALLAX (обидва варіанти) ===== */
+/* ===== BASE HERO PARALLAX (всі варіанти класів) ===== */
 .hero-parallax,
-.hero-section {
+.hero-section,
+.blog-hero,
+.developer-hero {
     position: relative;
     width: 100%;
     min-height: 100vh;
@@ -17,10 +19,12 @@
     z-index: 0;
 }
 
-/* ===== ФІКСОВАНЕ ВІДЕО (обидва варіанти класів) ===== */
+/* ===== ФІКСОВАНЕ ВІДЕО (всі варіанти класів) ===== */
 .hero-parallax__video,
 .hero-parallax .video-background,
-.hero-section .video-background {
+.hero-section .video-background,
+.blog-hero .video-background,
+.developer-hero .video-background {
     position: fixed;
     top: 0;
     left: 0;
@@ -42,10 +46,12 @@
     display: none;
 }
 
-/* ===== OVERLAY (обидва варіанти) ===== */
+/* ===== OVERLAY (всі варіанти) ===== */
 .hero-parallax__overlay,
 .hero-parallax .video-overlay,
-.hero-section .video-overlay {
+.hero-section .video-overlay,
+.blog-hero .video-overlay,
+.developer-hero .video-overlay {
     position: fixed;
     top: 0;
     left: 0;
