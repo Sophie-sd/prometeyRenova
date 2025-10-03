@@ -121,20 +121,26 @@
 /* Mobile only */
 @media (max-width: 767px) {
     /* Показати mobile відео */
-    .hero-parallax__video--desktop {
+    .hero-parallax__video--desktop,
+    .desktop-video {
         display: none;
     }
 
-    .hero-parallax__video--mobile {
+    .hero-parallax__video--mobile,
+    .mobile-video {
         display: block;
     }
 
     /* Адаптація spacing */
-    .hero-parallax__content {
+    .hero-parallax__content,
+    .hero-content {
         padding: var(--space-md) 0;
     }
 
-    .content-section--first {
+    .content-section--first,
+    .services-section,
+    .blog-header,
+    .events-filter {
         border-radius: 16px 16px 0 0;
         margin-top: -16px;
         padding-top: 40px;
