@@ -259,17 +259,15 @@ function initIOSOptimizations() {
     const isMobile = window.innerWidth <= 767;
 
     if (isMobile) {
-        // Мобільна версія: звичайний scroll без блокування
-        console.log('Portfolio: Mobile mode - using standard scroll');
+        // Мобільна версія: плавний scroll зі snap-ефектом
+        console.log('Portfolio: Mobile mode - using smooth scroll with snap');
 
-        // Видаляємо всі sticky ефекти на мобільних для покращення швидкодії
-        projectSections.forEach(section => {
-            section.style.position = 'relative';
-            section.style.top = 'auto';
-        });
+        // Додаємо клас для мобільної оптимізації
+        document.body.classList.add('portfolio-mobile');
     } else {
         // Desktop: залишаємо sticky поведінку
         console.log('Portfolio: Desktop mode - using sticky sections');
+        document.body.classList.add('portfolio-desktop');
     }
 
     // Всі інші iOS оптимізації делегуємо MobileCore
@@ -304,10 +302,10 @@ function initProjectButtons() {
 }
 
 function handleProjectOrder(projectType, button) {
-    // Анімація кнопки
-    button.style.transform = 'scale(0.95)';
+    // Анімація кнопки без inline стилів
+    button.classList.add('button-clicked');
     setTimeout(() => {
-        button.style.transform = '';
+        button.classList.remove('button-clicked');
     }, 150);
 
     // Логіка замовлення проекту
@@ -329,8 +327,8 @@ function handleProjectOrder(projectType, button) {
     if (typeof window !== 'undefined') {
         const contactsUrl = `/contacts/?project=${projectType}&name=${encodeURIComponent(projectName)}`;
 
-        // Smooth transition
-        document.body.style.opacity = '0.8';
+        // Smooth transition без inline стилів
+        document.body.classList.add('page-transition');
         setTimeout(() => {
             window.location.href = contactsUrl;
         }, 200);

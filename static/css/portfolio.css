@@ -17,17 +17,16 @@
     opacity: 1;
 }
 
-/* Оптимізації для мобільних (селективні) */
+/* Оптимізації для мобільних */
 @media (max-width: 767px) {
-
-    /* ТИМЧАСОВО ВІДКЛЮЧЕНО - ТЕСТУВАННЯ МЕНЮ
-    .portfolio-projects .project-section,
-    .portfolio-projects .project-video {
+    .portfolio-projects {
         -webkit-overflow-scrolling: touch;
+    }
+
+    .project-section {
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
     }
-    */
 }
 
 /* =================================
@@ -141,15 +140,14 @@
 }
 
 .project-section {
-    /* МОБІЛЬНІ: використовуємо звичайний relative positioning */
     position: relative;
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
-    background: #090407;
+    background: #0a0a0a;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 4px solid #333333;
+    border-bottom: 2px solid #1a1a1a;
     overflow: hidden;
 }
 
@@ -158,16 +156,12 @@
     .project-section {
         position: sticky;
         top: 0;
-        transition: background-color 0.3s ease;
+        background: #0a0a0a;
     }
 
     .project-section.active {
-        will-change: transform, background-color;
-        transform: translateZ(0);
-    }
-
-    .project-section:not(.active) {
-        will-change: auto;
+        background: #121212;
+        border-bottom-color: #e14811;
     }
 }
 
@@ -175,24 +169,30 @@
 @media (min-width: 768px) and (max-width: 1024px) {
     .project-section {
         position: relative;
-        transition: background-color 0.3s ease;
+        background: #0a0a0a;
+    }
+
+    .project-section.active {
+        background: #121212;
+        border-bottom-color: #e14811;
+    }
+}
+
+/* МОБІЛЬНІ: всі картки темні без змін фону */
+@media (max-width: 767px) {
+    .project-section {
+        background: #0a0a0a;
+        border-bottom: 1px solid #1a1a1a;
+    }
+
+    .project-section.active {
+        background: #0a0a0a;
+        border-bottom-color: #e14811;
     }
 }
 
 .project-section:last-child {
     border-bottom: none;
-}
-
-.project-section.active {
-    background: #E8E0D8;
-    border-bottom-color: #e14811;
-}
-
-/* DESKTOP: активний ефект масштабування тільки на великих екранах */
-@media (min-width: 1025px) {
-    .project-section.active {
-        transform: scale(1.01);
-    }
 }
 
 /* КОМПАКТНА СТРУКТУРА - FLEX КОНТЕЙНЕР */
@@ -225,27 +225,18 @@
     height: auto;
     object-fit: contain;
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(225, 72, 17, 0.15);
+    box-shadow: 0 4px 16px rgba(225, 72, 17, 0.25);
 }
 
 /* DESKTOP: спрощені анімації та hover ефекти тільки на великих екранах */
 @media (min-width: 1025px) {
     .project-video video {
-        transition: transform 0.3s ease;
-        backface-visibility: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .project-video video:hover {
-        will-change: transform;
-        transform: translateZ(0) scale(1.02);
-    }
-
-    .project-video video:not(:hover) {
-        will-change: auto;
-    }
-
-    .project-section.active .project-video video {
-        box-shadow: 0 6px 24px rgba(225, 72, 17, 0.2);
+        transform: scale(1.02);
+        box-shadow: 0 6px 24px rgba(225, 72, 17, 0.35);
     }
 }
 
@@ -292,10 +283,15 @@
     min-width: 220px;
 }
 
+/* Клас для анімації кліку */
+.project-button.button-clicked {
+    transform: scale(0.95);
+}
+
 /* DESKTOP: hover ефекти та анімації тільки на великих екранах */
 @media (min-width: 1025px) {
     .project-button {
-        transition: background-color 0.3s ease, transform 0.3s ease;
+        transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
     }
 
     .project-button:hover {
@@ -311,6 +307,10 @@
 
 /* МОБІЛЬНІ: простий active стан для тач */
 @media (max-width: 1024px) {
+    .project-button {
+        transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    }
+
     .project-button:active {
         background: transparent;
         color: #e14811;
@@ -367,7 +367,7 @@
     }
 }
 
-/* Мобільні пристрої (320px - 767px) - ВІДЕО 60% ВИСОТИ */
+/* Мобільні пристрої (320px - 767px) - ОПТИМІЗОВАНИЙ СКРОЛ */
 @media (max-width: 767px) {
     .desktop-hero-video {
         display: none;
@@ -376,36 +376,6 @@
     .mobile-hero-video {
         display: block;
     }
-
-    /* ТИМЧАСОВО ВІДКЛЮЧЕНО - ТЕСТУВАННЯ МЕНЮ
-    .project-section,
-    .project-section.active {
-        transform: none !important;
-        transition: none !important;
-    }
-
-    .project-video video {
-        transition: none !important;
-        transform: translateZ(0) !important;
-    }
-
-    .project-video video:hover {
-        transform: translateZ(0) !important;
-    }
-    
-    .portfolio-projects .project-button {
-        transition: none !important;
-    }
-
-    .portfolio-projects .project-section,
-    .portfolio-projects .project-video video,
-    .portfolio-projects .project-content * {
-        animation-duration: 0s !important;
-        animation-delay: 0s !important;
-        transition-duration: 0s !important;
-        transition-delay: 0s !important;
-    }
-    */
 
     .hero-title {
         font-size: 48px;
@@ -419,13 +389,20 @@
 
     .hero-description {
         font-size: 22px;
-
     }
 
     .project-section {
         height: 100vh;
         height: calc(var(--vh, 1vh) * 100);
         min-height: 100vh;
+        scroll-snap-align: start;
+        scroll-snap-stop: normal;
+    }
+
+    .portfolio-projects {
+        scroll-snap-type: y proximity;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .project-content {
@@ -450,7 +427,7 @@
         height: auto;
         object-fit: contain;
         border-radius: 16px;
-        box-shadow: 0 6px 24px rgba(225, 72, 17, 0.15);
+        box-shadow: 0 6px 24px rgba(225, 72, 17, 0.3);
     }
 
     .desktop-video {
@@ -605,7 +582,12 @@ html {
 
 @media (max-width: 767px) {
     html {
-        scroll-behavior: auto;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+    }
+
+    body {
+        overflow-x: hidden;
     }
 }
 
@@ -613,18 +595,21 @@ html {
    PERFORMANCE OPTIMIZATIONS
    ================================= */
 
-.project-section {
-    contain: layout style;
-    backface-visibility: hidden;
+@media (min-width: 1025px) {
+    .project-section {
+        contain: layout style;
+    }
 }
 
-/* will-change тільки коли потрібно - керується через JS */
-.project-section.animating {
-    will-change: transform, background-color;
-}
+@media (max-width: 767px) {
+    .project-section {
+        contain: paint;
+        transform: translateZ(0);
+    }
 
-.project-button.animating {
-    will-change: transform, background-color;
+    .project-video {
+        transform: translateZ(0);
+    }
 }
 
 /* Стани завантаження відео */
@@ -671,4 +656,26 @@ html {
     .project-section.video-error .project-video::after {
         display: none;
     }
+}
+
+/* =================================
+   PAGE TRANSITIONS
+   ================================= */
+
+body.page-transition {
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+/* =================================
+   MOBILE & DESKTOP SPECIFIC CLASSES
+   ================================= */
+
+body.portfolio-mobile .project-section {
+    position: relative;
+}
+
+body.portfolio-desktop .project-section {
+    position: sticky;
+    top: 0;
 }
