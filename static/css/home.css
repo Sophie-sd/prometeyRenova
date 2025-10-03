@@ -132,24 +132,24 @@
     border: 3px solid transparent;
 }
 
-/* Placeholder backgrounds - замініть на реальні зображення */
+/* Фонові зображення для карток послуг */
 .service-card[data-service="1"] {
-    background-image: url('/static/images/services/service-1.jpg');
+    background-image: url('/static/images/services/web.png');
     background-color: #1a1a1a;
 }
 
 .service-card[data-service="2"] {
-    background-image: url('/static/images/services/service-2.jpg');
+    background-image: url('/static/images/services/edu.png');
     background-color: #2a2a2a;
 }
 
 .service-card[data-service="3"] {
-    background-image: url('/static/images/services/service-3.jpg');
+    background-image: url('/static/images/services/mob.png');
     background-color: #1a1a1a;
 }
 
 .service-card[data-service="4"] {
-    background-image: url('/static/images/services/service-4.jpg');
+    background-image: url('/static/images/services/media.png');
     background-color: #2a2a2a;
 }
 
