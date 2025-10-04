@@ -165,9 +165,14 @@
     }
 }
 
+/* Гарантія приховування бургер меню на десктопі */
 @media (min-width: 768px) {
-    .burger-menu {
+
+    .main-navigation .burger-menu,
+    .nav-container .burger-menu,
+    button.burger-menu {
         display: none;
+        visibility: hidden;
     }
 }
 

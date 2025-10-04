@@ -5,7 +5,8 @@
 
 /* ===== FOOTER BASE ===== */
 .main-footer {
-    background: var(--color-beige);
+    background: #1a1a1a;
+    color: #888888;
     padding: var(--space-xl) 0 var(--space-md);
     margin-top: var(--space-xl);
     border-top: 3px solid var(--color-red);
@@ -40,7 +41,7 @@
 /* ===== FOOTER LINKS ===== */
 .footer-link {
     font-size: var(--font-base);
-    color: var(--color-black);
+    color: #aaaaaa;
     text-decoration: none;
     transition: all var(--transition-fast) var(--easing-default);
     position: relative;
@@ -75,7 +76,7 @@
 
 .footer-bottom p {
     font-size: var(--font-small);
-    color: #333333;
+    color: #888888;
     margin-bottom: var(--space-xs);
     line-height: 1.6;
 }
