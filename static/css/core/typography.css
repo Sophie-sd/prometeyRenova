@@ -10,7 +10,7 @@
     font-weight: 700;
     line-height: 0.8;
     letter-spacing: -2px;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
 }
 
 .text-large {
@@ -18,7 +18,7 @@
     font-weight: 700;
     line-height: 0.9;
     letter-spacing: -1px;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
 }
 
 .text-medium {
@@ -52,13 +52,17 @@
 .text-page {
     font-size: var(--font-page);
     font-weight: 700;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
 }
 
 /* ===== КОЛІРНІ МОДИФІКАТОРИ ===== */
 
 .color-red {
     color: var(--color-red);
+}
+
+.color-brand-orange {
+    color: var(--color-brand-orange);
 }
 
 .color-black {
@@ -218,4 +222,3 @@
         margin-top: var(--space-md);
     }
 }
-

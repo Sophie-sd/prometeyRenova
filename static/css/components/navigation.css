@@ -37,10 +37,6 @@
     color: #666666;
 }
 
-.main-navigation.scrolled .nav-logo {
-    color: var(--color-red);
-}
-
 .nav-container {
     display: flex;
     align-items: center;
@@ -59,7 +55,7 @@
 .nav-logo {
     font-size: var(--font-medium);
     font-weight: 700;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     text-decoration: none;
     letter-spacing: -0.5px;
     transition: color var(--transition-normal) var(--easing-default);
@@ -67,6 +63,11 @@
 
 .nav-logo:hover {
     color: var(--color-black);
+}
+
+/* Scrolled навігація - помаранчевий логотип */
+.main-navigation.scrolled .nav-logo {
+    color: var(--color-brand-orange);
 }
 
 /* ===== DESKTOP МЕНЮ ===== */
@@ -116,7 +117,7 @@
 .nav-page-number {
     font-size: var(--font-page);
     font-weight: 700;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     margin-left: var(--space-xs);
 }
 
@@ -347,12 +348,9 @@
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: -2px;
-    line-height: 1;
+    line-height: 1.1;
 
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
+    display: block;
     padding: 12px 0;
 
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -362,18 +360,25 @@
     transform: translateY(30px) rotate(-2deg);
 }
 
-/* Індекси для посилань */
+/* Індекси для посилань - абсолютно позиціоновані */
 .mobile-nav-link::before {
     content: attr(data-index);
-    font-size: clamp(14px, 3vw, 18px);
+    position: absolute;
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    font-size: clamp(12px, 2.5vw, 16px);
     font-weight: 700;
     color: var(--color-red);
     opacity: 0;
-    transition: opacity 0.3s ease;
+
+    transition: all 0.3s ease;
 }
 
 .mobile-nav-link:hover::before {
     opacity: 1;
+    left: -40px;
 }
 
 /* Декоративна лінія */
