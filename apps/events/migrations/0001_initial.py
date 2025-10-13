@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100, verbose_name='Назва категорії')),
                 ('slug', models.SlugField(max_length=100, unique=True, verbose_name='URL')),
-                ('color', models.CharField(default='#DC143C', max_length=7, verbose_name='Колір категорії')),
+                ('color', models.CharField(default='#E65100', max_length=7, verbose_name='Колір категорії')),
                 ('icon', models.CharField(blank=True, max_length=50, verbose_name='Іконка')),
             ],
             options={
