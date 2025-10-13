@@ -416,6 +416,41 @@
     }
 }
 
+/* ===== LOADING STATE ===== */
+.events-container.loading-state {
+    opacity: 0.5;
+    pointer-events: none;
+    position: relative;
+    min-height: 200px;
+}
+
+.events-container.loading-state::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 3px solid var(--color-red);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: video-loading-spin 0.8s linear infinite;
+    z-index: 10;
+}
+
+/* ===== VISIBLE CLASS FOR ANIMATIONS ===== */
+.event-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+.event-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* iOS Safari specific */
 @supports (-webkit-touch-callout: none) {
     .hero-section {

@@ -1,293 +1,232 @@
-/* BASE.JS - Базовий JavaScript для PrometeyLabs */
-
-// Performance monitoring (безпечне логування)
-window.PrometeyPerformance = {
-    start: Date.now(),
-    marks: {},
-
-    mark(name) {
-        this.marks[name] = Date.now() - this.start;
-    },
-
-    log() {
-        if (typeof console !== 'undefined' && console.log) {
-            console.log('PrometeyLabs Performance:', this.marks);
-        }
-    }
-};
+/**
+ * BASE.JS - Базовий JavaScript для PrometeyLabs
+ * Рефакторинг 2025: БЕЗ дублювань, чиста архітектура
+ * 
+ * Залежності: MobileCore, Utils (опціонально)
+ */
 
 class PrometeyApp {
     constructor() {
-        window.PrometeyPerformance.mark('app-constructor');
+        this.config = {
+            scrollThreshold: 50,
+            menuTransitionDuration: 400,
+            notificationDuration: 5000
+        };
+
+        this.state = {
+            menuOpen: false,
+            activeModal: null
+        };
+
+        this.elements = {}; // Кеш DOM елементів
+
         this.init();
     }
 
     init() {
-        // Чекаємо ініціалізації MobileCore
-        if (window.MobileCore && !window.MobileCore.isInitialized()) {
+        // Чекаємо MobileCore
+        if (window.MobileCore?.isInitialized()) {
+            this.initWithMobileCore();
+        } else {
             document.addEventListener('mobilecore:initialized', () => {
                 this.initWithMobileCore();
             });
-        } else {
-            this.initWithMobileCore();
         }
     }
 
     initWithMobileCore() {
-        window.PrometeyPerformance.mark('init-start');
+        // Кешуємо часто використовувані елементи
+        this.cacheElements();
 
-        this.device = window.MobileCore?.getDevice() || {};
-        this.capabilities = window.MobileCore?.getCapabilities() || {};
-
-        // КРИТИЧНО: Встановлюємо viewport змінні для iOS
-        this.setupViewportVars();
-
-        this.setupEventListeners();
-        this.setupScrollNavigation();
+        // Ініціалізація систем
+        this.setupNavigation();
         this.setupMobileMenu();
         this.setupModals();
-        this.setupAnimations();
+        this.setupForms();
+        this.setupLanguageSwitcher();
+        this.setupAccessibility();
 
-        window.PrometeyPerformance.mark('init-complete');
-
-        // Застарілі iOS фікси замінено на MobileCore
-        if (!window.MobileCore) {
-            console.warn('MobileCore not found, using legacy iOS support');
-            this.setupIOSSafariSupport();
-        }
-    }
-
-    // Встановлення правильних viewport змінних для iOS Safari
-    setupViewportVars() {
-        const setViewportVars = () => {
-            const vh = window.innerHeight * 0.01;
-            const vw = window.innerWidth * 0.01;
-
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-            document.documentElement.style.setProperty('--vw', `${vw}px`);
-
-            // Для iOS Safari - враховуємо URL bar
-            if (this.device.iOS) {
-                const availableHeight = window.innerHeight;
-                document.documentElement.style.setProperty('--mobile-vh', `${availableHeight}px`);
-                document.body.classList.add('ios-device');
-
-                // URL bar detection
-                if (availableHeight !== screen.height) {
-                    document.body.classList.add('ios-url-bar-visible');
-                } else {
-                    document.body.classList.remove('ios-url-bar-visible');
-                }
-            }
-        };
-
-        // Встановити при завантаженні
-        setViewportVars();
-
-        // Оновлювати при зміні орієнтації та resize
-        window.addEventListener('resize', setViewportVars);
-        window.addEventListener('orientationchange', () => {
-            // Затримка для iOS Safari
-            setTimeout(setViewportVars, 100);
-        });
-
-        // Для iOS - оновлювати при скролі (URL bar hide/show)
-        if (this.device.iOS) {
-            let resizeTimer;
-            window.addEventListener('scroll', () => {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(setViewportVars, 50);
-            });
-        }
-    }
-
-    // ===== НАЛАШТУВАННЯ EVENT LISTENERS =====
-    setupEventListeners() {
-        // Готовність DOM
+        // DOM ready actions
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                this.onDOMReady();
-            });
+            document.addEventListener('DOMContentLoaded', () => this.onDOMReady());
         } else {
             this.onDOMReady();
         }
+    }
 
-        // Обробка розміру вікна (iOS Safari)
-        window.addEventListener('resize', this.debounce(() => {
-            this.handleResize();
-        }, 100));
-
-        // Обробка орієнтації (мобільні)
-        window.addEventListener('orientationchange', () => {
-            setTimeout(() => {
-                this.handleResize();
-            }, 500);
-        });
+    cacheElements() {
+        this.elements = {
+            nav: document.querySelector('.main-navigation'),
+            burgerBtn: document.querySelector('.burger-menu'),
+            mobileMenu: document.querySelector('.mobile-menu'),
+            mobileMenuClose: document.querySelector('.mobile-menu-close'),
+            mobileNavLinks: document.querySelectorAll('.mobile-nav-link'),
+            langDropdown: document.querySelector('.lang-dropdown'),
+            langDropdownBtn: document.querySelector('.lang-dropdown-btn'),
+            langSwitchers: document.querySelectorAll('.lang-switcher-link')
+        };
     }
 
     onDOMReady() {
-        window.PrometeyPerformance.mark('dom-ready');
-        console.log('PrometeyLabs готово до роботи');
-
-        this.setupForms();
-        this.setupSmoothScroll();
-
-        // Логування performance через 2 секунди (після завантаження)
-        setTimeout(() => {
-            window.PrometeyPerformance.mark('page-loaded');
-            window.PrometeyPerformance.log();
-        }, 2000);
+        console.log('PrometeyLabs готово');
     }
 
-    // ===== НАВІГАЦІЯ З ПРОЗОРІСТЮ =====
-    setupScrollNavigation() {
-        const nav = document.querySelector('.main-navigation');
-        if (!nav) return;
+    // ===== NAVIGATION SYSTEM =====
+    setupNavigation() {
+        if (!this.elements.nav) return;
 
-        let isScrolling = false;
+        let ticking = false;
 
         const handleScroll = () => {
-            if (!isScrolling) {
-                requestAnimationFrame(() => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-                    if (scrollTop > 50) {
-                        nav.classList.add('scrolled');
-                    } else {
-                        nav.classList.remove('scrolled');
-                    }
-
-                    isScrolling = false;
+                    
+                    this.elements.nav.classList.toggle('scrolled', scrollTop > this.config.scrollThreshold);
+                    
+                    ticking = false;
                 });
-                isScrolling = true;
+                ticking = true;
             }
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
+
+        // Smooth scroll для якірних посилань
+        this.setupSmoothScroll();
     }
 
-    // ===== МОБІЛЬНЕ БУРГЕР МЕНЮ =====
-    setupMobileMenu() {
-        const burgerBtn = document.querySelector('.burger-menu');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-        const closeBtn = document.querySelector('.mobile-menu-close');
+    setupSmoothScroll() {
+        const links = document.querySelectorAll('a[href^="#"]');
+        
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href === '#') return;
 
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+    }
+
+    // ===== MOBILE MENU SYSTEM =====
+    setupMobileMenu() {
+        const { burgerBtn, mobileMenu, mobileMenuClose, mobileNavLinks } = this.elements;
+        
         if (!burgerBtn || !mobileMenu) return;
 
-        // Відкриття/закриття меню
+        // Відкриття/закриття
         burgerBtn.addEventListener('click', (e) => {
             e.preventDefault();
             this.toggleMobileMenu();
         });
 
-        // Закриття через кнопку закриття
-        if (closeBtn) {
-            closeBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.closeMobileMenu();
-            });
-        }
-
-        // Закриття при кліку на посилання
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                this.closeMobileMenu();
-            });
+        // Закриття через кнопку
+        mobileMenuClose?.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.closeMobileMenu();
         });
 
-        // Закриття при кліку поза меню
+        // Закриття при кліку на посилання
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => this.closeMobileMenu());
+        });
+
+        // Закриття при кліку на backdrop
         mobileMenu.addEventListener('click', (e) => {
-            if (e.target === mobileMenu) {
-                this.closeMobileMenu();
-            }
+            if (e.target === mobileMenu) this.closeMobileMenu();
         });
 
         // Закриття при ESC
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            if (e.key === 'Escape' && this.state.menuOpen) {
                 this.closeMobileMenu();
             }
         });
 
-        // Покращення для iOS Safari
+        // Touch оптимізації для iOS
         if ('ontouchstart' in window) {
-            // Запобігання двойному тапу для зум
-            let lastTouchEnd = 0;
-            document.addEventListener('touchend', (e) => {
-                const now = (new Date()).getTime();
-                if (now - lastTouchEnd <= 300) {
-                    e.preventDefault();
-                }
-                lastTouchEnd = now;
-            }, false);
+            this.setupMenuTouchOptimizations();
+        }
+    }
 
-            // Покращення для мобільного меню
-            mobileMenu.addEventListener('touchstart', (e) => {
+    setupMenuTouchOptimizations() {
+        const { mobileMenu, mobileNavLinks } = this.elements;
+
+        // Prevent double-tap zoom
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // Покращення для menu touch
+        mobileMenu?.addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('touchstart', (e) => {
                 e.stopPropagation();
             }, { passive: true });
-
-            mobileLinks.forEach(link => {
-                link.addEventListener('touchstart', (e) => {
-                    e.stopPropagation();
-                }, { passive: true });
-            });
-        }
-    }
-
-    toggleMobileMenu() {
-        const burgerBtn = document.querySelector('.burger-menu');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const body = document.body;
-
-        if (mobileMenu.classList.contains('active')) {
-            this.closeMobileMenu();
-        } else {
-            burgerBtn.classList.add('active');
-            mobileMenu.classList.add('active');
-            body.style.overflow = 'hidden';
-            body.classList.add('menu-open');
-
-            // Сповіщаємо інші скрипти про відкриття меню
-            window.dispatchEvent(new CustomEvent('menu:opened'));
-        }
-    }
-
-    closeMobileMenu() {
-        const burgerBtn = document.querySelector('.burger-menu');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const body = document.body;
-
-        burgerBtn.classList.remove('active');
-        mobileMenu.classList.remove('active');
-        body.style.overflow = '';
-        body.classList.remove('menu-open');
-
-        // Сповіщаємо інші скрипти про закриття меню
-        window.dispatchEvent(new CustomEvent('menu:closed'));
-
-        // Скидання анімацій для iOS Safari
-        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-        mobileLinks.forEach(link => {
-            link.style.animation = 'none';
-            link.offsetHeight; // trigger reflow
-            link.style.animation = null;
         });
     }
 
-    // ===== МОДАЛЬНІ ВІКНА =====
+    toggleMobileMenu() {
+        if (this.state.menuOpen) {
+            this.closeMobileMenu();
+        } else {
+            this.openMobileMenu();
+        }
+    }
+
+    openMobileMenu() {
+        const { burgerBtn, mobileMenu } = this.elements;
+        
+        burgerBtn.classList.add('active');
+        mobileMenu.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        document.body.classList.add('menu-open');
+        
+        this.state.menuOpen = true;
+
+        // Event для інших систем
+        this.emit('menu:opened');
+    }
+
+    closeMobileMenu() {
+        const { burgerBtn, mobileMenu } = this.elements;
+        
+        burgerBtn.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+        document.body.classList.remove('menu-open');
+        
+        this.state.menuOpen = false;
+
+        // Event для інших систем
+        this.emit('menu:closed');
+    }
+
+    // ===== MODAL SYSTEM =====
     setupModals() {
-        // Кнопки відкриття модалок
         const modalTriggers = document.querySelectorAll('[data-modal]');
-        const modals = document.querySelectorAll('.modal');
-        const closeButtons = document.querySelectorAll('.modal-close');
+        const closeButtons = document.querySelectorAll('.modal-close, .modal-close-specific');
 
         // Відкриття модалок
         modalTriggers.forEach(trigger => {
             trigger.addEventListener('click', (e) => {
                 e.preventDefault();
                 const modalId = trigger.getAttribute('data-modal');
-                this.openModal(modalId, trigger);
+                this.openModal(modalId);
             });
         });
 
@@ -295,79 +234,78 @@ class PrometeyApp {
         closeButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
-                this.closeModal();
+                const modalId = button.getAttribute('data-modal-id');
+                this.closeModal(modalId);
             });
         });
 
         // Закриття при кліку на backdrop
-        modals.forEach(modal => {
+        document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    this.closeModal();
+                if (e.target === modal || e.target.classList.contains('modal-backdrop')) {
+                    this.closeModal(modal.id);
                 }
             });
         });
 
         // Закриття при ESC
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
+            if (e.key === 'Escape' && this.state.activeModal) {
                 this.closeModal();
             }
         });
     }
 
-    openModal(modalId, trigger = null) {
+    openModal(modalId) {
         const modal = document.getElementById(modalId);
         if (!modal) return;
 
-        // Зберігаємо дані з тригера для pre-fill форм
-        if (trigger) {
-            const userData = this.getUserDataFromTrigger(trigger);
-            this.prefillModalForm(modal, userData);
-        }
+        // Prefill форми з sessionStorage
+        this.prefillModalForm(modal);
 
         modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+        
+        this.state.activeModal = modalId;
 
-        // Фокус на першому полі форми
-        const firstInput = modal.querySelector('input, textarea');
+        // Фокус на першому input
+        const firstInput = modal.querySelector('input:not([type="hidden"]), textarea');
         if (firstInput) {
             setTimeout(() => firstInput.focus(), 300);
         }
+
+        this.emit('modal:opened', { modalId });
     }
 
-    closeModal() {
-        const activeModal = document.querySelector('.modal.active');
-        if (!activeModal) return;
+    closeModal(modalId = null) {
+        const modal = modalId 
+            ? document.getElementById(modalId)
+            : document.querySelector('.modal.active');
+            
+        if (!modal) return;
 
-        activeModal.classList.remove('active');
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
+        
+        this.state.activeModal = null;
+
+        this.emit('modal:closed', { modalId: modal.id });
     }
 
-    getUserDataFromTrigger(trigger) {
-        // Отримуємо збережені дані користувача якщо є
-        const savedData = sessionStorage.getItem('prometey_user_data');
-        if (savedData) {
-            return JSON.parse(savedData);
-        }
-        return {};
-    }
-
-    prefillModalForm(modal, userData) {
-        if (!userData.name && !userData.phone) return;
+    prefillModalForm(modal) {
+        const userData = this.getStoredUserData();
+        if (!userData) return;
 
         const nameField = modal.querySelector('input[name="name"]');
         const phoneField = modal.querySelector('input[name="phone"]');
 
-        if (nameField && userData.name) {
-            nameField.value = userData.name;
-        }
-        if (phoneField && userData.phone) {
-            phoneField.value = userData.phone;
-        }
+        if (nameField && userData.name) nameField.value = userData.name;
+        if (phoneField && userData.phone) phoneField.value = userData.phone;
     }
 
-    // ===== ФОРМИ =====
+    // ===== FORM SYSTEM =====
     setupForms() {
         const forms = document.querySelectorAll('form[data-form-type]');
 
@@ -381,65 +319,68 @@ class PrometeyApp {
 
     async handleFormSubmit(form) {
         const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
+        const originalText = submitBtn?.textContent;
 
-        // Показуємо завантаження
-        submitBtn.textContent = 'Відправляємо...';
-        submitBtn.disabled = true;
+        if (!this.validateForm(form)) return;
+
+        // Показуємо loading
+        if (submitBtn) {
+            submitBtn.classList.add('btn-loading');
+            submitBtn.disabled = true;
+        }
 
         try {
             const formData = new FormData(form);
             const formType = form.getAttribute('data-form-type');
 
             // Зберігаємо дані користувача
-            if (formType === 'contact' || formType === 'developer') {
-                this.saveUserData(formData);
-            }
+            this.saveUserData(formData);
 
-            // AJAX відправка (буде реалізовано з Django views)
+            // AJAX відправка
             const response = await this.submitForm(formData, formType);
 
             if (response.ok) {
-                this.showSuccess('Дякуємо! Ваша заявка відправлена.');
+                const data = await response.json();
+                
+                this.handleFormSuccess(data, formType);
                 form.reset();
                 this.closeModal();
-
-                // Перенаправлення якщо потрібно
-                if (formType === 'developer') {
-                    setTimeout(() => {
-                        window.location.href = '/developer/';
-                    }, 1500);
-                }
             } else {
-                throw new Error('Помилка відправки');
+                throw new Error('Server error');
             }
 
         } catch (error) {
-            console.error('Помилка:', error);
-            this.showError('Сталася помилка. Спробуйте ще раз.');
+            console.error('Form error:', error);
+            this.showNotification('Помилка відправки. Спробуйте ще раз.', 'error');
         } finally {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
+            if (submitBtn) {
+                submitBtn.classList.remove('btn-loading');
+                submitBtn.disabled = false;
+                if (originalText) submitBtn.textContent = originalText;
+            }
         }
     }
 
-    saveUserData(formData) {
-        const userData = {
-            name: formData.get('name'),
-            phone: formData.get('phone'),
-            timestamp: Date.now()
-        };
-        sessionStorage.setItem('prometey_user_data', JSON.stringify(userData));
+    validateForm(form) {
+        const requiredFields = form.querySelectorAll('[required]');
+        let isValid = true;
+
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                field.classList.add('error');
+                isValid = false;
+            } else {
+                field.classList.remove('error');
+            }
+        });
+
+        return isValid;
     }
 
     async submitForm(formData, formType) {
-        // Визначаємо URL на основі типу форми
-        let url;
-        if (formType === 'test') {
-            url = '/forms/test/';
-        } else {
-            url = '/forms/submit/';
-            // Додаємо тип форми до formData
+        const url = formType === 'test' ? '/forms/test/' : '/forms/submit/';
+        
+        if (formType !== 'test') {
             formData.append('form_type', formType);
         }
 
@@ -452,91 +393,95 @@ class PrometeyApp {
         });
     }
 
-    getCSRFToken() {
-        return document.querySelector('[name=csrfmiddlewaretoken]')?.value || '';
-    }
-
-    // ===== ПОВІДОМЛЕННЯ =====
-    showSuccess(message) {
-        this.showNotification(message, 'success');
-    }
-
-    showError(message) {
-        this.showNotification(message, 'error');
-    }
-
-    showNotification(message, type = 'info') {
-        // Створюємо повідомлення
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.innerHTML = `
-            <span>${message}</span>
-            <button class="notification-close">&times;</button>
-        `;
-
-        // Додаємо стилі якщо їх немає
-        if (!document.querySelector('.notification-styles')) {
-            const style = document.createElement('style');
-            style.className = 'notification-styles';
-            style.textContent = `
-                .notification {
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    z-index: 3000;
-                    padding: 15px 20px;
-                    background: white;
-                    border: 2px solid;
-                    font-weight: 600;
-                    transform: translateX(400px);
-                    transition: transform 0.3s ease-out;
-                }
-                .notification-success { border-color: #e14811; color: #e14811; }
-                .notification-error { border-color: #e14811; color: #e14811; background: #ffebee; }
-                .notification.show { transform: translateX(0); }
-                .notification-close {
-                    background: none;
-                    border: none;
-                    font-size: 18px;
-                    margin-left: 10px;
-                    cursor: pointer;
-                }
-            `;
-            document.head.appendChild(style);
+    handleFormSuccess(data, formType) {
+        if (formType === 'test' && data.result) {
+            this.showTestResult(data.result);
+        } else {
+            this.showNotification('Дякуємо! Ваша заявка відправлена.', 'success');
+            this.openModal('thank-you-modal');
         }
+    }
 
-        // Додаємо на сторінку
-        document.body.appendChild(notification);
+    showTestResult(result) {
+        const modal = document.getElementById('test-result-modal');
+        if (!modal) return;
 
-        // Показуємо
-        setTimeout(() => notification.classList.add('show'), 100);
+        // Заповнюємо результати
+        const projectTypeEl = modal.querySelector('#result-project-type');
+        const priceEl = modal.querySelector('#result-price');
+        const timelineEl = modal.querySelector('#result-timeline');
 
-        // Закриття
-        const closeBtn = notification.querySelector('.notification-close');
-        closeBtn.addEventListener('click', () => {
-            this.removeNotification(notification);
+        if (projectTypeEl) projectTypeEl.textContent = result.project_type || '';
+        if (priceEl) priceEl.textContent = result.price || '';
+        if (timelineEl) timelineEl.textContent = result.timeline || '';
+
+        this.openModal('test-result-modal');
+    }
+
+    // ===== LANGUAGE SWITCHER =====
+    setupLanguageSwitcher() {
+        const { langDropdown, langDropdownBtn, langSwitchers } = this.elements;
+
+        // Dropdown toggle
+        langDropdownBtn?.addEventListener('click', (e) => {
+            e.preventDefault();
+            langDropdown?.classList.toggle('active');
         });
 
-        // Автозакриття
-        setTimeout(() => {
-            this.removeNotification(notification);
-        }, 5000);
-    }
-
-    removeNotification(notification) {
-        notification.classList.remove('show');
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
+        // Close dropdown при кліку поза
+        document.addEventListener('click', (e) => {
+            if (langDropdown && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('active');
             }
-        }, 300);
+        });
+
+        // Language switcher links
+        langSwitchers.forEach(switcher => {
+            switcher.addEventListener('click', (e) => {
+                e.preventDefault();
+                const langCode = switcher.getAttribute('data-language-code');
+                if (langCode) this.setLanguage(langCode);
+            });
+        });
     }
 
-    // ===== АНІМАЦІЇ ПРИ СКРОЛІ =====
-    setupAnimations() {
-        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    setLanguage(langCode) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/i18n/set_language/';
 
+        // CSRF token
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = 'csrfmiddlewaretoken';
+        csrfInput.value = this.getCSRFToken();
+        form.appendChild(csrfInput);
+
+        // Language
+        const langInput = document.createElement('input');
+        langInput.type = 'hidden';
+        langInput.name = 'language';
+        langInput.value = langCode;
+        form.appendChild(langInput);
+
+        // Next URL
+        const nextInput = document.createElement('input');
+        nextInput.type = 'hidden';
+        nextInput.name = 'next';
+        nextInput.value = window.location.pathname + window.location.search;
+        form.appendChild(nextInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    // ===== ACCESSIBILITY =====
+    setupAccessibility() {
+        // Intersection Observer для анімацій при скролі
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        
         if (animatedElements.length === 0) return;
+        if (!('IntersectionObserver' in window)) return;
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -552,119 +497,91 @@ class PrometeyApp {
         animatedElements.forEach(el => observer.observe(el));
     }
 
-    // ===== ПЛАВНИЙ СКРОЛ =====
-    setupSmoothScroll() {
-        const links = document.querySelectorAll('a[href^="#"]');
+    // ===== NOTIFICATIONS =====
+    showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `prometey-notification prometey-notification--${type}`;
+        
+        const messageSpan = document.createElement('span');
+        messageSpan.textContent = message;
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'prometey-notification__close';
+        closeBtn.textContent = '×';
+        closeBtn.setAttribute('aria-label', 'Закрити');
+        closeBtn.addEventListener('click', () => this.removeNotification(notification));
 
-        links.forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-                const target = document.querySelector(href);
+        notification.appendChild(messageSpan);
+        notification.appendChild(closeBtn);
+        document.body.appendChild(notification);
 
-                if (target) {
-                    e.preventDefault();
-                    const offsetTop = target.offsetTop - 80; // Врахування header
+        // Показуємо з анімацією
+        setTimeout(() => notification.classList.add('prometey-notification--show'), 50);
 
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+        // Автозакриття
+        setTimeout(() => this.removeNotification(notification), this.config.notificationDuration);
     }
 
-    // ===== iOS SAFARI ПІДТРИМКА =====
-    setupIOSSafariSupport() {
-        // Визначаємо iOS Safari
-        const isIOSSafari = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    removeNotification(notification) {
+        notification.classList.remove('prometey-notification--show');
+        setTimeout(() => notification.remove(), 300);
+    }
 
-        if (isIOSSafari) {
-            document.body.classList.add('ios-safari');
-            this.fixIOSViewport();
-            this.preventIOSZoom();
+    // ===== UTILITY METHODS =====
+    getCSRFToken() {
+        // Використовуємо Utils якщо доступний
+        if (window.PrometeyUtils?.getCSRFToken) {
+            return window.PrometeyUtils.getCSRFToken();
+        }
+
+        // Fallback
+        const input = document.querySelector('[name=csrfmiddlewaretoken]');
+        if (input) return input.value;
+
+        const match = document.cookie.match(/csrftoken=([^;]+)/);
+        return match ? match[1] : '';
+    }
+
+    saveUserData(formData) {
+        const userData = {
+            name: formData.get('name'),
+            phone: formData.get('phone'),
+            timestamp: Date.now()
+        };
+
+        try {
+            sessionStorage.setItem('prometey_user_data', JSON.stringify(userData));
+        } catch (error) {
+            console.error('Failed to save user data:', error);
         }
     }
 
-    fixIOSViewport() {
-        // Фікс для viewport height на iOS Safari
-        const setVH = () => {
-            const vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-            // Додатковий фікс для iOS Safari
-            const realVh = window.innerHeight;
-            document.documentElement.style.setProperty('--real-vh', `${realVh}px`);
-
-            // Фікс для full height секцій
-            const fullHeightElements = document.querySelectorAll('.hero-section, .developer-hero, .dark-split-section');
-            fullHeightElements.forEach(el => {
-                el.style.height = `${realVh}px`;
-            });
-        };
-
-        setVH();
-
-        // Більш точне відслідковування змін
-        window.addEventListener('resize', () => {
-            clearTimeout(this.resizeTimeout);
-            this.resizeTimeout = setTimeout(setVH, 150);
-        });
-
-        window.addEventListener('orientationchange', () => {
-            setTimeout(setVH, 500);
-        });
-
-        // Додатковий фікс при загрузці сторінки
-        window.addEventListener('load', () => {
-            setTimeout(setVH, 200);
-        });
-
-        // Фікс при scroll (iOS Safari змінює розмір)
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(setVH, 100);
-        }, { passive: true });
-    }
-
-    preventIOSZoom() {
-        // ЗАСТАРІЛИЙ МЕТОД - замінено на MobileCore
-        // Використовуйте MobileCore.setupTouchOptimizations() замість цього
-        console.warn('preventIOSZoom is deprecated, use MobileCore instead');
-
-        // Базовий fallback тільки якщо MobileCore недоступний
-        if (!window.MobileCore) {
-            const inputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], textarea');
-            inputs.forEach(input => {
-                // Встановлюємо font-size 16px для запобігання zoom
-                if (!input.style.fontSize) {
-                    input.style.fontSize = '16px';
-                }
-            });
+    getStoredUserData() {
+        try {
+            const data = sessionStorage.getItem('prometey_user_data');
+            return data ? JSON.parse(data) : null;
+        } catch (error) {
+            console.error('Failed to get user data:', error);
+            return null;
         }
     }
 
-    // ===== УТИЛІТАРНІ ФУНКЦІЇ =====
-    debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
+    // ===== EVENT BUS =====
+    emit(eventName, data = null) {
+        const event = new CustomEvent(eventName, { detail: data });
+        document.dispatchEvent(event);
+        window.dispatchEvent(event);
     }
 
-    handleResize() {
-        // Обробка зміни розміру екрану
-        this.fixIOSViewport();
+    on(eventName, callback) {
+        document.addEventListener(eventName, callback);
     }
 
-    // ===== ПУБЛІЧНІ МЕТОДИ =====
-    // Для використання в інших JS файлах
+    off(eventName, callback) {
+        document.removeEventListener(eventName, callback);
+    }
+
+    // ===== STATIC METHOD =====
     static getInstance() {
         if (!window.prometeyApp) {
             window.prometeyApp = new PrometeyApp();
@@ -673,112 +590,82 @@ class PrometeyApp {
     }
 }
 
-// Функція зміни мови
-function setLanguage(langCode) {
-    // Створюємо форму для відправки POST запиту
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = '/i18n/set_language/';
-
-    // CSRF токен - пробуємо кілька методів
-    let csrfToken = null;
-
-    // Метод 1: З window
-    if (window.csrfToken) {
-        csrfToken = window.csrfToken;
-    }
-
-    // Метод 2: З hidden input
-    if (!csrfToken) {
-        const csrfInput = document.querySelector('[name=csrfmiddlewaretoken]');
-        if (csrfInput) {
-            csrfToken = csrfInput.value;
-        }
-    }
-
-    // Метод 3: З cookie
-    if (!csrfToken) {
-        const cookieValue = document.cookie
-            .split('; ')
-            .find(row => row.startsWith('csrftoken='));
-        if (cookieValue) {
-            csrfToken = cookieValue.split('=')[1];
-        }
-    }
-
-    // Додаємо CSRF токен якщо знайшли
-    if (csrfToken) {
-        const csrfInput = document.createElement('input');
-        csrfInput.type = 'hidden';
-        csrfInput.name = 'csrfmiddlewaretoken';
-        csrfInput.value = csrfToken;
-        form.appendChild(csrfInput);
-    }
-
-    // Мова
-    const langInput = document.createElement('input');
-    langInput.type = 'hidden';
-    langInput.name = 'language';
-    langInput.value = langCode;
-    form.appendChild(langInput);
-
-    // Поточна сторінка
-    const nextInput = document.createElement('input');
-    nextInput.type = 'hidden';
-    nextInput.name = 'next';
-    nextInput.value = window.location.pathname + window.location.search;
-    form.appendChild(nextInput);
-
-    // Додаємо форму до body і відправляємо
-    document.body.appendChild(form);
-    form.submit();
+// ===== NOTIFICATION STYLES (одноразове додавання) =====
+const notificationStyles = document.createElement('style');
+notificationStyles.id = 'prometey-notification-styles';
+notificationStyles.textContent = `
+.prometey-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    padding: 15px 20px;
+    background: var(--color-white);
+    border: 2px solid var(--color-red);
+    font-weight: 600;
+    font-size: var(--font-base);
+    transform: translateX(400px);
+    transition: transform var(--transition-normal) var(--easing-default);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--shadow-lg);
 }
 
-// Ініціалізація dropdown для мобільного меню
-document.addEventListener('DOMContentLoaded', function () {
-    const dropdown = document.querySelector('.lang-dropdown');
-    const dropdownBtn = document.querySelector('.lang-dropdown-btn');
-
-    if (dropdownBtn) {
-        dropdownBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            dropdown.classList.toggle('active');
-        });
-
-        // Закривати при кліку поза межами
-        document.addEventListener('click', function (e) {
-            if (!dropdown.contains(e.target)) {
-                dropdown.classList.remove('active');
-            }
-        });
-    }
-});
-
-// Ініціалізація перемикачів мови без inline onclick
-function initLanguageSwitchers() {
-    const langSwitchers = document.querySelectorAll('.lang-switcher-link');
-    langSwitchers.forEach(switcher => {
-        switcher.addEventListener('click', (e) => {
-            e.preventDefault();
-            const langCode = switcher.getAttribute('data-language-code');
-            if (langCode) {
-                setLanguage(langCode);
-            }
-        });
-    });
+.prometey-notification--show {
+    transform: translateX(0);
 }
 
-// Ініціалізація
+.prometey-notification--success {
+    border-color: var(--color-red);
+    color: var(--color-red);
+}
+
+.prometey-notification--error {
+    border-color: var(--color-red);
+    color: var(--color-red);
+    background: #ffebee;
+}
+
+.prometey-notification__close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    color: inherit;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-fast) var(--easing-default);
+}
+
+.prometey-notification__close:hover {
+    transform: rotate(90deg);
+}
+
+@media (max-width: 767px) {
+    .prometey-notification {
+        top: auto;
+        bottom: calc(var(--mobile-safe-area-bottom, 0px) + 80px);
+        right: var(--space-xs);
+        left: var(--space-xs);
+        width: calc(100% - var(--space-xs) * 2);
+    }
+}
+`;
+
+if (!document.getElementById('prometey-notification-styles')) {
+    document.head.appendChild(notificationStyles);
+}
+
+// ===== ІНІЦІАЛІЗАЦІЯ =====
 const app = PrometeyApp.getInstance();
 
-// Ініціалізація перемикачів мови після завантаження DOM
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLanguageSwitchers);
-} else {
-    initLanguageSwitchers();
-}
-
-// Експорт для інших модулів
+// Експорт
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = PrometeyApp;
-} 
+}

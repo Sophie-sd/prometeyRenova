@@ -1,6 +1,6 @@
 /**
  * MOBILE-CORE.JS - Модульна система мобільних оптимізацій (2025)
- * Сучасний підхід до iOS Safari та Android оптимізацій
+ * Єдине джерело для viewport, device detection, touch
  */
 
 class MobileCore {
@@ -8,6 +8,7 @@ class MobileCore {
         this.device = this.detectDevice();
         this.capabilities = this.detectCapabilities();
         this.initialized = false;
+        this.viewportUpdateCallbacks = [];
 
         this.init();
     }
@@ -122,6 +123,9 @@ class MobileCore {
 
         // Optimized resize handling
         this.setupViewportResizeHandler(setViewportProperties);
+
+        // Notify callbacks після встановлення
+        this.notifyViewportChange();
     }
 
     setupViewportResizeHandler(callback) {
@@ -132,8 +136,10 @@ class MobileCore {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
                 callback();
-                // Відправляємо подію для інших систем (наприклад portfolio.js)
+                // Відправляємо подію для інших систем
                 this.dispatchViewportChangeEvent();
+                // Викликаємо callbacks
+                this.notifyViewportChange();
             }, 100);
         };
 
@@ -387,10 +393,101 @@ class MobileCore {
     isInitialized() {
         return this.initialized;
     }
+
+    /**
+     * Реєстрація callback для viewport updates
+     * Дозволяє іншим модулям підписатись на зміни viewport
+     */
+    onViewportChange(callback) {
+        this.viewportUpdateCallbacks.push(callback);
+    }
+
+    /**
+     * Виклик всіх зареєстрованих callbacks
+     */
+    notifyViewportChange() {
+        this.viewportUpdateCallbacks.forEach(callback => {
+            try {
+                callback({
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    device: this.device
+                });
+            } catch (error) {
+                console.error('Viewport callback error:', error);
+            }
+        });
+    }
+
+    // Додаткові методи для зовнішнього використання
+    testHEVCSupport() {
+        return false; // TODO: implement
+    }
+
+    testWebPSupport() {
+        return false; // TODO: implement
+    }
+
+    setupIntelligentLazyLoading() {
+        // Placeholder для майбутньої реалізації
+    }
+
+    setupMemoryOptimizations() {
+        // Placeholder для майбутньої реалізації
+    }
+
+    observeNewTouchElements() {
+        // Placeholder для майбутньої реалізації
+    }
+
+    setupTouchAccessibility() {
+        // Placeholder для майбутньої реалізації
+    }
+
+    optimizeTouchPerformance() {
+        // Placeholder для майбутньої реалізації
+    }
+
+    preventAccidentalZoom() {
+        // Базовий метод для запобігання zoom
+        const inputs = document.querySelectorAll(
+            'input[type="text"], input[type="tel"], input[type="email"], textarea, select'
+        );
+
+        inputs.forEach(input => {
+            if (!input.style.fontSize || parseInt(input.style.fontSize) < 16) {
+                input.style.fontSize = '16px';
+            }
+        });
+    }
+
+    setupAndroidOptimizations() {
+        // Android-specific optimizations
+        document.documentElement.classList.add('android');
+    }
+
+    fixIOSSafariScrollBounce() {
+        // Prevent elastic scroll
+        document.documentElement.style.overscrollBehavior = 'none';
+    }
+
+    optimizeIOSSafariPerformance() {
+        // Performance optimizations для iOS
+        const videos = document.querySelectorAll('video');
+        videos.forEach(video => {
+            video.setAttribute('playsinline', '');
+            video.setAttribute('webkit-playsinline', '');
+        });
+    }
+
+    preventIOSZoomOnInputs() {
+        this.preventAccidentalZoom();
+    }
+
+    handleOrientationChange() {
+        // Placeholder
+    }
 }
 
 // ===== GLOBAL INSTANCE =====
 window.MobileCore = new MobileCore();
-
-// ===== MODERN MODULE EXPORT =====
-export default MobileCore;

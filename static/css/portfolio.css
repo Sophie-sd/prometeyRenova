@@ -670,17 +670,9 @@ html {
 }
 
 /* =================================
-   PAGE TRANSITIONS
-   ================================= */
-
-body.page-transition {
-    opacity: 0.8;
-    transition: opacity 0.2s ease;
-}
-
-/* =================================
    MOBILE & DESKTOP SPECIFIC CLASSES
    ================================= */
+/* page-transition визначено в core/animations.css */
 
 body.portfolio-mobile .project-section {
     position: relative;

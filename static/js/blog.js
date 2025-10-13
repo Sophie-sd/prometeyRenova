@@ -1,69 +1,47 @@
-// BLOG.JS - JavaScript для блогу
+/**
+ * BLOG.JS - Blog page specific logic
+ * Використовує: base.js (scroll navigation), VideoSystem
+ * БЕЗ дублювань
+ */
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Навігація з прозорим хедером
-    initScrollNavigation();
-
-    // Анімація з'явлення карток
+document.addEventListener('DOMContentLoaded', () => {
     initArticleAnimations();
-
-    // Tracking читання статей
     initArticleTracking();
+    setActiveMenuLink();
 });
 
-// Навігація з прозорим хедером
-function initScrollNavigation() {
-    const nav = document.querySelector('.main-navigation');
-
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset;
-
-        if (scrollTop > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
-}
-
-// Анімація з'явлення карток при скролі
+// ===== ARTICLE ANIMATIONS =====
 function initArticleAnimations() {
-    const articles = document.querySelectorAll('.blog-card');
-
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    const articles = document.querySelectorAll('.blog-card, .popular-card');
+    if (articles.length === 0) return;
+    if (!('IntersectionObserver' in window)) return;
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('visible');
             }
         });
-    }, observerOptions);
-
-    articles.forEach((article, index) => {
-        article.style.opacity = '0';
-        article.style.transform = 'translateY(30px)';
-        article.style.transition = `all 0.6s ease-out ${index * 0.1}s`;
-        observer.observe(article);
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     });
+
+    articles.forEach(article => observer.observe(article));
 }
 
-// Tracking читання статей для аналітики
+// ===== ANALYTICS =====
 function initArticleTracking() {
     const articleLinks = document.querySelectorAll('.article-link, .read-more-link');
 
     articleLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            const articleTitle = this.closest('.blog-card')?.querySelector('.article-link')?.textContent?.trim();
+        link.addEventListener('click', () => {
+            const card = link.closest('.blog-card');
+            const title = card?.querySelector('.article-link')?.textContent?.trim();
 
-            // Google Analytics tracking (якщо підключено)
-            if (typeof gtag !== 'undefined') {
+            if (title && typeof gtag !== 'undefined') {
                 gtag('event', 'article_click', {
-                    article_title: articleTitle,
+                    article_title: title,
                     page_location: window.location.href
                 });
             }
@@ -71,13 +49,8 @@ function initArticleTracking() {
     });
 }
 
-// Активний стан меню для блогу
+// ===== ACTIVE MENU =====
 function setActiveMenuLink() {
     const blogLink = document.querySelector('.nav-link[href*="blog"]');
-    if (blogLink) {
-        blogLink.classList.add('active');
-    }
+    blogLink?.classList.add('active');
 }
-
-// Ініціалізація при завантаженні
-setActiveMenuLink(); 

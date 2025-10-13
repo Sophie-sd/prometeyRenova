@@ -112,7 +112,8 @@
     <!-- Modals -->
     {% include 'components/modals.html' %}
 
-    <!-- Modern JavaScript Systems (2025) -->
+    <!-- Modern JavaScript Systems (2025) - чіткий порядок завантаження -->
+    <script src="{% static 'js/core/utils.js' %}" defer></script>
     <script src="{% static 'js/mobile-core.js' %}" defer></script>
     <script src="{% static 'js/video-system.js' %}" defer></script>
     <script src="{% static 'js/base.js' %}" defer></script>

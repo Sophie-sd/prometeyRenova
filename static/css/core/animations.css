@@ -149,3 +149,22 @@
     animation: none !important;
 }
 
+/* ===== UTILITY ANIMATION CLASSES ===== */
+
+/* Page transition ефект */
+.page-transition {
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+/* Button click ефект */
+.button-clicked {
+    transform: scale(0.95);
+    transition: transform 0.15s ease-out;
+}
+
+/* Visible class для Intersection Observer */
+.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}

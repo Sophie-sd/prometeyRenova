@@ -403,16 +403,23 @@
 }
 
 /* ===== АНІМАЦІЇ ===== */
-@media (prefers-reduced-motion: no-preference) {
-    .service-card {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.6s ease-out;
-    }
+.service-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+}
 
-    .service-card.visible {
+.service-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Відключення анімацій для accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .service-card {
         opacity: 1;
         transform: translateY(0);
+        transition: none;
     }
 }
 

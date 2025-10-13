@@ -159,10 +159,6 @@
 {% endblock %}
 
 {% block extra_js %}
-<!-- Відключити VideoSystem для портфоліо - у нас власна відео логіка -->
-<script>
-    window.VideoSystemDisabled = true;
-    console.log('Portfolio: VideoSystem disabled for custom lazy loading');
-</script>
+<!-- Portfolio використовує VideoSystem для lazy loading -->
 <script src="{% static 'js/portfolio.js' %}" defer></script>
 {% endblock %}

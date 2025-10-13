@@ -63,16 +63,8 @@
     --shadow-red-md: 0 4px 12px rgba(220, 20, 60, 0.2);
     --shadow-red-lg: 0 25px 60px rgba(220, 20, 60, 0.3);
 
-    /* ===== Z-INDEX ШКАЛА ===== */
-    --z-below: -1;
-    --z-normal: 0;
-    --z-above: 1;
-    --z-dropdown: 10;
-    --z-sticky: 100;
-    --z-fixed: 1000;
-    --z-modal-backdrop: 9998;
-    --z-modal: 9999;
-    --z-tooltip: 10000;
+    /* ===== Z-INDEX - визначено в z-index-system.css ===== */
+    /* Тут тільки fallback values якщо z-index-system не завантажився */
 }
 
 /* ===== ТЕМНА ТЕМА (для майбутнього) ===== */

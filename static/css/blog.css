@@ -1143,42 +1143,8 @@
     font-weight: 500;
 }
 
-/* ===== АНІМАЦІЇ ЗАВАНТАЖЕННЯ ===== */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
+/* ===== АНІМАЦІЇ ЗАВАНТАЖЕННЯ - використовуємо з animations.css ===== */
+/* ВИДАЛЕНО ДУБЛЮВАННЯ @keyframes - всі в core/animations.css */
 
 .blog-header {
     animation: fadeInUp-large 0.8s ease-out;
@@ -1196,80 +1162,95 @@
     animation: fadeInUp 0.8s ease-out 0.6s both;
 }
 
+/* Cascade animation для blog cards */
 .blog-card {
-    animation: fadeInUp 0.6s ease-out;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-.blog-card:nth-child(1) {
-    animation-delay: 0.1s;
+.blog-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.blog-card:nth-child(2) {
-    animation-delay: 0.2s;
+/* Cascade delays для візуального ефекту */
+@media (prefers-reduced-motion: no-preference) {
+    .blog-card:nth-child(1).visible {
+        transition-delay: 0.1s;
+    }
+
+    .blog-card:nth-child(2).visible {
+        transition-delay: 0.2s;
+    }
+
+    .blog-card:nth-child(3).visible {
+        transition-delay: 0.3s;
+    }
+
+    .blog-card:nth-child(4).visible {
+        transition-delay: 0.4s;
+    }
+
+    .blog-card:nth-child(5).visible {
+        transition-delay: 0.5s;
+    }
+
+    .blog-card:nth-child(6).visible {
+        transition-delay: 0.6s;
+    }
+
+    .blog-card:nth-child(7).visible {
+        transition-delay: 0.7s;
+    }
+
+    .blog-card:nth-child(8).visible {
+        transition-delay: 0.8s;
+    }
+
+    .blog-card:nth-child(9).visible {
+        transition-delay: 0.9s;
+    }
 }
 
-.blog-card:nth-child(3) {
-    animation-delay: 0.3s;
-}
-
-.blog-card:nth-child(4) {
-    animation-delay: 0.4s;
-}
-
-.blog-card:nth-child(5) {
-    animation-delay: 0.5s;
-}
-
-.blog-card:nth-child(6) {
-    animation-delay: 0.6s;
-}
-
-.blog-card:nth-child(7) {
-    animation-delay: 0.7s;
-}
-
-.blog-card:nth-child(8) {
-    animation-delay: 0.8s;
-}
-
-.blog-card:nth-child(9) {
-    animation-delay: 0.9s;
+/* Accessibility: показуємо відразу якщо reduce motion */
+@media (prefers-reduced-motion: reduce) {
+    .blog-card {
+        opacity: 1;
+        transform: translateY(0);
+        transition: none;
+    }
 }
 
 .popular-card {
-    animation: fadeInUp 0.6s ease-out;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-.popular-card:nth-child(1) {
-    animation-delay: 0.7s;
+.popular-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.popular-card:nth-child(2) {
-    animation-delay: 0.8s;
-}
-
-.popular-card:nth-child(3) {
-    animation-delay: 0.9s;
-}
-
-/* ===== ВІДКЛЮЧЕННЯ АНІМАЦІЙ ДЛЯ ДОСТУПНОСТІ ===== */
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
+@media (prefers-reduced-motion: no-preference) {
+    .popular-card:nth-child(1).visible {
+        transition-delay: 0.7s;
     }
 
-    .blog-header,
-    .blog-categories,
-    .articles-grid,
-    .popular-articles,
-    .blog-card,
+    .popular-card:nth-child(2).visible {
+        transition-delay: 0.8s;
+    }
+
+    .popular-card:nth-child(3).visible {
+        transition-delay: 0.9s;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
     .popular-card {
-        animation: none !important;
+        opacity: 1;
+        transform: translateY(0);
+        transition: none;
     }
 }
