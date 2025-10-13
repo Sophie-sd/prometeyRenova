@@ -74,10 +74,12 @@
 .nav-menu {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: clamp(16px, 2vw, 24px);
     list-style: none;
     margin: 0;
     padding: 0;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .nav-link {
@@ -89,6 +91,9 @@
     position: relative;
     text-transform: lowercase;
     letter-spacing: 0.5px;
+    white-space: nowrap;
+    text-align: center;
+    padding: 8px 4px;
 }
 
 .nav-link:hover,
@@ -111,6 +116,14 @@
 .nav-link:hover::after,
 .nav-link.active::after {
     width: 100%;
+}
+
+/* Спеціальна обробка довгого посилання "розрахувати пропозицію" */
+@media (min-width: 768px) {
+    .nav-link[href*="calculator"] {
+        font-size: calc(var(--font-base) * 0.9);
+        padding: 8px 6px;
+    }
 }
 
 /* ===== PAGE NUMBER ===== */
@@ -353,11 +366,27 @@
     display: block;
     padding: 12px 0;
 
+    /* Запобігаємо переносу тексту для звичайних посилань */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
     /* Початковий стан для анімації */
     opacity: 0;
     transform: translateY(30px) rotate(-2deg);
+}
+
+/* Спеціальні стилі для довгих посилань - УВІМКНУТИ ПЕРЕНОС */
+.mobile-nav-link[data-index="03"] {
+    font-size: clamp(28px, 6vw, 48px);
+    letter-spacing: -1px;
+    white-space: normal;
+    line-height: 1.2;
+    text-align: center;
+    overflow: visible;
+    text-overflow: unset;
 }
 
 /* Індекси для посилань - абсолютно позиціоновані */
@@ -572,6 +601,16 @@
     .mobile-nav-link {
         font-size: clamp(28px, 6vw, 48px);
         letter-spacing: -1px;
+    }
+
+    /* Спеціально для довгих посилань на малих екранах */
+    .mobile-nav-link[data-index="03"] {
+        font-size: clamp(22px, 5vw, 38px);
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        overflow: visible;
+        text-overflow: unset;
     }
 
     .mobile-menu-content {

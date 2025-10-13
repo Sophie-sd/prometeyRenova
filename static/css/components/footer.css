@@ -96,7 +96,6 @@
 @media (max-width: 767px) {
     .main-footer {
         padding: var(--space-lg) 0 var(--space-sm);
-        margin-top: var(--space-lg);
     }
 
     .footer-content {
