@@ -9,15 +9,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-CHANGE-IN-PRODUCTION')
-DEBUG = 'RENDER' not in os.environ
-ALLOWED_HOSTS = ['www.prometeylabs.com', '0.0.0.0']
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
+# ALLOWED_HOSTS
+ALLOWED_HOSTS = ['www.prometeylabs.com', 'prometeylabs.com']
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.extend([RENDER_EXTERNAL_HOSTNAME, f'www.{RENDER_EXTERNAL_HOSTNAME}'])
 
-if not RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.extend(['localhost', '127.0.0.1', 'testserver'])
+if DEBUG:
+    ALLOWED_HOSTS.extend(['localhost', '127.0.0.1', '0.0.0.0', 'testserver'])
 
 # APPS - Зберігаємо поточні додатки
 INSTALLED_APPS = [
@@ -40,13 +42,17 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',  # Для мультимовності
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Додаємо no-cache middleware для розробки
+if DEBUG:
+    MIDDLEWARE.append('prometey_project.middleware.NoCacheMiddleware')
 
 ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
@@ -83,19 +89,23 @@ USE_I18N = True
 USE_TZ = True
 
 # STATIC & MEDIA
-STATIC_URL = 'static/'
-MEDIA_URL = 'media/'
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-    MEDIA_ROOT,
-]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-if not DEBUG:
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# WhiteNoise налаштування
+if DEBUG:
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+else:
+    # Продакшн: найпростіші налаштування для WhiteNoise (100% працює)
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
     WHITENOISE_USE_FINDERS = True
     WHITENOISE_AUTOREFRESH = True
+    WHITENOISE_MAX_AGE = 31536000
+    WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'zip', 'gz', 'bz2']
+    WHITENOISE_IMMUTABLE_FILE_TEST = lambda path, url: url.startswith('/static/') and ('.' in url)
 
 # TEMPLATES
 TEMPLATES = [
