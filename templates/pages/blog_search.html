@@ -15,7 +15,7 @@
 <section class="search-header bg-beige">
     <div class="container">
         <div class="search-content text-center">
-            <h1 class="text-large color-red mb-md">
+            <h1 class="text-large color-brand-orange mb-md">
                 {% if query %}
                 Результати пошуку: "{{ query }}"
                 {% else %}
@@ -52,7 +52,7 @@
             {% for post in page_obj %}
             <article class="blog-card" data-article="{{ forloop.counter }}">
                 <div class="card-header">
-                    <span class="article-number text-page color-red">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <span class="article-number text-page color-brand-orange">{{ forloop.counter|stringformat:"02d" }}</span>
                     <time class="article-date text-small">{{ post.created_at|date:"d.m.Y" }}</time>
                 </div>
 
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <a href="{{ post.get_absolute_url }}" class="read-more-link text-base color-red">
+                    <a href="{{ post.get_absolute_url }}" class="read-more-link text-base color-brand-orange">
                         Читати далі →
                     </a>
                 </div>
@@ -96,7 +96,7 @@
         {% endif %}
         {% else %}
         <div class="no-results text-center">
-            <h3 class="text-medium color-red mb-sm">Нічого не знайдено</h3>
+            <h3 class="text-medium color-brand-orange mb-sm">Нічого не знайдено</h3>
             <p class="text-base mb-md">
                 За запитом "{{ query }}" нічого не знайдено. Спробуйте інші ключові слова.
             </p>
@@ -107,7 +107,7 @@
         {% endif %}
         {% else %}
         <div class="search-suggestions text-center">
-            <h3 class="text-medium color-red mb-md">Популярні пошукові запити</h3>
+            <h3 class="text-medium color-brand-orange mb-md">Популярні пошукові запити</h3>
             <div class="suggestions-grid">
                 <a href="?q=розробка сайтів" class="suggestion-link">розробка сайтів</a>
                 <a href="?q=сайти під ключ" class="suggestion-link">сайти під ключ</a>

@@ -601,7 +601,7 @@ notificationStyles.textContent = `
     z-index: 10000;
     padding: 15px 20px;
     background: var(--color-white);
-    border: 2px solid var(--color-red);
+    border: 2px solid var(--color-brand-orange);
     font-weight: 600;
     font-size: var(--font-base);
     transform: translateX(400px);
@@ -617,13 +617,13 @@ notificationStyles.textContent = `
 }
 
 .prometey-notification--success {
-    border-color: var(--color-red);
-    color: var(--color-red);
+    border-color: var(--color-brand-orange);
+    color: var(--color-brand-orange);
 }
 
 .prometey-notification--error {
-    border-color: var(--color-red);
-    color: var(--color-red);
+    border-color: var(--color-brand-orange);
+    color: var(--color-brand-orange);
     background: #ffebee;
 }
 

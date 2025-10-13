@@ -8,7 +8,7 @@ class EventCategory(models.Model):
     """Категорії подій"""
     name = models.CharField(max_length=100, verbose_name="Назва категорії")
     slug = models.SlugField(max_length=100, unique=True, verbose_name="URL")
-    color = models.CharField(max_length=7, default="#DC143C", verbose_name="Колір категорії")
+    color = models.CharField(max_length=7, default="#E65100", verbose_name="Колір категорії")
     icon = models.CharField(max_length=50, blank=True, verbose_name="Іконка")
     
     class Meta:

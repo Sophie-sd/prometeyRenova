@@ -112,7 +112,7 @@
 }
 
 .hero-title .highlight.orange {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     text-shadow: 2px 2px 6px rgba(220, 20, 60, 0.5);
 }
 
@@ -164,7 +164,7 @@
 
     .project-section.active {
         background: #121212;
-        border-bottom-color: var(--color-red);
+        border-bottom-color: var(--color-brand-orange);
     }
 }
 
@@ -177,7 +177,7 @@
 
     .project-section.active {
         background: #121212;
-        border-bottom-color: var(--color-red);
+        border-bottom-color: var(--color-brand-orange);
     }
 }
 
@@ -190,7 +190,7 @@
 
     .project-section.active {
         background: #0a0a0a;
-        border-bottom-color: var(--color-red);
+        border-bottom-color: var(--color-brand-orange);
     }
 }
 
@@ -267,14 +267,14 @@
     font-weight: 700;
     line-height: 0.8;
     letter-spacing: -2px;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     margin: 0;
     text-transform: uppercase;
 }
 
 .project-button {
-    background: var(--color-red);
-    border: 2px solid var(--color-red);
+    background: var(--color-brand-orange);
+    border: 2px solid var(--color-brand-orange);
     color: #000000;
     padding: 20px 40px;
     font-size: 18px;
@@ -299,7 +299,7 @@
 
     .project-button:hover {
         background: transparent;
-        color: var(--color-red);
+        color: var(--color-brand-orange);
         transform: translateY(-3px);
     }
 
@@ -316,7 +316,7 @@
 
     .project-button:active {
         background: transparent;
-        color: var(--color-red);
+        color: var(--color-brand-orange);
     }
 }
 
@@ -632,7 +632,7 @@ html {
     width: 20px;
     height: 20px;
     margin: -10px 0 0 -10px;
-    border: 2px solid var(--color-red);
+    border: 2px solid var(--color-brand-orange);
     border-top: 2px solid transparent;
     border-radius: 50%;
     animation: video-loading-spin 1s linear infinite;
@@ -646,7 +646,7 @@ html {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 24px;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     z-index: 10;
 }
 

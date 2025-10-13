@@ -28,15 +28,15 @@
 
 /* Primary button - червона кнопка */
 .btn-primary {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
-    border-color: var(--color-red);
+    border-color: var(--color-brand-orange);
 }
 
 .btn-primary:hover {
     background: var(--color-white);
-    color: var(--color-red);
-    border-color: var(--color-red);
+    color: var(--color-brand-orange);
+    border-color: var(--color-brand-orange);
     transform: translateY(-2px);
     box-shadow: var(--shadow-red-md);
 }
@@ -48,12 +48,12 @@
 /* Secondary button - прозора з червоною рамкою */
 .btn-secondary {
     background: transparent;
-    color: var(--color-red);
-    border-color: var(--color-red);
+    color: var(--color-brand-orange);
+    border-color: var(--color-brand-orange);
 }
 
 .btn-secondary:hover {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
     transform: translateY(-2px);
     box-shadow: var(--shadow-red-md);
@@ -69,7 +69,7 @@
     bottom: var(--space-xs);
     left: var(--space-xs);
     z-index: var(--z-fixed-buttons, 999);
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
     padding: 15px 20px;
     border: none;

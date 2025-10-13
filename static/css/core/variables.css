@@ -7,10 +7,9 @@
    ================================= */
 
 :root {
-    /* ===== КОЛЬОРОВА СИСТЕМА (згідно STYLE.MDC) ===== */
-    --color-red: #DC143C;
+    /* ===== КОЛЬОРОВА СИСТЕМА (оновлена: все помаранчеве!) ===== */
     --color-brand-orange: #E65100;
-    /* Темно насичено помаранчевий для логотипу та заголовків */
+    /* Головний бренд колір - темно насичено помаранчевий */
     --color-black: #000000;
     --color-white: #FFFFFF;
     --color-beige: #F5F1ED;
@@ -60,12 +59,7 @@
     --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
     --shadow-xl: 0 25px 60px rgba(0, 0, 0, 0.3);
 
-    /* Червоні тіні для акцентів (Crimson Red RGB: 220, 20, 60) */
-    --shadow-red-sm: 0 2px 8px rgba(220, 20, 60, 0.1);
-    --shadow-red-md: 0 4px 12px rgba(220, 20, 60, 0.2);
-    --shadow-red-lg: 0 25px 60px rgba(220, 20, 60, 0.3);
-
-    /* Помаранчеві тіні для бренду (Deep Orange RGB: 230, 81, 0) */
+    /* Помаранчеві тіні для бренду та акцентів (Deep Orange RGB: 230, 81, 0) */
     --shadow-orange-sm: 0 2px 8px rgba(230, 81, 0, 0.1);
     --shadow-orange-md: 0 4px 12px rgba(230, 81, 0, 0.2);
     --shadow-orange-lg: 0 25px 60px rgba(230, 81, 0, 0.3);

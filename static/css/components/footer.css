@@ -8,7 +8,7 @@
     background: #1a1a1a;
     color: #888888;
     padding: var(--space-xl) 0 var(--space-md);
-    border-top: 3px solid var(--color-red);
+    border-top: 3px solid var(--color-brand-orange);
     position: relative;
     z-index: 100;
 }
@@ -31,7 +31,7 @@
 .footer-section h3 {
     font-size: var(--font-sub);
     font-weight: 700;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     margin-bottom: var(--space-xs);
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -48,7 +48,7 @@
 }
 
 .footer-link:hover {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     padding-left: 5px;
 }
 
@@ -58,7 +58,7 @@
     left: -10px;
     opacity: 0;
     transition: all var(--transition-fast) var(--easing-default);
-    color: var(--color-red);
+    color: var(--color-brand-orange);
 }
 
 .footer-link:hover::before {
@@ -81,7 +81,7 @@
 }
 
 .footer-bottom strong {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-weight: 600;
 }
 

@@ -93,7 +93,7 @@
 
 .nav-link:hover,
 .nav-link.active {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
 }
 
 /* Анімована підкреслення */
@@ -104,7 +104,7 @@
     left: 0;
     width: 0;
     height: 1px;
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     transition: width var(--transition-normal) var(--easing-default);
 }
 
@@ -141,13 +141,13 @@
 
 .lang-btn:hover {
     background: var(--color-gray);
-    color: var(--color-red);
+    color: var(--color-brand-orange);
 }
 
 .lang-btn.active {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: white;
-    border-color: var(--color-red);
+    border-color: var(--color-brand-orange);
 }
 
 /* ===== MODERN BURGER MENU BUTTON ===== */
@@ -206,14 +206,14 @@
 
 /* Scrolled state */
 .main-navigation.scrolled .burger-line {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
 }
 
 /* Active state - морфінг в X */
 .burger-menu.active .burger-line:nth-child(1) {
     top: 19px;
     transform: translateX(-50%) rotate(45deg);
-    background: var(--color-red);
+    background: var(--color-brand-orange);
 }
 
 .burger-menu.active .burger-line:nth-child(2) {
@@ -224,12 +224,12 @@
 .burger-menu.active .burger-line:nth-child(3) {
     top: 19px;
     transform: translateX(-50%) rotate(-45deg);
-    background: var(--color-red);
+    background: var(--color-brand-orange);
 }
 
 /* Hover effect */
 .burger-menu:hover .burger-line {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
 }
 
 .main-navigation.scrolled .burger-menu:hover .burger-line {
@@ -311,7 +311,7 @@
     left: 50%;
     width: 28px;
     height: 2px;
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     transition: background 0.3s ease;
 }
 
@@ -370,7 +370,7 @@
 
     font-size: clamp(12px, 2.5vw, 16px);
     font-weight: 700;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     opacity: 0;
 
     transition: all 0.3s ease;
@@ -389,12 +389,12 @@
     left: 0;
     width: 0;
     height: 3px;
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .mobile-nav-link:hover {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     transform: translateY(0) rotate(0deg) translateX(10px);
 }
 
@@ -492,8 +492,8 @@
 
 .mobile-lang-btn:hover,
 .mobile-lang-btn.active {
-    background: var(--color-red);
-    border-color: var(--color-red);
+    background: var(--color-brand-orange);
+    border-color: var(--color-brand-orange);
     color: var(--color-white);
     transform: translateY(-2px);
 }
@@ -519,7 +519,7 @@
     right: -100px;
     width: 300px;
     height: 300px;
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     border-radius: 50%;
     opacity: 0.05;
     transform: translateY(-50%);

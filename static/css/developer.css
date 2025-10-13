@@ -47,7 +47,7 @@
 }
 
 .feature-item {
-    border-left: 2px solid var(--color-red);
+    border-left: 2px solid var(--color-brand-orange);
     padding-left: var(--space-xs);
     margin-bottom: var(--space-sm);
 }
@@ -79,7 +79,7 @@
 .image-placeholder::after {
     content: 'Якщо революції не уникнути - очоль її';
     white-space: pre;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-size: 36px;
     font-weight: 700;
     text-align: center;
@@ -137,7 +137,7 @@
 }
 
 .feature-item {
-    border-left: 2px solid var(--color-red);
+    border-left: 2px solid var(--color-brand-orange);
     padding-left: var(--space-xs);
     margin-bottom: var(--space-sm);
 }
@@ -188,7 +188,7 @@
         justify-content: center;
         height: 100%;
         white-space: pre;
-        color: var(--color-red);
+        color: var(--color-brand-orange);
         font-weight: 700;
         text-align: center;
     }
@@ -225,7 +225,7 @@
 .image-placeholder::after {
     content: 'Якщо революції не уникнути - очоль її';
     white-space: pre;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-size: 36px;
     font-weight: 700;
     text-align: center;
@@ -274,7 +274,7 @@
 }
 
 .course-card {
-    border: 2px solid var(--color-red);
+    border: 2px solid var(--color-brand-orange);
     transition: all 0.3s ease-out;
     position: relative;
     text-align: center;
@@ -301,7 +301,7 @@
     position: absolute;
     top: var(--space-sm);
     left: var(--space-sm);
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-size: 28px;
     opacity: 0.5;
 }
@@ -311,7 +311,7 @@
     position: absolute;
     bottom: var(--space-sm);
     right: var(--space-sm);
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-size: 32px;
     font-weight: 700;
     opacity: 0.4;

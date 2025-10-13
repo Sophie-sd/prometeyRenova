@@ -27,7 +27,7 @@
     <div class="hero-content">
         <div class="container">
             <div class="hero-text text-center">
-                <h1 class="text-mega color-red mb-lg">Актуальні події та акції</h1>
+                <h1 class="text-mega color-brand-orange mb-lg">Актуальні події та акції</h1>
                 <p class="text-large color-white mb-xl">
                     <span class="hero-services">вебінари</span> ·
                     <span class="hero-services">курси програмування</span> ·
@@ -90,7 +90,7 @@
             {% for event in page_obj %}
             <article class="event-card" data-event="{{ forloop.counter }}">
                 <div class="card-header">
-                    <span class="event-number text-page color-red">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <span class="event-number text-page color-brand-orange">{{ forloop.counter|stringformat:"02d" }}</span>
                     <div class="event-meta">
                         <time class="event-date text-small">{{ event.start_date|date:"d.m.Y H:i" }}</time>
                         <span class="event-type" style="background-color: {{ event.category.color }}">
@@ -149,7 +149,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <a href="{{ event.get_absolute_url }}" class="event-details-link text-base color-red">
+                    <a href="{{ event.get_absolute_url }}" class="event-details-link text-base color-brand-orange">
                         Детальніше →
                     </a>
 
@@ -164,7 +164,7 @@
             </article>
             {% empty %}
             <div class="no-events">
-                <h3 class="text-medium color-red mb-sm">Події готуються</h3>
+                <h3 class="text-medium color-brand-orange mb-sm">Події готуються</h3>
                 <p class="text-base">Найближчим часом тут з'являться актуальні події та акції</p>
             </div>
             {% endfor %}

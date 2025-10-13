@@ -12,7 +12,7 @@
     border-radius: 20px 20px 0 0;
     margin-top: -20px;
     box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
-    border-bottom: 3px solid var(--color-red);
+    border-bottom: 3px solid var(--color-brand-orange);
 }
 
 .filter-container {
@@ -54,15 +54,15 @@
 }
 
 .filter-btn:hover {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
-    border-color: var(--color-red);
+    border-color: var(--color-brand-orange);
 }
 
 .filter-btn.active {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
-    border-color: var(--color-red);
+    border-color: var(--color-brand-orange);
 }
 
 /* ===== EVENTS GRID ===== */
@@ -90,7 +90,7 @@
 }
 
 .event-card:hover {
-    border-color: var(--color-red);
+    border-color: var(--color-brand-orange);
     transform: translateY(-5px);
     background: var(--color-white);
 }
@@ -142,7 +142,7 @@
 }
 
 .event-link:hover {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
 }
 
 .event-excerpt {
@@ -188,12 +188,12 @@
 }
 
 .discount-price {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-weight: 600;
 }
 
 .discount-badge {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
     padding: 2px 4px;
     font-size: 10px;
@@ -201,12 +201,12 @@
 }
 
 .free-price {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-weight: 600;
 }
 
 .online-badge {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
     padding: 2px 6px;
     font-size: 10px;
@@ -215,7 +215,7 @@
 }
 
 .spots-available {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-weight: 600;
 }
 
@@ -242,8 +242,8 @@
 .register-btn {
     font-size: var(--font-small);
     padding: 6px 12px;
-    border: 2px solid var(--color-red);
-    background: var(--color-red);
+    border: 2px solid var(--color-brand-orange);
+    background: var(--color-brand-orange);
     color: var(--color-white);
     transition: all 0.3s ease-out;
     cursor: pointer;
@@ -253,7 +253,7 @@
 
 .register-btn:hover {
     background: var(--color-white);
-    color: var(--color-red);
+    color: var(--color-brand-orange);
 }
 
 .registration-closed {
@@ -278,7 +278,7 @@
 }
 
 .pagination-link {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease-out;
@@ -315,7 +315,7 @@
 }
 
 .seo-content strong {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-weight: 600;
 }
 
@@ -432,7 +432,7 @@
     width: 30px;
     height: 30px;
     margin: -15px 0 0 -15px;
-    border: 3px solid var(--color-red);
+    border: 3px solid var(--color-brand-orange);
     border-top-color: transparent;
     border-radius: 50%;
     animation: video-loading-spin 0.8s linear infinite;

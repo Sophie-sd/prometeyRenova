@@ -40,7 +40,7 @@
 /* ===== MODAL CONTENT ===== */
 .modal-content {
     background: var(--color-white);
-    border: 3px solid var(--color-red);
+    border: 3px solid var(--color-brand-orange);
     padding: var(--space-lg);
     max-width: 500px;
     width: 90%;
@@ -77,7 +77,7 @@
 }
 
 .modal-close:hover {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     transform: rotate(90deg);
 }
 
@@ -104,7 +104,7 @@
 /* ===== SUCCESS ICON ===== */
 .success-icon {
     font-size: 48px;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-weight: 900;
     line-height: 1;
 }
@@ -117,7 +117,7 @@
 .result-summary {
     background: var(--color-beige);
     padding: var(--space-sm);
-    border-left: 3px solid var(--color-red);
+    border-left: 3px solid var(--color-brand-orange);
 }
 
 .result-item {

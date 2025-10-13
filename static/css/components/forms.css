@@ -22,7 +22,7 @@
 }
 
 .required {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     margin-left: 2px;
 }
 
@@ -41,7 +41,7 @@
 
 .form-input:focus,
 .form-textarea:focus {
-    border-color: var(--color-red);
+    border-color: var(--color-brand-orange);
     outline: none;
     box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.1);
 }
@@ -60,7 +60,7 @@
 /* ===== FORM VALIDATION ===== */
 .form-input.error,
 .form-textarea.error {
-    border-color: var(--color-red);
+    border-color: var(--color-brand-orange);
 }
 
 .form-input.success,
@@ -69,7 +69,7 @@
 }
 
 .form-error {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-size: var(--font-small);
     margin-top: 4px;
     display: none;
@@ -131,7 +131,7 @@
 }
 
 .form-select:focus {
-    border-color: var(--color-red);
+    border-color: var(--color-brand-orange);
     outline: none;
 }
 

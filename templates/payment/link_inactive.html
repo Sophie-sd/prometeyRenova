@@ -10,7 +10,7 @@
 {% block content %}
 <section class="payment-status">
     <div class="container text-center">
-        <h1 class="text-mega color-red mb-lg">Посилання недоступне</h1>
+        <h1 class="text-mega color-brand-orange mb-lg">Посилання недоступне</h1>
         {% if payment_link %}
         <p class="text-large">Статус: {{ payment_link.get_status_display }}</p>
         {% else %}

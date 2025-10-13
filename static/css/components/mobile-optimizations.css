@@ -129,13 +129,13 @@
 /* Touch feedback для кнопок */
 .btn.mobile-touch-target:active,
 .btn.mobile-touch-target.touch-active {
-    background-color: color-mix(in srgb, var(--color-red) 90%, black);
+    background-color: color-mix(in srgb, var(--color-brand-orange) 90%, black);
 }
 
 /* Touch feedback для посилань */
 .nav-link.mobile-touch-target:active,
 .nav-link.mobile-touch-target.touch-active {
-    background-color: color-mix(in srgb, transparent 90%, var(--color-red));
+    background-color: color-mix(in srgb, transparent 90%, var(--color-brand-orange));
 }
 
 /* ===== VIDEO OPTIMIZATIONS ===== */
@@ -200,7 +200,7 @@
     content: '';
     width: 0;
     height: 0;
-    border-left: 12px solid var(--color-red);
+    border-left: 12px solid var(--color-brand-orange);
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
     margin-left: 3px;
@@ -363,7 +363,7 @@
 
 /* Focus indicators для touch навігації */
 .mobile-focus-visible:focus-visible {
-    outline: 2px solid var(--color-red);
+    outline: 2px solid var(--color-brand-orange);
     outline-offset: 2px;
 }
 

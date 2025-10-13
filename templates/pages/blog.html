@@ -28,7 +28,7 @@
     <div class="hero-content">
         <div class="container">
             <div class="hero-text text-center">
-                <h1 class="text-mega color-red mb-lg">БЛОГ</h1>
+                <h1 class="text-mega color-brand-orange mb-lg">БЛОГ</h1>
                 <p class="text-large color-white">
                     Корисні статті про веб-розробку, курси програмування,
                     створення сайтів під ключ та Telegram ботів
@@ -42,7 +42,7 @@
 <section class="blog-header bg-beige">
     <div class="container">
         <div class="blog-intro">
-            <h2 class="text-large color-red mb-md">Корисні статті про веб-розробку</h2>
+            <h2 class="text-large color-brand-orange mb-md">Корисні статті про веб-розробку</h2>
             <p class="text-base mb-lg">
                 Читайте експертні поради, практичні керівництва та актуальну інформацію
                 про створення сайтів, навчання програмуванню та автоматизацію бізнесу
@@ -98,7 +98,7 @@
             {% for post in page_obj %}
             <article class="blog-card" data-article="{{ forloop.counter }}">
                 <div class="card-header">
-                    <span class="article-number text-page color-red">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <span class="article-number text-page color-brand-orange">{{ forloop.counter|stringformat:"02d" }}</span>
                     <div class="card-meta">
                         <time class="article-date text-small">{{ post.created_at|date:"d.m.Y" }}</time>
                         <span class="reading-time-small">⏱ {{ post.get_reading_time_text }}</span>
@@ -123,14 +123,14 @@
                 </div>
 
                 <div class="card-footer">
-                    <a href="{{ post.get_absolute_url }}" class="read-more-link text-base color-red">
+                    <a href="{{ post.get_absolute_url }}" class="read-more-link text-base color-brand-orange">
                         Читати далі →
                     </a>
                 </div>
             </article>
             {% empty %}
             <div class="no-articles">
-                <h3 class="text-medium color-red mb-sm">Статті готуються</h3>
+                <h3 class="text-medium color-brand-orange mb-sm">Статті готуються</h3>
                 <p class="text-base">Найближчим часом тут з'являться корисні статті про веб-розробку</p>
             </div>
             {% endfor %}
@@ -159,20 +159,20 @@
 <section class="blog-seo bg-beige">
     <div class="container">
         <div class="seo-content text-center">
-            <h2 class="text-large color-red mb-md">Все про веб-розробку</h2>
+            <h2 class="text-large color-brand-orange mb-md">Все про веб-розробку</h2>
             <div class="seo-grid">
                 <div class="seo-item">
-                    <h3 class="text-medium color-red mb-xs">Курси програмування</h3>
+                    <h3 class="text-medium color-brand-orange mb-xs">Курси програмування</h3>
                     <p class="text-base">Навчання Python, Django, React з нуля до junior developer</p>
                 </div>
 
                 <div class="seo-item">
-                    <h3 class="text-medium color-red mb-xs">Сайти під ключ</h3>
+                    <h3 class="text-medium color-brand-orange mb-xs">Сайти під ключ</h3>
                     <p class="text-base">Розробка сучасних веб-сайтів з адаптивним дизайном</p>
                 </div>
 
                 <div class="seo-item">
-                    <h3 class="text-medium color-red mb-xs">Telegram боти</h3>
+                    <h3 class="text-medium color-brand-orange mb-xs">Telegram боти</h3>
                     <p class="text-base">Автоматизація бізнесу з допомогою розумних ботів</p>
                 </div>
             </div>
@@ -184,7 +184,7 @@
 <section class="popular-articles bg-beige">
     <div class="container">
         <div class="popular-header text-center">
-            <h2 class="text-large color-red mb-md">🔥 Популярні статті</h2>
+            <h2 class="text-large color-brand-orange mb-md">🔥 Популярні статті</h2>
             <p class="text-base mb-lg">Найбільш читані та корисні матеріали</p>
         </div>
 

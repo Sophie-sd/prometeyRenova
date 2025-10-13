@@ -57,10 +57,6 @@
 
 /* ===== КОЛІРНІ МОДИФІКАТОРИ ===== */
 
-.color-red {
-    color: var(--color-red);
-}
-
 .color-brand-orange {
     color: var(--color-brand-orange);
 }

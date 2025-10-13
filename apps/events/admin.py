@@ -81,8 +81,8 @@ class EventAdmin(admin.ModelAdmin):
             if obj.discount_percent > 0:
                 return format_html(
                     '<span style="text-decoration: line-through; color: #999;">{}</span> '
-                    '<span style="color: #DC143C; font-weight: bold;">{}</span> '
-                    '<span style="background: #DC143C; color: white; padding: 1px 4px; font-size: 10px;">-{}%</span>',
+                    '<span style="color: #E65100; font-weight: bold;">{}</span> '
+                    '<span style="background: #E65100; color: white; padding: 1px 4px; font-size: 10px;">-{}%</span>',
                     obj.original_price, obj.price, obj.discount_percent
                 )
             return f"{obj.price} грн"

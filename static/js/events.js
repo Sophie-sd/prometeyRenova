@@ -29,8 +29,8 @@ function initFilterSystem() {
             e.preventDefault();
 
             const filterType = button.dataset.category ? 'category' :
-                               button.dataset.type ? 'type' :
-                               button.dataset.sort ? 'sort' : null;
+                button.dataset.type ? 'type' :
+                    button.dataset.sort ? 'sort' : null;
 
             if (!filterType) return;
 
@@ -84,7 +84,7 @@ function updateEventsGrid(events, container) {
     if (events.length === 0) {
         container.innerHTML = `
             <div class="no-events">
-                <h3 class="text-medium color-red mb-sm">Події не знайдено</h3>
+                <h3 class="text-medium color-brand-orange mb-sm">Події не знайдено</h3>
                 <p class="text-base">Спробуйте змінити фільтри</p>
             </div>
         `;
@@ -115,7 +115,7 @@ function createEventCard(event, number) {
 
     card.innerHTML = `
         <div class="card-header">
-            <span class="event-number text-page color-red">${String(number).padStart(2, '0')}</span>
+            <span class="event-number text-page color-brand-orange">${String(number).padStart(2, '0')}</span>
             <div class="event-meta">
                 <time class="event-date text-small">${event.start_date}</time>
                 <span class="event-type" style="background-color: ${event.category_color}">
@@ -143,7 +143,7 @@ function createEventCard(event, number) {
         </div>
         
         <div class="card-footer">
-            <a href="${event.url}" class="event-details-link text-base color-red">Детальніше →</a>
+            <a href="${event.url}" class="event-details-link text-base color-brand-orange">Детальніше →</a>
             ${registerBtn}
         </div>
     `;

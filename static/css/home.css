@@ -111,13 +111,13 @@
     right: -20px;
     font-size: 120px;
     font-weight: 900;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     opacity: 0.8;
     line-height: 1;
     text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
     transition: all 0.4s ease-out;
     z-index: 10;
-    background: linear-gradient(135deg, var(--color-red), #ff6b6b);
+    background: linear-gradient(135deg, var(--color-brand-orange), #ff6b6b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -236,7 +236,7 @@
     position: absolute;
     top: var(--space-sm);
     right: var(--space-sm);
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-size: 32px;
     opacity: 0.5;
 }
@@ -246,7 +246,7 @@
     position: absolute;
     bottom: var(--space-sm);
     left: var(--space-sm);
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-size: 40px;
     font-weight: 700;
     opacity: 0.4;

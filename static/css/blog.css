@@ -52,7 +52,7 @@
 .blog-search .search-input {
     flex: 1;
     padding: 18px 24px;
-    border: 3px solid var(--color-red);
+    border: 3px solid var(--color-brand-orange);
     border-right: none;
     font-size: 16px;
     outline: none;
@@ -67,8 +67,8 @@
 
 .blog-search .search-button {
     padding: 18px 24px;
-    background: var(--color-red);
-    border: 3px solid var(--color-red);
+    background: var(--color-brand-orange);
+    border: 3px solid var(--color-brand-orange);
     color: var(--color-white);
     cursor: pointer;
     transition: all 0.3s ease-out;
@@ -94,7 +94,7 @@
     position: absolute;
     top: var(--space-sm);
     right: var(--space-sm);
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-size: 24px;
     opacity: 0.6;
 }
@@ -104,7 +104,7 @@
     position: absolute;
     bottom: var(--space-sm);
     left: var(--space-sm);
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-size: 32px;
     font-weight: 700;
     opacity: 0.4;
@@ -136,7 +136,7 @@
 }
 
 .blog-card:hover {
-    border-color: var(--color-red);
+    border-color: var(--color-brand-orange);
     transform: translateY(-5px);
     background: var(--color-white);
 }
@@ -184,7 +184,7 @@
 }
 
 .article-category .category-tag {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
     padding: 4px 8px;
     font-size: 10px;
@@ -221,7 +221,7 @@
 }
 
 .article-link:hover {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
 }
 
 .article-excerpt {
@@ -239,7 +239,7 @@
 
 .keyword-tag {
     font-size: 10px;
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
     padding: 3px 6px;
     font-weight: 600;
@@ -269,13 +269,13 @@
     justify-content: space-between;
     align-items: center;
     padding: var(--space-sm) 0;
-    border-top: 2px solid var(--color-red);
+    border-top: 2px solid var(--color-brand-orange);
     max-width: 600px;
     margin: 0 auto;
 }
 
 .pagination-link {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease-out;
@@ -310,7 +310,7 @@
 
 .seo-item {
     padding: var(--space-sm);
-    border-left: 3px solid var(--color-red);
+    border-left: 3px solid var(--color-brand-orange);
 }
 
 /* Декоративні елементи для SEO блоку */
@@ -319,7 +319,7 @@
     position: absolute;
     top: var(--space-sm);
     left: var(--space-sm);
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-size: 28px;
     opacity: 0.5;
 }
@@ -329,7 +329,7 @@
     position: absolute;
     bottom: var(--space-sm);
     right: var(--space-sm);
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     font-size: 32px;
     font-weight: 700;
     opacity: 0.4;
@@ -341,7 +341,7 @@
     text-align: center;
     padding: var(--space-xl);
     background: var(--color-gray);
-    border: 2px solid var(--color-red);
+    border: 2px solid var(--color-brand-orange);
 }
 
 /* ===== ДЕТАЛЬНА СТОРІНКА СТАТТІ ===== */
@@ -363,7 +363,7 @@
 }
 
 .category-tag {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
     padding: 6px 12px;
     font-size: 12px;
@@ -425,7 +425,7 @@
 .article-text h2 {
     font-size: 28px;
     font-weight: 700;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     margin: var(--space-md) 0 var(--space-sm);
 }
 
@@ -451,7 +451,7 @@
 }
 
 .article-text blockquote {
-    border-left: 4px solid var(--color-red);
+    border-left: 4px solid var(--color-brand-orange);
     padding-left: var(--space-sm);
     margin: var(--space-md) 0;
     font-style: italic;
@@ -484,7 +484,7 @@
 }
 
 .related-card:hover {
-    border-color: var(--color-red);
+    border-color: var(--color-brand-orange);
     transform: translateY(-3px);
 }
 
@@ -537,7 +537,7 @@
 .search-input {
     flex: 1;
     padding: 16px 20px;
-    border: 3px solid var(--color-red);
+    border: 3px solid var(--color-brand-orange);
     border-right: none;
     font-size: 16px;
     outline: none;
@@ -550,8 +550,8 @@
 
 .search-button {
     padding: 16px 20px;
-    background: var(--color-red);
-    border: 3px solid var(--color-red);
+    background: var(--color-brand-orange);
+    border: 3px solid var(--color-brand-orange);
     color: var(--color-white);
     cursor: pointer;
     transition: all 0.3s ease-out;
@@ -594,7 +594,7 @@
     display: block;
     padding: var(--space-sm);
     background: var(--color-beige);
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     text-decoration: none;
     text-align: center;
     font-weight: 600;
@@ -603,9 +603,9 @@
 }
 
 .suggestion-link:hover {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
-    border-color: var(--color-red);
+    border-color: var(--color-brand-orange);
 }
 
 /* Фільтри по категоріях */
@@ -638,7 +638,7 @@
     background: var(--color-white);
     color: var(--color-black);
     text-decoration: none;
-    border: 2px solid var(--color-red);
+    border: 2px solid var(--color-brand-orange);
     border-radius: 20px;
     font-size: 14px;
     font-weight: 600;
@@ -647,13 +647,13 @@
 }
 
 .category-filter:hover {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
     transform: translateY(-2px);
 }
 
 .category-filter.active {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
     box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3);
 }
@@ -765,7 +765,7 @@
     }
 
     .blog-search .search-input {
-        border-right: 3px solid var(--color-red);
+        border-right: 3px solid var(--color-brand-orange);
         border-bottom: none;
         padding: 16px 20px;
     }
@@ -881,7 +881,7 @@
     }
 
     .search-input {
-        border-right: 3px solid var(--color-red);
+        border-right: 3px solid var(--color-brand-orange);
         border-bottom: none;
     }
 
@@ -948,7 +948,7 @@
 }
 
 .article-link:hover {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
 }
 
 .read-more-link {
@@ -964,7 +964,7 @@
 }
 
 .category-filter:hover {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
     transform: translateY(-2px);
 }
@@ -978,7 +978,7 @@
 }
 
 .suggestion-link:hover {
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
     transform: translateY(-2px);
 }
@@ -1023,7 +1023,7 @@
     transform: translateX(-50%);
     width: 60px;
     height: 3px;
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     border-radius: 2px;
 }
 
@@ -1053,13 +1053,13 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--color-red), #ff6b6b);
+    background: linear-gradient(90deg, var(--color-brand-orange), #ff6b6b);
     transform: scaleX(0);
     transition: transform 0.3s ease-out;
 }
 
 .popular-card:hover {
-    border-color: var(--color-red);
+    border-color: var(--color-brand-orange);
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 12px 35px rgba(220, 20, 60, 0.15);
 }
@@ -1069,7 +1069,7 @@
 }
 
 .popular-card.featured {
-    border-color: var(--color-red);
+    border-color: var(--color-brand-orange);
     background: linear-gradient(135deg, var(--color-white) 0%, var(--color-beige) 100%);
     position: relative;
 }
@@ -1080,7 +1080,7 @@
     top: var(--space-sm);
     right: var(--space-sm);
     font-size: 24px;
-    color: var(--color-red);
+    color: var(--color-brand-orange);
     animation: pulse 2s infinite;
 }
 
@@ -1108,7 +1108,7 @@
 }
 
 .popular-card-content h3 a:hover {
-    color: var(--color-red);
+    color: var(--color-brand-orange);
 }
 
 .popular-card-content p {
@@ -1130,7 +1130,7 @@
 .popular-card-meta .category-tag {
     font-size: 10px;
     padding: 4px 8px;
-    background: var(--color-red);
+    background: var(--color-brand-orange);
     color: var(--color-white);
     border-radius: 12px;
     font-weight: 600;
