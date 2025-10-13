@@ -66,31 +66,37 @@
 /* ===== FIXED CALL BUTTON ===== */
 .call-button {
     position: fixed;
-    bottom: var(--space-xs);
-    left: var(--space-xs);
+    bottom: 20px;
+    left: 20px;
     z-index: var(--z-fixed-buttons, 999);
-    background: var(--color-brand-orange);
+    background: #25D366;
+    /* WhatsApp зелений */
     color: var(--color-white);
-    padding: 15px 20px;
+    width: 56px;
+    height: 56px;
     border: none;
-    font-weight: 600;
-    font-size: var(--font-base);
     cursor: pointer;
     transition: all var(--transition-normal) var(--easing-default);
-    text-transform: lowercase;
-    letter-spacing: 0.5px;
-    border-radius: var(--radius-sm);
-    box-shadow: var(--shadow-lg);
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.call-button-icon {
+    font-size: 24px;
+    line-height: 1;
 }
 
 .call-button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-xl);
-    background: var(--color-black);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+    background: #22C55E;
 }
 
 .call-button:active {
-    transform: translateY(0);
+    transform: translateY(0) scale(0.95);
 }
 
 /* ===== BUTTON SIZES ===== */
@@ -167,14 +173,17 @@
     }
 
     .call-button {
-        bottom: var(--space-xs);
-        left: var(--space-xs);
-        right: var(--space-xs);
-        width: calc(100% - var(--space-xs) * 2);
-        text-align: center;
-        padding: 14px 20px;
+        bottom: 20px;
+        left: 20px;
+        width: 50px;
+        height: 50px;
         /* Враховуємо safe area для iPhone */
-        bottom: max(env(safe-area-inset-bottom), var(--space-xs));
+        bottom: max(env(safe-area-inset-bottom, 20px), 20px);
+        left: max(env(safe-area-inset-left, 20px), 20px);
+    }
+
+    .call-button-icon {
+        font-size: 20px;
     }
 
     .btn-group {
@@ -192,5 +201,6 @@
     .call-button {
         /* Додатковий відступ для iOS Safari */
         bottom: max(env(safe-area-inset-bottom, 20px), 20px);
+        left: max(env(safe-area-inset-left, 20px), 20px);
     }
 }
