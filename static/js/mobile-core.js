@@ -32,7 +32,7 @@ class MobileCore {
             isTouch: isTouchDevice,
             isMobile: window.innerWidth <= 767 || isTouchDevice,
             isTablet: window.innerWidth > 767 && window.innerWidth <= 1024 && isTouchDevice,
-            hasNotch: this.hasDisplayCutout(),
+            hasNotch: CSS.supports && (CSS.supports('padding-top: env(safe-area-inset-top)') || CSS.supports('padding-top: constant(safe-area-inset-top)')),
 
             // Performance indicators
             isLowEnd: this.detectLowEndDevice(),

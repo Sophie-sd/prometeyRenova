@@ -57,7 +57,7 @@ class PortfolioPage {
 
         const handleScroll = () => {
             if (this.state.menuOpen) return;
-            
+
             if (!ticking) {
                 window.requestAnimationFrame(() => {
                     this.updateActiveSection();
@@ -103,7 +103,7 @@ class PortfolioPage {
 
     activateSection(section, index) {
         section.classList.add('active');
-        
+
         // Відтворення відео через VideoSystem
         const video = this.getVisibleVideoForSection(section);
         if (video && window.VideoSystem) {
@@ -113,7 +113,7 @@ class PortfolioPage {
 
     deactivateSection(section) {
         section.classList.remove('active');
-        
+
         // Пауза відео через VideoSystem
         const video = this.getVisibleVideoForSection(section);
         if (video && window.VideoSystem) {
@@ -131,7 +131,7 @@ class PortfolioPage {
     setupVideoManagement() {
         // Слухаємо VideoSystem events
         if (window.VideoSystem) {
-            window.VideoSystem.on('loaded', (e) => {
+            window.VideoSystem.on('video:loaded', (e) => {
                 const section = e.detail.element.closest('.project-section');
                 if (section) {
                     section.classList.add('video-loaded');
@@ -139,7 +139,7 @@ class PortfolioPage {
                 }
             });
 
-            window.VideoSystem.on('error', (e) => {
+            window.VideoSystem.on('video:error', (e) => {
                 const section = e.detail.element?.closest('.project-section');
                 if (section) {
                     section.classList.add('video-error');
