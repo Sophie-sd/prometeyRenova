@@ -172,4 +172,8 @@ yarn-error.log*
 
 # Temporary files
 *.tmp
-*.temp staticfiles/
+*.temp
+
+# Render remote access scripts (contain API keys)
+.render-exec.sh
+render-cmd.sh

@@ -19,17 +19,17 @@ body {
     font-weight: 400;
     line-height: 1.5;
     color: #000000;
-    background-color: #090407;
+    background-color: var(--color-beige, #F5F1ED);
     overflow-x: hidden;
 }
 
-/* ===== КОЛЬОРОВА СИСТЕМА ===== */
+/* ===== КОЛЬОРОВА СИСТЕМА (дублікат variables.css для сумісності) ===== */
 :root {
-    --color-red: #e14811;
+    --color-red: #DC143C;
     --color-black: #000000;
     --color-white: #FFFFFF;
-    --color-beige: #090407;
-    --color-beige-alt: #090407;
+    --color-beige: #F5F1ED;
+    --color-beige-alt: #FAF7F2;
     --color-gray: #F8F8F8;
 
     /* Розміри шрифтів */

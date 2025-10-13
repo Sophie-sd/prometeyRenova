@@ -17,7 +17,8 @@
     {% endif %}
 
     <!-- SEO Meta Tags -->
-    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock %}</title>
+    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock
+        %}</title>
     <meta name="description"
         content="{% block description %}PrometeyLabs - розробка сайтів під ключ, Telegram боти, налаштування реклами Google Ads, ведення соцмереж, навчання веб-розробки. Конкурентні ціни, сучасні технології.{% endblock %}">
     <meta name="keywords"
@@ -59,11 +60,8 @@
     {% block page_css %}{% endblock %}
     {% block extra_css %}{% endblock %}
 
-    <!-- CSRF Token для JavaScript -->
+    <!-- CSRF Token для JavaScript (використовується через meta tag) -->
     {% csrf_token %}
-    <script>
-        window.csrfToken = '{{ csrf_token }}';
-    </script>
 
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -7,12 +7,12 @@
    ================================= */
 
 :root {
-    /* ===== КОЛЬОРОВА СИСТЕМА ===== */
-    --color-red: #e14811;
+    /* ===== КОЛЬОРОВА СИСТЕМА (згідно STYLE.MDC) ===== */
+    --color-red: #DC143C;
     --color-black: #000000;
     --color-white: #FFFFFF;
-    --color-beige: #090407;
-    --color-beige-alt: #090407;
+    --color-beige: #F5F1ED;
+    --color-beige-alt: #FAF7F2;
     --color-gray: #F8F8F8;
 
     /* ===== ТИПОГРАФІЧНА ШКАЛА ===== */
@@ -57,11 +57,11 @@
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
     --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
     --shadow-xl: 0 25px 60px rgba(0, 0, 0, 0.3);
-    
-    /* Червоні тіні для акцентів */
-    --shadow-red-sm: 0 2px 8px rgba(225, 72, 17, 0.1);
-    --shadow-red-md: 0 4px 12px rgba(225, 72, 17, 0.2);
-    --shadow-red-lg: 0 25px 60px rgba(225, 72, 17, 0.3);
+
+    /* Червоні тіні для акцентів (Crimson Red RGB: 220, 20, 60) */
+    --shadow-red-sm: 0 2px 8px rgba(220, 20, 60, 0.1);
+    --shadow-red-md: 0 4px 12px rgba(220, 20, 60, 0.2);
+    --shadow-red-lg: 0 25px 60px rgba(220, 20, 60, 0.3);
 
     /* ===== Z-INDEX ШКАЛА ===== */
     --z-below: -1;
@@ -83,4 +83,3 @@
     --color-white: #000000;
 }
 */
-

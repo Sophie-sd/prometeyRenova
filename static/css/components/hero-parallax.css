@@ -160,7 +160,7 @@
 .blog-header,
 .events-filter {
     position: relative;
-    background: #090407;
+    background: var(--color-black);
     z-index: 10;
     border-radius: 20px 20px 0 0;
     margin-top: -20px;

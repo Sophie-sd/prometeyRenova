@@ -754,8 +754,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+// Ініціалізація перемикачів мови без inline onclick
+function initLanguageSwitchers() {
+    const langSwitchers = document.querySelectorAll('.lang-switcher-link');
+    langSwitchers.forEach(switcher => {
+        switcher.addEventListener('click', (e) => {
+            e.preventDefault();
+            const langCode = switcher.getAttribute('data-language-code');
+            if (langCode) {
+                setLanguage(langCode);
+            }
+        });
+    });
+}
+
 // Ініціалізація
 const app = PrometeyApp.getInstance();
+
+// Ініціалізація перемикачів мови після завантаження DOM
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLanguageSwitchers);
+} else {
+    initLanguageSwitchers();
+}
 
 // Експорт для інших модулів
 if (typeof module !== 'undefined' && module.exports) {

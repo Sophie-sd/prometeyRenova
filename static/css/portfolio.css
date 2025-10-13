@@ -112,8 +112,8 @@
 }
 
 .hero-title .highlight.orange {
-    color: #e14811;
-    text-shadow: 2px 2px 6px rgba(225, 72, 17, 0.5);
+    color: var(--color-red);
+    text-shadow: 2px 2px 6px rgba(220, 20, 60, 0.5);
 }
 
 .hero-description {
@@ -164,7 +164,7 @@
 
     .project-section.active {
         background: #121212;
-        border-bottom-color: #e14811;
+        border-bottom-color: var(--color-red);
     }
 }
 
@@ -177,7 +177,7 @@
 
     .project-section.active {
         background: #121212;
-        border-bottom-color: #e14811;
+        border-bottom-color: var(--color-red);
     }
 }
 
@@ -190,7 +190,7 @@
 
     .project-section.active {
         background: #0a0a0a;
-        border-bottom-color: #e14811;
+        border-bottom-color: var(--color-red);
     }
 }
 
@@ -228,7 +228,7 @@
     height: auto;
     object-fit: contain;
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(225, 72, 17, 0.25);
+    box-shadow: 0 4px 16px rgba(220, 20, 60, 0.25);
 }
 
 /* DESKTOP: спрощені анімації та hover ефекти тільки на великих екранах */
@@ -239,7 +239,7 @@
 
     .project-video video:hover {
         transform: scale(1.02);
-        box-shadow: 0 6px 24px rgba(225, 72, 17, 0.35);
+        box-shadow: 0 6px 24px rgba(220, 20, 60, 0.35);
     }
 }
 
@@ -267,14 +267,14 @@
     font-weight: 700;
     line-height: 0.8;
     letter-spacing: -2px;
-    color: #e14811;
+    color: var(--color-red);
     margin: 0;
     text-transform: uppercase;
 }
 
 .project-button {
-    background: #e14811;
-    border: 2px solid #e14811;
+    background: var(--color-red);
+    border: 2px solid var(--color-red);
     color: #000000;
     padding: 20px 40px;
     font-size: 18px;
@@ -299,7 +299,7 @@
 
     .project-button:hover {
         background: transparent;
-        color: #e14811;
+        color: var(--color-red);
         transform: translateY(-3px);
     }
 
@@ -316,7 +316,7 @@
 
     .project-button:active {
         background: transparent;
-        color: #e14811;
+        color: var(--color-red);
     }
 }
 
@@ -439,7 +439,7 @@
         height: auto;
         object-fit: contain;
         border-radius: 16px;
-        box-shadow: 0 6px 24px rgba(225, 72, 17, 0.3);
+        box-shadow: 0 6px 24px rgba(220, 20, 60, 0.3);
     }
 
     .desktop-video {
@@ -632,7 +632,7 @@ html {
     width: 20px;
     height: 20px;
     margin: -10px 0 0 -10px;
-    border: 2px solid #e14811;
+    border: 2px solid var(--color-red);
     border-top: 2px solid transparent;
     border-radius: 50%;
     animation: video-loading-spin 1s linear infinite;
@@ -646,7 +646,7 @@ html {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 24px;
-    color: #e14811;
+    color: var(--color-red);
     z-index: 10;
 }
 

@@ -6,13 +6,20 @@
         <span class="close-line"></span>
     </button>
 
-    <a href="{% url 'home' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Головна" %}</a>
-    <a href="{% url 'portfolio' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Портфоліо" %}</a>
-    <a href="{% url 'calculator' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Розрахувати пропозицію" %}</a>
-    <a href="{% url 'developer' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Стати розробником" %}</a>
-    <a href="{% url 'blog:blog_list' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Блог" %}</a>
-    <a href="{% url 'events' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Події" %}</a>
-    <a href="{% url 'contacts' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Контакти" %}</a>
+    <a href="{% url 'home' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Головна"
+        %}</a>
+    <a href="{% url 'portfolio' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans
+        "Портфоліо" %}</a>
+    <a href="{% url 'calculator' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans
+        "Розрахувати пропозицію" %}</a>
+    <a href="{% url 'developer' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Стати
+        розробником" %}</a>
+    <a href="{% url 'blog:blog_list' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans
+        "Блог" %}</a>
+    <a href="{% url 'events' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Події"
+        %}</a>
+    <a href="{% url 'contacts' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Контакти"
+        %}</a>
 
     <!-- Mobile Language Switcher -->
     <div class="mobile-language-switcher">
@@ -30,8 +37,9 @@
             <div class="lang-dropdown-menu">
                 {% for language_code, language_name in LANGUAGES %}
                 {% language language_code %}
-                <a href="{% url 'set_language' %}" class="lang-dropdown-item mobile-touch-target mobile-focus-visible"
-                    onclick="setLanguage('{{ language_code }}'); return false;">
+                <a href="{% url 'set_language' %}"
+                    class="lang-dropdown-item mobile-touch-target mobile-focus-visible lang-switcher-link"
+                    data-language-code="{{ language_code }}">
                     <span class="lang-flag">{% if language_code == 'uk' %}🇺🇦{% else %}🇺🇸{% endif %}</span>
                     {{ language_name }}
                 </a>

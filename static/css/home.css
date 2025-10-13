@@ -8,7 +8,7 @@
     width: 100%;
     padding: var(--space-xl) 0;
     padding-top: 60px;
-    background: #090407;
+    background: var(--color-black);
     z-index: 10;
     border-radius: 20px 20px 0 0;
     margin-top: -20px;
@@ -80,14 +80,14 @@
 }
 
 .service-card:hover .service-card-overlay {
-    background: linear-gradient(180deg, rgba(225, 72, 17, 0.1) 0%, rgba(0, 0, 0, 0.5) 100%);
+    background: linear-gradient(180deg, rgba(220, 20, 60, 0.1) 0%, rgba(0, 0, 0, 0.5) 100%);
     opacity: 1;
 }
 
 .service-card:hover {
-    border-color: rgba(225, 72, 17, 0.6);
+    border-color: rgba(220, 20, 60, 0.6);
     transform: translateY(-10px) scale(1.03);
-    box-shadow: 0 25px 60px rgba(225, 72, 17, 0.3);
+    box-shadow: 0 25px 60px rgba(220, 20, 60, 0.3);
     background-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -117,7 +117,7 @@
     text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
     transition: all 0.4s ease-out;
     z-index: 10;
-    background: linear-gradient(135deg, var(--color-red), #ff6b35);
+    background: linear-gradient(135deg, var(--color-red), #ff6b6b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -372,7 +372,7 @@
 
     .service-card:hover {
         transform: translateY(-6px) scale(1.01);
-        box-shadow: 0 15px 40px rgba(225, 72, 17, 0.35);
+        box-shadow: 0 15px 40px rgba(220, 20, 60, 0.35);
     }
 
     .services-cta {

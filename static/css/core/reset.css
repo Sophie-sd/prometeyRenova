@@ -22,7 +22,7 @@ body {
     font-weight: 400;
     line-height: 1.5;
     color: #000000;
-    background-color: #090407;
+    background-color: var(--color-beige, #F5F1ED);
     overflow-x: hidden;
 }
 
@@ -92,4 +92,3 @@ select {
     position: relative;
     z-index: 1;
 }
-

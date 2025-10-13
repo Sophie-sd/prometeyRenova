@@ -27,10 +27,11 @@ function initVideoSystem() {
 
         // Обробка помилок завантаження відео
         video.addEventListener('error', () => {
-            console.log('Video loading error, applying fallback background');
             video.style.display = 'none';
-            document.querySelector('.hero-section').style.background =
-                'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)';
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                heroSection.style.background = 'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)';
+            }
         });
     });
 
@@ -115,6 +116,17 @@ function initModalSystem() {
         });
     });
 
+    // Кнопки закриття конкретних модалок
+    const specificCloseButtons = document.querySelectorAll('.modal-close-specific');
+    specificCloseButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modalId = button.getAttribute('data-modal-id');
+            if (modalId) {
+                closeModal(modalId);
+            }
+        });
+    });
+
     // Закриття при кліку на backdrop
     const modals = document.querySelectorAll('.modal');
     modals.forEach(modal => {
@@ -162,15 +174,15 @@ function closeAllModals() {
     document.body.style.overflow = '';
 }
 
-// Глобальна функція для закриття конкретної модалки (викликається з HTML)
-window.closeModal = function (modalId) {
+// Функція для закриття конкретної модалки
+function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.classList.remove('active');
         modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
     }
-};
+}
 
 // Обробка форм в модалках
 function initModalForms() {
@@ -205,7 +217,6 @@ function initModalForms() {
                     alert('Помилка відправки. Спробуйте ще раз.');
                 }
             } catch (error) {
-                console.error('Form submission error:', error);
                 alert('Помилка відправки. Перевірте інтернет з\'єднання.');
             } finally {
                 submitButton.textContent = originalText;

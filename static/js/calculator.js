@@ -415,6 +415,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Створюємо інстанс калькулятора
     window.projectCalculator = new ProjectCalculator();
+
+    // Ініціалізація кнопки "Розпочати тест"
+    const startTestBtn = document.querySelector('.start-test-btn');
+    if (startTestBtn) {
+        startTestBtn.addEventListener('click', showTestForm);
+    }
 });
 
 // Глобальна функція для показу форми

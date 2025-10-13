@@ -3,7 +3,7 @@
 
 /* === ЗАГАЛЬНІ СТИЛІ СТОРІНКИ === */
 .contacts-page {
-    background-color: #090407;
+    background-color: var(--color-beige);
     /* Теплий бежевий фон */
     color: #000000;
     /* Чорний для основного тексту */
@@ -20,7 +20,7 @@
     letter-spacing: -3px;
     line-height: 0.85;
     margin: 100px 0;
-    color: #e14811;
+    color: var(--color-red);
     /* Домінуючий червоний */
 }
 
@@ -92,7 +92,7 @@
 }
 
 .contact-link:hover {
-    color: #e14811;
+    color: var(--color-red);
 }
 
 .messengers,
@@ -112,7 +112,7 @@
 
 .messenger-link:hover,
 .social-link:hover {
-    color: #e14811;
+    color: var(--color-red);
 }
 
 .messenger-link::after,
@@ -123,7 +123,7 @@
     left: 0;
     width: 0;
     height: 1px;
-    background-color: #e14811;
+    background-color: var(--color-red);
     transition: width 0.3s ease-out;
 }
 
@@ -163,7 +163,7 @@
 }
 
 .required {
-    color: #e14811;
+    color: var(--color-red);
 }
 
 .form-input,
@@ -179,7 +179,7 @@
 
 .form-input:focus,
 .form-textarea:focus {
-    border-color: #e14811;
+    border-color: var(--color-red);
     outline: none;
 }
 
@@ -189,7 +189,7 @@
 }
 
 .submit-btn {
-    background-color: #e14811;
+    background-color: var(--color-red);
     color: #FFFFFF;
     border: none;
     padding: 14px 30px;
@@ -217,7 +217,7 @@
 }
 
 .red-star {
-    color: #e14811;
+    color: var(--color-red);
     font-size: 32px;
     display: inline-block;
     transform: rotate(15deg);
@@ -270,7 +270,7 @@
 
 .direction-list li::before {
     content: '•';
-    color: #e14811;
+    color: var(--color-red);
     position: absolute;
     left: 0;
 }

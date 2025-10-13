@@ -44,13 +44,13 @@
                 <div class="hero-buttons">
                     <a href="https://t.me/prometeylabs" class="btn btn-primary mobile-touch-target" target="_blank"
                         rel="noopener">
-                        Написати в Telegram
+                        {% trans "Написати в Telegram" %}
                     </a>
                     <a href="{% url 'developer' %}" class="btn btn-secondary mobile-touch-target">
-                        Хочу стати розробником
+                        {% trans "Хочу стати розробником" %}
                     </a>
                     <a href="{% url 'calculator' %}" class="btn btn-secondary mobile-touch-target">
-                        Розрахувати вартість онлайн
+                        {% trans "Розрахувати вартість онлайн" %}
                     </a>
                 </div>
             </div>
@@ -62,7 +62,7 @@
 <section class="services-section full-width">
     <div class="container">
         <div class="services-content">
-            <h2 class="text-large color-red mb-xl text-center">Послуги PrometeyLabs</h2>
+            <h2 class="text-large color-red mb-xl text-center">{% trans "Послуги PrometeyLabs" %}</h2>
 
             <!-- Сітка послуг з фоновими зображеннями -->
             <div class="services-grid">
@@ -71,8 +71,8 @@
                     <div class="service-card-overlay"></div>
                     <div class="service-card-content">
                         <span class="service-number">01</span>
-                        <h3 class="service-title">Web розробка</h3>
-                        <p class="service-description">Сайти під ключ, лендінги, інтернет-магазини</p>
+                        <h3 class="service-title">{% trans "Web розробка" %}</h3>
+                        <p class="service-description">{% trans "Сайти під ключ, лендінги, інтернет-магазини" %}</p>
                     </div>
                 </div>
 
@@ -81,8 +81,8 @@
                     <div class="service-card-overlay"></div>
                     <div class="service-card-content">
                         <span class="service-number">02</span>
-                        <h3 class="service-title">Навчання</h3>
-                        <p class="service-description">Курси програмування з нуля до junior developer</p>
+                        <h3 class="service-title">{% trans "Навчання" %}</h3>
+                        <p class="service-description">{% trans "Курси програмування з нуля до junior developer" %}</p>
                     </div>
                 </div>
 
@@ -91,8 +91,8 @@
                     <div class="service-card-overlay"></div>
                     <div class="service-card-content">
                         <span class="service-number">03</span>
-                        <h3 class="service-title">Мобільні додатки</h3>
-                        <p class="service-description">iOS та Android додатки на React Native</p>
+                        <h3 class="service-title">{% trans "Мобільні додатки" %}</h3>
+                        <p class="service-description">{% trans "iOS та Android додатки на React Native" %}</p>
                     </div>
                 </div>
 
@@ -101,8 +101,8 @@
                     <div class="service-card-overlay"></div>
                     <div class="service-card-content">
                         <span class="service-number">04</span>
-                        <h3 class="service-title">SMM</h3>
-                        <p class="service-description">Ведення соціальних мереж та реклама</p>
+                        <h3 class="service-title">{% trans "SMM" %}</h3>
+                        <p class="service-description">{% trans "Ведення соціальних мереж та реклама" %}</p>
                     </div>
                 </div>
             </div>
@@ -125,16 +125,16 @@
 
     <div class="container">
         <div class="cta-content text-center">
-            <h2 class="text-large color-white mb-md">Готові почати?</h2>
+            <h2 class="text-large color-white mb-md">{% trans "Готові почати?" %}</h2>
             <p class="text-base color-white mb-lg">
-                Зв'яжіться з нами для безкоштовної консультації та розрахунку вартості проєкту
+                {% trans "Зв'яжіться з нами для безкоштовної консультації та розрахунку вартості проєкту" %}
             </p>
             <div class="cta-buttons">
                 <a href="{% url 'calculator' %}" class="btn btn-primary">
-                    Розрахувати вартість
+                    {% trans "Розрахувати вартість" %}
                 </a>
                 <a href="https://t.me/prometeylabs" class="btn btn-secondary" target="_blank">
-                    Telegram консультація
+                    {% trans "Telegram консультація" %}
                 </a>
             </div>
         </div>
@@ -143,10 +143,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<!-- Тимчасово відключаємо VideoSystem для відлагодження -->
-<script>
-    // Відключити VideoSystem для цієї сторінки
-    window.VideoSystemDisabled = true;
-</script>
 <script src="{% static 'js/home.js' %}"></script>
 {% endblock %}

@@ -240,7 +240,7 @@
 .courses-section {
     position: relative;
     padding: var(--space-xl) 0;
-    background: #090407;
+    background: var(--color-black);
     z-index: 10;
 }
 
