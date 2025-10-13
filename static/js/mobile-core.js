@@ -487,6 +487,11 @@ class MobileCore {
     handleOrientationChange() {
         // Placeholder
     }
+
+    setupAccessibilityEnhancements() {
+        // Placeholder для майбутніх accessibility features
+        // TODO: Implement accessibility enhancements
+    }
 }
 
 // ===== GLOBAL INSTANCE =====
