@@ -1,6 +1,5 @@
 from pathlib import Path
 import os
-import dj_database_url
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -58,24 +57,13 @@ ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.asgi.application'
 
-# DATABASE - PostgreSQL для продакшну
-DATABASE_URL = os.environ.get('DATABASE_URL')
-if DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            ssl_require=True
-        )
+# DATABASE - SQLite (можна замінити на PostgreSQL через Render Environment Variables)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-    DATABASES['default']['OPTIONS'] = {'sslmode': 'require'}
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 # INTERNATIONALIZATION - Мультимовність
 LANGUAGE_CODE = 'uk'
