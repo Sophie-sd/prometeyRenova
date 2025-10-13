@@ -7,56 +7,61 @@
 :root {
     /* Фонові елементи (найнижчий рівень) */
     --z-background: -1;
-    --z-video-background: 0;
-    --z-overlay-background: 1;
+    /* Фіксоване відео фон */
+    --z-video-overlay: 1;
+    /* Overlay поверх відео */
 
     /* Основний контент */
     --z-content-base: 10;
+    /* Звичайні секції */
     --z-content-elevated: 50;
+    /* Піднятий контент */
     --z-content-hero: 100;
+    /* Hero контент */
 
     /* Навігація */
     --z-navigation: 1000;
+    /* Основна навігація */
     --z-mobile-menu: 10000;
+    /* Мобільне меню */
     --z-burger-button: 10001;
+    /* Кнопка бургер */
 
     /* UI елементи */
     --z-dropdown: 500;
+    /* Dropdown меню */
     --z-tooltip: 800;
+    /* Підказки */
     --z-fixed-buttons: 999;
+    /* Фіксовані кнопки */
 
     /* Модальні вікна (найвищий рівень) */
     --z-modal-backdrop: 2000;
+    /* Backdrop модалок */
     --z-modal-content: 2001;
+    /* Контент модалок */
 }
 
 /* ===== СЕКЦІЇ З ВІДЕО ФОНОМ ===== */
-/* Hero секції (фіксоване відео) */
-.hero-section,
-.hero-parallax,
-.blog-hero,
-.developer-hero {
-    z-index: var(--z-content-base);
-}
+/* Hero секції використовують isolation: isolate замість z-index */
+/* Це створює новий stacking context без конфліктів */
 
 .hero-section .video-background,
-.hero-parallax .video-background {
+.hero-parallax .video-background,
+.cta-section .video-background {
     z-index: var(--z-background);
 }
 
 .hero-section .video-overlay,
-.hero-parallax .video-overlay {
-    z-index: var(--z-video-background);
+.hero-parallax .video-overlay,
+.cta-section .video-overlay {
+    z-index: var(--z-video-overlay);
 }
 
 .hero-content,
-.hero-parallax__content {
+.hero-parallax__content,
+.cta-content {
     z-index: var(--z-content-hero);
-}
-
-/* CTA секції (абсолютне відео в межах секції) */
-.cta-section {
-    z-index: var(--z-content-base);
 }
 
 /* ===== НАВІГАЦІЯ ===== */
