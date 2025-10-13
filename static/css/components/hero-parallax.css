@@ -16,8 +16,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: visible;
-    isolation: isolate;
+    overflow: hidden;
 }
 
 /* ===== ФІКСОВАНЕ ВІДЕО (всі варіанти класів) ===== */
@@ -53,7 +52,7 @@
 .hero-section .video-overlay,
 .blog-hero .video-overlay,
 .developer-hero .video-overlay {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -67,7 +66,7 @@
 .hero-parallax__content,
 .hero-content {
     position: relative;
-    z-index: 100;
+    z-index: 10;
     width: 100%;
     padding: var(--space-xl) 0;
     pointer-events: auto;
@@ -77,7 +76,7 @@
     max-width: 900px;
     margin: 0 auto;
     position: relative;
-    z-index: 100;
+    z-index: 10;
     pointer-events: auto;
 }
 

@@ -170,7 +170,6 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    isolation: isolate;
 }
 
 /* Фіксоване відео для CTA секції (як у hero-parallax) */
@@ -184,9 +183,9 @@
     z-index: var(--z-background, -1);
 }
 
-/* Фіксований overlay для CTA */
+/* Абсолютний overlay для CTA */
 .cta-section .video-overlay {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -198,7 +197,7 @@
 
 .cta-content {
     position: relative;
-    z-index: 100;
+    z-index: 10;
     max-width: 800px;
     margin: 0 auto;
     padding: var(--space-xl) var(--space-md);
