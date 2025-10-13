@@ -291,21 +291,7 @@
     -webkit-backdrop-filter: blur(20px);
 }
 
-/* Мобільне меню */
-.mobile-menu {
-    height: var(--mobile-vh);
-
-    /* Safe area підтримка */
-    padding-top: var(--mobile-safe-area-top);
-    padding-bottom: var(--mobile-safe-area-bottom);
-    padding-left: var(--mobile-safe-area-left);
-    padding-right: var(--mobile-safe-area-right);
-
-    /* iOS scroll фікс */
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-}
+/* Мобільне меню - базові оптимізації застосовані в navigation.css */
 
 /* ===== PERFORMANCE CLASSES ===== */
 

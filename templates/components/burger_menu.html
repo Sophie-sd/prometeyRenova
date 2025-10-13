@@ -1,51 +1,66 @@
 {% load i18n %}
-<!-- Mobile Menu -->
-<nav class="mobile-menu" role="navigation" aria-label="Мобільне меню">
-    <button class="mobile-menu-close mobile-touch-target mobile-focus-visible" aria-label="Закрити меню">
-        <span class="close-line"></span>
-        <span class="close-line"></span>
-    </button>
+<!-- Modern Creative Mobile Menu -->
+<nav class="mobile-menu" role="navigation" aria-label="{% trans 'Мобільне меню' %}">
+    <!-- Header з close button та декором -->
+    <div class="mobile-menu-header">
+        <button class="mobile-menu-close mobile-touch-target mobile-focus-visible"
+            aria-label="{% trans 'Закрити меню' %}">
+            <span class="close-icon"></span>
+        </button>
+        <span class="mobile-menu-label">MENU</span>
+    </div>
 
-    <a href="{% url 'home' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Головна"
-        %}</a>
-    <a href="{% url 'portfolio' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans
-        "Портфоліо" %}</a>
-    <a href="{% url 'calculator' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans
-        "Розрахувати пропозицію" %}</a>
-    <a href="{% url 'developer' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Стати
-        розробником" %}</a>
-    <a href="{% url 'blog:blog_list' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans
-        "Блог" %}</a>
-    <a href="{% url 'events' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Події"
-        %}</a>
-    <a href="{% url 'contacts' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible">{% trans "Контакти"
-        %}</a>
+    <!-- Navigation Links з великою типографікою -->
+    <div class="mobile-menu-content">
+        <a href="{% url 'home' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible" data-index="01">
+            {% trans "Головна" %}
+        </a>
+        <a href="{% url 'portfolio' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible"
+            data-index="02">
+            {% trans "Портфоліо" %}
+        </a>
+        <a href="{% url 'calculator' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible"
+            data-index="03">
+            {% trans "Розрахувати пропозицію" %}
+        </a>
+        <a href="{% url 'developer' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible"
+            data-index="04">
+            {% trans "Стати розробником" %}
+        </a>
+        <a href="{% url 'blog:blog_list' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible"
+            data-index="05">
+            {% trans "Блог" %}
+        </a>
+        <a href="{% url 'events' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible" data-index="06">
+            {% trans "Події" %}
+        </a>
+        <a href="{% url 'contacts' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible" data-index="07">
+            {% trans "Контакти" %}
+        </a>
+    </div>
 
-    <!-- Mobile Language Switcher -->
-    <div class="mobile-language-switcher">
+    <!-- Footer з мовою та інфо -->
+    <div class="mobile-menu-footer">
         {% get_current_language as LANGUAGE_CODE %}
         {% get_available_languages as LANGUAGES %}
 
-        <div class="lang-dropdown">
-            <button class="lang-dropdown-btn mobile-touch-target mobile-focus-visible">
-                <span>{{ LANGUAGE_CODE|upper }}</span>
-                <svg class="lang-dropdown-icon" width="12" height="8" fill="none" stroke="currentColor"
-                    viewBox="0 0 12 8">
-                    <path d="M1 1l5 5 5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-            </button>
-            <div class="lang-dropdown-menu">
-                {% for language_code, language_name in LANGUAGES %}
-                {% language language_code %}
-                <a href="{% url 'set_language' %}"
-                    class="lang-dropdown-item mobile-touch-target mobile-focus-visible lang-switcher-link"
-                    data-language-code="{{ language_code }}">
-                    <span class="lang-flag">{% if language_code == 'uk' %}🇺🇦{% else %}🇺🇸{% endif %}</span>
-                    {{ language_name }}
-                </a>
-                {% endlanguage %}
-                {% endfor %}
-            </div>
+        <div class="mobile-lang-switcher">
+            {% for language_code, language_name in LANGUAGES %}
+            {% language language_code %}
+            <a href="{% url 'set_language' %}"
+                class="mobile-lang-btn {% if language_code == LANGUAGE_CODE %}active{% endif %} mobile-touch-target mobile-focus-visible lang-switcher-link"
+                data-language-code="{{ language_code }}">
+                {{ language_code|upper }}
+            </a>
+            {% endlanguage %}
+            {% endfor %}
+        </div>
+
+        <div class="mobile-menu-info">
+            <span class="mobile-menu-credits">PrometeyLabs © 2025</span>
         </div>
     </div>
+
+    <!-- Декоративний елемент -->
+    <div class="mobile-menu-decoration"></div>
 </nav>
