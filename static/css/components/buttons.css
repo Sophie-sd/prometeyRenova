@@ -70,9 +70,7 @@
     left: 20px;
     z-index: var(--z-fixed-buttons, 999);
     /* Скляний ефект (glass effect) */
-    background: rgba(37, 211, 102, 0.15);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgb(255 255 255 / 23%);
     border: 2px solid rgba(37, 211, 102, 0.3);
     color: var(--color-white);
     width: 64px;
@@ -80,8 +78,7 @@
     cursor: pointer;
     transition: all var(--transition-normal) var(--easing-default);
     border-radius: 50%;
-    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.2),
-        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    box-shadow: 00 1px 5px #f5f1ed, 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
     display: flex;
     align-items: center;
     justify-content: center;
