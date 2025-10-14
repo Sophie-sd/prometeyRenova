@@ -247,7 +247,7 @@
     top: 0;
     right: 0;
     width: 100%;
-    height: 100dvh;
+    height: 90dvh;
     background: var(--color-beige, #F5F1ED);
     z-index: var(--z-mobile-menu, 10000);
 
