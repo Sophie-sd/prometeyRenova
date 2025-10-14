@@ -102,7 +102,7 @@ class ProjectCalculator {
             setTimeout(() => {
                 const nextInput = document.querySelector(`input[name="question_${currentNum + 1}"]`);
                 if (nextInput) {
-                    nextInput.closest('.question').scrollIntoView({
+                    nextInput.closest('.calc-question').scrollIntoView({
                         behavior: 'smooth',
                         block: 'center'
                     });
@@ -191,7 +191,7 @@ class ProjectCalculator {
 
         setTimeout(() => {
             const firstQuestion = testSection.querySelector('input[type="radio"]');
-            firstQuestion?.closest('.question').scrollIntoView({
+            firstQuestion?.closest('.calc-question').scrollIntoView({
                 behavior: 'smooth',
                 block: 'center'
             });

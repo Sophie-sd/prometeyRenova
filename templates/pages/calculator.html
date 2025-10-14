@@ -10,36 +10,52 @@
 {% endblock %}
 
 {% block content %}
-<!-- Info Section -->
-<section class="calculator-info bg-beige">
+<!-- Calculator Hero Section -->
+<section class="calc-hero">
     <div class="container">
-        <h1 class="text-large color-brand-orange mb-md text-center">{% trans "Розрахувати вартість проекту" %}</h1>
-
-        <div class="grid-70-30">
-            <div class="info-content">
-                <h2 class="text-medium mb-sm">{% trans "Чому наші ціни конкурентні?" %}</h2>
-                <p class="text-base mb-sm">
-                    Ми використовуємо найновіші технології та сучасні інструменти розробки,
-                    що значно скорочує час на створення проекту. Це означає, що клієнту потрібно
-                    оплачувати менше годин роботи спеціаліста.
-                </p>
-
-                <ul class="benefits-list">
-                    <li>AI агенти для швидкої розробки інтерфейсів</li>
-                    <li>Django, FastAPI для надійного backend</li>
-                    <li>Власні натреновані LLM моделі</li>
-                    <li>Автоматизовані процеси тестування</li>
-                    <li>Сучасні інструменти деплойменту</li>
-                </ul>
+        <!-- Асиметричний layout: 60/40 -->
+        <div class="calc-hero__grid">
+            <!-- Ліва частина: Info -->
+            <div class="calc-hero__info">
+                <div class="calc-hero__label">Калькулятор</div>
+                <h1 class="calc-hero__title">
+                    Розрахувати<br>
+                    вартість<br>
+                    проекту
+                </h1>
+                
+                <div class="calc-hero__benefits">
+                    <div class="calc-benefit">
+                        <span class="calc-benefit__number">01</span>
+                        <p class="calc-benefit__text">AI агенти для швидкої розробки</p>
+                    </div>
+                    <div class="calc-benefit">
+                        <span class="calc-benefit__number">02</span>
+                        <p class="calc-benefit__text">Django, FastAPI для backend</p>
+                    </div>
+                    <div class="calc-benefit">
+                        <span class="calc-benefit__number">03</span>
+                        <p class="calc-benefit__text">Власні LLM моделі</p>
+                    </div>
+                    <div class="calc-benefit">
+                        <span class="calc-benefit__number">04</span>
+                        <p class="calc-benefit__text">Автоматизоване тестування</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="cta-sidebar">
-                <div class="cta-box bg-white p-sm">
-                    <h3 class="text-medium color-brand-orange mb-sm">Пройти тест</h3>
-                    <p class="text-base mb-sm">
-                        Відповісте на 5 питань і отримайте точний розрахунок вартості
+            <!-- Права частина: CTA -->
+            <div class="calc-hero__cta">
+                <div class="calc-cta-box">
+                    <p class="calc-cta-box__subtitle">5 простих питань</p>
+                    <button class="calc-cta-btn start-test-btn">
+                        <span class="calc-cta-btn__text">ПРОЙТИ ТЕСТ</span>
+                        <span class="calc-cta-btn__arrow">→</span>
+                    </button>
+                    <p class="calc-cta-box__note">
+                        Отримайте точну оцінку вартості<br>
+                        за 2 хвилини
                     </p>
-                    <button class="btn btn-primary start-test-btn">Розпочати тест</button>
                 </div>
             </div>
         </div>
@@ -47,89 +63,175 @@
 </section>
 
 <!-- Test Form (буде відображатися динамічно) -->
-<section class="test-section hidden" id="test-section">
+<section class="calc-test hidden" id="test-section">
     <div class="container">
-        <div class="test-form bg-white p-md">
-            <h2 class="text-medium color-brand-orange mb-md text-center">Тест для розрахунку вартості</h2>
+        <div class="calc-test__wrapper">
+            <div class="calc-test__header">
+                <span class="calc-test__label">Розрахунок вартості</span>
+                <h2 class="calc-test__title">Відповідайте на питання</h2>
+            </div>
 
-            <form id="calculator-test" data-form-type="test">
+            <form id="calculator-test" class="calc-form" data-form-type="test">
                 {% csrf_token %}
 
-                <div class="question mb-md">
-                    <h3 class="text-sub mb-sm">1. Що саме вам потрібно?</h3>
-                    <div class="options">
-                        <label><input type="radio" name="question_1" value="A" required> Веб-сайт (лендінг,
-                            корпоративний сайт)</label>
-                        <label><input type="radio" name="question_1" value="B" required> Telegram бот</label>
-                        <label><input type="radio" name="question_1" value="C" required> Реклама (Google Ads, Facebook
-                            Ads)</label>
-                        <label><input type="radio" name="question_1" value="D" required> Інтернет-магазин</label>
-                        <label><input type="radio" name="question_1" value="E" required> Мобільний додаток</label>
+                <div class="calc-question">
+                    <div class="calc-question__header">
+                        <span class="calc-question__number">01</span>
+                        <h3 class="calc-question__title">Що саме вам потрібно?</h3>
+                    </div>
+                    <div class="calc-options">
+                        <label class="calc-option">
+                            <input type="radio" name="question_1" value="A" required>
+                            <span class="calc-option__text">Веб-сайт (лендінг, корпоративний сайт)</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_1" value="B" required>
+                            <span class="calc-option__text">Telegram бот</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_1" value="C" required>
+                            <span class="calc-option__text">Реклама (Google Ads, Facebook Ads)</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_1" value="D" required>
+                            <span class="calc-option__text">Інтернет-магазин</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_1" value="E" required>
+                            <span class="calc-option__text">Мобільний додаток</span>
+                        </label>
                     </div>
                 </div>
 
-                <div class="question mb-md">
-                    <h3 class="text-sub mb-sm">2. Куди мають надходити заявки/контакти?</h3>
-                    <div class="options">
-                        <label><input type="radio" name="question_2" value="A" required> Форма на сайті</label>
-                        <label><input type="radio" name="question_2" value="B" required> Telegram бот</label>
-                        <label><input type="radio" name="question_2" value="C" required> WhatsApp/Вайбер</label>
-                        <label><input type="radio" name="question_2" value="D" required> Email</label>
-                        <label><input type="radio" name="question_2" value="E" required> Телефон</label>
+                <div class="calc-question">
+                    <div class="calc-question__header">
+                        <span class="calc-question__number">02</span>
+                        <h3 class="calc-question__title">Куди мають надходити заявки?</h3>
+                    </div>
+                    <div class="calc-options">
+                        <label class="calc-option">
+                            <input type="radio" name="question_2" value="A" required>
+                            <span class="calc-option__text">Форма на сайті</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_2" value="B" required>
+                            <span class="calc-option__text">Telegram бот</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_2" value="C" required>
+                            <span class="calc-option__text">WhatsApp/Вайбер</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_2" value="D" required>
+                            <span class="calc-option__text">Email</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_2" value="E" required>
+                            <span class="calc-option__text">Телефон</span>
+                        </label>
                     </div>
                 </div>
 
-                <div class="question mb-md">
-                    <h3 class="text-sub mb-sm">3. За скільки днів потрібно зробити?</h3>
-                    <div class="options">
-                        <label><input type="radio" name="question_3" value="A" required> Терміново (3-7 днів)</label>
-                        <label><input type="radio" name="question_3" value="B" required> Стандартно (10-14 днів)</label>
-                        <label><input type="radio" name="question_3" value="C" required> Не поспішаємо (2-4
-                            тижні)</label>
-                        <label><input type="radio" name="question_3" value="D" required> Гнучкий графік</label>
+                <div class="calc-question">
+                    <div class="calc-question__header">
+                        <span class="calc-question__number">03</span>
+                        <h3 class="calc-question__title">За скільки днів потрібно зробити?</h3>
+                    </div>
+                    <div class="calc-options">
+                        <label class="calc-option">
+                            <input type="radio" name="question_3" value="A" required>
+                            <span class="calc-option__text">Терміново (3-7 днів)</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_3" value="B" required>
+                            <span class="calc-option__text">Стандартно (10-14 днів)</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_3" value="C" required>
+                            <span class="calc-option__text">Не поспішаємо (2-4 тижні)</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_3" value="D" required>
+                            <span class="calc-option__text">Гнучкий графік</span>
+                        </label>
                     </div>
                 </div>
 
-                <div class="question mb-md">
-                    <h3 class="text-sub mb-sm">4. Чи потрібна оплата на сайті?</h3>
-                    <div class="options">
-                        <label><input type="radio" name="question_4" value="A" required> Ні, тільки форма заявки</label>
-                        <label><input type="radio" name="question_4" value="B" required> Так, онлайн оплата
-                            картою</label>
-                        <label><input type="radio" name="question_4" value="C" required> Так, через
-                            термінал/касу</label>
-                        <label><input type="radio" name="question_4" value="D" required> Так, через криптовалюту</label>
-                        <label><input type="radio" name="question_4" value="E" required> Так, через розрахунковий
-                            рахунок</label>
+                <div class="calc-question">
+                    <div class="calc-question__header">
+                        <span class="calc-question__number">04</span>
+                        <h3 class="calc-question__title">Чи потрібна оплата на сайті?</h3>
+                    </div>
+                    <div class="calc-options">
+                        <label class="calc-option">
+                            <input type="radio" name="question_4" value="A" required>
+                            <span class="calc-option__text">Ні, тільки форма заявки</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_4" value="B" required>
+                            <span class="calc-option__text">Так, онлайн оплата картою</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_4" value="C" required>
+                            <span class="calc-option__text">Так, через термінал/касу</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_4" value="D" required>
+                            <span class="calc-option__text">Так, через криптовалюту</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_4" value="E" required>
+                            <span class="calc-option__text">Так, через розрахунковий рахунок</span>
+                        </label>
                     </div>
                 </div>
 
-                <div class="question mb-md">
-                    <h3 class="text-sub mb-sm">5. Яка готовність проекту?</h3>
-                    <div class="options">
-                        <label><input type="radio" name="question_5" value="A" required> Тільки думки, потрібна
-                            консультація</label>
-                        <label><input type="radio" name="question_5" value="B" required> Є макети/дизайн</label>
-                        <label><input type="radio" name="question_5" value="C" required> Є технічне завдання</label>
-                        <label><input type="radio" name="question_5" value="D" required> Є логотип та брендинг</label>
-                        <label><input type="radio" name="question_5" value="E" required> Є соціальні мережі та
-                            контент</label>
+                <div class="calc-question">
+                    <div class="calc-question__header">
+                        <span class="calc-question__number">05</span>
+                        <h3 class="calc-question__title">Яка готовність проекту?</h3>
+                    </div>
+                    <div class="calc-options">
+                        <label class="calc-option">
+                            <input type="radio" name="question_5" value="A" required>
+                            <span class="calc-option__text">Тільки думки, потрібна консультація</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_5" value="B" required>
+                            <span class="calc-option__text">Є макети/дизайн</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_5" value="C" required>
+                            <span class="calc-option__text">Є технічне завдання</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_5" value="D" required>
+                            <span class="calc-option__text">Є логотип та брендинг</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="question_5" value="E" required>
+                            <span class="calc-option__text">Є соціальні мережі та контент</span>
+                        </label>
                     </div>
                 </div>
 
-                <div class="user-data">
-                    <div class="form-group">
-                        <label for="test-name" class="form-label">Ваше ім'я *</label>
-                        <input type="text" id="test-name" name="name" class="form-input" required>
+                <div class="calc-user-data">
+                    <div class="calc-user-data__fields">
+                        <div class="calc-field">
+                            <label for="test-name" class="calc-field__label">Ваше ім'я</label>
+                            <input type="text" id="test-name" name="name" class="calc-field__input" required>
+                        </div>
+
+                        <div class="calc-field">
+                            <label for="test-phone" class="calc-field__label">Телефон</label>
+                            <input type="tel" id="test-phone" name="phone" class="calc-field__input" required>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="test-phone" class="form-label">Номер телефону *</label>
-                        <input type="tel" id="test-phone" name="phone" class="form-input" required>
-                    </div>
+                    <button type="submit" class="calc-submit-btn">
+                        <span class="calc-submit-btn__text">ОТРИМАТИ РОЗРАХУНОК</span>
+                    </button>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Отримати розрахунок</button>
             </form>
         </div>
     </div>
