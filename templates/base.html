@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 
@@ -17,7 +18,8 @@
     {% endif %}
 
     <!-- SEO Meta Tags -->
-    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock %}</title>
+    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock
+        %}</title>
     <meta name="description"
         content="{% block description %}PrometeyLabs - розробка сайтів під ключ, Telegram боти, налаштування реклами Google Ads, ведення соцмереж, навчання веб-розробки. Конкурентні ціни, сучасні технології.{% endblock %}">
     <meta name="keywords"
@@ -35,14 +37,7 @@
     <link rel="icon" type="image/png" sizes="48x48" href="{% static 'images/favicon-48x48.png' %}">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/logo.png' %}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <!-- Load static files ONCE at the top -->
-    {% load static %}
-
     <meta property="og:image" content="{% block og_image %}{% static 'images/og-image.jpg' %}{% endblock %}">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
-    <link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
 
     <!-- CSS Core (завантажуються першими) -->
     <link rel="stylesheet" href="{% static 'css/core/reset.css' %}">
