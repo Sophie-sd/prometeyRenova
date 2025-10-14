@@ -7,7 +7,6 @@
 
 .container {
     width: 100%;
-    max-width: 1400px;
     margin: 0 auto;
     padding: 0 var(--space-xs);
 }
@@ -299,6 +298,7 @@
 
     .container {
         padding: 0 var(--space-xs);
+        margin-top: 60px;
     }
 
     .flex-column-mobile {
