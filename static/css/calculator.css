@@ -60,6 +60,7 @@
 }
 
 /* ===== КОНТЕНТ ЧАСТИНА (absolute позиціонування ліворуч) ===== */
+/* DESKTOP: зміщення вправо на 230px для асиметричного layout */
 .calc-hero__content {
     position: absolute;
     left: 0;
@@ -67,6 +68,7 @@
     width: 650px;
     max-width: 55%;
     transform: translateX(230px);
+    /* На планшетах/мобільних transform скасовується через position: static */
 }
 
 .calc-hero__label {
@@ -124,6 +126,7 @@
 }
 
 /* ===== CTA ЧАСТИНА (absolute позиціонування праворуч) ===== */
+/* DESKTOP: зміщення вліво на 230px для асиметричного layout та центрування по вертикалі */
 .calc-hero__cta {
     position: absolute;
     right: 0;
@@ -132,6 +135,7 @@
     width: 420px;
     max-width: 40%;
     z-index: 10;
+    /* На планшетах/мобільних: position: static, transform: none, margin-top для вертикального розміщення */
 }
 
 .calc-cta-box {
@@ -563,24 +567,29 @@
 }
 
 /* ===== RESPONSIVE: ПЛАНШЕТИ ===== */
+/* СКАСУВАННЯ DESKTOP TRANSFORM: повернення до природного flow */
 @media (max-width: 1024px) {
     .calc-hero__wrapper {
         min-height: auto;
         padding: 0 20px;
     }
 
+    /* СКАСУВАННЯ: position: absolute та transform: translateX(230px) */
     .calc-hero__content {
         position: static;
         width: 100%;
         max-width: 100%;
+        /* transform автоматично скасовується через position: static */
     }
 
+    /* СКАСУВАННЯ: position: absolute та transform: translate(-230px, ...) */
     .calc-hero__cta {
         position: static;
         transform: none;
         width: 100%;
         max-width: 500px;
         margin: 60px auto 0;
+        /* Вертикальне розміщення після контенту */
     }
 
     .calc-hero__title {
