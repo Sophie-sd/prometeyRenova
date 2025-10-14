@@ -28,6 +28,12 @@
     <meta property="og:description"
         content="{% block og_description %}Створюємо сайти під ключ, Telegram боти, налаштовуємо рекламу. Сучасні технології, конкурентні ціни.{% endblock %}">
     <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="48x48" href="{% static 'images/favicon-48x48.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/logo.png' %}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <!-- Load static files ONCE at the top -->
     {% load static %}
