@@ -69,30 +69,37 @@
     bottom: 20px;
     left: 20px;
     z-index: var(--z-fixed-buttons, 999);
-    background: #25D366;
-    /* WhatsApp зелений */
+    /* Скляний ефект (glass effect) */
+    background: rgba(37, 211, 102, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(37, 211, 102, 0.3);
     color: var(--color-white);
-    width: 56px;
-    height: 56px;
-    border: none;
+    width: 64px;
+    height: 64px;
     cursor: pointer;
     transition: all var(--transition-normal) var(--easing-default);
     border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .call-button-icon {
-    font-size: 24px;
+    font-size: 28px;
     line-height: 1;
+    filter: brightness(0) invert(1);
+    /* Робить іконку телефону білою */
 }
 
 .call-button:hover {
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
-    background: #22C55E;
+    background: rgba(37, 211, 102, 0.25);
+    border-color: rgba(37, 211, 102, 0.5);
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.2) inset;
 }
 
 .call-button:active {
@@ -175,15 +182,15 @@
     .call-button {
         bottom: 20px;
         left: 20px;
-        width: 50px;
-        height: 50px;
+        width: 56px;
+        height: 56px;
         /* Враховуємо safe area для iPhone */
         bottom: max(env(safe-area-inset-bottom, 20px), 20px);
         left: max(env(safe-area-inset-left, 20px), 20px);
     }
 
     .call-button-icon {
-        font-size: 20px;
+        font-size: 24px;
     }
 
     .btn-group {
