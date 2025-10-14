@@ -49,7 +49,7 @@
     top: 0;
     width: 650px;
     max-width: 55%;
-    transform: translateX(220px);
+    transform: translateX(210px);
 }
 
 .calc-hero__label {
@@ -111,7 +111,7 @@
     position: absolute;
     right: 0;
     top: 50%;
-    transform: translate(-240px, calc(-50% + 50px));
+    transform: translate(-230px, calc(-50% + 50px));
     width: 420px;
     max-width: 40%;
     z-index: 10;
