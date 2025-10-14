@@ -4,6 +4,28 @@
    БЕЗ emoji, БЕЗ !important, БЕЗ inline styles
    ================================= */
 
+/* ===== NAVIGATION OVERRIDE (сірий фон як footer) ===== */
+.main-navigation {
+    background: #1a1a1a !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.main-navigation .nav-link {
+    color: #ffffff !important;
+}
+
+.main-navigation .nav-logo {
+    color: var(--color-brand-orange) !important;
+}
+
+.main-navigation .lang-btn {
+    color: #ffffff !important;
+}
+
+.main-navigation .burger-line {
+    background: var(--color-brand-orange) !important;
+}
+
 /* ===== HERO SECTION ===== */
 .calc-hero {
     background: var(--color-beige);
@@ -11,18 +33,22 @@
     position: relative;
 }
 
-/* Wrapper: центрований контейнер з position relative для absolute CTA */
+/* Wrapper: контейнер для absolute позиціонування обох блоків */
 .calc-hero__wrapper {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     position: relative;
-    min-height: 500px;
+    min-height: 600px;
+    padding: 0 40px;
 }
 
-/* ===== КОНТЕНТ ЧАСТИНА (ліва, обмежена ширина) ===== */
+/* ===== КОНТЕНТ ЧАСТИНА (absolute позиціонування ліворуч) ===== */
 .calc-hero__content {
-    max-width: 650px;
-    padding-top: clamp(20px, 4vw, 40px);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 650px;
+    max-width: 55%;
 }
 
 .calc-hero__label {
@@ -79,13 +105,14 @@
     padding-top: 4px;
 }
 
-/* ===== CTA ЧАСТИНА (перекриває основний контент) ===== */
+/* ===== CTA ЧАСТИНА (absolute позиціонування праворуч) ===== */
 .calc-hero__cta {
     position: absolute;
-    right: -20px;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: 380px;
+    width: 420px;
+    max-width: 40%;
     z-index: 10;
 }
 
@@ -481,31 +508,34 @@
 /* ===== RESPONSIVE: ВЕЛИКІ ЕКРАНИ ===== */
 @media (min-width: 1440px) {
     .calc-hero__wrapper {
-        max-width: 1400px;
+        max-width: 1600px;
     }
 
     .calc-hero__content {
-        max-width: 700px;
+        width: 700px;
+        left: 40px;
     }
 
     .calc-hero__cta {
-        width: 420px;
-        right: 0;
+        width: 450px;
+        right: 40px;
     }
 }
 
 /* ===== RESPONSIVE: СЕРЕДНІ ЕКРАНИ (1025-1200px) ===== */
 @media (max-width: 1200px) and (min-width: 1025px) {
     .calc-hero__wrapper {
-        max-width: 1000px;
+        max-width: 1200px;
+        padding: 0 30px;
     }
 
     .calc-hero__content {
-        max-width: 550px;
+        width: 550px;
+        left: 0;
     }
 
     .calc-hero__cta {
-        width: 340px;
+        width: 360px;
         right: 0;
     }
 
@@ -517,10 +547,13 @@
 /* ===== RESPONSIVE: ПЛАНШЕТИ ===== */
 @media (max-width: 1024px) {
     .calc-hero__wrapper {
-        max-width: 100%;
+        min-height: auto;
+        padding: 0 20px;
     }
 
     .calc-hero__content {
+        position: static;
+        width: 100%;
         max-width: 100%;
     }
 
@@ -528,12 +561,8 @@
         position: static;
         transform: none;
         width: 100%;
-        margin-top: 60px;
-    }
-
-    .calc-cta-box {
         max-width: 500px;
-        margin: 0 auto;
+        margin: 60px auto 0;
     }
 
     .calc-hero__title {
@@ -548,11 +577,12 @@
     }
 
     .calc-hero__wrapper {
-        min-height: auto;
+        padding: 0 16px;
     }
 
     .calc-hero__cta {
         margin-top: 40px;
+        max-width: 100%;
     }
 
     .calc-hero__label {

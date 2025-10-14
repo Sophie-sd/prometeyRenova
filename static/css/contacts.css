@@ -1,6 +1,28 @@
 /* CONTACTS.CSS - Стилі для сторінки контактів
    Відповідає вимогам STYLE.MDC з мінімалістичним дизайном та червоними акцентами */
 
+/* ===== NAVIGATION OVERRIDE (сірий фон як footer) ===== */
+.main-navigation {
+    background: #1a1a1a !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.main-navigation .nav-link {
+    color: #ffffff !important;
+}
+
+.main-navigation .nav-logo {
+    color: var(--color-brand-orange) !important;
+}
+
+.main-navigation .lang-btn {
+    color: #ffffff !important;
+}
+
+.main-navigation .burger-line {
+    background: var(--color-brand-orange) !important;
+}
+
 /* === ЗАГАЛЬНІ СТИЛІ СТОРІНКИ === */
 .contacts-page {
     background-color: var(--color-beige);
