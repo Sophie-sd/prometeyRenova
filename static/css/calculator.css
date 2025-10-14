@@ -579,7 +579,8 @@
         position: static;
         width: 100%;
         max-width: 100%;
-        /* transform автоматично скасовується через position: static */
+        transform: none;
+        /* Явне скасування transform для мобільних */
     }
 
     /* СКАСУВАННЯ: position: absolute та transform: translate(-230px, ...) */
