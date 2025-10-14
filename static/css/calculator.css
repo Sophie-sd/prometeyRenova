@@ -110,7 +110,7 @@
     position: absolute;
     right: 0;
     top: 50%;
-    transform: translate(-600px, calc(-50% + 60px));
+    transform: translate(-300px, calc(-50% + 45px));
     width: 420px;
     max-width: 40%;
     z-index: 10;
