@@ -25,6 +25,11 @@
     color: var(--color-white);
 }
 
+/* Прозора навігація - слово "Labs" залишається фіолетовим */
+.main-navigation:not(.scrolled) .nav-logo-labs {
+    color: var(--color-brand-purple);
+}
+
 /* Scrolled навігація - темний фон як footer */
 .main-navigation.scrolled {
     background: #1a1a1a;
@@ -65,9 +70,20 @@
     color: var(--color-black);
 }
 
+/* Стилізація слова "Labs" фірмовим фіолетовим */
+.nav-logo-labs {
+    color: var(--color-brand-purple);
+    transition: color var(--transition-normal) var(--easing-default);
+}
+
 /* Scrolled навігація - помаранчевий логотип */
 .main-navigation.scrolled .nav-logo {
     color: var(--color-brand-orange);
+}
+
+/* Scrolled навігація - слово "Labs" залишається фіолетовим */
+.main-navigation.scrolled .nav-logo-labs {
+    color: var(--color-brand-purple);
 }
 
 .main-navigation.scrolled .lang-btn {

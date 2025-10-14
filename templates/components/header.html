@@ -5,19 +5,26 @@
         <!-- Логотип PrometeyLabs -->
         <div class="nav-logo-section">
             <a href="{% url 'home' %}" class="nav-logo" aria-label="PrometeyLabs - Головна сторінка">
-                PrometeyLabs
+                Prometey<span class="nav-logo-labs">Labs</span>
             </a>
         </div>
 
         <!-- Desktop Navigation -->
         <nav class="nav-menu" role="navigation" aria-label="Основне меню">
-            <a href="{% url 'home' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "головна" %}</a>
-            <a href="{% url 'portfolio' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "портфоліо" %}</a>
-            <a href="{% url 'calculator' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "розрахувати пропозицію" %}</a>
-            <a href="{% url 'developer' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "стати розробником" %}</a>
-            <a href="{% url 'blog:blog_list' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "блог" %}</a>
-            <a href="{% url 'events' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "події" %}</a>
-            <a href="{% url 'contacts' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "контакти" %}</a>
+            <a href="{% url 'home' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "головна"
+                %}</a>
+            <a href="{% url 'portfolio' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans
+                "портфоліо" %}</a>
+            <a href="{% url 'calculator' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans
+                "розрахувати пропозицію" %}</a>
+            <a href="{% url 'developer' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "стати
+                розробником" %}</a>
+            <a href="{% url 'blog:blog_list' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans
+                "блог" %}</a>
+            <a href="{% url 'events' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "події"
+                %}</a>
+            <a href="{% url 'contacts' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "контакти"
+                %}</a>
         </nav>
 
         <!-- Desktop Language Switcher -->
