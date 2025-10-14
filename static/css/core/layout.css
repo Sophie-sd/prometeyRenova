@@ -9,6 +9,7 @@
     width: 100%;
     margin: 0 auto;
     padding: 0 var(--space-xs);
+    margin-top: 60px;
 }
 
 .container-fluid {
