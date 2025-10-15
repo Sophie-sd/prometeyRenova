@@ -1,21 +1,7 @@
 /* =================================
-   PORTFOLIO STYLES - ПОВНИЙ ПЕРЕПИС
+   PORTFOLIO STYLES
+   Hero використовує hero-parallax.css
    ================================= */
-
-/* CSS Custom Properties для viewport height */
-:root {
-    --vh: 1vh;
-}
-
-/* Показати контент тільки коли готовий */
-.portfolio-hero {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.portfolio-ready .portfolio-hero {
-    opacity: 1;
-}
 
 /* Оптимізації для мобільних */
 @media (max-width: 767px) {
@@ -30,102 +16,6 @@
     body.menu-open .project-section {
         pointer-events: none;
     }
-}
-
-/* =================================
-   HERO SECTION З ПАРАЛАКС ВІДЕО
-   ================================= */
-
-.portfolio-hero {
-    position: relative;
-    min-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    z-index: 0;
-}
-
-/* Фіксоване відео на фоні */
-.hero-bg-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-.hero-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
-
-.desktop-hero-video {
-    display: block;
-}
-
-.mobile-hero-video {
-    display: none;
-}
-
-/* Фіксований overlay */
-.video-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: -1;
-}
-
-.hero-content {
-    max-width: 1000px;
-    padding: 0 30px;
-    z-index: 3;
-    position: relative;
-}
-
-.hero-title {
-    font-size: 100px;
-    font-weight: 700;
-    line-height: 0.85;
-    letter-spacing: -2px;
-    color: #FFFFFF;
-    margin: 0 0 25px 0;
-    text-transform: uppercase;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.hero-title .highlight {
-    color: #FFFFFF;
-    display: block;
-    margin-top: 10px;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
-}
-
-.hero-title .highlight.orange {
-    color: var(--color-brand-orange);
-    text-shadow: 2px 2px 6px rgba(220, 20, 60, 0.5);
-}
-
-.hero-description {
-    font-size: 18px;
-    font-weight: 800;
-    line-height: 1.4;
-    color: #FFFFFF;
-    margin: 0;
-    opacity: 0.9;
-    max-width: 550px;
-    margin: 0 auto;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 /* =================================
@@ -326,16 +216,6 @@
 
 /* Планшети (768px - 1024px) */
 @media (max-width: 1024px) {
-    .hero-title {
-        font-size: 75px;
-        letter-spacing: -1px;
-        margin-bottom: 20px;
-    }
-
-    .hero-description {
-        font-size: 16px;
-    }
-
     .project-content {
         max-width: 1200px;
         padding: 40px 30px;
@@ -381,28 +261,6 @@
 
 /* Мобільні пристрої (320px - 767px) - ОПТИМІЗОВАНИЙ СКРОЛ */
 @media (max-width: 767px) {
-    .desktop-hero-video {
-        display: none;
-    }
-
-    .mobile-hero-video {
-        display: block;
-    }
-
-    .hero-title {
-        font-size: 48px;
-        letter-spacing: -1px;
-        margin-bottom: 30px;
-    }
-
-    .hero-title .highlight {
-        margin-top: 10px;
-    }
-
-    .hero-description {
-        font-size: 22px;
-    }
-
     .project-section {
         height: 100vh;
         height: calc(var(--vh, 1vh) * 100);
@@ -473,10 +331,6 @@
 
 /* Дуже маленькі екрани (320px - 480px) */
 @media (max-width: 480px) {
-    .hero-title {
-        font-size: 36px;
-    }
-
     .project-section {
         height: 100vh;
         height: calc(var(--vh, 1vh) * 100);
@@ -521,12 +375,6 @@
    ================================= */
 
 @supports (-webkit-touch-callout: none) {
-    .portfolio-hero {
-        height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
-        min-height: 100vh;
-    }
-
     .project-section {
         height: 100vh;
         height: calc(var(--vh, 1vh) * 100);
@@ -553,8 +401,6 @@
 
 /* Safe areas для iPhone з вирізами */
 @supports (padding: max(0px)) {
-
-    .portfolio-hero,
     .project-section {
         padding-left: max(20px, env(safe-area-inset-left) + 20px);
         padding-right: max(20px, env(safe-area-inset-right) + 20px);
@@ -563,19 +409,9 @@
 
 /* Підтримка для iPhone landscape */
 @media screen and (max-height: 500px) and (orientation: landscape) {
-    .hero-title {
-        font-size: 32px;
-        margin-bottom: 20px;
-    }
-
     .project-title {
         font-size: 28px;
         margin-bottom: 20px;
-    }
-
-    .hero-description {
-        font-size: 14px;
-        margin-bottom: 30px;
     }
 
     .project-button {

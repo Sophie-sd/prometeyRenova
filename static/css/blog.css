@@ -664,16 +664,6 @@
         min-height: 80vh;
     }
 
-    .hero-text h1 {
-        font-size: 80px;
-        margin-bottom: var(--space-lg);
-    }
-
-    .hero-text p {
-        font-size: 18px;
-        margin-bottom: var(--space-lg);
-    }
-
     .blog-header {
         padding: var(--space-md) 0;
     }
@@ -734,22 +724,6 @@
     .blog-hero {
         min-height: 100vh;
         min-height: calc(var(--vh, 1vh) * 100);
-    }
-
-    .hero-content {
-        padding: var(--space-md) 0;
-    }
-
-    .hero-text h1 {
-        font-size: 60px;
-        margin-bottom: var(--space-md);
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    }
-
-    .hero-text p {
-        font-size: 16px;
-        margin-bottom: var(--space-md);
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     }
 
     .blog-header {

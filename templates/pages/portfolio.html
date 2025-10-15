@@ -11,20 +11,26 @@
 {% endblock %}
 
 {% block content %}
-<!-- Hero секція -->
-<section class="portfolio-hero">
-    <div class="hero-bg-video">
-        <video autoplay muted loop playsinline preload="auto" class="hero-video desktop-hero-video">
-            <source src="{% static 'videos/desktop/portfolio.mp4' %}" type="video/mp4">
-        </video>
-        <video autoplay muted loop playsinline preload="auto" class="hero-video mobile-hero-video">
-            <source src="{% static 'videos/mobile/portfoliomobile.mp4' %}" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
-    </div>
+<!-- Hero Section з фоновим відео -->
+<section class="hero-section full-height">
+    <!-- Фонові відео для декстопу та мобільних -->
+    <video class="video-background desktop-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/desktop/portfolio.mp4' %}" type="video/mp4">
+    </video>
+    <video class="video-background mobile-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/mobile/portfoliomobile.mp4' %}" type="video/mp4">
+    </video>
+
+    <!-- Overlay для кращої читабельності -->
+    <div class="video-overlay"></div>
+
     <div class="hero-content">
-        <h1 class="hero-title">{% trans "СТВОРЕНІ НАМИ" %} <span class="highlight orange">{% trans "САЙТИ ПІД КЛЮЧ" %}</span></h1>
-        <p class="hero-description">{% trans "Приклади наших робіт - сучасні веб-рішення для різних сфер бізнесу" %}</p>
+        <div class="container">
+            <div class="hero-text text-center">
+                <h1 class="text-mega color-white mb-lg">{% trans "СТВОРЕНІ НАМИ" %}</h1>
+                <p class="text-large color-brand-orange mb-xl">{% trans "САЙТИ ПІД КЛЮЧ" %}</p>
+            </div>
+        </div>
     </div>
 </section>
 
