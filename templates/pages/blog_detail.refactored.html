@@ -1,0 +1,93 @@
+{% extends 'base.refactored.html' %}
+{% load static %}
+
+{% block page_name %}blog{% endblock %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block description %}{{ meta_description }}{% endblock %}
+{% block og_title %}{{ og_title }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/blog.refactored.css' %}">
+{% endblock %}
+
+{% block content %}
+<article class="blog-article">
+    <header class="article-header bg-beige">
+        <div class="container">
+            <div class="article-meta">
+                <div class="article-category">
+                    <span class="category-tag card__badge">{{ post.get_category_display }}</span>
+                </div>
+                <time class="article-date text-small">{{ post.created_at|date:"d.m.Y" }}</time>
+                <div class="reading-time">
+                    <span class="reading-icon">⏱</span>
+                    <span class="reading-text">{{ post.get_reading_time_text }}</span>
+                </div>
+            </div>
+
+            <h1 class="article-title text-large color-brand-orange mb-md">{{ post.title }}</h1>
+
+            {% if post.excerpt %}
+            <div class="article-excerpt">
+                <p class="text-medium color-black">{{ post.excerpt }}</p>
+            </div>
+            {% endif %}
+
+            {% if post.featured_image %}
+            <div class="article-featured-image">
+                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" loading="lazy">
+            </div>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="article-content bg-white">
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="article-body">
+                    {{ post.content|safe }}
+                </div>
+
+                {% if post.keywords %}
+                <div class="article-keywords-section">
+                    <h3 class="text-medium color-brand-orange mb-sm">Ключові слова</h3>
+                    <div class="article-keywords">
+                        {% for keyword in post.get_keywords_list %}
+                        <span class="keyword-tag card__badge">{{ keyword }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if related_posts %}
+    <section class="related-articles bg-beige">
+        <div class="container">
+            <h2 class="text-large color-brand-orange mb-md">Схожі статті</h2>
+            <div class="related-grid">
+                {% for related_post in related_posts %}
+                <article class="related-card card">
+                    <div class="card__content">
+                        <h3 class="text-medium mb-xs">
+                            <a href="{{ related_post.get_absolute_url }}" class="card__title">
+                                {{ related_post.title }}
+                            </a>
+                        </h3>
+                        <time class="card__date">{{ related_post.created_at|date:"d.m.Y" }}</time>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+</article>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/blog.refactored.js' %}" type="module"></script>
+{% endblock %}
+

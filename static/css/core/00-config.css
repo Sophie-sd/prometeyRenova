@@ -1,0 +1,85 @@
+/**
+ * CONFIG.CSS - Центральний конфігураційний файл
+ * Всі константи, які використовуються в проекті
+ * Версія: 2.0 (2025) - Рефакторинг
+ */
+
+:root {
+    /* ===== FEATURES FLAGS ===== */
+    --enable-animations: 1;
+    --enable-shadows: 1;
+    --enable-transitions: 1;
+    
+    /* ===== VIEWPORT (встановлюються MobileCore.js) ===== */
+    --vw: 1vw;
+    --vh: 1vh;
+    --safe-vh: 1vh;
+    --dvh: 1dvh;
+    --svh: 1svh;
+    --lvh: 1lvh;
+    
+    /* ===== MOBILE SAFE AREAS ===== */
+    --mobile-safe-top: 0px;
+    --mobile-safe-bottom: 0px;
+    --mobile-safe-left: 0px;
+    --mobile-safe-right: 0px;
+    
+    /* ===== NAVIGATION ===== */
+    --nav-height: 60px;
+    --nav-background: transparent;
+    --nav-background-scrolled: #1a1a1a;
+    
+    /* ===== HERO ===== */
+    --hero-overlay: rgba(0, 0, 0, 0.4);
+    --hero-min-height: 100vh;
+    
+    /* ===== SECTIONS ===== */
+    --section-border-radius: 20px;
+    --section-overlap: -20px;
+    --section-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+    
+    /* ===== CARDS ===== */
+    --card-border-width: 3px;
+    --card-padding: var(--space-sm);
+    --card-hover-lift: -5px;
+    --card-transition: all 0.4s ease-out;
+    
+    /* ===== VIDEO ===== */
+    --video-z-index: var(--z-background, -1);
+    --video-overlay-z: 1;
+    --video-content-z: 10;
+    
+    /* ===== DECORATIONS (Unicode symbols) ===== */
+    --decoration-diamond: '◆';
+    --decoration-dots: '∴';
+    --decoration-star: '★';
+    --decoration-arrow: '⟲';
+    --decoration-circle: '※';
+    --decoration-arrow-right: '⟶';
+    --decoration-diamond-outline: '◇';
+    
+    /* ===== EVENT NAMES (для JS) ===== */
+    --event-initialized: 'app:initialized';
+    --event-viewport-change: 'viewport:change';
+    --event-menu-open: 'menu:opened';
+    --event-menu-close: 'menu:closed';
+}
+
+/* Dark pages override */
+[data-page="calculator"],
+[data-page="contacts"],
+[data-page="blog"],
+[data-page="events"],
+[data-page="developer"] {
+    --nav-background: var(--nav-background-scrolled);
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+    :root {
+        --section-border-radius: 16px;
+        --section-overlap: -16px;
+        --card-hover-lift: -3px;
+    }
+}
+

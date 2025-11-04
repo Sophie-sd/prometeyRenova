@@ -1,0 +1,175 @@
+{% extends 'base.refactored.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block page_name %}blog{% endblock %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block description %}{{ meta_description }}{% endblock %}
+{% block og_title %}{{ og_title }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/blog.refactored.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero - використовує components/hero.css -->
+<section class="blog-hero hero-section full-height">
+    <video class="video-background desktop-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/desktop/blog.mp4' %}" type="video/mp4">
+    </video>
+    <video class="video-background mobile-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/mobile/blogmobile.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="video-overlay"></div>
+
+    <div class="hero-content">
+        <div class="container">
+            <div class="hero-text text-center">
+                <h1 class="text-mega color-brand-orange mb-lg">БЛОГ</h1>
+                <p class="text-large color-white mb-xl">
+                    Корисні статті про веб-розробку, курси програмування,
+                    створення сайтів під ключ та Telegram ботів
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Header - використовує components/decorations.css для ::before/::after -->
+<section class="blog-header section--after-hero bg-beige">
+    <div class="container">
+        <div class="blog-intro">
+            <h2 class="text-large color-brand-orange mb-md">Корисні статті про веб-розробку</h2>
+            <p class="text-base mb-lg">
+                Читайте експертні поради, практичні керівництва та актуальну інформацію
+                про створення сайтів, навчання програмуванню та автоматизацію бізнесу
+            </p>
+        </div>
+
+        <!-- Search -->
+        <div class="blog-search">
+            <form method="get" action="{% url 'blog:blog_search' %}" class="search-form">
+                <div class="search-input-wrapper">
+                    <input type="text" name="q" placeholder="Знайти статтю..." 
+                           class="search-input mobile-form-input" required>
+                    <button type="submit" class="search-button mobile-touch-target">
+                        <span class="search-icon">🔍</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Categories -->
+        <div class="blog-categories">
+            <div class="blog-stats mb-sm">
+                <span class="stats-text">
+                    📚 {{ page_obj.paginator.count }} статей • 
+                    {{ page_obj.paginator.num_pages }} сторінок
+                </span>
+            </div>
+            <div class="categories-list">
+                <a href="{% url 'blog:blog_list' %}" 
+                   class="category-filter {% if not category %}active{% endif %}">
+                    Всі статті
+                </a>
+                <a href="?category=web-development" 
+                   class="category-filter {% if category == 'web-development' %}active{% endif %}">
+                    Веб-розробка
+                </a>
+                <a href="?category=courses" 
+                   class="category-filter {% if category == 'courses' %}active{% endif %}">
+                    Курси програмування
+                </a>
+                <a href="?category=telegram-bots" 
+                   class="category-filter {% if category == 'telegram-bots' %}active{% endif %}">
+                    Telegram боти
+                </a>
+                <a href="?category=technology" 
+                   class="category-filter {% if category == 'technology' %}active{% endif %}">
+                    Технології
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Articles Grid - використовує components/cards.css -->
+<section class="blog-articles bg-white">
+    <div class="container">
+        <div class="articles-grid cards-grid cards-grid--auto">
+            {% for post in page_obj %}
+            <article class="blog-card card" data-article="{{ forloop.counter }}">
+                <div class="card__header">
+                    <span class="card__number text-page">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <div class="card__meta">
+                        <time class="card__date">{{ post.created_at|date:"d.m.Y" }}</time>
+                        <span class="reading-time-small">📖 {{ post.reading_time }} хв</span>
+                    </div>
+                </div>
+
+                <div class="card__content">
+                    <div class="article-category mb-xs">
+                        <span class="card__badge">{{ post.get_category_display }}</span>
+                    </div>
+
+                    <h2 class="text-medium mb-xs">
+                        <a href="{% url 'blog:blog_detail' post.slug %}" class="card__title">
+                            {{ post.title }}
+                        </a>
+                    </h2>
+
+                    <p class="text-base card__excerpt">{{ post.excerpt }}</p>
+
+                    {% if post.keywords %}
+                    <div class="article-keywords">
+                        {% for keyword in post.keywords_list %}
+                        <span class="card__badge keyword-tag">{{ keyword }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="card__footer">
+                    <a href="{% url 'blog:blog_detail' post.slug %}" class="card__link">
+                        Читати далі →
+                    </a>
+                </div>
+            </article>
+            {% empty %}
+            <div class="no-items">
+                <h3 class="text-medium color-brand-orange mb-sm">Статей не знайдено</h3>
+                <p class="text-base">Спробуйте інші категорії</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <div class="blog-pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">
+                ← Попередня
+            </a>
+            {% endif %}
+
+            <span class="pagination-info text-base">
+                Сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">
+                Наступна →
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/blog.refactored.js' %}" type="module"></script>
+{% endblock %}
+

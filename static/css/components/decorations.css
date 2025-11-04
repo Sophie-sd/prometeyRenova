@@ -1,0 +1,181 @@
+/**
+ * DECORATIONS.CSS - Централізовані декоративні елементи
+ * Всі ::before та ::after в одному місці
+ * Версія: 2.0
+ */
+
+/* ===== MIXIN-LIKE CLASSES ===== */
+.decoration {
+    position: absolute;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-brand-orange);
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
+}
+
+.decoration--small {
+    font-size: 24px;
+    opacity: 0.6;
+}
+
+.decoration--large {
+    font-size: 40px;
+    opacity: 0.4;
+}
+
+/* ===== POSITION VARIANTS ===== */
+.decoration--top-left {
+    top: var(--space-sm);
+    left: var(--space-sm);
+}
+
+.decoration--top-right {
+    top: var(--space-sm);
+    right: var(--space-sm);
+}
+
+.decoration--bottom-left {
+    bottom: var(--space-sm);
+    left: var(--space-sm);
+}
+
+.decoration--bottom-right {
+    bottom: var(--space-sm);
+    right: var(--space-sm);
+}
+
+/* ===== SPECIFIC DECORATIONS (через ::before/::after) ===== */
+
+/* Services Section */
+.services-section::before {
+    content: var(--decoration-diamond);
+    position: absolute;
+    top: var(--space-sm);
+    right: var(--space-sm);
+    color: var(--color-brand-orange);
+    font-size: 32px;
+    opacity: 0.5;
+}
+
+.services-section::after {
+    content: var(--decoration-arrow);
+    position: absolute;
+    bottom: var(--space-sm);
+    left: var(--space-sm);
+    color: var(--color-brand-orange);
+    font-size: 40px;
+    font-weight: 700;
+    opacity: 0.4;
+}
+
+/* Blog Header */
+.blog-header::before {
+    content: var(--decoration-diamond);
+    position: absolute;
+    top: var(--space-sm);
+    right: var(--space-sm);
+    color: var(--color-brand-orange);
+    font-size: 24px;
+    opacity: 0.6;
+}
+
+.blog-header::after {
+    content: var(--decoration-dots);
+    position: absolute;
+    bottom: var(--space-sm);
+    left: var(--space-sm);
+    color: var(--color-brand-orange);
+    font-size: 32px;
+    font-weight: 700;
+    opacity: 0.4;
+}
+
+/* Blog SEO */
+.blog-seo::before {
+    content: var(--decoration-circle);
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    color: var(--color-brand-orange);
+    font-size: 28px;
+    opacity: 0.5;
+}
+
+.blog-seo::after {
+    content: var(--decoration-arrow);
+    position: absolute;
+    bottom: var(--space-sm);
+    right: var(--space-sm);
+    color: var(--color-brand-orange);
+    font-size: 32px;
+    font-weight: 700;
+    opacity: 0.4;
+}
+
+/* Courses Section */
+.courses-section::before {
+    content: var(--decoration-diamond-outline);
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    color: var(--color-brand-orange);
+    font-size: 28px;
+    opacity: 0.5;
+}
+
+.courses-section::after {
+    content: var(--decoration-arrow-right);
+    position: absolute;
+    bottom: var(--space-sm);
+    right: var(--space-sm);
+    color: var(--color-brand-orange);
+    font-size: 32px;
+    font-weight: 700;
+    opacity: 0.4;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 767px) {
+    .services-section::before,
+    .blog-header::before,
+    .blog-seo::before,
+    .courses-section::before {
+        font-size: 24px;
+        top: var(--space-xs);
+    }
+    
+    .services-section::after,
+    .blog-header::after,
+    .blog-seo::after,
+    .courses-section::after {
+        font-size: 28px;
+        bottom: var(--space-xs);
+    }
+}
+
+/* ===== ANIMATION (optional) ===== */
+@media (prefers-reduced-motion: no-preference) {
+    .decoration,
+    .services-section::before,
+    .services-section::after,
+    .blog-header::before,
+    .blog-header::after,
+    .blog-seo::before,
+    .blog-seo::after,
+    .courses-section::before,
+    .courses-section::after {
+        animation: decorationFloat 3s ease-in-out infinite;
+    }
+    
+    @keyframes decorationFloat {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-5px);
+        }
+    }
+}
+

@@ -1,0 +1,133 @@
+/**
+ * RESPONSIVE.CSS - v2.0
+ * Всі responsive правила централізовано
+ */
+
+/* ===== NAVIGATION OVERRIDES (для dark pages) ===== */
+/* Замість дублювання в кожному page CSS */
+[data-page="calculator"] .main-navigation,
+[data-page="contacts"] .main-navigation,
+[data-page="blog"] .main-navigation,
+[data-page="events"] .main-navigation,
+[data-page="developer"] .main-navigation {
+    background: var(--nav-background-scrolled);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-page="calculator"] .main-navigation .nav-link,
+[data-page="contacts"] .main-navigation .nav-link,
+[data-page="blog"] .main-navigation .nav-link,
+[data-page="events"] .main-navigation .nav-link,
+[data-page="developer"] .main-navigation .nav-link {
+    color: #ffffff;
+}
+
+[data-page="calculator"] .main-navigation .nav-logo,
+[data-page="contacts"] .main-navigation .nav-logo,
+[data-page="blog"] .main-navigation .nav-logo,
+[data-page="events"] .main-navigation .nav-logo,
+[data-page="developer"] .main-navigation .nav-logo {
+    color: var(--color-brand-orange);
+}
+
+[data-page="calculator"] .main-navigation .burger-line,
+[data-page="contacts"] .main-navigation .burger-line,
+[data-page="blog"] .main-navigation .burger-line,
+[data-page="events"] .main-navigation .burger-line,
+[data-page="developer"] .main-navigation .burger-line {
+    background: var(--color-brand-orange);
+}
+
+/* ===== DISPLAY UTILITIES ===== */
+@media (max-width: 767px) {
+    .desktop-only {
+        display: none !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .mobile-only {
+        display: none !important;
+    }
+}
+
+@media (max-width: 767px), (min-width: 1025px) {
+    .tablet-only {
+        display: none !important;
+    }
+}
+
+/* ===== CONTAINERS ===== */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 var(--space-sm);
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        padding: 0 var(--space-xs);
+        margin-top: var(--nav-height);
+    }
+}
+
+/* ===== GRIDS ===== */
+@media (max-width: 1024px) {
+    .grid-70-30,
+    .grid-60-40,
+    .grid-50-50 {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+    }
+}
+
+@media (max-width: 767px) {
+    .grid-auto,
+    .cards-grid--auto,
+    .cards-grid--services,
+    .cards-grid--courses {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+    }
+}
+
+/* ===== FLEXBOX ===== */
+@media (max-width: 767px) {
+    .flex-column-mobile {
+        flex-direction: column;
+    }
+}
+
+/* ===== SPACING ===== */
+@media (max-width: 767px) {
+    .section-padding {
+        padding: var(--space-md) 0;
+    }
+
+    .section-padding-lg {
+        padding: var(--space-lg) 0;
+    }
+}
+
+/* ===== iOS SAFARI ===== */
+@supports (-webkit-touch-callout: none) {
+    .responsive-height {
+        height: calc(var(--vh, 1vh) * 100);
+        min-height: calc(var(--vh, 1vh) * 100);
+    }
+}
+
+/* ===== ORIENTATION ===== */
+@media (max-width: 767px) and (orientation: landscape) {
+    .landscape-adjust {
+        min-height: 100vh;
+    }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .low-height-adjust {
+        padding-top: var(--space-xs);
+        padding-bottom: var(--space-xs);
+    }
+}
+

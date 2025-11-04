@@ -1,0 +1,173 @@
+{% extends 'base.refactored.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block page_name %}events{% endblock %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block description %}{{ meta_description }}{% endblock %}
+{% block og_title %}{{ og_title }}{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/events.refactored.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero-section full-height">
+    <video class="video-background desktop-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/desktop/events.mp4' %}" type="video/mp4">
+    </video>
+    <video class="video-background mobile-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/mobile/eventsmobile.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="video-overlay"></div>
+
+    <div class="hero-content">
+        <div class="container">
+            <div class="hero-text text-center">
+                <h1 class="text-mega color-brand-orange mb-lg">Актуальні події та акції</h1>
+                <p class="text-large color-white mb-xl">
+                    <span class="hero-services">вебінари</span> ·
+                    <span class="hero-services">курси програмування</span> ·
+                    <span class="hero-services">знижки</span> ·
+                    <span class="hero-services">майстер-класи</span> ·
+                    <span class="hero-services">зустрічі розробників</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Events Filter -->
+<section class="events-filter section--after-hero bg-beige">
+    <div class="container">
+        <div class="filter-container">
+            <div class="filter-group">
+                <label class="filter-label text-base">Категорія:</label>
+                <div class="filter-buttons">
+                    <button class="filter-btn active mobile-touch-target" data-category="">Всі</button>
+                    {% for category in categories %}
+                    <button class="filter-btn mobile-touch-target" 
+                            data-category="{{ category.slug }}" 
+                            data-color="{{ category.color }}">
+                        {{ category.name }}
+                    </button>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label text-base">Тип:</label>
+                <div class="filter-buttons">
+                    <button class="filter-btn active mobile-touch-target" data-type="">Всі</button>
+                    <button class="filter-btn mobile-touch-target" data-type="webinar">Вебінари</button>
+                    <button class="filter-btn mobile-touch-target" data-type="course">Курси</button>
+                    <button class="filter-btn mobile-touch-target" data-type="discount">Знижки</button>
+                    <button class="filter-btn mobile-touch-target" data-type="workshop">Майстер-класи</button>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label text-base">Сортування:</label>
+                <div class="filter-buttons">
+                    <button class="filter-btn active mobile-touch-target" data-sort="-start_date">Найближчі</button>
+                    <button class="filter-btn mobile-touch-target" data-sort="price">За ціною</button>
+                    <button class="filter-btn mobile-touch-target" data-sort="-is_featured">Рекомендовані</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Events Grid - використовує components/cards.css -->
+<section class="events-grid bg-white">
+    <div class="container">
+        <div class="events-container cards-grid cards-grid--auto">
+            {% for event in page_obj %}
+            <article class="event-card card" data-event="{{ forloop.counter }}">
+                <div class="card__header">
+                    <span class="card__number text-page">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <div class="card__meta">
+                        <time class="card__date">{{ event.start_date|date:"d.m.Y H:i" }}</time>
+                        <span class="event-type card__badge" style="background-color: {{ event.category.color }}">
+                            {{ event.get_event_type_display }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card__content">
+                    <h2 class="text-medium mb-xs">
+                        <a href="{% url 'events:event_detail' event.slug %}" class="card__title">
+                            {{ event.title }}
+                        </a>
+                    </h2>
+                    <p class="text-base mb-sm card__excerpt">{{ event.description|truncatewords:30 }}</p>
+
+                    <div class="card__details">
+                        <div class="card__detail-item">
+                            <span class="card__detail-label">Категорія:</span>
+                            <span class="card__detail-value">{{ event.category.name }}</span>
+                        </div>
+                        <div class="card__detail-item">
+                            <span class="card__detail-label">Ціна:</span>
+                            {% if event.price == 0 %}
+                            <span class="card__price--free">Безкоштовно</span>
+                            {% else %}
+                            <span class="card__detail-value">{{ event.price }} грн</span>
+                            {% endif %}
+                        </div>
+                        {% if event.location_online %}
+                        <div class="card__detail-item">
+                            <span class="online-badge">ОНЛАЙН</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card__footer">
+                    <a href="{% url 'events:event_detail' event.slug %}" class="card__link">
+                        Детальніше →
+                    </a>
+                    {% if event.is_registration_open %}
+                    <button class="register-btn btn btn-primary mobile-touch-target" 
+                            data-event-id="{{ event.id }}">
+                        Реєстрація
+                    </button>
+                    {% else %}
+                    <span class="registration-closed">Реєстрація закрита</span>
+                    {% endif %}
+                </div>
+            </article>
+            {% empty %}
+            <div class="no-items">
+                <h3 class="text-medium color-brand-orange mb-sm">Події не знайдено</h3>
+                <p class="text-base">Спробуйте змінити фільтри</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <div class="events-pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">← Попередня</a>
+            {% endif %}
+
+            <span class="pagination-info text-base">
+                Сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Наступна →</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/events.refactored.js' %}" type="module"></script>
+{% endblock %}
+

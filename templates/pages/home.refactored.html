@@ -1,0 +1,148 @@
+{% extends 'base.refactored.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block page_name %}home{% endblock %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block description %}{{ meta_description }}{% endblock %}
+{% block og_title %}{{ og_title }}{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/home.refactored.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section - використовує components/hero.css -->
+<section class="hero-section full-height">
+    <!-- Desktop/Mobile відео - utilities/video.css -->
+    <video class="video-background desktop-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
+    </video>
+    <video class="video-background mobile-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="video-overlay"></div>
+
+    <div class="hero-content">
+        <div class="container">
+            <div class="hero-text text-center">
+                <h1 class="text-mega color-brand-orange mb-lg">PrometeyLabs</h1>
+                <p class="text-large color-white mb-xl">
+                    <span class="hero-services">{% trans "сайти" %}</span> ·
+                    <span class="hero-services">{% trans "мобільні застосунки" %}</span> ·
+                    <span class="hero-services">{% trans "telegram боти" %}</span> ·
+                    <span class="hero-services">{% trans "реклама" %}</span> ·
+                    <span class="hero-services">{% trans "ведення соціальних мереж" %}</span> ·
+                    <span class="hero-services">{% trans "навчання" %}</span>
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="https://t.me/prometeylabs" class="btn btn-primary mobile-touch-target" 
+                       target="_blank" rel="noopener">
+                        {% trans "Написати в Telegram" %}
+                    </a>
+                    <a href="{% url 'developer' %}" class="btn btn-secondary mobile-touch-target">
+                        {% trans "Хочу стати розробником" %}
+                    </a>
+                    <a href="{% url 'calculator' %}" class="btn btn-secondary mobile-touch-target">
+                        {% trans "Розрахувати вартість онлайн" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section - використовує components/cards.css -->
+<section class="services-section section--after-hero full-width">
+    <div class="container">
+        <div class="services-content">
+            <h2 class="text-large color-brand-orange mb-xl text-center">
+                {% trans "Послуги PrometeyLabs" %}
+            </h2>
+
+            <!-- Grid використовує .cards-grid--services -->
+            <div class="services-grid cards-grid cards-grid--services">
+                <div class="service-card card" data-service="1">
+                    <div class="service-card-overlay"></div>
+                    <div class="service-card-content">
+                        <span class="service-number">01</span>
+                        <h3 class="service-title">{% trans "Web розробка" %}</h3>
+                        <p class="service-description">
+                            {% trans "Сайти під ключ, лендінги, інтернет-магазини" %}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="service-card card" data-service="2">
+                    <div class="service-card-overlay"></div>
+                    <div class="service-card-content">
+                        <span class="service-number">02</span>
+                        <h3 class="service-title">{% trans "Навчання" %}</h3>
+                        <p class="service-description">
+                            {% trans "Курси програмування з нуля до junior developer" %}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="service-card card" data-service="3">
+                    <div class="service-card-overlay"></div>
+                    <div class="service-card-content">
+                        <span class="service-number">03</span>
+                        <h3 class="service-title">{% trans "Мобільні додатки" %}</h3>
+                        <p class="service-description">
+                            {% trans "iOS та Android додатки на React Native" %}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="service-card card" data-service="4">
+                    <div class="service-card-overlay"></div>
+                    <div class="service-card-content">
+                        <span class="service-number">04</span>
+                        <h3 class="service-title">{% trans "SMM" %}</h3>
+                        <p class="service-description">
+                            {% trans "Ведення соціальних мереж та реклама" %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <video class="video-background desktop-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
+    </video>
+    <video class="video-background mobile-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="video-overlay"></div>
+
+    <div class="container">
+        <div class="cta-content text-center">
+            <h2 class="text-large color-white mb-md">{% trans "Готові почати?" %}</h2>
+            <p class="text-base color-white mb-lg">
+                {% trans "Зв'яжіться з нами для безкоштовної консультації та розрахунку вартості проєкту" %}
+            </p>
+            <div class="cta-buttons">
+                <a href="{% url 'calculator' %}" class="btn btn-primary">
+                    {% trans "Розрахувати вартість" %}
+                </a>
+                <a href="https://t.me/prometeylabs" class="btn btn-secondary" target="_blank">
+                    {% trans "Telegram консультація" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/home.refactored.js' %}" type="module"></script>
+{% endblock %}
+

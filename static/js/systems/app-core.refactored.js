@@ -1,44 +1,37 @@
 /**
- * BASE.JS - Базовий JavaScript для PrometeyLabs
- * Рефакторинг 2025: БЕЗ дублювань, чиста архітектура
- * 
- * Залежності: MobileCore, Utils (опціонально)
+ * APP-CORE.JS - Refactored v2.0 (було base.js)
+ * БЕЗ дублювань, використовує централізовані системи
+ * Залежності: MobileCore, Config, Storage, Analytics
  */
+
+import CONFIG from '../core/config.js';
+import { userData } from '../core/storage.js';
+import analytics from '../core/analytics.js';
 
 class PrometeyApp {
     constructor() {
-        this.config = {
-            scrollThreshold: 50,
-            menuTransitionDuration: 400,
-            notificationDuration: 5000
-        };
-
+        this.config = CONFIG.timing;
         this.state = {
             menuOpen: false,
-            activeModal: null
+            activeModal: null,
         };
-
-        this.elements = {}; // Кеш DOM елементів
+        this.elements = {};
 
         this.init();
     }
 
     init() {
-        // Чекаємо MobileCore
         if (window.MobileCore?.isInitialized()) {
             this.initWithMobileCore();
         } else {
-            document.addEventListener('mobilecore:initialized', () => {
+            document.addEventListener(CONFIG.events.mobileCoreInit, () => {
                 this.initWithMobileCore();
             });
         }
     }
 
     initWithMobileCore() {
-        // Кешуємо часто використовувані елементи
         this.cacheElements();
-
-        // Ініціалізація систем
         this.setupNavigation();
         this.setupMobileMenu();
         this.setupModals();
@@ -46,7 +39,6 @@ class PrometeyApp {
         this.setupLanguageSwitcher();
         this.setupAccessibility();
 
-        // DOM ready actions
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => this.onDOMReady());
         } else {
@@ -56,22 +48,21 @@ class PrometeyApp {
 
     cacheElements() {
         this.elements = {
-            nav: document.querySelector('.main-navigation'),
-            burgerBtn: document.querySelector('.burger-menu'),
-            mobileMenu: document.querySelector('.mobile-menu'),
+            nav: document.querySelector(CONFIG.selectors.nav),
+            burgerBtn: document.querySelector(CONFIG.selectors.burgerBtn),
+            mobileMenu: document.querySelector(CONFIG.selectors.mobileMenu),
             mobileMenuClose: document.querySelector('.mobile-menu-close'),
             mobileNavLinks: document.querySelectorAll('.mobile-nav-link'),
-            langDropdown: document.querySelector('.lang-dropdown'),
-            langDropdownBtn: document.querySelector('.lang-dropdown-btn'),
-            langSwitchers: document.querySelectorAll('.lang-switcher-link')
+            langSwitchers: document.querySelectorAll('.lang-switcher-link'),
         };
     }
 
     onDOMReady() {
-        console.log('PrometeyLabs готово');
+        console.log('[PrometeyApp] Ready');
+        this.emit(CONFIG.events.ready);
     }
 
-    // ===== NAVIGATION SYSTEM =====
+    // ===== NAVIGATION =====
     setupNavigation() {
         if (!this.elements.nav) return;
 
@@ -81,9 +72,7 @@ class PrometeyApp {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
                     this.elements.nav.classList.toggle('scrolled', scrollTop > this.config.scrollThreshold);
-
                     ticking = false;
                 });
                 ticking = true;
@@ -91,15 +80,11 @@ class PrometeyApp {
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
-
-        // Smooth scroll для якірних посилань
         this.setupSmoothScroll();
     }
 
     setupSmoothScroll() {
-        const links = document.querySelectorAll('a[href^="#"]');
-
-        links.forEach(link => {
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
             link.addEventListener('click', (e) => {
                 const href = link.getAttribute('href');
                 if (href === '#') return;
@@ -107,85 +92,51 @@ class PrometeyApp {
                 const target = document.querySelector(href);
                 if (target) {
                     e.preventDefault();
-                    const offsetTop = target.offsetTop - 80;
-                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                    const offsetTop = target.offsetTop - CONFIG.animation.scrollOffset;
+                    window.scrollTo({ 
+                        top: offsetTop, 
+                        behavior: CONFIG.animation.scrollBehavior 
+                    });
                 }
             });
         });
     }
 
-    // ===== MOBILE MENU SYSTEM =====
+    // ===== MOBILE MENU =====
     setupMobileMenu() {
         const { burgerBtn, mobileMenu, mobileMenuClose, mobileNavLinks } = this.elements;
 
         if (!burgerBtn || !mobileMenu) return;
 
-        // Відкриття/закриття
         burgerBtn.addEventListener('click', (e) => {
             e.preventDefault();
             this.toggleMobileMenu();
         });
 
-        // Закриття через кнопку
         mobileMenuClose?.addEventListener('click', (e) => {
             e.preventDefault();
             this.closeMobileMenu();
         });
 
-        // Закриття при кліку на посилання
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', () => this.closeMobileMenu());
         });
 
-        // Закриття при кліку на backdrop
         mobileMenu.addEventListener('click', (e) => {
             if (e.target === mobileMenu) this.closeMobileMenu();
         });
 
-        // Закриття при ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && this.state.menuOpen) {
                 this.closeMobileMenu();
             }
         });
 
-        // Touch оптимізації для iOS
-        if ('ontouchstart' in window) {
-            this.setupMenuTouchOptimizations();
-        }
-    }
-
-    setupMenuTouchOptimizations() {
-        const { mobileMenu, mobileNavLinks } = this.elements;
-
-        // Prevent double-tap zoom
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', (e) => {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                e.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-
-        // Покращення для menu touch
-        mobileMenu?.addEventListener('touchstart', (e) => {
-            e.stopPropagation();
-        }, { passive: true });
-
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('touchstart', (e) => {
-                e.stopPropagation();
-            }, { passive: true });
-        });
+        // Touch optimizations через MobileCore
     }
 
     toggleMobileMenu() {
-        if (this.state.menuOpen) {
-            this.closeMobileMenu();
-        } else {
-            this.openMobileMenu();
-        }
+        this.state.menuOpen ? this.closeMobileMenu() : this.openMobileMenu();
     }
 
     openMobileMenu() {
@@ -197,9 +148,7 @@ class PrometeyApp {
         document.body.classList.add('menu-open');
 
         this.state.menuOpen = true;
-
-        // Event для інших систем
-        this.emit('menu:opened');
+        this.emit(CONFIG.events.menuOpen);
     }
 
     closeMobileMenu() {
@@ -211,17 +160,14 @@ class PrometeyApp {
         document.body.classList.remove('menu-open');
 
         this.state.menuOpen = false;
-
-        // Event для інших систем
-        this.emit('menu:closed');
+        this.emit(CONFIG.events.menuClose);
     }
 
-    // ===== MODAL SYSTEM =====
+    // ===== MODALS =====
     setupModals() {
         const modalTriggers = document.querySelectorAll('[data-modal]');
         const closeButtons = document.querySelectorAll('.modal-close, .modal-close-specific');
 
-        // Відкриття модалок
         modalTriggers.forEach(trigger => {
             trigger.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -230,7 +176,6 @@ class PrometeyApp {
             });
         });
 
-        // Закриття модалок
         closeButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -239,8 +184,7 @@ class PrometeyApp {
             });
         });
 
-        // Закриття при кліку на backdrop
-        document.querySelectorAll('.modal').forEach(modal => {
+        document.querySelectorAll(CONFIG.selectors.modal).forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal || e.target.classList.contains('modal-backdrop')) {
                     this.closeModal(modal.id);
@@ -248,7 +192,6 @@ class PrometeyApp {
             });
         });
 
-        // Закриття при ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && this.state.activeModal) {
                 this.closeModal();
@@ -260,7 +203,7 @@ class PrometeyApp {
         const modal = document.getElementById(modalId);
         if (!modal) return;
 
-        // Prefill форми з sessionStorage
+        // Prefill через централізований storage
         this.prefillModalForm(modal);
 
         modal.classList.add('active');
@@ -269,13 +212,14 @@ class PrometeyApp {
 
         this.state.activeModal = modalId;
 
-        // Фокус на першому input
+        // Focus
         const firstInput = modal.querySelector('input:not([type="hidden"]), textarea');
         if (firstInput) {
             setTimeout(() => firstInput.focus(), 300);
         }
 
-        this.emit('modal:opened', { modalId });
+        this.emit(CONFIG.events.modalOpen, { modalId });
+        analytics.trackCustom('modal_open', { modal_id: modalId });
     }
 
     closeModal(modalId = null) {
@@ -290,24 +234,24 @@ class PrometeyApp {
         document.body.style.overflow = '';
 
         this.state.activeModal = null;
-
-        this.emit('modal:closed', { modalId: modal.id });
+        this.emit(CONFIG.events.modalClose, { modalId: modal.id });
     }
 
     prefillModalForm(modal) {
-        const userData = this.getStoredUserData();
-        if (!userData) return;
+        // Використовуємо централізований userData
+        const user = userData.get();
+        if (!user || Object.keys(user).length === 0) return;
 
         const nameField = modal.querySelector('input[name="name"]');
         const phoneField = modal.querySelector('input[name="phone"]');
 
-        if (nameField && userData.name) nameField.value = userData.name;
-        if (phoneField && userData.phone) phoneField.value = userData.phone;
+        if (nameField && user.name) nameField.value = user.name;
+        if (phoneField && user.phone) phoneField.value = user.phone;
     }
 
-    // ===== FORM SYSTEM =====
+    // ===== FORMS =====
     setupForms() {
-        const forms = document.querySelectorAll('form[data-form-type]');
+        const forms = document.querySelectorAll(CONFIG.selectors.form);
 
         forms.forEach(form => {
             form.addEventListener('submit', (e) => {
@@ -323,7 +267,7 @@ class PrometeyApp {
 
         if (!this.validateForm(form)) return;
 
-        // Показуємо loading
+        // Loading state
         if (submitBtn) {
             submitBtn.classList.add('btn-loading');
             submitBtn.disabled = true;
@@ -333,18 +277,24 @@ class PrometeyApp {
             const formData = new FormData(form);
             const formType = form.getAttribute('data-form-type');
 
-            // Зберігаємо дані користувача
-            this.saveUserData(formData);
+            // Зберігаємо user data через централізований storage
+            if (formData.get('name')) userData.update('name', formData.get('name'));
+            if (formData.get('phone')) userData.update('phone', formData.get('phone'));
+            if (formData.get('email')) userData.update('email', formData.get('email'));
 
             // AJAX відправка
             const response = await this.submitForm(formData, formType);
 
             if (response.ok) {
                 const data = await response.json();
-
                 this.handleFormSuccess(data, formType);
                 form.reset();
                 this.closeModal();
+
+                // Analytics через централізовану систему
+                analytics.track(CONFIG.events.formSuccess, {
+                    form_type: formType,
+                });
             } else {
                 throw new Error('Server error');
             }
@@ -352,6 +302,10 @@ class PrometeyApp {
         } catch (error) {
             console.error('Form error:', error);
             this.showNotification('Помилка відправки. Спробуйте ще раз.', 'error');
+            
+            analytics.track(CONFIG.events.formError, {
+                error_message: error.message,
+            });
         } finally {
             if (submitBtn) {
                 submitBtn.classList.remove('btn-loading');
@@ -366,21 +320,24 @@ class PrometeyApp {
         let isValid = true;
 
         requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                field.classList.add('error');
-                isValid = false;
-            } else {
-                field.classList.remove('error');
-            }
+            const value = field.value.trim();
+            const isEmpty = !value;
+
+            field.classList.toggle('error', isEmpty);
+            field.setAttribute('aria-invalid', isEmpty ? 'true' : 'false');
+
+            if (isEmpty) isValid = false;
         });
 
         return isValid;
     }
 
     async submitForm(formData, formType) {
-        const url = formType === 'test' ? '/forms/test/' : '/forms/submit/';
+        const url = formType === CONFIG.formTypes.test 
+            ? CONFIG.endpoints.formTest 
+            : CONFIG.endpoints.formSubmit;
 
-        if (formType !== 'test') {
+        if (formType !== CONFIG.formTypes.test) {
             formData.append('form_type', formType);
         }
 
@@ -394,19 +351,18 @@ class PrometeyApp {
     }
 
     handleFormSuccess(data, formType) {
-        if (formType === 'test' && data.result) {
+        if (formType === CONFIG.formTypes.test && data.result) {
             this.showTestResult(data.result);
         } else {
             this.showNotification('Дякуємо! Ваша заявка відправлена.', 'success');
-            this.openModal('thank-you-modal');
+            this.openModal(CONFIG.modals.thankYou);
         }
     }
 
     showTestResult(result) {
-        const modal = document.getElementById('test-result-modal');
+        const modal = document.getElementById(CONFIG.modals.testResult);
         if (!modal) return;
 
-        // Заповнюємо результати
         const projectTypeEl = modal.querySelector('#result-project-type');
         const priceEl = modal.querySelector('#result-price');
         const timelineEl = modal.querySelector('#result-timeline');
@@ -415,28 +371,12 @@ class PrometeyApp {
         if (priceEl) priceEl.textContent = result.price || '';
         if (timelineEl) timelineEl.textContent = result.timeline || '';
 
-        this.openModal('test-result-modal');
+        this.openModal(CONFIG.modals.testResult);
     }
 
     // ===== LANGUAGE SWITCHER =====
     setupLanguageSwitcher() {
-        const { langDropdown, langDropdownBtn, langSwitchers } = this.elements;
-
-        // Dropdown toggle
-        langDropdownBtn?.addEventListener('click', (e) => {
-            e.preventDefault();
-            langDropdown?.classList.toggle('active');
-        });
-
-        // Close dropdown при кліку поза
-        document.addEventListener('click', (e) => {
-            if (langDropdown && !langDropdown.contains(e.target)) {
-                langDropdown.classList.remove('active');
-            }
-        });
-
-        // Language switcher links
-        langSwitchers.forEach(switcher => {
+        this.elements.langSwitchers.forEach(switcher => {
             switcher.addEventListener('click', (e) => {
                 e.preventDefault();
                 const langCode = switcher.getAttribute('data-language-code');
@@ -446,13 +386,11 @@ class PrometeyApp {
     }
 
     setLanguage(langCode) {
-        console.log('Switching language to:', langCode);
-
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = '/i18n/set_language/';
+        form.action = CONFIG.endpoints.languageSet;
 
-        // CSRF token
+        // CSRF
         const csrfInput = document.createElement('input');
         csrfInput.type = 'hidden';
         csrfInput.name = 'csrfmiddlewaretoken';
@@ -466,15 +404,9 @@ class PrometeyApp {
         langInput.value = langCode;
         form.appendChild(langInput);
 
-        // Next URL - видаляємо префікс мови якщо є
+        // Next URL (clean)
         let nextUrl = window.location.pathname + window.location.search;
-        const originalUrl = nextUrl;
-        // Видаляємо /uk/ або /en/ з початку URL
         nextUrl = nextUrl.replace(/^\/(uk|en)\//, '/');
-
-        console.log('Original URL:', originalUrl);
-        console.log('Next URL (cleaned):', nextUrl);
-        console.log('CSRF Token:', this.getCSRFToken());
 
         const nextInput = document.createElement('input');
         nextInput.type = 'hidden';
@@ -484,34 +416,52 @@ class PrometeyApp {
 
         document.body.appendChild(form);
         form.submit();
+
+        // Analytics
+        analytics.trackCustom('language_change', { language: langCode });
     }
 
     // ===== ACCESSIBILITY =====
     setupAccessibility() {
-        // Intersection Observer для анімацій при скролі
-        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        // Keyboard navigation detection
+        this.setupKeyboardNavigation();
+        
+        // Animate on scroll тепер через observers.js
+        // Тут тільки базова accessibility
+    }
 
-        if (animatedElements.length === 0) return;
-        if (!('IntersectionObserver' in window)) return;
+    setupKeyboardNavigation() {
+        let isTabbing = false;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                isTabbing = true;
+                document.body.classList.add('user-is-tabbing');
+            }
         });
 
-        animatedElements.forEach(el => observer.observe(el));
+        document.addEventListener('mousedown', () => {
+            isTabbing = false;
+            document.body.classList.remove('user-is-tabbing');
+        });
     }
 
     // ===== NOTIFICATIONS =====
     showNotification(message, type = 'info') {
+        if (!CONFIG.features.enableNotifications) return;
+
+        const notification = this.createNotificationElement(message, type);
+        document.body.appendChild(notification);
+
+        setTimeout(() => notification.classList.add('prometey-notification--show'), 50);
+        setTimeout(() => this.removeNotification(notification), this.config.notificationDuration);
+    }
+
+    createNotificationElement(message, type) {
         const notification = document.createElement('div');
         notification.className = `prometey-notification prometey-notification--${type}`;
+        notification.setAttribute('role', 'alert');
+        notification.setAttribute('aria-live', 'polite');
 
         const messageSpan = document.createElement('span');
         messageSpan.textContent = message;
@@ -524,13 +474,8 @@ class PrometeyApp {
 
         notification.appendChild(messageSpan);
         notification.appendChild(closeBtn);
-        document.body.appendChild(notification);
 
-        // Показуємо з анімацією
-        setTimeout(() => notification.classList.add('prometey-notification--show'), 50);
-
-        // Автозакриття
-        setTimeout(() => this.removeNotification(notification), this.config.notificationDuration);
+        return notification;
     }
 
     removeNotification(notification) {
@@ -538,51 +483,21 @@ class PrometeyApp {
         setTimeout(() => notification.remove(), 300);
     }
 
-    // ===== UTILITY METHODS =====
+    // ===== UTILITIES =====
     getCSRFToken() {
-        // Використовуємо Utils якщо доступний
+        // Utils.js вже має цю логіку, але fallback тут
         if (window.PrometeyUtils?.getCSRFToken) {
             return window.PrometeyUtils.getCSRFToken();
         }
 
-        // 1. Спробуємо з meta tag
         const metaTag = document.querySelector('meta[name="csrf-token"]');
-        if (metaTag) {
-            const token = metaTag.getAttribute('content');
-            if (token) return token;
-        }
+        if (metaTag) return metaTag.getAttribute('content');
 
-        // 2. Fallback на input
         const input = document.querySelector('[name=csrfmiddlewaretoken]');
         if (input) return input.value;
 
-        // 3. Fallback на cookie
         const match = document.cookie.match(/csrftoken=([^;]+)/);
         return match ? match[1] : '';
-    }
-
-    saveUserData(formData) {
-        const userData = {
-            name: formData.get('name'),
-            phone: formData.get('phone'),
-            timestamp: Date.now()
-        };
-
-        try {
-            sessionStorage.setItem('prometey_user_data', JSON.stringify(userData));
-        } catch (error) {
-            console.error('Failed to save user data:', error);
-        }
-    }
-
-    getStoredUserData() {
-        try {
-            const data = sessionStorage.getItem('prometey_user_data');
-            return data ? JSON.parse(data) : null;
-        } catch (error) {
-            console.error('Failed to get user data:', error);
-            return null;
-        }
     }
 
     // ===== EVENT BUS =====
@@ -600,7 +515,7 @@ class PrometeyApp {
         document.removeEventListener(eventName, callback);
     }
 
-    // ===== STATIC METHOD =====
+    // ===== STATIC =====
     static getInstance() {
         if (!window.prometeyApp) {
             window.prometeyApp = new PrometeyApp();
@@ -609,82 +524,16 @@ class PrometeyApp {
     }
 }
 
-// ===== NOTIFICATION STYLES (одноразове додавання) =====
-const notificationStyles = document.createElement('style');
-notificationStyles.id = 'prometey-notification-styles';
-notificationStyles.textContent = `
-.prometey-notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 10000;
-    padding: 15px 20px;
-    background: var(--color-white);
-    border: 2px solid var(--color-brand-orange);
-    font-weight: 600;
-    font-size: var(--font-base);
-    transform: translateX(400px);
-    transition: transform var(--transition-normal) var(--easing-default);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: var(--shadow-lg);
-}
+// ===== NOTIFICATION STYLES (вже НЕ inline, в окремому CSS) =====
+// Перенесено в components/notifications.css
 
-.prometey-notification--show {
-    transform: translateX(0);
-}
-
-.prometey-notification--success {
-    border-color: var(--color-brand-orange);
-    color: var(--color-brand-orange);
-}
-
-.prometey-notification--error {
-    border-color: var(--color-brand-orange);
-    color: var(--color-brand-orange);
-    background: #ffebee;
-}
-
-.prometey-notification__close {
-    background: none;
-    border: none;
-    font-size: 20px;
-    line-height: 1;
-    cursor: pointer;
-    color: inherit;
-    padding: 0;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform var(--transition-fast) var(--easing-default);
-}
-
-.prometey-notification__close:hover {
-    transform: rotate(90deg);
-}
-
-@media (max-width: 767px) {
-    .prometey-notification {
-        top: auto;
-        bottom: calc(var(--mobile-safe-area-bottom, 0px) + 80px);
-        right: var(--space-xs);
-        left: var(--space-xs);
-        width: calc(100% - var(--space-xs) * 2);
-    }
-}
-`;
-
-if (!document.getElementById('prometey-notification-styles')) {
-    document.head.appendChild(notificationStyles);
-}
-
-// ===== ІНІЦІАЛІЗАЦІЯ =====
+// ===== INITIALIZATION =====
 const app = PrometeyApp.getInstance();
 
-// Експорт
+// Export
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = PrometeyApp;
 }
+
+export default PrometeyApp;
+

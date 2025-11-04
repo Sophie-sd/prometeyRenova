@@ -1,0 +1,274 @@
+/**
+ * CARDS.CSS - Універсальні стилі карток
+ * Використовується: blog, events, services
+ * Версія: 2.0 - DRY principle
+ */
+
+/* ===== BASE CARD ===== */
+.card {
+    background: var(--color-beige);
+    border: var(--card-border-width) solid transparent;
+    padding: var(--card-padding);
+    transition: var(--card-transition);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    border-color: var(--color-brand-orange);
+    transform: translateY(var(--card-hover-lift));
+    background: var(--color-white);
+}
+
+/* ===== CARD HEADER ===== */
+.card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-sm);
+}
+
+.card__number {
+    font-weight: 900;
+    opacity: 0.8;
+    color: var(--color-brand-orange);
+}
+
+.card__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.card__date {
+    color: var(--color-black);
+    opacity: 0.7;
+    font-size: var(--font-small);
+}
+
+/* ===== CARD CONTENT ===== */
+.card__content {
+    flex: 1;
+    margin-bottom: var(--space-sm);
+}
+
+.card__badge {
+    font-size: 10px;
+    color: var(--color-white);
+    background: var(--color-brand-orange);
+    padding: 4px 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.card__title {
+    color: var(--color-black);
+    text-decoration: none;
+    transition: color var(--transition-normal) var(--easing-default);
+    display: block;
+}
+
+.card__title:hover {
+    color: var(--color-brand-orange);
+}
+
+.card__excerpt {
+    line-height: 1.5;
+    margin-top: var(--space-xs);
+}
+
+/* ===== CARD FOOTER ===== */
+.card__footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.card__link {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--color-brand-orange);
+    transition: all var(--transition-normal) var(--easing-default);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.card__link:hover {
+    transform: translateX(5px);
+}
+
+/* ===== CARD VARIANTS ===== */
+
+/* Blog Card */
+.blog-card {
+    min-height: 300px;
+}
+
+/* Event Card */
+.event-card {
+    min-height: 350px;
+}
+
+/* Service Card (different structure) */
+.service-card {
+    min-height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    overflow: visible;
+}
+
+.service-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 25px 60px rgba(220, 20, 60, 0.3);
+}
+
+/* ===== DETAILS LIST ===== */
+.card__details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: var(--space-xs);
+}
+
+.card__detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-small);
+}
+
+.card__detail-label {
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+.card__detail-value {
+    color: var(--color-black);
+}
+
+/* Price variations */
+.card__price--free {
+    color: var(--color-brand-orange);
+    font-weight: 600;
+}
+
+.card__price--discount {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card__price--original {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 12px;
+}
+
+.card__price--sale {
+    color: var(--color-brand-orange);
+    font-weight: 600;
+}
+
+/* ===== NO ITEMS STATE ===== */
+.no-items {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--space-xl);
+    background: var(--color-gray);
+    border: 2px solid var(--color-brand-orange);
+}
+
+/* ===== GRID LAYOUTS ===== */
+.cards-grid {
+    display: grid;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+/* Auto-fit grid (blog, events) */
+.cards-grid--auto {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+/* Services grid (4 columns) */
+.cards-grid--services {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Courses grid (2 columns) */
+.cards-grid--courses {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .cards-grid--services {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .cards-grid--auto,
+    .cards-grid--services,
+    .cards-grid--courses {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+    }
+    
+    .card__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+    }
+    
+    .card__meta {
+        align-items: flex-start;
+    }
+    
+    .card__footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ===== LOADING STATE ===== */
+.cards-grid--loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* ===== ANIMATION ===== */
+.card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card {
+        opacity: 1;
+        transform: translateY(0);
+        transition: none;
+    }
+}
+

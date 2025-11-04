@@ -1,0 +1,165 @@
+{% extends 'base.refactored.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block page_name %}portfolio{% endblock %}
+{% block title %}{% trans "Портфоліо - Prometey" %}{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/portfolio.refactored.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero-section full-height">
+    <video class="video-background desktop-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/desktop/portfolio.mp4' %}" type="video/mp4">
+    </video>
+    <video class="video-background mobile-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/mobile/portfoliomobile.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="video-overlay"></div>
+
+    <div class="hero-content">
+        <div class="container">
+            <div class="hero-text text-center">
+                <h1 class="text-mega color-brand-orange mb-lg">{% trans "СТВОРЕНІ НАМИ" %}</h1>
+                <p class="text-large color-white mb-xl">
+                    {% trans "сайти під ключ" %} · {% trans "мобільні застосунки" %} ·
+                    {% trans "інтернет-магазини" %} · {% trans "telegram боти" %} ·
+                    {% trans "сучасний дизайн" %} · {% trans "адаптивна верстка" %}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects -->
+<section class="portfolio-projects section--after-hero">
+    <!-- PROJECT 01 - DoUIT -->
+    <div class="project-section" data-project="1">
+        <div class="project-content">
+            <div class="project-video">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/douit.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/douit.mp4' %}" type="video/mp4">
+                </video>
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/douit_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/douit_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 01</h2>
+                <button class="project-button mobile-touch-target" data-project="douit">Замовити подібний</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECT 02 - Framejorney -->
+    <div class="project-section" data-project="2">
+        <div class="project-content">
+            <div class="project-video">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/framejorney.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/framejorney.mp4' %}" type="video/mp4">
+                </video>
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/framejorney_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/framejorney_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 02</h2>
+                <button class="project-button mobile-touch-target" data-project="framejorney">Замовити подібний</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECT 03 - Guide White Energy -->
+    <div class="project-section" data-project="3">
+        <div class="project-content">
+            <div class="project-video">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/guide.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/guide.mp4' %}" type="video/mp4">
+                </video>
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/guidewhitenergy_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/guidewhitenergy_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 03</h2>
+                <button class="project-button mobile-touch-target" data-project="guide">Замовити подібний</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECT 04 - Polygraph -->
+    <div class="project-section" data-project="4">
+        <div class="project-content">
+            <div class="project-video">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/polygraph.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/polygraph.mp4' %}" type="video/mp4">
+                </video>
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/polygraph_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/polygraph_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 04</h2>
+                <button class="project-button mobile-touch-target" data-project="polygraph">Замовити подібний</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECT 05 - PrometeyLabs -->
+    <div class="project-section" data-project="5">
+        <div class="project-content">
+            <div class="project-video">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/prometeylabs.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/prometeylabs.mp4' %}" type="video/mp4">
+                </video>
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/prometeylabs_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/prometeylabs_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 05</h2>
+                <button class="project-button mobile-touch-target" data-project="prometeylabs">Замовити подібний</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECT 06 - Pulvas Shop -->
+    <div class="project-section" data-project="6">
+        <div class="project-content">
+            <div class="project-video">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/pulvas.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/pulvas.mp4' %}" type="video/mp4">
+                </video>
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/pulvasshop_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/pulvasshop_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 06</h2>
+                <button class="project-button mobile-touch-target" data-project="pulvas">Замовити подібний</button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/portfolio.refactored.js' %}" type="module"></script>
+{% endblock %}
+

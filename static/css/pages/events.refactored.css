@@ -1,0 +1,164 @@
+/**
+ * EVENTS.CSS - Refactored v2.0
+ * ТІЛЬКИ унікальні стилі для events
+ * База: components/hero.css, components/cards.css
+ */
+
+/* Hero в components/hero.css */
+/* Cards в components/cards.css */
+
+/* ===== FILTER SECTION (унікальне для events) ===== */
+.events-filter {
+    /* База в components/hero.css (.section--after-hero) */
+    border-bottom: 3px solid var(--color-brand-orange);
+}
+
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.filter-label {
+    font-weight: 600;
+    color: var(--color-black);
+    min-width: 100px;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: var(--color-white);
+    border: 2px solid var(--color-black);
+    color: var(--color-black);
+    padding: 8px 16px;
+    font-size: var(--font-base);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-normal) var(--easing-default);
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
+}
+
+.filter-btn:hover {
+    background: var(--color-brand-orange);
+    color: var(--color-white);
+    border-color: var(--color-brand-orange);
+}
+
+.filter-btn.active {
+    background: var(--color-brand-orange);
+    color: var(--color-white);
+    border-color: var(--color-brand-orange);
+}
+
+/* ===== EVENT SPECIFIC BADGES ===== */
+.event-type {
+    /* Dynamic background від backend */
+    font-size: 10px;
+    color: var(--color-white);
+    padding: 3px 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.online-badge {
+    background: var(--color-brand-orange);
+    color: var(--color-white);
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.discount-badge {
+    background: var(--color-brand-orange);
+    color: var(--color-white);
+    padding: 2px 4px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.spots-available {
+    color: var(--color-brand-orange);
+    font-weight: 600;
+}
+
+/* ===== REGISTRATION BUTTON ===== */
+.register-btn {
+    font-size: var(--font-small);
+    padding: 6px 12px;
+}
+
+.registration-closed {
+    color: #999;
+    font-style: italic;
+    font-size: var(--font-small);
+}
+
+/* ===== SEO SECTION ===== */
+.events-seo {
+    padding: var(--space-xl) 0;
+}
+
+.seo-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.seo-content h2 {
+    margin-bottom: var(--space-md);
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.seo-content p {
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+}
+
+.seo-content strong {
+    color: var(--color-brand-orange);
+    font-weight: 600;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .filter-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+    }
+
+    .filter-buttons {
+        width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .filter-container {
+        gap: var(--space-sm);
+    }
+
+    .filter-buttons {
+        gap: 4px;
+    }
+
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: var(--font-small);
+    }
+}
+

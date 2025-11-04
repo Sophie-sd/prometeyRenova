@@ -1,0 +1,131 @@
+/**
+ * NOTIFICATIONS.CSS - Notification system styles
+ * Раніше було inline в base.js
+ * Версія: 2.0
+ */
+
+/* ===== BASE NOTIFICATION ===== */
+.prometey-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    padding: 15px 20px;
+    background: var(--color-white);
+    border: 2px solid var(--color-brand-orange);
+    font-weight: 600;
+    font-size: var(--font-base);
+    transform: translateX(400px);
+    transition: transform var(--transition-normal) var(--easing-default);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--shadow-lg);
+    border-radius: 0;
+    max-width: 400px;
+}
+
+/* ===== STATES ===== */
+.prometey-notification--show {
+    transform: translateX(0);
+}
+
+.prometey-notification--success {
+    border-color: var(--color-brand-orange);
+    color: var(--color-brand-orange);
+}
+
+.prometey-notification--error {
+    border-color: var(--color-brand-orange);
+    color: var(--color-brand-orange);
+    background: #ffebee;
+}
+
+.prometey-notification--info {
+    border-color: var(--color-brand-orange);
+    color: var(--color-black);
+}
+
+/* ===== CLOSE BUTTON ===== */
+.prometey-notification__close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    color: inherit;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-fast) var(--easing-default);
+    flex-shrink: 0;
+}
+
+.prometey-notification__close:hover {
+    transform: rotate(90deg);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 767px) {
+    .prometey-notification {
+        top: auto;
+        bottom: calc(var(--mobile-safe-bottom, 0px) + 80px);
+        right: var(--space-xs);
+        left: var(--space-xs);
+        width: calc(100% - var(--space-xs) * 2);
+        max-width: none;
+        font-size: var(--font-small);
+        padding: 12px 16px;
+    }
+}
+
+/* ===== iOS SAFE AREA ===== */
+@supports (padding: max(0px)) {
+    .prometey-notification {
+        bottom: max(calc(env(safe-area-inset-bottom) + 80px), 100px);
+        left: max(env(safe-area-inset-left), var(--space-xs));
+        right: max(env(safe-area-inset-right), var(--space-xs));
+    }
+}
+
+/* ===== STACKING (multiple notifications) ===== */
+.prometey-notification:nth-child(2) {
+    top: 80px;
+}
+
+.prometey-notification:nth-child(3) {
+    top: 140px;
+}
+
+@media (max-width: 767px) {
+    .prometey-notification:nth-child(2) {
+        top: auto;
+        bottom: calc(var(--mobile-safe-bottom, 0px) + 150px);
+    }
+
+    .prometey-notification:nth-child(3) {
+        top: auto;
+        bottom: calc(var(--mobile-safe-bottom, 0px) + 220px);
+    }
+}
+
+/* ===== ACCESSIBILITY ===== */
+.prometey-notification[role="alert"] {
+    /* Screen reader support */
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+    .prometey-notification {
+        transition: none;
+        transform: translateX(0);
+    }
+
+    .prometey-notification--show {
+        /* Already visible */
+    }
+}
+

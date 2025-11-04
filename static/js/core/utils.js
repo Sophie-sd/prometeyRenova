@@ -1,6 +1,6 @@
 /**
  * UTILS.JS - Утилітарні функції для всього проєкту
- * Єдине джерело для helpers
+ * Версія: 2.0 - Розширена функціональність
  */
 
 const Utils = {
@@ -37,16 +37,20 @@ const Utils = {
      * Get CSRF token (multiple sources)
      */
     getCSRFToken() {
-        // Method 1: Hidden input
+        // Method 1: Meta tag
+        const metaTag = document.querySelector('meta[name="csrf-token"]');
+        if (metaTag) {
+            const token = metaTag.getAttribute('content');
+            if (token) return token;
+        }
+
+        // Method 2: Hidden input
         const input = document.querySelector('[name=csrfmiddlewaretoken]');
         if (input?.value) return input.value;
 
-        // Method 2: Cookie
+        // Method 3: Cookie
         const match = document.cookie.match(/csrftoken=([^;]+)/);
         if (match) return match[1];
-
-        // Method 3: Window
-        if (window.csrfToken) return window.csrfToken;
 
         console.warn('CSRF token not found');
         return '';

@@ -1,0 +1,150 @@
+{% extends 'base.refactored.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block page_name %}developer{% endblock %}
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/developer.refactored.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="developer-hero hero-section full-height">
+    <video class="video-background desktop-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/desktop/study.mp4' %}" type="video/mp4">
+    </video>
+    <video class="video-background mobile-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/mobile/studymobile.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="video-overlay"></div>
+
+    <div class="hero-content">
+        <div class="container">
+            <div class="hero-text text-center">
+                <h1 class="text-mega color-brand-orange mb-lg">СТАТИ РОЗРОБНИКОМ</h1>
+                <p class="text-large color-white mb-xl">
+                    Мрієте стати веб-розробником? Наші курси програмування - це ваш шлях
+                    до успішної кар'єри в IT.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Dark Split 50/50 -->
+<section class="dark-split-section section--after-hero full-height">
+    <div class="split-container">
+        <div class="split-left bg-black">
+            <div class="dark-content">
+                <span class="page-number text-page color-brand-orange">03</span>
+                <h1 class="text-mega color-white mb-lg">PROJECT 01</h1>
+                <h2 class="text-large color-brand-orange mb-md">КУРСИ ПРОГРАМУВАННЯ</h2>
+
+                <p class="text-base color-white mb-md">
+                    Революційний підхід до навчання з AI агентами під час створення реальних проєктів
+                    та гарантією працевлаштування.
+                </p>
+
+                <div class="features-list mb-xl">
+                    <div class="feature-item mb-sm">
+                        <h3 class="text-medium color-brand-orange mb-xs">Практичний підхід</h3>
+                        <p class="text-base color-white">Працюємо над реальними проектами</p>
+                    </div>
+
+                    <div class="feature-item mb-sm">
+                        <h3 class="text-medium color-brand-orange mb-xs">Сучасні технології</h3>
+                        <p class="text-base color-white">Claude 4 sonnet, Gemini pro, Luma AI, HTML5, CSS3, JavaScript, Python, Django</p>
+                    </div>
+
+                    <div class="feature-item mb-sm">
+                        <h3 class="text-medium color-brand-orange mb-xs">Індивідуальний підхід</h3>
+                        <p class="text-base color-white">Заняття 1-на-1 або в малих групах до 5 осіб</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary mobile-touch-target" data-modal="developer-modal">
+                    Почати навчання
+                </button>
+            </div>
+        </div>
+
+        <div class="split-right">
+            <div class="hero-image">
+                <div class="image-placeholder"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Courses Section -->
+<section class="courses-section bg-beige">
+    <div class="container">
+        <div class="section-header text-center mb-xl">
+            <h2 class="text-large color-brand-orange">BY THE NUMBERS</h2>
+            <p class="text-medium">Наші досягнення у навчанні</p>
+        </div>
+
+        <div class="stats-grid mb-xl">
+            <div class="stat-item text-center">
+                <span class="stat-number text-mega color-brand-orange">50+</span>
+                <p class="text-base">Випускників працевлаштовано</p>
+            </div>
+            <div class="stat-item text-center">
+                <span class="stat-number text-mega color-brand-orange">95%</span>
+                <p class="text-base">Успішність навчання</p>
+            </div>
+            <div class="stat-item text-center">
+                <span class="stat-number text-mega color-brand-orange">6міс</span>
+                <p class="text-base">Середній термін навчання</p>
+            </div>
+        </div>
+
+        <h3 class="text-medium text-center mb-lg">Наші курси</h3>
+        <div class="courses-grid cards-grid cards-grid--courses">
+            <div class="course-card card">
+                <div class="course-header">
+                    <span class="course-level card__badge">Початківець</span>
+                    <span class="course-number text-page color-brand-orange">01</span>
+                </div>
+                <h3 class="course-title text-medium mb-sm">Frontend Developer</h3>
+                <ul class="course-features">
+                    <li>HTML5, CSS3, JavaScript</li>
+                    <li>React / Vue.js</li>
+                    <li>Responsive дизайн</li>
+                    <li>Git та GitHub</li>
+                </ul>
+                <p class="course-price">від 8,000 грн</p>
+                <button class="btn btn-secondary enroll-btn mobile-touch-target" data-modal="developer-modal">
+                    Записатися
+                </button>
+            </div>
+
+            <div class="course-card card">
+                <div class="course-header">
+                    <span class="course-level card__badge">Середній</span>
+                    <span class="course-number text-page color-brand-orange">02</span>
+                </div>
+                <h3 class="course-title text-medium mb-sm">Backend Developer</h3>
+                <ul class="course-features">
+                    <li>Python / Django</li>
+                    <li>Node.js / Express</li>
+                    <li>PostgreSQL / MySQL</li>
+                    <li>REST API</li>
+                </ul>
+                <p class="course-price">від 10,000 грн</p>
+                <button class="btn btn-secondary enroll-btn mobile-touch-target" data-modal="developer-modal">
+                    Записатися
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/developer.refactored.js' %}" type="module"></script>
+{% endblock %}
+

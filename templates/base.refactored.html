@@ -5,12 +5,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- iOS Safari оптимізований viewport -->
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <!-- Відключення кешування для розробки -->
+    <!-- Cache Control -->
     {% if debug %}
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
@@ -18,28 +17,30 @@
     {% endif %}
 
     <!-- SEO Meta Tags -->
-    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock
-        %}</title>
-    <meta name="description"
-        content="{% block description %}PrometeyLabs - розробка сайтів під ключ, Telegram боти, налаштування реклами Google Ads, ведення соцмереж, навчання веб-розробки. Конкурентні ціни, сучасні технології.{% endblock %}">
-    <meta name="keywords"
-        content="{% block keywords %}розробка сайтів, сайт під ключ, telegram бот, реклама google ads, веб розробка, навчання програмування{% endblock %}">
+    <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}PrometeyLabs - розробка сайтів під ключ, Telegram боти, налаштування реклами Google Ads, ведення соцмереж, навчання веб-розробки. Конкурентні ціни, сучасні технології.{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}розробка сайтів, сайт під ключ, telegram бот, реклама google ads, веб розробка, навчання програмування{% endblock %}">
 
     <!-- Open Graph -->
     <meta property="og:title" content="{% block og_title %}PrometeyLabs - Розробка сайтів під ключ{% endblock %}">
-    <meta property="og:description"
-        content="{% block og_description %}Створюємо сайти під ключ, Telegram боти, налаштовуємо рекламу. Сучасні технології, конкурентні ціни.{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Створюємо сайти під ключ, Telegram боти, налаштовуємо рекламу. Сучасні технології, конкурентні ціни.{% endblock %}">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{% block og_image %}{% static 'images/og-image.jpg' %}{% endblock %}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="48x48" href="{% static 'images/favicon-48x48.png' %}">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/logo.png' %}">
-    <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:image" content="{% block og_image %}{% static 'images/og-image.jpg' %}{% endblock %}">
 
-    <!-- CSS Core (завантажуються першими) -->
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+    <!-- ===== CSS ARCHITECTURE 2.0 (ОПТИМІЗОВАНИЙ ПОРЯДОК) ===== -->
+    
+    <!-- Core (базові стилі) -->
+    <link rel="stylesheet" href="{% static 'css/core/00-config.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/variables.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/z-index-system.css' %}">
@@ -47,23 +48,27 @@
     <link rel="stylesheet" href="{% static 'css/core/layout.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/animations.css' %}">
 
-    <!-- CSS Components -->
+    <!-- Components (універсальні компоненти) -->
     <link rel="stylesheet" href="{% static 'css/components/navigation.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/buttons.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/forms.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/modals.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/footer.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components/hero-parallax.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/hero.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/cards.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/decorations.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/notifications.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/mobile-optimizations.css' %}">
 
-    <!-- Page specific CSS -->
+    <!-- Utilities (helper класи) -->
+    <link rel="stylesheet" href="{% static 'css/utilities/video.css' %}">
+    <link rel="stylesheet" href="{% static 'css/utilities/responsive.refactored.css' %}">
+    <link rel="stylesheet" href="{% static 'css/utilities/accessibility.css' %}">
+
+    <!-- Page specific CSS (тільки унікальні стилі) -->
     {% block page_css %}{% endblock %}
-    {% block extra_css %}{% endblock %}
 
-    <!-- CSRF Token для JavaScript -->
-    <meta name="csrf-token" content="{{ csrf_token }}">
-
-    <!-- Preconnect for performance -->
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <!-- Schema.org structured data -->
@@ -89,7 +94,7 @@
     {% block extra_head %}{% endblock %}
 </head>
 
-<body>
+<body data-page="{% block page_name %}{% endblock %}">
     <!-- Header & Navigation -->
     {% include 'components/header.html' %}
 
@@ -113,18 +118,25 @@
     <!-- Modals -->
     {% include 'components/modals.html' %}
 
-    <!-- Modern JavaScript Systems (2025) - чіткий порядок завантаження -->
-    <script src="{% static 'js/core/utils.js' %}" defer></script>
-    <script src="{% static 'js/mobile-core.js' %}" defer></script>
-    <script src="{% static 'js/video-system.js' %}" defer></script>
-    <script src="{% static 'js/base.js' %}" defer></script>
+    <!-- ===== JAVASCRIPT ARCHITECTURE 2.0 (MODULES) ===== -->
+    
+    <!-- Core Systems (порядок критичний!) -->
+    <script src="{% static 'js/core/config.js' %}" type="module"></script>
+    <script src="{% static 'js/core/utils.js' %}" type="module"></script>
+    <script src="{% static 'js/core/storage.js' %}" type="module"></script>
+    <script src="{% static 'js/core/observers.js' %}" type="module"></script>
+    <script src="{% static 'js/core/analytics.js' %}" type="module"></script>
+
+    <!-- Main Systems -->
+    <script src="{% static 'js/systems/mobile-core.js' %}" defer></script>
+    <script src="{% static 'js/systems/video-system.js' %}" defer></script>
+    <script src="{% static 'js/systems/app-core.js' %}" defer></script>
+
+    <!-- Page specific (тільки для поточної сторінки) -->
     {% block extra_js %}{% endblock %}
 
-    <!-- CSRF Token for AJAX -->
-    {% csrf_token %}
-
-    <!-- Analytics (буде додано пізніше) -->
     {% block analytics %}{% endblock %}
 </body>
 
 </html>
+

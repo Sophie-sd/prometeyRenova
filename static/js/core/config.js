@@ -1,60 +1,164 @@
 /**
- * GLOBAL CONFIGURATION (2025)
- * Централізовані константи та налаштування
+ * CONFIG.JS - Центральний конфігураційний файл
+ * Всі константи, endpoints, event names
+ * Версія: 2.0 (2025)
  */
 
-export const Config = {
-    // Breakpoints (синхронізовані з CSS)
+export const CONFIG = {
+    // ===== API ENDPOINTS =====
+    endpoints: {
+        formSubmit: '/forms/submit/',
+        formTest: '/forms/test/',
+        languageSet: '/i18n/set_language/',
+        eventsFilter: '/events/ajax/filter/',
+        blogSearch: '/blog/search/',
+    },
+
+    // ===== EVENT NAMES =====
+    events: {
+        // System
+        initialized: 'app:initialized',
+        ready: 'app:ready',
+        
+        // MobileCore
+        mobileCoreInit: 'mobilecore:initialized',
+        viewportChange: 'mobilecore:viewportchange',
+        
+        // VideoSystem
+        videoLoaded: 'videosystem:video:loaded',
+        videoPlaying: 'videosystem:video:playing',
+        videoError: 'videosystem:video:error',
+        videoAutoplayFailed: 'videosystem:video:autoplay-failed',
+        
+        // Navigation
+        menuOpen: 'menu:opened',
+        menuClose: 'menu:closed',
+        
+        // Modals
+        modalOpen: 'modal:opened',
+        modalClose: 'modal:closed',
+        
+        // Forms
+        formSubmit: 'form:submit',
+        formSuccess: 'form:success',
+        formError: 'form:error',
+    },
+
+    // ===== TIMEOUTS & DELAYS =====
+    timing: {
+        scrollThreshold: 50,
+        menuTransition: 400,
+        notificationDuration: 5000,
+        debounceDelay: 100,
+        videoLoadTimeout: 10000,
+        autoAdvanceDelay: 500,
+        touchFeedbackMin: 100,
+    },
+
+    // ===== ANIMATION SETTINGS =====
+    animation: {
+        intersectionThreshold: 0.1,
+        intersectionMargin: '0px 0px -50px 0px',
+        scrollBehavior: 'smooth',
+        scrollOffset: 80,
+    },
+
+    // ===== STORAGE KEYS =====
+    storage: {
+        userData: 'prometey_user_data',
+        calculatorAnswers: 'calculator_answers',
+        language: 'prometey_language',
+        theme: 'prometey_theme',
+    },
+
+    // ===== FORM TYPES =====
+    formTypes: {
+        test: 'test',
+        contact: 'contact',
+        developer: 'developer',
+        siteRequest: 'site_request',
+        callRequest: 'call_request',
+        eventRegistration: 'event_registration',
+    },
+
+    // ===== MODAL IDS =====
+    modals: {
+        developer: 'developer-modal',
+        siteRequest: 'site-request-modal',
+        testResult: 'test-result-modal',
+        thankYou: 'thank-you-modal',
+        callRequest: 'call-request-modal',
+        eventRegistration: 'event-registration-modal',
+    },
+
+    // ===== SELECTORS (часто використовувані) =====
+    selectors: {
+        nav: '.main-navigation',
+        burgerBtn: '.burger-menu',
+        mobileMenu: '.mobile-menu',
+        modal: '.modal',
+        form: 'form[data-form-type]',
+        card: '.card, .blog-card, .event-card, .service-card',
+        video: 'video',
+        lazyVideo: '.lazy-video',
+    },
+
+    // ===== BREAKPOINTS (синхронізовані з CSS) =====
     breakpoints: {
         mobile: 767,
         tablet: 1024,
-        desktop: 1200
+        desktop: 1200,
     },
-    
-    // Animations
-    animations: {
-        duration: {
-            fast: 150,
-            normal: 300,
-            slow: 500
-        },
-        easing: {
-            default: 'ease-out',
-            bounce: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-            smooth: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-        }
+
+    // ===== FEATURE FLAGS =====
+    features: {
+        enableAnalytics: true,
+        enableAnimations: true,
+        enableHaptic: true,
+        enableNotifications: true,
+        enableDebugLog: false,
     },
-    
-    // Video settings
-    video: {
-        loadStrategy: 'lazy', // 'eager', 'lazy', 'progressive'
-        autoplay: true,
-        preload: {
-            mobile: 'metadata',
-            desktop: 'auto'
-        }
+
+    // ===== ANALYTICS =====
+    analytics: {
+        trackPageView: true,
+        trackClicks: true,
+        trackScroll: true,
+        trackForms: true,
+        engagementTime: 30, // seconds
     },
-    
-    // Performance
-    performance: {
-        debounceDelay: 100,
-        throttleDelay: 16, // ~60fps
-        lazyLoadMargin: '50px'
-    },
-    
-    // Debug
-    debug: {
-        enabled: false, // Буде перевизначено DebugManager
-        logLevel: 'info'
-    }
 };
 
-// Helper functions
-export const isMobile = () => window.innerWidth <= Config.breakpoints.mobile;
-export const isTablet = () => window.innerWidth > Config.breakpoints.mobile && 
-                               window.innerWidth <= Config.breakpoints.tablet;
-export const isDesktop = () => window.innerWidth > Config.breakpoints.tablet;
+// ===== HELPER: Get CSS Variable =====
+export function getCSSVar(varName) {
+    return getComputedStyle(document.documentElement)
+        .getPropertyValue(varName)
+        .trim();
+}
 
-// Global access
-window.Config = Config;
+// ===== HELPER: Is Mobile =====
+export function isMobile() {
+    return window.innerWidth <= CONFIG.breakpoints.mobile;
+}
 
+// ===== HELPER: Is Tablet =====
+export function isTablet() {
+    return window.innerWidth > CONFIG.breakpoints.mobile && 
+           window.innerWidth <= CONFIG.breakpoints.tablet;
+}
+
+// ===== HELPER: Is Desktop =====
+export function isDesktop() {
+    return window.innerWidth > CONFIG.breakpoints.tablet;
+}
+
+// ===== EXPORT (HYBRID - працює як module і як script) =====
+window.AppConfig = CONFIG;
+
+// ES Module export (якщо завантажується як module)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = CONFIG;
+}
+
+// Для import в інших modules
+export default CONFIG;

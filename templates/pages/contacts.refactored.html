@@ -1,0 +1,143 @@
+{% extends 'base.refactored.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block page_name %}contacts{% endblock %}
+{% block title %}Контакти | PrometeyLabs{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/contacts.refactored.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="contacts-page">
+    <section class="contacts-header">
+        <div class="container">
+            <h1 class="mega-title">КОНТАКТИ</h1>
+            <p class="subtitle">Залишайтеся на зв'язку з нами</p>
+        </div>
+    </section>
+
+    <section class="contacts-main">
+        <div class="container">
+            <div class="contacts-grid">
+                <div class="contacts-info">
+                    <div class="contact-block">
+                        <h2 class="medium-title">Зв'язок з нами</h2>
+                        <p class="contact-text">Потрібна консультація? Маєте питання про наші послуги? 
+                           Зв'яжіться з нами будь-яким зручним способом:</p>
+
+                        <div class="contact-item">
+                            <h3>Телефон</h3>
+                            <a href="tel:+380XXXXXXXXX" class="contact-link">+380 XX XXX XX XX</a>
+                        </div>
+
+                        <div class="contact-item">
+                            <h3>Email</h3>
+                            <a href="mailto:info@prometeylabs.com" class="contact-link">info@prometeylabs.com</a>
+                        </div>
+
+                        <div class="contact-item">
+                            <h3>Месенджери</h3>
+                            <div class="messengers">
+                                <a href="https://t.me/prometeylabs" class="messenger-link" target="_blank">Telegram</a>
+                                <a href="https://wa.me/380XXXXXXXXX" class="messenger-link" target="_blank">WhatsApp</a>
+                                <a href="viber://chat?number=%2B380XXXXXXXXX" class="messenger-link" target="_blank">Viber</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <h3>Графік роботи</h3>
+                            <p>Пн-Пт: 9:00 - 18:00<br>Сб-Нд: За домовленістю</p>
+                        </div>
+
+                        <div class="contact-item">
+                            <h3>Соціальні мережі</h3>
+                            <div class="social-links">
+                                <a href="https://instagram.com/prometeylabs" class="social-link" target="_blank">Instagram</a>
+                                <a href="https://facebook.com/prometeylabs" class="social-link" target="_blank">Facebook</a>
+                                <a href="https://linkedin.com/company/prometeylabs" class="social-link" target="_blank">LinkedIn</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <div class="contact-form-wrapper">
+                        <h2 class="medium-title">Напишіть нам</h2>
+                        <p class="form-intro">Заповніть форму, і ми зв'яжемося з вами протягом 15 хвилин</p>
+
+                        <form id="contactForm" class="contact-form" data-form-type="contact">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="name" class="form-label">Ваше ім'я <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" class="form-input mobile-form-input" 
+                                       required placeholder="Ім'я">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Телефон <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" class="form-input mobile-form-input" 
+                                       required placeholder="+380">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" name="email" class="form-input mobile-form-input" 
+                                       placeholder="email@example.com">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="message" class="form-label">Повідомлення</label>
+                                <textarea id="message" name="message" class="form-textarea mobile-form-input" 
+                                          rows="5" placeholder="Опишіть ваш проект або задайте питання"></textarea>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <button type="submit" class="submit-btn mobile-touch-target">Надіслати повідомлення</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="decorative-element">
+        <span class="red-star">★</span>
+    </div>
+
+    <section class="location-section">
+        <div class="container">
+            <h2 class="medium-title">Де ми знаходимось</h2>
+            <div class="location-grid">
+                <div class="address-block">
+                    <h3>Адреса офісу</h3>
+                    <p>Київ, Україна<br>вул. Хрещатик, 1<br>Офіс 101</p>
+
+                    <h3 class="mt-40">Як нас знайти</h3>
+                    <ul class="direction-list">
+                        <li>Метро "Хрещатик" - 5 хвилин пішки</li>
+                        <li>Автобуси 14, 18, 38 - зупинка "Центральна"</li>
+                        <li>Парковка перед будівлею</li>
+                    </ul>
+                </div>
+
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <div class="map-text">
+                            <p>Карта з місцерозташуванням</p>
+                            <p class="small-text">Буде завантажена після підтвердження</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/contacts.refactored.js' %}" type="module"></script>
+{% endblock %}
+
