@@ -98,8 +98,7 @@
             {% for post in page_obj %}
             <article class="blog-card" data-article="{{ forloop.counter }}">
                 <div class="card-header">
-                    <span class="article-number text-page color-brand-orange">{{ forloop.counter|stringformat:"02d"
-                        }}</span>
+                    <span class="article-number text-page color-brand-orange">{{ forloop.counter|stringformat:"02d" }}</span>
                     <div class="card-meta">
                         <time class="article-date text-small">{{ post.created_at|date:"d.m.Y" }}</time>
                         <span class="reading-time-small">⏱ {{ post.get_reading_time_text }}</span>
