@@ -240,7 +240,7 @@
 .courses-section {
     position: relative;
     padding: var(--space-xl) 0;
-    background: var(--color-black);
+    background: var(--color-beige);
     z-index: 10;
 }
 
@@ -282,7 +282,7 @@
 
 .course-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(220, 20, 60, 0.15);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.15);
 }
 
 .course-number {

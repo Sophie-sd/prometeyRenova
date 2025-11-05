@@ -118,7 +118,7 @@
     height: auto;
     object-fit: contain;
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(220, 20, 60, 0.25);
+    box-shadow: 0 4px 16px rgba(230, 81, 0, 0.25);
 }
 
 /* DESKTOP: спрощені анімації та hover ефекти тільки на великих екранах */
@@ -129,7 +129,7 @@
 
     .project-video video:hover {
         transform: scale(1.02);
-        box-shadow: 0 6px 24px rgba(220, 20, 60, 0.35);
+        box-shadow: 0 6px 24px rgba(230, 81, 0, 0.35);
     }
 }
 
@@ -297,7 +297,7 @@
         height: auto;
         object-fit: contain;
         border-radius: 16px;
-        box-shadow: 0 6px 24px rgba(220, 20, 60, 0.3);
+        box-shadow: 0 6px 24px rgba(230, 81, 0, 0.3);
     }
 
     .desktop-video {
