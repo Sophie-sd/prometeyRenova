@@ -420,6 +420,11 @@
     font-size: 16px;
     line-height: 1.7;
     color: var(--color-black);
+    
+    /* ЖУРНАЛЬНІ КОЛОНКИ - як в NY Times */
+    column-count: 2;
+    column-gap: 40px;
+    column-rule: 1px solid rgba(220, 20, 60, 0.2);
 }
 
 .article-text h2 {
@@ -427,27 +432,43 @@
     font-weight: 700;
     color: var(--color-brand-orange);
     margin: var(--space-md) 0 var(--space-sm);
+    
+    /* Заголовки розривають колонки - займають всю ширину */
+    column-span: all;
+    text-align: left;
 }
 
 .article-text h3 {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
     color: var(--color-black);
     margin: var(--space-sm) 0 var(--space-xs);
+    
+    /* Підзаголовки всередині колонок */
+    break-after: avoid;
 }
 
 .article-text p {
     margin-bottom: var(--space-sm);
+    text-align: justify;
+    hyphens: auto;
+}
+
+.article-text strong {
+    font-weight: 700;
+    color: var(--color-black);
 }
 
 .article-text ul,
 .article-text ol {
     margin: var(--space-sm) 0;
     padding-left: var(--space-md);
+    break-inside: avoid;
 }
 
 .article-text li {
     margin-bottom: var(--space-xs);
+    line-height: 1.6;
 }
 
 .article-text blockquote {
@@ -457,6 +478,8 @@
     font-style: italic;
     color: var(--color-black);
     opacity: 0.8;
+    break-inside: avoid;
+    column-span: all;
 }
 
 .article-keywords-section {
@@ -688,6 +711,13 @@
     .article-content {
         padding: var(--space-md) 0;
     }
+    
+    /* На планшетах - теж 2 колонки але вужчі */
+    .article-text {
+        column-count: 2;
+        column-gap: 30px;
+        font-size: 15px;
+    }
 
     .related-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -818,6 +848,14 @@
 
     .article-text {
         font-size: 16px;
+        /* На мобільних - одна колонка */
+        column-count: 1;
+        column-gap: 0;
+        column-rule: none;
+    }
+    
+    .article-text p {
+        text-align: left;
     }
 
     .related-grid {

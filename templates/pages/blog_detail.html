@@ -47,7 +47,7 @@
         <div class="container">
             <div class="content-wrapper">
                 <div class="article-text">
-                    {{ post.content|safe }}
+                    {{ post.get_clean_content|safe }}
                 </div>
 
                 <!-- Article Keywords -->

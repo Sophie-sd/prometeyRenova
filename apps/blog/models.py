@@ -77,3 +77,58 @@ class BlogPost(models.Model):
             return f"{self.reading_time} хвилини"
         else:
             return f"{self.reading_time} хвилин"
+    
+    def get_clean_content(self):
+        """Повертає контент без зірочок та форматований для журнального стилю"""
+        import re
+        content = self.content
+        
+        # Прибираємо подвійні зірочки (жирний текст в markdown)
+        content = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', content)
+        
+        # Прибираємо одинарні зірочки
+        content = content.replace('*', '')
+        
+        # Конвертуємо markdown заголовки в HTML
+        content = re.sub(r'^### (.+)$', r'<h3>\1</h3>', content, flags=re.MULTILINE)
+        content = re.sub(r'^## (.+)$', r'<h2>\1</h2>', content, flags=re.MULTILINE)
+        content = re.sub(r'^# (.+)$', r'<h1>\1</h1>', content, flags=re.MULTILINE)
+        
+        # Конвертуємо параграфи
+        lines = content.split('\n')
+        formatted_lines = []
+        in_paragraph = False
+        
+        for line in lines:
+            line = line.strip()
+            if not line:
+                if in_paragraph:
+                    formatted_lines.append('</p>')
+                    in_paragraph = False
+                formatted_lines.append('')
+            elif line.startswith('<h') or line.startswith('</h'):
+                if in_paragraph:
+                    formatted_lines.append('</p>')
+                    in_paragraph = False
+                formatted_lines.append(line)
+            elif line.startswith('-'):
+                if in_paragraph:
+                    formatted_lines.append('</p>')
+                    in_paragraph = False
+                if not any(l.strip().startswith('<ul>') for l in formatted_lines[-3:]):
+                    formatted_lines.append('<ul>')
+                formatted_lines.append(f'<li>{line[1:].strip()}</li>')
+            else:
+                if not in_paragraph and not line.startswith('<'):
+                    formatted_lines.append('<p>')
+                    in_paragraph = True
+                formatted_lines.append(line)
+        
+        if in_paragraph:
+            formatted_lines.append('</p>')
+        
+        # Закриваємо ul якщо відкриті
+        content = '\n'.join(formatted_lines)
+        content = re.sub(r'(<li>.*?</li>)\n(?!<li>|</ul>)', r'\1\n</ul>\n', content, flags=re.DOTALL)
+        
+        return content
