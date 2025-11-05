@@ -165,7 +165,7 @@
     position: relative;
     width: 100%;
     padding: var(--space-xl) 0;
-    background: var(--color-beige);
+    background: var(--color-black);
     z-index: var(--z-content-base);
 }
 
@@ -175,6 +175,7 @@
 
 .projects-content h2 {
     margin-bottom: var(--space-lg);
+    color: var(--color-brand-orange);
 }
 
 /* Stories Wrapper - horizontal scroll container */
@@ -222,28 +223,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    min-width: 90px;
+    gap: var(--space-xs);
+    min-width: 270px;
     cursor: pointer;
     text-decoration: none;
     transition: transform var(--transition-normal) var(--easing-default);
 }
 
 .project-story:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
 }
 
 .project-story:active {
-    transform: scale(0.95);
+    transform: scale(0.98);
 }
 
 /* Story Ring - Instagram gradient border */
 .project-story-ring {
     position: relative;
-    width: 90px;
-    height: 90px;
+    width: 270px;
+    height: 270px;
     border-radius: 50%;
-    padding: 3px;
+    padding: 8px;
     background: linear-gradient(
         135deg,
         var(--color-brand-orange) 0%,
@@ -252,13 +253,13 @@
         #FFB74D 75%,
         var(--color-brand-orange) 100%
     );
-    box-shadow: var(--shadow-orange-md);
+    box-shadow: var(--shadow-orange-lg);
     transition: all var(--transition-normal) var(--easing-default);
 }
 
 .project-story:hover .project-story-ring {
-    box-shadow: var(--shadow-orange-lg);
-    transform: scale(1.05);
+    box-shadow: 0 30px 80px rgba(230, 81, 0, 0.4);
+    transform: scale(1.03);
 }
 
 /* Story Image Container */
@@ -288,28 +289,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
     border-radius: 50%;
 }
 
 .project-logo-placeholder span {
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 72px;
+    font-weight: 900;
     color: var(--color-brand-orange);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
+    line-height: 1;
 }
 
 /* Story Name */
 .project-story-name {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--color-black);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-white);
     text-align: center;
-    max-width: 90px;
+    max-width: 270px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     transition: color var(--transition-fast) var(--easing-default);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .project-story:hover .project-story-name {
@@ -343,6 +346,28 @@
 
 .projects-stories-container:not(.grabbing) {
     cursor: grab;
+}
+
+/* Декоративні елементи як в services */
+.projects-section::before {
+    content: '★';
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    color: var(--color-brand-orange);
+    font-size: 32px;
+    opacity: 0.5;
+}
+
+.projects-section::after {
+    content: '→';
+    position: absolute;
+    bottom: var(--space-sm);
+    right: var(--space-sm);
+    color: var(--color-brand-orange);
+    font-size: 40px;
+    font-weight: 700;
+    opacity: 0.4;
 }
 
 /* ===== CTA СЕКЦІЯ З ВІДЕО ФОНОМ ===== */
@@ -482,21 +507,22 @@
     }
 
     .project-story-ring {
-        width: 80px;
-        height: 80px;
+        width: 200px;
+        height: 200px;
+        padding: 6px;
     }
 
     .project-story {
-        min-width: 80px;
+        min-width: 200px;
     }
 
     .project-story-name {
-        max-width: 80px;
-        font-size: 11px;
+        max-width: 200px;
+        font-size: 14px;
     }
 
     .project-logo-placeholder span {
-        font-size: 20px;
+        font-size: 56px;
     }
 
     .cta-buttons {
@@ -599,23 +625,23 @@
     }
 
     .project-story-ring {
-        width: 70px;
-        height: 70px;
-        padding: 2.5px;
+        width: 160px;
+        height: 160px;
+        padding: 5px;
     }
 
     .project-story {
-        min-width: 70px;
-        gap: 6px;
+        min-width: 160px;
+        gap: 10px;
     }
 
     .project-story-name {
-        max-width: 70px;
-        font-size: 10px;
+        max-width: 160px;
+        font-size: 13px;
     }
 
     .project-logo-placeholder span {
-        font-size: 18px;
+        font-size: 48px;
     }
 
     /* Touch optimization для stories */
@@ -624,7 +650,20 @@
     }
 
     .project-story:active {
-        transform: scale(0.9);
+        transform: scale(0.95);
+    }
+
+    /* Декоративні елементи для мобільних */
+    .projects-section::before {
+        font-size: 24px;
+        top: var(--space-xs);
+        left: var(--space-xs);
+    }
+
+    .projects-section::after {
+        font-size: 28px;
+        bottom: var(--space-xs);
+        right: var(--space-xs);
     }
 
     .cta-buttons {
