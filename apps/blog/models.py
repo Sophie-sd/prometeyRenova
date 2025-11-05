@@ -98,27 +98,65 @@ class BlogPost(models.Model):
         lines = content.split('\n')
         formatted_lines = []
         in_paragraph = False
+        in_blockquote = False
+        in_list = False
         
-        for line in lines:
+        for i, line in enumerate(lines):
             line = line.strip()
             if not line:
                 if in_paragraph:
                     formatted_lines.append('</p>')
                     in_paragraph = False
+                if in_blockquote:
+                    formatted_lines.append('</blockquote>')
+                    in_blockquote = False
+                if in_list:
+                    formatted_lines.append('</ul>')
+                    in_list = False
                 formatted_lines.append('')
             elif line.startswith('<h') or line.startswith('</h'):
                 if in_paragraph:
                     formatted_lines.append('</p>')
                     in_paragraph = False
+                if in_blockquote:
+                    formatted_lines.append('</blockquote>')
+                    in_blockquote = False
+                if in_list:
+                    formatted_lines.append('</ul>')
+                    in_list = False
                 formatted_lines.append(line)
+            elif line.startswith('>'):
+                # Цитата (blockquote)
+                if in_paragraph:
+                    formatted_lines.append('</p>')
+                    in_paragraph = False
+                if in_list:
+                    formatted_lines.append('</ul>')
+                    in_list = False
+                if not in_blockquote:
+                    formatted_lines.append('<blockquote>')
+                    in_blockquote = True
+                quote_text = line[1:].strip()
+                if quote_text:
+                    formatted_lines.append(f'<p>{quote_text}</p>')
             elif line.startswith('-'):
                 if in_paragraph:
                     formatted_lines.append('</p>')
                     in_paragraph = False
-                if not any(l.strip().startswith('<ul>') for l in formatted_lines[-3:]):
+                if in_blockquote:
+                    formatted_lines.append('</blockquote>')
+                    in_blockquote = False
+                if not in_list:
                     formatted_lines.append('<ul>')
+                    in_list = True
                 formatted_lines.append(f'<li>{line[1:].strip()}</li>')
             else:
+                if in_blockquote:
+                    formatted_lines.append('</blockquote>')
+                    in_blockquote = False
+                if in_list:
+                    formatted_lines.append('</ul>')
+                    in_list = False
                 if not in_paragraph and not line.startswith('<'):
                     formatted_lines.append('<p>')
                     in_paragraph = True
@@ -126,9 +164,11 @@ class BlogPost(models.Model):
         
         if in_paragraph:
             formatted_lines.append('</p>')
+        if in_blockquote:
+            formatted_lines.append('</blockquote>')
+        if in_list:
+            formatted_lines.append('</ul>')
         
-        # Закриваємо ul якщо відкриті
         content = '\n'.join(formatted_lines)
-        content = re.sub(r'(<li>.*?</li>)\n(?!<li>|</ul>)', r'\1\n</ul>\n', content, flags=re.DOTALL)
         
         return content

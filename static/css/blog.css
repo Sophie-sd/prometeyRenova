@@ -449,9 +449,11 @@
 }
 
 .article-text p {
-    margin-bottom: var(--space-sm);
+    margin-bottom: 1.2em;
     text-align: justify;
     hyphens: auto;
+    line-height: 1.6;
+    color: var(--color-black);
 }
 
 .article-text strong {
@@ -472,14 +474,89 @@
 }
 
 .article-text blockquote {
-    border-left: 4px solid var(--color-brand-orange);
-    padding-left: var(--space-sm);
-    margin: var(--space-md) 0;
-    font-style: italic;
-    color: var(--color-black);
-    opacity: 0.8;
+    margin: 3em 0;
+    padding: 0;
+    border: none;
+    text-align: center;
     break-inside: avoid;
     column-span: all;
+    position: relative;
+}
+
+/* Велика іконка подвійних лапок зверху */
+.article-text blockquote::before {
+    content: '"';
+    display: block;
+    font-size: 4em;
+    font-weight: 700;
+    color: var(--color-black);
+    line-height: 1;
+    margin-bottom: 0.5em;
+    font-family: Georgia, serif;
+}
+
+/* Текст цитати - стилізуємо перший параграф */
+.article-text blockquote p {
+    font-size: 1.3em;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--color-black);
+    margin: 0;
+    text-align: center;
+    font-weight: 400;
+    position: relative;
+}
+
+/* Тонка горизонтальна лінія над текстом цитати - перед першим параграфом */
+.article-text blockquote p:first-of-type::before {
+    content: '';
+    display: block;
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    width: 60%;
+    margin: 0 auto 1.5em;
+}
+
+/* Тонка горизонтальна лінія під текстом цитати - після останнього параграфа */
+.article-text blockquote p:last-of-type::after {
+    content: '';
+    display: block;
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    width: 60%;
+    margin: 1.5em auto 0;
+}
+
+/* Джерело/автор цитати */
+.article-text blockquote cite,
+.article-text blockquote .quote-source {
+    display: block;
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 0.5em;
+    font-style: normal;
+    text-align: center;
+    font-weight: 400;
+}
+
+/* Альтернативний варіант: якщо джерело в окремому елементі */
+.article-text blockquote footer {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 0.5em;
+    font-style: normal;
+    text-align: center;
+    font-weight: 400;
+}
+
+/* Допоміжний клас для додаткової лінії (якщо потрібна окрема лінія) */
+.article-text blockquote .quote-divider {
+    display: block;
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    width: 60%;
+    margin: 1.5em auto;
+    height: 0;
 }
 
 .article-keywords-section {
@@ -856,6 +933,24 @@
     
     .article-text p {
         text-align: left;
+    }
+    
+    /* Адаптація цитат для мобільних */
+    .article-text blockquote {
+        margin: 2em 0;
+    }
+    
+    .article-text blockquote::before {
+        font-size: 3em;
+    }
+    
+    .article-text blockquote p {
+        font-size: 1.1em;
+    }
+    
+    .article-text blockquote p:first-of-type::before,
+    .article-text blockquote p:last-of-type::after {
+        width: 80%;
     }
 
     .related-grid {
