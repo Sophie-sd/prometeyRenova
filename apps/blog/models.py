@@ -27,6 +27,9 @@ class BlogPost(models.Model):
         ('telegram-bots', 'Telegram боти'),
         ('business', 'Бізнес'),
         ('technology', 'Технології'),
+        ('ai-development', 'AI розробка'),
+        ('ai-agents', 'AI агенти'),
+        ('ai-automation', 'AI автоматизація'),
     ], default='web-development', verbose_name="Категорія")
     
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Створено")
