@@ -13,6 +13,9 @@ python manage.py collectstatic --no-input
 echo "🗄️  Running migrations..."
 python manage.py migrate
 
+echo "👤 Creating superuser..."
+python manage.py create_superuser
+
 echo "🌱 Seeding initial data (blog posts & events)..."
 python manage.py seed_initial_data
 
