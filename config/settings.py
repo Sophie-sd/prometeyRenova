@@ -152,18 +152,34 @@ SITE_URL = os.environ.get('SITE_URL', 'https://www.prometeylabs.com')
 if DEBUG:
     SITE_URL = 'http://localhost:8001'
 
-# CSRF налаштування
+# CSRF налаштування - ВИПРАВЛЕНО
+# Завжди включаємо основні домени
+CSRF_TRUSTED_ORIGINS = [
+    'https://www.prometeylabs.com',
+    'https://prometeylabs.com',
+]
+
+# Додаємо динамічний RENDER URL якщо є
 RENDER_EXTERNAL_URL = os.environ.get('RENDER_EXTERNAL_URL', '').rstrip('/')
 if RENDER_EXTERNAL_URL:
     from urllib.parse import urlparse
     parsed = urlparse(RENDER_EXTERNAL_URL)
     origin = f"{parsed.scheme}://{parsed.netloc}" if parsed.scheme and parsed.netloc else RENDER_EXTERNAL_URL
-    CSRF_TRUSTED_ORIGINS = [origin]
+    if origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(origin)
     host = parsed.netloc or origin.replace('https://', '').replace('http://', '')
     if host and host not in ALLOWED_HOSTS:
         ALLOWED_HOSTS.append(host)
-else:
-    CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://0.0.0.0:8000']
+
+# Для локальної розробки
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS.extend([
+        'http://localhost:8000',
+        'http://localhost:8001', 
+        'http://127.0.0.1:8000',
+        'http://127.0.0.1:8001',
+        'http://0.0.0.0:8000'
+    ])
 
 # Security headers (тільки для продакшн)
 if not DEBUG:
