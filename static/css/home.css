@@ -20,8 +20,8 @@
     will-change: transform;
 }
 
-/* SVG Background - ліва половина, центрований по висоті */
-.services-projects-wrapper::before {
+/* SVG Background - ВИДАЛЕНО для performance */
+/* .services-projects-wrapper::before {
     content: '';
     position: absolute;
     left: 0;
@@ -36,7 +36,7 @@
     opacity: 0.05;
     pointer-events: none;
     z-index: 0;
-}
+} */
 
 /* Subsections */
 .services-subsection,
@@ -409,8 +409,8 @@
     cursor: grab;
 }
 
-/* Декоративні елементи для unified wrapper */
-.services-projects-wrapper::after {
+/* Декоративні елементи для unified wrapper - ВИДАЛЕНО */
+/* .services-projects-wrapper::after {
     content: '★';
     position: absolute;
     top: var(--space-sm);
@@ -419,7 +419,7 @@
     font-size: 32px;
     opacity: 0.5;
     z-index: 2;
-}
+} */
 
 /* ===== CTA СЕКЦІЯ З ВІДЕО ФОНОМ ===== */
 .cta-section {
@@ -511,9 +511,10 @@
         padding-top: 50px;
     }
 
-    .services-projects-wrapper::before {
+    /* SVG фон - ВИДАЛЕНО */
+    /* .services-projects-wrapper::before {
         opacity: 0.03;
-    }
+    } */
 
     .services-subsection {
         margin-bottom: 30px;
@@ -604,12 +605,12 @@
         padding-top: 40px;
     }
 
-    /* SVG фон - приховати або зменшити на мобільних */
-    .services-projects-wrapper::before {
+    /* SVG фон - ВИДАЛЕНО */
+    /* .services-projects-wrapper::before {
         opacity: 0.02;
         width: 70%;
         left: 15%;
-    }
+    } */
 
     .services-subsection {
         margin-bottom: 30px;
@@ -694,12 +695,12 @@
         transform: scale(0.95);
     }
 
-    /* Декоративні елементи для мобільних */
-    .services-projects-wrapper::after {
+    /* Декоративні елементи для мобільних - ВИДАЛЕНО */
+    /* .services-projects-wrapper::after {
         font-size: 24px;
         top: var(--space-xs);
         right: var(--space-xs);
-    }
+    } */
 
     .cta-buttons {
         flex-direction: column;
