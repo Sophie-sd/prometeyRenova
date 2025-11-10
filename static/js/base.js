@@ -76,6 +76,7 @@ class PrometeyApp {
         if (!this.elements.nav) return;
 
         let ticking = false;
+        let scrollTimeout;
 
         const handleScroll = () => {
             if (!ticking) {
@@ -83,6 +84,15 @@ class PrometeyApp {
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
                     this.elements.nav.classList.toggle('scrolled', scrollTop > this.config.scrollThreshold);
+
+                    // Додати клас .is-scrolling під час скролу
+                    document.documentElement.classList.add('is-scrolling');
+
+                    // Видалити клас після закінчення скролу
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        document.documentElement.classList.remove('is-scrolling');
+                    }, 150);
 
                     ticking = false;
                 });
@@ -110,7 +120,7 @@ class PrometeyApp {
                     const offsetTop = target.offsetTop - 80;
                     window.scrollTo({ top: offsetTop, behavior: 'smooth' });
                 }
-            });
+            }, { passive: false }); // НЕ passive через preventDefault
         });
     }
 
@@ -492,17 +502,23 @@ class PrometeyApp {
         const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
         if (animatedElements.length === 0) return;
-        if (!('IntersectionObserver' in window)) return;
+        if (!('IntersectionObserver' in window)) {
+            // Fallback: показати всі елементи
+            animatedElements.forEach(el => el.classList.add('visible'));
+            return;
+        }
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    // Відключити спостереження після появи (performance)
+                    observer.unobserve(entry.target);
                 }
             });
         }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.05, // Менший threshold
+            rootMargin: '0px 0px -20px 0px'
         });
 
         animatedElements.forEach(el => observer.observe(el));

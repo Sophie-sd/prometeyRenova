@@ -14,6 +14,10 @@
     padding: var(--space-xl) 0;
     padding-top: 60px;
     overflow: hidden;
+
+    /* Performance optimizations */
+    contain: layout style paint;
+    will-change: transform;
 }
 
 /* SVG Background - ліва половина, центрований по висоті */
@@ -67,11 +71,16 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    transition: all 0.4s ease-out;
+    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
     border-radius: 20px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, 0.1);
+
+    /* GPU acceleration */
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* Фонові зображення для карток послуг */
@@ -116,9 +125,15 @@
 
 .service-card:hover {
     border-color: rgba(220, 20, 60, 0.6);
-    transform: translateY(-10px) scale(1.03);
+    transform: translate3d(0, -10px, 0) scale(1.03);
     box-shadow: 0 25px 60px rgba(220, 20, 60, 0.3);
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Відключити hover під час скролу */
+.is-scrolling .service-card:hover {
+    transform: translate3d(0, 0, 0);
+    box-shadow: none;
 }
 
 /* Контент картки - без постійних тіней */
@@ -145,18 +160,27 @@
     opacity: 0.8;
     line-height: 1;
     text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
-    transition: all 0.4s ease-out;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out, text-shadow 0.4s ease-out;
     z-index: 10;
     background: linear-gradient(135deg, var(--color-brand-orange), #FF8A50);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+
+    /* GPU acceleration */
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
 }
 
 .service-card:hover .service-number {
-    transform: scale(1.1) rotate(-5deg);
+    transform: translate3d(0, 0, 0) scale(1.1) rotate(-5deg);
     opacity: 1;
     text-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Відключити hover під час скролу */
+.is-scrolling .service-card:hover .service-number {
+    transform: translate3d(0, 0, 0);
 }
 
 .service-title {
@@ -224,6 +248,10 @@
     /* Custom scrollbar */
     scrollbar-width: thin;
     scrollbar-color: var(--color-brand-orange) transparent;
+
+    /* Performance optimizations */
+    -webkit-overflow-scrolling: touch;
+    will-change: scroll-position;
 }
 
 .projects-stories-container::-webkit-scrollbar {
@@ -255,14 +283,24 @@
     cursor: pointer;
     text-decoration: none;
     transition: transform var(--transition-normal) var(--easing-default);
+
+    /* GPU acceleration */
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    will-change: transform;
 }
 
 .project-story:hover {
-    transform: translateY(-10px);
+    transform: translate3d(0, -10px, 0);
 }
 
 .project-story:active {
-    transform: scale(0.98);
+    transform: translate3d(0, 0, 0) scale(0.98);
+}
+
+/* Відключити hover під час скролу */
+.is-scrolling .project-story:hover {
+    transform: translate3d(0, 0, 0);
 }
 
 /* Story Ring - Instagram gradient border */
@@ -676,21 +714,26 @@
 /* ===== АНІМАЦІЇ ===== */
 .service-card {
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease-out;
+    transform: translate3d(0, 20px, 0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .service-card.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
 }
 
 /* Відключення анімацій для accessibility */
 @media (prefers-reduced-motion: reduce) {
     .service-card {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
         transition: none;
+    }
+
+    .service-card:hover,
+    .project-story:hover {
+        transform: translate3d(0, 0, 0);
     }
 }
 
@@ -708,6 +751,37 @@
 }
 
 /* ===== PERFORMANCE OPTIMIZATIONS ===== */
-.service-card {
-    will-change: transform;
+
+/* Відключити pointer events під час скролу для кращого performance */
+.is-scrolling * {
+    pointer-events: none !important;
+}
+
+/* Відключити дорогі ефекти під час скролу */
+.is-scrolling .service-card {
+    transition: none;
+}
+
+.is-scrolling .project-story {
+    transition: none;
+}
+
+.is-scrolling .service-card-overlay {
+    transition: none;
+}
+
+/* Mobile: відключити всі hover */
+@media (hover: none) and (pointer: coarse) {
+    .service-card:hover {
+        transform: translate3d(0, 0, 0);
+        box-shadow: none;
+    }
+
+    .project-story:hover {
+        transform: translate3d(0, 0, 0);
+    }
+
+    .service-card:hover .service-number {
+        transform: translate3d(0, 0, 0);
+    }
 }

@@ -14,17 +14,24 @@ document.addEventListener('DOMContentLoaded', () => {
 function initServiceAnimations() {
     const serviceCards = document.querySelectorAll('.service-card');
     if (serviceCards.length === 0) return;
-    if (!('IntersectionObserver' in window)) return;
+    if (!('IntersectionObserver' in window)) {
+        // Fallback: показати всі картки одразу
+        serviceCards.forEach(card => card.classList.add('visible'));
+        return;
+    }
 
+    // Оптимізований observer з меншим threshold
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                // Відключити спостереження після появи (performance)
+                observer.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.05, // Менший threshold = швидша реакція
+        rootMargin: '0px 0px -20px 0px' // Менший margin
     });
 
     serviceCards.forEach(card => observer.observe(card));
@@ -34,18 +41,18 @@ function initServiceAnimations() {
 function initProjectStories() {
     const storiesContainer = document.querySelector('.projects-stories-container');
     const projectStories = document.querySelectorAll('.project-story');
-    
+
     if (!storiesContainer || projectStories.length === 0) return;
 
     // Horizontal drag scroll для stories
     setupStoriesDragScroll(storiesContainer);
-    
+
     // Click handlers with navigation
     setupStoryClickHandlers(projectStories);
-    
+
     // Keyboard navigation
     setupKeyboardNavigation(storiesContainer, projectStories);
-    
+
     // Touch feedback для mobile
     setupTouchFeedback(projectStories);
 }
@@ -58,9 +65,9 @@ function setupStoriesDragScroll(container) {
     let lastX = 0;
     let lastTime = Date.now();
 
-    // Mouse events для desktop
+    // Mouse events для desktop (passive де можливо)
     container.addEventListener('mousedown', (e) => {
-        if (e.target.closest('.project-story')) return; // Don't interfere with clicks
+        if (e.target.closest('.project-story')) return;
         isDown = true;
         container.classList.add('grabbing');
         startX = e.pageX - container.offsetLeft;
@@ -68,30 +75,31 @@ function setupStoriesDragScroll(container) {
         velocity = 0;
         lastX = e.pageX;
         lastTime = Date.now();
-    });
+    }, { passive: true });
 
     container.addEventListener('mouseleave', () => {
         isDown = false;
         container.classList.remove('grabbing');
-    });
+    }, { passive: true });
 
     container.addEventListener('mouseup', () => {
         isDown = false;
         container.classList.remove('grabbing');
-        
+
         // Momentum scrolling
         if (Math.abs(velocity) > 0.5) {
             applyMomentumScroll(container, velocity);
         }
-    });
+    }, { passive: true });
 
+    // НЕ passive бо є preventDefault
     container.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - container.offsetLeft;
         const walk = (x - startX) * 2;
         container.scrollLeft = scrollLeft - walk;
-        
+
         // Calculate velocity
         const now = Date.now();
         const dt = now - lastTime;
@@ -112,16 +120,16 @@ function setupStoriesDragScroll(container) {
 function applyMomentumScroll(container, velocity) {
     let momentum = velocity * 15;
     const friction = 0.95;
-    
+
     function step() {
         momentum *= friction;
         container.scrollLeft -= momentum;
-        
+
         if (Math.abs(momentum) > 0.5) {
             requestAnimationFrame(step);
         }
     }
-    
+
     requestAnimationFrame(step);
 }
 
@@ -129,14 +137,14 @@ function setupStoryClickHandlers(stories) {
     stories.forEach(story => {
         story.addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             const projectId = story.getAttribute('data-project-id');
             const projectUrl = story.getAttribute('href');
-            
+
             // Mark as viewed (optional)
             story.classList.add('viewed');
             localStorage.setItem(`project_${projectId}_viewed`, 'true');
-            
+
             // Navigate to project (коли додасте URL)
             if (projectUrl && projectUrl !== '#') {
                 // Smooth transition before navigation
@@ -149,7 +157,7 @@ function setupStoryClickHandlers(stories) {
                 // Show temporary notification
                 showProjectNotification(projectId);
             }
-            
+
             // Analytics tracking
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'project_click', {
@@ -159,7 +167,7 @@ function setupStoryClickHandlers(stories) {
             }
         });
     });
-    
+
     // Load viewed state from localStorage
     stories.forEach(story => {
         const projectId = story.getAttribute('data-project-id');
@@ -173,15 +181,15 @@ function setupKeyboardNavigation(container, stories) {
     stories.forEach((story, index) => {
         // Make focusable
         story.setAttribute('tabindex', '0');
-        
+
         story.addEventListener('keydown', (e) => {
-            switch(e.key) {
+            switch (e.key) {
                 case 'Enter':
                 case ' ':
                     e.preventDefault();
                     story.click();
                     break;
-                    
+
                 case 'ArrowRight':
                     e.preventDefault();
                     if (index < stories.length - 1) {
@@ -189,7 +197,7 @@ function setupKeyboardNavigation(container, stories) {
                         scrollToStory(container, stories[index + 1]);
                     }
                     break;
-                    
+
                 case 'ArrowLeft':
                     e.preventDefault();
                     if (index > 0) {
@@ -206,7 +214,7 @@ function scrollToStory(container, story) {
     const containerRect = container.getBoundingClientRect();
     const storyRect = story.getBoundingClientRect();
     const scrollLeft = story.offsetLeft - (containerRect.width / 2) + (storyRect.width / 2);
-    
+
     container.scrollTo({
         left: scrollLeft,
         behavior: 'smooth'
@@ -214,23 +222,28 @@ function scrollToStory(container, story) {
 }
 
 function setupTouchFeedback(stories) {
-    // Touch feedback вже є в MobileCore, але додамо специфічний для stories
+    // Touch feedback тільки для touch пристроїв
+    if (!('ontouchstart' in window)) return;
+
     stories.forEach(story => {
         let touchStartTime = 0;
-        
+        let timeoutId;
+
         story.addEventListener('touchstart', () => {
             touchStartTime = Date.now();
             story.classList.add('touch-active');
+            clearTimeout(timeoutId);
         }, { passive: true });
-        
+
         story.addEventListener('touchend', () => {
-            setTimeout(() => {
+            timeoutId = setTimeout(() => {
                 story.classList.remove('touch-active');
             }, 100);
         }, { passive: true });
-        
+
         story.addEventListener('touchcancel', () => {
             story.classList.remove('touch-active');
+            clearTimeout(timeoutId);
         }, { passive: true });
     });
 }
@@ -247,7 +260,7 @@ function showProjectNotification(projectId) {
 
 // ===== ANALYTICS =====
 function initAnalytics() {
-    // Tracking button clicks
+    // Tracking button clicks (passive listener)
     document.addEventListener('click', (e) => {
         const button = e.target.closest('.btn');
         if (button && typeof gtag !== 'undefined') {
@@ -256,16 +269,20 @@ function initAnalytics() {
                 page_location: window.location.href
             });
         }
-    });
+    }, { passive: true });
 
-    // Time on page tracking
+    // Time on page tracking (оптимізовано)
     let timeOnPage = 0;
-    setInterval(() => {
+    let trackedEngagement = false;
+
+    const timeTracker = setInterval(() => {
         timeOnPage += 1;
-        if (timeOnPage === 30 && typeof gtag !== 'undefined') {
+        if (timeOnPage === 30 && !trackedEngagement && typeof gtag !== 'undefined') {
             gtag('event', 'engaged_session', {
                 time_on_page: timeOnPage
             });
+            trackedEngagement = true;
+            clearInterval(timeTracker); // Зупинити після трекінгу
         }
     }, 1000);
 }
