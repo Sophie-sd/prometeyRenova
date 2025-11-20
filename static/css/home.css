@@ -741,7 +741,8 @@
 #service-mobile-modal .modal-backdrop,
 #service-smm-modal .modal-backdrop,
 #service-education-modal .modal-backdrop {
-    background: rgba(0, 0, 0, 0.92);
+    background: rgba(0, 0, 0, 0.95);
+    position: fixed;
 }
 
 #service-web-modal .modal-content,
@@ -767,15 +768,15 @@
 .service-modal-content {
     max-width: 600px;
     max-height: 80vh;
-    margin: 60px auto 40px;
+    margin: 60px auto;
     overflow: hidden;
 }
 
 .service-modal-body {
     max-height: calc(80vh - 100px);
     overflow-y: auto;
-    padding-right: 6px;
-    margin-right: 4px;
+    padding-right: 2px;
+    margin-right: 8px;
 }
 
 .service-modal-body::-webkit-scrollbar {
@@ -834,23 +835,30 @@
 }
 
 @media (max-width: 767px) {
+    #service-web-modal,
+    #service-mobile-modal,
+    #service-smm-modal,
+    #service-education-modal {
+        padding: 10px;
+    }
+    
     .service-modal-content {
-        max-width: 92%;
-        max-height: 85vh;
-        margin: 50px auto 30px;
+        max-width: 100%;
+        max-height: calc(100vh - 90px);
+        margin: 80px 0 10px;
     }
     
     #service-web-modal .modal-content,
     #service-mobile-modal .modal-content,
     #service-smm-modal .modal-content,
     #service-education-modal .modal-content {
-        padding: 40px 24px 20px;
+        padding: 40px 20px 20px;
     }
 
     .service-modal-body {
-        max-height: calc(85vh - 80px);
-        padding-right: 4px;
-        margin-right: 2px;
+        max-height: calc(100vh - 180px);
+        padding-right: 2px;
+        margin-right: 8px;
     }
 
     .service-subtitle {

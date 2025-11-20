@@ -48,14 +48,24 @@ function initServiceModals() {
             if (modal) {
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
                 
                 const closeModal = () => {
                     modal.classList.remove('active');
                     document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.width = '';
                 };
                 
-                modal.querySelector('.modal-close').addEventListener('click', closeModal);
-                modal.querySelector('.modal-backdrop').addEventListener('click', closeModal);
+                const closeBtn = modal.querySelector('.modal-close');
+                const backdrop = modal.querySelector('.modal-backdrop');
+                
+                closeBtn.removeEventListener('click', closeModal);
+                backdrop.removeEventListener('click', closeModal);
+                
+                closeBtn.addEventListener('click', closeModal);
+                backdrop.addEventListener('click', closeModal);
                 
                 document.addEventListener('keydown', function escHandler(e) {
                     if (e.key === 'Escape') {
