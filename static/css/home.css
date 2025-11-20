@@ -751,7 +751,7 @@
 #service-education-modal .modal-content {
     background: #1a1a1a;
     color: var(--color-white);
-    padding: 45px 40px 30px;
+    padding: 45px 35px 45px 40px;
 }
 
 #service-web-modal .modal-close,
@@ -773,18 +773,18 @@
 }
 
 .service-modal-body {
-    max-height: calc(80vh - 100px);
+    max-height: calc(80vh - 140px);
     overflow-y: auto;
     padding-right: 2px;
-    margin-right: 8px;
 }
 
 .service-modal-body::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
 }
 
 .service-modal-body::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.1);
+    margin: 10px 0;
 }
 
 .service-modal-body::-webkit-scrollbar-thumb {
@@ -852,13 +852,20 @@
     #service-mobile-modal .modal-content,
     #service-smm-modal .modal-content,
     #service-education-modal .modal-content {
-        padding: 40px 20px 20px;
+        padding: 40px 18px 40px 20px;
     }
 
     .service-modal-body {
-        max-height: calc(100vh - 180px);
+        max-height: calc(100vh - 200px);
         padding-right: 2px;
-        margin-right: 8px;
+    }
+    
+    .service-modal-body::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .service-modal-body::-webkit-scrollbar-track {
+        margin: 8px 0;
     }
 
     .service-subtitle {
