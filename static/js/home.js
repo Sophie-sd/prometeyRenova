@@ -6,6 +6,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     initServiceAnimations();
+    initServiceModals();
     initProjectStories();
     initAnalytics();
 });
@@ -35,6 +36,36 @@ function initServiceAnimations() {
     });
 
     serviceCards.forEach(card => observer.observe(card));
+}
+
+function initServiceModals() {
+    document.querySelectorAll('.service-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const serviceType = card.dataset.service;
+            const modalId = `service-${serviceType}-modal`;
+            const modal = document.getElementById(modalId);
+            
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                const closeModal = () => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                };
+                
+                modal.querySelector('.modal-close').addEventListener('click', closeModal);
+                modal.querySelector('.modal-backdrop').addEventListener('click', closeModal);
+                
+                document.addEventListener('keydown', function escHandler(e) {
+                    if (e.key === 'Escape') {
+                        closeModal();
+                        document.removeEventListener('keydown', escHandler);
+                    }
+                });
+            }
+        });
+    });
 }
 
 // ===== PROJECT STORIES (Instagram Style) =====

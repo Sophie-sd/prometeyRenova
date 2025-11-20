@@ -69,42 +69,42 @@
                 <!-- Сітка послуг з фоновими зображеннями -->
                 <div class="services-grid">
                     <!-- Картка 1 - Web розробка -->
-                    <div class="service-card" data-service="1">
+                    <div class="service-card" data-service="web">
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">01</span>
-                            <h3 class="service-title">{% trans "Web розробка" %}</h3>
-                            <p class="service-description">{% trans "Сайти під ключ, лендінги, інтернет-магазини" %}</p>
+                            <h3 class="service-title">{% trans "Web-розробка" %}</h3>
+                            <p class="service-description">{% trans "Сайти під ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-боти" %}</p>
                         </div>
                     </div>
 
-                    <!-- Картка 2 - Навчання -->
-                    <div class="service-card" data-service="2">
+                    <!-- Картка 2 - Мобільні додатки -->
+                    <div class="service-card" data-service="mobile">
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">02</span>
-                            <h3 class="service-title">{% trans "Навчання" %}</h3>
-                            <p class="service-description">{% trans "Курси програмування з нуля до junior developer" %}</p>
+                            <h3 class="service-title">{% trans "Мобільні застосунки" %}</h3>
+                            <p class="service-description">{% trans "iOS та Android додатки з сучасним дизайном" %}</p>
                         </div>
                     </div>
 
-                    <!-- Картка 3 - Мобільні додатки -->
-                    <div class="service-card" data-service="3">
+                    <!-- Картка 3 - Реклама та SMM -->
+                    <div class="service-card" data-service="smm">
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">03</span>
-                            <h3 class="service-title">{% trans "Мобільні додатки" %}</h3>
-                            <p class="service-description">{% trans "iOS та Android додатки на React Native" %}</p>
+                            <h3 class="service-title">{% trans "Реклама та ведення соціальних мереж" %}</h3>
+                            <p class="service-description">{% trans "Google Ads, Meta Ads, TikTok Ads, SMM, контент" %}</p>
                         </div>
                     </div>
 
-                    <!-- Картка 4 - SMM -->
-                    <div class="service-card" data-service="4">
+                    <!-- Картка 4 - Навчання -->
+                    <div class="service-card" data-service="education">
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">04</span>
-                            <h3 class="service-title">{% trans "SMM" %}</h3>
-                            <p class="service-description">{% trans "Ведення соціальних мереж та реклама" %}</p>
+                            <h3 class="service-title">{% trans "Навчання" %}</h3>
+                            <p class="service-description">{% trans "Програмування та AI від нуля до працевлаштування" %}</p>
                         </div>
                     </div>
                 </div>
@@ -253,6 +253,123 @@
         </div>
     </div>
 </section>
+<!-- Модальні вікна послуг -->
+<div class="modal" id="service-web-modal" role="dialog" aria-labelledby="service-web-title" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content service-modal-content">
+        <button class="modal-close" type="button" aria-label="Закрити">&times;</button>
+        <div class="modal-header">
+            <h3 class="text-medium color-brand-orange mb-sm" id="service-web-title">Web-розробка</h3>
+        </div>
+        <div class="service-modal-body">
+            <ul class="service-list">
+                <li><strong>Сайти під ключ</strong><br>Landing / корпоративні / багатосторінкові рішення з адаптивним дизайном і SEO.</li>
+                <li><strong>Інтернет-магазини (E-commerce)</strong><br>Каталог, кошик, оплати, доставки, знижки, інтеграції з маркетплейсами.</li>
+                <li><strong>Веб-додатки / SaaS</strong><br>Особисті кабінети, підписки, рольова модель доступів, аналітика, білінг.</li>
+                <li><strong>Telegram-боти</strong><br>Автоматизація бізнесу, продажі, навчальні продукти, інтеграції з CRM та платіжними системами.</li>
+                <li><strong>Оновлення та оптимізація існуючих проєктів</strong><br>Редизайн та ребрендинг, прискорення швидкодії, виправлення помилок, перенесення на інший сервер, моніторинг, посилена безпека.</li>
+            </ul>
+            <h4 class="service-subtitle">Що включає робота:</h4>
+            <p class="service-text">Прототипування → UI/UX дизайн → верстка → бекенд-розробка → інтеграція платіжних систем та CRM/Sheets → налаштування адмін-панелі й доступів → деплой → базова SEO-оптимізація та підключення аналітики/пікселів → тестування безпеки й політик → запуск.</p>
+            <h4 class="service-subtitle">Інтеграції:</h4>
+            <p class="service-text">GA4, Google Tag Manager, Google Search Console, Google Ads, Meta Pixel & Conversions API, TikTok Pixel/Events API, Facebook/Instagram Shop, Telegram Payments, Stripe, LiqPay, WayForPay, Mono Pay, Apple Pay / Google Pay, QuickBooks / 1C, HubSpot / Pipedrive / Bitrix24, Google Sheets, Nova Poshta / Meest, Cloudflare.</p>
+            <h4 class="service-subtitle">Технології:</h4>
+            <p class="service-text">HTML5, CSS3, JavaScript, TypeScript, React, Next.js, Vue, Node.js, Python (Django / FastAPI), PostgreSQL, MySQL, MongoDB, Redis, Docker, NGINX, Firebase, AWS, DigitalOcean, Render, Vercel, WordPress / WooCommerce, Tilda, React Native, Flutter.</p>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="service-mobile-modal" role="dialog" aria-labelledby="service-mobile-title" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content service-modal-content">
+        <button class="modal-close" type="button" aria-label="Закрити">&times;</button>
+        <div class="modal-header">
+            <h3 class="text-medium color-brand-orange mb-sm" id="service-mobile-title">Мобільні застосунки</h3>
+        </div>
+        <div class="service-modal-body">
+            <ul class="service-list">
+                <li><strong>Розробка з нуля</strong><br>Створення мобільних додатків для iOS та Android з сучасним дизайном. CRM-доступи, e-commerce, фінансові сервіси, фітнес/освітні рішення, соцмережі.</li>
+                <li><strong>Підключення оплати та підписок</strong><br>Apple Pay / Google Pay, внутрішні покупки, регулярні підписки, білінг.</li>
+                <li><strong>Push-сповіщення та аналітика</strong><br>Персоналізовані повідомлення, трекінг дій користувачів, збір метрик утримання.</li>
+                <li><strong>Адмін-панель та інтеграції</strong><br>Керування контентом, користувачами, доступами; інтеграція з API, CRM, сторонніми сервісами.</li>
+                <li><strong>Оновлення та оптимізація існуючих застосунків</strong><br>Редизайн, прискорення швидкодії, виправлення помилок, адаптація під нові версії iOS/Android, безпека.</li>
+            </ul>
+            <h4 class="service-subtitle">Що включає робота:</h4>
+            <p class="service-text">UX-прототип → дизайн інтерфейсу → кросплатформенна розробка → інтеграція API та платіжних систем → налаштування push-сповіщень і аналітики → створення адмін-панелі (за потреби) → тестування → публікація у App Store / Google Play → технічна підтримка та оновлення.</p>
+            <h4 class="service-subtitle">Інтеграції:</h4>
+            <p class="service-text">Apple Pay, Google Pay, Firebase (аналітика, пуші, авторізація), AppCenter, Stripe, LiqPay, Mono Pay, Google Maps, соціальні мережі (Facebook, Instagram, TikTok), Google Sheets, QuickBooks, CRM-системи (HubSpot, Bitrix24, Pipedrive), Cloudflare.</p>
+            <h4 class="service-subtitle">Технології:</h4>
+            <p class="service-text">React Native, Flutter, Swift, Kotlin, Java, REST / GraphQL API, Node.js (бекенд), Python (FastAPI / Django), PostgreSQL, MongoDB, Redis, Firebase, Docker, AWS, DigitalOcean, Render.</p>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="service-smm-modal" role="dialog" aria-labelledby="service-smm-title" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content service-modal-content">
+        <button class="modal-close" type="button" aria-label="Закрити">&times;</button>
+        <div class="modal-header">
+            <h3 class="text-medium color-brand-orange mb-sm" id="service-smm-title">Реклама та ведення соціальних мереж</h3>
+        </div>
+        <div class="service-modal-body">
+            <h4 class="service-subtitle">Реклама:</h4>
+            <ul class="service-list">
+                <li><strong>Google Ads</strong> — пошукові, торгові, YouTube-кампанії.</li>
+                <li><strong>Meta Ads (Instagram/Facebook)</strong> — трафік, ліди, заявки в Direct.</li>
+                <li><strong>TikTok Ads</strong> — нативні інтеграції, ін-фід та Spark Ads.</li>
+                <li><strong>SEO</strong> — аудит сайту, технічна оптимізація, семантика та контент, що підвищує видимість у пошуку.</li>
+            </ul>
+            <p class="service-text">Створюємо та налаштовуємо рекламні кабінети, аналізуємо конкурентів і цільову аудиторію, формуємо рекламний бюджет на основі ніші та бізнес-цілей, запускаємо кампанії з прозорою звітністю, регулярно оптимізуємо для максимального результату.</p>
+            <h4 class="service-subtitle">SMM: Instagram / TikTok / Facebook</h4>
+            <p class="service-text">Комплексне ведення соціальних мереж: розробка контент-стратегії та рубрик, створення контент-плану, продакшн (рілси, сторіз, UGC), модерація та робота з ком'юніті, організація інтеграцій і колаборацій, конкурси, запуск і супровід реклами, щомісячна аналітика та звіти.</p>
+            <h4 class="service-subtitle">Створення контенту:</h4>
+            <ul class="service-list">
+                <li><strong>Брендинг та дизайн</strong> — айдентика для бізнесу: логотипи, кольорові та шрифтові гайдлайни, візитки та бейджі, брендовані шаблони для соцмереж, презентації й комерційні пропозиції, упаковка, банери для онлайн і офлайн.</li>
+                <li><strong>Фото / Відео / AI-генерація</strong> — професійні та AI-рішення для контенту: пости, каруселі, сторіз; анімовані та статичні матеріали; відео для Reels/Shorts у будь-якому форматі; AI-відео (Veo-3) зі звуком; AI-аватари та «цифрові двійники»; автоматичні субтитри та тизери; готові контент-паки на місяць.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="service-education-modal" role="dialog" aria-labelledby="service-education-title" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content service-modal-content">
+        <button class="modal-close" type="button" aria-label="Закрити">&times;</button>
+        <div class="modal-header">
+            <h3 class="text-medium color-brand-orange mb-sm" id="service-education-title">Навчання</h3>
+        </div>
+        <div class="service-modal-body">
+            <p class="service-text">Навчання програмуванню та роботі з AI — від абсолютного нуля до створення реальних проєктів. Практика на сучасних технологіях, готові кейси у портфоліо та можливість офіційного працевлаштування в PrometeyLabs для найсильніших випускників.</p>
+            <h4 class="service-subtitle">Для новачків</h4>
+            <p class="service-text">Курси для тих, хто ніколи не програмував:</p>
+            <ul class="service-list">
+                <li>Основи HTML, CSS, JavaScript, Python/Django, React та інші;</li>
+                <li>Робота з базами даних та деплой проєктів;</li>
+                <li>Практика роботи з Git та командні практики;</li>
+                <li>Завершальні проєкти, що формують реальне портфоліо.</li>
+            </ul>
+            <h4 class="service-subtitle">AI для розробників</h4>
+            <p class="service-text">Курси для тих, хто хоче підняти рівень завдяки AI:</p>
+            <ul class="service-list">
+                <li>Основи та види AI, принципи роботи;</li>
+                <li>Платформи й інструменти для щоденного використання;</li>
+                <li>Генерація та оптимізація коду за допомогою AI;</li>
+                <li>Повний курс по LLM, промпт-інженерії та практичних кейсах.</li>
+            </ul>
+            <h4 class="service-subtitle">Практика та підтримка:</h4>
+            <ul class="service-list">
+                <li>Індивідуальні та групові заняття;</li>
+                <li>Постійний зворотний зв'язок від менторів;</li>
+                <li>Код-рев'ю;</li>
+                <li>Реальні бізнес-задачі;</li>
+                <li>Підготовка CV, GitHub та LinkedIn профілю;</li>
+            </ul>
+            <h4 class="service-subtitle">Кар'єра в PrometeyLabs</h4>
+            <p class="service-text">Найсильніші випускники після завершення курсу проходять конкурсний відбір — екзамен та перевірку успішності. Ті, хто підтвердять високий рівень, отримають можливість офіційного працевлаштування в PrometeyLabs як розробники чи дизайнери.</p>
+            <p class="service-text"><strong>Після навчання ви отримаєте готові проєкти у портфоліо, сучасні знання та практичні навички, а також реальний шанс пройти відбір і стати частиною команди PrometeyLabs.</strong></p>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}

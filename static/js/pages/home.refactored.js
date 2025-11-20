@@ -12,28 +12,53 @@ class HomePage {
     }
 
     init() {
-        // Service cards анімація (замість дублювання IntersectionObserver)
         animateOnScroll('.service-card');
-
-        // Analytics вже налаштована глобально в analytics.js
-        // Специфічний tracking якщо потрібен
+        this.setupServiceModals();
         this.setupPageSpecificTracking();
     }
 
+    setupServiceModals() {
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const serviceType = card.dataset.service;
+                const modalId = `service-${serviceType}-modal`;
+                const modal = document.getElementById(modalId);
+                
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    
+                    const closeModal = () => {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    };
+                    
+                    modal.querySelector('.modal-close').addEventListener('click', closeModal);
+                    modal.querySelector('.modal-backdrop').addEventListener('click', closeModal);
+                    
+                    document.addEventListener('keydown', function escHandler(e) {
+                        if (e.key === 'Escape') {
+                            closeModal();
+                            document.removeEventListener('keydown', escHandler);
+                        }
+                    });
+                }
+            });
+        });
+    }
+
     setupPageSpecificTracking() {
-        // Tracking service card interactions
         document.querySelectorAll('.service-card').forEach(card => {
             card.addEventListener('click', () => {
                 const serviceNum = card.dataset.service;
                 analytics.trackCustom('service_card_click', {
-                    service_number: serviceNum,
+                    service_type: serviceNum,
                 });
             });
         });
     }
 }
 
-// ===== AUTO INIT =====
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => new HomePage());
 } else {

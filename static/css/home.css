@@ -84,23 +84,23 @@
 }
 
 /* Фонові зображення для карток послуг */
-.service-card[data-service="1"] {
+.service-card[data-service="web"] {
     background-image: url('/static/images/services/web.png');
     background-color: #1a1a1a;
 }
 
-.service-card[data-service="2"] {
-    background-image: url('/static/images/services/edu.png');
+.service-card[data-service="mobile"] {
+    background-image: url('/static/images/services/mob.png');
     background-color: #2a2a2a;
 }
 
-.service-card[data-service="3"] {
-    background-image: url('/static/images/services/mob.png');
+.service-card[data-service="smm"] {
+    background-image: url('/static/images/services/media.png');
     background-color: #1a1a1a;
 }
 
-.service-card[data-service="4"] {
-    background-image: url('/static/images/services/media.png');
+.service-card[data-service="education"] {
+    background-image: url('/static/images/services/edu.png');
     background-color: #2a2a2a;
 }
 
@@ -784,5 +784,59 @@
 
     .service-card:hover .service-number {
         transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Service Modal */
+.service-modal-content {
+    max-width: 700px;
+}
+
+.service-modal-body {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.service-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-md) 0;
+}
+
+.service-list li {
+    padding: var(--space-xs) 0;
+    border-left: 3px solid var(--color-brand-orange);
+    padding-left: var(--space-sm);
+    margin-bottom: var(--space-sm);
+}
+
+.service-subtitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-brand-orange);
+    margin: var(--space-md) 0 var(--space-xs) 0;
+}
+
+.service-text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+}
+
+@media (max-width: 767px) {
+    .service-modal-content {
+        max-width: 95%;
+    }
+
+    .service-modal-body {
+        max-height: 70vh;
+    }
+
+    .service-subtitle {
+        font-size: 18px;
+    }
+
+    .service-text {
+        font-size: 14px;
     }
 }
