@@ -579,8 +579,11 @@
     }
 
     .service-card {
-        min-height: 500px;
+        aspect-ratio: 1;
+        min-height: 0;
         border-radius: 12px;
+        background-size: cover;
+        background-position: center;
     }
 
     .service-card-overlay {
@@ -594,7 +597,7 @@
     }
 
     .service-number {
-        font-size: 70px;
+        font-size: 90px;
         top: -15px;
         right: -10px;
     }
