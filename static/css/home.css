@@ -615,6 +615,22 @@
         box-shadow: 0 15px 40px rgba(220, 20, 60, 0.35);
     }
 
+    .service-card[data-service="web"] {
+        background-image: url('/static/images/services/web_mob.png');
+    }
+
+    .service-card[data-service="mobile"] {
+        background-image: url('/static/images/services/mob_mob.png');
+    }
+
+    .service-card[data-service="smm"] {
+        background-image: url('/static/images/services/media_mob.png');
+    }
+
+    .service-card[data-service="education"] {
+        background-image: url('/static/images/services/edu_mob.png');
+    }
+
     /* Projects Stories - Mobile */
     .projects-stories-container {
         gap: var(--space-xs);
@@ -835,37 +851,21 @@
 }
 
 @media (max-width: 767px) {
-    #service-web-modal,
-    #service-mobile-modal,
-    #service-smm-modal,
-    #service-education-modal {
-        padding: 10px;
-    }
-    
-    .service-modal-content {
-        max-width: 100%;
-        max-height: calc(100vh - 90px);
-        margin: 80px 0 10px;
-    }
-    
     #service-web-modal .modal-content,
     #service-mobile-modal .modal-content,
     #service-smm-modal .modal-content,
     #service-education-modal .modal-content {
-        padding: 40px 18px 40px 20px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow: hidden;
     }
 
     .service-modal-body {
-        max-height: calc(100vh - 200px);
-        padding-right: 2px;
-    }
-    
-    .service-modal-body::-webkit-scrollbar {
-        width: 4px;
-    }
-    
-    .service-modal-body::-webkit-scrollbar-track {
-        margin: 8px 0;
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
     }
 
     .service-subtitle {
@@ -887,6 +887,7 @@
     
     .modal-header {
         margin-bottom: 12px;
+        flex-shrink: 0;
     }
     
     .modal-header h3 {

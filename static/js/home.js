@@ -47,15 +47,11 @@ function initServiceModals() {
             
             if (modal) {
                 modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                document.body.style.position = 'fixed';
-                document.body.style.width = '100%';
+                document.body.classList.add('modal-open');
                 
                 const closeModal = () => {
                     modal.classList.remove('active');
-                    document.body.style.overflow = '';
-                    document.body.style.position = '';
-                    document.body.style.width = '';
+                    document.body.classList.remove('modal-open');
                 };
                 
                 const closeBtn = modal.querySelector('.modal-close');

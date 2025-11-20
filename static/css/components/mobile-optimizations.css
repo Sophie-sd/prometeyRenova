@@ -210,15 +210,12 @@
 
 /* Мобільні модалки */
 @media (max-width: 767px) {
-    .modal {
-        /* Повноекранні модалки на мобільних */
-        padding: 0;
-        background: var(--color-beige);
-    }
-
     .modal-content {
         width: 100%;
+        max-width: 100%;
+        height: 100vh;
         height: var(--mobile-vh);
+        max-height: 100vh;
         max-height: var(--mobile-vh);
         margin: 0;
         border-radius: 0;
@@ -228,16 +225,18 @@
         padding-bottom: max(var(--mobile-safe-area-bottom), 20px);
         padding-left: max(var(--mobile-safe-area-left), 20px);
         padding-right: max(var(--mobile-safe-area-right), 20px);
-
-        /* iOS scroll фікс */
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
     }
 
     .modal-close {
         position: sticky;
         top: 0;
         z-index: 1000;
+    }
+
+    body.modal-open .call-button {
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
 }
 

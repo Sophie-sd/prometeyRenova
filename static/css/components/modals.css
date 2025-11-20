@@ -24,6 +24,12 @@
     visibility: visible;
 }
 
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
 /* ===== MODAL BACKDROP ===== */
 .modal-backdrop {
     position: absolute;
