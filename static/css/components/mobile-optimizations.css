@@ -210,16 +210,19 @@
 
 /* Мобільні модалки */
 @media (max-width: 767px) {
+    .modal {
+        align-items: flex-start;
+        padding-top: 100px;
+    }
+
     .modal-content {
         width: calc(100% - 32px);
         max-width: calc(100% - 32px);
         height: auto;
-        max-height: calc(100vh - 96px);
-        max-height: calc(var(--mobile-vh) - 96px);
-        margin: 80px 16px 16px;
+        max-height: calc(100vh - 116px);
+        max-height: calc(var(--mobile-vh) - 116px);
+        margin: 0 16px 16px;
         border-radius: 12px;
-
-        /* Safe area підтримка */
         padding: 20px;
         padding-top: max(var(--mobile-safe-area-top), 20px);
         padding-bottom: max(var(--mobile-safe-area-bottom), 20px);

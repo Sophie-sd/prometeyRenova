@@ -869,6 +869,21 @@
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         overscroll-behavior: contain;
+        padding-right: 8px;
+    }
+
+    .service-modal-body::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .service-modal-body::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+    }
+
+    .service-modal-body::-webkit-scrollbar-thumb {
+        background: var(--color-brand-orange);
+        border-radius: 3px;
     }
 
     .service-subtitle {
