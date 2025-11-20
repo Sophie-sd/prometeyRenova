@@ -220,55 +220,91 @@
 /* Decorations в components/decorations.css */
 
 /* Service Modal */
+#service-web-modal .modal-backdrop,
+#service-mobile-modal .modal-backdrop,
+#service-smm-modal .modal-backdrop,
+#service-education-modal .modal-backdrop {
+    background: rgba(0, 0, 0, 0.92);
+}
+
 .service-modal-content {
-    max-width: 700px;
+    max-width: 600px;
+    max-height: 75vh;
+    margin: 100px auto 50px;
 }
 
 .service-modal-body {
-    max-height: 60vh;
+    max-height: calc(75vh - 150px);
     overflow-y: auto;
+    padding-right: 10px;
+}
+
+.service-modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.service-modal-body::-webkit-scrollbar-track {
+    background: var(--color-beige);
+}
+
+.service-modal-body::-webkit-scrollbar-thumb {
+    background: var(--color-brand-orange);
+    border-radius: 3px;
 }
 
 .service-list {
     list-style: none;
     padding: 0;
-    margin: 0 0 var(--space-md) 0;
+    margin: 0 0 var(--space-sm) 0;
 }
 
 .service-list li {
     padding: var(--space-xs) 0;
     border-left: 3px solid var(--color-brand-orange);
     padding-left: var(--space-sm);
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-xs);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.service-list li strong {
+    display: block;
+    margin-bottom: 4px;
 }
 
 .service-subtitle {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--color-brand-orange);
-    margin: var(--space-md) 0 var(--space-xs) 0;
+    margin: var(--space-sm) 0 var(--space-xs) 0;
 }
 
 .service-text {
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: var(--space-sm);
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: var(--space-xs);
 }
 
 @media (max-width: 767px) {
     .service-modal-content {
-        max-width: 95%;
+        max-width: 90%;
+        max-height: 80vh;
+        margin: 80px auto 40px;
     }
 
     .service-modal-body {
-        max-height: 70vh;
+        max-height: calc(80vh - 120px);
     }
 
     .service-subtitle {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .service-text {
+        font-size: 14px;
+    }
+
+    .service-list li {
         font-size: 14px;
     }
 }
