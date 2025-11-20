@@ -20,24 +20,6 @@
     will-change: transform;
 }
 
-/* SVG Background - ВИДАЛЕНО для performance */
-/* .services-projects-wrapper::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50%;
-    height: 100%;
-    background-image: url('/static/images/prometey.svg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: contain;
-    opacity: 0.05;
-    pointer-events: none;
-    z-index: 0;
-} */
-
 /* Subsections */
 .services-subsection,
 .projects-subsection {
@@ -409,18 +391,6 @@
     cursor: grab;
 }
 
-/* Декоративні елементи для unified wrapper - ВИДАЛЕНО */
-/* .services-projects-wrapper::after {
-    content: '★';
-    position: absolute;
-    top: var(--space-sm);
-    right: var(--space-sm);
-    color: var(--color-brand-orange);
-    font-size: 32px;
-    opacity: 0.5;
-    z-index: 2;
-} */
-
 /* ===== CTA СЕКЦІЯ З ВІДЕО ФОНОМ ===== */
 .cta-section {
     position: relative;
@@ -491,8 +461,6 @@
     flex-wrap: wrap;
 }
 
-/* ===== ДЕКОРАТИВНІ ЕЛЕМЕНТИ (перенесені на wrapper) ===== */
-
 /* ===== АДАПТАЦІЯ ПЛАНШЕТИ ===== */
 @media (max-width: 1024px) {
     .hero-buttons {
@@ -510,11 +478,6 @@
         padding: var(--space-lg) 0;
         padding-top: 50px;
     }
-
-    /* SVG фон - ВИДАЛЕНО */
-    /* .services-projects-wrapper::before {
-        opacity: 0.03;
-    } */
 
     .services-subsection {
         margin-bottom: 30px;
@@ -605,13 +568,6 @@
         padding-top: 40px;
     }
 
-    /* SVG фон - ВИДАЛЕНО */
-    /* .services-projects-wrapper::before {
-        opacity: 0.02;
-        width: 70%;
-        left: 15%;
-    } */
-
     .services-subsection {
         margin-bottom: 30px;
     }
@@ -694,13 +650,6 @@
     .project-story:active {
         transform: scale(0.95);
     }
-
-    /* Декоративні елементи для мобільних - ВИДАЛЕНО */
-    /* .services-projects-wrapper::after {
-        font-size: 24px;
-        top: var(--space-xs);
-        right: var(--space-xs);
-    } */
 
     .cta-buttons {
         flex-direction: column;
