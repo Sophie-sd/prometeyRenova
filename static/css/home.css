@@ -854,14 +854,20 @@
 }
 
 @media (max-width: 767px) {
+    .service-modal-content {
+        max-width: 100%;
+        max-height: none;
+        margin: 0;
+    }
+
     #service-web-modal .modal-content,
     #service-mobile-modal .modal-content,
     #service-smm-modal .modal-content,
     #service-education-modal .modal-content {
         display: flex;
         flex-direction: column;
-        height: 100%;
         overflow: hidden;
+        padding: 20px;
     }
 
     .service-modal-body {
