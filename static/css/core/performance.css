@@ -1,0 +1,102 @@
+/**
+ * PERFORMANCE.CSS - Глобальні оптимізації для плавної роботи
+ * Застосовується на всіх пристроях та браузерах
+ */
+
+/* ===== SMOOTH SCROLLING ===== */
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* iOS Safari специфічні оптимізації */
+@supports (-webkit-touch-callout: none) {
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* ===== HARDWARE ACCELERATION ДЛЯ CRITICAL ELEMENTS ===== */
+.main-navigation,
+.mobile-menu {
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+/* ===== HOVER НА TOUCH ПРИСТРОЯХ ===== */
+@media (hover: none) and (pointer: coarse) {
+    *:hover {
+        transition-duration: 0.01ms;
+    }
+}
+
+/* ===== ОПТИМІЗАЦІЯ АНІМАЦІЙ ===== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+        transition-duration: 0.01ms;
+        scroll-behavior: auto;
+    }
+}
+
+/* ===== ЗАПОБІГАННЯ LAYOUT SHIFT ===== */
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ===== ОПТИМІЗАЦІЯ REPAINTS ===== */
+.service-card,
+.project-story,
+.event-card,
+.blog-card {
+    contain: layout;
+}
+
+/* ===== 60FPS ANIMATIONS ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Використання GPU для animations */
+.animate-on-scroll {
+    will-change: opacity, transform;
+}
+
+.animate-on-scroll.visible {
+    animation: fadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-on-scroll.visible.animated {
+    will-change: auto;
+}
+

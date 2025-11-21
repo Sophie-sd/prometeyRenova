@@ -12,8 +12,14 @@
     right: 0;
     z-index: var(--z-navigation, 1000);
     padding: var(--space-xs) 0;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: background-color var(--transition-normal) var(--easing-default), 
+                box-shadow var(--transition-normal) var(--easing-default);
     background: transparent;
+    
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* Прозора навігація - білий текст */
@@ -33,9 +39,14 @@
 /* Scrolled навігація - темний фон як footer */
 .main-navigation.scrolled {
     background: #1a1a1a;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+@supports (backdrop-filter: blur(10px)) {
+    .main-navigation.scrolled {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
 }
 
 .main-navigation.scrolled .nav-link {

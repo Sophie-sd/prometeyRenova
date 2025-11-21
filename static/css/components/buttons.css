@@ -15,7 +15,10 @@
     text-decoration: none;
     border: 2px solid transparent;
     cursor: pointer;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: background-color var(--transition-normal) var(--easing-default),
+                color var(--transition-normal) var(--easing-default),
+                border-color var(--transition-normal) var(--easing-default),
+                transform var(--transition-normal) var(--easing-default);
     text-align: center;
     background: transparent;
     min-width: 140px;
@@ -76,7 +79,10 @@
     width: 64px;
     height: 64px;
     cursor: pointer;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: background-color var(--transition-normal) var(--easing-default),
+                color var(--transition-normal) var(--easing-default),
+                border-color var(--transition-normal) var(--easing-default),
+                transform var(--transition-normal) var(--easing-default);
     border-radius: 50%;
     box-shadow: 00 1px 5px #f5f1ed, 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
     display: flex;

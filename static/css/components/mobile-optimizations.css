@@ -310,11 +310,6 @@
     will-change: transform;
 }
 
-/* Оптимізація для скроллінгу */
-.is-scrolling {
-    /* Видалено pointer-events: none - викликало різкі стрибки на iOS Safari */
-}
-
 /* ===== UTILITY CLASSES ===== */
 
 /* Приховування елементів на мобільних */
@@ -391,5 +386,9 @@
 @media (max-width: 767px) and (-webkit-touch-callout: none) {
     html {
         overscroll-behavior-y: none;
+    }
+    
+    body {
+        -webkit-overflow-scrolling: auto;
     }
 }

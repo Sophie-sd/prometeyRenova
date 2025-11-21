@@ -76,24 +76,21 @@ class PrometeyApp {
         if (!this.elements.nav) return;
 
         let ticking = false;
-        let scrollTimeout;
+        let lastScrollTop = 0;
+        let isScrolled = false;
 
         const handleScroll = () => {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const shouldBeScrolled = scrollTop > this.config.scrollThreshold;
 
-                    this.elements.nav.classList.toggle('scrolled', scrollTop > this.config.scrollThreshold);
+                    if (shouldBeScrolled !== isScrolled) {
+                        this.elements.nav.classList.toggle('scrolled', shouldBeScrolled);
+                        isScrolled = shouldBeScrolled;
+                    }
 
-                    // Додати клас .is-scrolling під час скролу
-                    document.documentElement.classList.add('is-scrolling');
-
-                    // Видалити клас після закінчення скролу
-                    clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(() => {
-                        document.documentElement.classList.remove('is-scrolling');
-                    }, 150);
-
+                    lastScrollTop = scrollTop;
                     ticking = false;
                 });
                 ticking = true;
@@ -102,7 +99,6 @@ class PrometeyApp {
 
         window.addEventListener('scroll', handleScroll, { passive: true });
 
-        // Smooth scroll для якірних посилань
         this.setupSmoothScroll();
     }
 
@@ -491,12 +487,10 @@ class PrometeyApp {
 
     // ===== ACCESSIBILITY =====
     setupAccessibility() {
-        // Intersection Observer для анімацій при скролі
         const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
         if (animatedElements.length === 0) return;
         if (!('IntersectionObserver' in window)) {
-            // Fallback: показати всі елементи
             animatedElements.forEach(el => el.classList.add('visible'));
             return;
         }
@@ -505,12 +499,16 @@ class PrometeyApp {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    // Відключити спостереження після появи (performance)
+                    
+                    setTimeout(() => {
+                        entry.target.classList.add('animated');
+                    }, 600);
+                    
                     observer.unobserve(entry.target);
                 }
             });
         }, {
-            threshold: 0.05, // Менший threshold
+            threshold: 0.05,
             rootMargin: '0px 0px -20px 0px'
         });
 

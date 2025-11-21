@@ -262,40 +262,12 @@ class MobileCore {
 
     // ===== PERFORMANCE OPTIMIZATIONS =====
     setupPerformanceOptimizations() {
-        // Optimize animations based on device capabilities
         if (this.device.isLowEnd || this.device.prefersReducedMotion) {
             document.documentElement.classList.add('reduce-motion');
         }
 
-        // Optimize scroll performance
-        this.setupOptimizedScrolling();
-
-        // Lazy loading optimizations
         this.setupIntelligentLazyLoading();
-
-        // Memory management
         this.setupMemoryOptimizations();
-    }
-
-    setupOptimizedScrolling() {
-        let isScrolling = false;
-        let scrollTimeout;
-
-        const handleScroll = () => {
-            if (!isScrolling) {
-                document.documentElement.classList.add('is-scrolling');
-                isScrolling = true;
-            }
-
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                document.documentElement.classList.remove('is-scrolling');
-                isScrolling = false;
-            }, 150);
-        };
-
-        // Use passive listeners for better performance
-        window.addEventListener('scroll', handleScroll, { passive: true });
     }
 
     // ===== UTILITY METHODS =====

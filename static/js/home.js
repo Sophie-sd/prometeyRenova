@@ -16,23 +16,25 @@ function initServiceAnimations() {
     const serviceCards = document.querySelectorAll('.service-card');
     if (serviceCards.length === 0) return;
     if (!('IntersectionObserver' in window)) {
-        // Fallback: показати всі картки одразу
         serviceCards.forEach(card => card.classList.add('visible'));
         return;
     }
 
-    // Оптимізований observer з меншим threshold
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Відключити спостереження після появи (performance)
+                
+                setTimeout(() => {
+                    entry.target.style.willChange = 'auto';
+                }, 600);
+                
                 observer.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.05, // Менший threshold = швидша реакція
-        rootMargin: '0px 0px -20px 0px' // Менший margin
+        threshold: 0.05,
+        rootMargin: '0px 0px -20px 0px'
     });
 
     serviceCards.forEach(card => observer.observe(card));
