@@ -84,7 +84,7 @@
 .service-card::after {
     content: '';
     position: absolute;
-    top: 65%;
+    top: 45%;
     right: 24px;
     width: 52px;
     height: 52px;
@@ -662,7 +662,7 @@
     .service-card::after {
         width: 44px;
         height: 44px;
-        top: 65%;
+        top: 45%;
         right: 20px;
     }
 
