@@ -212,16 +212,17 @@
 @media (max-width: 767px) {
     .modal {
         align-items: flex-start;
-        padding: 20px 0;
+        padding: 20px 0 40px;
     }
 
     .modal-content {
         width: calc(100% - 32px);
         max-width: calc(100% - 32px);
         height: auto;
-        max-height: calc(100vh - 60px);
-        max-height: calc(var(--mobile-vh) - 60px);
-        margin: 0 16px 20px;
+        max-height: 75vh;
+        max-height: 75dvh;
+        margin: 0 16px 0;
+        margin-bottom: max(40px, env(safe-area-inset-bottom, 40px));
         border-radius: 12px;
         padding: 20px;
         padding-top: max(var(--mobile-safe-area-top), 20px);
