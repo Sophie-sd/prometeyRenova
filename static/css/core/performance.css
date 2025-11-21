@@ -3,9 +3,11 @@
  * Застосовується на всіх пристроях та браузерах
  */
 
-/* ===== SMOOTH SCROLLING ===== */
-html {
-    scroll-behavior: smooth;
+/* Smooth scroll тільки для користувачів без prefers-reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+    html.smooth-scroll {
+        scroll-behavior: smooth;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -552,7 +552,10 @@ class PrometeyApp {
 
     restoreScrollPosition() {
         if (this.scrollPosition !== undefined) {
-            window.scrollTo(0, this.scrollPosition);
+            window.scrollTo({
+                top: this.scrollPosition,
+                behavior: 'auto'
+            });
         }
     }
 

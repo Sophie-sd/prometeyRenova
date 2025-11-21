@@ -60,7 +60,10 @@ function initServiceModals() {
                     modal.classList.remove('active');
                     document.body.style.top = '';
                     document.body.classList.remove('modal-open');
-                    window.scrollTo(0, savedScrollPosition);
+                    window.scrollTo({
+                        top: savedScrollPosition,
+                        behavior: 'auto'
+                    });
                 };
                 
                 const closeBtn = modal.querySelector('.modal-close');
