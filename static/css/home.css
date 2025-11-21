@@ -256,11 +256,11 @@
 
 .projects-stories-container {
     display: flex;
-    gap: 20px;
+    gap: 24px;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-behavior: smooth;
-    padding: 20px;
+    padding: 20px 24px;
 
     scrollbar-width: thin;
     scrollbar-color: var(--color-brand-orange) transparent;
@@ -294,7 +294,9 @@
     align-items: center;
     gap: var(--space-xs);
     flex-shrink: 0;
-    width: 270px;
+    width: calc((100% - 120px) / 4);
+    min-width: 240px;
+    max-width: 280px;
     cursor: pointer;
     text-decoration: none;
     transition: transform var(--transition-normal) var(--easing-default);
@@ -319,8 +321,8 @@
 /* Story Ring - Instagram gradient border */
 .project-story-ring {
     position: relative;
-    width: 270px;
-    height: 270px;
+    width: 100%;
+    aspect-ratio: 1;
     border-radius: 50%;
     padding: 8px;
     background: linear-gradient(135deg,
@@ -383,7 +385,7 @@
     font-weight: 600;
     color: var(--color-white);
     text-align: center;
-    max-width: 270px;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -395,13 +397,6 @@
     color: var(--color-brand-orange);
 }
 
-/* Active/Visited State (optional) */
-.project-story.viewed .project-story-ring {
-    background: linear-gradient(135deg,
-            #bdbdbd 0%,
-            #9e9e9e 50%,
-            #757575 100%);
-}
 
 /* Clicking state (for navigation transition) */
 .project-story.clicking {
@@ -683,13 +678,13 @@
     }
 
     .project-story {
-        width: calc((100vw - 48px - 16px) / 2);
+        width: calc((100% - 48px) / 2);
+        min-width: 150px;
+        max-width: 180px;
         gap: 10px;
     }
 
     .project-story-ring {
-        width: 100%;
-        aspect-ratio: 1;
         padding: 5px;
     }
 

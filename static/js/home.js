@@ -190,24 +190,15 @@ function setupStoryClickHandlers(stories) {
             const projectId = story.getAttribute('data-project-id');
             const projectUrl = story.getAttribute('href');
 
-            // Mark as viewed (optional)
-            story.classList.add('viewed');
-            localStorage.setItem(`project_${projectId}_viewed`, 'true');
-
-            // Navigate to project (коли додасте URL)
             if (projectUrl && projectUrl !== '#') {
-                // Smooth transition before navigation
                 story.classList.add('clicking');
                 setTimeout(() => {
                     window.location.href = projectUrl;
                 }, 200);
             } else {
-                console.log(`Project ${projectId} clicked - URL not set yet`);
-                // Show temporary notification
                 showProjectNotification(projectId);
             }
 
-            // Analytics tracking
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'project_click', {
                     project_id: projectId,
@@ -215,14 +206,6 @@ function setupStoryClickHandlers(stories) {
                 });
             }
         });
-    });
-
-    // Load viewed state from localStorage
-    stories.forEach(story => {
-        const projectId = story.getAttribute('data-project-id');
-        if (localStorage.getItem(`project_${projectId}_viewed`) === 'true') {
-            story.classList.add('viewed');
-        }
     });
 }
 
