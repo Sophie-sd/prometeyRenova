@@ -58,11 +58,27 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3),
+                0 -1px 0 rgba(230, 81, 0, 0.1) inset,
+                0 4px 12px -2px rgba(230, 81, 0, 0.15);
 
     /* GPU acceleration */
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60%;
+    height: 40%;
+    background: linear-gradient(45deg, rgba(230, 81, 0, 0.08) 0%, transparent 70%);
+    border-radius: 0 0 0 20px;
+    pointer-events: none;
+    z-index: 1;
 }
 
 /* Фонові зображення для карток послуг */
