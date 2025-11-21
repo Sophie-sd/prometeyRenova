@@ -256,11 +256,11 @@
 
 .projects-stories-container {
     display: flex;
-    gap: 24px;
+    gap: 20px;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-behavior: smooth;
-    padding: 20px 24px;
+    padding: 20px;
 
     scrollbar-width: thin;
     scrollbar-color: var(--color-brand-orange) transparent;
@@ -294,9 +294,9 @@
     align-items: center;
     gap: var(--space-xs);
     flex-shrink: 0;
-    width: calc((100% - 120px) / 4);
-    min-width: 240px;
-    max-width: 280px;
+    width: calc((100% - 120px) / 5);
+    min-width: 200px;
+    max-width: 220px;
     cursor: pointer;
     text-decoration: none;
     transition: transform var(--transition-normal) var(--easing-default);
