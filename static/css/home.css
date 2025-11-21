@@ -84,10 +84,10 @@
 .service-card::after {
     content: '';
     position: absolute;
-    top: 20px;
+    top: 45%;
     right: 24px;
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     background-image: url('/static/images/tap.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -97,11 +97,12 @@
     z-index: 3;
     filter: brightness(0) invert(1);
     pointer-events: none;
+    transform: translateY(-50%);
 }
 
 .service-card:hover::after {
     opacity: 1;
-    transform: scale(1.15);
+    transform: translateY(-50%) scale(1.15);
     filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(230, 81, 0, 0.6));
 }
 
@@ -659,9 +660,9 @@
     }
 
     .service-card::after {
-        width: 40px;
-        height: 40px;
-        top: 16px;
+        width: 44px;
+        height: 44px;
+        top: 45%;
         right: 20px;
     }
 
