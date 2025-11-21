@@ -168,17 +168,6 @@ class PrometeyApp {
     setupMenuTouchOptimizations() {
         const { mobileMenu, mobileNavLinks } = this.elements;
 
-        // Prevent double-tap zoom
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', (e) => {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                e.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-
-        // Покращення для menu touch
         mobileMenu?.addEventListener('touchstart', (e) => {
             e.stopPropagation();
         }, { passive: true });
@@ -201,14 +190,15 @@ class PrometeyApp {
     openMobileMenu() {
         const { burgerBtn, mobileMenu } = this.elements;
 
+        this.saveScrollPosition();
         burgerBtn.classList.add('active');
         mobileMenu.classList.add('active');
+        document.body.style.top = `-${this.scrollPosition}px`;
         document.body.style.overflow = 'hidden';
         document.body.classList.add('menu-open');
 
         this.state.menuOpen = true;
 
-        // Event для інших систем
         this.emit('menu:opened');
     }
 
@@ -218,11 +208,12 @@ class PrometeyApp {
         burgerBtn.classList.remove('active');
         mobileMenu.classList.remove('active');
         document.body.style.overflow = '';
+        document.body.style.top = '';
         document.body.classList.remove('menu-open');
 
         this.state.menuOpen = false;
+        this.restoreScrollPosition();
 
-        // Event для інших систем
         this.emit('menu:closed');
     }
 
@@ -270,16 +261,16 @@ class PrometeyApp {
         const modal = document.getElementById(modalId);
         if (!modal) return;
 
-        // Prefill форми з sessionStorage
+        this.saveScrollPosition();
         this.prefillModalForm(modal);
 
         modal.classList.add('active');
         modal.setAttribute('aria-hidden', 'false');
+        document.body.style.top = `-${this.scrollPosition}px`;
         document.body.style.overflow = 'hidden';
 
         this.state.activeModal = modalId;
 
-        // Фокус на першому input
         const firstInput = modal.querySelector('input:not([type="hidden"]), textarea');
         if (firstInput) {
             setTimeout(() => firstInput.focus(), 300);
@@ -298,8 +289,10 @@ class PrometeyApp {
         modal.classList.remove('active');
         modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
+        document.body.style.top = '';
 
         this.state.activeModal = null;
+        this.restoreScrollPosition();
 
         this.emit('modal:closed', { modalId: modal.id });
     }
@@ -552,6 +545,17 @@ class PrometeyApp {
     removeNotification(notification) {
         notification.classList.remove('prometey-notification--show');
         setTimeout(() => notification.remove(), 300);
+    }
+
+    // ===== SCROLL POSITION MANAGEMENT =====
+    saveScrollPosition() {
+        this.scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    }
+
+    restoreScrollPosition() {
+        if (this.scrollPosition !== undefined) {
+            window.scrollTo(0, this.scrollPosition);
+        }
     }
 
     // ===== UTILITY METHODS =====

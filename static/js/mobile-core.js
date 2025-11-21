@@ -195,21 +195,6 @@ class MobileCore {
         };
 
         window.addEventListener('resize', checkURLBar, { passive: true });
-
-        // Prevent elastic scrolling issues
-        document.addEventListener('touchmove', (e) => {
-            if (this.isRootScrollableElement(e.target)) {
-                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-                const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-                const clientHeight = document.documentElement.clientHeight || window.innerHeight;
-
-                // Prevent overscroll at top/bottom
-                if ((scrollTop === 0 && e.touches[0].clientY > e.changedTouches[0].clientY) ||
-                    (scrollTop + clientHeight >= scrollHeight && e.touches[0].clientY < e.changedTouches[0].clientY)) {
-                    e.preventDefault();
-                }
-            }
-        }, { passive: false });
     }
 
     // ===== TOUCH OPTIMIZATIONS =====

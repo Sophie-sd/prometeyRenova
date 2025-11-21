@@ -312,11 +312,7 @@
 
 /* Оптимізація для скроллінгу */
 .is-scrolling {
-    pointer-events: none;
-}
-
-.is-scrolling * {
-    pointer-events: none;
+    /* Видалено pointer-events: none - викликало різкі стрибки на iOS Safari */
 }
 
 /* ===== UTILITY CLASSES ===== */

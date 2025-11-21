@@ -39,6 +39,8 @@ function initServiceAnimations() {
 }
 
 function initServiceModals() {
+    let savedScrollPosition = 0;
+
     document.querySelectorAll('.service-card').forEach(card => {
         card.addEventListener('click', () => {
             const serviceType = card.dataset.service;
@@ -46,12 +48,17 @@ function initServiceModals() {
             const modal = document.getElementById(modalId);
             
             if (modal) {
+                savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
                 modal.classList.add('active');
+                document.body.style.top = `-${savedScrollPosition}px`;
                 document.body.classList.add('modal-open');
                 
                 const closeModal = () => {
                     modal.classList.remove('active');
+                    document.body.style.top = '';
                     document.body.classList.remove('modal-open');
+                    window.scrollTo(0, savedScrollPosition);
                 };
                 
                 const closeBtn = modal.querySelector('.modal-close');
