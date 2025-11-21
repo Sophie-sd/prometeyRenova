@@ -81,6 +81,30 @@
     z-index: 1;
 }
 
+.service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    background-image: url('/static/images/tap.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.6;
+    transition: all 0.3s ease-out;
+    z-index: 3;
+    filter: brightness(0) invert(1);
+    pointer-events: none;
+}
+
+.service-card:hover::after {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(230, 81, 0, 0.6));
+}
+
 /* Фонові зображення для карток послуг */
 .service-card[data-service="web"] {
     background-image: url('/static/images/services/web.png');
@@ -552,54 +576,61 @@
     }
 }
 
-/* ===== АДАПТАЦІЯ ПАРАЛАКС ДЛЯ МОБІЛЬНИХ ===== */
-@media (max-width: 767px) {
-    .services-projects-wrapper {
-        border-radius: 16px 16px 0 0;
-        margin-top: -16px;
-        padding-top: 40px;
-    }
-
-    .cta-section {
-        min-height: 100vh;
-        min-height: calc(var(--vh, 1vh) * 100);
-    }
-
-    .cta-content h2 {
-        font-size: 48px;
-        letter-spacing: -1px;
-    }
-
-    .cta-content p {
-        font-size: 16px;
-    }
-}
-
 /* ===== АДАПТАЦІЯ МОБІЛЬНІ (iOS Safari) ===== */
 @media (max-width: 767px) {
-
-    /* Unified wrapper для мобільних */
+    /* Services projects wrapper */
     .services-projects-wrapper {
         padding: var(--space-md) 0;
         padding-top: 40px;
+        border-radius: 16px 16px 0 0;
+        margin-top: -16px;
     }
 
     .services-subsection {
         margin-bottom: 30px;
     }
 
-    /* Services для мобільних */
+    /* Services Grid */
     .services-grid {
         grid-template-columns: 1fr;
         gap: var(--space-sm);
     }
 
+    /* Service Cards */
     .service-card {
         aspect-ratio: 1;
         min-height: 0;
         border-radius: 12px;
         background-size: cover;
         background-position: center;
+    }
+
+    .service-card:hover {
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 15px 40px rgba(220, 20, 60, 0.35);
+    }
+
+    .service-card::after {
+        width: 28px;
+        height: 28px;
+        bottom: 16px;
+        right: 16px;
+    }
+
+    .service-card[data-service="web"] {
+        background-image: url('/static/images/services/web_mob.png');
+    }
+
+    .service-card[data-service="mobile"] {
+        background-image: url('/static/images/services/mob_mob.png');
+    }
+
+    .service-card[data-service="smm"] {
+        background-image: url('/static/images/services/media_mob.png');
+    }
+
+    .service-card[data-service="education"] {
+        background-image: url('/static/images/services/edu_mob.png');
     }
 
     .service-card-overlay {
@@ -629,28 +660,7 @@
         line-height: 1.4;
     }
 
-    .service-card:hover {
-        transform: translateY(-6px) scale(1.01);
-        box-shadow: 0 15px 40px rgba(220, 20, 60, 0.35);
-    }
-
-    .service-card[data-service="web"] {
-        background-image: url('/static/images/services/web_mob.png');
-    }
-
-    .service-card[data-service="mobile"] {
-        background-image: url('/static/images/services/mob_mob.png');
-    }
-
-    .service-card[data-service="smm"] {
-        background-image: url('/static/images/services/media_mob.png');
-    }
-
-    .service-card[data-service="education"] {
-        background-image: url('/static/images/services/edu_mob.png');
-    }
-
-    /* Projects Stories - Mobile */
+    /* Projects Stories */
     .projects-stories-container {
         gap: var(--space-xs);
         padding-left: var(--space-xs);
@@ -666,6 +676,11 @@
     .project-story {
         min-width: 160px;
         gap: 10px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .project-story:active {
+        transform: scale(0.95);
     }
 
     .project-story-name {
@@ -677,13 +692,19 @@
         font-size: 48px;
     }
 
-    /* Touch optimization для stories */
-    .project-story {
-        -webkit-tap-highlight-color: transparent;
+    /* CTA Section */
+    .cta-section {
+        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
     }
 
-    .project-story:active {
-        transform: scale(0.95);
+    .cta-content h2 {
+        font-size: 48px;
+        letter-spacing: -1px;
+    }
+
+    .cta-content p {
+        font-size: 16px;
     }
 
     .cta-buttons {
@@ -693,6 +714,71 @@
 
     .cta-buttons .btn {
         width: 240px;
+    }
+
+    /* Service Modals */
+    .service-modal-content {
+        max-width: 100%;
+        max-height: none;
+        margin: 0;
+    }
+
+    #service-web-modal .modal-content,
+    #service-mobile-modal .modal-content,
+    #service-smm-modal .modal-content,
+    #service-education-modal .modal-content {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        padding: 20px;
+    }
+
+    .service-modal-body {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        padding-right: 8px;
+    }
+
+    .service-modal-body::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .service-modal-body::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+    }
+
+    .service-modal-body::-webkit-scrollbar-thumb {
+        background: var(--color-brand-orange);
+        border-radius: 3px;
+    }
+
+    .service-subtitle {
+        font-size: 16px;
+        margin: 12px 0 6px 0;
+    }
+
+    .service-text {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .service-list li {
+        font-size: 14px;
+        padding: 5px 0;
+        padding-left: 10px;
+        margin-bottom: 6px;
+    }
+    
+    .modal-header {
+        margin-bottom: 12px;
+        flex-shrink: 0;
+    }
+    
+    .modal-header h3 {
+        padding-right: 25px;
     }
 }
 
@@ -737,20 +823,16 @@
 
 /* ===== PERFORMANCE OPTIMIZATIONS ===== */
 
-/* Відключити pointer events під час скролу для кращого performance */
+.is-scrolling {
+    pointer-events: none;
+}
+
 .is-scrolling * {
-    pointer-events: none !important;
+    pointer-events: none;
 }
 
-/* Відключити дорогі ефекти під час скролу */
-.is-scrolling .service-card {
-    transition: none;
-}
-
-.is-scrolling .project-story {
-    transition: none;
-}
-
+.is-scrolling .service-card,
+.is-scrolling .project-story,
 .is-scrolling .service-card-overlay {
     transition: none;
 }
@@ -867,70 +949,4 @@
     font-size: 15px;
     line-height: 1.4;
     margin-bottom: 10px;
-}
-
-@media (max-width: 767px) {
-    .service-modal-content {
-        max-width: 100%;
-        max-height: none;
-        margin: 0;
-    }
-
-    #service-web-modal .modal-content,
-    #service-mobile-modal .modal-content,
-    #service-smm-modal .modal-content,
-    #service-education-modal .modal-content {
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        padding: 20px;
-    }
-
-    .service-modal-body {
-        flex: 1;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior: contain;
-        padding-right: 8px;
-    }
-
-    .service-modal-body::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .service-modal-body::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 3px;
-    }
-
-    .service-modal-body::-webkit-scrollbar-thumb {
-        background: var(--color-brand-orange);
-        border-radius: 3px;
-    }
-
-    .service-subtitle {
-        font-size: 16px;
-        margin: 12px 0 6px 0;
-    }
-
-    .service-text {
-        font-size: 14px;
-        margin-bottom: 8px;
-    }
-
-    .service-list li {
-        font-size: 14px;
-        padding: 5px 0;
-        padding-left: 10px;
-        margin-bottom: 6px;
-    }
-    
-    .modal-header {
-        margin-bottom: 12px;
-        flex-shrink: 0;
-    }
-    
-    .modal-header h3 {
-        padding-right: 25px;
-    }
 }
