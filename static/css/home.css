@@ -294,9 +294,7 @@
     align-items: center;
     gap: var(--space-xs);
     flex-shrink: 0;
-    width: calc((100% - 120px) / 5);
-    min-width: 200px;
-    max-width: 220px;
+    width: 220px;
     cursor: pointer;
     text-decoration: none;
     transition: transform var(--transition-normal) var(--easing-default);
@@ -673,14 +671,12 @@
 
     /* Projects Stories - Mobile */
     .projects-stories-container {
-        gap: 16px;
-        padding: 20px 16px;
+        gap: 12px;
+        padding: 20px 12px;
     }
 
     .project-story {
-        width: calc((100% - 48px) / 2);
-        min-width: 150px;
-        max-width: 180px;
+        width: calc(50% - 6px);
         gap: 10px;
     }
 
@@ -693,12 +689,7 @@
     }
 
     .project-logo-placeholder span {
-        font-size: 48px;
-    }
-
-    /* Touch optimization для stories */
-    .project-story {
-        -webkit-tap-highlight-color: transparent;
+        font-size: 42px;
     }
 
     .project-story:active {
