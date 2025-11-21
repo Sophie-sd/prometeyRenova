@@ -212,7 +212,7 @@
 @media (max-width: 767px) {
     .modal {
         align-items: flex-start;
-        padding: 100px 0 40px;
+        padding: 80px 0 40px;
     }
 
     .modal-content {
