@@ -298,10 +298,9 @@ function setupTouchFeedback(stories) {
 }
 
 function showProjectNotification(projectId) {
-    // Використовуємо систему notification з base.js якщо доступна
     if (window.prometeyApp?.showNotification) {
         window.prometeyApp.showNotification(
-            `Проєкт ${projectId} - посилання буде додано найближчим часом`,
+            'Щоб отримати посилання на сайт, зверніться до PrometeyLabs',
             'info'
         );
     }
