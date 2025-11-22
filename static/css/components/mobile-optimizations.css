@@ -296,12 +296,6 @@
 
 /* ===== PERFORMANCE CLASSES ===== */
 
-/* Зменшені анімації для слабких пристроїв */
-.reduce-motion * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-}
 
 /* GPU acceleration для критичних елементів */
 .gpu-accelerated {
@@ -315,7 +309,7 @@
 /* Приховування елементів на мобільних */
 @media (max-width: 767px) {
     .mobile-hidden {
-        display: none !important;
+        display: none;
     }
 }
 

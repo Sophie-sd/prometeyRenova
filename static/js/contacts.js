@@ -12,7 +12,7 @@ function initMapPlaceholder() {
 
     if (mapPlaceholder) {
         mapPlaceholder.addEventListener('click', () => {
-            // Placeholder для Google Maps
+            console.log('Map placeholder clicked');
         });
     }
 }

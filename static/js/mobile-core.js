@@ -42,11 +42,6 @@ class MobileCore {
 
     detectCapabilities() {
         return {
-            // Video capabilities
-            canAutoplay: this.testAutoplaySupport(),
-            supportsHEVC: this.testHEVCSupport(),
-            supportsWebP: this.testWebPSupport(),
-
             // Modern features
             supportsIntersectionObserver: 'IntersectionObserver' in window,
             supportsResizeObserver: 'ResizeObserver' in window,
@@ -70,7 +65,6 @@ class MobileCore {
         this.setupViewportSystem();
         this.setupTouchOptimizations();
         this.setupPerformanceOptimizations();
-        this.setupAccessibilityEnhancements();
 
         // Device-specific optimizations
         if (this.device.iOS) {
@@ -188,7 +182,7 @@ class MobileCore {
             const currentHeight = window.innerHeight;
             const heightDiff = Math.abs(initialHeight - currentHeight);
 
-            if (heightDiff > 40) { // URL bar threshold
+            if (heightDiff > 40) {
                 isURLBarVisible = currentHeight < initialHeight;
                 document.documentElement.classList.toggle('url-bar-visible', isURLBarVisible);
             }
@@ -201,17 +195,11 @@ class MobileCore {
     setupTouchOptimizations() {
         if (!this.device.isTouch) return;
 
-        // Modern touch handling
         this.setupTouchFeedback();
-        this.setupTouchAccessibility();
-        this.optimizeTouchPerformance();
-
-        // Prevent accidental zoom
         this.preventAccidentalZoom();
     }
 
     setupTouchFeedback() {
-        // Add touch-active class for instant feedback
         const touchElements = document.querySelectorAll(
             'button, [role="button"], .btn, .nav-link, .card-link, [onclick], [data-modal]'
         );
@@ -219,11 +207,6 @@ class MobileCore {
         touchElements.forEach(element => {
             this.addTouchFeedback(element);
         });
-
-        // Observer for dynamically added elements
-        if (this.capabilities.supportsIntersectionObserver) {
-            this.observeNewTouchElements();
-        }
     }
 
     addTouchFeedback(element) {
@@ -265,9 +248,6 @@ class MobileCore {
         if (this.device.isLowEnd || this.device.prefersReducedMotion) {
             document.documentElement.classList.add('reduce-motion');
         }
-
-        this.setupIntelligentLazyLoading();
-        this.setupMemoryOptimizations();
     }
 
     // ===== UTILITY METHODS =====
@@ -288,27 +268,12 @@ class MobileCore {
     }
 
     detectLowEndDevice() {
-        // Heuristics for low-end device detection
-        const memory = navigator.deviceMemory || 4; // Default to 4GB if unknown
+        const memory = navigator.deviceMemory || 4;
         const cores = navigator.hardwareConcurrency || 4;
         const connection = navigator.connection;
 
         return memory < 3 || cores < 4 ||
             (connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g'));
-    }
-
-    async testAutoplaySupport() {
-        try {
-            const video = document.createElement('video');
-            video.muted = true;
-            video.playsInline = true;
-            video.src = 'data:video/mp4;base64,AAAAHGZ0eXBNUDQyAAACAEEQQOQCAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
-
-            const playResult = await video.play();
-            return true;
-        } catch (error) {
-            return false;
-        }
     }
 
     isRootScrollableElement(element) {
@@ -376,37 +341,7 @@ class MobileCore {
         });
     }
 
-    // Додаткові методи для зовнішнього використання
-    testHEVCSupport() {
-        return false; // TODO: implement
-    }
-
-    testWebPSupport() {
-        return false; // TODO: implement
-    }
-
-    setupIntelligentLazyLoading() {
-        // Placeholder для майбутньої реалізації
-    }
-
-    setupMemoryOptimizations() {
-        // Placeholder для майбутньої реалізації
-    }
-
-    observeNewTouchElements() {
-        // Placeholder для майбутньої реалізації
-    }
-
-    setupTouchAccessibility() {
-        // Placeholder для майбутньої реалізації
-    }
-
-    optimizeTouchPerformance() {
-        // Placeholder для майбутньої реалізації
-    }
-
     preventAccidentalZoom() {
-        // Базовий метод для запобігання zoom
         const inputs = document.querySelectorAll(
             'input[type="text"], input[type="tel"], input[type="email"], textarea, select'
         );
@@ -439,15 +374,6 @@ class MobileCore {
 
     preventIOSZoomOnInputs() {
         this.preventAccidentalZoom();
-    }
-
-    handleOrientationChange() {
-        // Placeholder
-    }
-
-    setupAccessibilityEnhancements() {
-        // Placeholder для майбутніх accessibility features
-        // TODO: Implement accessibility enhancements
     }
 }
 
