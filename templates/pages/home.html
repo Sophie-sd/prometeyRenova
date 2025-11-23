@@ -42,15 +42,15 @@
 
                 <!-- CTA Buttons -->
                 <div class="hero-buttons">
+                    <a href="{% url 'calculator' %}" class="btn btn-secondary mobile-touch-target">
+                        {% trans "Розрахувати вартість онлайн" %}
+                    </a>
                     <a href="https://t.me/prometeylabs" class="btn btn-primary mobile-touch-target" target="_blank"
                         rel="noopener">
                         {% trans "Написати в Telegram" %}
                     </a>
                     <a href="{% url 'developer' %}" class="btn btn-secondary mobile-touch-target">
                         {% trans "Хочу стати розробником" %}
-                    </a>
-                    <a href="{% url 'calculator' %}" class="btn btn-secondary mobile-touch-target">
-                        {% trans "Розрахувати вартість онлайн" %}
                     </a>
                 </div>
             </div>
