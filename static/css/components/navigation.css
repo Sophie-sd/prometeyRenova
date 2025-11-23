@@ -40,6 +40,7 @@
 .main-navigation.scrolled {
     background: #1a1a1a;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    will-change: background-color, box-shadow;
 }
 
 @supports (backdrop-filter: blur(10px)) {
@@ -47,6 +48,11 @@
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
     }
+}
+
+/* Вимкнути will-change під час активного скролу для економії */
+.is-scrolling .main-navigation {
+    will-change: auto;
 }
 
 .main-navigation.scrolled .nav-link {

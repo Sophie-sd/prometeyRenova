@@ -1,0 +1,1918 @@
+/**
+ * HOME-BUNDLE.JS - Оптимізований bundle для головної сторінки
+ * Включає: Utils, MobileCore, VideoSystem, PrometeyApp, Home
+ * Версія: 1.0 - Performance Optimized
+ */
+
+// ========================================
+// UTILS.JS - Утилітарні функції
+// ========================================
+
+const Utils = {
+    debounce(func, wait = 100) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    },
+
+    throttle(func, limit = 100) {
+        let inThrottle;
+        return function (...args) {
+            if (!inThrottle) {
+                func.apply(this, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    },
+
+    getCSRFToken() {
+        const metaTag = document.querySelector('meta[name="csrf-token"]');
+        if (metaTag) {
+            const token = metaTag.getAttribute('content');
+            if (token) return token;
+        }
+
+        const input = document.querySelector('[name=csrfmiddlewaretoken]');
+        if (input?.value) return input.value;
+
+        const match = document.cookie.match(/csrftoken=([^;]+)/);
+        if (match) return match[1];
+
+        console.warn('CSRF token not found');
+        return '';
+    },
+
+    storage: {
+        set(key, value) {
+            try {
+                sessionStorage.setItem(key, JSON.stringify(value));
+                return true;
+            } catch (error) {
+                console.error('Storage set error:', error);
+                return false;
+            }
+        },
+
+        get(key, defaultValue = null) {
+            try {
+                const item = sessionStorage.getItem(key);
+                return item ? JSON.parse(item) : defaultValue;
+            } catch (error) {
+                console.error('Storage get error:', error);
+                return defaultValue;
+            }
+        },
+
+        remove(key) {
+            try {
+                sessionStorage.removeItem(key);
+                return true;
+            } catch (error) {
+                console.error('Storage remove error:', error);
+                return false;
+            }
+        },
+
+        clear() {
+            try {
+                sessionStorage.clear();
+                return true;
+            } catch (error) {
+                console.error('Storage clear error:', error);
+                return false;
+            }
+        }
+    },
+
+    element: {
+        cache: new Map(),
+
+        get(selector, bustCache = false) {
+            if (bustCache || !this.cache.has(selector)) {
+                const element = document.querySelector(selector);
+                this.cache.set(selector, element);
+            }
+            return this.cache.get(selector);
+        },
+
+        getAll(selector) {
+            return Array.from(document.querySelectorAll(selector));
+        },
+
+        create(tag, options = {}) {
+            const element = document.createElement(tag);
+
+            if (options.className) {
+                element.className = options.className;
+            }
+
+            if (options.id) {
+                element.id = options.id;
+            }
+
+            if (options.attributes) {
+                Object.entries(options.attributes).forEach(([key, value]) => {
+                    element.setAttribute(key, value);
+                });
+            }
+
+            if (options.innerHTML) {
+                element.innerHTML = options.innerHTML;
+            }
+
+            if (options.textContent) {
+                element.textContent = options.textContent;
+            }
+
+            return element;
+        }
+    },
+
+    scrollTo(selector, offset = 80) {
+        const element = typeof selector === 'string'
+            ? document.querySelector(selector)
+            : selector;
+
+        if (!element) return;
+
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    },
+
+    events: {
+        listeners: new Map(),
+
+        on(eventName, callback) {
+            if (!this.listeners.has(eventName)) {
+                this.listeners.set(eventName, []);
+            }
+            this.listeners.get(eventName).push(callback);
+        },
+
+        off(eventName, callback) {
+            if (!this.listeners.has(eventName)) return;
+
+            const callbacks = this.listeners.get(eventName);
+            const index = callbacks.indexOf(callback);
+            if (index > -1) {
+                callbacks.splice(index, 1);
+            }
+        },
+
+        emit(eventName, data = null) {
+            const event = new CustomEvent(eventName, { detail: data });
+            document.dispatchEvent(event);
+
+            if (this.listeners.has(eventName)) {
+                this.listeners.get(eventName).forEach(callback => {
+                    callback(data);
+                });
+            }
+        }
+    },
+
+    animation: {
+        raf(callback) {
+            return window.requestAnimationFrame
+                ? window.requestAnimationFrame(callback)
+                : setTimeout(callback, 16);
+        },
+
+        caf(id) {
+            return window.cancelAnimationFrame
+                ? window.cancelAnimationFrame(id)
+                : clearTimeout(id);
+        }
+    },
+
+    device: {
+        isMobile() {
+            return window.innerWidth <= 767 ||
+                'ontouchstart' in window ||
+                navigator.maxTouchPoints > 0;
+        },
+
+        isTablet() {
+            const width = window.innerWidth;
+            return width > 767 && width <= 1024;
+        },
+
+        isDesktop() {
+            return window.innerWidth > 1024;
+        },
+
+        isTouch() {
+            return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        }
+    }
+};
+
+window.PrometeyUtils = Utils;
+
+// ========================================
+// MOBILE-CORE.JS - Мобільні оптимізації
+// ========================================
+
+class MobileCore {
+    constructor() {
+        this.device = this.detectDevice();
+        this.capabilities = this.detectCapabilities();
+        this.initialized = false;
+        this.viewportUpdateCallbacks = [];
+
+        this.init();
+    }
+
+    detectDevice() {
+        const ua = navigator.userAgent.toLowerCase();
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        return {
+            iOS: /ipad|iphone|ipod/.test(ua) && !window.MSStream,
+            android: /android/.test(ua),
+            safari: /^((?!chrome|android).)*safari/i.test(navigator.userAgent),
+
+            iOSVersion: this.getIOSVersion(ua),
+            androidVersion: this.getAndroidVersion(ua),
+
+            isTouch: isTouchDevice,
+            isMobile: window.innerWidth <= 767 || isTouchDevice,
+            isTablet: window.innerWidth > 767 && window.innerWidth <= 1024 && isTouchDevice,
+            hasNotch: CSS.supports && (CSS.supports('padding-top: env(safe-area-inset-top)') || CSS.supports('padding-top: constant(safe-area-inset-top)')),
+
+            isLowEnd: this.detectLowEndDevice(),
+            prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        };
+    }
+
+    detectCapabilities() {
+        return {
+            supportsIntersectionObserver: 'IntersectionObserver' in window,
+            supportsResizeObserver: 'ResizeObserver' in window,
+            supportsCustomProperties: CSS.supports && CSS.supports('color', 'var(--test)'),
+
+            supportsServiceWorker: 'serviceWorker' in navigator,
+            supportsWebShare: 'share' in navigator,
+            supportsVibration: 'vibrate' in navigator,
+
+            supportsDisplayCutout: CSS.supports && CSS.supports('padding-top: env(safe-area-inset-top)'),
+            supportsDynamicViewport: CSS.supports && CSS.supports('height: 100dvh')
+        };
+    }
+
+    init() {
+        if (this.initialized) return;
+
+        this.setupViewportSystem();
+        this.setupTouchOptimizations();
+        this.setupPerformanceOptimizations();
+
+        if (this.device.iOS) {
+            this.setupIOSSafariOptimizations();
+        }
+
+        if (this.device.android) {
+            this.setupAndroidOptimizations();
+        }
+
+        this.initialized = true;
+        this.dispatchInitEvent();
+    }
+
+    setupViewportSystem() {
+        const setViewportProperties = () => {
+            const vw = window.innerWidth * 0.01;
+            const vh = window.innerHeight * 0.01;
+
+            document.documentElement.style.setProperty('--vw', `${vw}px`);
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+            const safeVh = this.device.iOS ? window.innerHeight * 0.01 : vh;
+            document.documentElement.style.setProperty('--safe-vh', `${safeVh}px`);
+
+            if (this.capabilities.supportsDynamicViewport) {
+                document.documentElement.style.setProperty('--dvh', '1dvh');
+                document.documentElement.style.setProperty('--svh', '1svh');
+                document.documentElement.style.setProperty('--lvh', '1lvh');
+            } else {
+                document.documentElement.style.setProperty('--dvh', `${vh}px`);
+                document.documentElement.style.setProperty('--svh', `${safeVh}px`);
+                document.documentElement.style.setProperty('--lvh', `${vh}px`);
+            }
+
+            if (this.device.iOS && this.device.safari) {
+                this.handleIOSViewportQuirks();
+            }
+        };
+
+        setViewportProperties();
+        this.setupViewportResizeHandler(setViewportProperties);
+        this.notifyViewportChange();
+    }
+
+    setupViewportResizeHandler(callback) {
+        let resizeTimeout;
+        let orientationTimeout;
+
+        const debouncedCallback = () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                callback();
+                this.dispatchViewportChangeEvent();
+                this.notifyViewportChange();
+            }, 100);
+        };
+
+        window.addEventListener('resize', debouncedCallback, { passive: true });
+
+        window.addEventListener('orientationchange', () => {
+            clearTimeout(orientationTimeout);
+            orientationTimeout = setTimeout(() => {
+                callback();
+                this.handleOrientationChange();
+                this.dispatchViewportChangeEvent();
+            }, 250);
+        });
+
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', debouncedCallback, { passive: true });
+        }
+    }
+
+    setupIOSSafariOptimizations() {
+        document.documentElement.classList.add('ios', 'safari');
+
+        if (this.device.iOSVersion >= 17) {
+            document.documentElement.classList.add('ios-17');
+        }
+
+        this.fixIOSSafariScrollBounce();
+        this.optimizeIOSSafariPerformance();
+        this.preventIOSZoomOnInputs();
+    }
+
+    handleIOSViewportQuirks() {
+        const initialHeight = window.innerHeight;
+        let isURLBarVisible = false;
+
+        const checkURLBar = () => {
+            const currentHeight = window.innerHeight;
+            const heightDiff = Math.abs(initialHeight - currentHeight);
+
+            if (heightDiff > 40) {
+                isURLBarVisible = currentHeight < initialHeight;
+                document.documentElement.classList.toggle('url-bar-visible', isURLBarVisible);
+            }
+        };
+
+        window.addEventListener('resize', checkURLBar, { passive: true });
+    }
+
+    setupTouchOptimizations() {
+        if (!this.device.isTouch) return;
+
+        this.setupTouchFeedback();
+        this.preventAccidentalZoom();
+    }
+
+    setupTouchFeedback() {
+        const touchElements = document.querySelectorAll(
+            'button, [role="button"], .btn, .nav-link, .card-link, [onclick], [data-modal]'
+        );
+
+        touchElements.forEach(element => {
+            this.addTouchFeedback(element);
+        });
+    }
+
+    addTouchFeedback(element) {
+        let touchStartTime = 0;
+        let touchTimeout;
+
+        element.addEventListener('touchstart', (e) => {
+            touchStartTime = Date.now();
+            element.classList.add('touch-active');
+
+            if (this.capabilities.supportsVibration && this.device.iOS) {
+                navigator.vibrate(10);
+            }
+
+            clearTimeout(touchTimeout);
+        }, { passive: true });
+
+        element.addEventListener('touchend', (e) => {
+            const touchDuration = Date.now() - touchStartTime;
+            const minFeedbackTime = 100;
+            const remainingTime = Math.max(0, minFeedbackTime - touchDuration);
+
+            touchTimeout = setTimeout(() => {
+                element.classList.remove('touch-active');
+            }, remainingTime);
+        }, { passive: true });
+
+        element.addEventListener('touchcancel', () => {
+            element.classList.remove('touch-active');
+            clearTimeout(touchTimeout);
+        }, { passive: true });
+    }
+
+    setupPerformanceOptimizations() {
+        if (this.device.isLowEnd || this.device.prefersReducedMotion) {
+            document.documentElement.classList.add('reduce-motion');
+        }
+    }
+
+    getIOSVersion(ua) {
+        const match = ua.match(/os (\d+)_(\d+)_?(\d+)?/);
+        return match ? parseInt(match[1], 10) : 0;
+    }
+
+    getAndroidVersion(ua) {
+        const match = ua.match(/android\s([\d\.]+)/);
+        return match ? parseFloat(match[1]) : 0;
+    }
+
+    hasDisplayCutout() {
+        return this.capabilities.supportsDisplayCutout &&
+            (CSS.supports('padding-top: env(safe-area-inset-top)') ||
+                CSS.supports('padding-top: constant(safe-area-inset-top)'));
+    }
+
+    detectLowEndDevice() {
+        const memory = navigator.deviceMemory || 4;
+        const cores = navigator.hardwareConcurrency || 4;
+        const connection = navigator.connection;
+
+        return memory < 3 || cores < 4 ||
+            (connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g'));
+    }
+
+    isRootScrollableElement(element) {
+        return element === document.documentElement ||
+            element === document.body ||
+            element.closest('[data-prevent-overscroll]');
+    }
+
+    dispatchInitEvent() {
+        const event = new CustomEvent('mobilecore:initialized', {
+            detail: {
+                device: this.device,
+                capabilities: this.capabilities
+            }
+        });
+        document.dispatchEvent(event);
+    }
+
+    dispatchViewportChangeEvent() {
+        const event = new CustomEvent('mobilecore:viewportchange', {
+            detail: {
+                viewportWidth: window.innerWidth,
+                viewportHeight: window.innerHeight,
+                device: this.device
+            }
+        });
+        document.dispatchEvent(event);
+    }
+
+    getDevice() {
+        return this.device;
+    }
+
+    getCapabilities() {
+        return this.capabilities;
+    }
+
+    isInitialized() {
+        return this.initialized;
+    }
+
+    onViewportChange(callback) {
+        this.viewportUpdateCallbacks.push(callback);
+    }
+
+    notifyViewportChange() {
+        this.viewportUpdateCallbacks.forEach(callback => {
+            try {
+                callback({
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    device: this.device
+                });
+            } catch (error) {
+                console.error('Viewport callback error:', error);
+            }
+        });
+    }
+
+    preventAccidentalZoom() {
+        const inputs = document.querySelectorAll(
+            'input[type="text"], input[type="tel"], input[type="email"], textarea, select'
+        );
+
+        inputs.forEach(input => {
+            if (!input.style.fontSize || parseInt(input.style.fontSize) < 16) {
+                input.style.fontSize = '16px';
+            }
+        });
+    }
+
+    setupAndroidOptimizations() {
+        document.documentElement.classList.add('android');
+    }
+
+    fixIOSSafariScrollBounce() {
+        document.documentElement.style.overscrollBehavior = 'none';
+    }
+
+    optimizeIOSSafariPerformance() {
+        const videos = document.querySelectorAll('video');
+        videos.forEach(video => {
+            video.setAttribute('playsinline', '');
+            video.setAttribute('webkit-playsinline', '');
+        });
+    }
+
+    preventIOSZoomOnInputs() {
+        this.preventAccidentalZoom();
+    }
+
+    handleOrientationChange() {
+        // Placeholder для майбутньої логіки
+    }
+}
+
+window.MobileCore = new MobileCore();
+
+// ========================================
+// VIDEO-SYSTEM.JS - Відео система
+// ========================================
+
+class VideoSystem {
+    constructor() {
+        this.videos = new Map();
+        this.autoplaySupported = null;
+        this.loadingStrategy = null;
+        this.observers = {
+            intersection: null,
+            visibility: null
+        };
+
+        this.config = {
+            lazyLoadMargin: '100px',
+            lazyLoadThreshold: 0.2,
+            loadTimeout: 10000
+        };
+    }
+
+    async init() {
+        this.autoplaySupported = await this.testAutoplaySupport();
+        this.loadingStrategy = this.determineLoadingStrategy();
+        this.setupObservers();
+        await this.processPageVideos();
+        this.setupEventListeners();
+    }
+
+    async testAutoplaySupport() {
+        try {
+            const video = document.createElement('video');
+            video.muted = true;
+            video.playsInline = true;
+            video.style.cssText = 'position:absolute;opacity:0;left:-9999px';
+
+            const testVideoSrc = 'data:video/mp4;base64,AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAAIZnJlZQAAAu1tZGF0';
+            video.src = testVideoSrc;
+
+            document.body.appendChild(video);
+
+            const playPromise = video.play();
+
+            if (playPromise instanceof Promise) {
+                await playPromise;
+                video.remove();
+                return true;
+            }
+
+            video.remove();
+            return false;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    determineLoadingStrategy() {
+        const device = window.MobileCore?.getDevice() || {};
+        const connection = navigator.connection;
+
+        if (device.isLowEnd || connection?.effectiveType === 'slow-2g') {
+            return 'minimal';
+        } else if (device.isMobile || connection?.effectiveType === '2g') {
+            return 'lazy';
+        } else if (connection?.effectiveType === '3g') {
+            return 'progressive';
+        }
+        return 'eager';
+    }
+
+    setupObservers() {
+        if (!('IntersectionObserver' in window)) return;
+
+        this.observers.intersection = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.loadVideoForElement(entry.target);
+                }
+            });
+        }, {
+            rootMargin: this.config.lazyLoadMargin,
+            threshold: this.config.lazyLoadThreshold
+        });
+    }
+
+    async processPageVideos() {
+        // Conditional loading - тільки потрібне відео (mobile або desktop)
+        const isMobile = window.innerWidth <= 767;
+        const allVideos = document.querySelectorAll('.video-background:not(.lazy-video), .hero-video:not(.lazy-video)');
+        
+        const standardVideos = Array.from(allVideos).filter(video => {
+            const isDesktopVideo = video.classList.contains('desktop-video');
+            const isMobileVideo = video.classList.contains('mobile-video');
+            
+            // Завантажувати тільки відповідне відео
+            if (isMobile && isDesktopVideo) {
+                video.remove(); // Видалити непотрібне відео з DOM
+                return false;
+            }
+            if (!isMobile && isMobileVideo) {
+                video.remove(); // Видалити непотрібне відео з DOM
+                return false;
+            }
+            return true;
+        });
+
+        for (const video of standardVideos) {
+            await this.processVideo(video, 'standard');
+        }
+
+        const lazyVideos = document.querySelectorAll('.lazy-video');
+
+        lazyVideos.forEach(video => {
+            const videoData = {
+                element: video,
+                mode: 'lazy',
+                loaded: false,
+                playing: false,
+                container: video.closest('[data-video-container]') || video.parentElement
+            };
+
+            this.videos.set(video, videoData);
+            this.optimizeVideoAttributes(video);
+
+            if (this.observers.intersection) {
+                const container = video.closest('.project-section') || video;
+                this.observers.intersection.observe(container);
+            }
+        });
+    }
+
+    async processVideo(videoElement, mode = 'standard') {
+        if (!videoElement) return;
+
+        const videoData = {
+            element: videoElement,
+            mode,
+            loaded: false,
+            playing: false,
+            container: videoElement.closest('[data-video-container]') || videoElement.parentElement
+        };
+
+        this.videos.set(videoElement, videoData);
+        this.optimizeVideoAttributes(videoElement);
+
+        if (mode === 'lazy' || videoElement.classList.contains('lazy-video')) {
+            await this.setupLazyVideo(videoData);
+        } else {
+            await this.loadVideo(videoData);
+        }
+    }
+
+    async setupLazyVideo(videoData) {
+        // Observer вже налаштований
+    }
+
+    async loadVideoForElement(element) {
+        let video = null;
+
+        if (element.tagName === 'VIDEO') {
+            video = element;
+        } else {
+            const isMobile = window.innerWidth <= 767;
+            const selector = isMobile ? 'video.lazy-video.mobile-video' : 'video.lazy-video.desktop-video';
+            video = element.querySelector(selector);
+
+            if (!video) {
+                video = element.querySelector('video.lazy-video');
+            }
+        }
+
+        if (!video) {
+            return;
+        }
+
+        const videoData = this.videos.get(video);
+        if (!videoData) {
+            await this.processVideo(video, 'lazy');
+            return;
+        }
+
+        if (videoData.loaded) {
+            return;
+        }
+
+        await this.loadVideo(videoData);
+    }
+
+    async loadVideo(videoData) {
+        const { element, container } = videoData;
+
+        try {
+            if (element.hasAttribute('data-src')) {
+                const dataSrc = element.getAttribute('data-src');
+                element.src = dataSrc;
+                element.removeAttribute('data-src');
+
+                const source = element.querySelector('source[data-src]');
+                if (source) {
+                    const sourceSrc = source.getAttribute('data-src');
+                    source.src = sourceSrc;
+                    source.removeAttribute('data-src');
+                }
+
+                element.classList.remove('lazy-video');
+            }
+
+            element.load();
+            await this.waitForVideoReady(element);
+
+            videoData.loaded = true;
+
+            if (this.autoplaySupported) {
+                await this.attemptAutoplay(videoData);
+            }
+
+            this.emit('video:loaded', { element, container });
+
+        } catch (error) {
+            this.handleVideoError(videoData, error);
+        }
+    }
+
+    optimizeVideoAttributes(video) {
+        video.muted = true;
+        video.playsInline = true;
+        video.loop = true;
+        video.controls = false;
+
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+
+        const isMobile = window.innerWidth <= 767;
+        if (isMobile) {
+            video.preload = this.loadingStrategy === 'minimal' ? 'none' : 'metadata';
+        } else {
+            video.preload = video.classList.contains('lazy-video') ? 'none' : 'auto';
+        }
+    }
+
+    async waitForVideoReady(video) {
+        return new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => {
+                reject(new Error('Video loading timeout'));
+            }, this.config.loadTimeout);
+
+            const onReady = () => {
+                clearTimeout(timeout);
+                cleanup();
+                resolve();
+            };
+
+            const onError = (error) => {
+                clearTimeout(timeout);
+                cleanup();
+                reject(error);
+            };
+
+            const cleanup = () => {
+                video.removeEventListener('loadeddata', onReady);
+                video.removeEventListener('error', onError);
+            };
+
+            if (video.readyState >= 2) {
+                resolve();
+            } else {
+                video.addEventListener('loadeddata', onReady);
+                video.addEventListener('error', onError);
+            }
+        });
+    }
+
+    async attemptAutoplay(videoData) {
+        const { element } = videoData;
+
+        try {
+            await element.play();
+            videoData.playing = true;
+            this.emit('video:playing', { element });
+        } catch (error) {
+            this.emit('video:autoplay-failed', { element });
+        }
+    }
+
+    handleVideoError(videoData, error) {
+        const { element, container } = videoData;
+        element.style.display = 'none';
+        this.emit('video:error', { element, container, error });
+    }
+
+    setupEventListeners() {
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.pauseAll();
+            } else {
+                this.resumeAll();
+            }
+        });
+
+        if (navigator.connection) {
+            navigator.connection.addEventListener('change', () => {
+                this.handleConnectionChange();
+            });
+        }
+    }
+
+    handleConnectionChange() {
+        const connection = navigator.connection;
+        if (connection?.effectiveType === 'slow-2g' || connection?.effectiveType === '2g') {
+            this.pauseAll();
+        }
+    }
+
+    pauseAll() {
+        this.videos.forEach((videoData) => {
+            if (videoData.playing && !videoData.element.paused) {
+                videoData.element.pause();
+            }
+        });
+    }
+
+    resumeAll() {
+        this.videos.forEach((videoData) => {
+            if (videoData.loaded && !videoData.playing && this.autoplaySupported) {
+                videoData.element.play().catch(() => { });
+            }
+        });
+    }
+
+    pauseVideo(videoElement) {
+        const videoData = this.videos.get(videoElement);
+        if (videoData && !videoElement.paused) {
+            videoElement.pause();
+            videoData.playing = false;
+        }
+    }
+
+    playVideo(videoElement) {
+        const videoData = this.videos.get(videoElement);
+        if (videoData && videoElement.paused && videoData.loaded) {
+            videoElement.play().catch(() => { });
+            videoData.playing = true;
+        }
+    }
+
+    async addVideo(videoElement, mode = 'standard') {
+        await this.processVideo(videoElement, mode);
+    }
+
+    removeVideo(videoElement) {
+        this.videos.delete(videoElement);
+    }
+
+    getVideoData(videoElement) {
+        return this.videos.get(videoElement);
+    }
+
+    isAutoplaySupported() {
+        return this.autoplaySupported;
+    }
+
+    observeLazy(element) {
+        if (this.observers.intersection) {
+            this.observers.intersection.observe(element);
+        }
+    }
+
+    unobserveLazy(element) {
+        if (this.observers.intersection) {
+            this.observers.intersection.unobserve(element);
+        }
+    }
+
+    emit(eventName, data) {
+        const event = new CustomEvent(`videosystem:${eventName}`, { detail: data });
+        document.dispatchEvent(event);
+    }
+
+    on(eventName, callback) {
+        document.addEventListener(`videosystem:${eventName}`, callback);
+    }
+
+    off(eventName, callback) {
+        document.removeEventListener(`videosystem:${eventName}`, callback);
+    }
+}
+
+window.VideoSystem = new VideoSystem();
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        window.VideoSystem.init();
+    });
+} else {
+    window.VideoSystem.init();
+}
+
+// ========================================
+// BASE.JS - Базова логіка PrometeyApp
+// ========================================
+
+class PrometeyApp {
+    constructor() {
+        this.config = {
+            scrollThreshold: 50,
+            menuTransitionDuration: 400,
+            notificationDuration: 5000
+        };
+
+        this.state = {
+            menuOpen: false,
+            activeModal: null
+        };
+
+        this.elements = {};
+
+        this.init();
+    }
+
+    init() {
+        if (window.MobileCore?.isInitialized()) {
+            this.initWithMobileCore();
+        } else {
+            document.addEventListener('mobilecore:initialized', () => {
+                this.initWithMobileCore();
+            });
+        }
+    }
+
+    initWithMobileCore() {
+        this.cacheElements();
+        this.setupNavigation();
+        this.setupMobileMenu();
+        this.setupModals();
+        this.setupForms();
+        this.setupLanguageSwitcher();
+        this.setupAccessibility();
+        this.setupFooterAccordion();
+        this.setupScrollStateDetection();
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.onDOMReady());
+        } else {
+            this.onDOMReady();
+        }
+    }
+
+    cacheElements() {
+        this.elements = {
+            nav: document.querySelector('.main-navigation'),
+            burgerBtn: document.querySelector('.burger-menu'),
+            mobileMenu: document.querySelector('.mobile-menu'),
+            mobileMenuClose: document.querySelector('.mobile-menu-close'),
+            mobileNavLinks: document.querySelectorAll('.mobile-nav-link'),
+            langDropdown: document.querySelector('.lang-dropdown'),
+            langDropdownBtn: document.querySelector('.lang-dropdown-btn'),
+            langSwitchers: document.querySelectorAll('.lang-switcher-link')
+        };
+    }
+
+    onDOMReady() {
+        console.log('PrometeyLabs готово');
+    }
+
+    setupNavigation() {
+        if (!this.elements.nav) return;
+
+        let ticking = false;
+        let lastScrollTop = 0;
+        let isScrolled = false;
+
+        const handleScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const shouldBeScrolled = scrollTop > this.config.scrollThreshold;
+
+                    if (shouldBeScrolled !== isScrolled) {
+                        this.elements.nav.classList.toggle('scrolled', shouldBeScrolled);
+                        isScrolled = shouldBeScrolled;
+                    }
+
+                    lastScrollTop = scrollTop;
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        this.setupSmoothScroll();
+    }
+
+    setupSmoothScroll() {
+        const links = document.querySelectorAll('a[href^="#"]');
+
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href === '#') return;
+
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                }
+            }, { passive: false });
+        });
+    }
+
+    setupScrollStateDetection() {
+        let scrollTimeout;
+        let ticking = false;
+        
+        const handleScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    document.body.classList.add('is-scrolling');
+                    
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        document.body.classList.remove('is-scrolling');
+                        
+                        // Cleanup з requestIdleCallback якщо доступний
+                        if ('requestIdleCallback' in window) {
+                            window.requestIdleCallback(() => {
+                                // Додаткова очистка після завершення скролу
+                                document.querySelectorAll('.service-card').forEach(card => {
+                                    card.style.willChange = 'auto';
+                                });
+                            });
+                        }
+                    }, 80);
+                    
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+        
+        window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    setupMobileMenu() {
+        const { burgerBtn, mobileMenu, mobileMenuClose, mobileNavLinks } = this.elements;
+
+        if (!burgerBtn || !mobileMenu) return;
+
+        burgerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.toggleMobileMenu();
+        });
+
+        mobileMenuClose?.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.closeMobileMenu();
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => this.closeMobileMenu());
+        });
+
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) this.closeMobileMenu();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.state.menuOpen) {
+                this.closeMobileMenu();
+            }
+        });
+
+        if ('ontouchstart' in window) {
+            this.setupMenuTouchOptimizations();
+        }
+    }
+
+    setupMenuTouchOptimizations() {
+        const { mobileMenu, mobileNavLinks } = this.elements;
+
+        mobileMenu?.addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('touchstart', (e) => {
+                e.stopPropagation();
+            }, { passive: true });
+        });
+    }
+
+    toggleMobileMenu() {
+        if (this.state.menuOpen) {
+            this.closeMobileMenu();
+        } else {
+            this.openMobileMenu();
+        }
+    }
+
+    openMobileMenu() {
+        const { burgerBtn, mobileMenu } = this.elements;
+
+        this.saveScrollPosition();
+        burgerBtn.classList.add('active');
+        mobileMenu.classList.add('active');
+        document.body.style.top = `-${this.scrollPosition}px`;
+        document.body.style.overflow = 'hidden';
+        document.body.classList.add('menu-open');
+
+        this.state.menuOpen = true;
+
+        this.emit('menu:opened');
+    }
+
+    closeMobileMenu() {
+        const { burgerBtn, mobileMenu } = this.elements;
+
+        burgerBtn.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+        document.body.style.top = '';
+        document.body.classList.remove('menu-open');
+
+        this.state.menuOpen = false;
+        this.restoreScrollPosition();
+
+        this.emit('menu:closed');
+    }
+
+    setupModals() {
+        const modalTriggers = document.querySelectorAll('[data-modal]');
+        const closeButtons = document.querySelectorAll('.modal-close, .modal-close-specific');
+
+        modalTriggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                const modalId = trigger.getAttribute('data-modal');
+                this.openModal(modalId);
+            });
+        });
+
+        closeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const modalId = button.getAttribute('data-modal-id');
+                this.closeModal(modalId);
+            });
+        });
+
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal || e.target.classList.contains('modal-backdrop')) {
+                    this.closeModal(modal.id);
+                }
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.state.activeModal) {
+                this.closeModal();
+            }
+        });
+    }
+
+    openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+
+        this.saveScrollPosition();
+        this.prefillModalForm(modal);
+
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.top = `-${this.scrollPosition}px`;
+        document.body.style.overflow = 'hidden';
+
+        this.state.activeModal = modalId;
+
+        const firstInput = modal.querySelector('input:not([type="hidden"]), textarea');
+        if (firstInput) {
+            setTimeout(() => firstInput.focus(), 300);
+        }
+
+        this.emit('modal:opened', { modalId });
+    }
+
+    closeModal(modalId = null) {
+        const modal = modalId
+            ? document.getElementById(modalId)
+            : document.querySelector('.modal.active');
+
+        if (!modal) return;
+
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        document.body.style.top = '';
+
+        this.state.activeModal = null;
+        this.restoreScrollPosition();
+
+        this.emit('modal:closed', { modalId: modal.id });
+    }
+
+    prefillModalForm(modal) {
+        const userData = this.getStoredUserData();
+        if (!userData) return;
+
+        const nameField = modal.querySelector('input[name="name"]');
+        const phoneField = modal.querySelector('input[name="phone"]');
+
+        if (nameField && userData.name) nameField.value = userData.name;
+        if (phoneField && userData.phone) phoneField.value = userData.phone;
+    }
+
+    setupForms() {
+        const forms = document.querySelectorAll('form[data-form-type]');
+
+        forms.forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleFormSubmit(form);
+            });
+        });
+    }
+
+    async handleFormSubmit(form) {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn?.textContent;
+
+        if (!this.validateForm(form)) return;
+
+        if (submitBtn) {
+            submitBtn.classList.add('btn-loading');
+            submitBtn.disabled = true;
+        }
+
+        try {
+            const formData = new FormData(form);
+            const formType = form.getAttribute('data-form-type');
+
+            this.saveUserData(formData);
+
+            const response = await this.submitForm(formData, formType);
+
+            if (response.ok) {
+                const data = await response.json();
+
+                this.handleFormSuccess(data, formType);
+                form.reset();
+                this.closeModal();
+            } else {
+                throw new Error('Server error');
+            }
+
+        } catch (error) {
+            console.error('Form error:', error);
+            this.showNotification('Помилка відправки. Спробуйте ще раз.', 'error');
+        } finally {
+            if (submitBtn) {
+                submitBtn.classList.remove('btn-loading');
+                submitBtn.disabled = false;
+                if (originalText) submitBtn.textContent = originalText;
+            }
+        }
+    }
+
+    validateForm(form) {
+        const requiredFields = form.querySelectorAll('[required]');
+        let isValid = true;
+
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                field.classList.add('error');
+                isValid = false;
+            } else {
+                field.classList.remove('error');
+            }
+        });
+
+        return isValid;
+    }
+
+    async submitForm(formData, formType) {
+        const url = formType === 'test' ? '/forms/test/' : '/forms/submit/';
+
+        if (formType !== 'test') {
+            formData.append('form_type', formType);
+        }
+
+        return fetch(url, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': this.getCSRFToken()
+            }
+        });
+    }
+
+    handleFormSuccess(data, formType) {
+        if (formType === 'test' && data.result) {
+            this.showTestResult(data.result);
+        } else {
+            this.showNotification('Дякуємо! Ваша заявка відправлена.', 'success');
+            this.openModal('thank-you-modal');
+        }
+    }
+
+    showTestResult(result) {
+        const modal = document.getElementById('test-result-modal');
+        if (!modal) return;
+
+        const projectTypeEl = modal.querySelector('#result-project-type');
+        const priceEl = modal.querySelector('#result-price');
+        const timelineEl = modal.querySelector('#result-timeline');
+
+        if (projectTypeEl) projectTypeEl.textContent = result.project_type || '';
+        if (priceEl) priceEl.textContent = result.price || '';
+        if (timelineEl) timelineEl.textContent = result.timeline || '';
+
+        this.openModal('test-result-modal');
+    }
+
+    setupLanguageSwitcher() {
+        const { langDropdown, langDropdownBtn, langSwitchers } = this.elements;
+
+        langDropdownBtn?.addEventListener('click', (e) => {
+            e.preventDefault();
+            langDropdown?.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (langDropdown && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('active');
+            }
+        });
+
+        langSwitchers.forEach(switcher => {
+            switcher.addEventListener('click', (e) => {
+                e.preventDefault();
+                const langCode = switcher.getAttribute('data-language-code');
+                if (langCode) this.setLanguage(langCode);
+            });
+        });
+    }
+
+    setLanguage(langCode) {
+        console.log('Switching language to:', langCode);
+
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/i18n/set_language/';
+
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = 'csrfmiddlewaretoken';
+        csrfInput.value = this.getCSRFToken();
+        form.appendChild(csrfInput);
+
+        const langInput = document.createElement('input');
+        langInput.type = 'hidden';
+        langInput.name = 'language';
+        langInput.value = langCode;
+        form.appendChild(langInput);
+
+        let nextUrl = window.location.pathname + window.location.search;
+        const originalUrl = nextUrl;
+        nextUrl = nextUrl.replace(/^\/(uk|en)\//, '/');
+
+        console.log('Original URL:', originalUrl);
+        console.log('Next URL (cleaned):', nextUrl);
+        console.log('CSRF Token:', this.getCSRFToken());
+
+        const nextInput = document.createElement('input');
+        nextInput.type = 'hidden';
+        nextInput.name = 'next';
+        nextInput.value = nextUrl;
+        form.appendChild(nextInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    setupAccessibility() {
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+        if (animatedElements.length === 0) return;
+        if (!('IntersectionObserver' in window)) {
+            animatedElements.forEach(el => el.classList.add('visible'));
+            return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    setTimeout(() => {
+                        entry.target.classList.add('animated');
+                    }, 600);
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.05,
+            rootMargin: '0px 0px -20px 0px'
+        });
+
+        animatedElements.forEach(el => observer.observe(el));
+    }
+
+    setupFooterAccordion() {
+        const footerSections = document.querySelectorAll('.footer-section:not(.footer-form-section)');
+        
+        if (footerSections.length === 0) return;
+
+        footerSections.forEach(section => {
+            const heading = section.querySelector('h3');
+            if (!heading) return;
+
+            heading.addEventListener('click', () => {
+                if (window.innerWidth >= 768) return;
+
+                section.classList.toggle('footer-accordion-active');
+
+                this.emit('footer:accordion-toggle', {
+                    section: heading.textContent,
+                    isOpen: section.classList.contains('footer-accordion-active')
+                });
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                footerSections.forEach(section => {
+                    section.classList.remove('footer-accordion-active');
+                });
+            }
+        });
+    }
+
+    showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `prometey-notification prometey-notification--${type}`;
+
+        const messageSpan = document.createElement('span');
+        messageSpan.textContent = message;
+
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'prometey-notification__close';
+        closeBtn.textContent = '×';
+        closeBtn.setAttribute('aria-label', 'Закрити');
+        closeBtn.addEventListener('click', () => this.removeNotification(notification));
+
+        notification.appendChild(messageSpan);
+        notification.appendChild(closeBtn);
+        document.body.appendChild(notification);
+
+        setTimeout(() => notification.classList.add('prometey-notification--show'), 50);
+
+        setTimeout(() => this.removeNotification(notification), this.config.notificationDuration);
+    }
+
+    removeNotification(notification) {
+        notification.classList.remove('prometey-notification--show');
+        setTimeout(() => notification.remove(), 300);
+    }
+
+    saveScrollPosition() {
+        this.scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    }
+
+    restoreScrollPosition() {
+        if (this.scrollPosition !== undefined) {
+            window.scrollTo({
+                top: this.scrollPosition,
+                behavior: 'auto'
+            });
+        }
+    }
+
+    getCSRFToken() {
+        if (window.PrometeyUtils?.getCSRFToken) {
+            return window.PrometeyUtils.getCSRFToken();
+        }
+
+        const metaTag = document.querySelector('meta[name="csrf-token"]');
+        if (metaTag) {
+            const token = metaTag.getAttribute('content');
+            if (token) return token;
+        }
+
+        const input = document.querySelector('[name=csrfmiddlewaretoken]');
+        if (input) return input.value;
+
+        const match = document.cookie.match(/csrftoken=([^;]+)/);
+        return match ? match[1] : '';
+    }
+
+    saveUserData(formData) {
+        const userData = {
+            name: formData.get('name'),
+            phone: formData.get('phone'),
+            timestamp: Date.now()
+        };
+
+        try {
+            sessionStorage.setItem('prometey_user_data', JSON.stringify(userData));
+        } catch (error) {
+            console.error('Failed to save user data:', error);
+        }
+    }
+
+    getStoredUserData() {
+        try {
+            const data = sessionStorage.getItem('prometey_user_data');
+            return data ? JSON.parse(data) : null;
+        } catch (error) {
+            console.error('Failed to get user data:', error);
+            return null;
+        }
+    }
+
+    emit(eventName, data = null) {
+        const event = new CustomEvent(eventName, { detail: data });
+        document.dispatchEvent(event);
+        window.dispatchEvent(event);
+    }
+
+    on(eventName, callback) {
+        document.addEventListener(eventName, callback);
+    }
+
+    off(eventName, callback) {
+        document.removeEventListener(eventName, callback);
+    }
+
+    static getInstance() {
+        if (!window.prometeyApp) {
+            window.prometeyApp = new PrometeyApp();
+        }
+        return window.prometeyApp;
+    }
+}
+
+const notificationStyles = document.createElement('style');
+notificationStyles.id = 'prometey-notification-styles';
+notificationStyles.textContent = `
+.prometey-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    padding: 15px 20px;
+    background: var(--color-white);
+    border: 2px solid var(--color-brand-orange);
+    font-weight: 600;
+    font-size: var(--font-base);
+    transform: translateX(400px);
+    transition: transform var(--transition-normal) var(--easing-default);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--shadow-lg);
+}
+
+.prometey-notification--show {
+    transform: translateX(0);
+}
+
+.prometey-notification--success {
+    border-color: var(--color-brand-orange);
+    color: var(--color-brand-orange);
+}
+
+.prometey-notification--error {
+    border-color: var(--color-brand-orange);
+    color: var(--color-brand-orange);
+    background: #ffebee;
+}
+
+.prometey-notification__close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    color: inherit;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-fast) var(--easing-default);
+}
+
+.prometey-notification__close:hover {
+    transform: rotate(90deg);
+}
+
+@media (max-width: 767px) {
+    .prometey-notification {
+        top: auto;
+        bottom: calc(var(--mobile-safe-area-bottom, 0px) + 80px);
+        right: var(--space-xs);
+        left: var(--space-xs);
+        width: calc(100% - var(--space-xs) * 2);
+    }
+}
+`;
+
+if (!document.getElementById('prometey-notification-styles')) {
+    document.head.appendChild(notificationStyles);
+}
+
+const app = PrometeyApp.getInstance();
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = PrometeyApp;
+}
+
+// ========================================
+// HOME.JS - Логіка головної сторінки
+// ========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    initServiceCardsOptimized();
+    initServiceModals();
+    initProjectStories();
+    initAnalytics();
+});
+
+// Об'єднаний observer для service cards (анімація + backgrounds)
+function initServiceCardsOptimized() {
+    const serviceCards = document.querySelectorAll('.service-card');
+    if (serviceCards.length === 0) return;
+    
+    if (!('IntersectionObserver' in window)) {
+        serviceCards.forEach(card => {
+            card.classList.add('visible');
+            loadBackground(card);
+        });
+        return;
+    }
+
+    // Єдиний observer для всіх service card операцій
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const card = entry.target;
+                
+                // Анімація появи
+                card.classList.add('visible');
+                
+                // Завантаження background
+                if (card.classList.contains('lazy-bg')) {
+                    requestAnimationFrame(() => {
+                        loadBackground(card);
+                    });
+                }
+                
+                // Очистка will-change після анімації
+                setTimeout(() => {
+                    card.style.willChange = 'auto';
+                }, 600);
+                
+                // Припинити спостереження
+                observer.unobserve(card);
+            }
+        });
+    }, {
+        threshold: 0.05,
+        rootMargin: '50px 0px 0px 0px'
+    });
+
+    serviceCards.forEach(card => observer.observe(card));
+}
+
+function initServiceModals() {
+    let savedScrollPosition = 0;
+
+    document.querySelectorAll('.service-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const serviceType = card.dataset.service;
+            const modalId = `service-${serviceType}-modal`;
+            const modal = document.getElementById(modalId);
+            
+            if (modal) {
+                savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+                modal.classList.add('active');
+                document.body.style.top = `-${savedScrollPosition}px`;
+                document.body.classList.add('modal-open');
+                
+                const closeModal = () => {
+                    modal.classList.remove('active');
+                    document.body.style.top = '';
+                    document.body.classList.remove('modal-open');
+                    window.scrollTo({
+                        top: savedScrollPosition,
+                        behavior: 'auto'
+                    });
+                };
+                
+                const closeBtn = modal.querySelector('.modal-close');
+                const backdrop = modal.querySelector('.modal-backdrop');
+                
+                closeBtn.removeEventListener('click', closeModal);
+                backdrop.removeEventListener('click', closeModal);
+                
+                closeBtn.addEventListener('click', closeModal);
+                backdrop.addEventListener('click', closeModal);
+                
+                document.addEventListener('keydown', function escHandler(e) {
+                    if (e.key === 'Escape') {
+                        closeModal();
+                        document.removeEventListener('keydown', escHandler);
+                    }
+                });
+            }
+        });
+    });
+}
+
+function initProjectStories() {
+    const container = document.querySelector('.projects-stories-container');
+    if (!container) return;
+    
+    waitForImages(container).then(() => {
+        initMarqueeAnimation(container);
+    }).catch(() => {
+        setTimeout(() => initMarqueeAnimation(container), 500);
+    });
+}
+
+function waitForImages(container) {
+    return new Promise((resolve, reject) => {
+        const images = container.querySelectorAll('img');
+        if (images.length === 0) {
+            resolve();
+            return;
+        }
+        
+        let loadedCount = 0;
+        const totalImages = images.length;
+        const timeout = setTimeout(() => reject('timeout'), 3000);
+        
+        images.forEach(img => {
+            if (img.complete) {
+                loadedCount++;
+                if (loadedCount === totalImages) {
+                    clearTimeout(timeout);
+                    resolve();
+                }
+            } else {
+                img.addEventListener('load', () => {
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        clearTimeout(timeout);
+                        resolve();
+                    }
+                }, { once: true });
+                
+                img.addEventListener('error', () => {
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        clearTimeout(timeout);
+                        resolve();
+                    }
+                }, { once: true });
+            }
+        });
+    });
+}
+
+function initMarqueeAnimation(container) {
+    const stories = container.querySelectorAll('.project-story:not(.story-clone)');
+    if (stories.length === 0) return;
+    
+    const containerStyles = window.getComputedStyle(container);
+    const gap = parseFloat(containerStyles.gap) || 24;
+    
+    const firstStory = stories[0];
+    const lastStory = stories[stories.length - 1];
+    const setWidth = (lastStory.offsetLeft + lastStory.offsetWidth + gap) - firstStory.offsetLeft;
+    
+    container.style.setProperty('--marquee-distance', `${setWidth}px`);
+    container.setAttribute('aria-label', 'Наші проєкти - автоматична демонстрація');
+    container.setAttribute('role', 'marquee');
+    
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    requestAnimationFrame(() => {
+                        container.classList.add('marquee-active');
+                    });
+                    observer.unobserve(container);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '50px'
+        });
+        
+        observer.observe(container);
+    } else {
+        requestAnimationFrame(() => {
+            container.classList.add('marquee-active');
+        });
+    }
+}
+
+function initAnalytics() {
+    document.addEventListener('click', (e) => {
+        const button = e.target.closest('.btn');
+        if (button && typeof gtag !== 'undefined') {
+            gtag('event', 'button_click', {
+                button_text: button.textContent.trim(),
+                page_location: window.location.href
+            });
+        }
+    }, { passive: true });
+
+    let timeOnPage = 0;
+    let trackedEngagement = false;
+
+    const timeTracker = setInterval(() => {
+        timeOnPage += 1;
+        if (timeOnPage === 30 && !trackedEngagement && typeof gtag !== 'undefined') {
+            gtag('event', 'engaged_session', {
+                time_on_page: timeOnPage
+            });
+            trackedEngagement = true;
+            clearInterval(timeTracker);
+        }
+    }, 1000);
+}
+
+// Helper функція для завантаження background images
+function loadBackground(element) {
+    const isMobile = window.innerWidth <= 767;
+    const bgUrl = isMobile 
+        ? element.getAttribute('data-bg-mobile') 
+        : element.getAttribute('data-bg-desktop');
+    
+    if (bgUrl) {
+        const img = new Image();
+        img.onload = () => {
+            element.style.backgroundImage = `url('${bgUrl}')`;
+            element.classList.add('lazy-bg-loaded');
+            element.classList.remove('lazy-bg');
+        };
+        img.src = bgUrl;
+    }
+}
+

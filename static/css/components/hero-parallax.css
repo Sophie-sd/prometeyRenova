@@ -32,6 +32,12 @@
     height: 100%;
     object-fit: cover;
     z-index: var(--z-background, -1);
+    
+    /* GPU acceleration для плавного scroll */
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
 }
 
 /* Desktop відео */
@@ -44,6 +50,11 @@
 .hero-parallax__video--mobile,
 .mobile-video {
     display: none;
+}
+
+/* Вимкнути will-change під час активного скролу */
+.is-scrolling .video-background {
+    will-change: auto;
 }
 
 /* ===== OVERLAY (всі варіанти) ===== */

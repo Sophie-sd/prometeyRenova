@@ -15,12 +15,12 @@
 <section class="hero-section full-height">
     <!-- Фонові відео для декстопу та мобільних (SHARED між hero та CTA) -->
     <!-- Desktop відео (показується тільки на >=768px) -->
-    <video class="video-background desktop-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
+    <video class="video-background desktop-video" autoplay muted loop playsinline preload="auto" data-shared-video="main">
         <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
     </video>
 
     <!-- Mobile відео (показується тільки на <=767px) -->
-    <video class="video-background mobile-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
+    <video class="video-background mobile-video" autoplay muted loop playsinline preload="auto" data-shared-video="main">
         <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
     </video>
 
@@ -363,6 +363,11 @@
 </div>
 {% endblock %}
 
+{% block base_js %}
+<!-- Використовуємо оптимізований bundle замість окремих файлів -->
+<script src="{% static 'js/home-bundle.js' %}"></script>
+{% endblock %}
+
 {% block extra_js %}
-<script src="{% static 'js/home.js' %}"></script>
+<!-- Home JS вже включено в bundle -->
 {% endblock %}

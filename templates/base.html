@@ -115,10 +115,12 @@
     {% include 'components/modals.html' %}
 
     <!-- Modern JavaScript Systems (2025) - чіткий порядок завантаження -->
+    {% block base_js %}
     <script src="{% static 'js/core/utils.js' %}"></script>
     <script src="{% static 'js/mobile-core.js' %}"></script>
     <script src="{% static 'js/video-system.js' %}"></script>
     <script src="{% static 'js/base.js' %}"></script>
+    {% endblock %}
     {% block extra_js %}{% endblock %}
 
     <!-- CSRF Token for AJAX -->

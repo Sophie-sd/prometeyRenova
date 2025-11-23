@@ -26,6 +26,11 @@
 /* Відступ між підсекціями */
 .services-subsection {
     margin-bottom: 40px;
+    contain: layout style;
+}
+
+.services-content {
+    contain: layout;
 }
 
 .services-content h2 {
@@ -58,10 +63,12 @@
                 0 -1px 0 rgba(230, 81, 0, 0.1) inset,
                 0 4px 12px -2px rgba(230, 81, 0, 0.15);
 
-    /* GPU acceleration */
+    /* GPU acceleration для плавності */
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    will-change: transform;
+    contain: layout style paint;
 }
 
 .service-card::before {
@@ -152,10 +159,16 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Відключити hover під час скролу */
+/* Відключити hover та will-change під час скролу */
+.is-scrolling .service-card {
+    will-change: auto;
+}
+
 .is-scrolling .service-card:hover {
     transform: translate3d(0, 0, 0);
-    box-shadow: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3),
+                0 -1px 0 rgba(230, 81, 0, 0.1) inset,
+                0 4px 12px -2px rgba(230, 81, 0, 0.15);
 }
 
 /* Контент картки - без постійних тіней */
@@ -237,11 +250,13 @@
 /* ===== PROJECTS SUBSECTION - INSTAGRAM STORIES STYLE ===== */
 .projects-subsection {
     position: relative;
+    contain: layout style;
 }
 
 .projects-content {
     position: relative;
     z-index: 1;
+    contain: layout;
 }
 
 .projects-content h2 {
@@ -266,11 +281,17 @@
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    contain: layout style;
 }
 
 .projects-stories-container.marquee-active {
     animation: marquee-scroll 30s linear infinite;
     will-change: transform;
+}
+
+/* Вимкнути will-change під час скролу для економії ресурсів */
+.is-scrolling .projects-stories-container.marquee-active {
+    will-change: auto;
 }
 
 /* Пауза marquee під час активного скролу */
