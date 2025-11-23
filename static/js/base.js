@@ -45,6 +45,7 @@ class PrometeyApp {
         this.setupForms();
         this.setupLanguageSwitcher();
         this.setupAccessibility();
+        this.setupFooterAccordion();
 
         // DOM ready actions
         if (document.readyState === 'loading') {
@@ -513,6 +514,41 @@ class PrometeyApp {
         });
 
         animatedElements.forEach(el => observer.observe(el));
+    }
+
+    // ===== FOOTER ACCORDION (Mobile) =====
+    setupFooterAccordion() {
+        const footerSections = document.querySelectorAll('.footer-section:not(.footer-form-section)');
+        
+        if (footerSections.length === 0) return;
+
+        footerSections.forEach(section => {
+            const heading = section.querySelector('h3');
+            if (!heading) return;
+
+            heading.addEventListener('click', () => {
+                // Тільки на мобільних пристроях (< 768px)
+                if (window.innerWidth >= 768) return;
+
+                // Toggle активного стану
+                section.classList.toggle('footer-accordion-active');
+
+                // Emit подію для аналітики
+                this.emit('footer:accordion-toggle', {
+                    section: heading.textContent,
+                    isOpen: section.classList.contains('footer-accordion-active')
+                });
+            });
+        });
+
+        // Закриваємо всі акордеони при зміні розміру на desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                footerSections.forEach(section => {
+                    section.classList.remove('footer-accordion-active');
+                });
+            }
+        });
     }
 
     // ===== NOTIFICATIONS =====

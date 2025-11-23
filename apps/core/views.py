@@ -66,7 +66,8 @@ def handle_form_submission(request):
             'developer': handle_developer_request,
             'consultation': handle_consultation_request,
             'contact': handle_contact_request,
-            'call_request': handle_call_request
+            'call_request': handle_call_request,
+            'footer-consultation': handle_footer_consultation
         }
         
         handler = handlers.get(form_type)
@@ -218,6 +219,21 @@ def handle_call_request(request, name, phone):
     return create_form_response(
         True, 
         'Дякуємо! Наш менеджер зателефонує вам протягом 15 хвилин.',
+        redirect=None
+    )
+
+def handle_footer_consultation(request, name, phone):
+    """Обробка заявки з footer форми консультації"""
+    form_data = create_form_data(
+        'Заявка з footer - Консультація', name, phone, request
+    )
+    
+    send_form_email(form_data)
+    save_form_submission('footer-consultation', form_data)
+    
+    return create_form_response(
+        True,
+        'Дякуємо! Ми зв\'яжемося з вами найближчим часом.',
         redirect=None
     )
 
