@@ -911,7 +911,3 @@ body.is-scrolling [role="button"] {
         display: none;
     }
 }
-
-.is-scrolling .projects-stories-container.marquee-active {
-    animation-play-state: running;
-}
