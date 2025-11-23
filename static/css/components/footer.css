@@ -16,7 +16,7 @@
 /* ===== FOOTER CONTENT GRID ===== */
 .footer-content {
     display: grid;
-    grid-template-columns: 0.95fr 0.75fr 1fr 1fr 1.7fr;
+    grid-template-columns: 1fr 0.70fr 1fr 1fr 1.7fr;
     gap: 30px;
     margin-bottom: 30px;
 }
