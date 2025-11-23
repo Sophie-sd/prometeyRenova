@@ -34,6 +34,7 @@
     color: var(--color-brand-orange);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    padding-bottom: 5px;
 }
 
 /* ===== FOOTER LINKS ===== */
@@ -45,6 +46,7 @@
     transition: all var(--transition-normal) var(--easing-default);
     position: relative;
     padding-left: 0;
+    padding-bottom: 5px;
     line-height: 1.6;
 }
 
@@ -114,6 +116,7 @@
     text-decoration: none;
     transition: color var(--transition-normal) var(--easing-default);
     font-weight: 500;
+    padding-bottom: 5px;
 }
 
 .footer-contact-link:hover {
