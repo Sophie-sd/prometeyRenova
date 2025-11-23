@@ -33,7 +33,10 @@
     object-fit: cover;
     z-index: var(--z-background, -1);
     
-    /* GPU acceleration для плавного scroll */
+    /* КРИТИЧНО: відео не бере участь у scroll calculations */
+    pointer-events: none;
+    
+    /* GPU acceleration */
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -52,9 +55,14 @@
     display: none;
 }
 
-/* Вимкнути will-change під час активного скролу */
+/* Вимкнути will-change під час активного скролу для економії GPU */
 .is-scrolling .video-background {
-    will-change: auto;
+    will-change: auto !important;
+}
+
+/* Зафіксувати відео під час scroll - НЕ МІНЯТИ transform */
+.is-scrolling .video-background {
+    transform: translate3d(0, 0, 0) !important;
 }
 
 /* ===== OVERLAY (всі варіанти) ===== */

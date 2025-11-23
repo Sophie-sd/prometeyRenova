@@ -56,19 +56,15 @@
     background-repeat: no-repeat;
     transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
     border-radius: 20px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3),
                 0 -1px 0 rgba(230, 81, 0, 0.1) inset,
                 0 4px 12px -2px rgba(230, 81, 0, 0.15);
 
-    /* GPU acceleration для плавності */
+    /* GPU acceleration */
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    will-change: transform;
-    contain: layout style paint;
 }
 
 .service-card::before {
@@ -159,16 +155,27 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Відключити hover та will-change під час скролу */
+/* Критично важливо: відключити ВСІ важкі ефекти під час скролу */
 .is-scrolling .service-card {
     will-change: auto;
+    transition: none !important;
 }
 
 .is-scrolling .service-card:hover {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) !important;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3),
                 0 -1px 0 rgba(230, 81, 0, 0.1) inset,
-                0 4px 12px -2px rgba(230, 81, 0, 0.15);
+                0 4px 12px -2px rgba(230, 81, 0, 0.15) !important;
+}
+
+/* Відключити складні shadows під час scroll */
+.is-scrolling .service-card {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.is-scrolling .service-number {
+    transition: none !important;
+    transform: translate3d(0, 0, 0) !important;
 }
 
 /* Контент картки - без постійних тіней */
@@ -294,9 +301,22 @@
     will-change: auto;
 }
 
-/* Пауза marquee під час активного скролу */
+/* КРИТИЧНО: Пауза marquee та всіх анімацій під час скролу */
 body.is-scrolling .projects-stories-container.marquee-active {
-    animation-play-state: paused;
+    animation-play-state: paused !important;
+}
+
+body.is-scrolling * {
+    animation-play-state: paused !important;
+}
+
+/* Відключити всі transitions під час scroll для максимальної плавності */
+body.is-scrolling .service-card,
+body.is-scrolling .service-card-overlay,
+body.is-scrolling .service-number,
+body.is-scrolling .service-title,
+body.is-scrolling .service-description {
+    transition: none !important;
 }
 
 @keyframes marquee-scroll {

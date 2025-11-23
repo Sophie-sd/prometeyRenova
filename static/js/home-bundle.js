@@ -1069,35 +1069,30 @@ class PrometeyApp {
 
     setupScrollStateDetection() {
         let scrollTimeout;
-        let ticking = false;
         
         const handleScroll = () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    document.body.classList.add('is-scrolling');
-                    
-                    clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(() => {
-                        document.body.classList.remove('is-scrolling');
-                        
-                        // Cleanup з requestIdleCallback якщо доступний
-                        if ('requestIdleCallback' in window) {
-                            window.requestIdleCallback(() => {
-                                // Додаткова очистка після завершення скролу
-                                document.querySelectorAll('.service-card').forEach(card => {
-                                    card.style.willChange = 'auto';
-                                });
-                            });
-                        }
-                    }, 80);
-                    
-                    ticking = false;
-                });
-                ticking = true;
+            // МИТТЄВО додаємо клас без requestAnimationFrame
+            document.body.classList.add('is-scrolling');
+            
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                document.body.classList.remove('is-scrolling');
+            }, 150);
+        };
+        
+        // Throttled version для performance
+        let lastScrollTime = 0;
+        const throttleDelay = 16; // ~60fps
+        
+        const throttledScroll = () => {
+            const now = Date.now();
+            if (now - lastScrollTime >= throttleDelay) {
+                handleScroll();
+                lastScrollTime = now;
             }
         };
         
-        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('scroll', throttledScroll, { passive: true });
     }
 
     setupMobileMenu() {
