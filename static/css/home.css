@@ -26,11 +26,6 @@
 /* Відступ між підсекціями */
 .services-subsection {
     margin-bottom: 40px;
-    contain: layout style;
-}
-
-.services-content {
-    contain: layout;
 }
 
 .services-content h2 {
@@ -257,13 +252,11 @@
 /* ===== PROJECTS SUBSECTION - INSTAGRAM STORIES STYLE ===== */
 .projects-subsection {
     position: relative;
-    contain: layout style;
 }
 
 .projects-content {
     position: relative;
     z-index: 1;
-    contain: layout;
 }
 
 .projects-content h2 {
