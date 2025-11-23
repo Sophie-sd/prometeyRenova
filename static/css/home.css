@@ -477,10 +477,10 @@
     }
 
     .project-story-image {
-        top: 6px;
-        left: 6px;
-        right: 6px;
-        bottom: 6px;
+        top: 2px;
+        left: 2px;
+        right: 2px;
+        bottom: 2px;
     }
 
     .project-story-name {
@@ -624,10 +624,10 @@
     }
 
     .project-story-image {
-        top: 6px;
-        left: 6px;
-        right: 6px;
-        bottom: 6px;
+        top: 2px;
+        left: 2px;
+        right: 2px;
+        bottom: 2px;
     }
 
     .project-story-name {
@@ -694,10 +694,10 @@
         .project-story-image {
             width: calc(100% - 12px);
             height: calc(100% - 12px);
-            top: 6px;
-            left: 6px;
-            right: auto;
-            bottom: auto;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
         }
     }
 }
