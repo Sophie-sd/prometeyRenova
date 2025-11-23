@@ -283,8 +283,8 @@
     align-items: center;
     gap: var(--space-xs);
     flex-shrink: 0;
-    width: calc((100% - 40px * 2 - 24px * 4) / 5);
-    max-width: 220px;
+    width: 300px;
+    max-width: 300px;
     min-width: 180px;
     cursor: pointer;
     text-decoration: none;
