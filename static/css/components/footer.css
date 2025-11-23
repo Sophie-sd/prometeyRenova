@@ -7,7 +7,7 @@
 .main-footer {
     background: #1a1a1a;
     color: #888888;
-    padding: 40px 0 30px;
+    padding: 0px 0 15px;
     border-top: 3px solid var(--color-brand-orange);
     position: relative;
     z-index: 100;
@@ -16,7 +16,7 @@
 /* ===== FOOTER CONTENT GRID ===== */
 .footer-content {
     display: grid;
-    grid-template-columns: 0.85fr 0.85fr 1fr 1fr 1.7fr;
+    grid-template-columns: 0.95fr 0.75fr 1fr 1fr 1.7fr;
     gap: 30px;
     margin-bottom: 30px;
 }
