@@ -111,9 +111,6 @@ function setupStoriesDragScroll(container) {
     let isDown = false;
     let startX;
     let scrollLeft;
-    let velocity = 0;
-    let lastX = 0;
-    let lastTime = Date.now();
 
     // Mouse events для desktop (passive де можливо)
     container.addEventListener('mousedown', (e) => {
@@ -122,9 +119,6 @@ function setupStoriesDragScroll(container) {
         container.classList.add('grabbing');
         startX = e.pageX - container.offsetLeft;
         scrollLeft = container.scrollLeft;
-        velocity = 0;
-        lastX = e.pageX;
-        lastTime = Date.now();
     }, { passive: true });
 
     container.addEventListener('mouseleave', () => {
@@ -135,7 +129,7 @@ function setupStoriesDragScroll(container) {
     container.addEventListener('mouseup', () => {
         isDown = false;
         container.classList.remove('grabbing');
-        // Momentum scrolling видалено - браузер робить це автоматично
+        // Momentum scrolling - браузер робить це автоматично через CSS scroll-snap
     }, { passive: true });
 
     // НЕ passive бо є preventDefault
@@ -145,15 +139,6 @@ function setupStoriesDragScroll(container) {
         const x = e.pageX - container.offsetLeft;
         const walk = (x - startX) * 2;
         container.scrollLeft = scrollLeft - walk;
-
-        // Calculate velocity
-        const now = Date.now();
-        const dt = now - lastTime;
-        if (dt > 0) {
-            velocity = (e.pageX - lastX) / dt;
-        }
-        lastX = e.pageX;
-        lastTime = now;
     });
 
     // Touch events для mobile (passive для performance)
@@ -162,9 +147,6 @@ function setupStoriesDragScroll(container) {
         scrollLeft = container.scrollLeft;
     }, { passive: true });
 }
-
-// Momentum scroll видалено - браузер робить це краще з CSS scroll-snap
-// function applyMomentumScroll - не потрібен
 
 function setupStoryClickHandlers(stories) {
     stories.forEach(story => {

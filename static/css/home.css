@@ -403,16 +403,7 @@
     overflow: hidden;
 }
 
-/* Фіксоване відео для CTA секції (як у hero-parallax) */
-.cta-section .video-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: var(--z-background, -1);
-}
+/* CTA використовує SHARED відео з hero-section (position: fixed вже встановлено в hero-parallax.css) */
 
 /* Абсолютний overlay для CTA */
 .cta-section .video-overlay {

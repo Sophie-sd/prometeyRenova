@@ -7,11 +7,8 @@ pip install -r requirements.txt
 echo "🌍 Compiling translations..."
 python manage.py compilemessages --ignore=prometey_env
 
-echo "📁 Collecting static files..."
+echo "📁 Collecting static files (з автоматичною compression)..."
 python manage.py collectstatic --no-input
-
-echo "🗜️  Compressing static files..."
-python manage.py compress --force
 
 echo "🗄️  Running migrations..."
 python manage.py migrate
