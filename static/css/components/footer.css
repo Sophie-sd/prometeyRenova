@@ -253,10 +253,6 @@
 
 /* ===== RESPONSIVE - MOBILE ===== */
 @media (max-width: 767px) {
-    .main-footer {
-        padding: 30px 0 20px;
-    }
-
     .footer-content {
         grid-template-columns: 1fr;
         gap: 0;
@@ -320,11 +316,11 @@
     }
 
     .footer-section h3 {
-        font-size: 14px;
+        font-size: 18px;
     }
 
     .footer-link {
-        font-size: 13px;
+        font-size: 16px;
         padding: 6px 0;
     }
 
@@ -348,7 +344,7 @@
     }
 
     .footer-form .form-label {
-        font-size: 13px;
+        font-size: 15px;
     }
 
     .footer-input {
@@ -358,11 +354,11 @@
     }
 
     .footer-checkbox {
-        font-size: 11px;
+        font-size: 15px;
     }
 
     .footer-submit-btn {
-        font-size: 14px;
+        font-size: 16px;
         padding: 14px 24px;
     }
 
