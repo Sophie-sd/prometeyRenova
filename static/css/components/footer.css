@@ -16,7 +16,7 @@
 /* ===== FOOTER CONTENT GRID ===== */
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: 0.85fr 0.85fr 1fr 1fr 1.7fr;
     gap: 30px;
     margin-bottom: 30px;
 }
@@ -29,10 +29,9 @@
 }
 
 .footer-section h3 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--color-brand-orange);
-    margin-bottom: var(--space-xs);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -40,7 +39,7 @@
 /* ===== FOOTER LINKS ===== */
 .footer-link {
     display: block;
-    font-size: 14px;
+    font-size: 16px;
     color: #aaaaaa;
     text-decoration: none;
     transition: all var(--transition-normal) var(--easing-default);
@@ -110,7 +109,7 @@
 
 .footer-contact-link {
     display: block;
-    font-size: 14px;
+    font-size: 16px;
     color: var(--color-white);
     text-decoration: none;
     transition: color var(--transition-normal) var(--easing-default);
@@ -123,7 +122,7 @@
 
 .footer-contact-text {
     display: block;
-    font-size: 13px;
+    font-size: 15px;
     color: #888888;
     margin-bottom: 16px;
 }
@@ -181,7 +180,7 @@
     display: flex;
     align-items: flex-start;
     gap: 8px;
-    font-size: 12px;
+    font-size: 14px;
     color: #888888;
     cursor: pointer;
     line-height: 1.4;
