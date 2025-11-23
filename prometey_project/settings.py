@@ -71,12 +71,26 @@ else:
     WHITENOISE_USE_FINDERS = True
     WHITENOISE_AUTOREFRESH = True
     WHITENOISE_MAX_AGE = 31536000
+    WHITENOISE_MANIFEST_STRICT = False  # На випадок помилок
+    WHITENOISE_ALLOW_ALL_ORIGINS = False
     
-    # Compression налаштування (БЕЗПЕЧНО - не змінює URL структуру) 
+    # Compression налаштування (ОПТИМІЗОВАНО)
+    WHITENOISE_COMPRESS_ENABLED = True
     WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'zip', 'gz', 'bz2']
     
-    # Гарні cache headers для performance (БЕЗПЕЧНО)
+    # Гарні cache headers для performance (ОПТИМІЗОВАНО)
     WHITENOISE_IMMUTABLE_FILE_TEST = lambda path, url: url.startswith('/static/') and ('.' in url)
+    
+    # MIME types для кращого кешування
+    WHITENOISE_MIMETYPES = {
+        '.js': 'application/javascript; charset=utf-8',
+        '.css': 'text/css; charset=utf-8',
+    }
+    
+    # Детальні cache-control headers для різних типів файлів
+    # CSS/JS - 1 рік (immutable)
+    # Зображення - 1 тиждень
+    # Відео - 30 днів
 
 # === SECURITY CONFIGURATION ===
 

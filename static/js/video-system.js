@@ -23,33 +23,20 @@ class VideoSystem {
 
     // ===== INITIALIZATION =====
     async init() {
-        console.log('[VideoSystem] Starting initialization...');
-
         // Перевірка autoplay
         this.autoplaySupported = await this.testAutoplaySupport();
-        console.log('[VideoSystem] Autoplay supported:', this.autoplaySupported);
 
         // Визначення стратегії
         this.loadingStrategy = this.determineLoadingStrategy();
-        console.log('[VideoSystem] Loading strategy:', this.loadingStrategy);
 
         // Налаштування observers
         this.setupObservers();
-        console.log('[VideoSystem] Observers set up');
 
         // Обробка відео на сторінці
         await this.processPageVideos();
-        console.log('[VideoSystem] Page videos processed');
 
         // Event listeners
         this.setupEventListeners();
-        console.log('[VideoSystem] Event listeners set up');
-
-        console.log('[VideoSystem] ✅ Initialization complete:', {
-            autoplay: this.autoplaySupported,
-            strategy: this.loadingStrategy,
-            registeredVideos: this.videos.size
-        });
     }
 
     // ===== AUTOPLAY DETECTION =====
@@ -103,14 +90,7 @@ class VideoSystem {
         // Observer для lazy loading
         this.observers.intersection = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                console.log('[VideoSystem] Intersection change:', {
-                    target: entry.target,
-                    isIntersecting: entry.isIntersecting,
-                    intersectionRatio: entry.intersectionRatio
-                });
-
                 if (entry.isIntersecting) {
-                    console.log('[VideoSystem] Element became visible, loading video');
                     this.loadVideoForElement(entry.target);
                 }
             });
@@ -127,16 +107,12 @@ class VideoSystem {
             '.video-background:not(.lazy-video), .hero-video:not(.lazy-video)'
         );
 
-        console.log('[VideoSystem] Found standard videos:', standardVideos.length);
-
         for (const video of standardVideos) {
             await this.processVideo(video, 'standard');
         }
 
         // Lazy videos (portfolio projects)
         const lazyVideos = document.querySelectorAll('.lazy-video');
-
-        console.log('[VideoSystem] Found lazy videos:', lazyVideos.length);
 
         lazyVideos.forEach(video => {
             // Реєструємо відео в системі але не завантажуємо
@@ -154,7 +130,6 @@ class VideoSystem {
             // Спостерігаємо за контейнером
             if (this.observers.intersection) {
                 const container = video.closest('.project-section') || video;
-                console.log('[VideoSystem] Observing lazy video:', video, 'in container:', container);
                 this.observers.intersection.observe(container);
             }
         });
@@ -210,22 +185,17 @@ class VideoSystem {
         }
 
         if (!video) {
-            console.log('[VideoSystem] No video found in element:', element);
             return;
         }
 
-        console.log('[VideoSystem] Loading video for element:', video);
-
         const videoData = this.videos.get(video);
         if (!videoData) {
-            console.log('[VideoSystem] No video data, registering video:', video);
             // Якщо відео не зареєстроване, реєструємо його
             await this.processVideo(video, 'lazy');
             return;
         }
 
         if (videoData.loaded) {
-            console.log('[VideoSystem] Video already loaded:', video);
             return;
         }
 
@@ -236,12 +206,9 @@ class VideoSystem {
         const { element, container } = videoData;
 
         try {
-            console.log('[VideoSystem] Loading video:', element);
-
             // Якщо є data-src, переносимо в src
             if (element.hasAttribute('data-src')) {
                 const dataSrc = element.getAttribute('data-src');
-                console.log('[VideoSystem] Setting src from data-src:', dataSrc);
                 element.src = dataSrc;
                 element.removeAttribute('data-src');
 
@@ -249,7 +216,6 @@ class VideoSystem {
                 const source = element.querySelector('source[data-src]');
                 if (source) {
                     const sourceSrc = source.getAttribute('data-src');
-                    console.log('[VideoSystem] Setting source src:', sourceSrc);
                     source.src = sourceSrc;
                     source.removeAttribute('data-src');
                 }
@@ -264,7 +230,6 @@ class VideoSystem {
             await this.waitForVideoReady(element);
 
             videoData.loaded = true;
-            console.log('[VideoSystem] Video loaded successfully:', element.src);
 
             // Автоплей якщо підтримується
             if (this.autoplaySupported) {
@@ -275,7 +240,6 @@ class VideoSystem {
             this.emit('video:loaded', { element, container });
 
         } catch (error) {
-            console.error('[VideoSystem] Video load error:', error);
             this.handleVideoError(videoData, error);
         }
     }
@@ -338,7 +302,6 @@ class VideoSystem {
             videoData.playing = true;
             this.emit('video:playing', { element });
         } catch (error) {
-            console.log('Autoplay prevented:', error);
             this.emit('video:autoplay-failed', { element });
         }
     }
@@ -346,7 +309,6 @@ class VideoSystem {
     handleVideoError(videoData, error) {
         const { element, container } = videoData;
 
-        console.error('Video error:', error);
         element.style.display = 'none';
 
         this.emit('video:error', { element, container, error });

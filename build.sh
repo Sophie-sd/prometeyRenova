@@ -10,6 +10,9 @@ python manage.py compilemessages --ignore=prometey_env
 echo "📁 Collecting static files..."
 python manage.py collectstatic --no-input
 
+echo "🗜️  Compressing static files..."
+python manage.py compress --force
+
 echo "🗄️  Running migrations..."
 python manage.py migrate
 

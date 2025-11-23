@@ -22,6 +22,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # Third-party apps
+    'compressor',
+    
     # Custom apps
     'apps.core',
     'apps.blog',
@@ -96,3 +99,25 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Payment settings
 MONOBANK_TOKEN = os.getenv('MONOBANK_TOKEN', '')
 SITE_URL = os.getenv('SITE_URL', 'http://localhost:8000')
+
+# ===== DJANGO COMPRESSOR SETTINGS =====
+COMPRESS_ENABLED = not DEBUG  # Вимкнено в DEBUG режимі для розробки
+COMPRESS_OFFLINE = True  # Для production - компресія під час collectstatic
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.rCSSMinFilter',
+]
+COMPRESS_JS_FILTERS = [
+    'compressor.filters.jsmin.rJSMinFilter',
+]
+COMPRESS_STORAGE = 'compressor.storage.GzipCompressorFileStorage'
+COMPRESS_OUTPUT_DIR = 'CACHE'
+COMPRESS_CSS_HASHING_METHOD = 'content'
+COMPRESS_JS_HASHING_METHOD = 'content'
+
+# Finders для compressor
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]

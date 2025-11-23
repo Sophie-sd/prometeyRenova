@@ -12,3 +12,6 @@ user-agents==2.2.0
 python-decouple==3.8
 dj-database-url==2.1.0
 psycopg[binary]>=3.1.0
+django-compressor==4.5
+rcssmin==1.1.2
+rjsmin==1.2.2

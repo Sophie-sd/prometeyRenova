@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initServiceModals();
     initProjectStories();
     initAnalytics();
+    initLazyBackgrounds();
 });
 
 // ===== SERVICE CARDS ANIMATIONS =====
@@ -134,11 +135,7 @@ function setupStoriesDragScroll(container) {
     container.addEventListener('mouseup', () => {
         isDown = false;
         container.classList.remove('grabbing');
-
-        // Momentum scrolling
-        if (Math.abs(velocity) > 0.5) {
-            applyMomentumScroll(container, velocity);
-        }
+        // Momentum scrolling видалено - браузер робить це автоматично
     }, { passive: true });
 
     // НЕ passive бо є preventDefault
@@ -166,21 +163,8 @@ function setupStoriesDragScroll(container) {
     }, { passive: true });
 }
 
-function applyMomentumScroll(container, velocity) {
-    let momentum = velocity * 15;
-    const friction = 0.95;
-
-    function step() {
-        momentum *= friction;
-        container.scrollLeft -= momentum;
-
-        if (Math.abs(momentum) > 0.5) {
-            requestAnimationFrame(step);
-        }
-    }
-
-    requestAnimationFrame(step);
-}
+// Momentum scroll видалено - браузер робить це краще з CSS scroll-snap
+// function applyMomentumScroll - не потрібен
 
 function setupStoryClickHandlers(stories) {
     stories.forEach(story => {
@@ -316,4 +300,48 @@ function initAnalytics() {
             clearInterval(timeTracker); // Зупинити після трекінгу
         }
     }, 1000);
+}
+
+// ===== LAZY BACKGROUND IMAGES =====
+function initLazyBackgrounds() {
+    const lazyBgElements = document.querySelectorAll('.lazy-bg');
+    if (lazyBgElements.length === 0) return;
+
+    if (!('IntersectionObserver' in window)) {
+        // Fallback для старих браузерів - завантажити одразу
+        lazyBgElements.forEach(el => loadBackground(el));
+        return;
+    }
+
+    const bgObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                loadBackground(entry.target);
+                bgObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        rootMargin: '50px',
+        threshold: 0.01
+    });
+
+    lazyBgElements.forEach(el => bgObserver.observe(el));
+}
+
+function loadBackground(element) {
+    const isMobile = window.innerWidth <= 767;
+    const bgUrl = isMobile 
+        ? element.getAttribute('data-bg-mobile') 
+        : element.getAttribute('data-bg-desktop');
+    
+    if (bgUrl) {
+        // Preload image
+        const img = new Image();
+        img.onload = () => {
+            element.style.backgroundImage = `url('${bgUrl}')`;
+            element.classList.add('lazy-bg-loaded');
+            element.classList.remove('lazy-bg');
+        };
+        img.src = bgUrl;
+    }
 }

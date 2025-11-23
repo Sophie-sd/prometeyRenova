@@ -13,14 +13,14 @@
 {% block content %}
 <!-- Hero Section з фоновим відео -->
 <section class="hero-section full-height">
-    <!-- Фонові відео для декстопу та мобільних (ВИПРАВЛЕНО) -->
+    <!-- Фонові відео для декстопу та мобільних (SHARED між hero та CTA) -->
     <!-- Desktop відео (показується тільки на >=768px) -->
-    <video class="video-background desktop-video" autoplay muted loop playsinline>
+    <video class="video-background desktop-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
         <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
     </video>
 
     <!-- Mobile відео (показується тільки на <=767px) -->
-    <video class="video-background mobile-video" autoplay muted loop playsinline>
+    <video class="video-background mobile-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
         <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
     </video>
 
@@ -69,7 +69,7 @@
                 <!-- Сітка послуг з фоновими зображеннями -->
                 <div class="services-grid">
                     <!-- Картка 1 - Web розробка -->
-                    <div class="service-card" data-service="web">
+                    <div class="service-card lazy-bg" data-service="web" data-bg-desktop="{% static 'images/services/web.png' %}" data-bg-mobile="{% static 'images/services/web_mob.png' %}">
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">01</span>
@@ -79,7 +79,7 @@
                     </div>
 
                     <!-- Картка 2 - Мобільні додатки -->
-                    <div class="service-card" data-service="mobile">
+                    <div class="service-card lazy-bg" data-service="mobile" data-bg-desktop="{% static 'images/services/mob.png' %}" data-bg-mobile="{% static 'images/services/mob_mob.png' %}">
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">02</span>
@@ -89,7 +89,7 @@
                     </div>
 
                     <!-- Картка 3 - Реклама та SMM -->
-                    <div class="service-card" data-service="smm">
+                    <div class="service-card lazy-bg" data-service="smm" data-bg-desktop="{% static 'images/services/media.png' %}" data-bg-mobile="{% static 'images/services/media_mob.png' %}">
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">03</span>
@@ -99,7 +99,7 @@
                     </div>
 
                     <!-- Картка 4 - Навчання -->
-                    <div class="service-card" data-service="education">
+                    <div class="service-card lazy-bg" data-service="education" data-bg-desktop="{% static 'images/services/edu.png' %}" data-bg-mobile="{% static 'images/services/edu_mob.png' %}">
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">04</span>
@@ -124,7 +124,7 @@
                         <a href="#" class="project-story" data-project-id="1" role="listitem" aria-label="Coresync">
                             <div class="project-story-ring">
                                 <div class="project-story-image">
-                                    <img src="{% static 'images/portfolio/coresync.png' %}" alt="Coresync">
+                                    <img src="{% static 'images/portfolio/coresync.png' %}" alt="Coresync" loading="lazy" decoding="async">
                                 </div>
                             </div>
                             <span class="project-story-name">Coresync</span>
@@ -134,7 +134,7 @@
                         <a href="#" class="project-story" data-project-id="2" role="listitem" aria-label="Play Vision">
                             <div class="project-story-ring">
                                 <div class="project-story-image">
-                                    <img src="{% static 'images/portfolio/playvision.png' %}" alt="Play Vision">
+                                    <img src="{% static 'images/portfolio/playvision.png' %}" alt="Play Vision" loading="lazy" decoding="async">
                                 </div>
                             </div>
                             <span class="project-story-name">Play Vision</span>
@@ -144,7 +144,7 @@
                         <a href="#" class="project-story" data-project-id="3" role="listitem" aria-label="BeautyShop">
                             <div class="project-story-ring">
                                 <div class="project-story-image">
-                                    <img src="{% static 'images/portfolio/beautyshop.png' %}" alt="BeautyShop">
+                                    <img src="{% static 'images/portfolio/beautyshop.png' %}" alt="BeautyShop" loading="lazy" decoding="async">
                                 </div>
                             </div>
                             <span class="project-story-name">BeautyShop</span>
@@ -154,7 +154,7 @@
                         <a href="#" class="project-story" data-project-id="4" role="listitem" aria-label="Adiabatic">
                             <div class="project-story-ring">
                                 <div class="project-story-image">
-                                    <img src="{% static 'images/portfolio/adiabatic.png' %}" alt="Adiabatic">
+                                    <img src="{% static 'images/portfolio/adiabatic.png' %}" alt="Adiabatic" loading="lazy" decoding="async">
                                 </div>
                             </div>
                             <span class="project-story-name">Adiabatic</span>
@@ -164,7 +164,7 @@
                         <a href="#" class="project-story" data-project-id="5" role="listitem" aria-label="RedRabbit">
                             <div class="project-story-ring">
                                 <div class="project-story-image">
-                                    <img src="{% static 'images/portfolio/redrabbit.png' %}" alt="RedRabbit">
+                                    <img src="{% static 'images/portfolio/redrabbit.png' %}" alt="RedRabbit" loading="lazy" decoding="async">
                                 </div>
                             </div>
                             <span class="project-story-name">RedRabbit</span>
@@ -174,7 +174,7 @@
                         <a href="#" class="project-story" data-project-id="6" role="listitem" aria-label="Polygraph">
                             <div class="project-story-ring">
                                 <div class="project-story-image">
-                                    <img src="{% static 'images/portfolio/polygraph.png' %}" alt="Polygraph">
+                                    <img src="{% static 'images/portfolio/polygraph.png' %}" alt="Polygraph" loading="lazy" decoding="async">
                                 </div>
                             </div>
                             <span class="project-story-name">Polygraph</span>
@@ -184,7 +184,7 @@
                         <a href="#" class="project-story" data-project-id="7" role="listitem" aria-label="Pulvas Store">
                             <div class="project-story-ring">
                                 <div class="project-story-image">
-                                    <img src="{% static 'images/portfolio/pulvas_store.png' %}" alt="Pulvas Store">
+                                    <img src="{% static 'images/portfolio/pulvas_store.png' %}" alt="Pulvas Store" loading="lazy" decoding="async">
                                 </div>
                             </div>
                             <span class="project-story-name">Pulvas Store</span>
@@ -194,7 +194,7 @@
                         <a href="#" class="project-story" data-project-id="8" role="listitem" aria-label="Airinua">
                             <div class="project-story-ring">
                                 <div class="project-story-image">
-                                    <img src="{% static 'images/portfolio/airinua.png' %}" alt="Airinua">
+                                    <img src="{% static 'images/portfolio/airinua.png' %}" alt="Airinua" loading="lazy" decoding="async">
                                 </div>
                             </div>
                             <span class="project-story-name">Airinua</span>
@@ -207,16 +207,8 @@
     </div>
 </section>
 
-<!-- CTA секція з відео фоном -->
+<!-- CTA секція з відео фоном (використовує SHARED відео з hero) -->
 <section class="cta-section">
-    <!-- Фонові відео -->
-    <video class="video-background desktop-video" autoplay muted loop playsinline>
-        <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
-    </video>
-    <video class="video-background mobile-video" autoplay muted loop playsinline>
-        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
-    </video>
-
     <!-- Overlay для контрасту -->
     <div class="video-overlay"></div>
 

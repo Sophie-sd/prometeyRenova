@@ -102,25 +102,28 @@
     filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(230, 81, 0, 0.6));
 }
 
-/* Фонові зображення для карток послуг */
+/* Фонові зображення для карток послуг - завантажуються lazy */
 .service-card[data-service="web"] {
-    background-image: url('/static/images/services/web.png');
     background-color: #1a1a1a;
 }
 
 .service-card[data-service="mobile"] {
-    background-image: url('/static/images/services/mob.png');
     background-color: #2a2a2a;
 }
 
 .service-card[data-service="smm"] {
-    background-image: url('/static/images/services/media.png');
     background-color: #1a1a1a;
 }
 
 .service-card[data-service="education"] {
-    background-image: url('/static/images/services/edu.png');
     background-color: #2a2a2a;
+}
+
+/* Lazy loaded background */
+.service-card.lazy-bg-loaded {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Overlay - тільки для hover ефекту */
@@ -263,6 +266,10 @@
     padding: 20px 40px;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
+    
+    /* CSS scroll-snap для плавного скролу */
+    scroll-snap-type: x proximity;
+    scroll-padding: 40px;
 }
 
 .projects-stories-container::-webkit-scrollbar {
@@ -284,6 +291,10 @@
     transition: transform var(--transition-normal) var(--easing-default);
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
+    
+    /* CSS scroll-snap alignment */
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
 }
 
 .project-story:hover {
@@ -614,20 +625,25 @@
         right: 20px;
     }
 
-    .service-card[data-service="web"] {
-        background-image: url('/static/images/services/web_mob.png');
+    /* Mobile backgrounds - завантажуються lazy */
+    .service-card[data-service="web"].lazy-bg-loaded {
+        background-size: cover;
+        background-position: center;
     }
 
-    .service-card[data-service="mobile"] {
-        background-image: url('/static/images/services/mob_mob.png');
+    .service-card[data-service="mobile"].lazy-bg-loaded {
+        background-size: cover;
+        background-position: center;
     }
 
-    .service-card[data-service="smm"] {
-        background-image: url('/static/images/services/media_mob.png');
+    .service-card[data-service="smm"].lazy-bg-loaded {
+        background-size: cover;
+        background-position: center;
     }
 
-    .service-card[data-service="education"] {
-        background-image: url('/static/images/services/edu_mob.png');
+    .service-card[data-service="education"].lazy-bg-loaded {
+        background-size: cover;
+        background-position: center;
     }
 
     /* Projects Stories - Mobile */
