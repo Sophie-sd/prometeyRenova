@@ -87,171 +87,93 @@ function initServiceModals() {
     });
 }
 
-// ===== PROJECT STORIES (Instagram Style) =====
+// ===== PROJECT STORIES MARQUEE =====
 function initProjectStories() {
-    const storiesContainer = document.querySelector('.projects-stories-container');
-    const projectStories = document.querySelectorAll('.project-story');
-
-    if (!storiesContainer || projectStories.length === 0) return;
-
-    // Horizontal drag scroll для stories
-    setupStoriesDragScroll(storiesContainer);
-
-    // Click handlers with navigation
-    setupStoryClickHandlers(projectStories);
-
-    // Keyboard navigation
-    setupKeyboardNavigation(storiesContainer, projectStories);
-
-    // Touch feedback для mobile
-    setupTouchFeedback(projectStories);
-}
-
-function setupStoriesDragScroll(container) {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    // Mouse events для desktop (passive де можливо)
-    container.addEventListener('mousedown', (e) => {
-        if (e.target.closest('.project-story')) return;
-        isDown = true;
-        container.classList.add('grabbing');
-        startX = e.pageX - container.offsetLeft;
-        scrollLeft = container.scrollLeft;
-    }, { passive: true });
-
-    container.addEventListener('mouseleave', () => {
-        isDown = false;
-        container.classList.remove('grabbing');
-    }, { passive: true });
-
-    container.addEventListener('mouseup', () => {
-        isDown = false;
-        container.classList.remove('grabbing');
-        // Momentum scrolling - браузер робить це автоматично через CSS scroll-snap
-    }, { passive: true });
-
-    // НЕ passive бо є preventDefault
-    container.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) * 2;
-        container.scrollLeft = scrollLeft - walk;
+    const container = document.querySelector('.projects-stories-container');
+    if (!container) return;
+    
+    waitForImages(container).then(() => {
+        initMarqueeAnimation(container);
+    }).catch(() => {
+        setTimeout(() => initMarqueeAnimation(container), 500);
     });
-
-    // Touch events для mobile (passive для performance)
-    container.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].pageX;
-        scrollLeft = container.scrollLeft;
-    }, { passive: true });
 }
 
-function setupStoryClickHandlers(stories) {
-    stories.forEach(story => {
-        story.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            const projectId = story.getAttribute('data-project-id');
-            const projectUrl = story.getAttribute('href');
-
-            if (projectUrl && projectUrl !== '#') {
-                story.classList.add('clicking');
-                setTimeout(() => {
-                    window.location.href = projectUrl;
-                }, 200);
+function waitForImages(container) {
+    return new Promise((resolve, reject) => {
+        const images = container.querySelectorAll('img');
+        if (images.length === 0) {
+            resolve();
+            return;
+        }
+        
+        let loadedCount = 0;
+        const totalImages = images.length;
+        const timeout = setTimeout(() => reject('timeout'), 3000);
+        
+        images.forEach(img => {
+            if (img.complete) {
+                loadedCount++;
+                if (loadedCount === totalImages) {
+                    clearTimeout(timeout);
+                    resolve();
+                }
             } else {
-                showProjectNotification(projectId);
-            }
-
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'project_click', {
-                    project_id: projectId,
-                    page_location: window.location.href
-                });
+                img.addEventListener('load', () => {
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        clearTimeout(timeout);
+                        resolve();
+                    }
+                }, { once: true });
+                
+                img.addEventListener('error', () => {
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        clearTimeout(timeout);
+                        resolve();
+                    }
+                }, { once: true });
             }
         });
     });
 }
 
-function setupKeyboardNavigation(container, stories) {
-    stories.forEach((story, index) => {
-        // Make focusable
-        story.setAttribute('tabindex', '0');
-
-        story.addEventListener('keydown', (e) => {
-            switch (e.key) {
-                case 'Enter':
-                case ' ':
-                    e.preventDefault();
-                    story.click();
-                    break;
-
-                case 'ArrowRight':
-                    e.preventDefault();
-                    if (index < stories.length - 1) {
-                        stories[index + 1].focus();
-                        scrollToStory(container, stories[index + 1]);
-                    }
-                    break;
-
-                case 'ArrowLeft':
-                    e.preventDefault();
-                    if (index > 0) {
-                        stories[index - 1].focus();
-                        scrollToStory(container, stories[index - 1]);
-                    }
-                    break;
-            }
+function initMarqueeAnimation(container) {
+    const stories = container.querySelectorAll('.project-story:not(.story-clone)');
+    if (stories.length === 0) return;
+    
+    const containerStyles = window.getComputedStyle(container);
+    const gap = parseFloat(containerStyles.gap) || 24;
+    
+    const firstStory = stories[0];
+    const lastStory = stories[stories.length - 1];
+    const setWidth = (lastStory.offsetLeft + lastStory.offsetWidth + gap) - firstStory.offsetLeft;
+    
+    container.style.setProperty('--marquee-distance', `${setWidth}px`);
+    container.setAttribute('aria-label', 'Наші проєкти - автоматична демонстрація');
+    container.setAttribute('role', 'marquee');
+    
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    requestAnimationFrame(() => {
+                        container.classList.add('marquee-active');
+                    });
+                    observer.unobserve(container);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '50px'
         });
-    });
-}
-
-function scrollToStory(container, story) {
-    const containerRect = container.getBoundingClientRect();
-    const storyRect = story.getBoundingClientRect();
-    const scrollLeft = story.offsetLeft - (containerRect.width / 2) + (storyRect.width / 2);
-
-    container.scrollTo({
-        left: scrollLeft,
-        behavior: 'smooth'
-    });
-}
-
-function setupTouchFeedback(stories) {
-    // Touch feedback тільки для touch пристроїв
-    if (!('ontouchstart' in window)) return;
-
-    stories.forEach(story => {
-        let touchStartTime = 0;
-        let timeoutId;
-
-        story.addEventListener('touchstart', () => {
-            touchStartTime = Date.now();
-            story.classList.add('touch-active');
-            clearTimeout(timeoutId);
-        }, { passive: true });
-
-        story.addEventListener('touchend', () => {
-            timeoutId = setTimeout(() => {
-                story.classList.remove('touch-active');
-            }, 100);
-        }, { passive: true });
-
-        story.addEventListener('touchcancel', () => {
-            story.classList.remove('touch-active');
-            clearTimeout(timeoutId);
-        }, { passive: true });
-    });
-}
-
-function showProjectNotification(projectId) {
-    if (window.prometeyApp?.showNotification) {
-        window.prometeyApp.showNotification(
-            'Щоб отримати посилання на сайт, зверніться до PrometeyLabs',
-            'info'
-        );
+        
+        observer.observe(container);
+    } else {
+        requestAnimationFrame(() => {
+            container.classList.add('marquee-active');
+        });
     }
 }
 

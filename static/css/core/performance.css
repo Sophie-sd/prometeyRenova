@@ -62,7 +62,6 @@ img, video {
 
 /* ===== ОПТИМІЗАЦІЯ REPAINTS ===== */
 .service-card,
-.project-story,
 .event-card,
 .blog-card {
     contain: layout;

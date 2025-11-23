@@ -249,7 +249,6 @@
     color: var(--color-brand-orange);
 }
 
-/* Stories Wrapper - horizontal scroll container */
 .projects-stories-wrapper {
     position: relative;
     width: 100%;
@@ -260,23 +259,28 @@
 .projects-stories-container {
     display: flex;
     gap: 24px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    padding: 20px 40px;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    
-    /* CSS scroll-snap для плавного скролу */
-    scroll-snap-type: x proximity;
-    scroll-padding: 40px;
+    padding: 20px 0;
+    overflow: visible;
+    pointer-events: none;
+    user-select: none;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
-.projects-stories-container::-webkit-scrollbar {
-    display: none;
+.projects-stories-container.marquee-active {
+    animation: marquee-scroll 30s linear infinite;
 }
 
-/* Individual Story Item */
+@keyframes marquee-scroll {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(calc(-1 * var(--marquee-distance)), 0, 0);
+    }
+}
+
 .project-story {
     display: flex;
     flex-direction: column;
@@ -286,29 +290,14 @@
     width: 300px;
     max-width: 300px;
     min-width: 180px;
-    cursor: pointer;
     text-decoration: none;
-    transition: transform var(--transition-normal) var(--easing-default);
+    pointer-events: none;
+    user-select: none;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
-    
-    /* CSS scroll-snap alignment */
-    scroll-snap-align: start;
-    scroll-snap-stop: normal;
+    -webkit-backface-visibility: hidden;
 }
 
-.project-story:hover {
-    transform: translate3d(0, -10px, 0);
-}
-
-.project-story:active {
-    transform: translate3d(0, 0, 0) scale(0.98);
-}
-
-/* Відключити hover під час скролу */
-.is-scrolling .project-story:hover {
-    transform: translate3d(0, 0, 0);
-}
 
 /* Story Ring - Instagram gradient border */
 .project-story-ring {
@@ -326,10 +315,6 @@
     transition: transform var(--transition-normal) var(--easing-default);
 }
 
-.project-story:hover .project-story-ring {
-    box-shadow: 0 30px 80px rgba(230, 81, 0, 0.4);
-    transform: scale(1.03);
-}
 
 /* Story Image Container */
 .project-story-image {
@@ -368,29 +353,8 @@
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.project-story:hover .project-story-name {
-    color: var(--color-brand-orange);
-}
 
 
-/* Clicking state (for navigation transition) */
-.project-story.clicking {
-    transform: scale(0.9);
-}
-
-/* Touch active state (mobile) */
-.project-story.touch-active {
-    transform: scale(0.95);
-}
-
-/* Drag scroll cursor states */
-.projects-stories-container.grabbing {
-    cursor: grabbing;
-}
-
-.projects-stories-container:not(.grabbing) {
-    cursor: grab;
-}
 
 /* ===== CTA СЕКЦІЯ З ВІДЕО ФОНОМ ===== */
 .cta-section {
@@ -498,10 +462,12 @@
         font-size: 14px;
     }
 
-    /* Projects Stories - Tablet */
     .projects-stories-container {
         gap: 20px;
-        padding: 20px 30px;
+    }
+
+    .projects-stories-container.marquee-active {
+        animation-duration: 25s;
     }
 
     .project-story {
@@ -641,10 +607,13 @@
         background-position: center;
     }
 
-    /* Projects Stories - Mobile */
     .projects-stories-container {
         gap: 20px;
-        padding: 20px;
+        padding: 20px 0;
+    }
+
+    .projects-stories-container.marquee-active {
+        animation-duration: 20s;
     }
 
     .project-story {
@@ -663,10 +632,6 @@
 
     .project-story-name {
         font-size: 14px;
-    }
-
-    .project-story:active {
-        transform: scale(0.95);
     }
 
     .cta-buttons {
@@ -699,9 +664,12 @@
         transition: none;
     }
 
-    .service-card:hover,
-    .project-story:hover {
+    .service-card:hover {
         transform: translate3d(0, 0, 0);
+    }
+    
+    .projects-stories-container.marquee-active {
+        animation: none;
     }
 }
 
@@ -760,15 +728,10 @@ body.is-scrolling [role="button"] {
     transition: none;
 }
 
-/* Mobile: відключити всі hover */
 @media (hover: none) and (pointer: coarse) {
     .service-card:hover {
         transform: translate3d(0, 0, 0);
         box-shadow: none;
-    }
-
-    .project-story:hover {
-        transform: translate3d(0, 0, 0);
     }
 
     .service-card:hover .service-number {
@@ -938,4 +901,24 @@ body.is-scrolling [role="button"] {
     .modal-header h3 {
         padding-right: 25px;
     }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .projects-stories-container.marquee-active {
+        animation: none;
+        overflow-x: auto;
+        pointer-events: auto;
+    }
+    
+    .project-story {
+        pointer-events: auto;
+    }
+    
+    .project-story.story-clone {
+        display: none;
+    }
+}
+
+.is-scrolling .projects-stories-container.marquee-active {
+    animation-play-state: running;
 }
