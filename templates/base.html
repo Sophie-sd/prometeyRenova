@@ -1,6 +1,5 @@
 {% load i18n %}
 {% load static %}
-{% load compress %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 
@@ -39,8 +38,7 @@
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:image" content="{% block og_image %}{% static 'images/og-image.jpg' %}{% endblock %}">
 
-    <!-- CSS Core and Components (compressed) -->
-    {% compress css %}
+    <!-- CSS Core (завантажуються першими) -->
     <link rel="stylesheet" href="{% static 'css/core/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/variables.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/z-index-system.css' %}">
@@ -48,6 +46,8 @@
     <link rel="stylesheet" href="{% static 'css/core/layout.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/animations.css' %}">
     <link rel="stylesheet" href="{% static 'css/core/performance.css' %}">
+
+    <!-- CSS Components -->
     <link rel="stylesheet" href="{% static 'css/components/navigation.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/buttons.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/forms.css' %}">
@@ -55,7 +55,6 @@
     <link rel="stylesheet" href="{% static 'css/components/footer.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/hero-parallax.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/mobile-optimizations.css' %}">
-    {% endcompress %}
 
     <!-- Page specific CSS -->
     {% block page_css %}{% endblock %}
@@ -115,13 +114,11 @@
     <!-- Modals -->
     {% include 'components/modals.html' %}
 
-    <!-- Modern JavaScript Systems (2025) - compressed -->
-    {% compress js %}
+    <!-- Modern JavaScript Systems (2025) - чіткий порядок завантаження -->
     <script src="{% static 'js/core/utils.js' %}"></script>
     <script src="{% static 'js/mobile-core.js' %}"></script>
     <script src="{% static 'js/video-system.js' %}"></script>
     <script src="{% static 'js/base.js' %}"></script>
-    {% endcompress %}
     {% block extra_js %}{% endblock %}
 
     <!-- CSRF Token for AJAX -->
