@@ -334,10 +334,10 @@
 /* Story Image Container */
 .project-story-image {
     position: absolute;
-    top: 8px;
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
     border-radius: 50%;
     background: var(--color-white);
     display: flex;
