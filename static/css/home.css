@@ -270,6 +270,12 @@
 
 .projects-stories-container.marquee-active {
     animation: marquee-scroll 30s linear infinite;
+    will-change: transform;
+}
+
+/* Пауза marquee під час активного скролу */
+body.is-scrolling .projects-stories-container.marquee-active {
+    animation-play-state: paused;
 }
 
 @keyframes marquee-scroll {

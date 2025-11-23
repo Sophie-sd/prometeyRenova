@@ -35,7 +35,7 @@ function initServiceAnimations() {
         });
     }, {
         threshold: 0.05,
-        rootMargin: '0px 0px -20px 0px'
+        rootMargin: '100px 0px 0px 0px'
     });
 
     serviceCards.forEach(card => observer.observe(card));
@@ -220,12 +220,14 @@ function initLazyBackgrounds() {
     const bgObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                loadBackground(entry.target);
+                requestAnimationFrame(() => {
+                    loadBackground(entry.target);
+                });
                 bgObserver.unobserve(entry.target);
             }
         });
     }, {
-        rootMargin: '50px',
+        rootMargin: window.innerWidth > 768 ? '300px' : '150px',
         threshold: 0.01
     });
 

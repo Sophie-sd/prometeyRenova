@@ -46,6 +46,7 @@ class PrometeyApp {
         this.setupLanguageSwitcher();
         this.setupAccessibility();
         this.setupFooterAccordion();
+        this.setupScrollStateDetection();
 
         // DOM ready actions
         if (document.readyState === 'loading') {
@@ -119,6 +120,27 @@ class PrometeyApp {
                 }
             }, { passive: false }); // НЕ passive через preventDefault
         });
+    }
+
+    setupScrollStateDetection() {
+        let scrollTimeout;
+        let ticking = false;
+        
+        const handleScroll = () => {
+            if (!ticking) {
+                document.body.classList.add('is-scrolling');
+                
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    document.body.classList.remove('is-scrolling');
+                }, 150);
+                
+                ticking = false;
+            }
+            ticking = true;
+        };
+        
+        window.addEventListener('scroll', handleScroll, { passive: true });
     }
 
     // ===== MOBILE MENU SYSTEM =====
