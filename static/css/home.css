@@ -648,9 +648,9 @@
     }
 
     .project-story {
-        width: 140px;
-        min-width: 140px;
-        max-width: 140px;
+        width: 200px;
+        min-width: 200px;
+        max-width: 200px;
         gap: 10px;
     }
 
