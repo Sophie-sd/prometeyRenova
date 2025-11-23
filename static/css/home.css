@@ -75,30 +75,6 @@
     z-index: 1;
 }
 
-.service-card::after {
-    content: '';
-    position: absolute;
-    top: 45%;
-    right: 24px;
-    width: 52px;
-    height: 52px;
-    background-image: url('/static/images/tap.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    opacity: 0.7;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-    z-index: 3;
-    filter: brightness(0) invert(1);
-    pointer-events: none;
-    transform: translateY(-50%);
-}
-
-.service-card:hover::after {
-    opacity: 1;
-    transform: translateY(-50%) scale(1.15);
-    filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(230, 81, 0, 0.6));
-}
 
 /* Фонові зображення для карток послуг - завантажуються lazy */
 .service-card[data-service="web"] {
@@ -619,12 +595,6 @@ body.is-scrolling .service-description {
         box-shadow: 0 15px 40px rgba(220, 20, 60, 0.35);
     }
 
-    .service-card::after {
-        width: 44px;
-        height: 44px;
-        top: 45%;
-        right: 20px;
-    }
 
     /* Mobile backgrounds - завантажуються lazy */
     .service-card[data-service="web"].lazy-bg-loaded {
