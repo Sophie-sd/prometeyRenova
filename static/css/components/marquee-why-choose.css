@@ -21,9 +21,7 @@
     animation: services-marquee-scroll 30s linear infinite;
 }
 
-body.is-scrolling .marquee-track {
-    animation-play-state: paused;
-}
+/* Анімація працює постійно - НЕ зупиняється при скролі */
 
 @keyframes services-marquee-scroll {
     0% { transform: translate3d(0, 0, 0); }

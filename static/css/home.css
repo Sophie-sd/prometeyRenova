@@ -260,14 +260,7 @@ body.is-scrolling .service-card:hover .service-number {
     will-change: transform;
 }
 
-body.is-scrolling .projects-stories-container.marquee-active {
-    animation-play-state: paused !important;
-    will-change: auto;
-}
-
-body.is-scrolling * {
-    animation-play-state: paused !important;
-}
+/* Анімація кружечків працює постійно - НЕ зупиняється при скролі */
 
 
 @keyframes marquee-scroll {
@@ -634,10 +627,7 @@ body.is-scrolling * {
         will-change: auto !important;
     }
 
-    body.is-scrolling .projects-stories-container {
-        animation-play-state: paused !important;
-        will-change: auto !important;
-    }
+    /* Анімація кружечків на мобільних також працює постійно */
 }
 
 /* ===== АНІМАЦІЇ ===== */
