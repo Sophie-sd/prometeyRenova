@@ -123,25 +123,18 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Критично важливо: відключити ВСІ важкі ефекти під час скролу */
-.is-scrolling .service-card {
+body.is-scrolling .service-card {
     will-change: auto;
     transition: none !important;
-}
-
-.is-scrolling .service-card:hover {
-    transform: translate3d(0, 0, 0) !important;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3),
-                0 -1px 0 rgba(230, 81, 0, 0.1) inset,
-                0 4px 12px -2px rgba(230, 81, 0, 0.15) !important;
-}
-
-/* Відключити складні shadows під час scroll */
-.is-scrolling .service-card {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
 }
 
-.is-scrolling .service-number {
+body.is-scrolling .service-card:hover {
+    transform: translate3d(0, 0, 0) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+body.is-scrolling .service-number {
     transition: none !important;
     transform: translate3d(0, 0, 0) !important;
 }
@@ -186,8 +179,7 @@
     text-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* Відключити hover під час скролу */
-.is-scrolling .service-card:hover .service-number {
+body.is-scrolling .service-card:hover .service-number {
     transform: translate3d(0, 0, 0);
 }
 
@@ -254,7 +246,7 @@
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    contain: layout style;
+    contain: layout style paint;
 }
 
 .projects-stories-container.marquee-active {
@@ -262,14 +254,9 @@
     will-change: transform;
 }
 
-/* Вимкнути will-change під час скролу для економії ресурсів */
-.is-scrolling .projects-stories-container.marquee-active {
-    will-change: auto;
-}
-
-/* КРИТИЧНО: Пауза marquee та всіх анімацій під час скролу */
 body.is-scrolling .projects-stories-container.marquee-active {
     animation-play-state: paused !important;
+    will-change: auto;
 }
 
 body.is-scrolling * {
@@ -707,16 +694,9 @@ body.is-scrolling [role="button"] {
     pointer-events: auto;
 }
 
-/* Відключити дорогі ефекти під час скролу */
-.is-scrolling .service-card {
-    transition: none;
-}
-
-.is-scrolling .project-story {
-    transition: none;
-}
-
-.is-scrolling .service-card-overlay {
+body.is-scrolling .service-card,
+body.is-scrolling .project-story,
+body.is-scrolling .service-card-overlay {
     transition: none;
 }
 
