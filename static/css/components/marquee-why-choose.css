@@ -118,21 +118,22 @@ body.is-scrolling .marquee-track {
     box-shadow: 0 15px 40px rgba(230, 81, 0, 0.2);
 }
 
-.why-card-number {
+.why-card-icon {
     position: absolute;
     top: -20px;
     right: -15px;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     opacity: 0.15;
     z-index: 0;
     pointer-events: none;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    transform: translate3d(0, 0, 0);
 }
 
-.why-card-number svg {
-    width: 100%;
-    height: 100%;
-    display: block;
+.why-card:hover .why-card-icon {
+    transform: translate3d(0, 0, 0) scale(1.05);
+    opacity: 0.2;
 }
 
 .why-card-content {
@@ -260,9 +261,9 @@ body.is-scrolling .marquee-track {
         padding: var(--space-sm);
     }
     
-    .why-card-number {
-        width: 60px;
-        height: 60px;
+    .why-card-icon {
+        width: 70px;
+        height: 70px;
         top: -15px;
         right: -10px;
     }
@@ -313,11 +314,11 @@ body.is-scrolling .marquee-track {
         padding: var(--space-sm);
     }
     
-    .why-card-number {
-        width: 50px;
-        height: 50px;
+    .why-card-icon {
+        width: 60px;
+        height: 60px;
         top: -10px;
-        right: -5px;
+        right: -8px;
     }
     
     .why-card-title {
