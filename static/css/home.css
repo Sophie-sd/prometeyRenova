@@ -231,7 +231,6 @@ body.is-scrolling .service-card:hover .service-number {
 }
 
 .projects-content h2 {
-    margin-bottom: var(--space-lg);
     color: var(--color-brand-orange);
 }
 
@@ -515,7 +514,7 @@ body.is-scrolling .service-card:hover .service-number {
     /* Unified wrapper для мобільних */
     .services-projects-wrapper {
         padding: var(--space-md) 0;
-        padding-top: 40px;
+        padding-top: 10px;
     }
 
     .services-subsection {
