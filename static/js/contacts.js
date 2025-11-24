@@ -12,7 +12,7 @@ function initMapPlaceholder() {
 
     if (mapPlaceholder) {
         mapPlaceholder.addEventListener('click', () => {
-            console.log('Map placeholder clicked');
+            // Map placeholder clicked
         });
     }
 }

@@ -54,7 +54,7 @@ body.is-scrolling .marquee-track {
     position: relative;
     width: 100%;
     background: var(--color-black);
-    padding: var(--space-xl) 0;
+    padding-top: var(--space-xl);
     z-index: var(--z-content-base);
 }
 
@@ -66,7 +66,7 @@ body.is-scrolling .marquee-track {
     max-width: 900px;
     margin: 0 auto;
     text-align: center;
-    margin-bottom: calc(var(--space-xl) + 30px);
+    margin-bottom: 100px;
 }
 
 .why-choose-intro p {
@@ -124,7 +124,6 @@ body.is-scrolling .marquee-track {
     right: -15px;
     width: 100px;
     height: 100px;
-    opacity: 0.15;
     z-index: 0;
     pointer-events: none;
     transition: transform 0.4s ease-out, opacity 0.4s ease-out;
@@ -133,7 +132,6 @@ body.is-scrolling .marquee-track {
 
 .why-card:hover .why-card-icon {
     transform: translate3d(0, 0, 0) scale(1.05);
-    opacity: 0.2;
 }
 
 .why-card-content {
@@ -224,7 +222,6 @@ body.is-scrolling .marquee-track {
     border: none;
     padding: var(--space-md);
     text-align: center;
-    margin-top: calc(var(--space-xl) + 30px);
 }
 
 .experience-content {

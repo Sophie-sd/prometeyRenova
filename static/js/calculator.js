@@ -20,8 +20,6 @@ class ProjectCalculator {
         this.setupEventListeners();
         this.addProgressIndicator();
         this.loadSavedData();
-
-        console.log('Calculator initialized');
     }
 
     // ===== EVENT LISTENERS =====

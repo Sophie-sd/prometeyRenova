@@ -70,7 +70,7 @@ class PrometeyApp {
     }
 
     onDOMReady() {
-        console.log('PrometeyLabs готово');
+        // PrometeyLabs готово
     }
 
     // ===== NAVIGATION SYSTEM =====
@@ -468,8 +468,6 @@ class PrometeyApp {
     }
 
     setLanguage(langCode) {
-        console.log('Switching language to:', langCode);
-
         const form = document.createElement('form');
         form.method = 'POST';
         form.action = '/i18n/set_language/';
@@ -493,10 +491,6 @@ class PrometeyApp {
         const originalUrl = nextUrl;
         // Видаляємо /uk/ або /en/ з початку URL
         nextUrl = nextUrl.replace(/^\/(uk|en)\//, '/');
-
-        console.log('Original URL:', originalUrl);
-        console.log('Next URL (cleaned):', nextUrl);
-        console.log('CSRF Token:', this.getCSRFToken());
 
         const nextInput = document.createElement('input');
         nextInput.type = 'hidden';

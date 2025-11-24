@@ -45,7 +45,6 @@ const Utils = {
         const match = document.cookie.match(/csrftoken=([^;]+)/);
         if (match) return match[1];
 
-        console.warn('CSRF token not found');
         return '';
     },
 
@@ -1016,7 +1015,7 @@ class PrometeyApp {
     }
 
     onDOMReady() {
-        console.log('PrometeyLabs готово');
+        // PrometeyLabs готово
     }
 
     setupNavigation() {
@@ -1399,8 +1398,6 @@ class PrometeyApp {
     }
 
     setLanguage(langCode) {
-        console.log('Switching language to:', langCode);
-
         const form = document.createElement('form');
         form.method = 'POST';
         form.action = '/i18n/set_language/';
@@ -1420,10 +1417,6 @@ class PrometeyApp {
         let nextUrl = window.location.pathname + window.location.search;
         const originalUrl = nextUrl;
         nextUrl = nextUrl.replace(/^\/(uk|en)\//, '/');
-
-        console.log('Original URL:', originalUrl);
-        console.log('Next URL (cleaned):', nextUrl);
-        console.log('CSRF Token:', this.getCSRFToken());
 
         const nextInput = document.createElement('input');
         nextInput.type = 'hidden';
