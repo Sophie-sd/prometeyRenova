@@ -25,10 +25,6 @@ body.is-scrolling .marquee-track {
     animation-play-state: paused;
 }
 
-.services-marquee:hover .marquee-track {
-    animation-play-state: paused;
-}
-
 @keyframes services-marquee-scroll {
     0% { transform: translate3d(0, 0, 0); }
     100% { transform: translate3d(-50%, 0, 0); }
@@ -93,8 +89,8 @@ body.is-scrolling .marquee-track {
     padding: var(--space-md);
     overflow: visible;
     transition: all var(--transition-normal) var(--easing-default);
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .why-card.visible {
