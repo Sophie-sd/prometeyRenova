@@ -339,6 +339,10 @@
         font-size: 13px;
     }
     
+    .why-experience-footer {
+        padding: 0;
+    }
+    
     .experience-content {
         text-align: center;
     }
@@ -350,6 +354,8 @@
     
     .experience-text p {
         font-size: 15px;
+        padding-top: 40px;
+        padding-bottom: 40px;
     }
 }
 
