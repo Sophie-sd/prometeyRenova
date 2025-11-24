@@ -1686,7 +1686,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initAnalytics();
 });
 
-// Об'єднаний observer для service cards (анімація + backgrounds)
 function initServiceCardsOptimized() {
     const serviceCards = document.querySelectorAll('.service-card');
     if (serviceCards.length === 0) return;
@@ -1699,37 +1698,42 @@ function initServiceCardsOptimized() {
         return;
     }
 
-    // Єдиний observer для всіх service card операцій
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const card = entry.target;
-                
-                // Анімація появи
                 card.classList.add('visible');
                 
-                // Завантаження background
                 if (card.classList.contains('lazy-bg')) {
-                    requestAnimationFrame(() => {
-                        loadBackground(card);
-                    });
+                    loadBackground(card);
                 }
                 
-                // Очистка will-change після анімації
                 setTimeout(() => {
                     card.style.willChange = 'auto';
                 }, 600);
                 
-                // Припинити спостереження
                 observer.unobserve(card);
             }
         });
     }, {
-        threshold: 0.05,
-        rootMargin: '50px 0px 0px 0px'
+        threshold: 0.01,
+        rootMargin: '0px'
     });
 
-    serviceCards.forEach(card => observer.observe(card));
+    serviceCards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isInViewport) {
+            card.classList.add('visible');
+            loadBackground(card);
+            setTimeout(() => {
+                card.style.willChange = 'auto';
+            }, 600);
+        } else {
+            observer.observe(card);
+        }
+    });
 }
 
 function initServiceModals() {

@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjectStories();
     initAnalytics();
     initLazyBackgrounds();
+    initWhyChooseAnimations();
 });
 
-// ===== SERVICE CARDS ANIMATIONS =====
 function initServiceAnimations() {
     const serviceCards = document.querySelectorAll('.service-card');
     if (serviceCards.length === 0) return;
@@ -34,11 +34,23 @@ function initServiceAnimations() {
             }
         });
     }, {
-        threshold: 0.05,
-        rootMargin: '100px 0px 0px 0px'
+        threshold: 0.01,
+        rootMargin: '0px'
     });
 
-    serviceCards.forEach(card => observer.observe(card));
+    serviceCards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isInViewport) {
+            card.classList.add('visible');
+            setTimeout(() => {
+                card.style.willChange = 'auto';
+            }, 600);
+        } else {
+            observer.observe(card);
+        }
+    });
 }
 
 function initServiceModals() {
@@ -206,13 +218,11 @@ function initAnalytics() {
     }, 1000);
 }
 
-// ===== LAZY BACKGROUND IMAGES =====
 function initLazyBackgrounds() {
     const lazyBgElements = document.querySelectorAll('.lazy-bg');
     if (lazyBgElements.length === 0) return;
 
     if (!('IntersectionObserver' in window)) {
-        // Fallback для старих браузерів - завантажити одразу
         lazyBgElements.forEach(el => loadBackground(el));
         return;
     }
@@ -220,18 +230,25 @@ function initLazyBackgrounds() {
     const bgObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                requestAnimationFrame(() => {
-                    loadBackground(entry.target);
-                });
+                loadBackground(entry.target);
                 bgObserver.unobserve(entry.target);
             }
         });
     }, {
-        rootMargin: window.innerWidth > 768 ? '300px' : '150px',
+        rootMargin: '0px',
         threshold: 0.01
     });
 
-    lazyBgElements.forEach(el => bgObserver.observe(el));
+    lazyBgElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isInViewport) {
+            loadBackground(el);
+        } else {
+            bgObserver.observe(el);
+        }
+    });
 }
 
 function loadBackground(element) {
@@ -241,7 +258,6 @@ function loadBackground(element) {
         : element.getAttribute('data-bg-desktop');
     
     if (bgUrl) {
-        // Preload image
         const img = new Image();
         img.onload = () => {
             element.style.backgroundImage = `url('${bgUrl}')`;
@@ -250,4 +266,31 @@ function loadBackground(element) {
         };
         img.src = bgUrl;
     }
+}
+
+function initWhyChooseAnimations() {
+    const whyCards = document.querySelectorAll('.why-card');
+    if (whyCards.length === 0) return;
+
+    if (!('IntersectionObserver' in window)) {
+        whyCards.forEach(card => card.classList.add('visible'));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const delay = entry.target.dataset.delay || 0;
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, delay);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px'
+    });
+
+    whyCards.forEach(card => observer.observe(card));
 }

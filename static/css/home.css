@@ -8,9 +8,6 @@
     width: 100%;
     background: var(--color-black);
     z-index: var(--z-content-base);
-    border-radius: 20px 20px 0 0;
-    margin-top: -20px;
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
     padding: var(--space-xl) 0;
     padding-top: 60px;
     overflow: hidden;
@@ -516,8 +513,6 @@ body.is-scrolling .service-description {
 /* ===== АДАПТАЦІЯ ПАРАЛАКС ДЛЯ МОБІЛЬНИХ ===== */
 @media (max-width: 767px) {
     .services-projects-wrapper {
-        border-radius: 16px 16px 0 0;
-        margin-top: -16px;
         padding-top: 40px;
     }
 
