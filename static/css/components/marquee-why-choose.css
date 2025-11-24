@@ -66,6 +66,7 @@ body.is-scrolling .marquee-track {
     max-width: 900px;
     margin: 0 auto;
     text-align: center;
+    margin-bottom: calc(var(--space-xl) + 30px);
 }
 
 .why-choose-intro p {
@@ -78,7 +79,6 @@ body.is-scrolling .marquee-track {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-md);
-    margin-bottom: var(--space-lg);
 }
 
 .why-card {
@@ -122,17 +122,17 @@ body.is-scrolling .marquee-track {
     position: absolute;
     top: -20px;
     right: -15px;
-    font-size: 80px;
-    font-weight: 900;
-    color: var(--color-brand-orange);
+    width: 80px;
+    height: 80px;
     opacity: 0.15;
-    line-height: 1;
     z-index: 0;
-    background: linear-gradient(135deg, var(--color-brand-orange), #FF8A50);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     pointer-events: none;
+}
+
+.why-card-number svg {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .why-card-content {
@@ -219,29 +219,21 @@ body.is-scrolling .marquee-track {
 }
 
 .why-experience-footer {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(230, 81, 0, 0.3);
-    border-radius: var(--radius-lg);
+    background: transparent;
+    border: none;
     padding: var(--space-md);
+    text-align: center;
+    margin-top: calc(var(--space-xl) + 30px);
 }
 
 .experience-content {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-}
-
-.experience-icon {
-    flex-shrink: 0;
-}
-
-.experience-number {
     display: block;
-    font-size: 60px;
-    font-weight: 900;
-    color: var(--color-brand-orange);
-    line-height: 1;
-    text-shadow: 0 0 20px rgba(230, 81, 0, 0.5);
+    text-align: center;
+}
+
+.experience-icon,
+.experience-number {
+    display: none;
 }
 
 .experience-text p {
@@ -269,7 +261,8 @@ body.is-scrolling .marquee-track {
     }
     
     .why-card-number {
-        font-size: 60px;
+        width: 60px;
+        height: 60px;
         top: -15px;
         right: -10px;
     }
@@ -321,7 +314,8 @@ body.is-scrolling .marquee-track {
     }
     
     .why-card-number {
-        font-size: 50px;
+        width: 50px;
+        height: 50px;
         top: -10px;
         right: -5px;
     }
@@ -350,13 +344,7 @@ body.is-scrolling .marquee-track {
     }
     
     .experience-content {
-        flex-direction: column;
         text-align: center;
-        gap: var(--space-sm);
-    }
-    
-    .experience-number {
-        font-size: 48px;
     }
     
     .experience-text p {
