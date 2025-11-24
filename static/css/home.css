@@ -123,9 +123,16 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-body.is-scrolling .service-card {
+body.is-scrolling .service-card,
+body.is-scrolling .service-card-overlay,
+body.is-scrolling .service-number,
+body.is-scrolling .service-title,
+body.is-scrolling .service-description {
     will-change: auto;
     transition: none !important;
+}
+
+body.is-scrolling .service-card {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
 }
 
@@ -135,7 +142,6 @@ body.is-scrolling .service-card:hover {
 }
 
 body.is-scrolling .service-number {
-    transition: none !important;
     transform: translate3d(0, 0, 0) !important;
 }
 
@@ -246,7 +252,7 @@ body.is-scrolling .service-card:hover .service-number {
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    contain: layout style paint;
+    contain: layout style;
 }
 
 .projects-stories-container.marquee-active {
@@ -263,14 +269,6 @@ body.is-scrolling * {
     animation-play-state: paused !important;
 }
 
-/* Відключити всі transitions під час scroll для максимальної плавності */
-body.is-scrolling .service-card,
-body.is-scrolling .service-card-overlay,
-body.is-scrolling .service-number,
-body.is-scrolling .service-title,
-body.is-scrolling .service-description {
-    transition: none !important;
-}
 
 @keyframes marquee-scroll {
     from {
@@ -572,12 +570,6 @@ body.is-scrolling .service-description {
         line-height: 1.4;
     }
 
-    .service-card:hover {
-        transform: translateY(-6px) scale(1.01);
-        box-shadow: 0 15px 40px rgba(220, 20, 60, 0.35);
-    }
-
-
     /* Mobile backgrounds - завантажуються lazy */
     .service-card[data-service="web"].lazy-bg-loaded {
         background-size: cover;
@@ -633,6 +625,18 @@ body.is-scrolling .service-description {
 
     .cta-buttons .btn {
         width: 240px;
+    }
+
+    body.is-scrolling .service-card {
+        transform: translate3d(0, 0, 0) !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+        backface-visibility: visible !important;
+        will-change: auto !important;
+    }
+
+    body.is-scrolling .projects-stories-container {
+        animation-play-state: paused !important;
+        will-change: auto !important;
     }
 }
 
@@ -694,9 +698,7 @@ body.is-scrolling [role="button"] {
     pointer-events: auto;
 }
 
-body.is-scrolling .service-card,
-body.is-scrolling .project-story,
-body.is-scrolling .service-card-overlay {
+body.is-scrolling .project-story {
     transition: none;
 }
 
