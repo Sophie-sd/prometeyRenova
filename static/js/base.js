@@ -124,23 +124,22 @@ class PrometeyApp {
 
     setupScrollStateDetection() {
         let scrollTimeout;
-        let ticking = false;
+        let isScrolling = false;
         
         const handleScroll = () => {
-            if (!ticking) {
+            if (!isScrolling) {
                 document.body.classList.add('is-scrolling');
-                
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    document.body.classList.remove('is-scrolling');
-                }, 150);
-                
-                ticking = false;
+                isScrolling = true;
             }
-            ticking = true;
+            
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                document.body.classList.remove('is-scrolling');
+                isScrolling = false;
+            }, 100);
         };
         
-        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('scroll', handleScroll, { passive: true, capture: true });
     }
 
     // ===== MOBILE MENU SYSTEM =====

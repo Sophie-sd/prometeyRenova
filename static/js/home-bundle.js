@@ -1068,20 +1068,23 @@ class PrometeyApp {
 
     setupScrollStateDetection() {
         let scrollTimeout;
+        let isScrolling = false;
         
         const handleScroll = () => {
-            // МИТТЄВО додаємо клас без requestAnimationFrame
-            document.body.classList.add('is-scrolling');
+            if (!isScrolling) {
+                document.body.classList.add('is-scrolling');
+                isScrolling = true;
+            }
             
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
                 document.body.classList.remove('is-scrolling');
-            }, 150);
+                isScrolling = false;
+            }, 100);
         };
         
-        // Throttled version для performance
         let lastScrollTime = 0;
-        const throttleDelay = 16; // ~60fps
+        const throttleDelay = 16;
         
         const throttledScroll = () => {
             const now = Date.now();
@@ -1091,7 +1094,7 @@ class PrometeyApp {
             }
         };
         
-        window.addEventListener('scroll', throttledScroll, { passive: true });
+        window.addEventListener('scroll', throttledScroll, { passive: true, capture: true });
     }
 
     setupMobileMenu() {
