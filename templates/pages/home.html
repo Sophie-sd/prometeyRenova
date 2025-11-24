@@ -16,12 +16,12 @@
 <section class="hero-section full-height">
     <!-- Фонові відео для декстопу та мобільних (SHARED між hero та CTA) -->
     <!-- Desktop відео (показується тільки на >=768px) -->
-    <video class="video-background desktop-video" autoplay muted loop playsinline preload="auto" data-shared-video="main">
+    <video class="video-background desktop-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
         <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
     </video>
 
     <!-- Mobile відео (показується тільки на <=767px) -->
-    <video class="video-background mobile-video" autoplay muted loop playsinline preload="auto" data-shared-video="main">
+    <video class="video-background mobile-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
         <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
     </video>
 

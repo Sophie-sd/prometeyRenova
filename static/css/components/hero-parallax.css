@@ -32,11 +32,10 @@
     height: 100%;
     object-fit: cover;
     z-index: var(--z-background, -1);
+    background-color: #1a1a1a;
     
-    /* КРИТИЧНО: відео не бере участь у scroll calculations */
     pointer-events: none;
     
-    /* GPU acceleration */
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
