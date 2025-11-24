@@ -12,7 +12,8 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    min-height: 100dvh;
+    min-height: 100svh;
+    min-height: calc(var(--vh, 1vh) * 100);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -184,7 +185,8 @@
 /* Tablet і Mobile */
 @media (max-width: 1024px) {
     .hero-parallax {
-        min-height: 100dvh;
+        min-height: 100svh;
+        min-height: calc(var(--vh, 1vh) * 100);
     }
 
     .content-section--first {
@@ -231,12 +233,14 @@
 @supports (-webkit-touch-callout: none) {
     .hero-parallax {
         min-height: 100vh;
-        min-height: 100dvh;
+        min-height: 100svh;
+        min-height: calc(var(--vh, 1vh) * 100);
     }
 
     .hero-parallax__video {
         height: 100vh;
-        height: 100dvh;
+        height: 100svh;
+        height: calc(var(--vh, 1vh) * 100);
     }
 }
 

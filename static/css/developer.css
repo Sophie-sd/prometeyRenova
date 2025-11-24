@@ -6,7 +6,8 @@
 .dark-split-section {
     position: relative;
     min-height: 100vh;
-    min-height: 100dvh;
+    min-height: 100svh;
+    min-height: calc(var(--vh, 1vh) * 100);
     background: #000000;
     z-index: 10;
     border-radius: 20px 20px 0 0;
@@ -18,7 +19,8 @@
     display: grid;
     grid-template-columns: 50% 50%;
     min-height: 100vh;
-    min-height: 100dvh;
+    min-height: 100svh;
+    min-height: calc(var(--vh, 1vh) * 100);
 }
 
 .split-left {
@@ -372,17 +374,20 @@
     /* Hero секція - використовуємо mobile viewport */
     .developer-hero {
         min-height: 100vh;
-        min-height: 100dvh;
+        min-height: 100svh;
+        min-height: calc(var(--vh, 1vh) * 100);
     }
 
     .dark-split-section {
         min-height: 100vh;
-        min-height: 100dvh;
+        min-height: 100svh;
+        min-height: calc(var(--vh, 1vh) * 100);
     }
 
     .split-container {
         min-height: 100vh;
-        min-height: 100dvh;
+        min-height: 100svh;
+        min-height: calc(var(--vh, 1vh) * 100);
         display: flex;
         flex-direction: column;
     }

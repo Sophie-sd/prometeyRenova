@@ -359,7 +359,8 @@ body.is-scrolling * {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    min-height: 100dvh;
+    min-height: 100svh;
+    min-height: calc(var(--vh, 1vh) * 100);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -501,7 +502,8 @@ body.is-scrolling * {
 
     .cta-section {
         min-height: 100vh;
-        min-height: 100dvh;
+        min-height: 100svh;
+        min-height: calc(var(--vh, 1vh) * 100);
     }
 
     .cta-content h2 {

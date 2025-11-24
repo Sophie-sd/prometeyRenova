@@ -81,19 +81,16 @@ class MobileCore {
 
     // ===== VIEWPORT SYSTEM (2025 Standard) =====
     setupViewportSystem() {
-        const setViewportProperties = () => {
+        const setVH = () => {
             const vh = window.innerHeight * 0.01;
-
-            if (!this.capabilities.supportsDynamicViewport) {
-                document.documentElement.style.setProperty('--vh', `${vh}px`);
-            }
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
         };
 
-        setViewportProperties();
+        setVH();
 
         window.addEventListener('orientationchange', () => {
             setTimeout(() => {
-                setViewportProperties();
+                setVH();
                 this.notifyViewportChange();
             }, 250);
         });
