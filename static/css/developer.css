@@ -6,21 +6,19 @@
 .dark-split-section {
     position: relative;
     min-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
+    min-height: 100dvh;
     background: #000000;
     z-index: 10;
     border-radius: 20px 20px 0 0;
     margin-top: -20px;
     box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
-    /* iOS Safari: НЕ використовуємо overflow: hidden - дозволяємо контенту розширюватись */
 }
 
 .split-container {
     display: grid;
     grid-template-columns: 50% 50%;
     min-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
-    /* iOS Safari optimization */
+    min-height: 100dvh;
 }
 
 .split-left {
@@ -374,22 +372,19 @@
     /* Hero секція - використовуємо mobile viewport */
     .developer-hero {
         min-height: 100vh;
-        min-height: calc(var(--vh, 1vh) * 100);
+        min-height: 100dvh;
     }
 
-    /* Dark split section - гнучка висота для iOS */
     .dark-split-section {
         min-height: 100vh;
-        min-height: calc(var(--vh, 1vh) * 100);
-        /* ВИДАЛЕНО: height та overflow: hidden - дозволяємо контенту дихати */
+        min-height: 100dvh;
     }
 
     .split-container {
         min-height: 100vh;
-        min-height: calc(var(--vh, 1vh) * 100);
+        min-height: 100dvh;
         display: flex;
         flex-direction: column;
-        /* ВИДАЛЕНО: фіксовану height - використовуємо тільки min-height */
     }
 
     .split-left {

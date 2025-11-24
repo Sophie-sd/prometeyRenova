@@ -12,20 +12,21 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
 
-/* ===== ФІКСОВАНЕ ВІДЕО (всі варіанти класів) ===== */
+/* ===== ВІДЕО ФОНИ (всі варіанти класів) ===== */
 .hero-parallax__video,
 .hero-parallax .video-background,
 .hero-section .video-background,
 .blog-hero .video-background,
-.developer-hero .video-background {
-    position: fixed;
+.developer-hero .video-background,
+.cta-section .video-background {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -183,7 +184,7 @@
 /* Tablet і Mobile */
 @media (max-width: 1024px) {
     .hero-parallax {
-        min-height: calc(var(--vh, 1vh) * 100);
+        min-height: 100dvh;
     }
 
     .content-section--first {
@@ -230,12 +231,12 @@
 @supports (-webkit-touch-callout: none) {
     .hero-parallax {
         min-height: 100vh;
-        min-height: calc(var(--vh, 1vh) * 100);
+        min-height: 100dvh;
     }
 
     .hero-parallax__video {
         height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
+        height: 100dvh;
     }
 }
 

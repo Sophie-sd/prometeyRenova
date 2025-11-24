@@ -408,9 +408,14 @@
     </div>
 </section>
 
-<!-- CTA секція з відео фоном (використовує SHARED відео з hero) -->
+<!-- CTA секція з відео фоном -->
 <section class="cta-section">
-    <!-- Overlay для контрасту -->
+    <video class="video-background desktop-video" autoplay muted loop playsinline preload="metadata">
+        <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
+    </video>
+    <video class="video-background mobile-video" autoplay muted loop playsinline preload="metadata">
+        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
+    </video>
     <div class="video-overlay"></div>
 
     <div class="container">

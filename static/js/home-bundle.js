@@ -292,63 +292,25 @@ class MobileCore {
 
     setupViewportSystem() {
         const setViewportProperties = () => {
-            const vw = window.innerWidth * 0.01;
             const vh = window.innerHeight * 0.01;
 
-            document.documentElement.style.setProperty('--vw', `${vw}px`);
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-            const safeVh = this.device.iOS ? window.innerHeight * 0.01 : vh;
-            document.documentElement.style.setProperty('--safe-vh', `${safeVh}px`);
-
-            if (this.capabilities.supportsDynamicViewport) {
-                document.documentElement.style.setProperty('--dvh', '1dvh');
-                document.documentElement.style.setProperty('--svh', '1svh');
-                document.documentElement.style.setProperty('--lvh', '1lvh');
-            } else {
-                document.documentElement.style.setProperty('--dvh', `${vh}px`);
-                document.documentElement.style.setProperty('--svh', `${safeVh}px`);
-                document.documentElement.style.setProperty('--lvh', `${vh}px`);
-            }
-
-            if (this.device.iOS && this.device.safari) {
-                this.handleIOSViewportQuirks();
+            if (!this.capabilities.supportsDynamicViewport) {
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
             }
         };
 
         setViewportProperties();
-        this.setupViewportResizeHandler(setViewportProperties);
-        this.notifyViewportChange();
-    }
-
-    setupViewportResizeHandler(callback) {
-        let resizeTimeout;
-        let orientationTimeout;
-
-        const debouncedCallback = () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                callback();
-                this.dispatchViewportChangeEvent();
-                this.notifyViewportChange();
-            }, 100);
-        };
-
-        window.addEventListener('resize', debouncedCallback, { passive: true });
 
         window.addEventListener('orientationchange', () => {
-            clearTimeout(orientationTimeout);
-            orientationTimeout = setTimeout(() => {
-                callback();
-                this.handleOrientationChange();
-                this.dispatchViewportChangeEvent();
+            setTimeout(() => {
+                setViewportProperties();
+                this.notifyViewportChange();
             }, 250);
         });
 
-        if (window.visualViewport) {
-            window.visualViewport.addEventListener('resize', debouncedCallback, { passive: true });
-        }
+        this.notifyViewportChange();
     }
+
 
     setupIOSSafariOptimizations() {
         document.documentElement.classList.add('ios', 'safari');
@@ -362,22 +324,6 @@ class MobileCore {
         this.preventIOSZoomOnInputs();
     }
 
-    handleIOSViewportQuirks() {
-        const initialHeight = window.innerHeight;
-        let isURLBarVisible = false;
-
-        const checkURLBar = () => {
-            const currentHeight = window.innerHeight;
-            const heightDiff = Math.abs(initialHeight - currentHeight);
-
-            if (heightDiff > 40) {
-                isURLBarVisible = currentHeight < initialHeight;
-                document.documentElement.classList.toggle('url-bar-visible', isURLBarVisible);
-            }
-        };
-
-        window.addEventListener('resize', checkURLBar, { passive: true });
-    }
 
     setupTouchOptimizations() {
         if (!this.device.isTouch) return;

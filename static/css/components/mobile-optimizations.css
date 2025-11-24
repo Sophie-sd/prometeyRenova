@@ -94,10 +94,6 @@
     -webkit-overflow-scrolling: touch;
 }
 
-/* URL bar адаптація */
-.ios.url-bar-visible .mobile-full-height {
-    height: calc(var(--mobile-vh) + var(--mobile-safe-area-bottom));
-}
 
 /* ===== TOUCH OPTIMIZATIONS ===== */
 

@@ -35,7 +35,7 @@
 .project-section {
     position: relative;
     height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
+    height: 100dvh;
     background: #0a0a0a;
     display: flex;
     align-items: center;
@@ -263,7 +263,7 @@
 @media (max-width: 767px) {
     .project-section {
         height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
+        height: 100dvh;
         min-height: 100vh;
         scroll-snap-align: start;
         scroll-snap-stop: normal;
@@ -333,7 +333,7 @@
 @media (max-width: 480px) {
     .project-section {
         height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
+        height: 100dvh;
         min-height: 100vh;
     }
 
@@ -377,7 +377,7 @@
 @supports (-webkit-touch-callout: none) {
     .project-section {
         height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
+        height: 100dvh;
         min-height: 100vh;
         will-change: transform;
     }
@@ -385,7 +385,7 @@
     @media (max-width: 767px) {
         .project-section {
             height: 100vh;
-            height: calc(var(--vh, 1vh) * 100);
+            height: 100dvh;
             min-height: 100vh;
         }
     }
@@ -393,7 +393,7 @@
     @media (max-width: 480px) {
         .project-section {
             height: 100vh;
-            height: calc(var(--vh, 1vh) * 100);
+            height: 100dvh;
             min-height: 100vh;
         }
     }

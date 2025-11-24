@@ -359,14 +359,12 @@ body.is-scrolling * {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
-
-/* CTA використовує SHARED відео з hero-section (position: fixed вже встановлено в hero-parallax.css) */
 
 /* Абсолютний overlay для CTA */
 .cta-section .video-overlay {
@@ -503,7 +501,7 @@ body.is-scrolling * {
 
     .cta-section {
         min-height: 100vh;
-        min-height: calc(var(--vh, 1vh) * 100);
+        min-height: 100dvh;
     }
 
     .cta-content h2 {

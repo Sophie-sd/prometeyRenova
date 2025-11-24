@@ -81,80 +81,26 @@ class MobileCore {
 
     // ===== VIEWPORT SYSTEM (2025 Standard) =====
     setupViewportSystem() {
-        // Modern viewport approach using CSS Custom Properties
         const setViewportProperties = () => {
-            const vw = window.innerWidth * 0.01;
             const vh = window.innerHeight * 0.01;
 
-            // Standard viewport units
-            document.documentElement.style.setProperty('--vw', `${vw}px`);
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-            // Safe viewport (accounting for UI elements)
-            const safeVh = this.device.iOS ? window.innerHeight * 0.01 : vh;
-            document.documentElement.style.setProperty('--safe-vh', `${safeVh}px`);
-
-            // Dynamic viewport for modern browsers
-            if (this.capabilities.supportsDynamicViewport) {
-                document.documentElement.style.setProperty('--dvh', '1dvh');
-                document.documentElement.style.setProperty('--svh', '1svh');
-                document.documentElement.style.setProperty('--lvh', '1lvh');
-            } else {
-                // Fallback for older browsers
-                document.documentElement.style.setProperty('--dvh', `${vh}px`);
-                document.documentElement.style.setProperty('--svh', `${safeVh}px`);
-                document.documentElement.style.setProperty('--lvh', `${vh}px`);
-            }
-
-            // Device-specific adjustments
-            if (this.device.iOS && this.device.safari) {
-                this.handleIOSViewportQuirks();
+            if (!this.capabilities.supportsDynamicViewport) {
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
             }
         };
 
-        // Initial setup
         setViewportProperties();
 
-        // Optimized resize handling
-        this.setupViewportResizeHandler(setViewportProperties);
-
-        // Notify callbacks після встановлення
-        this.notifyViewportChange();
-    }
-
-    setupViewportResizeHandler(callback) {
-        let resizeTimeout;
-        let orientationTimeout;
-
-        const debouncedCallback = () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                callback();
-                // Відправляємо подію для інших систем
-                this.dispatchViewportChangeEvent();
-                // Викликаємо callbacks
-                this.notifyViewportChange();
-            }, 100);
-        };
-
-        // Standard resize
-        window.addEventListener('resize', debouncedCallback, { passive: true });
-
-        // Orientation change (mobile-specific)
         window.addEventListener('orientationchange', () => {
-            clearTimeout(orientationTimeout);
-            orientationTimeout = setTimeout(() => {
-                callback();
-                this.handleOrientationChange();
-                this.dispatchViewportChangeEvent();
+            setTimeout(() => {
+                setViewportProperties();
+                this.notifyViewportChange();
             }, 250);
         });
 
-        // Visual viewport API (modern browsers)
-        if (window.visualViewport) {
-            window.visualViewport.addEventListener('resize', debouncedCallback, { passive: true });
-        }
+        this.notifyViewportChange();
     }
+
 
     // ===== iOS SAFARI OPTIMIZATIONS =====
     setupIOSSafariOptimizations() {
@@ -173,23 +119,6 @@ class MobileCore {
         this.preventIOSZoomOnInputs();
     }
 
-    handleIOSViewportQuirks() {
-        // iOS Safari changes viewport when URL bar shows/hides
-        const initialHeight = window.innerHeight;
-        let isURLBarVisible = false;
-
-        const checkURLBar = () => {
-            const currentHeight = window.innerHeight;
-            const heightDiff = Math.abs(initialHeight - currentHeight);
-
-            if (heightDiff > 40) {
-                isURLBarVisible = currentHeight < initialHeight;
-                document.documentElement.classList.toggle('url-bar-visible', isURLBarVisible);
-            }
-        };
-
-        window.addEventListener('resize', checkURLBar, { passive: true });
-    }
 
     // ===== TOUCH OPTIMIZATIONS =====
     setupTouchOptimizations() {
