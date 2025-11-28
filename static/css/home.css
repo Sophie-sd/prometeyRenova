@@ -165,7 +165,7 @@ body.is-scrolling .service-number {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 8px 16px;
+    padding: 9px 40px;
     background: transparent;
     border: 0.5px solid var(--color-brand-orange);
     color: var(--color-white);
@@ -219,6 +219,7 @@ body.is-scrolling .service-number {
 }
 
 .service-detail-btn {
+    padding: 6px 12px;
     margin-bottom: 12px;
 }
 
@@ -300,7 +301,7 @@ body.is-scrolling .service-card:hover .service-number {
 .projects-cta {
     display: flex;
     justify-content: center;
-    margin-top: var(--space-lg);
+    margin-top: 30px;
 }
 
 .projects-stories-wrapper {
@@ -546,7 +547,7 @@ body.is-scrolling .service-card:hover .service-number {
     }
 
     .projects-cta {
-        margin-top: var(--space-lg);
+        margin-top: 30px;
     }
 
     .cta-buttons {
@@ -636,7 +637,7 @@ body.is-scrolling .service-card:hover .service-number {
     }
 
     .detail-btn-base {
-        padding: 6px 12px;
+        padding: 9px 40px;
         font-size: 13px;
         transition: background var(--transition-fast) var(--easing-default),
                     border-color var(--transition-fast) var(--easing-default);
@@ -644,6 +645,10 @@ body.is-scrolling .service-card:hover .service-number {
 
     .detail-arrow {
         font-size: 14px;
+    }
+
+    .service-detail-btn {
+        padding: 6px 12px;
     }
 
     /* Mobile backgrounds - завантажуються lazy */
