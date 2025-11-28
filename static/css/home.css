@@ -674,6 +674,13 @@ body.is-scrolling .service-card:hover .service-number {
         background-position: center;
     }
 
+    .projects-stories-wrapper {
+        margin-left: calc(-1 * var(--space-xs));
+        margin-right: calc(-1 * var(--space-xs));
+        width: calc(100% + 2 * var(--space-xs));
+        max-width: calc(100% + 2 * var(--space-xs));
+    }
+
     .projects-stories-container {
         gap: 20px;
         padding: 20px 0;
@@ -760,8 +767,12 @@ body.is-scrolling .service-card:hover .service-number {
             padding-bottom: max(var(--space-md), env(safe-area-inset-bottom));
         }
 
-        /* iOS використовує стандартні стилі кружечків як на інших пристроях */
-        /* Видалено перевизначення .project-story-ring та .project-story-image */
+        /* Projects Stories - full width з урахуванням safe areas */
+        .projects-stories-wrapper {
+            margin-left: calc(-1 * max(var(--space-xs), env(safe-area-inset-left)));
+            margin-right: calc(-1 * max(var(--space-xs), env(safe-area-inset-right)));
+            width: calc(100% + 2 * max(var(--space-xs), env(safe-area-inset-left)));
+        }
     }
 }
 
