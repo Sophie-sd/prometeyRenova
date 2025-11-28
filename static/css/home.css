@@ -127,9 +127,11 @@ body.is-scrolling .service-card,
 body.is-scrolling .service-card-overlay,
 body.is-scrolling .service-number,
 body.is-scrolling .service-title,
-body.is-scrolling .service-description {
+body.is-scrolling .service-description,
+body.is-scrolling .service-detail-btn,
+body.is-scrolling .service-arrow {
     will-change: auto;
-    transition: none !important;
+    transition: none;
 }
 
 body.is-scrolling .service-card {
@@ -157,6 +159,63 @@ body.is-scrolling .service-number {
     color: var(--color-white);
     background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 70%);
     border-radius: 12px;
+}
+
+.service-detail-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: transparent;
+    border: 2px solid var(--color-brand-orange);
+    color: var(--color-white);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    user-select: none;
+    touch-action: manipulation;
+    transition: background var(--transition-normal) var(--easing-default),
+                border-color var(--transition-normal) var(--easing-default);
+}
+
+.service-detail-btn:focus-visible {
+    outline: 2px solid var(--color-brand-orange);
+    outline-offset: 2px;
+}
+
+.service-arrow {
+    font-size: 16px;
+    display: inline-block;
+}
+
+.service-detail-btn:active {
+    background: var(--color-brand-orange);
+    border-color: var(--color-brand-orange);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .service-detail-btn {
+        transition: background var(--transition-normal) var(--easing-default),
+                    border-color var(--transition-normal) var(--easing-default),
+                    transform var(--transition-normal) var(--easing-default),
+                    box-shadow var(--transition-normal) var(--easing-default);
+    }
+    
+    .service-detail-btn:hover {
+        background: var(--color-brand-orange);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(230, 81, 0, 0.4);
+    }
+
+    .service-arrow {
+        transition: transform var(--transition-normal) var(--easing-default);
+    }
+    
+    .service-detail-btn:hover .service-arrow {
+        transform: translate(2px, -2px);
+    }
 }
 
 .service-number {
@@ -560,6 +619,17 @@ body.is-scrolling .service-card:hover .service-number {
     .service-description {
         font-size: 14px;
         line-height: 1.4;
+    }
+
+    .service-detail-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+        transition: background var(--transition-fast) var(--easing-default),
+                    border-color var(--transition-fast) var(--easing-default);
+    }
+
+    .service-arrow {
+        font-size: 14px;
     }
 
     /* Mobile backgrounds - завантажуються lazy */
