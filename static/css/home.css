@@ -221,6 +221,7 @@ body.is-scrolling .service-number {
 .service-detail-btn {
     padding: 6px 12px;
     margin-bottom: 12px;
+    align-self: flex-start;
 }
 
 .service-number {
@@ -649,6 +650,7 @@ body.is-scrolling .service-card:hover .service-number {
 
     .service-detail-btn {
         padding: 6px 12px;
+        align-self: flex-start;
     }
 
     /* Mobile backgrounds - завантажуються lazy */
