@@ -241,9 +241,9 @@
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">01</span>
-                            <button class="service-detail-btn" type="button" aria-label="Детальніше про Web-розробку">
+                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="Детальніше про Web-розробку">
                                 <span>Детальніше</span>
-                                <span class="service-arrow" aria-hidden="true">↗</span>
+                                <span class="detail-arrow" aria-hidden="true">↗</span>
                             </button>
                             <h3 class="service-title">{% trans "Web-розробка" %}</h3>
                             <p class="service-description">{% trans "Сайти під ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-боти" %}</p>
@@ -255,9 +255,9 @@
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">02</span>
-                            <button class="service-detail-btn" type="button" aria-label="Детальніше про Мобільні застосунки">
+                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="Детальніше про Мобільні застосунки">
                                 <span>Детальніше</span>
-                                <span class="service-arrow" aria-hidden="true">↗</span>
+                                <span class="detail-arrow" aria-hidden="true">↗</span>
                             </button>
                             <h3 class="service-title">{% trans "Мобільні застосунки" %}</h3>
                             <p class="service-description">{% trans "iOS та Android додатки з сучасним дизайном" %}</p>
@@ -269,9 +269,9 @@
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">03</span>
-                            <button class="service-detail-btn" type="button" aria-label="Детальніше про Реклама та ведення соціальних мереж">
+                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="Детальніше про Реклама та ведення соціальних мереж">
                                 <span>Детальніше</span>
-                                <span class="service-arrow" aria-hidden="true">↗</span>
+                                <span class="detail-arrow" aria-hidden="true">↗</span>
                             </button>
                             <h3 class="service-title">{% trans "Реклама та ведення соціальних мереж" %}</h3>
                             <p class="service-description">{% trans "Google Ads, Meta Ads, TikTok Ads, SMM, контент" %}</p>
@@ -283,9 +283,9 @@
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">04</span>
-                            <button class="service-detail-btn" type="button" aria-label="Детальніше про Навчання">
+                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="Детальніше про Навчання">
                                 <span>Детальніше</span>
-                                <span class="service-arrow" aria-hidden="true">↗</span>
+                                <span class="detail-arrow" aria-hidden="true">↗</span>
                             </button>
                             <h3 class="service-title">{% trans "Навчання" %}</h3>
                             <p class="service-description">{% trans "Програмування та AI від нуля до працевлаштування" %}</p>
@@ -418,6 +418,13 @@
                         </a>
 
                     </div>
+                </div>
+
+                <div class="projects-cta">
+                    <a href="{% url 'portfolio' %}" class="detail-btn-base" aria-label="Переглянути всі проєкти у портфоліо">
+                        <span>Переглянути портфоліо</span>
+                        <span class="detail-arrow" aria-hidden="true">↗</span>
+                    </a>
                 </div>
             </div>
         </div>

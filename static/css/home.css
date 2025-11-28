@@ -128,23 +128,23 @@ body.is-scrolling .service-card-overlay,
 body.is-scrolling .service-number,
 body.is-scrolling .service-title,
 body.is-scrolling .service-description,
-body.is-scrolling .service-detail-btn,
-body.is-scrolling .service-arrow {
+body.is-scrolling .detail-btn-base,
+body.is-scrolling .detail-arrow {
     will-change: auto;
     transition: none;
 }
 
 body.is-scrolling .service-card {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 body.is-scrolling .service-card:hover {
-    transform: translate3d(0, 0, 0) !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+    transform: translate3d(0, 0, 0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 body.is-scrolling .service-number {
-    transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0);
 }
 
 /* Контент картки - без постійних тіней */
@@ -161,61 +161,65 @@ body.is-scrolling .service-number {
     border-radius: 12px;
 }
 
-.service-detail-btn {
+.detail-btn-base {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     padding: 8px 16px;
     background: transparent;
-    border: 2px solid var(--color-brand-orange);
+    border: 0.5px solid var(--color-brand-orange);
     color: var(--color-white);
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    border-radius: 4px;
-    margin-bottom: 12px;
+    border-radius: 12px;
+    text-decoration: none;
     user-select: none;
     touch-action: manipulation;
     transition: background var(--transition-normal) var(--easing-default),
                 border-color var(--transition-normal) var(--easing-default);
 }
 
-.service-detail-btn:focus-visible {
+.detail-btn-base:focus-visible {
     outline: 2px solid var(--color-brand-orange);
     outline-offset: 2px;
 }
 
-.service-arrow {
-    font-size: 16px;
-    display: inline-block;
-}
-
-.service-detail-btn:active {
+.detail-btn-base:active {
     background: var(--color-brand-orange);
     border-color: var(--color-brand-orange);
 }
 
+.detail-arrow {
+    font-size: 16px;
+    display: inline-block;
+}
+
 @media (hover: hover) and (pointer: fine) {
-    .service-detail-btn {
+    .detail-btn-base {
         transition: background var(--transition-normal) var(--easing-default),
                     border-color var(--transition-normal) var(--easing-default),
                     transform var(--transition-normal) var(--easing-default),
                     box-shadow var(--transition-normal) var(--easing-default);
     }
     
-    .service-detail-btn:hover {
+    .detail-btn-base:hover {
         background: var(--color-brand-orange);
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(230, 81, 0, 0.4);
     }
 
-    .service-arrow {
+    .detail-arrow {
         transition: transform var(--transition-normal) var(--easing-default);
     }
     
-    .service-detail-btn:hover .service-arrow {
+    .detail-btn-base:hover .detail-arrow {
         transform: translate(2px, -2px);
     }
+}
+
+.service-detail-btn {
+    margin-bottom: 12px;
 }
 
 .service-number {
@@ -291,6 +295,12 @@ body.is-scrolling .service-card:hover .service-number {
 
 .projects-content h2 {
     color: var(--color-brand-orange);
+}
+
+.projects-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
 }
 
 .projects-stories-wrapper {
@@ -535,6 +545,10 @@ body.is-scrolling .service-card:hover .service-number {
         font-size: 14px;
     }
 
+    .projects-cta {
+        margin-top: var(--space-lg);
+    }
+
     .cta-buttons {
         flex-direction: column;
         align-items: center;
@@ -621,14 +635,14 @@ body.is-scrolling .service-card:hover .service-number {
         line-height: 1.4;
     }
 
-    .service-detail-btn {
+    .detail-btn-base {
         padding: 6px 12px;
         font-size: 13px;
         transition: background var(--transition-fast) var(--easing-default),
                     border-color var(--transition-fast) var(--easing-default);
     }
 
-    .service-arrow {
+    .detail-arrow {
         font-size: 14px;
     }
 
@@ -690,10 +704,10 @@ body.is-scrolling .service-card:hover .service-number {
     }
 
     body.is-scrolling .service-card {
-        transform: translate3d(0, 0, 0) !important;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
-        backface-visibility: visible !important;
-        will-change: auto !important;
+        transform: translate3d(0, 0, 0);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        backface-visibility: visible;
+        will-change: auto;
     }
 
     /* Анімація кружечків на мобільних також працює постійно */
