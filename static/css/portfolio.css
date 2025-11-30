@@ -1,4 +1,4 @@
-/* Portfolio Hero Section */
+/* Portfolio Hero Section - Unit-Cell Grid System */
 
 .portfolio-hero {
     background-color: var(--color-black);
@@ -7,57 +7,57 @@
 
 .portfolio-hero__grid {
     display: grid;
-    grid-template-areas:
-        "slot1 slot1 slot2 slot5"
-        "slot3 slot4 slot4 slot5";
-    grid-template-columns: 2fr 1fr 2fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: var(--space-xs);
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(180px, auto);
+    gap: 16px;
     max-width: 1600px;
     margin: 0 auto;
-    aspect-ratio: 16 / 10;
 }
 
 .portfolio-hero__slot {
-    grid-area: var(--slot-area);
     overflow: hidden;
     border-radius: var(--radius-lg);
     background-color: var(--color-gray);
     position: relative;
 }
 
-.portfolio-hero__slot[data-slot="1"],
-.portfolio-hero__slot[data-slot="4"] {
+/* Desktop Layout - 12 колонок */
+.portfolio-hero__slot--wide:nth-child(1) {
+    grid-column: 1 / span 4;
+    grid-row: 1 / span 2;
+}
+
+.portfolio-hero__slot--square:nth-child(2) {
+    grid-column: 5 / span 2;
+    grid-row: 1 / span 2;
+}
+
+.portfolio-hero__slot--square:nth-child(3) {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 2;
+}
+
+.portfolio-hero__slot--wide:nth-child(4) {
+    grid-column: 3 / span 4;
+    grid-row: 3 / span 2;
+}
+
+.portfolio-hero__slot--vertical:nth-child(5) {
+    grid-column: 7 / span 3;
+    grid-row: 1 / span 4;
+}
+
+/* Aspect ratios */
+.portfolio-hero__slot--wide {
     aspect-ratio: 16 / 9;
 }
 
-.portfolio-hero__slot[data-slot="2"],
-.portfolio-hero__slot[data-slot="3"] {
+.portfolio-hero__slot--square {
     aspect-ratio: 1 / 1;
 }
 
-.portfolio-hero__slot[data-slot="5"] {
+.portfolio-hero__slot--vertical {
     aspect-ratio: 9 / 16;
-}
-
-.portfolio-hero__slot[data-slot="1"] {
-    --slot-area: slot1;
-}
-
-.portfolio-hero__slot[data-slot="2"] {
-    --slot-area: slot2;
-}
-
-.portfolio-hero__slot[data-slot="3"] {
-    --slot-area: slot3;
-}
-
-.portfolio-hero__slot[data-slot="4"] {
-    --slot-area: slot4;
-}
-
-.portfolio-hero__slot[data-slot="5"] {
-    --slot-area: slot5;
 }
 
 .portfolio-hero__image-wrapper {
@@ -83,57 +83,78 @@
     z-index: 0;
 }
 
+/* Tablet Layout - 8 колонок */
 @media (max-width: 1024px) {
     .portfolio-hero__grid {
-        grid-template-areas:
-            "slot1 slot2"
-            "slot3 slot4"
-            "slot5 slot5";
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto auto;
-        aspect-ratio: auto;
+        grid-template-columns: repeat(8, 1fr);
+        grid-auto-rows: minmax(150px, auto);
     }
 
-    .portfolio-hero__slot[data-slot="5"] {
-        aspect-ratio: 9 / 16;
+    .portfolio-hero__slot--wide:nth-child(1) {
+        grid-column: 1 / span 3;
+        grid-row: 1 / span 2;
+    }
+
+    .portfolio-hero__slot--square:nth-child(2) {
+        grid-column: 4 / span 2;
+        grid-row: 1 / span 2;
+    }
+
+    .portfolio-hero__slot--square:nth-child(3) {
+        grid-column: 1 / span 2;
+        grid-row: 3 / span 2;
+    }
+
+    .portfolio-hero__slot--wide:nth-child(4) {
+        grid-column: 3 / span 3;
+        grid-row: 3 / span 2;
+    }
+
+    .portfolio-hero__slot--vertical:nth-child(5) {
+        grid-column: 6 / span 3;
+        grid-row: 1 / span 4;
         max-height: 70vh;
         max-height: 70dvh;
     }
 }
 
+/* Mobile Layout - Варіант 3 Мозаїка (2 колонки) */
 @media (max-width: 767px) {
     .portfolio-hero {
-        padding: var(--space-md);
+        padding: var(--space-sm);
     }
 
     .portfolio-hero__grid {
-        grid-template-areas:
-            "slot1"
-            "slot2"
-            "slot3"
-            "slot4"
-            "slot5";
-        grid-template-columns: 1fr;
-        gap: var(--space-xs);
-        aspect-ratio: auto;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: minmax(120px, auto);
+        gap: 12px;
     }
 
-    .portfolio-hero__slot[data-slot="1"],
-    .portfolio-hero__slot[data-slot="4"] {
-        aspect-ratio: 16 / 9;
-        min-height: 200px;
+    .portfolio-hero__slot--wide:nth-child(1) {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+        min-height: 180px;
     }
 
-    .portfolio-hero__slot[data-slot="2"],
-    .portfolio-hero__slot[data-slot="3"] {
-        aspect-ratio: 1 / 1;
-        min-height: 250px;
+    .portfolio-hero__slot--square:nth-child(2) {
+        grid-column: 1;
+        grid-row: 2;
     }
 
-    .portfolio-hero__slot[data-slot="5"] {
-        aspect-ratio: 9 / 16;
-        max-height: 80vh;
-        max-height: 80dvh;
-        width: 100%;
+    .portfolio-hero__slot--vertical:nth-child(5) {
+        grid-column: 2;
+        grid-row: 2 / span 2;
+        max-height: min(80dvh, 500px);
+    }
+
+    .portfolio-hero__slot--square:nth-child(3) {
+        grid-column: 1;
+        grid-row: 3;
+    }
+
+    .portfolio-hero__slot--wide:nth-child(4) {
+        grid-column: 1 / span 2;
+        grid-row: 4;
+        min-height: 180px;
     }
 }
