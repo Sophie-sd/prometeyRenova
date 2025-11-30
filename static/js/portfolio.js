@@ -9,7 +9,7 @@
         }
 
         init() {
-            const slotElements = document.querySelectorAll('.portfolio-hero__slot');
+            const slotElements = document.querySelectorAll('.portfolio-card');
             if (slotElements.length === 0) return;
 
             slotElements.forEach((slot, index) => {
