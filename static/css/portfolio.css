@@ -5,9 +5,9 @@
     --grid-row-height-desktop: 200px;
     --grid-row-height-tablet: 160px;
     --grid-row-height-mobile: 140px;
-    --grid-gap-desktop: 24px;
-    --grid-gap-tablet: 20px;
-    --grid-gap-mobile: 16px;
+    --grid-gap-desktop: 12px;
+    --grid-gap-tablet: 10px;
+    --grid-gap-mobile: 8px;
 }
 
 .portfolio-hero {
