@@ -6,7 +6,6 @@
             this.slots = new Map();
             this.slotTimeouts = new Map();
             this.observer = null;
-            this.timeoutCounter = 0;
             this.initialized = false;
         }
 
@@ -73,7 +72,6 @@
                     element: slotElement,
                     imagePaths,
                     currentIndex: 0,
-                    isAnimating: false,
                     currentTimeout: null
                 });
             } catch (error) {
@@ -120,16 +118,20 @@
         }
 
         scheduleNextSwitch(slotNum) {
-            const slot = this.slots.get(slotNum);
-            if (!slot) return;
+            try {
+                const slot = this.slots.get(slotNum);
+                if (!slot) return;
 
-            const delay = Math.random() * 3000 + 4000;
-            const timeout = setTimeout(() => {
-                this.switchImage(slotNum);
-                this.scheduleNextSwitch(slotNum);
-            }, delay);
+                const delay = Math.random() * 3000 + 4000;
+                const timeout = setTimeout(() => {
+                    this.switchImage(slotNum);
+                    this.scheduleNextSwitch(slotNum);
+                }, delay);
 
-            slot.currentTimeout = timeout;
+                slot.currentTimeout = timeout;
+            } catch (error) {
+                console.error('PortfolioHero scheduleNextSwitch error:', error);
+            }
         }
 
         switchImage(slotNum) {
