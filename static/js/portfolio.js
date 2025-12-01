@@ -209,7 +209,10 @@
                                     return;
                                 }
 
+                                const tempSrc = current.src;
                                 current.src = next.src;
+                                next.src = tempSrc;
+
                                 current.style.opacity = '1';
                                 current.style.zIndex = '1';
                                 next.style.opacity = '0';
