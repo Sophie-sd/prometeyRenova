@@ -4,8 +4,9 @@
     class PortfolioHeroSlots {
         constructor() {
             this.slots = new Map();
-            this.animationTimeouts = new Map();
+            this.slotTimeouts = new Map();
             this.observer = null;
+            this.timeoutCounter = 0;
         }
 
         init() {
@@ -32,7 +33,8 @@
                 element: slotElement,
                 imagePaths,
                 currentIndex: 0,
-                isAnimating: false
+                isAnimating: false,
+                currentTimeout: null
             });
         }
 
@@ -73,7 +75,7 @@
                 this.scheduleNextSwitch(slotNum);
             }, delay);
 
-            this.animationTimeouts.set(`${slotNum}-${Date.now()}`, timeout);
+            slot.currentTimeout = timeout;
         }
 
         switchImage(slotNum) {
@@ -82,19 +84,27 @@
 
             slot.currentIndex = (slot.currentIndex + 1) % slot.imagePaths.length;
 
-            const wrapper = slot.element.querySelector('.portfolio-hero__image-wrapper');
+            const wrapper = slot.element?.querySelector('.portfolio-hero__image-wrapper');
+            if (!wrapper) return;
+
             const current = wrapper.querySelector('.portfolio-hero__image');
             const next = wrapper.querySelector('.portfolio-hero__image--next');
 
+            if (!current || !next) return;
+
             next.src = slot.imagePaths[slot.currentIndex];
 
-            next.onload = () => {
+            const handleImageLoad = () => {
+                if (!next || !current) return;
+
                 next.style.opacity = '1';
                 next.style.zIndex = '1';
                 current.style.opacity = '0';
                 current.style.zIndex = '0';
 
                 setTimeout(() => {
+                    if (!current || !next) return;
+
                     current.src = next.src;
                     current.style.opacity = '1';
                     current.style.zIndex = '1';
@@ -103,8 +113,10 @@
                 }, 500);
             };
 
+            next.onload = handleImageLoad;
+
             if (next.complete) {
-                next.onload();
+                handleImageLoad();
             }
         }
 
@@ -126,8 +138,15 @@
             if (this.observer) {
                 this.observer.disconnect();
             }
-            this.animationTimeouts.forEach(timeout => clearTimeout(timeout));
-            this.animationTimeouts.clear();
+
+            this.slots.forEach((slot) => {
+                if (slot.currentTimeout) {
+                    clearTimeout(slot.currentTimeout);
+                    slot.currentTimeout = null;
+                }
+            });
+
+            this.slots.clear();
         }
     }
 

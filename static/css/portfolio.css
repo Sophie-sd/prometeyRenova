@@ -17,6 +17,7 @@
 
 .portfolio-hero-grid {
     display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: var(--grid-gap-desktop);
     max-width: 1320px;
     margin: 0 auto;
@@ -148,7 +149,7 @@
         padding-top: 60px;
         padding-inline: 20px;
         padding-bottom: var(--space-sm);
-        min-height: calc(100vh - 60px);
+        min-height: calc(var(--mobile-vh, 100vh) - 60px);
     }
 
     .portfolio-hero-grid {
