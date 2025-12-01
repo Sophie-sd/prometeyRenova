@@ -87,7 +87,7 @@
     object-fit: cover;
     opacity: 1;
     z-index: 1;
-    transition: opacity var(--transition-slow) var(--easing-default);
+    transition: opacity 300ms var(--easing-default);
     will-change: opacity;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);

@@ -147,7 +147,7 @@
                 const slot = this.slots.get(slotNum);
                 if (!slot) return;
 
-                const delay = Math.random() * 3000 + 4000;
+                const delay = Math.random() * 2000 + 2500;
                 const timeout = setTimeout(() => {
                     this.switchImage(slotNum);
                     this.scheduleNextSwitch(slotNum);
@@ -222,7 +222,7 @@
                                 console.error('PortfolioHero: Error in swap cleanup:', error);
                                 slot.isAnimating = false;
                             }
-                        }, 500);
+                        }, 300);
 
                     } catch (error) {
                         console.error('PortfolioHero: Error in handleImageLoad:', error);
