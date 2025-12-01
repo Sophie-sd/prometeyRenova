@@ -88,6 +88,11 @@
     opacity: 1;
     z-index: 1;
     transition: opacity var(--transition-slow) var(--easing-default);
+    will-change: opacity;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .portfolio-hero__image--next {

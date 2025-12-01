@@ -7,6 +7,7 @@
             this.slotTimeouts = new Map();
             this.observer = null;
             this.initialized = false;
+            this.imageCache = new Map();
         }
 
         init() {
@@ -14,11 +15,12 @@
                 const slotElements = document.querySelectorAll('.portfolio-card');
                 if (slotElements.length === 0) return;
 
+                this.preloadAllImages(slotElements);
+
                 slotElements.forEach((slot, index) => {
                     this.initSlot(slot, index);
                 });
 
-                // Перевірка чи є валідні слоти
                 if (this.slots.size === 0) {
                     console.warn('PortfolioHero: No valid slots found');
                     return;
@@ -26,18 +28,15 @@
 
                 this.initialized = true;
 
-                // Налаштування observer з fallback
-                if ('IntersectionObserver' in window) {
+                if (this.isIOSSafari()) {
+                    setTimeout(() => {
+                        this.startAllAnimationsWithDelay();
+                    }, 100);
+                } else if ('IntersectionObserver' in window) {
                     this.setupIntersectionObserver();
-                    // Fallback: перевірка видимості через requestAnimationFrame
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            this.checkInitialVisibility();
-                        });
-                    });
+                    setTimeout(() => this.checkInitialVisibility(), 300);
                 } else {
-                    // Fallback для старих браузерів без IntersectionObserver
-                    this.startAllAnimations();
+                    this.startAllAnimationsWithDelay();
                 }
 
                 this.setupResizeHandler();
@@ -46,17 +45,32 @@
             }
         }
 
+        preloadAllImages(slotElements) {
+            slotElements.forEach(slot => {
+                const images = [slot.dataset.image1, slot.dataset.image2, slot.dataset.image3];
+                images.forEach(src => {
+                    if (src && !this.imageCache.has(src)) {
+                        const img = new Image();
+                        img.src = src;
+                        this.imageCache.set(src, img);
+                    }
+                });
+            });
+        }
+
+        isIOSSafari() {
+            const ua = navigator.userAgent;
+            const iOS = /iPad|iPhone|iPod/.test(ua);
+            const webkit = /WebKit/.test(ua);
+            return iOS && webkit && !/CriOS|FxiOS|OPiOS|mercury/.test(ua);
+        }
+
         initSlot(slotElement, index) {
             try {
-                const slotNum = slotElement.dataset.slot || index + 1;
+                const slotNum = slotElement.dataset.slot || String(index + 1);
                 
-                // Перевірка data-атрибутів
                 if (!slotElement.dataset.image1 || !slotElement.dataset.image2 || !slotElement.dataset.image3) {
-                    console.warn(`PortfolioHero: Slot ${slotNum} missing image data`, {
-                        image1: slotElement.dataset.image1,
-                        image2: slotElement.dataset.image2,
-                        image3: slotElement.dataset.image3
-                    });
+                    console.warn(`PortfolioHero: Slot ${slotNum} missing image data`);
                     return;
                 }
 
@@ -72,7 +86,9 @@
                     element: slotElement,
                     imagePaths,
                     currentIndex: 0,
-                    currentTimeout: null
+                    currentTimeout: null,
+                    animationStarted: false,
+                    isAnimating: false
                 });
             } catch (error) {
                 console.error('PortfolioHero initSlot error:', error);
@@ -81,7 +97,8 @@
 
         setupIntersectionObserver() {
             const options = {
-                threshold: 0.1
+                threshold: 0.1,
+                rootMargin: '50px'
             };
 
             this.observer = new IntersectionObserver((entries) => {
@@ -98,6 +115,15 @@
             });
         }
 
+        startAllAnimationsWithDelay() {
+            this.slots.forEach((slot, slotNum) => {
+                const delay = (parseInt(slotNum) - 1) * 200;
+                setTimeout(() => {
+                    this.startSlotAnimation(slotNum);
+                }, delay);
+            });
+        }
+
         startSlotAnimation(slotNum) {
             try {
                 const slot = this.slots.get(slotNum);
@@ -110,7 +136,6 @@
                     this.scheduleNextSwitch(slotNum);
                 }, initialDelay);
 
-                // Зберігаємо таймаут для можливості очистки
                 this.slotTimeouts.set(`start-${slotNum}`, timeout);
             } catch (error) {
                 console.error('PortfolioHero startSlotAnimation error:', error);
@@ -137,57 +162,91 @@
         switchImage(slotNum) {
             try {
                 const slot = this.slots.get(slotNum);
-                if (!slot) return;
+                if (!slot || slot.isAnimating) return;
+                
+                slot.isAnimating = true;
 
                 slot.currentIndex = (slot.currentIndex + 1) % slot.imagePaths.length;
                 const imagePath = slot.imagePaths[slot.currentIndex];
 
-                if (!imagePath) return;
+                if (!imagePath) {
+                    slot.isAnimating = false;
+                    return;
+                }
 
                 const wrapper = slot.element?.querySelector('.portfolio-hero__image-wrapper');
-                if (!wrapper) return;
+                if (!wrapper) {
+                    slot.isAnimating = false;
+                    return;
+                }
 
-                const current = wrapper.querySelector('.portfolio-hero__image');
+                const current = wrapper.querySelector('.portfolio-hero__image:not(.portfolio-hero__image--next)');
                 const next = wrapper.querySelector('.portfolio-hero__image--next');
 
-                if (!current || !next) return;
+                if (!current || !next) {
+                    slot.isAnimating = false;
+                    return;
+                }
 
                 next.src = imagePath;
 
                 const handleImageLoad = () => {
                     try {
-                        if (!next || !current) return;
+                        if (!next || !current) {
+                            slot.isAnimating = false;
+                            return;
+                        }
 
                         next.style.opacity = '1';
-                        next.style.zIndex = '1';
+                        next.style.zIndex = '2';
                         current.style.opacity = '0';
-                        current.style.zIndex = '0';
+                        current.style.zIndex = '1';
 
                         setTimeout(() => {
                             try {
-                                if (!current || !next) return;
+                                if (!current || !next) {
+                                    slot.isAnimating = false;
+                                    return;
+                                }
 
                                 current.src = next.src;
                                 current.style.opacity = '1';
                                 current.style.zIndex = '1';
                                 next.style.opacity = '0';
                                 next.style.zIndex = '0';
+
+                                next.onload = null;
+                                next.onerror = null;
+                                slot.isAnimating = false;
                             } catch (error) {
-                                console.error('PortfolioHero: Error in image swap timeout:', error);
+                                console.error('PortfolioHero: Error in swap cleanup:', error);
+                                slot.isAnimating = false;
                             }
                         }, 500);
+
                     } catch (error) {
                         console.error('PortfolioHero: Error in handleImageLoad:', error);
+                        slot.isAnimating = false;
                     }
                 };
 
-                next.onload = handleImageLoad;
+                const handleImageError = () => {
+                    console.error(`PortfolioHero: Failed to load image: ${imagePath}`);
+                    next.onload = null;
+                    next.onerror = null;
+                    slot.isAnimating = false;
+                };
 
-                if (next.complete) {
+                next.onload = handleImageLoad;
+                next.onerror = handleImageError;
+
+                if (next.complete && next.naturalWidth > 0) {
                     handleImageLoad();
                 }
             } catch (error) {
                 console.error('PortfolioHero switchImage error:', error);
+                const slot = this.slots.get(slotNum);
+                if (slot) slot.isAnimating = false;
             }
         }
 
@@ -210,16 +269,6 @@
                 });
             } catch (error) {
                 console.error('PortfolioHero checkInitialVisibility error:', error);
-            }
-        }
-
-        startAllAnimations() {
-            try {
-                this.slots.forEach((slot, slotNum) => {
-                    this.startSlotAnimation(slotNum);
-                });
-            } catch (error) {
-                console.error('PortfolioHero startAllAnimations error:', error);
             }
         }
 
@@ -254,13 +303,13 @@
                     }
                 });
 
-                // Очистити всі таймаути
                 this.slotTimeouts.forEach(timeout => {
                     clearTimeout(timeout);
                 });
                 this.slotTimeouts.clear();
 
                 this.slots.clear();
+                this.imageCache.clear();
                 this.initialized = false;
             } catch (error) {
                 console.error('PortfolioHero destroy error:', error);
@@ -268,7 +317,7 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    const initPortfolio = () => {
         try {
             const portfolioHero = new PortfolioHeroSlots();
             portfolioHero.init();
@@ -279,5 +328,11 @@
         } catch (error) {
             console.error('PortfolioHero initialization error:', error);
         }
-    });
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPortfolio);
+    } else {
+        initPortfolio();
+    }
 })();

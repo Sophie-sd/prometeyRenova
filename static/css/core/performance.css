@@ -44,7 +44,7 @@
 
 /* ===== ОПТИМІЗАЦІЯ АНІМАЦІЙ ===== */
 @media (prefers-reduced-motion: reduce) {
-    *,
+    *:not(.portfolio-hero__image),
     *::before,
     *::after {
         animation-duration: 0.01ms;
