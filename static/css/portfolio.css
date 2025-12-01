@@ -22,6 +22,7 @@
     max-width: 1320px;
     margin: 0 auto;
     padding-inline: 24px;
+    padding-top: 10px;
 }
 
 .portfolio-card {
@@ -163,6 +164,7 @@
         column-gap: var(--grid-gap-mobile);
         padding-inline: 0;
         max-width: 100%;
+        padding-top: 10px;
     }
 
     /* Card 1: Row 1, Cols 1-2 (merged horizontally) - продовгуватий */

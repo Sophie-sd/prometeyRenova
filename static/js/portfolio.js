@@ -27,7 +27,9 @@
                 slotElement.dataset.image1,
                 slotElement.dataset.image2,
                 slotElement.dataset.image3
-            ];
+            ].filter(path => path && path.trim());
+
+            if (imagePaths.length === 0) return;
 
             this.slots.set(slotNum, {
                 element: slotElement,
@@ -62,7 +64,11 @@
             if (!slot || slot.animationStarted) return;
 
             slot.animationStarted = true;
-            this.scheduleNextSwitch(slotNum);
+
+            const initialDelay = (parseInt(slotNum) - 1) * 1000;
+            setTimeout(() => {
+                this.scheduleNextSwitch(slotNum);
+            }, initialDelay);
         }
 
         scheduleNextSwitch(slotNum) {
@@ -83,6 +89,9 @@
             if (!slot) return;
 
             slot.currentIndex = (slot.currentIndex + 1) % slot.imagePaths.length;
+            const imagePath = slot.imagePaths[slot.currentIndex];
+
+            if (!imagePath) return;
 
             const wrapper = slot.element?.querySelector('.portfolio-hero__image-wrapper');
             if (!wrapper) return;
@@ -92,7 +101,7 @@
 
             if (!current || !next) return;
 
-            next.src = slot.imagePaths[slot.currentIndex];
+            next.src = imagePath;
 
             const handleImageLoad = () => {
                 if (!next || !current) return;
