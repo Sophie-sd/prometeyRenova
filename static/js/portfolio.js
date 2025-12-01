@@ -165,7 +165,6 @@
                 if (!slot || slot.isAnimating) return;
                 
                 slot.isAnimating = true;
-
                 slot.currentIndex = (slot.currentIndex + 1) % slot.imagePaths.length;
                 const imagePath = slot.imagePaths[slot.currentIndex];
 
@@ -180,71 +179,42 @@
                     return;
                 }
 
-                const current = wrapper.querySelector('.portfolio-hero__image:not(.portfolio-hero__image--next)');
-                const next = wrapper.querySelector('.portfolio-hero__image--next');
-
-                if (!current || !next) {
+                const imgs = wrapper.querySelectorAll('.portfolio-hero__image');
+                if (imgs.length < 2) {
                     slot.isAnimating = false;
                     return;
                 }
 
-                next.src = imagePath;
+                const visible = parseInt(imgs[0].style.zIndex) > parseInt(imgs[1].style.zIndex) ? imgs[0] : imgs[1];
+                const hidden = visible === imgs[0] ? imgs[1] : imgs[0];
 
-                const handleImageLoad = () => {
-                    try {
-                        if (!next || !current) {
-                            slot.isAnimating = false;
-                            return;
-                        }
+                hidden.src = imagePath;
 
-                        next.style.opacity = '1';
-                        next.style.zIndex = '2';
-                        current.style.opacity = '0';
-                        current.style.zIndex = '1';
-
-                        setTimeout(() => {
-                            try {
-                                if (!current || !next) {
-                                    slot.isAnimating = false;
-                                    return;
-                                }
-
-                                const tempSrc = current.src;
-                                current.src = next.src;
-                                next.src = tempSrc;
-
-                                current.style.opacity = '1';
-                                current.style.zIndex = '1';
-                                next.style.opacity = '0';
-                                next.style.zIndex = '0';
-
-                                next.onload = null;
-                                next.onerror = null;
-                                slot.isAnimating = false;
-                            } catch (error) {
-                                console.error('PortfolioHero: Error in swap cleanup:', error);
-                                slot.isAnimating = false;
-                            }
-                        }, 300);
-
-                    } catch (error) {
-                        console.error('PortfolioHero: Error in handleImageLoad:', error);
+                const handleLoad = () => {
+                    hidden.style.opacity = '1';
+                    hidden.style.zIndex = '2';
+                    visible.style.opacity = '0';
+                    visible.style.zIndex = '1';
+                    
+                    setTimeout(() => {
+                        hidden.onload = null;
+                        hidden.onerror = null;
                         slot.isAnimating = false;
-                    }
+                    }, 300);
                 };
 
-                const handleImageError = () => {
-                    console.error(`PortfolioHero: Failed to load image: ${imagePath}`);
-                    next.onload = null;
-                    next.onerror = null;
+                const handleError = () => {
+                    console.error(`PortfolioHero: Failed to load ${imagePath}`);
+                    hidden.onload = null;
+                    hidden.onerror = null;
                     slot.isAnimating = false;
                 };
 
-                next.onload = handleImageLoad;
-                next.onerror = handleImageError;
+                hidden.onload = handleLoad;
+                hidden.onerror = handleError;
 
-                if (next.complete && next.naturalWidth > 0) {
-                    handleImageLoad();
+                if (hidden.complete && hidden.naturalWidth > 0) {
+                    handleLoad();
                 }
             } catch (error) {
                 console.error('PortfolioHero switchImage error:', error);
