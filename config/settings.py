@@ -18,7 +18,7 @@ if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.extend([RENDER_EXTERNAL_HOSTNAME, f'www.{RENDER_EXTERNAL_HOSTNAME}'])
 
 if DEBUG:
-    ALLOWED_HOSTS.extend(['localhost', '127.0.0.1', '0.0.0.0', 'testserver'])
+    ALLOWED_HOSTS.extend(['localhost', '127.0.0.1', '0.0.0.0', '127.0.0.1:8000', 'localhost:8000', 'testserver', '*'])
 
 # APPS - Зберігаємо поточні додатки
 INSTALLED_APPS = [

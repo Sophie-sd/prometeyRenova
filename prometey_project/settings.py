@@ -8,7 +8,7 @@ from .settings_base import *  # Базові налаштування
 # === ENVIRONMENT SPECIFIC SETTINGS ===
 
 # Hosts
-ALLOWED_HOSTS = [h for h in os.getenv('ALLOWED_HOSTS', '').split(',') if h] if not DEBUG else ['localhost', '127.0.0.1', '0.0.0.0', '*']
+ALLOWED_HOSTS = [h for h in os.getenv('ALLOWED_HOSTS', '').split(',') if h] if not DEBUG else ['localhost', '127.0.0.1', '0.0.0.0', '127.0.0.1:8000', 'localhost:8000', '*']
 
 # Middleware для розробки
 if DEBUG:
