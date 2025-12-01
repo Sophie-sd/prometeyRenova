@@ -145,14 +145,17 @@
 */
 @media (max-width: 767px) {
     .portfolio-hero {
-        padding: 60px var(--space-sm) var(--space-sm) var(--space-sm);
+        padding-top: 60px;
+        padding-inline: var(--space-sm);
+        padding-bottom: var(--space-sm);
         min-height: calc(100vh - 60px);
     }
 
     .portfolio-hero-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         grid-auto-rows: var(--grid-row-height-mobile);
-        gap: var(--grid-gap-mobile);
+        row-gap: 12px;
+        column-gap: 12px;
         padding-inline: 0;
     }
 
