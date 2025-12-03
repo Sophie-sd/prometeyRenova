@@ -124,6 +124,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
                 'django.template.context_processors.csrf',
+                'apps.core.context_processors.global_settings',
             ],
         },
     },
@@ -151,6 +152,9 @@ MONOBANK_TOKEN = os.environ.get('MONOBANK_TOKEN', '')
 SITE_URL = os.environ.get('SITE_URL', 'https://www.prometeylabs.com')
 if DEBUG:
     SITE_URL = 'http://localhost:8001'
+
+# FACEBOOK PIXEL
+FACEBOOK_PIXEL_ID = os.environ.get('FACEBOOK_PIXEL_ID', '1991082531458369')
 
 # CSRF налаштування - ВИПРАВЛЕНО
 # Завжди включаємо основні домени
