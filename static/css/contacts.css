@@ -190,7 +190,7 @@
     padding: 12px;
     font-size: 16px;
     border: 1px solid #E0E0E0;
-    background: #F8F8F8;
+    background: var(--color-white);
     transition: border-color 0.3s ease-out;
     font-family: inherit;
 }

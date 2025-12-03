@@ -188,6 +188,7 @@
     padding: var(--space-xl);
     background: var(--color-gray);
     border: 2px solid var(--color-brand-orange);
+    color: var(--color-white);
 }
 
 /* ===== GRID LAYOUTS ===== */

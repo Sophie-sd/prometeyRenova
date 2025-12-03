@@ -344,6 +344,10 @@
     border: 2px solid var(--color-brand-orange);
 }
 
+.no-articles p {
+    color: var(--color-white);
+}
+
 /* ===== ДЕТАЛЬНА СТОРІНКА СТАТТІ ===== */
 .blog-article {
     min-height: 100vh;

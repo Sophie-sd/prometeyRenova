@@ -16,7 +16,7 @@
     --color-white: #FFFFFF;
     --color-beige: #bab8b7;
     --color-beige-alt: #FAF7F2;
-    --color-gray: #F8F8F8;
+    --color-gray: #000000;
 
     /* ===== ТИПОГРАФІЧНА ШКАЛА ===== */
     /* Використовуємо clamp() для fluid typography */
