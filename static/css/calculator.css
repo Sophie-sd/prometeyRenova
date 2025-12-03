@@ -24,7 +24,7 @@
 
 /* ===== HERO SECTION ===== */
 .calc-hero {
-    background: var(--color-beige);
+    background: var(--color-black);
     padding: clamp(60px, 10vw, 120px) 0 clamp(80px, 12vw, 140px);
     position: relative;
 }
@@ -84,7 +84,7 @@
     font-weight: 700;
     line-height: 0.95;
     letter-spacing: -2px;
-    color: var(--color-black);
+    color: var(--color-white);
     margin-bottom: clamp(40px, 6vw, 60px);
 }
 
@@ -117,7 +117,7 @@
 .calc-benefit__text {
     font-size: var(--font-base);
     line-height: 1.5;
-    color: var(--color-black);
+    color: var(--color-white);
     padding-top: 4px;
 }
 
@@ -307,7 +307,7 @@
     align-items: center;
     gap: 12px;
     padding: 16px;
-    background: var(--color-beige);
+    background: var(--color-black);
     cursor: pointer;
     transition: all var(--transition-normal) var(--easing-default);
     position: relative;
@@ -344,7 +344,7 @@
 .calc-option__text {
     font-size: var(--font-base);
     line-height: 1.5;
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 /* Вибраний стан */
@@ -394,7 +394,7 @@
     padding: 14px 16px;
     font-size: var(--font-base);
     color: var(--color-black);
-    background: var(--color-beige);
+    background: var(--color-white);
     border: 2px solid transparent;
     transition: all var(--transition-normal) var(--easing-default);
     font-family: inherit;
@@ -449,7 +449,7 @@
 .calculator-progress__bar {
     width: 100%;
     height: 4px;
-    background: var(--color-beige);
+    background: var(--color-black);
     overflow: hidden;
     margin-bottom: 12px;
 }

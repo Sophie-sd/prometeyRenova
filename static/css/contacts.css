@@ -21,10 +21,10 @@
 
 /* === ЗАГАЛЬНІ СТИЛІ СТОРІНКИ === */
 .contacts-page {
-    background-color: var(--color-beige);
-    /* Теплий бежевий фон */
-    color: #000000;
-    /* Чорний для основного тексту */
+    background-color: var(--color-black);
+    /* Глибокий чорний фон */
+    color: var(--color-white);
+    /* Білий для основного тексту на чорному фоні */
     font-family: 'Helvetica Neue', Arial, sans-serif;
     /* Sans-serif згідно стандарту */
     overflow-x: hidden;

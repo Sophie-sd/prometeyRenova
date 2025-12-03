@@ -147,7 +147,7 @@
 .courses-section {
     position: relative;
     padding: var(--space-xl) var(--space-sm);
-    background: var(--color-beige);
+    background: var(--color-black);
     z-index: 10;
 }
 
@@ -162,11 +162,12 @@
     letter-spacing: 1px;
     text-transform: uppercase;
     margin-bottom: var(--space-xs);
+    color: var(--color-white);
 }
 
 .section-header p {
     font-size: var(--font-medium);
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 /* Stats Grid - згідно STYLE.MDC */
@@ -196,7 +197,7 @@
 .stat-item p {
     font-size: 14px;
     line-height: 1.4;
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 /* Courses Grid */
