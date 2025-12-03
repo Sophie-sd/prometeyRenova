@@ -214,8 +214,8 @@ def send_test_result_email(test_data, estimated_price):
 
 З повагою,
 Команда PrometeyLabs
-Телефон: +380 XX XXX XX XX
-Email: info@prometeylabs.com
+Телефон: +38 (063) 952-05-65
+Email: prometeylabs@gmail.com
 """
             
             send_mail(
