@@ -3,58 +3,157 @@
 {% load i18n %}
 
 {% block title %}{% trans "Портфоліо - Prometey" %}{% endblock %}
-{% block description %}{% trans "Наше портфоліо веб-сайтів під ключ. Приклади сучасних веб-рішень для різних сфер бізнесу." %}{% endblock %}
+{% block description %}{% trans "Наше портфоліо веб-сайтів під ключ. Приклади сучасних веб-рішень для різних сфер
+бізнесу." %}{% endblock %}
 
-{% block page_css %}
+{% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
 {% endblock %}
 
 {% block content %}
+<!-- Hero секція -->
 <section class="portfolio-hero">
-    <div class="portfolio-hero-grid">
-        <div class="portfolio-card portfolio-card--1" data-slot="1" data-image1="{% static 'images/hero_portfolio/portfolio1-1.png' %}" data-image2="{% static 'images/hero_portfolio/portfolio1-2.png' %}" data-image3="{% static 'images/hero_portfolio/portfolio1-3.png' %}">
-            <div class="portfolio-hero__image-wrapper">
-                <img src="{% static 'images/hero_portfolio/portfolio1-1.png' %}" alt="Portfolio project 1 - image 1" loading="eager" decoding="async" class="portfolio-hero__image">
-                <img src="{% static 'images/hero_portfolio/portfolio1-2.png' %}" alt="Portfolio project 1 - image 2" loading="eager" decoding="async" class="portfolio-hero__image portfolio-hero__image--next">
-            </div>
-            <link rel="preload" as="image" href="{% static 'images/hero_portfolio/portfolio1-3.png' %}">
-        </div>
+    <div class="hero-bg-video">
+        <video autoplay muted loop playsinline preload="auto" class="hero-video desktop-hero-video">
+            <source src="{% static 'videos/desktop/portfolio.mp4' %}" type="video/mp4">
+        </video>
+        <video autoplay muted loop playsinline preload="auto" class="hero-video mobile-hero-video">
+            <source src="{% static 'videos/mobile/portfoliomobile.mp4' %}" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    <div class="hero-content">
+        <h1 class="hero-title">{% trans "СТВОРЕНІ НАМИ" %} <span class="highlight orange">{% trans "САЙТИ ПІД КЛЮЧ"
+                %}</span></h1>
+        <p class="hero-description">{% trans "Приклади наших робіт - сучасні веб-рішення для різних сфер бізнесу" %}</p>
+    </div>
+</section>
 
-        <div class="portfolio-card portfolio-card--2" data-slot="2" data-image1="{% static 'images/hero_portfolio/portfolio2-1.png' %}" data-image2="{% static 'images/hero_portfolio/portfolio2-2.png' %}" data-image3="{% static 'images/hero_portfolio/portfolio2-3.png' %}">
-            <div class="portfolio-hero__image-wrapper">
-                <img src="{% static 'images/hero_portfolio/portfolio2-1.png' %}" alt="Portfolio project 2 - image 1" loading="eager" decoding="async" class="portfolio-hero__image">
-                <img src="{% static 'images/hero_portfolio/portfolio2-2.png' %}" alt="Portfolio project 2 - image 2" loading="eager" decoding="async" class="portfolio-hero__image portfolio-hero__image--next">
+<!-- Проектні секції -->
+<section class="portfolio-projects">
+    <!-- PROJECT 01 - DoUIT -->
+    <div class="project-section" data-project="1">
+        <div class="project-content">
+            <div class="project-video">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/douit.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/douit.mp4' %}" type="video/mp4">
+                </video>
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/douit_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/douit_mb.mp4' %}" type="video/mp4">
+                </video>
             </div>
-            <link rel="preload" as="image" href="{% static 'images/hero_portfolio/portfolio2-3.png' %}">
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 01</h2>
+                <button class="project-button" data-project="douit">Замовити подібний</button>
+            </div>
         </div>
+    </div>
 
-        <div class="portfolio-card portfolio-card--3" data-slot="3" data-image1="{% static 'images/hero_portfolio/portfolio3-1.png' %}" data-image2="{% static 'images/hero_portfolio/portfolio3-2.png' %}" data-image3="{% static 'images/hero_portfolio/portfolio3-3.png' %}">
-            <div class="portfolio-hero__image-wrapper">
-                <img src="{% static 'images/hero_portfolio/portfolio3-1.png' %}" alt="Portfolio project 3 - image 1" loading="eager" decoding="async" class="portfolio-hero__image">
-                <img src="{% static 'images/hero_portfolio/portfolio3-2.png' %}" alt="Portfolio project 3 - image 2" loading="eager" decoding="async" class="portfolio-hero__image portfolio-hero__image--next">
+    <!-- PROJECT 02 - Framejorney -->
+    <div class="project-section" data-project="2">
+        <div class="project-content">
+            <div class="project-video">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/framejorney.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/framejorney.mp4' %}" type="video/mp4">
+                </video>
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/framejorney_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/framejorney_mb.mp4' %}" type="video/mp4">
+                </video>
             </div>
-            <link rel="preload" as="image" href="{% static 'images/hero_portfolio/portfolio3-3.png' %}">
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 02</h2>
+                <button class="project-button" data-project="framejorney">Замовити подібний</button>
+            </div>
         </div>
+    </div>
 
-        <div class="portfolio-card portfolio-card--4" data-slot="4" data-image1="{% static 'images/hero_portfolio/portfolio4-1.png' %}" data-image2="{% static 'images/hero_portfolio/portfolio4-2.png' %}" data-image3="{% static 'images/hero_portfolio/portfolio4-3.png' %}">
-            <div class="portfolio-hero__image-wrapper">
-                <img src="{% static 'images/hero_portfolio/portfolio4-1.png' %}" alt="Portfolio project 4 - image 1" loading="eager" decoding="async" class="portfolio-hero__image">
-                <img src="{% static 'images/hero_portfolio/portfolio4-2.png' %}" alt="Portfolio project 4 - image 2" loading="eager" decoding="async" class="portfolio-hero__image portfolio-hero__image--next">
+    <!-- PROJECT 03 - Guide White Energy -->
+    <div class="project-section" data-project="3">
+        <div class="project-content">
+            <div class="project-video">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/guide.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/guide.mp4' %}" type="video/mp4">
+                </video>
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/guidewhitenergy_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/guidewhitenergy_mb.mp4' %}" type="video/mp4">
+                </video>
             </div>
-            <link rel="preload" as="image" href="{% static 'images/hero_portfolio/portfolio4-3.png' %}">
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 03</h2>
+                <button class="project-button" data-project="guide">Замовити подібний</button>
+            </div>
         </div>
+    </div>
 
-        <div class="portfolio-card portfolio-card--5" data-slot="5" data-image1="{% static 'images/hero_portfolio/portfolio5-1.png' %}" data-image2="{% static 'images/hero_portfolio/portfolio5-2.png' %}" data-image3="{% static 'images/hero_portfolio/portfolio5-3.png' %}">
-            <div class="portfolio-hero__image-wrapper">
-                <img src="{% static 'images/hero_portfolio/portfolio5-1.png' %}" alt="Portfolio project 5 - image 1" loading="eager" decoding="async" class="portfolio-hero__image">
-                <img src="{% static 'images/hero_portfolio/portfolio5-2.png' %}" alt="Portfolio project 5 - image 2" loading="eager" decoding="async" class="portfolio-hero__image portfolio-hero__image--next">
+    <!-- PROJECT 04 - Polygraph -->
+    <div class="project-section" data-project="4">
+        <div class="project-content">
+            <div class="project-video">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/polygraph.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/polygraph.mp4' %}" type="video/mp4">
+                </video>
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/polygraph_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/polygraph_mb.mp4' %}" type="video/mp4">
+                </video>
             </div>
-            <link rel="preload" as="image" href="{% static 'images/hero_portfolio/portfolio5-3.png' %}">
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 04</h2>
+                <button class="project-button" data-project="polygraph">Замовити подібний</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECT 05 - PrometeyLabs -->
+    <div class="project-section" data-project="5">
+        <div class="project-content">
+            <div class="project-video">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/prometeylabs.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/prometeylabs.mp4' %}" type="video/mp4">
+                </video>
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/prometeylabs_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/prometeylabs_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 05</h2>
+                <button class="project-button" data-project="prometeylabs">Замовити подібний</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECT 06 - Pulvas Shop -->
+    <div class="project-section" data-project="6">
+        <div class="project-content">
+            <div class="project-video">
+                <video muted loop playsinline preload="none" class="desktop-video lazy-video"
+                    data-src="{% static 'videos/projects/desktop/pulvas.mp4' %}">
+                    <source data-src="{% static 'videos/projects/desktop/pulvas.mp4' %}" type="video/mp4">
+                </video>
+                <video muted loop playsinline preload="none" class="mobile-video lazy-video"
+                    data-src="{% static 'videos/projects/mobile/pulvasshop_mb.mp4' %}">
+                    <source data-src="{% static 'videos/projects/mobile/pulvasshop_mb.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="project-info">
+                <h2 class="project-title">PROJECT 06</h2>
+                <button class="project-button" data-project="pulvas">Замовити подібний</button>
+            </div>
         </div>
     </div>
 </section>
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/portfolio.js' %}"></script>
+<!-- Portfolio використовує VideoSystem для lazy loading -->
+<script src="{% static 'js/portfolio.js' %}" defer></script>
 {% endblock %}

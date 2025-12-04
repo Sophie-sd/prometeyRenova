@@ -1,206 +1,684 @@
-/* Portfolio Hero Section - Perfect Grid System (8 Cells) */
+/* =================================
+   PORTFOLIO STYLES - ПОВНИЙ ПЕРЕПИС
+   ================================= */
 
+/* CSS Custom Properties для viewport height */
 :root {
-    /* Grid configuration variables for easy adjustment */
-    --grid-row-height-desktop: 200px;
-    --grid-row-height-tablet: 160px;
-    --grid-row-height-mobile: 200px;
-    --grid-gap-desktop: 12px;
-    --grid-gap-tablet: 10px;
-    --grid-gap-mobile: 10px;
+    --vh: 1vh;
 }
+
+/* Показати контент тільки коли готовий */
+.portfolio-hero {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.portfolio-ready .portfolio-hero {
+    opacity: 1;
+}
+
+/* Оптимізації для мобільних */
+@media (max-width: 767px) {
+    .portfolio-projects {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .project-section {
+        will-change: auto;
+    }
+
+    body.menu-open .project-section {
+        pointer-events: none;
+    }
+}
+
+/* =================================
+   HERO SECTION З ПАРАЛАКС ВІДЕО
+   ================================= */
 
 .portfolio-hero {
-    background-color: var(--color-black);
-    padding: var(--space-lg);
-}
-
-.portfolio-hero-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--grid-gap-desktop);
-    max-width: 1320px;
-    margin: 0 auto;
-    padding-inline: 24px;
-    padding-top: 10px;
-}
-
-.portfolio-card {
-    overflow: hidden;
-    border-radius: var(--radius-lg);
-    background-color: var(--color-gray);
     position: relative;
-    height: 100%;
-    max-width: 100%;
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 0;
 }
 
-/* Desktop Layout - 4 колонки × 2 рядки (8 ячеек) */
-/* ВАЖЛИВО: Всі позиції явно вказані для правильного розташування */
-
-/* Card 1: Row 1, Cols 1-2 (merged horizontally) - продовгуватий */
-.portfolio-card--1 {
-    grid-column: 1 / 3;
-    grid-row: 1 / 2;
-    aspect-ratio: 2 / 1;
-}
-
-/* Card 2: Row 1, Col 3 (standalone) - квадратний */
-.portfolio-card--2 {
-    grid-column: 3 / 4;
-    grid-row: 1 / 2;
-    aspect-ratio: 1 / 1;
-}
-
-/* Card 3: Rows 1-2, Col 4 (merged vertically) - високий */
-.portfolio-card--3 {
-    grid-column: 4 / 5;
-    grid-row: 1 / 3;
-    aspect-ratio: 1 / 2;
-}
-
-/* Card 4: Row 2, Col 1 (standalone) - квадратний */
-.portfolio-card--4 {
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
-    aspect-ratio: 1 / 1;
-}
-
-/* Card 5: Row 2, Cols 2-3 (merged horizontally) - продовгуватий */
-.portfolio-card--5 {
-    grid-column: 2 / 4;
-    grid-row: 2 / 3;
-    aspect-ratio: 2 / 1;
-}
-
-.portfolio-hero__image-wrapper {
-    position: relative;
+/* Фіксоване відео на фоні */
+.hero-bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    z-index: -1;
 }
 
-.portfolio-hero__image {
-    position: absolute;
+.hero-video {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 1;
-    z-index: 1;
-    transition: opacity 300ms var(--easing-default);
-    will-change: opacity;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    z-index: -1;
 }
 
-.portfolio-hero__image--next {
-    opacity: 0;
-    z-index: 0;
+.desktop-hero-video {
+    display: block;
 }
 
-/* Tablet Layout - 4 колонки × 2 рядки (1 в 1 як десктоп) */
-@media (max-width: 1199px) {
-    .portfolio-hero-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        grid-auto-rows: var(--grid-row-height-tablet);
-        gap: var(--grid-gap-tablet);
+.mobile-hero-video {
+    display: none;
+}
+
+/* Фіксований overlay */
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+}
+
+.hero-content {
+    max-width: 1000px;
+    padding: 0 30px;
+    z-index: 3;
+    position: relative;
+}
+
+.hero-title {
+    font-size: 100px;
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -2px;
+    color: #FFFFFF;
+    margin: 0 0 25px 0;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-title .highlight {
+    color: #FFFFFF;
+    display: block;
+    margin-top: 10px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.hero-title .highlight.orange {
+    color: var(--color-red);
+    text-shadow: 2px 2px 6px rgba(220, 20, 60, 0.5);
+}
+
+.hero-description {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.4;
+    color: #FFFFFF;
+    margin: 0;
+    opacity: 0.9;
+    max-width: 550px;
+    margin: 0 auto;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* =================================
+   PROJECT SECTIONS - ВІДЕО ДОМІНАНТА
+   ================================= */
+
+.portfolio-projects {
+    position: relative;
+    background: #0a0a0a;
+    z-index: 10;
+    border-radius: 20px 20px 0 0;
+    margin-top: -20px;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+    padding-top: 40px;
+}
+
+.project-section {
+    position: relative;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    background: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid #1a1a1a;
+    overflow: hidden;
+}
+
+/* DESKTOP: sticky тільки на великих екранах */
+@media (min-width: 1025px) {
+    .project-section {
+        position: sticky;
+        top: 0;
+        background: #0a0a0a;
     }
 
-    /* Card 1: Row 1, Cols 1-2 (merged horizontally) - продовгуватий */
-    .portfolio-card--1 {
-        grid-column: 1 / 3;
-        grid-row: 1 / 2;
-        aspect-ratio: 2 / 1;
-    }
-
-    /* Card 2: Row 1, Col 3 (standalone) - квадратний */
-    .portfolio-card--2 {
-        grid-column: 3 / 4;
-        grid-row: 1 / 2;
-        aspect-ratio: 1 / 1;
-    }
-
-    /* Card 3: Rows 1-2, Col 4 (merged vertically) - високий */
-    .portfolio-card--3 {
-        grid-column: 4 / 5;
-        grid-row: 1 / 3;
-        aspect-ratio: 1 / 2;
-    }
-
-    /* Card 4: Row 2, Col 1 (standalone) - квадратний */
-    .portfolio-card--4 {
-        grid-column: 1 / 2;
-        grid-row: 2 / 3;
-        aspect-ratio: 1 / 1;
-    }
-
-    /* Card 5: Row 2, Cols 2-3 (merged horizontally) - продовгуватий */
-    .portfolio-card--5 {
-        grid-column: 2 / 4;
-        grid-row: 2 / 3;
-        aspect-ratio: 2 / 1;
+    .project-section.active {
+        background: #121212;
+        border-bottom-color: var(--color-red);
     }
 }
 
-/* Mobile Layout - 2 колонки × 4 рядки (8 ячеек) */
-/* Структура комірок:
-   Row 1: [1] [1]
-   Row 2: [2] [3]
-   Row 3: [4] [3]
-   Row 4: [5] [5]
-   
-   ВАЖЛИВО: На мобілці aspect-ratio ВИДАЛЕНО щоб уникнути конфліктів з grid.
-   Розміри контролюються тільки grid-auto-rows: 200px
-*/
+/* ПЛАНШЕТИ: базова функціональність без sticky */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .project-section {
+        position: relative;
+        background: #0a0a0a;
+    }
+
+    .project-section.active {
+        background: #121212;
+        border-bottom-color: var(--color-red);
+    }
+}
+
+/* МОБІЛЬНІ: всі картки темні без змін фону */
 @media (max-width: 767px) {
-    .portfolio-hero {
-        padding-top: 60px;
-        padding-inline: 10px;
-        padding-bottom: var(--space-sm);
-        min-height: calc(var(--mobile-vh, 100vh) - 60px);
+    .project-section {
+        background: #0a0a0a;
+        border-bottom: 1px solid #1a1a1a;
     }
 
-    .portfolio-hero-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-auto-rows: var(--grid-row-height-mobile);
-        row-gap: var(--grid-gap-mobile);
-        column-gap: var(--grid-gap-mobile);
-        padding-inline: 0;
+    .project-section.active {
+        background: #0a0a0a;
+        border-bottom-color: var(--color-red);
+    }
+}
+
+.project-section:last-child {
+    border-bottom: none;
+}
+
+/* КОМПАКТНА СТРУКТУРА - FLEX КОНТЕЙНЕР */
+.project-content {
+    max-width: 1400px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 60px 40px;
+    gap: 40px;
+}
+
+.project-video {
+    flex: 1.5;
+    height: 70vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.project-video video {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(220, 20, 60, 0.25);
+}
+
+/* DESKTOP: спрощені анімації та hover ефекти тільки на великих екранах */
+@media (min-width: 1025px) {
+    .project-video video {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-video video:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 24px rgba(220, 20, 60, 0.35);
+    }
+}
+
+.desktop-video {
+    display: block;
+}
+
+.mobile-video {
+    display: none;
+}
+
+.project-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 25px;
+    padding: 0;
+    text-align: left;
+}
+
+.project-title {
+    font-size: 70px;
+    font-weight: 700;
+    line-height: 0.8;
+    letter-spacing: -2px;
+    color: var(--color-red);
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.project-button {
+    background: var(--color-red);
+    border: 2px solid var(--color-red);
+    color: #000000;
+    padding: 20px 40px;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 0;
+    min-width: 220px;
+}
+
+/* Клас для анімації кліку */
+.project-button.button-clicked {
+    transform: scale(0.95);
+}
+
+/* DESKTOP: hover ефекти та анімації тільки на великих екранах */
+@media (min-width: 1025px) {
+    .project-button {
+        transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+    }
+
+    .project-button:hover {
+        background: transparent;
+        color: var(--color-red);
+        transform: translateY(-3px);
+    }
+
+    .project-button:active {
+        transform: translateY(0);
+    }
+}
+
+/* МОБІЛЬНІ: простий active стан для тач */
+@media (max-width: 1024px) {
+    .project-button {
+        transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    }
+
+    .project-button:active {
+        background: transparent;
+        color: var(--color-red);
+    }
+}
+
+/* =================================
+   RESPONSIVE DESIGN
+   ================================= */
+
+/* Планшети (768px - 1024px) */
+@media (max-width: 1024px) {
+    .hero-title {
+        font-size: 75px;
+        letter-spacing: -1px;
+        margin-bottom: 20px;
+    }
+
+    .hero-description {
+        font-size: 16px;
+    }
+
+    .project-content {
+        max-width: 1200px;
+        padding: 40px 30px;
+        gap: 30px;
+    }
+
+    .project-video {
+        height: 60vh;
+    }
+
+    .project-video video {
         max-width: 100%;
-        padding-top: 10px;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
     }
 
-    /* Card 1: Row 1, Cols 1-2 (merged horizontally) - продовгуватий */
-    .portfolio-card--1 {
-        grid-column: 1 / 3;
-        grid-row: 1 / 2;
-        width: calc(100% + 10px);
+    .project-title {
+        font-size: 55px;
+        letter-spacing: -1px;
     }
 
-    /* Card 2: Row 2, Col 1 - окремо - квадратний */
-    .portfolio-card--2 {
-        grid-column: 1 / 2;
-        grid-row: 2 / 3;
+    .project-info {
+        gap: 20px;
     }
 
-    /* Card 3: Col 2, Rows 2-3 - об'єднані по вертикалі - займає 2 рядки */
-    .portfolio-card--3 {
-        grid-column: 2 / 3;
-        grid-row: 2 / 4;
+    .project-button {
+        padding: 20px 40px;
+        font-size: 18px;
+        min-width: 200px;
+    }
+}
+
+/* Мобільна адаптація паралакс ефекту */
+@media (max-width: 767px) {
+    .portfolio-projects {
+        border-radius: 16px 16px 0 0;
+        margin-top: -16px;
+        padding-top: 30px;
+    }
+}
+
+/* Мобільні пристрої (320px - 767px) - ОПТИМІЗОВАНИЙ СКРОЛ */
+@media (max-width: 767px) {
+    .desktop-hero-video {
+        display: none;
     }
 
-    /* Card 4: Row 3, Col 1 - окремо - квадратний */
-    .portfolio-card--4 {
-        grid-column: 1 / 2;
-        grid-row: 3 / 4;
+    .mobile-hero-video {
+        display: block;
     }
 
-    /* Card 5: Row 4, Cols 1-2 - об'єднані по горизонталі - продовгуватий */
-    .portfolio-card--5 {
-        grid-column: 1 / 3;
-        grid-row: 4 / 5;
-        width: calc(100% + 10px);
+    .hero-title {
+        font-size: 48px;
+        letter-spacing: -1px;
+        margin-bottom: 30px;
     }
+
+    .hero-title .highlight {
+        margin-top: 10px;
+    }
+
+    .hero-description {
+        font-size: 22px;
+    }
+
+    .project-section {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        min-height: 100vh;
+        scroll-snap-align: start;
+        scroll-snap-stop: normal;
+    }
+
+    .portfolio-projects {
+        scroll-snap-type: y proximity;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .project-content {
+        width: 100%;
+        flex-direction: column;
+        padding: 30px 20px;
+        gap: 20px;
+        max-width: none;
+    }
+
+    .project-video {
+        width: 100%;
+        height: 60vh;
+        flex: none;
+        order: -1;
+    }
+
+    .project-video video {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        border-radius: 16px;
+        box-shadow: 0 6px 24px rgba(220, 20, 60, 0.3);
+    }
+
+    .desktop-video {
+        display: none;
+    }
+
+    .mobile-video {
+        display: block;
+    }
+
+    .project-info {
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+        flex: none;
+        justify-content: center;
+    }
+
+    .project-title {
+        font-size: 45px;
+        letter-spacing: -1px;
+    }
+
+    .project-button {
+        padding: 20px 40px;
+        font-size: 18px;
+        min-width: 200px;
+        align-self: center;
+    }
+}
+
+/* Дуже маленькі екрани (320px - 480px) */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 36px;
+    }
+
+    .project-section {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        min-height: 100vh;
+    }
+
+    .project-content {
+        padding: 25px 15px;
+        gap: 15px;
+    }
+
+    .project-video {
+        height: 55vh;
+    }
+
+    .project-video video {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        border-radius: 12px;
+    }
+
+    .project-title {
+        font-size: 38px;
+    }
+
+    .project-info {
+        gap: 18px;
+    }
+
+    .project-button {
+        padding: 18px 36px;
+        font-size: 16px;
+        min-width: 180px;
+    }
+}
+
+/* =================================
+   iOS SAFARI OPTIMIZATIONS
+   ================================= */
+
+@supports (-webkit-touch-callout: none) {
+    .portfolio-hero {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        min-height: 100vh;
+    }
+
+    .project-section {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        min-height: 100vh;
+        will-change: transform;
+    }
+
+    @media (max-width: 767px) {
+        .project-section {
+            height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
+            min-height: 100vh;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .project-section {
+            height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
+            min-height: 100vh;
+        }
+    }
+}
+
+/* Safe areas для iPhone з вирізами */
+@supports (padding: max(0px)) {
+
+    .portfolio-hero,
+    .project-section {
+        padding-left: max(20px, env(safe-area-inset-left) + 20px);
+        padding-right: max(20px, env(safe-area-inset-right) + 20px);
+    }
+}
+
+/* Підтримка для iPhone landscape */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .hero-title {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .project-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .project-button {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+}
+
+/* =================================
+   SCROLL BEHAVIOR
+   ================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (max-width: 767px) {
+    html {
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+}
+
+/* =================================
+   PERFORMANCE OPTIMIZATIONS
+   ================================= */
+
+@media (min-width: 1025px) {
+    .project-section {
+        contain: layout style;
+    }
+}
+
+@media (max-width: 767px) {
+    .project-section {
+        contain: layout;
+    }
+
+    .project-video {
+        will-change: auto;
+    }
+}
+
+/* Стани завантаження відео */
+.project-section.video-loading .project-video::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--color-red);
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: video-loading-spin 1s linear infinite;
+    z-index: 10;
+}
+
+.project-section.video-error .project-video::after {
+    content: "⚠";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: var(--color-red);
+    z-index: 10;
+}
+
+@keyframes video-loading-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Приховуємо індикатори на малих екранах */
+@media (max-width: 767px) {
+
+    .project-section.video-loading .project-video::after,
+    .project-section.video-error .project-video::after {
+        display: none;
+    }
+}
+
+/* =================================
+   MOBILE & DESKTOP SPECIFIC CLASSES
+   ================================= */
+/* page-transition визначено в core/animations.css */
+
+body.portfolio-mobile .project-section {
+    position: relative;
+}
+
+body.portfolio-desktop .project-section {
+    position: sticky;
+    top: 0;
 }

@@ -1,311 +1,244 @@
-(function() {
-    'use strict';
+/**
+ * PORTFOLIO.JS - Portfolio page logic
+ * Використовує: MobileCore, VideoSystem
+ * БЕЗ дублювань, чиста архітектура
+ */
 
-    class PortfolioHeroSlots {
-        constructor() {
-            this.slots = new Map();
-            this.slotTimeouts = new Map();
-            this.observer = null;
-            this.initialized = false;
-            this.imageCache = new Map();
+class PortfolioPage {
+    constructor() {
+        this.projectSections = [];
+        this.heroSection = null;
+        this.state = {
+            menuOpen: false,
+            activeProjectIndex: -1
+        };
+
+        this.init();
+    }
+
+    init() {
+        // Чекаємо MobileCore
+        if (window.MobileCore?.isInitialized()) {
+            this.initWithDependencies();
+        } else {
+            document.addEventListener('mobilecore:initialized', () => {
+                this.initWithDependencies();
+            });
+        }
+    }
+
+    initWithDependencies() {
+        // Кешуємо елементи
+        this.heroSection = document.querySelector('.portfolio-hero');
+        this.projectSections = Array.from(document.querySelectorAll('.project-section'));
+
+        if (!this.heroSection || this.projectSections.length === 0) {
+            console.warn('Portfolio elements not found');
+            return;
         }
 
-        init() {
-            try {
-                const slotElements = document.querySelectorAll('.portfolio-card');
-                if (slotElements.length === 0) return;
+        // Налаштування систем
+        this.setupStickyScroll();
+        this.setupProjectButtons();
+        this.setupVideoManagement();
+        this.setupMenuIntegration();
 
-                this.preloadAllImages(slotElements);
+        // Підписка на MobileCore viewport changes
+        window.MobileCore.onViewportChange(() => {
+            this.updateActiveSection();
+        });
 
-                slotElements.forEach((slot, index) => {
-                    this.initSlot(slot, index);
+        console.log('Portfolio initialized');
+    }
+
+    // ===== STICKY SCROLL SYSTEM =====
+    setupStickyScroll() {
+        let ticking = false;
+
+        const handleScroll = () => {
+            if (this.state.menuOpen) return;
+
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    this.updateActiveSection();
+                    ticking = false;
                 });
-
-                if (this.slots.size === 0) {
-                    console.warn('PortfolioHero: No valid slots found');
-                    return;
-                }
-
-                this.initialized = true;
-
-                if (this.isIOSSafari()) {
-                    setTimeout(() => {
-                        this.startAllAnimationsWithDelay();
-                    }, 100);
-                } else if ('IntersectionObserver' in window) {
-                    this.setupIntersectionObserver();
-                    setTimeout(() => this.checkInitialVisibility(), 300);
-                } else {
-                    this.startAllAnimationsWithDelay();
-                }
-
-                this.setupResizeHandler();
-            } catch (error) {
-                console.error('PortfolioHero init error:', error);
+                ticking = true;
             }
-        }
+        };
 
-        preloadAllImages(slotElements) {
-            slotElements.forEach(slot => {
-                const images = [slot.dataset.image1, slot.dataset.image2, slot.dataset.image3];
-                images.forEach(src => {
-                    if (src && !this.imageCache.has(src)) {
-                        const img = new Image();
-                        img.src = src;
-                        this.imageCache.set(src, img);
-                    }
-                });
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        // Початкова активація
+        this.updateActiveSection();
+    }
+
+    updateActiveSection() {
+        if (!this.heroSection || this.projectSections.length === 0) return;
+        if (this.state.menuOpen) return;
+
+        const scrollTop = window.pageYOffset;
+        const heroHeight = this.heroSection.offsetHeight;
+        const scrollAfterHero = Math.max(0, scrollTop - heroHeight);
+        const sectionHeight = window.innerHeight;
+
+        const currentIndex = Math.min(
+            Math.floor(scrollAfterHero / sectionHeight),
+            this.projectSections.length - 1
+        );
+
+        // Оновлюємо активні секції
+        this.projectSections.forEach((section, index) => {
+            const isActive = index === currentIndex && scrollTop >= heroHeight;
+
+            if (isActive && !section.classList.contains('active')) {
+                this.activateSection(section, index);
+            } else if (!isActive && section.classList.contains('active')) {
+                this.deactivateSection(section);
+            }
+        });
+
+        this.state.activeProjectIndex = currentIndex;
+    }
+
+    activateSection(section, index) {
+        section.classList.add('active');
+
+        // Відтворення відео через VideoSystem
+        const video = this.getVisibleVideoForSection(section);
+        if (video && window.VideoSystem) {
+            window.VideoSystem.playVideo(video);
+        }
+    }
+
+    deactivateSection(section) {
+        section.classList.remove('active');
+
+        // Пауза відео через VideoSystem
+        const video = this.getVisibleVideoForSection(section);
+        if (video && window.VideoSystem) {
+            window.VideoSystem.pauseVideo(video);
+        }
+    }
+
+    getVisibleVideoForSection(section) {
+        const isMobile = window.innerWidth <= 767;
+        const selector = isMobile ? '.mobile-video' : '.desktop-video';
+        return section.querySelector(selector);
+    }
+
+    // ===== VIDEO MANAGEMENT =====
+    setupVideoManagement() {
+        // Слухаємо VideoSystem events
+        if (window.VideoSystem) {
+            window.VideoSystem.on('video:loaded', (e) => {
+                const section = e.detail.element.closest('.project-section');
+                if (section) {
+                    section.classList.add('video-loaded');
+                    section.classList.remove('video-loading');
+                }
+            });
+
+            window.VideoSystem.on('video:error', (e) => {
+                const section = e.detail.element?.closest('.project-section');
+                if (section) {
+                    section.classList.add('video-error');
+                    section.classList.remove('video-loading');
+                }
             });
         }
 
-        isIOSSafari() {
-            const ua = navigator.userAgent;
-            const iOS = /iPad|iPhone|iPod/.test(ua);
-            const webkit = /WebKit/.test(ua);
-            return iOS && webkit && !/CriOS|FxiOS|OPiOS|mercury/.test(ua);
-        }
-
-        initSlot(slotElement, index) {
-            try {
-                const slotNum = slotElement.dataset.slot || String(index + 1);
-                
-                if (!slotElement.dataset.image1 || !slotElement.dataset.image2 || !slotElement.dataset.image3) {
-                    console.warn(`PortfolioHero: Slot ${slotNum} missing image data`);
-                    return;
-                }
-
-                const imagePaths = [
-                    slotElement.dataset.image1,
-                    slotElement.dataset.image2,
-                    slotElement.dataset.image3
-                ].filter(path => path && path.trim());
-
-                if (imagePaths.length === 0) return;
-
-                this.slots.set(slotNum, {
-                    element: slotElement,
-                    imagePaths,
-                    currentIndex: 0,
-                    currentTimeout: null,
-                    animationStarted: false,
-                    isAnimating: false
-                });
-            } catch (error) {
-                console.error('PortfolioHero initSlot error:', error);
-            }
-        }
-
-        setupIntersectionObserver() {
-            const options = {
-                threshold: 0.1,
-                rootMargin: '50px'
-            };
-
-            this.observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const slotNum = entry.target.dataset.slot;
-                        this.startSlotAnimation(slotNum);
-                    }
-                });
-            }, options);
-
-            this.slots.forEach(slot => {
-                this.observer.observe(slot.element);
-            });
-        }
-
-        startAllAnimationsWithDelay() {
-            this.slots.forEach((slot, slotNum) => {
-                const delay = (parseInt(slotNum) - 1) * 200;
-                setTimeout(() => {
-                    this.startSlotAnimation(slotNum);
-                }, delay);
-            });
-        }
-
-        startSlotAnimation(slotNum) {
-            try {
-                const slot = this.slots.get(slotNum);
-                if (!slot || slot.animationStarted) return;
-
-                slot.animationStarted = true;
-
-                const initialDelay = (parseInt(slotNum) - 1) * 1000;
-                const timeout = setTimeout(() => {
-                    this.scheduleNextSwitch(slotNum);
-                }, initialDelay);
-
-                this.slotTimeouts.set(`start-${slotNum}`, timeout);
-            } catch (error) {
-                console.error('PortfolioHero startSlotAnimation error:', error);
-            }
-        }
-
-        scheduleNextSwitch(slotNum) {
-            try {
-                const slot = this.slots.get(slotNum);
-                if (!slot) return;
-
-                const delay = Math.random() * 2000 + 2500;
-                const timeout = setTimeout(() => {
-                    this.switchImage(slotNum);
-                    this.scheduleNextSwitch(slotNum);
-                }, delay);
-
-                slot.currentTimeout = timeout;
-            } catch (error) {
-                console.error('PortfolioHero scheduleNextSwitch error:', error);
-            }
-        }
-
-        switchImage(slotNum) {
-            try {
-                const slot = this.slots.get(slotNum);
-                if (!slot || slot.isAnimating) return;
-                
-                slot.isAnimating = true;
-                slot.currentIndex = (slot.currentIndex + 1) % slot.imagePaths.length;
-                const imagePath = slot.imagePaths[slot.currentIndex];
-
-                if (!imagePath) {
-                    slot.isAnimating = false;
-                    return;
-                }
-
-                const wrapper = slot.element?.querySelector('.portfolio-hero__image-wrapper');
-                if (!wrapper) {
-                    slot.isAnimating = false;
-                    return;
-                }
-
-                const imgs = wrapper.querySelectorAll('.portfolio-hero__image');
-                if (imgs.length < 2) {
-                    slot.isAnimating = false;
-                    return;
-                }
-
-                const visible = parseInt(imgs[0].style.zIndex) > parseInt(imgs[1].style.zIndex) ? imgs[0] : imgs[1];
-                const hidden = visible === imgs[0] ? imgs[1] : imgs[0];
-
-                hidden.src = imagePath;
-
-                const handleLoad = () => {
-                    hidden.style.opacity = '1';
-                    hidden.style.zIndex = '2';
-                    visible.style.opacity = '0';
-                    visible.style.zIndex = '1';
-                    
-                    setTimeout(() => {
-                        hidden.onload = null;
-                        hidden.onerror = null;
-                        slot.isAnimating = false;
-                    }, 300);
-                };
-
-                const handleError = () => {
-                    console.error(`PortfolioHero: Failed to load ${imagePath}`);
-                    hidden.onload = null;
-                    hidden.onerror = null;
-                    slot.isAnimating = false;
-                };
-
-                hidden.onload = handleLoad;
-                hidden.onerror = handleError;
-
-                if (hidden.complete && hidden.naturalWidth > 0) {
-                    handleLoad();
-                }
-            } catch (error) {
-                console.error('PortfolioHero switchImage error:', error);
-                const slot = this.slots.get(slotNum);
-                if (slot) slot.isAnimating = false;
-            }
-        }
-
-        checkInitialVisibility() {
-            try {
-                this.slots.forEach((slot, slotNum) => {
-                    if (slot.animationStarted) return;
-
-                    const rect = slot.element.getBoundingClientRect();
-                    const isVisible = (
-                        rect.top < window.innerHeight &&
-                        rect.bottom > 0 &&
-                        rect.left < window.innerWidth &&
-                        rect.right > 0
-                    );
-
-                    if (isVisible) {
-                        this.startSlotAnimation(slotNum);
-                    }
-                });
-            } catch (error) {
-                console.error('PortfolioHero checkInitialVisibility error:', error);
-            }
-        }
-
-        setupResizeHandler() {
-            try {
-                let resizeTimeout;
-                window.addEventListener('resize', () => {
-                    clearTimeout(resizeTimeout);
-                    resizeTimeout = setTimeout(() => {
-                        this.slots.forEach((slot, slotNum) => {
-                            if (!slot.animationStarted) {
-                                this.startSlotAnimation(slotNum);
-                            }
-                        });
-                    }, 300);
-                });
-            } catch (error) {
-                console.error('PortfolioHero setupResizeHandler error:', error);
-            }
-        }
-
-        destroy() {
-            try {
-                if (this.observer) {
-                    this.observer.disconnect();
-                }
-
-                this.slots.forEach((slot) => {
-                    if (slot.currentTimeout) {
-                        clearTimeout(slot.currentTimeout);
-                        slot.currentTimeout = null;
-                    }
-                });
-
-                this.slotTimeouts.forEach(timeout => {
-                    clearTimeout(timeout);
-                });
-                this.slotTimeouts.clear();
-
-                this.slots.clear();
-                this.imageCache.clear();
-                this.initialized = false;
-            } catch (error) {
-                console.error('PortfolioHero destroy error:', error);
+        // Позначаємо сторінку готовою
+        const heroVideo = this.heroSection.querySelector('video');
+        if (heroVideo) {
+            if (heroVideo.readyState >= 2) {
+                document.body.classList.add('portfolio-ready');
+            } else {
+                heroVideo.addEventListener('canplaythrough', () => {
+                    document.body.classList.add('portfolio-ready');
+                }, { once: true });
             }
         }
     }
 
-    const initPortfolio = () => {
-        try {
-            const portfolioHero = new PortfolioHeroSlots();
-            portfolioHero.init();
+    // ===== PROJECT BUTTONS =====
+    setupProjectButtons() {
+        const buttons = document.querySelectorAll('.project-button');
 
-            window.addEventListener('beforeunload', () => {
-                portfolioHero.destroy();
+        buttons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleProjectOrder(button);
             });
-        } catch (error) {
-            console.error('PortfolioHero initialization error:', error);
-        }
-    };
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initPortfolio);
-    } else {
-        initPortfolio();
+            // Touch feedback
+            if ('ontouchstart' in window) {
+                button.addEventListener('touchstart', () => {
+                    button.classList.add('button-clicked');
+                }, { passive: true });
+
+                button.addEventListener('touchend', () => {
+                    setTimeout(() => button.classList.remove('button-clicked'), 150);
+                }, { passive: true });
+            }
+        });
     }
-})();
+
+    handleProjectOrder(button) {
+        const projectType = button.getAttribute('data-project');
+        if (!projectType) return;
+
+        // Анімація кнопки
+        button.classList.add('button-clicked');
+        setTimeout(() => button.classList.remove('button-clicked'), 150);
+
+        // Словник проектів
+        const projectNames = {
+            'douit': 'DoUIT - Корпоративний сайт',
+            'framejorney': 'Framejorney - Креативне агентство',
+            'guide': 'Guide White Energy - Енергетична компанія',
+            'polygraph': 'Polygraph - Детекція брехні',
+            'prometeylabs': 'PrometeyLabs - IT компанія',
+            'pulvas': 'Pulvas Shop - Інтернет-магазин'
+        };
+
+        const projectName = projectNames[projectType] || projectType;
+
+        // Перенаправлення з transition
+        document.body.classList.add('page-transition');
+        setTimeout(() => {
+            const url = `/contacts/?project=${projectType}&name=${encodeURIComponent(projectName)}`;
+            window.location.href = url;
+        }, 200);
+    }
+
+    // ===== MENU INTEGRATION =====
+    setupMenuIntegration() {
+        // Слухаємо події меню з base.js
+        document.addEventListener('menu:opened', () => {
+            this.state.menuOpen = true;
+        });
+
+        document.addEventListener('menu:closed', () => {
+            this.state.menuOpen = false;
+            // Оновлюємо active section після закриття меню
+            setTimeout(() => this.updateActiveSection(), 100);
+        });
+    }
+}
+
+// ===== INITIALIZATION =====
+let portfolioInstance = null;
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        portfolioInstance = new PortfolioPage();
+    });
+} else {
+    portfolioInstance = new PortfolioPage();
+}
+
+// Export
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = PortfolioPage;
+}
