@@ -17,23 +17,35 @@ class PortfolioPage {
     }
 
     init() {
+        console.log('[Portfolio] Initializing...');
+
         // Чекаємо MobileCore
         if (window.MobileCore?.isInitialized()) {
+            console.log('[Portfolio] MobileCore already initialized');
             this.initWithDependencies();
         } else {
+            console.log('[Portfolio] Waiting for MobileCore...');
             document.addEventListener('mobilecore:initialized', () => {
+                console.log('[Portfolio] MobileCore initialized event received');
                 this.initWithDependencies();
             });
         }
     }
 
     initWithDependencies() {
+        console.log('[Portfolio] Initializing with dependencies...');
+
         // Кешуємо елементи
         this.heroSection = document.querySelector('.portfolio-hero');
         this.projectSections = Array.from(document.querySelectorAll('.project-section'));
 
+        console.log('[Portfolio] Found elements:', {
+            heroSection: !!this.heroSection,
+            projectSections: this.projectSections.length
+        });
+
         if (!this.heroSection || this.projectSections.length === 0) {
-            console.warn('Portfolio elements not found');
+            console.warn('[Portfolio] Required elements not found');
             return;
         }
 
@@ -48,7 +60,7 @@ class PortfolioPage {
             this.updateActiveSection();
         });
 
-        console.log('Portfolio initialized');
+        console.log('[Portfolio] ✅ Initialization complete');
     }
 
     // ===== STICKY SCROLL SYSTEM =====
