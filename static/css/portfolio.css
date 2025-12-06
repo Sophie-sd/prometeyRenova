@@ -16,6 +16,7 @@
 /* Скидуємо margin-top для .container усередині portfolio */
 .portfolio-projects .container {
     margin-top: 0;
+    padding: 0;  /* Перевизначаємо padding з layout.css для коректного відображення border */
 }
 
 .portfolio-projects .container-wide {
@@ -296,13 +297,7 @@
 
 /* Mobile (до 767px) */
 @media (max-width: 767px) {
-    .portfolio-projects {
-        padding: var(--space-md) 0;
-    }
-
-    .portfolio-projects .container-wide {
-        /* padding видалено для коректного відображення border */
-    }
+    /* padding видалено з .portfolio-projects для коректного відображення border */
 
     .project-card {
         top: max(var(--nav-height, 60px), env(safe-area-inset-top));
