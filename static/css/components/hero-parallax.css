@@ -182,7 +182,8 @@
 
 /* ===== PORTFOLIO PAGE STICKY HERO ===== */
 /* Спеціальні стилі для hero на сторінці портфоліо */
-.main-content > .hero-section {
+/* Використовуємо :has() для перевірки наявності .portfolio-projects */
+.main-content:has(.portfolio-projects) > .hero-section {
     position: sticky;
     top: 0;
     z-index: 0;
@@ -237,7 +238,7 @@
     }
 
     /* Portfolio sticky hero - мобільна версія з safe areas */
-    .main-content > .hero-section {
+    .main-content:has(.portfolio-projects) > .hero-section {
         top: max(0px, env(safe-area-inset-top));
     }
 }
@@ -257,7 +258,7 @@
     }
 
     /* Portfolio sticky hero - iOS Safari optimization */
-    .main-content > .hero-section {
+    .main-content:has(.portfolio-projects) > .hero-section {
         position: sticky;
         top: max(0px, env(safe-area-inset-top));
         z-index: 0;
