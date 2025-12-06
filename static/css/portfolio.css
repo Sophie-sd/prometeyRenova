@@ -1,5 +1,392 @@
 /* =================================
    PORTFOLIO STYLES
    Hero використовує hero-parallax.css
-   Простір для майбутніх стилів
+   Portfolio Projects - асиметричний layout з чергуванням
    ================================= */
+
+/* ===== PORTFOLIO PROJECTS SECTION ===== */
+/* Використовує .content-section--first з hero-parallax.css для автоматичного стилювання */
+
+.portfolio-projects {
+    /* background, position, z-index вже є в .content-section--first */
+    /* Додаємо тільки нижній padding */
+    padding-bottom: var(--space-xl);
+}
+
+/* Скидуємо margin-top для .container усередині portfolio */
+.portfolio-projects .container {
+    margin-top: 0;
+}
+
+.portfolio-projects .container-wide {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    /* max-width: 1600px вже встановлено в layout.css */
+}
+
+/* ===== PROJECT CARD BASE ===== */
+
+.project-card {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.project-card.visible,
+.project-card.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-card__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+    width: 100%;
+}
+
+/* ===== IMAGE WRAPPER ===== */
+
+.project-card__image-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    min-height: 500px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.project-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-width: 800px;
+    max-height: 600px;
+    display: block;
+    will-change: transform;
+    transition: transform var(--transition-normal) var(--easing-default);
+}
+
+@media (min-width: 1025px) {
+    .project-card__image:hover {
+        transform: scale(1.02);
+    }
+}
+
+/* ===== CONTENT WRAPPER ===== */
+
+.project-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+/* ===== TYPOGRAPHY ===== */
+
+.project-card__title {
+    font-size: var(--font-large);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -1px;
+    color: var(--color-brand-orange);
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.project-card__subtitle {
+    font-size: var(--font-medium);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-white);
+    margin: 0;
+}
+
+.project-card__description {
+    font-size: var(--font-sub);
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin: var(--space-sm) 0 0 0;
+}
+
+/* ===== DETAILS SECTION ===== */
+
+.project-card__details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-sm);
+}
+
+.project-card__detail-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.project-card__detail-title {
+    font-size: var(--font-base);
+    font-weight: 700;
+    color: var(--color-brand-orange);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.project-card__detail-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.project-card__detail-list li {
+    font-size: var(--font-base);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+    padding-left: 20px;
+    position: relative;
+}
+
+.project-card__detail-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--color-brand-orange);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* ===== LAYOUT VARIATIONS ===== */
+
+/* Image Right (default) - асиметричні 45/55 пропорції */
+.project-card--image-right .project-card__container {
+    grid-template-columns: 45fr 55fr;
+}
+
+.project-card--image-right .project-card__image-wrapper {
+    order: 2;
+}
+
+.project-card--image-right .project-card__content {
+    order: 1;
+    padding-right: var(--space-lg);
+}
+
+/* Image Left - асиметричні 55/45 пропорції */
+.project-card--image-left .project-card__container {
+    grid-template-columns: 55fr 45fr;
+}
+
+.project-card--image-left .project-card__image-wrapper {
+    order: 1;
+}
+
+.project-card--image-left .project-card__content {
+    order: 2;
+    padding-left: var(--space-lg);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    .project-card__container {
+        gap: var(--space-md);
+    }
+
+    .project-card__title {
+        font-size: clamp(50px, 6vw, 80px);
+    }
+
+    .project-card__subtitle {
+        font-size: var(--font-medium);
+    }
+
+    .project-card__image-wrapper {
+        min-height: 400px;
+    }
+
+    .project-card__image {
+        max-width: 500px;
+        max-height: 450px;
+    }
+
+    .project-card--image-right .project-card__content,
+    .project-card--image-left .project-card__content {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    /* На tablet потрібна сіткова система з меншою пропорцією */
+    .project-card--image-right .project-card__container,
+    .project-card--image-left .project-card__container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Mobile (до 767px) */
+@media (max-width: 767px) {
+    .portfolio-projects {
+        padding: var(--space-md) 0;
+    }
+
+    .portfolio-projects .container-wide {
+        gap: var(--space-lg);
+        padding: 0 var(--space-xs);
+    }
+
+    .project-card__container {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .project-card--image-right .project-card__container,
+    .project-card--image-left .project-card__container {
+        grid-template-columns: 1fr;
+    }
+
+    .project-card--image-right .project-card__image-wrapper,
+    .project-card--image-left .project-card__image-wrapper {
+        order: 1;
+    }
+
+    .project-card--image-right .project-card__content,
+    .project-card--image-left .project-card__content {
+        order: 2;
+        padding: 0;
+    }
+
+    .project-card__title {
+        font-size: clamp(32px, 8vw, 60px);
+        line-height: 0.8;
+    }
+
+    .project-card__subtitle {
+        font-size: var(--font-sub);
+    }
+
+    .project-card__image-wrapper {
+        min-height: 300px;
+        border-radius: var(--radius-md);
+    }
+
+    .project-card__image {
+        max-width: 100%;
+        max-height: 350px;
+    }
+
+    .project-card__details {
+        gap: var(--space-sm);
+    }
+
+    .project-card__detail-list {
+        gap: 6px;
+    }
+
+    .project-card__detail-list li {
+        font-size: 14px;
+        padding-left: 18px;
+    }
+
+    .project-card__detail-list li::before {
+        font-size: 16px;
+    }
+}
+
+/* Дуже маленькі екрани (до 480px) */
+@media (max-width: 480px) {
+    .portfolio-projects .container-wide {
+        gap: var(--space-md);
+    }
+
+    .project-card__title {
+        font-size: clamp(28px, 7vw, 48px);
+    }
+
+    .project-card__image-wrapper {
+        min-height: 250px;
+    }
+
+    .project-card__image {
+        max-height: 300px;
+    }
+
+    .project-card__description {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .project-card__detail-title {
+        font-size: 13px;
+    }
+
+    .project-card__detail-list li {
+        font-size: 13px;
+    }
+}
+
+/* ===== iOS SAFARI OPTIMIZATIONS ===== */
+
+@supports (-webkit-touch-callout: none) {
+    .project-card__image {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    .project-card__image-wrapper {
+        -webkit-mask-image: -webkit-radial-gradient(white, black);
+        mask-image: radial-gradient(white, black);
+    }
+}
+
+/* Safe areas для iPhone з вирізами */
+@supports (padding: max(0px)) {
+    .portfolio-projects .container-wide {
+        padding-left: max(var(--space-xs), env(safe-area-inset-left));
+        padding-right: max(var(--space-xs), env(safe-area-inset-right));
+    }
+}
+
+/* ===== ANIMATION ACCESSIBILITY ===== */
+
+@media (prefers-reduced-motion: reduce) {
+    .project-card {
+        opacity: 1;
+        transform: translateY(0);
+        animation: none;
+    }
+
+    .project-card__image {
+        transition: none;
+    }
+}
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+
+.project-card {
+    contain: layout style;
+}
+
+@media (max-width: 767px) {
+    .project-card {
+        contain: layout;
+    }
+
+    .project-card__image {
+        will-change: auto;
+    }
+}
