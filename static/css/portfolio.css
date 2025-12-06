@@ -11,7 +11,7 @@
     /* background, position, z-index вже є в .content-section--first */
     /* padding видалено для коректного відображення border карток */
     padding-top: 0;  /* Перевизначаємо padding-top з .content-section--first */
-    padding-bottom: var(--space-lg);  /* Простір для footer sticky */
+    padding-bottom: 0;  /* Footer в нормальному flow після карток */
 }
 
 /* Скидуємо margin-top для .container усередині portfolio */
