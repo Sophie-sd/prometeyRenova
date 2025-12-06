@@ -217,6 +217,24 @@
     line-height: 1;
 }
 
+/* ===== DETAIL TEXT (для заміни inline стилів) ===== */
+
+.project-card__detail-text {
+    margin: 0;
+    font-size: var(--font-sub); /* 16px на всіх пристроях */
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* Мобільні - забезпечити мінімум 16px для Safari iOS */
+@media (max-width: 767px) {
+    .project-card__detail-text {
+        font-size: 16px; /* Фіксований розмір для Safari iOS */
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+}
+
 /* ===== LAYOUT VARIATIONS ===== */
 
 /* Image Right (default) - асиметричні 45/55 пропорції */
@@ -357,8 +375,10 @@
     }
 
     .project-card__detail-list li {
-        font-size: 14px;
+        font-size: 16px;
         padding-left: 18px;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
     }
 
     .project-card__detail-list li::before {
@@ -387,16 +407,22 @@
     }
 
     .project-card__description {
-        font-size: 13px;
+        font-size: 16px;
         line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
     }
 
     .project-card__detail-title {
-        font-size: 13px;
+        font-size: 16px;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
     }
 
     .project-card__detail-list li {
-        font-size: 13px;
+        font-size: 16px;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
     }
 }
 
@@ -408,14 +434,36 @@
         backface-visibility: hidden;
         /* transform вже встановлено вище для всіх браузерів,
            тут просто додаємо webkit префікс для сумісності */
+        transform: translate3d(0, 0, 0);
         -webkit-transform: translate3d(0, 0, 0);
+    }
+
+    /* iOS Safari - запобігання автоматичному зменшенню шрифтів */
+    .project-card__content,
+    .project-card__details,
+    .project-card__detail-group,
+    .project-card__detail-list li,
+    .project-card__detail-text,
+    .project-card__description,
+    .project-card__detail-title {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
     }
 }
 
-/* Safe areas для iPhone з вирізами */
-@supports (padding: max(0px)) {
-    .portfolio-projects .container-wide {
-        /* padding видалено для коректного відображення border */
+/* Safe areas для iPhone з вирізами - див. mobile-optimizations.css */
+
+/* ===== ANDROID & UNIVERSAL MOBILE TEXT SIZE FIXES ===== */
+@media (max-width: 767px) {
+    .project-card__content,
+    .project-card__details,
+    .project-card__detail-group,
+    .project-card__detail-list li,
+    .project-card__detail-text,
+    .project-card__description,
+    .project-card__detail-title {
+        text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
     }
 }
 
