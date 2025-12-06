@@ -69,10 +69,10 @@
 .project-card__container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-lg);
+    gap: 10px;
     align-items: center;
     width: 100%;
-    padding: var(--space-md) var(--space-lg);
+    padding: 0px 10px var(--space-md) 10px;
 }
 
 /* ===== IMAGE WRAPPER ===== */
@@ -236,7 +236,7 @@
 
 .project-card--image-right .project-card__content {
     order: 1;
-    padding-right: var(--space-lg);
+    padding-left: 30px;
 }
 
 /* Image Left - асиметричні 55/45 пропорції */
@@ -250,7 +250,7 @@
 
 .project-card--image-left .project-card__content {
     order: 2;
-    padding-left: var(--space-lg);
+    padding-right: 30px;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
