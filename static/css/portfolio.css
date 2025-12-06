@@ -298,7 +298,6 @@
     }
 
     .portfolio-projects .container-wide {
-        gap: var(--space-md);
         padding: 0 var(--space-xs);
     }
 
@@ -387,10 +386,6 @@
 
 /* Дуже маленькі екрани (до 480px) */
 @media (max-width: 480px) {
-    .portfolio-projects .container-wide {
-        gap: var(--space-md);
-    }
-
     .project-card__title {
         font-size: clamp(28px, 7vw, 48px);
     }
