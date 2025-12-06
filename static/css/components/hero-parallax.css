@@ -180,6 +180,14 @@
     padding-top: 60px;
 }
 
+/* ===== PORTFOLIO PAGE STICKY HERO ===== */
+/* Спеціальні стилі для hero на сторінці портфоліо */
+.main-content > .hero-section {
+    position: sticky;
+    top: 0;
+    z-index: 0;
+}
+
 /* ===== RESPONSIVE ===== */
 
 /* Tablet і Mobile */
@@ -227,6 +235,11 @@
     body.is-scrolling .video-background {
         will-change: auto !important;
     }
+
+    /* Portfolio sticky hero - мобільна версія з safe areas */
+    .main-content > .hero-section {
+        top: max(0px, env(safe-area-inset-top));
+    }
 }
 
 /* ===== iOS SAFARI ПІДТРИМКА ===== */
@@ -241,6 +254,18 @@
         height: 100vh;
         height: 100svh;
         height: calc(var(--vh, 1vh) * 100);
+    }
+
+    /* Portfolio sticky hero - iOS Safari optimization */
+    .main-content > .hero-section {
+        position: sticky;
+        top: max(0px, env(safe-area-inset-top));
+        z-index: 0;
+        /* Запобігання glitches при sticky */
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
     }
 }
 
@@ -259,14 +284,4 @@
     .hero-parallax {
         min-height: 100vh;
     }
-}
-
-/* ===== PORTFOLIO PAGE - STICKY HERO ===== */
-/* Hero-секція зафіксована на екрані, перша картка накладається на неї */
-/* Специфічний селектор тільки для portfolio сторінки */
-body:has(.portfolio-projects) .hero-section {
-    position: sticky;
-    top: 0;
-    z-index: 100;  /* var(--z-content-hero) - нижче першої картки (101) */
-    contain: layout style paint;
 }
