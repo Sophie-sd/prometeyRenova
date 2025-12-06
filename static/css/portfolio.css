@@ -301,7 +301,7 @@
     }
 
     .portfolio-projects .container-wide {
-        padding: 0 var(--space-xs);
+        /* padding видалено для коректного відображення border */
     }
 
     .project-card {
@@ -436,8 +436,7 @@
 /* Safe areas для iPhone з вирізами */
 @supports (padding: max(0px)) {
     .portfolio-projects .container-wide {
-        padding-left: max(var(--space-xs), env(safe-area-inset-left));
-        padding-right: max(var(--space-xs), env(safe-area-inset-right));
+        /* padding видалено для коректного відображення border */
     }
 }
 
