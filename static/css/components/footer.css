@@ -384,3 +384,15 @@
         }
     }
 }
+
+/* ===== PORTFOLIO PAGE - STICKY FOOTER ===== */
+/* Footer підтягується вгору поверх картки при скролі, залишається знизу екрана */
+body:has(.portfolio-projects) .main-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 102;  /* Вище всіх карток (включно з першою 101) - підніметься на останню картку */
+    contain: layout style paint;
+    /* Забезпечуємо, що footer залишається видимим і вище карток */
+    background: #1a1a1a;
+    border-top: 3px solid var(--color-brand-orange);
+}

@@ -260,3 +260,13 @@
         min-height: 100vh;
     }
 }
+
+/* ===== PORTFOLIO PAGE - STICKY HERO ===== */
+/* Hero-секція зафіксована на екрані, перша картка накладається на неї */
+/* Специфічний селектор тільки для portfolio сторінки */
+body:has(.portfolio-projects) .hero-section {
+    position: sticky;
+    top: 0;
+    z-index: 100;  /* var(--z-content-hero) - нижче першої картки (101) */
+    contain: layout style paint;
+}

@@ -11,7 +11,7 @@
     /* background, position, z-index вже є в .content-section--first */
     /* padding видалено для коректного відображення border карток */
     padding-top: 0;  /* Перевизначаємо padding-top з .content-section--first */
-    padding-bottom: 0;  /* Видалено нижній padding */
+    padding-bottom: var(--space-lg);  /* Простір для footer sticky */
 }
 
 /* Скидуємо margin-top для .container усередині portfolio */
@@ -27,8 +27,9 @@
 }
 
 /* Z-index для sticky cards ефекту */
+/* Перша картка вище hero, решта накладаються одна на одну */
 .project-card:nth-child(1) {
-    z-index: 1;
+    z-index: 101;  /* Вище hero (100), щоб накладатися на нього */
 }
 
 .project-card:nth-child(2) {
@@ -44,7 +45,7 @@
 }
 
 .project-card:nth-child(5) {
-    z-index: 5;
+    z-index: 5;  /* Остання картка для sticky ефекту */
 }
 
 /* ===== PROJECT CARD BASE ===== */
@@ -62,6 +63,8 @@
     border: 3px solid rgba(230, 81, 0, 0.3);
     border-radius: var(--radius-md);
     overflow: hidden;
+    /* Оптимізація продуктивності для sticky контейнерів */
+    contain: layout style paint;
 }
 
 .project-card.visible,
@@ -409,13 +412,7 @@
         /* transform вже встановлено вище для всіх браузерів,
            тут просто додаємо webkit префікс для сумісності */
         -webkit-transform: translate3d(0, 0, 0);
-    }
-}
-
-/* Safe areas для iPhone з вирізами */
-@supports (padding: max(0px)) {
-    .portfolio-projects .container-wide {
-        /* padding видалено для коректного відображення border */
+        transform: translate3d(0, 0, 0);
     }
 }
 
