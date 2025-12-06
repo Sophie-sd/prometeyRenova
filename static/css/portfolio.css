@@ -21,26 +21,48 @@
 .portfolio-projects .container-wide {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xl);
+    gap: var(--space-md);
     /* max-width: 1600px вже встановлено в layout.css */
+}
+
+/* Z-index для sticky cards ефекту */
+.project-card:nth-child(1) {
+    z-index: 1;
+}
+
+.project-card:nth-child(2) {
+    z-index: 2;
+}
+
+.project-card:nth-child(3) {
+    z-index: 3;
+}
+
+.project-card:nth-child(4) {
+    z-index: 4;
+}
+
+.project-card:nth-child(5) {
+    z-index: 5;
 }
 
 /* ===== PROJECT CARD BASE ===== */
 
 .project-card {
-    position: relative;
+    position: sticky;
+    top: 0;
     display: flex;
     align-items: stretch;
     width: 100%;
     opacity: 0;
-    transform: translateY(30px);
     animation: fadeInUp 0.6s ease-out forwards;
+    background: var(--color-black);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .project-card.visible,
 .project-card.animated {
     opacity: 1;
-    transform: translateY(0);
 }
 
 .project-card__container {
@@ -61,7 +83,7 @@
     overflow: hidden;
     border-radius: var(--radius-lg);
     min-height: 500px;
-    background: rgba(255, 255, 255, 0.05);
+    background: transparent;
 }
 
 .project-card__image {
@@ -71,13 +93,16 @@
     max-width: 800px;
     max-height: 600px;
     display: block;
-    will-change: transform;
     transition: transform var(--transition-normal) var(--easing-default);
+    image-rendering: crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    transform: translateZ(0);
 }
 
 @media (min-width: 1025px) {
     .project-card__image:hover {
         transform: scale(1.02);
+        will-change: transform;
     }
 }
 
@@ -86,7 +111,7 @@
 .project-card__content {
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
+    gap: var(--space-xs);
 }
 
 /* ===== TYPOGRAPHY ===== */
@@ -94,7 +119,7 @@
 .project-card__title {
     font-size: var(--font-large);
     font-weight: 700;
-    line-height: 0.9;
+    line-height: 1.1;
     letter-spacing: -1px;
     color: var(--color-brand-orange);
     margin: 0;
@@ -114,7 +139,7 @@
     font-weight: 400;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.9);
-    margin: var(--space-sm) 0 0 0;
+    margin: var(--space-xs) 0 0 0;
 }
 
 /* ===== DETAILS SECTION ===== */
@@ -122,7 +147,7 @@
 .project-card__details {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-sm);
     margin-top: var(--space-sm);
 }
 
@@ -243,7 +268,7 @@
     }
 
     .portfolio-projects .container-wide {
-        gap: var(--space-lg);
+        gap: var(--space-md);
         padding: 0 var(--space-xs);
     }
 
@@ -270,7 +295,7 @@
 
     .project-card__title {
         font-size: clamp(32px, 8vw, 60px);
-        line-height: 0.8;
+        line-height: 1.1;
     }
 
     .project-card__subtitle {
@@ -346,11 +371,6 @@
         -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);
     }
-
-    .project-card__image-wrapper {
-        -webkit-mask-image: -webkit-radial-gradient(white, black);
-        mask-image: radial-gradient(white, black);
-    }
 }
 
 /* Safe areas для iPhone з вирізами */
@@ -366,7 +386,6 @@
 @media (prefers-reduced-motion: reduce) {
     .project-card {
         opacity: 1;
-        transform: translateY(0);
         animation: none;
     }
 
@@ -377,13 +396,9 @@
 
 /* ===== PERFORMANCE OPTIMIZATIONS ===== */
 
-.project-card {
-    contain: layout style;
-}
-
 @media (max-width: 767px) {
     .project-card {
-        contain: layout;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 
     .project-card__image {
