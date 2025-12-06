@@ -21,7 +21,6 @@
 .portfolio-projects .container-wide {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
     /* max-width: 1600px вже встановлено в layout.css */
 }
 
@@ -237,6 +236,7 @@
 .project-card--image-right .project-card__content {
     order: 1;
     padding-left: 30px;
+    padding-right: 20px;
 }
 
 /* Image Left - асиметричні 55/45 пропорції */
@@ -251,6 +251,7 @@
 .project-card--image-left .project-card__content {
     order: 2;
     padding-right: 30px;
+    padding-left: 20px;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
