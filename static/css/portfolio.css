@@ -9,8 +9,9 @@
 
 .portfolio-projects {
     /* background, position, z-index вже є в .content-section--first */
-    /* Додаємо тільки нижній padding */
-    padding-bottom: var(--space-xl);
+    /* padding видалено для коректного відображення border карток */
+    padding-top: 0;  /* Перевизначаємо padding-top з .content-section--first */
+    padding-bottom: 0;  /* Видалено нижній padding */
 }
 
 /* Скидуємо margin-top для .container усередині portfolio */
@@ -261,6 +262,9 @@
 
 /* Tablet (768px - 1024px) */
 @media (max-width: 1024px) {
+    .portfolio-projects {
+        padding-top: 0;  /* Перевизначаємо padding-top з .content-section--first */
+    }
     .project-card__container {
         gap: var(--space-md);
     }
@@ -297,6 +301,9 @@
 
 /* Mobile (до 767px) */
 @media (max-width: 767px) {
+    .portfolio-projects {
+        padding-top: 0;  /* Перевизначаємо padding-top з .content-section--first */
+    }
     /* padding видалено з .portfolio-projects для коректного відображення border */
 
     .project-card {
