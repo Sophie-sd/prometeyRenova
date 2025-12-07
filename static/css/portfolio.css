@@ -677,15 +677,6 @@
 
 /* ===== PORTFOLIO MODAL CLOSE BUTTON (CROSS) ===== */
 
-/* Додаємо position: relative до .modal для портфоліо модальних вікон */
-#project-coresync-modal,
-#project-playvision-modal,
-#project-beautyshop-modal,
-#project-redrabbit-modal,
-#project-sunpannel-modal {
-    position: relative;
-}
-
 /* Хрестик закриття - позиціонований абсолютно відносно .modal */
 #project-coresync-modal .modal-close,
 #project-playvision-modal .modal-close,
