@@ -681,6 +681,66 @@
     outline: none;
 }
 
+/* ===== PORTFOLIO MODAL INTEGRATIONS LIST ===== */
+
+.portfolio-modal-integrations-title {
+    font-size: var(--font-base);
+    font-weight: 700;
+    color: var(--color-brand-orange);
+    margin: var(--space-sm) 0 var(--space-xs) 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.portfolio-modal-integrations-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-md) 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.portfolio-modal-integrations-list li {
+    font-size: var(--font-base);
+    line-height: 1.5;
+    color: var(--color-black);
+    padding-left: 20px;
+    position: relative;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+.portfolio-modal-integrations-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--color-brand-orange);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* Мобільні - забезпечити мінімум 16px для Safari iOS */
+@media (max-width: 767px) {
+    .portfolio-modal-integrations-title {
+        font-size: 14px;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    .portfolio-modal-integrations-list li {
+        font-size: 16px;
+        padding-left: 18px;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    .portfolio-modal-integrations-list li::before {
+        font-size: 16px;
+    }
+}
+
 /* ===== PORTFOLIO MODAL RESPONSIVE ===== */
 
 @media (max-width: 1024px) {
@@ -787,6 +847,25 @@
     .portfolio-modal-text {
         font-size: 16px;
         margin: var(--space-xs) 0;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    .portfolio-modal-integrations-title {
+        font-size: 14px;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    .portfolio-modal-integrations-list li {
+        font-size: 16px;
+        padding-left: 18px;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    .portfolio-modal-integrations-list li::before {
+        font-size: 16px;
     }
 
     /* Картинки mb та tab в 2 колонки на дуже малих екранах */
