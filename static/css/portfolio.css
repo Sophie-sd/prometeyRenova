@@ -611,7 +611,7 @@
     font-size: var(--font-large);
     font-weight: 700;
     color: var(--color-brand-orange);
-    margin: 0 0 var(--space-md) 0;
+    margin: 0 0 10px 0;
     line-height: 1.1;
     letter-spacing: -1px;
     padding-right: 40px;
@@ -620,7 +620,6 @@
 .portfolio-modal-image-full {
     width: 100%;
     height: auto;
-    margin: var(--space-md) 0;
     border-radius: var(--radius-md);
     display: block;
     object-fit: contain;
@@ -637,7 +636,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-md);
-    margin: var(--space-md) 0;
+    margin: 10px 0;
 }
 
 .portfolio-modal-images-grid img {
