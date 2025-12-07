@@ -160,7 +160,7 @@
 
 .project-card__subtitle {
     display: block;
-    font-size: 0.7em; /* 70% від розміру заголовка */
+    font-size: 0.6em;
     font-weight: 700;
     color: var(--color-white);
     text-transform: uppercase;
