@@ -36,9 +36,9 @@
     /* Фіксовані кнопки */
 
     /* Модальні вікна (найвищий рівень) */
-    --z-modal-backdrop: 2000;
+    --z-modal-backdrop: 10002;
     /* Backdrop модалок */
-    --z-modal-content: 2001;
+    --z-modal-content: 10003;
     /* Контент модалок */
 }
 

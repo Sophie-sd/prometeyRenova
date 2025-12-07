@@ -430,6 +430,32 @@
     }
 }
 
+/* ===== iOS SAFARI OPTIMIZATIONS ===== */
+
+@supports (-webkit-touch-callout: none) {
+    /* iOS Safari - webkit префікси для transitions */
+    #project-coresync-modal .modal-close,
+    #project-playvision-modal .modal-close,
+    #project-beautyshop-modal .modal-close,
+    #project-redrabbit-modal .modal-close,
+    #project-sunpannel-modal .modal-close {
+        -webkit-transition: color var(--transition-normal) var(--easing-default), 
+                            -webkit-transform var(--transition-normal) var(--easing-default),
+                            transform var(--transition-normal) var(--easing-default);
+        transition: color var(--transition-normal) var(--easing-default), 
+                    transform var(--transition-normal) var(--easing-default);
+    }
+
+    /* iOS Safari - запобігання автоматичному зменшенню шрифтів */
+    .portfolio-modal-title,
+    .portfolio-modal-text,
+    .portfolio-modal-integrations-title,
+    .portfolio-modal-integrations-list li {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+}
+
 /* Дуже маленькі екрани (до 480px) */
 @media (max-width: 480px) {
     .project-card__title {
@@ -605,6 +631,8 @@
     max-height: calc(100dvh - 160px);
     padding: var(--space-lg);
     overflow-y: auto;
+    background: #000000;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .portfolio-modal-title {
@@ -628,7 +656,7 @@
 .portfolio-modal-text {
     font-size: var(--font-sub);
     line-height: 1.6;
-    color: var(--color-black);
+    color: rgba(255, 255, 255, 0.9);
     margin: 0;
 }
 
@@ -648,34 +676,54 @@
 }
 
 /* ===== PORTFOLIO MODAL CLOSE BUTTON (CROSS) ===== */
-.portfolio-modal-content {
+
+/* Додаємо position: relative до .modal для портфоліо модальних вікон */
+#project-coresync-modal,
+#project-playvision-modal,
+#project-beautyshop-modal,
+#project-redrabbit-modal,
+#project-sunpannel-modal {
     position: relative;
 }
 
-.portfolio-modal-content .modal-close {
+/* Хрестик закриття - позиціонований абсолютно відносно .modal */
+#project-coresync-modal .modal-close,
+#project-playvision-modal .modal-close,
+#project-beautyshop-modal .modal-close,
+#project-redrabbit-modal .modal-close,
+#project-sunpannel-modal .modal-close {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 40px;
-    height: 40px;
+    top: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
     background: transparent;
     border: none;
-    font-size: 32px;
+    font-size: 36px;
     cursor: pointer;
-    color: var(--color-black);
+    color: #DC143C;
     line-height: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color var(--transition-normal) var(--easing-default);
-    z-index: 1001;
+    transition: color var(--transition-normal) var(--easing-default), transform var(--transition-normal) var(--easing-default);
+    z-index: 10004;
     padding: 0;
     margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.portfolio-modal-content .modal-close:hover,
-.portfolio-modal-content .modal-close:focus {
-    color: var(--color-brand-orange);
+#project-coresync-modal .modal-close:hover,
+#project-playvision-modal .modal-close:hover,
+#project-beautyshop-modal .modal-close:hover,
+#project-redrabbit-modal .modal-close:hover,
+#project-sunpannel-modal .modal-close:hover,
+#project-coresync-modal .modal-close:focus,
+#project-playvision-modal .modal-close:focus,
+#project-beautyshop-modal .modal-close:focus,
+#project-redrabbit-modal .modal-close:focus,
+#project-sunpannel-modal .modal-close:focus {
+    color: #FF1744;
     transform: rotate(90deg);
     outline: none;
 }
@@ -703,7 +751,7 @@
 .portfolio-modal-integrations-list li {
     font-size: var(--font-base);
     line-height: 1.5;
-    color: var(--color-black);
+    color: rgba(255, 255, 255, 0.85);
     padding-left: 20px;
     position: relative;
     -webkit-text-size-adjust: 100%;
@@ -763,6 +811,19 @@
         grid-template-columns: 1fr 1fr;
         gap: var(--space-md);
     }
+
+    /* Адаптація хрестика для планшетів */
+    #project-coresync-modal .modal-close,
+    #project-playvision-modal .modal-close,
+    #project-beautyshop-modal .modal-close,
+    #project-redrabbit-modal .modal-close,
+    #project-sunpannel-modal .modal-close {
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 32px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -799,10 +860,17 @@
         margin: 10px 0;
     }
 
-    .portfolio-modal-content .modal-close {
-        top: 10px;
-        right: 10px;
-        font-size: 20px;
+    /* Адаптація хрестика для мобільних */
+    #project-coresync-modal .modal-close,
+    #project-playvision-modal .modal-close,
+    #project-beautyshop-modal .modal-close,
+    #project-redrabbit-modal .modal-close,
+    #project-sunpannel-modal .modal-close {
+        top: max(16px, env(safe-area-inset-top, 0px) + 16px);
+        right: max(16px, env(safe-area-inset-right, 0px) + 16px);
+        width: 36px;
+        height: 36px;
+        font-size: 28px;
     }
 }
 
@@ -878,11 +946,16 @@
         margin: 10px 0;
     }
 
-    .portfolio-modal-content .modal-close {
-        top: 8px;
-        right: 8px;
-        font-size: 18px;
-        width: 28px;
-        height: 28px;
+    /* Адаптація хрестика для дуже маленьких екранів */
+    #project-coresync-modal .modal-close,
+    #project-playvision-modal .modal-close,
+    #project-beautyshop-modal .modal-close,
+    #project-redrabbit-modal .modal-close,
+    #project-sunpannel-modal .modal-close {
+        top: max(12px, env(safe-area-inset-top, 0px) + 12px);
+        right: max(12px, env(safe-area-inset-right, 0px) + 12px);
+        width: 32px;
+        height: 32px;
+        font-size: 24px;
     }
 }
