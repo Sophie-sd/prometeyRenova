@@ -9,7 +9,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    height: var(--mobile-vh, 100vh);
     z-index: var(--z-modal-backdrop, 2000);
     display: flex;
     align-items: center;
@@ -29,7 +30,8 @@ body.modal-open {
     overflow: hidden;
     position: fixed;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    height: var(--mobile-vh, 100vh);
 }
 
 /* ===== MODAL BACKDROP ===== */
@@ -38,7 +40,8 @@ body.modal-open {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    height: var(--mobile-vh, 100vh);
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
@@ -162,6 +165,7 @@ body.modal-open {
         width: 95%;
         padding: var(--space-sm);
         max-height: 95vh;
+        max-height: 95dvh;
         margin: var(--space-xs);
         border-width: 2px;
     }
