@@ -158,6 +158,17 @@
     text-transform: uppercase;
 }
 
+.project-card__subtitle {
+    display: block;
+    font-size: 0.7em; /* 70% від розміру заголовка */
+    font-weight: 700;
+    color: var(--color-white);
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+}
+
 .project-card__description {
     font-size: var(--font-sub);
     font-weight: 400;
@@ -330,7 +341,7 @@
         padding-top: 15px;
         min-height: 200px;
         justify-content: center;
-        padding-bottom: max(100px, calc(env(safe-area-inset-bottom, 0px) + 90px));
+        padding-bottom: max(120px, calc(env(safe-area-inset-bottom, 0px) + 100px)); /* Збільшено для кнопки + хештегів */
     }
 
     .project-card--image-right .project-card__container,
@@ -350,10 +361,42 @@
         padding-right: 0;
     }
 
+    /* Зміна порядку: спочатку кнопка, потім хештеги */
+    .project-card__more-btn {
+        order: 1;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    /* Обмеження хештегів до 2 рядків */
+    .project-card__integrations {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 12px;
+        max-height: calc((1.4em + 8px) * 2 + 12px); /* 2 рядки хештегів: (line-height + gap) * 2 + gap між рядками */
+        overflow: hidden;
+        order: 2;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
     .project-card__title {
         font-size: clamp(32px, 8vw, 60px);
         line-height: 1.1;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .project-card__subtitle {
+        font-size: clamp(20px, 4vw, 36px); /* Менший за основний заголовок */
+        font-weight: 700;
+        color: var(--color-white);
+        text-transform: uppercase;
+        line-height: 1.1;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+        letter-spacing: 0.5px;
     }
 
     .project-card__description {
@@ -391,6 +434,10 @@
 @media (max-width: 480px) {
     .project-card__title {
         font-size: clamp(28px, 7vw, 48px);
+    }
+
+    .project-card__subtitle {
+        font-size: clamp(16px, 3.5vw, 28px);
     }
 
     .project-card__image-wrapper {
@@ -700,14 +747,30 @@
     }
 }
 
+@media (max-width: 767px) {
+    .integration-tag {
+        font-size: 13px; /* Трохи менше для кращого поміщення */
+        padding: 5px 10px;
+        line-height: 1.3;
+        flex-shrink: 0; /* Не стискати хештеги */
+    }
+}
+
 @media (max-width: 480px) {
+    .project-card__content {
+        margin-top: -25px;
+        padding-top: 15px;
+        padding-bottom: max(115px, calc(env(safe-area-inset-bottom, 0px) + 95px)); /* Збільшено */
+    }
+
     .project-card__integrations {
         gap: 6px 10px;
     }
 
     .integration-tag {
-        font-size: 14px;
-        padding: 5px 10px;
+        font-size: 12px; /* Ще менше на дуже маленьких екранах */
+        padding: 4px 8px;
+        line-height: 1.3;
     }
 
     .portfolio-modal-content {
