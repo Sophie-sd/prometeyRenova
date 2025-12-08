@@ -846,7 +846,6 @@
     .portfolio-modal-content {
         max-width: 95vw;
         width: 95%;
-        max-height: calc(100dvh - 120px);
         padding: var(--space-sm);
         border-width: 2px;
         margin: var(--space-xs);
