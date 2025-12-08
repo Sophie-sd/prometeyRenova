@@ -707,14 +707,15 @@
     align-items: stretch;
 }
 
-/* mb (мобільна версія) - трохи зменшити */
+/* mb (мобільна версія) - для великих екранів */
 .portfolio-modal-images-grid img:first-child {
-    max-height: 420px;
+    height: 750px;
 }
 
-/* tab (планшетна версія) - трохи збільшити */
+/* tab (планшетна версія) - для великих екранів */
 .portfolio-modal-images-grid img:last-child {
-    min-height: 420px;
+    height: 750px;
+    padding-right: 70px;
 }
 
 /* ===== PORTFOLIO MODAL CLOSE BUTTON (CROSS) ===== */
@@ -907,12 +908,12 @@
 
     /* mb (мобільна версія) - адаптація для мобільних */
     .portfolio-modal-images-grid img:first-child {
-        max-height: 320px;
+        max-height: 230px;
     }
 
     /* tab (планшетна версія) - адаптація для мобільних */
     .portfolio-modal-images-grid img:last-child {
-        min-height: 320px;
+        height: auto;
     }
 
     .portfolio-modal-image-full {
