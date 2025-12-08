@@ -703,6 +703,7 @@
 /* ===== PORTFOLIO MODAL CLOSE BUTTON (CROSS) ===== */
 
 /* Хрестик закриття - позиціонований абсолютно відносно .modal */
+/* ПЕРЕВИЗНАЧАЄ position: sticky з mobile-optimizations.css */
 #project-coresync-modal .modal-close,
 #project-playvision-modal .modal-close,
 #project-beautyshop-modal .modal-close,
@@ -778,6 +779,7 @@
     content: '•';
     position: absolute;
     left: 0;
+    top: 0.2em;
     color: var(--color-brand-orange);
     font-weight: 700;
     font-size: 18px;
@@ -801,6 +803,7 @@
 
     .portfolio-modal-integrations-list li::before {
         font-size: 16px;
+        top: 0.2em;
     }
 }
 
@@ -828,12 +831,13 @@
         gap: var(--space-md);
     }
 
-    /* Адаптація хрестика для планшетів */
+    /* Адаптація хрестика для планшетів - ПЕРЕВИЗНАЧУЄ position: sticky */
     #project-coresync-modal .modal-close,
     #project-playvision-modal .modal-close,
     #project-beautyshop-modal .modal-close,
     #project-redrabbit-modal .modal-close,
     #project-sunpannel-modal .modal-close {
+        position: absolute;
         top: 20px;
         right: 20px;
         width: 40px;
@@ -875,12 +879,13 @@
         margin: 10px 0;
     }
 
-    /* Адаптація хрестика для мобільних */
+    /* Адаптація хрестика для мобільних - ПЕРЕВИЗНАЧУЄ position: sticky з mobile-optimizations.css */
     #project-coresync-modal .modal-close,
     #project-playvision-modal .modal-close,
     #project-beautyshop-modal .modal-close,
     #project-redrabbit-modal .modal-close,
     #project-sunpannel-modal .modal-close {
+        position: absolute;
         top: max(16px, env(safe-area-inset-top, 0px) + 16px);
         right: max(16px, env(safe-area-inset-right, 0px) + 16px);
         width: 36px;
@@ -975,6 +980,7 @@
 
     .portfolio-modal-integrations-list li::before {
         font-size: 16px;
+        top: 0.2em;
     }
 
     /* Картинки mb та tab в 2 колонки на дуже малих екранах */
@@ -988,12 +994,13 @@
         margin: 10px 0;
     }
 
-    /* Адаптація хрестика для дуже маленьких екранів */
+    /* Адаптація хрестика для дуже маленьких екранів - ПЕРЕВИЗНАЧУЄ position: sticky */
     #project-coresync-modal .modal-close,
     #project-playvision-modal .modal-close,
     #project-beautyshop-modal .modal-close,
     #project-redrabbit-modal .modal-close,
     #project-sunpannel-modal .modal-close {
+        position: absolute;
         top: max(12px, env(safe-area-inset-top, 0px) + 12px);
         right: max(12px, env(safe-area-inset-right, 0px) + 12px);
         width: 32px;
