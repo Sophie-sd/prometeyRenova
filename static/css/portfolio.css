@@ -628,8 +628,7 @@
 .portfolio-modal-content {
     max-width: 95vw;
     width: 95%;
-    max-height: calc(100dvh - 160px);
-    padding: var(--space-lg);
+    padding: 30px 50px;
     overflow-y: auto;
     background: #000000;
     color: rgba(255, 255, 255, 0.9);
@@ -889,6 +888,34 @@
         height: 36px;
         font-size: 28px;
     }
+
+    /* ===== PORTFOLIO MODAL PADDING - РІВНОМІРНІ ВІДСТУПИ ===== */
+    /* Перевизначаємо padding з mobile-optimizations.css для рівномірних відступів */
+    #project-coresync-modal,
+    #project-playvision-modal,
+    #project-beautyshop-modal,
+    #project-redrabbit-modal,
+    #project-sunpannel-modal {
+        /* Використовуємо однакові відступи зверху та знизу з урахуванням safe areas */
+        /* 40px мінімум + safe area для рівномірності */
+        padding-top: max(40px, env(safe-area-inset-top, 0px) + 20px);
+        padding-bottom: max(40px, env(safe-area-inset-bottom, 0px) + 20px);
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* ===== PORTFOLIO MODAL CONTENT HEIGHT - КОРЕКТНА ВИСОТА ===== */
+    /* Оновлюємо max-height для .portfolio-modal-content з урахуванням нових відступів */
+    /* Враховуємо: padding-top + padding-bottom на .modal + margin на .portfolio-modal-content */
+    #project-coresync-modal .portfolio-modal-content,
+    #project-playvision-modal .portfolio-modal-content,
+    #project-beautyshop-modal .portfolio-modal-content,
+    #project-redrabbit-modal .portfolio-modal-content,
+    #project-sunpannel-modal .portfolio-modal-content {
+        /* max-height = 100dvh - padding-top - padding-bottom - margin-top - margin-bottom */
+        /* margin: var(--space-xs) = ~16-20px зверху та знизу */
+        max-height: calc(100dvh - max(40px, env(safe-area-inset-top, 0px) + 20px) - max(40px, env(safe-area-inset-bottom, 0px) + 20px) - var(--space-xs) * 2);
+    }
 }
 
 @media (max-width: 767px) {
@@ -919,7 +946,6 @@
 
     .portfolio-modal-content {
         padding: var(--space-xs);
-        max-height: calc(100dvh - 100px);
         margin: var(--space-xs);
     }
 
