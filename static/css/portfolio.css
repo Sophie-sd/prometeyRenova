@@ -715,7 +715,6 @@
 /* tab (планшетна версія) - для великих екранів */
 .portfolio-modal-images-grid img:last-child {
     height: 750px;
-    padding-right: 70px;
 }
 
 /* ===== PORTFOLIO MODAL CLOSE BUTTON (CROSS) ===== */
