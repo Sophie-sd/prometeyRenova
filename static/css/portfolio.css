@@ -702,16 +702,16 @@
 
 /* ===== PORTFOLIO MODAL CLOSE BUTTON (CROSS) ===== */
 
-/* Хрестик закриття - позиціонований абсолютно відносно .modal */
-/* ПЕРЕВИЗНАЧАЄ position: sticky з mobile-optimizations.css */
+/* Хрестик закриття - позиціонований абсолютно відносно .modal-content */
+/* Тепер всередину .modal-content для правильного позиціонування відносно рамки */
 #project-coresync-modal .modal-close,
 #project-playvision-modal .modal-close,
 #project-beautyshop-modal .modal-close,
 #project-redrabbit-modal .modal-close,
 #project-sunpannel-modal .modal-close {
     position: absolute;
-    top: 24px;
-    right: 24px;
+    top: 16px;
+    right: 16px;
     width: 48px;
     height: 48px;
     background: transparent;
@@ -831,15 +831,15 @@
         gap: var(--space-md);
     }
 
-    /* Адаптація хрестика для планшетів - ПЕРЕВИЗНАЧУЄ position: sticky */
+    /* Адаптація хрестика для планшетів */
     #project-coresync-modal .modal-close,
     #project-playvision-modal .modal-close,
     #project-beautyshop-modal .modal-close,
     #project-redrabbit-modal .modal-close,
     #project-sunpannel-modal .modal-close {
         position: absolute;
-        top: 20px;
-        right: 20px;
+        top: 12px;
+        right: 12px;
         width: 40px;
         height: 40px;
         font-size: 32px;
@@ -859,6 +859,7 @@
         font-size: clamp(20px, 6vw, 32px);
         margin-bottom: var(--space-sm);
         padding-right: 40px;
+        padding-top: 50px;
     }
 
     .portfolio-modal-text {
@@ -879,15 +880,15 @@
         margin: 10px 0;
     }
 
-    /* Адаптація хрестика для мобільних - ПЕРЕВИЗНАЧУЄ position: sticky з mobile-optimizations.css */
+    /* Адаптація хрестика для мобільних */
     #project-coresync-modal .modal-close,
     #project-playvision-modal .modal-close,
     #project-beautyshop-modal .modal-close,
     #project-redrabbit-modal .modal-close,
     #project-sunpannel-modal .modal-close {
         position: absolute;
-        top: max(16px, env(safe-area-inset-top, 0px) + 16px);
-        right: max(16px, env(safe-area-inset-right, 0px) + 16px);
+        top: 12px;
+        right: 12px;
         width: 36px;
         height: 36px;
         font-size: 28px;
@@ -956,6 +957,7 @@
     .portfolio-modal-title {
         font-size: clamp(18px, 5vw, 28px);
         padding-right: 36px;
+        padding-top: 50px;
     }
 
     .portfolio-modal-text {
@@ -994,15 +996,15 @@
         margin: 10px 0;
     }
 
-    /* Адаптація хрестика для дуже маленьких екранів - ПЕРЕВИЗНАЧУЄ position: sticky */
+    /* Адаптація хрестика для дуже маленьких екранів */
     #project-coresync-modal .modal-close,
     #project-playvision-modal .modal-close,
     #project-beautyshop-modal .modal-close,
     #project-redrabbit-modal .modal-close,
     #project-sunpannel-modal .modal-close {
         position: absolute;
-        top: max(12px, env(safe-area-inset-top, 0px) + 12px);
-        right: max(12px, env(safe-area-inset-right, 0px) + 12px);
+        top: 10px;
+        right: 10px;
         width: 32px;
         height: 32px;
         font-size: 24px;
