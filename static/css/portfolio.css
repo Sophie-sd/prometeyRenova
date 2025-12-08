@@ -642,7 +642,7 @@
 #project-beautyshop-modal,
 #project-redrabbit-modal,
 #project-sunpannel-modal {
-    z-index: var(--z-modal-backdrop);
+    z-index: var(--z-modal-backdrop, 10002);
 }
 
 #project-coresync-modal .modal-backdrop,
@@ -650,7 +650,7 @@
 #project-beautyshop-modal .modal-backdrop,
 #project-redrabbit-modal .modal-backdrop,
 #project-sunpannel-modal .modal-backdrop {
-    z-index: var(--z-modal-backdrop);
+    z-index: var(--z-modal-backdrop, 10002);
 }
 
 #project-coresync-modal .modal-content,
@@ -658,7 +658,7 @@
 #project-beautyshop-modal .modal-content,
 #project-redrabbit-modal .modal-content,
 #project-sunpannel-modal .modal-content {
-    z-index: var(--z-modal-content);
+    z-index: var(--z-modal-content, 10003);
 }
 
 .portfolio-modal-title {

@@ -83,17 +83,8 @@
 }
 
 /* ===== МОДАЛЬНІ ВІКНА ===== */
-.modal {
-    z-index: var(--z-modal-backdrop);
-}
-
-.modal-backdrop {
-    z-index: var(--z-modal-backdrop);
-}
-
-.modal-content {
-    z-index: var(--z-modal-content);
-}
+/* Правила для модальних вікон визначені в components/modals.css */
+/* Тут залишаємо тільки визначення змінних в :root вище */
 
 /* ===== DROPDOWN МЕНЮ ===== */
 .lang-dropdown-menu,
