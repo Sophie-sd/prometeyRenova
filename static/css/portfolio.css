@@ -700,6 +700,23 @@
     object-fit: contain;
 }
 
+/* ===== PORTFOLIO MODAL IMAGES HEIGHT ALIGNMENT ===== */
+/* Вирівнювання висот mb (перша картинка) та tab (друга картинка) */
+
+.portfolio-modal-images-grid {
+    align-items: stretch;
+}
+
+/* mb (мобільна версія) - трохи зменшити */
+.portfolio-modal-images-grid img:first-child {
+    max-height: 420px;
+}
+
+/* tab (планшетна версія) - трохи збільшити */
+.portfolio-modal-images-grid img:last-child {
+    min-height: 420px;
+}
+
 /* ===== PORTFOLIO MODAL CLOSE BUTTON (CROSS) ===== */
 
 /* Хрестик закриття - позиціонований абсолютно відносно .modal-content */
@@ -829,6 +846,17 @@
     .portfolio-modal-images-grid {
         grid-template-columns: 1fr 1fr;
         gap: var(--space-md);
+        align-items: stretch;
+    }
+
+    /* mb (мобільна версія) - адаптація для планшета */
+    .portfolio-modal-images-grid img:first-child {
+        max-height: 380px;
+    }
+
+    /* tab (планшетна версія) - адаптація для планшета */
+    .portfolio-modal-images-grid img:last-child {
+        min-height: 380px;
     }
 
     /* Адаптація хрестика для планшетів */
@@ -859,7 +887,7 @@
         font-size: clamp(20px, 6vw, 32px);
         margin-bottom: var(--space-sm);
         padding-right: 40px;
-        padding-top: 50px;
+        padding-top: 5px;
     }
 
     .portfolio-modal-text {
@@ -874,6 +902,17 @@
         grid-template-columns: 1fr 1fr;
         gap: var(--space-sm);
         margin: var(--space-sm) 0;
+        align-items: stretch;
+    }
+
+    /* mb (мобільна версія) - адаптація для мобільних */
+    .portfolio-modal-images-grid img:first-child {
+        max-height: 320px;
+    }
+
+    /* tab (планшетна версія) - адаптація для мобільних */
+    .portfolio-modal-images-grid img:last-child {
+        min-height: 320px;
     }
 
     .portfolio-modal-image-full {
@@ -957,7 +996,6 @@
     .portfolio-modal-title {
         font-size: clamp(18px, 5vw, 28px);
         padding-right: 36px;
-        padding-top: 50px;
     }
 
     .portfolio-modal-text {
@@ -990,6 +1028,17 @@
         grid-template-columns: 1fr 1fr;
         gap: var(--space-xs);
         margin: var(--space-xs) 0;
+        align-items: stretch;
+    }
+
+    /* mb (мобільна версія) - адаптація для дуже маленьких екранів */
+    .portfolio-modal-images-grid img:first-child {
+        max-height: 280px;
+    }
+
+    /* tab (планшетна версія) - адаптація для дуже маленьких екранів */
+    .portfolio-modal-images-grid img:last-child {
+        min-height: 280px;
     }
 
     .portfolio-modal-image-full {
