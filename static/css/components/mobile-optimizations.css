@@ -228,13 +228,14 @@
     .modal-close {
         position: sticky;
         top: 0;
-        z-index: 1000;
+        z-index: 10004;
     }
 
     body.modal-open .call-button {
         pointer-events: none;
         opacity: 0;
         transition: opacity 0.3s ease;
+        z-index: var(--z-fixed-buttons);
     }
 }
 

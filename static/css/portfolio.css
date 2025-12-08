@@ -635,6 +635,32 @@
     color: rgba(255, 255, 255, 0.9);
 }
 
+/* ===== PORTFOLIO MODAL Z-INDEX - ГАРАНТІЯ ПРАВИЛЬНОГО НАКЛАДАННЯ ===== */
+/* Явні z-index для портфоліо модальних вікон, щоб вони завжди були вище кнопки "Замовити дзвінок" та footer */
+#project-coresync-modal,
+#project-playvision-modal,
+#project-beautyshop-modal,
+#project-redrabbit-modal,
+#project-sunpannel-modal {
+    z-index: var(--z-modal-backdrop);
+}
+
+#project-coresync-modal .modal-backdrop,
+#project-playvision-modal .modal-backdrop,
+#project-beautyshop-modal .modal-backdrop,
+#project-redrabbit-modal .modal-backdrop,
+#project-sunpannel-modal .modal-backdrop {
+    z-index: var(--z-modal-backdrop);
+}
+
+#project-coresync-modal .modal-content,
+#project-playvision-modal .modal-content,
+#project-beautyshop-modal .modal-content,
+#project-redrabbit-modal .modal-content,
+#project-sunpannel-modal .modal-content {
+    z-index: var(--z-modal-content);
+}
+
 .portfolio-modal-title {
     font-size: var(--font-large);
     font-weight: 700;

@@ -10,7 +10,13 @@
     padding: 0px 0 15px;
     border-top: 3px solid var(--color-brand-orange);
     position: relative;
-    z-index: 100;
+    z-index: var(--z-content-base, 10);
+}
+
+/* Footer не повинен перекривати модальні вікна */
+/* Модальні вікна мають position: fixed + z-index: 10002-10003, тому автоматично вище */
+body.modal-open .main-footer {
+    z-index: var(--z-content-base);
 }
 
 /* ===== FOOTER CONTENT GRID ===== */
