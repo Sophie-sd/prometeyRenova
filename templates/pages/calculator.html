@@ -69,7 +69,7 @@
                 <h2 class="calc-test__title">Розробки веб-сайту</h2>
                 <div class="calc-test__additional-note">
                     <label class="calc-test__checkbox-wrapper">
-                        <input type="checkbox" id="alt-services" class="calc-test__alt-checkbox">
+                        <input type="checkbox" id="alt-services" name="alt-services" class="calc-test__alt-checkbox">
                         <span class="calc-test__checkbox-text">Якщо вам потрібен мобільний застосунок, Telegram-бот або реклама — поставте галочку та залиште дані зворотнього зв'язку у формі під тестом (тест заповнювати не потрібно якщо додатково вам не потрібен сайт)</span>
                     </label>
                 </div>
@@ -219,13 +219,13 @@
                     <div class="calc-user-data__fields">
                         <div class="calc-field">
                             <label for="test-name" class="calc-field__label">Ваше ім'я</label>
-                            <input type="text" id="test-name" name="name" class="calc-field__input" required>
+                            <input type="text" id="test-name" name="name" class="calc-field__input" placeholder="Введіть ваше ім'я" required>
                             <span class="calc-field__error" id="name-error"></span>
                         </div>
 
                         <div class="calc-field">
                             <label for="test-phone" class="calc-field__label">Телефон</label>
-                            <input type="tel" id="test-phone" name="phone" class="calc-field__input" required>
+                            <input type="tel" id="test-phone" name="phone" class="calc-field__input" placeholder="Введіть номер телефону" required>
                             <span class="calc-field__error" id="phone-error"></span>
                         </div>
                     </div>

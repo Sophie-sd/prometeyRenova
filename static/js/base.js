@@ -446,7 +446,7 @@ class PrometeyApp {
                 nameField.classList.add('error');
                 this.showFieldError(nameField, 'Ім\'я не може складатися тільки з цифр');
                 isValid = false;
-            } else if (!/[a-z]/i.test(name)) {
+            } else if (!/\p{L}/u.test(name)) {
                 nameField.classList.add('error');
                 this.showFieldError(nameField, 'Введіть коректне ім\'я (хоча б одна літера)');
                 isValid = false;

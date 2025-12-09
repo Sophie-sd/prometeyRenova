@@ -205,42 +205,62 @@ def get_answer_text(question, answer):
         return question_map.get(answer, f'Невідома відповідь ({answer})')
 
 
-def send_test_result_email(test_data, estimated_price):
+def send_test_result_email(test_data):
     """Відправка email з результатом тесту - з повними текстами відповідей"""
     try:
         name = test_data['name']
         phone = test_data['phone']
-        answers = test_data['answers']
+        answers = test_data.get('answers', {})
+        alt_services_checked = test_data.get('alt_services_checked', False)
+        
+        # Перевіряємо, що є для відправки
+        has_answers = bool(answers)
         
         # Формуємо рядок з відповідями для email
         answers_text_lines = []
-        for i in range(1, 6):
-            question_key = f'question_{i}'
-            if question_key in answers:
-                answer = answers[question_key]
-                answer_text = get_answer_text(question_key, answer)
-                answers_text_lines.append(f"{i}. {answer_text}")
+        if has_answers:
+            for i in range(1, 6):
+                question_key = f'question_{i}'
+                if question_key in answers:
+                    answer = answers[question_key]
+                    answer_text = get_answer_text(question_key, answer)
+                    answers_text_lines.append(f"{i}. {answer_text}")
         
-        answers_section = '\n'.join(answers_text_lines)
+        answers_section = '\n'.join(answers_text_lines) if answers_text_lines else ""
         
         # Email для клієнта
         if 'email' in test_data and test_data['email']:
             client_subject = "Результат розрахунку вартості проекту - PrometeyLabs"
-            client_message = f"""
+            
+            # Формуємо тіло листа залежно від типу запиту
+            if has_answers:
+                # Є відповіді на тест
+                client_message = f"""
 Дякуємо за проходження тесту!
 
 Вітаємо, {name}!
 
-На основі ваших відповідей, орієнтовна вартість проекту становить: {estimated_price} грн
-
 === ВАШІ ВІДПОВІДІ ===
 {answers_section}
+"""
+            else:
+                # Тільки галочка без тесту
+                client_message = f"""
+Дякуємо за інтерес!
 
+Вітаємо, {name}!
+
+Ви вказали, що вам потрібна допомога з розробкою мобільного застосунку, Telegram-бота або реклами.
+
+"""
+            
+            # Додаємо загальну частину
+            client_message += """
 === НАСТУПНІ КРОКИ ===
 1. Ми зв'яжемося з вами протягом 2 годин для уточнення деталей
 2. Проведемо детальну консультацію
-3. Підготуємо точне технічне завдання та фінальну ціну
-4. Почнемо роботу над вашим проектом
+3. Обговоримо ваші вимоги та можливості
+4. Надамо точну кошторисну вартість та часові рамки
 
 З повагою,
 Команда PrometeyLabs
@@ -257,7 +277,7 @@ Email: prometeylabs@gmail.com
             )
         
         # Email для команди
-        admin_subject = f"[PrometeyLabs] Новий розрахунок проекту - {estimated_price} грн"
+        admin_subject = "[PrometeyLabs] Новий розрахунок проекту"
         admin_message = f"""
 Новий розрахунок проекту
 
@@ -266,12 +286,26 @@ Email: prometeylabs@gmail.com
 Телефон: {phone}
 Email: {test_data.get('email', 'Не вказано')}
 
-=== РЕЗУЛЬТАТ ===
-Розрахована вартість: {estimated_price} грн
-
+=== ТИП ЗАПИТУ ===
+"""
+        
+        # Додаємо інформацію про тип запиту
+        if alt_services_checked and has_answers:
+            admin_message += "Галочка: Так (потребує додаткових послуг)\nТест: Пройдений\n"
+        elif alt_services_checked:
+            admin_message += "Галочка: Так (потребує додаткових послуг)\nТест: Не пройдений\n"
+        elif has_answers:
+            admin_message += "Галочка: Ні\nТест: Пройдений\n"
+        
+        # Додаємо відповіді, якщо вони є
+        if has_answers:
+            admin_message += f"""
 === ВІДПОВІДІ НА ТЕСТ ===
 {answers_section}
-
+"""
+        
+        admin_message += f"""
+=== ДОДАТКОВА ІНФОРМАЦІЯ ===
 Дата: {timezone.now().strftime('%d.%m.%Y %H:%M')}
 IP: {test_data.get('ip', 'Невідомо')}
 """

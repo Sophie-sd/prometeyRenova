@@ -185,8 +185,11 @@ def handle_test_submission(request):
             if answers_list:
                 answers[f'question_{i}'] = answers_list
         
-        # Розрахунок базової ціни на основі відповідей
-        base_price = calculate_project_price(answers)
+        # Перевіряємо, чи користувач поставив галочку "alt-services"
+        alt_services_checked = request.POST.get('alt-services') == 'on'
+        
+        # Розрахунок базової ціни на основі відповідей (якщо вони є)
+        base_price = calculate_project_price(answers) if answers else None
         
         # Підготовка даних для email
         test_data = {
@@ -194,26 +197,30 @@ def handle_test_submission(request):
             'phone': phone,
             'email': request.POST.get('email', ''),
             'answers': answers,
+            'alt_services_checked': alt_services_checked,
             'ip': request.META.get('REMOTE_ADDR', ''),
             'user_agent': request.META.get('HTTP_USER_AGENT', '')
         }
         
         # Відправка email з результатом
-        send_test_result_email(test_data, base_price)
+        send_test_result_email(test_data)
         
         # Збереження результату в БД
         form_data = create_form_data(
             'Результат тесту калькулятора', name, phone, request,
-            estimated_price=base_price,
-            answers=answers
+            answers=answers,
+            alt_services_checked=alt_services_checked
         )
         save_form_submission('test_result', form_data)
         
+        # Формуємо відповідь користувачу
+        success_message = 'Дякуємо! Детальна інформація надіслана на email.'
+        
         return create_form_response(
             True,
-            f'Дякуємо! Орієнтовна вартість проекту: {base_price} грн. Детальний розрахунок надіслано на email.',
-            estimated_price=base_price,
-            answers=answers
+            success_message,
+            answers=answers,
+            alt_services_checked=alt_services_checked
         )
         
     except Exception as e:

@@ -291,7 +291,7 @@ class ProjectCalculator {
     validateName(name) {
         if (!name || name.trim().length < 2) return false;
         if (/^\d+$/.test(name)) return false;
-        if (!/[a-z]/i.test(name)) return false;
+        if (!/\p{L}/u.test(name)) return false;
         return true;
     }
 
