@@ -210,7 +210,7 @@ def handle_test_submission(request):
         save_form_submission('test_result', form_data)
         
         # Формуємо відповідь користувачу
-        success_message = 'Дякуємо! Детальна інформація надіслана на email.'
+        success_message = 'Дякуємо! Ми зв\'яжемося з вами найближчим часом.'
         
         return create_form_response(
             True,
