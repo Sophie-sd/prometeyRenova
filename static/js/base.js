@@ -395,6 +395,32 @@ class PrometeyApp {
             }
         });
 
+        // Додаткова валідація для тесту калькулятора
+        const nameField = form.querySelector('[name="name"]');
+        const phoneField = form.querySelector('[name="phone"]');
+
+        if (nameField && nameField.value) {
+            const name = nameField.value.trim();
+            if (name.length < 2 || /^\d+$/.test(name) || !/[a-z]/i.test(name)) {
+                nameField.classList.add('error');
+                isValid = false;
+            } else {
+                nameField.classList.remove('error');
+            }
+        }
+
+        if (phoneField && phoneField.value) {
+            const phone = phoneField.value;
+            const clean = phone.replace(/[^\d+]/g, '');
+            const digitCount = clean.replace(/\D/g, '').length;
+            if (digitCount < 10 || clean.length > 20) {
+                phoneField.classList.add('error');
+                isValid = false;
+            } else {
+                phoneField.classList.remove('error');
+            }
+        }
+
         return isValid;
     }
 

@@ -66,7 +66,13 @@
         <div class="calc-test__wrapper">
             <div class="calc-test__header">
                 <span class="calc-test__label">Розрахунок вартості</span>
-                <h2 class="calc-test__title">Відповідайте на питання</h2>
+                <h2 class="calc-test__title">Розробки веб-сайту</h2>
+                <div class="calc-test__additional-note">
+                    <label class="calc-test__checkbox-wrapper">
+                        <input type="checkbox" id="alt-services" class="calc-test__alt-checkbox">
+                        <span class="calc-test__checkbox-text">Якщо вам потрібен мобільний застосунок, Telegram-бот або реклама — поставте галочку та залиште дані зворотнього зв'язку у формі під тестом (тест заповнювати не потрібно якщо додатково вам не потрібен сайт)</span>
+                    </label>
+                </div>
             </div>
 
             <form id="calculator-test" class="calc-form" data-form-type="test">
@@ -75,28 +81,28 @@
                 <div class="calc-question">
                     <div class="calc-question__header">
                         <span class="calc-question__number">01</span>
-                        <h3 class="calc-question__title">Що саме вам потрібно?</h3>
+                        <h3 class="calc-question__title">Який сайт необхідно розробити?</h3>
                     </div>
-                    <div class="calc-options">
-                        <label class="calc-option">
+                    <div class="calc-options" data-question-type="radio">
+                        <label class="calc-option calc-option--radio">
                             <input type="radio" name="question_1" value="A" required>
-                            <span class="calc-option__text">Веб-сайт (лендінг, корпоративний сайт)</span>
+                            <span class="calc-option__text">Лендінг (одна сторінка)</span>
                         </label>
-                        <label class="calc-option">
+                        <label class="calc-option calc-option--radio">
                             <input type="radio" name="question_1" value="B" required>
-                            <span class="calc-option__text">Telegram бот</span>
+                            <span class="calc-option__text">Розширений лендінг / промо-сайт (багатосторінковий)</span>
                         </label>
-                        <label class="calc-option">
+                        <label class="calc-option calc-option--radio">
                             <input type="radio" name="question_1" value="C" required>
-                            <span class="calc-option__text">Реклама (Google Ads, Facebook Ads)</span>
+                            <span class="calc-option__text">Корпоративний сайт або сайт послуг</span>
                         </label>
-                        <label class="calc-option">
+                        <label class="calc-option calc-option--radio">
                             <input type="radio" name="question_1" value="D" required>
                             <span class="calc-option__text">Інтернет-магазин</span>
                         </label>
-                        <label class="calc-option">
+                        <label class="calc-option calc-option--radio">
                             <input type="radio" name="question_1" value="E" required>
-                            <span class="calc-option__text">Мобільний додаток</span>
+                            <span class="calc-option__text">Веб-додаток / PWA</span>
                         </label>
                     </div>
                 </div>
@@ -104,28 +110,28 @@
                 <div class="calc-question">
                     <div class="calc-question__header">
                         <span class="calc-question__number">02</span>
-                        <h3 class="calc-question__title">Куди мають надходити заявки?</h3>
+                        <h3 class="calc-question__title">Як мають надходити та оброблятися заявки з сайту?</h3>
                     </div>
-                    <div class="calc-options">
-                        <label class="calc-option">
-                            <input type="radio" name="question_2" value="A" required>
-                            <span class="calc-option__text">Форма на сайті</span>
+                    <div class="calc-options" data-question-type="checkbox">
+                        <label class="calc-option calc-option--checkbox">
+                            <input type="checkbox" name="question_2" value="A">
+                            <span class="calc-option__text">На email</span>
                         </label>
-                        <label class="calc-option">
-                            <input type="radio" name="question_2" value="B" required>
-                            <span class="calc-option__text">Telegram бот</span>
+                        <label class="calc-option calc-option--checkbox">
+                            <input type="checkbox" name="question_2" value="B">
+                            <span class="calc-option__text">У месенджер (Telegram / WhatsApp / Viber)</span>
                         </label>
-                        <label class="calc-option">
-                            <input type="radio" name="question_2" value="C" required>
-                            <span class="calc-option__text">WhatsApp/Вайбер</span>
+                        <label class="calc-option calc-option--checkbox">
+                            <input type="checkbox" name="question_2" value="C">
+                            <span class="calc-option__text">В адмін-панель сайту (простий кабінет / CRM)</span>
                         </label>
-                        <label class="calc-option">
-                            <input type="radio" name="question_2" value="D" required>
-                            <span class="calc-option__text">Email</span>
+                        <label class="calc-option calc-option--checkbox">
+                            <input type="checkbox" name="question_2" value="D">
+                            <span class="calc-option__text">В існуючу CRM</span>
                         </label>
-                        <label class="calc-option">
-                            <input type="radio" name="question_2" value="E" required>
-                            <span class="calc-option__text">Телефон</span>
+                        <label class="calc-option calc-option--checkbox">
+                            <input type="checkbox" name="question_2" value="E">
+                            <span class="calc-option__text">Відправка заявок не потрібна</span>
                         </label>
                     </div>
                 </div>
@@ -133,24 +139,24 @@
                 <div class="calc-question">
                     <div class="calc-question__header">
                         <span class="calc-question__number">03</span>
-                        <h3 class="calc-question__title">За скільки днів потрібно зробити?</h3>
+                        <h3 class="calc-question__title">За скільки днів потрібно запустити сайт?</h3>
                     </div>
-                    <div class="calc-options">
-                        <label class="calc-option">
+                    <div class="calc-options" data-question-type="radio">
+                        <label class="calc-option calc-option--radio">
                             <input type="radio" name="question_3" value="A" required>
-                            <span class="calc-option__text">Терміново (3-7 днів)</span>
+                            <span class="calc-option__text">Терміново (3–14 днів)</span>
                         </label>
-                        <label class="calc-option">
+                        <label class="calc-option calc-option--radio">
                             <input type="radio" name="question_3" value="B" required>
-                            <span class="calc-option__text">Стандартно (10-14 днів)</span>
+                            <span class="calc-option__text">Стандартно (7–21 день)</span>
                         </label>
-                        <label class="calc-option">
+                        <label class="calc-option calc-option--radio">
                             <input type="radio" name="question_3" value="C" required>
-                            <span class="calc-option__text">Не поспішаємо (2-4 тижні)</span>
+                            <span class="calc-option__text">Не поспішаю (14–28 днів)</span>
                         </label>
-                        <label class="calc-option">
+                        <label class="calc-option calc-option--radio">
                             <input type="radio" name="question_3" value="D" required>
-                            <span class="calc-option__text">Гнучкий графік</span>
+                            <span class="calc-option__text">Гнучкий графік, можна підлаштуватися</span>
                         </label>
                     </div>
                 </div>
@@ -158,28 +164,24 @@
                 <div class="calc-question">
                     <div class="calc-question__header">
                         <span class="calc-question__number">04</span>
-                        <h3 class="calc-question__title">Чи потрібна оплата на сайті?</h3>
+                        <h3 class="calc-question__title">Чи потрібні онлайн-оплати на сайті?</h3>
                     </div>
-                    <div class="calc-options">
-                        <label class="calc-option">
+                    <div class="calc-options" data-question-type="radio">
+                        <label class="calc-option calc-option--radio">
                             <input type="radio" name="question_4" value="A" required>
-                            <span class="calc-option__text">Ні, тільки форма заявки</span>
+                            <span class="calc-option__text">Ні, оплата на сайті не потрібна</span>
                         </label>
-                        <label class="calc-option">
+                        <label class="calc-option calc-option--radio">
                             <input type="radio" name="question_4" value="B" required>
-                            <span class="calc-option__text">Так, онлайн оплата картою</span>
+                            <span class="calc-option__text">Так, оплата карткою онлайн</span>
                         </label>
-                        <label class="calc-option">
+                        <label class="calc-option calc-option--radio">
                             <input type="radio" name="question_4" value="C" required>
-                            <span class="calc-option__text">Так, через термінал/касу</span>
+                            <span class="calc-option__text">Так, оплата за рахунком / інвойсом</span>
                         </label>
-                        <label class="calc-option">
+                        <label class="calc-option calc-option--radio">
                             <input type="radio" name="question_4" value="D" required>
-                            <span class="calc-option__text">Так, через криптовалюту</span>
-                        </label>
-                        <label class="calc-option">
-                            <input type="radio" name="question_4" value="E" required>
-                            <span class="calc-option__text">Так, через розрахунковий рахунок</span>
+                            <span class="calc-option__text">Так, кілька способів оплати (картка + рахунок тощо)</span>
                         </label>
                     </div>
                 </div>
@@ -187,28 +189,28 @@
                 <div class="calc-question">
                     <div class="calc-question__header">
                         <span class="calc-question__number">05</span>
-                        <h3 class="calc-question__title">Яка готовність проекту?</h3>
+                        <h3 class="calc-question__title">Яка поточна готовність проєкту?</h3>
                     </div>
-                    <div class="calc-options">
-                        <label class="calc-option">
-                            <input type="radio" name="question_5" value="A" required>
-                            <span class="calc-option__text">Тільки думки, потрібна консультація</span>
+                    <div class="calc-options" data-question-type="checkbox">
+                        <label class="calc-option calc-option--checkbox">
+                            <input type="checkbox" name="question_5" value="A">
+                            <span class="calc-option__text">Є тільки ідея, потрібна консультація</span>
                         </label>
-                        <label class="calc-option">
-                            <input type="radio" name="question_5" value="B" required>
+                        <label class="calc-option calc-option--checkbox">
+                            <input type="checkbox" name="question_5" value="B">
+                            <span class="calc-option__text">Є повне, чітко сформульоване технічне завдання</span>
+                        </label>
+                        <label class="calc-option calc-option--checkbox">
+                            <input type="checkbox" name="question_5" value="C">
                             <span class="calc-option__text">Є макети/дизайн</span>
                         </label>
-                        <label class="calc-option">
-                            <input type="radio" name="question_5" value="C" required>
-                            <span class="calc-option__text">Є технічне завдання</span>
-                        </label>
-                        <label class="calc-option">
-                            <input type="radio" name="question_5" value="D" required>
+                        <label class="calc-option calc-option--checkbox">
+                            <input type="checkbox" name="question_5" value="D">
                             <span class="calc-option__text">Є логотип та брендинг</span>
                         </label>
-                        <label class="calc-option">
-                            <input type="radio" name="question_5" value="E" required>
-                            <span class="calc-option__text">Є соціальні мережі та контент</span>
+                        <label class="calc-option calc-option--checkbox">
+                            <input type="checkbox" name="question_5" value="E">
+                            <span class="calc-option__text">Є соціальні мережи та контент</span>
                         </label>
                     </div>
                 </div>

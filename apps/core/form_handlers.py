@@ -12,11 +12,21 @@ logger = logging.getLogger(__name__)
 
 
 def validate_phone(phone):
-    """Базова валідація номера телефону"""
-    # Прибираємо всі символи крім цифр та +
+    """Валідація номера телефону - мінімум 10 цифр після очищення, можливий + на початку"""
     clean_phone = re.sub(r'[^\d+]', '', phone)
-    # Перевіряємо що номер має правильну довжину
-    return len(clean_phone) >= 10 and len(clean_phone) <= 15
+    digit_count = len(re.sub(r'\D', '', clean_phone))
+    return digit_count >= 10 and len(clean_phone) <= 20
+
+
+def validate_name(name):
+    """Валідація імені - мінімум 2 символи, хоча б одна літера, не тільки цифри"""
+    if not name or len(name.strip()) < 2:
+        return False
+    if name.isdigit():
+        return False
+    if not any(c.isalpha() for c in name):
+        return False
+    return True
 
 
 def create_form_response(success=True, message="", **extra_data):
@@ -116,45 +126,44 @@ def save_form_submission(form_type, form_data):
 
 # Константи для калькулятора
 PRICE_MAP = {
-    'A': 15000,  # Веб-сайт
-    'B': 8000,   # Telegram бот
-    'C': 5000,   # Реклама
-    'D': 25000,  # Інтернет-магазин
-    'E': 35000   # Мобільний додаток
+    'A': 12000,  # Лендінг
+    'B': 18000,  # Розширений лендінг
+    'C': 22000,  # Корпоративний сайт
+    'D': 30000,  # Інтернет-магазин
+    'E': 40000   # Веб-додаток / PWA
 }
 
 ANSWER_TEXT_MAP = {
     'question_1': {
-        'A': 'Веб-сайт (лендінг, корпоративний сайт)',
-        'B': 'Telegram бот',
-        'C': 'Реклама (Google Ads, Facebook Ads)',
+        'A': 'Лендінг (одна сторінка)',
+        'B': 'Розширений лендінг / промо-сайт (багатосторінковий)',
+        'C': 'Корпоративний сайт або сайт послуг',
         'D': 'Інтернет-магазин',
-        'E': 'Мобільний додаток'
+        'E': 'Веб-додаток / PWA'
     },
     'question_2': {
-        'A': 'Форма на сайті',
-        'B': 'Telegram бот',
-        'C': 'WhatsApp/Вайбер',
-        'D': 'Email',
-        'E': 'Телефон'
+        'A': 'На email',
+        'B': 'У месенджер (Telegram / WhatsApp / Viber)',
+        'C': 'В адмін-панель сайту (простий кабінет / CRM)',
+        'D': 'В існуючу CRM',
+        'E': 'Відправка заявок не потрібна'
     },
     'question_3': {
-        'A': 'Терміново (3-7 днів)',
-        'B': 'Стандартно (10-14 днів)',
-        'C': 'Не поспішаємо (2-4 тижні)',
-        'D': 'Гнучкий графік'
+        'A': 'Терміново (3–14 днів)',
+        'B': 'Стандартно (7–21 день)',
+        'C': 'Не поспішаю (14–28 днів)',
+        'D': 'Гнучкий графік, можна підлаштуватися'
     },
     'question_4': {
-        'A': 'Ні, тільки форма заявки',
-        'B': 'Так, онлайн оплата картою',
-        'C': 'Так, через термінал/касу',
-        'D': 'Так, через криптовалюту',
-        'E': 'Так, через розрахунковий рахунок'
+        'A': 'Ні, оплата на сайті не потрібна',
+        'B': 'Так, оплата карткою онлайн',
+        'C': 'Так, оплата за рахунком / інвойсом',
+        'D': 'Так, кілька способів оплати (картка + рахунок тощо)'
     },
     'question_5': {
-        'A': 'Тільки думки, потрібна консультація',
-        'B': 'Є макети/дизайн',
-        'C': 'Є технічне завдання',
+        'A': 'Є тільки ідея, потрібна консультація',
+        'B': 'Є повне, чітко сформульоване технічне завдання',
+        'C': 'Є макети/дизайн',
         'D': 'Є логотип та брендинг',
         'E': 'Є соціальні мережі та контент'
     }
@@ -162,36 +171,57 @@ ANSWER_TEXT_MAP = {
 
 
 def calculate_project_price(answers):
-    """Розрахунок орієнтовної ціни проекту"""
-    # Базова ціна на основі першого питання
+    """Розрахунок орієнтовної ціни проекту на основі відповідей"""
+    # Базова ціна на основі першого питання (тип сайту)
     project_type = answers.get('question_1', 'A')
-    base_price = PRICE_MAP.get(project_type, 15000)
+    base_price = PRICE_MAP.get(project_type, 12000)
     
-    # Коригування на основі інших відповідей
+    # Коригування на основі терміну (питання 3)
     urgency = answers.get('question_3', 'B')
     if urgency == 'A':  # Терміново
         base_price *= 1.5
-    elif urgency == 'C':  # Не поспішаємо
+    elif urgency == 'C':  # Не поспішаю
         base_price *= 0.9
     
+    # Коригування на основі оплат (питання 4)
     payment = answers.get('question_4', 'A')
-    if payment in ['B', 'C', 'D', 'E']:  # Потрібна оплата
+    if payment in ['B', 'C', 'D']:  # Потрібна оплата
         base_price += 5000
     
     return int(base_price)
 
 
 def get_answer_text(question, answer):
-    """Повертає текст відповіді на основі коду"""
-    return ANSWER_TEXT_MAP.get(question, {}).get(answer, f'Невідома відповідь ({answer})')
+    """Повертає текст відповіді на основі коду. Підтримує як окремі значення, так і масиви"""
+    question_map = ANSWER_TEXT_MAP.get(question, {})
+    
+    if isinstance(answer, list):
+        texts = []
+        for ans in answer:
+            text = question_map.get(ans, f'Невідома відповідь ({ans})')
+            texts.append(text)
+        return ', '.join(texts)
+    else:
+        return question_map.get(answer, f'Невідома відповідь ({answer})')
 
 
 def send_test_result_email(test_data, estimated_price):
-    """Відправка email з результатом тесту"""
+    """Відправка email з результатом тесту - з повними текстами відповідей"""
     try:
         name = test_data['name']
         phone = test_data['phone']
         answers = test_data['answers']
+        
+        # Формуємо рядок з відповідями для email
+        answers_text_lines = []
+        for i in range(1, 6):
+            question_key = f'question_{i}'
+            if question_key in answers:
+                answer = answers[question_key]
+                answer_text = get_answer_text(question_key, answer)
+                answers_text_lines.append(f"{i}. {answer_text}")
+        
+        answers_section = '\n'.join(answers_text_lines)
         
         # Email для клієнта
         if 'email' in test_data and test_data['email']:
@@ -204,7 +234,7 @@ def send_test_result_email(test_data, estimated_price):
 На основі ваших відповідей, орієнтовна вартість проекту становить: {estimated_price} грн
 
 === ВАШІ ВІДПОВІДІ ===
-{chr(10).join([f"{i+1}. {get_answer_text(f'question_{i+1}', answers.get(f'question_{i+1}', ''))}" for i in range(5)])}
+{answers_section}
 
 === НАСТУПНІ КРОКИ ===
 1. Ми зв'яжемося з вами протягом 2 годин для уточнення деталей
@@ -239,10 +269,11 @@ Email: {test_data.get('email', 'Не вказано')}
 === РЕЗУЛЬТАТ ===
 Розрахована вартість: {estimated_price} грн
 
-=== ВІДПОВІДІ ===
-{chr(10).join([f"{i+1}. {get_answer_text(f'question_{i+1}', answers.get(f'question_{i+1}', ''))}" for i in range(5)])}
+=== ВІДПОВІДІ НА ТЕСТ ===
+{answers_section}
 
 Дата: {timezone.now().strftime('%d.%m.%Y %H:%M')}
+IP: {test_data.get('ip', 'Невідомо')}
 """
         
         send_mail(

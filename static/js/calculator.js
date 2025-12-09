@@ -25,7 +25,6 @@ class ProjectCalculator {
     // ===== EVENT LISTENERS =====
     setupEventListeners() {
         // Form submission (обробляється base.js)
-        // Тут тільки специфічна логіка калькулятора
 
         // Radio buttons
         const radios = this.testForm.querySelectorAll('input[type="radio"]');
@@ -33,8 +32,18 @@ class ProjectCalculator {
             radio.addEventListener('change', (e) => this.handleAnswerChange(e));
         });
 
+        // Checkboxes
+        const checkboxes = this.testForm.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                if (e.target.id !== 'alt-services') {
+                    this.handleAnswerChange(e);
+                }
+            });
+        });
+
         // User fields
-        const userFields = this.testForm.querySelectorAll('.user-data input');
+        const userFields = this.testForm.querySelectorAll('[name="name"], [name="phone"], [name="email"]');
         userFields.forEach(field => {
             field.addEventListener('blur', (e) => {
                 this.saveUserInfo(e.target.name, e.target.value);
@@ -44,6 +53,10 @@ class ProjectCalculator {
         // Start test button
         const startBtn = document.querySelector('.start-test-btn');
         startBtn?.addEventListener('click', () => this.showTestForm());
+
+        // Alternative services checkbox
+        const altServicesCheckbox = document.getElementById('alt-services');
+        altServicesCheckbox?.addEventListener('change', () => this.toggleTestRequired());
     }
 
     // ===== PROGRESS INDICATOR =====
@@ -66,9 +79,18 @@ class ProjectCalculator {
     // ===== ANSWER HANDLING =====
     handleAnswerChange(event) {
         const questionName = event.target.name;
-        const answer = event.target.value;
+        const input = event.target;
 
-        this.answers[questionName] = answer;
+        if (input.type === 'checkbox') {
+            const group = input.closest('.calc-options');
+            const checkedValues = Array.from(
+                group.querySelectorAll(`input[name="${questionName}"]:checked`)
+            ).map(cb => cb.value);
+            this.answers[questionName] = checkedValues;
+        } else {
+            this.answers[questionName] = input.value;
+        }
+
         this.updateProgress();
 
         // Зберігаємо в sessionStorage
@@ -78,8 +100,10 @@ class ProjectCalculator {
             console.error('Failed to save answers:', error);
         }
 
-        // Auto-advance
-        this.autoAdvanceIfNeeded(questionName);
+        // Auto-advance для radio
+        if (input.type === 'radio') {
+            this.autoAdvanceIfNeeded(questionName);
+        }
     }
 
     updateProgress() {
@@ -145,8 +169,17 @@ class ProjectCalculator {
 
     restoreAnswers() {
         Object.entries(this.answers).forEach(([question, answer]) => {
-            const radio = this.testForm.querySelector(`input[name="${question}"][value="${answer}"]`);
-            if (radio) radio.checked = true;
+            if (Array.isArray(answer)) {
+                // Checkbox
+                answer.forEach(val => {
+                    const checkbox = this.testForm.querySelector(`input[name="${question}"][value="${val}"]`);
+                    if (checkbox) checkbox.checked = true;
+                });
+            } else {
+                // Radio
+                const radio = this.testForm.querySelector(`input[name="${question}"][value="${answer}"]`);
+                if (radio) radio.checked = true;
+            }
         });
         this.updateProgress();
     }
@@ -203,6 +236,30 @@ class ProjectCalculator {
         } catch (error) {
             console.error('Failed to clear data:', error);
         }
+    }
+
+    // ===== VALIDATION =====
+    validateName(name) {
+        if (!name || name.trim().length < 2) return false;
+        if (/^\d+$/.test(name)) return false;
+        if (!/[a-z]/i.test(name)) return false;
+        return true;
+    }
+
+    validatePhone(phone) {
+        const clean = phone.replace(/[^\d+]/g, '');
+        const digitCount = clean.replace(/\D/g, '').length;
+        return digitCount >= 10 && clean.length <= 20;
+    }
+
+    // ===== ALTERNATIVE SERVICES =====
+    toggleTestRequired() {
+        const altServicesCheckbox = document.getElementById('alt-services');
+        const radioInputs = this.testForm.querySelectorAll('input[type="radio"]');
+        
+        radioInputs.forEach(input => {
+            input.required = !altServicesCheckbox.checked;
+        });
     }
 }
 

@@ -258,6 +258,36 @@
     font-weight: 700;
     line-height: 1.2;
     color: var(--color-white);
+    margin-bottom: 20px;
+}
+
+.calc-test__additional-note {
+    margin-top: 20px;
+    padding: 16px;
+    background: rgba(230, 81, 0, 0.1);
+    border-left: 3px solid var(--color-brand-orange);
+}
+
+.calc-test__checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.calc-test__alt-checkbox {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+    cursor: pointer;
+    accent-color: var(--color-brand-orange);
+}
+
+.calc-test__checkbox-text {
+    font-size: clamp(12px, 1.5vw, 14px);
+    line-height: 1.5;
+    color: var(--color-white);
 }
 
 /* ===== ФОРМА ===== */
@@ -269,9 +299,24 @@
 
 /* ===== ПИТАННЯ ===== */
 .calc-question {
-    background: var(--color-white);
+    background: var(--color-white) url('../images/first_background.png') center/cover;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
     padding: clamp(24px, 4vw, 32px);
     border-left: 4px solid var(--color-brand-orange);
+    position: relative;
+}
+
+.calc-question::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.92);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .calc-question__header {
@@ -279,6 +324,8 @@
     align-items: flex-start;
     gap: 16px;
     margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
 }
 
 .calc-question__number {
@@ -295,11 +342,13 @@
     color: var(--color-black);
 }
 
-/* ===== ОПЦІЇ (RADIO BUTTONS) ===== */
+/* ===== ОПЦІЇ (RADIO + CHECKBOX) ===== */
 .calc-options {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    position: relative;
+    z-index: 1;
 }
 
 .calc-option {
@@ -324,48 +373,88 @@
     transition: height var(--transition-normal) var(--easing-default);
 }
 
-.calc-option:hover {
-    background: var(--color-white);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+/* Hover ефекти */
+@media (hover: hover) and (pointer: fine) {
+    .calc-option:hover {
+        background: var(--color-white);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .calc-option:hover::before {
+        height: 100%;
+    }
+
+    .calc-option:hover .calc-option__text {
+        color: var(--color-black);
+    }
 }
 
-.calc-option:hover::before {
-    height: 100%;
-}
-
+/* Radio button стилізація */
+.calc-option--radio input[type="radio"],
 .calc-option input[type="radio"] {
     flex-shrink: 0;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
     accent-color: var(--color-brand-orange);
+    border-radius: 50%;
+}
+
+/* Checkbox стилізація */
+.calc-option--checkbox input[type="checkbox"],
+.calc-option input[type="checkbox"] {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--color-brand-orange);
+    border-radius: 2px;
 }
 
 .calc-option__text {
     font-size: var(--font-base);
     line-height: 1.5;
     color: var(--color-white);
+    transition: color var(--transition-normal) var(--easing-default);
 }
 
-/* Вибраний стан */
-.calc-option:has(input[type="radio"]:checked) {
+/* Вибраний стан для radio */
+.calc-option:has(input[type="radio"]:checked),
+.calc-option:has(input[type="checkbox"]:checked) {
     background: var(--color-white);
     box-shadow: 0 4px 16px rgba(230, 81, 0, 0.12);
 }
 
-.calc-option:has(input[type="radio"]:checked)::before {
+.calc-option:has(input[type="radio"]:checked)::before,
+.calc-option:has(input[type="checkbox"]:checked)::before {
     height: 100%;
 }
 
-.calc-option:has(input[type="radio"]:checked) .calc-option__text {
+.calc-option:has(input[type="radio"]:checked) .calc-option__text,
+.calc-option:has(input[type="checkbox"]:checked) .calc-option__text {
     font-weight: 600;
     color: var(--color-brand-orange);
 }
 
 /* ===== ДАНІ КОРИСТУВАЧА ===== */
 .calc-user-data {
-    background: var(--color-white);
+    background: var(--color-white) url('../images/first_background.png') center/cover;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
     padding: clamp(32px, 5vw, 48px);
+    position: relative;
+}
+
+.calc-user-data::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .calc-user-data__fields {
@@ -373,6 +462,8 @@
     grid-template-columns: 1fr 1fr;
     gap: 24px;
     margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
 }
 
 .calc-field {
@@ -395,7 +486,8 @@
     font-size: var(--font-base);
     color: var(--color-black);
     background: var(--color-white);
-    border: 2px solid transparent;
+    border: 2px solid var(--color-brand-orange);
+    border-radius: 2px;
     transition: all var(--transition-normal) var(--easing-default);
     font-family: inherit;
 }
@@ -404,10 +496,16 @@
     outline: none;
     border-color: var(--color-brand-orange);
     background: var(--color-white);
+    box-shadow: 0 0 0 3px rgba(230, 81, 0, 0.1);
 }
 
 .calc-field__input::placeholder {
     color: rgba(0, 0, 0, 0.4);
+}
+
+.calc-field__input.error {
+    border-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.05);
 }
 
 /* ===== SUBMIT BUTTON ===== */
@@ -422,16 +520,20 @@
     align-items: center;
     justify-content: center;
     transition: all var(--transition-normal) var(--easing-default);
+    position: relative;
+    z-index: 1;
 }
 
-.calc-submit-btn:hover {
-    background: var(--color-black);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
+@media (hover: hover) and (pointer: fine) {
+    .calc-submit-btn:hover {
+        background: var(--color-black);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
 
-.calc-submit-btn:active {
-    transform: translateY(0);
+    .calc-submit-btn:active {
+        transform: translateY(0);
+    }
 }
 
 .calc-submit-btn__text {
@@ -671,6 +773,15 @@
         font-size: clamp(24px, 7vw, 36px);
     }
 
+    .calc-test__additional-note {
+        margin-top: 16px;
+        padding: 12px;
+    }
+
+    .calc-test__checkbox-text {
+        font-size: 12px;
+    }
+
     .calc-form {
         gap: 32px;
     }
@@ -701,13 +812,30 @@
         gap: 10px;
     }
 
-    .calc-option input[type="radio"] {
-        width: 18px;
-        height: 18px;
+    .calc-option input[type="radio"],
+    .calc-option input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
     }
 
     .calc-option__text {
         font-size: 14px;
+    }
+
+    /* Прибираємо hover ефекти на мобільних */
+    @media (hover: none) and (pointer: coarse) {
+        .calc-option:hover {
+            background: var(--color-black);
+            box-shadow: none;
+        }
+
+        .calc-option:hover::before {
+            height: 0;
+        }
+
+        .calc-option:hover .calc-option__text {
+            color: var(--color-white);
+        }
     }
 
     /* User data */
@@ -724,7 +852,6 @@
     .calc-field__input {
         padding: 12px 14px;
         font-size: 16px;
-        /* iOS Safari: запобігає zoom */
     }
 
     .calc-submit-btn {

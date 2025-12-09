@@ -159,18 +159,31 @@ def handle_test_submission(request):
         return create_form_response(False, 'Метод не дозволений')
     
     try:
+        from apps.core.form_handlers import validate_name, validate_phone
+        
+        name = request.POST.get('name', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        
+        # Валідація імені та телефону
+        if not validate_name(name):
+            return create_form_response(False, 'Введіть коректне ім\'я (мінімум 2 символи, хоча б одна літера)')
+        
+        if not validate_phone(phone):
+            return create_form_response(False, 'Введіть коректний номер телефону (мінімум 10 цифр)')
+        
         # Отримуємо відповіді на тест
         answers = {}
-        for i in range(1, 6):  # 5 питань
+        # Питання 1, 3, 4 - radio (одне значення)
+        for i in [1, 3, 4]:
             answer = request.POST.get(f'question_{i}')
             if answer:
                 answers[f'question_{i}'] = answer
         
-        name = request.POST.get('name', '')
-        phone = request.POST.get('phone', '')
-        
-        if not name or not phone:
-            return create_form_response(False, 'Заповніть ім\'я та телефон')
+        # Питання 2, 5 - checkbox (масив значень)
+        for i in [2, 5]:
+            answers_list = request.POST.getlist(f'question_{i}')
+            if answers_list:
+                answers[f'question_{i}'] = answers_list
         
         # Розрахунок базової ціни на основі відповідей
         base_price = calculate_project_price(answers)
