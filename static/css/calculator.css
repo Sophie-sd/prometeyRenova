@@ -303,7 +303,7 @@
         linear-gradient(rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.72)),
         url('../images/first_background.png') center/cover fixed;
     padding: clamp(24px, 4vw, 32px);
-    border-left: 4px solid var(--color-brand-orange);
+    border-left: 2px solid var(--color-brand-orange);
     position: relative;
 }
 
