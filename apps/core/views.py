@@ -3,7 +3,7 @@ from .mixins import BasePageView
 from .form_handlers import (
     validate_phone, create_form_response, get_form_type_from_path,
     create_form_data, send_form_email, save_form_submission,
-    calculate_project_price, send_test_result_email
+    send_test_result_email
 )
 import logging
 
@@ -188,14 +188,10 @@ def handle_test_submission(request):
         # Перевіряємо, чи користувач поставив галочку "alt-services"
         alt_services_checked = request.POST.get('alt-services') == 'on'
         
-        # Розрахунок базової ціни на основі відповідей (якщо вони є)
-        base_price = calculate_project_price(answers) if answers else None
-        
         # Підготовка даних для email
         test_data = {
             'name': name,
             'phone': phone,
-            'email': request.POST.get('email', ''),
             'answers': answers,
             'alt_services_checked': alt_services_checked,
             'ip': request.META.get('REMOTE_ADDR', ''),

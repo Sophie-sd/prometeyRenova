@@ -43,7 +43,7 @@ class ProjectCalculator {
         });
 
         // User fields
-        const userFields = this.testForm.querySelectorAll('[name="name"], [name="phone"], [name="email"]');
+        const userFields = this.testForm.querySelectorAll('[name="name"], [name="phone"]');
         userFields.forEach(field => {
             field.addEventListener('blur', (e) => {
                 this.saveUserInfo(e.target.name, e.target.value);
@@ -252,7 +252,6 @@ class ProjectCalculator {
         // Очистити поля імені та телефону
         const nameField = form.querySelector('[name="name"]');
         const phoneField = form.querySelector('[name="phone"]');
-        const emailField = form.querySelector('[name="email"]');
 
         if (nameField) {
             nameField.value = '';
@@ -261,9 +260,6 @@ class ProjectCalculator {
         if (phoneField) {
             phoneField.value = '';
             phoneField.classList.remove('error');
-        }
-        if (emailField) {
-            emailField.value = '';
         }
 
         // Очистити відповіді
@@ -285,20 +281,6 @@ class ProjectCalculator {
             msg.textContent = '';
             msg.classList.remove('show');
         });
-    }
-
-    // ===== VALIDATION =====
-    validateName(name) {
-        if (!name || name.trim().length < 2) return false;
-        if (/^\d+$/.test(name)) return false;
-        if (!/\p{L}/u.test(name)) return false;
-        return true;
-    }
-
-    validatePhone(phone) {
-        const clean = phone.replace(/[^\d+]/g, '');
-        const digitCount = clean.replace(/\D/g, '').length;
-        return digitCount >= 10 && clean.length <= 20;
     }
 
     // ===== ALTERNATIVE SERVICES =====

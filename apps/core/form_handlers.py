@@ -124,15 +124,6 @@ def save_form_submission(form_type, form_data):
         return False
 
 
-# Константи для калькулятора
-PRICE_MAP = {
-    'A': 12000,  # Лендінг
-    'B': 18000,  # Розширений лендінг
-    'C': 22000,  # Корпоративний сайт
-    'D': 30000,  # Інтернет-магазин
-    'E': 40000   # Веб-додаток / PWA
-}
-
 ANSWER_TEXT_MAP = {
     'question_1': {
         'A': 'Лендінг (одна сторінка)',
@@ -168,27 +159,6 @@ ANSWER_TEXT_MAP = {
         'E': 'Є соціальні мережі та контент'
     }
 }
-
-
-def calculate_project_price(answers):
-    """Розрахунок орієнтовної ціни проекту на основі відповідей"""
-    # Базова ціна на основі першого питання (тип сайту)
-    project_type = answers.get('question_1', 'A')
-    base_price = PRICE_MAP.get(project_type, 12000)
-    
-    # Коригування на основі терміну (питання 3)
-    urgency = answers.get('question_3', 'B')
-    if urgency == 'A':  # Терміново
-        base_price *= 1.5
-    elif urgency == 'C':  # Не поспішаю
-        base_price *= 0.9
-    
-    # Коригування на основі оплат (питання 4)
-    payment = answers.get('question_4', 'A')
-    if payment in ['B', 'C', 'D']:  # Потрібна оплата
-        base_price += 5000
-    
-    return int(base_price)
 
 
 def get_answer_text(question, answer):
@@ -228,54 +198,6 @@ def send_test_result_email(test_data):
         
         answers_section = '\n'.join(answers_text_lines) if answers_text_lines else ""
         
-        # Email для клієнта
-        if 'email' in test_data and test_data['email']:
-            client_subject = "Результат розрахунку вартості проекту - PrometeyLabs"
-            
-            # Формуємо тіло листа залежно від типу запиту
-            if has_answers:
-                # Є відповіді на тест
-                client_message = f"""
-Дякуємо за проходження тесту!
-
-Вітаємо, {name}!
-
-=== ВАШІ ВІДПОВІДІ ===
-{answers_section}
-"""
-            else:
-                # Тільки галочка без тесту
-                client_message = f"""
-Дякуємо за інтерес!
-
-Вітаємо, {name}!
-
-Ви вказали, що вам потрібна допомога з розробкою мобільного застосунку, Telegram-бота або реклами.
-
-"""
-            
-            # Додаємо загальну частину
-            client_message += """
-=== НАСТУПНІ КРОКИ ===
-1. Ми зв'яжемося з вами протягом 2 годин для уточнення деталей
-2. Проведемо детальну консультацію
-3. Обговоримо ваші вимоги та можливості
-4. Надамо точну кошторисну вартість та часові рамки
-
-З повагою,
-Команда PrometeyLabs
-Телефон: +38 (063) 952-05-65
-Email: prometeylabs@gmail.com
-"""
-            
-            send_mail(
-                subject=client_subject,
-                message=client_message,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[test_data['email']],
-                fail_silently=True,
-            )
-        
         # Email для команди
         admin_subject = "[PrometeyLabs] Новий розрахунок проекту"
         admin_message = f"""
@@ -284,7 +206,6 @@ Email: prometeylabs@gmail.com
 === КОНТАКТ ===
 Ім'я: {name}
 Телефон: {phone}
-Email: {test_data.get('email', 'Не вказано')}
 
 === ТИП ЗАПИТУ ===
 """
