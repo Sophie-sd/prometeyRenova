@@ -363,8 +363,14 @@ class PrometeyApp {
             if (response.ok) {
                 const data = await response.json();
 
+                // Для тесту - виклик спеціального очищення
+                if (formType === 'test' && data.success && window.calculatorInstance) {
+                    window.calculatorInstance.clearForm();
+                } else {
+                    form.reset();
+                }
+
                 this.handleFormSuccess(data, formType);
-                form.reset();
                 this.closeModal();
             } else {
                 throw new Error('Server error');
@@ -372,7 +378,36 @@ class PrometeyApp {
 
         } catch (error) {
             console.error('Form error:', error);
-            this.showNotification('Помилка відправки. Спробуйте ще раз.', 'error');
+            // Спробуємо распарсити помилку з response
+            try {
+                if (error.response) {
+                    const data = await error.response.json();
+                    if (data.message) {
+                        // Перевіримо чи це помилка валідації
+                        if (data.message.includes('ім\'я') || data.message.includes('name')) {
+                            const nameField = form.querySelector('[name="name"]');
+                            if (nameField) {
+                                nameField.classList.add('error');
+                                this.showFieldError(nameField, data.message);
+                            }
+                        } else if (data.message.includes('телефон') || data.message.includes('phone')) {
+                            const phoneField = form.querySelector('[name="phone"]');
+                            if (phoneField) {
+                                phoneField.classList.add('error');
+                                this.showFieldError(phoneField, data.message);
+                            }
+                        } else {
+                            this.showNotification(data.message, 'error');
+                        }
+                    } else {
+                        this.showNotification('Помилка відправки. Спробуйте ще раз.', 'error');
+                    }
+                } else {
+                    this.showNotification('Помилка відправки. Спробуйте ще раз.', 'error');
+                }
+            } catch {
+                this.showNotification('Помилка відправки. Спробуйте ще раз.', 'error');
+            }
         } finally {
             if (submitBtn) {
                 submitBtn.classList.remove('btn-loading');
@@ -389,9 +424,11 @@ class PrometeyApp {
         requiredFields.forEach(field => {
             if (!field.value.trim()) {
                 field.classList.add('error');
+                this.showFieldError(field, 'Це поле обов\'язкове');
                 isValid = false;
             } else {
                 field.classList.remove('error');
+                this.clearFieldError(field);
             }
         });
 
@@ -401,11 +438,21 @@ class PrometeyApp {
 
         if (nameField && nameField.value) {
             const name = nameField.value.trim();
-            if (name.length < 2 || /^\d+$/.test(name) || !/[a-z]/i.test(name)) {
+            if (name.length < 2) {
                 nameField.classList.add('error');
+                this.showFieldError(nameField, 'Введіть коректне ім\'я (мінімум 2 символи)');
+                isValid = false;
+            } else if (/^\d+$/.test(name)) {
+                nameField.classList.add('error');
+                this.showFieldError(nameField, 'Ім\'я не може складатися тільки з цифр');
+                isValid = false;
+            } else if (!/[a-z]/i.test(name)) {
+                nameField.classList.add('error');
+                this.showFieldError(nameField, 'Введіть коректне ім\'я (хоча б одна літера)');
                 isValid = false;
             } else {
                 nameField.classList.remove('error');
+                this.clearFieldError(nameField);
             }
         }
 
@@ -413,15 +460,37 @@ class PrometeyApp {
             const phone = phoneField.value;
             const clean = phone.replace(/[^\d+]/g, '');
             const digitCount = clean.replace(/\D/g, '').length;
-            if (digitCount < 10 || clean.length > 20) {
+            if (digitCount < 10) {
                 phoneField.classList.add('error');
+                this.showFieldError(phoneField, 'Введіть коректний номер (мінімум 10 цифр)');
+                isValid = false;
+            } else if (clean.length > 20) {
+                phoneField.classList.add('error');
+                this.showFieldError(phoneField, 'Введіть коректний номер телефону');
                 isValid = false;
             } else {
                 phoneField.classList.remove('error');
+                this.clearFieldError(phoneField);
             }
         }
 
         return isValid;
+    }
+
+    showFieldError(field, message) {
+        const errorEl = field.parentElement?.querySelector('.calc-field__error');
+        if (errorEl) {
+            errorEl.textContent = message;
+            errorEl.classList.add('show');
+        }
+    }
+
+    clearFieldError(field) {
+        const errorEl = field.parentElement?.querySelector('.calc-field__error');
+        if (errorEl) {
+            errorEl.textContent = '';
+            errorEl.classList.remove('show');
+        }
     }
 
     async submitForm(formData, formType) {

@@ -218,15 +218,14 @@ class ProjectCalculator {
         if (!testSection) return;
 
         testSection.classList.remove('hidden');
-        testSection.scrollIntoView({ behavior: 'smooth' });
-
-        setTimeout(() => {
-            const firstQuestion = testSection.querySelector('input[type="radio"]');
-            firstQuestion?.closest('.calc-question').scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-        }, 500);
+        
+        // Скрол до заголовка
+        const header = testSection.querySelector('.calc-test__header');
+        if (header) {
+            header.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            testSection.scrollIntoView({ behavior: 'smooth' });
+        }
     }
 
     // ===== CLEAR DATA =====
@@ -236,6 +235,56 @@ class ProjectCalculator {
         } catch (error) {
             console.error('Failed to clear data:', error);
         }
+    }
+
+    // ===== CLEAR FORM AFTER SUCCESS =====
+    clearForm() {
+        // Очистити всі radio та checkbox
+        const form = this.testForm;
+        if (!form) return;
+
+        const inputs = form.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+        inputs.forEach(input => {
+            input.checked = false;
+            input.classList.remove('error');
+        });
+
+        // Очистити поля імені та телефону
+        const nameField = form.querySelector('[name="name"]');
+        const phoneField = form.querySelector('[name="phone"]');
+        const emailField = form.querySelector('[name="email"]');
+
+        if (nameField) {
+            nameField.value = '';
+            nameField.classList.remove('error');
+        }
+        if (phoneField) {
+            phoneField.value = '';
+            phoneField.classList.remove('error');
+        }
+        if (emailField) {
+            emailField.value = '';
+        }
+
+        // Очистити відповіді
+        this.answers = {};
+        
+        // Очистити sessionStorage
+        this.clearSavedData();
+        
+        // Оновити progress indicator до 0
+        const progressFill = form.querySelector('.calculator-progress__fill');
+        const currentSpan = form.querySelector('.calculator-progress__current');
+        
+        if (progressFill) progressFill.setAttribute('data-progress', '0');
+        if (currentSpan) currentSpan.textContent = '0';
+        
+        // Очистити помилки валідації
+        const errorMessages = form.querySelectorAll('.calc-field__error');
+        errorMessages.forEach(msg => {
+            msg.textContent = '';
+            msg.classList.remove('show');
+        });
     }
 
     // ===== VALIDATION =====
