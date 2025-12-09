@@ -24,7 +24,7 @@
 
 /* ===== HERO SECTION ===== */
 .calc-hero {
-    background: var(--color-black);
+    background: var(--color-black) url('../images/first_background.png') center/cover no-repeat;
     padding: clamp(60px, 10vw, 120px) 0 clamp(80px, 12vw, 140px);
     position: relative;
 }
@@ -135,7 +135,7 @@
 }
 
 .calc-cta-box {
-    background: var(--color-white);
+    background: var(--color-black);
     padding: clamp(40px, 6vw, 60px) clamp(32px, 5vw, 48px);
     text-align: center;
     position: relative;
@@ -157,7 +157,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--color-black);
+    color: var(--color-white);
     opacity: 0.6;
     margin-bottom: clamp(24px, 4vw, 32px);
 }
@@ -224,13 +224,13 @@
 .calc-cta-box__note {
     font-size: var(--font-small);
     line-height: 1.6;
-    color: var(--color-black);
+    color: var(--color-white);
     opacity: 0.7;
 }
 
 /* ===== TEST SECTION (прихована спочатку) ===== */
 .calc-test {
-    background: var(--color-gray);
+    background: var(--color-black);
     padding: clamp(60px, 10vw, 100px) 0;
 }
 
@@ -449,7 +449,7 @@
 .calculator-progress__bar {
     width: 100%;
     height: 4px;
-    background: var(--color-black);
+    background: rgba(255, 255, 255, 0.2);
     overflow: hidden;
     margin-bottom: 12px;
 }
@@ -487,7 +487,7 @@
 
 .calculator-progress__text {
     font-size: var(--font-small);
-    color: var(--color-black);
+    color: var(--color-white);
     opacity: 0.7;
 }
 
