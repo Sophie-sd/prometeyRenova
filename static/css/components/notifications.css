@@ -71,8 +71,7 @@
 /* ===== MOBILE ===== */
 @media (max-width: 767px) {
     .prometey-notification {
-        top: auto;
-        bottom: calc(var(--mobile-safe-bottom, 0px) + 80px);
+        top: 20px;
         right: var(--space-xs);
         left: var(--space-xs);
         width: calc(100% - var(--space-xs) * 2);
@@ -102,13 +101,11 @@
 
 @media (max-width: 767px) {
     .prometey-notification:nth-child(2) {
-        top: auto;
-        bottom: calc(var(--mobile-safe-bottom, 0px) + 150px);
+        top: 100px;
     }
 
     .prometey-notification:nth-child(3) {
-        top: auto;
-        bottom: calc(var(--mobile-safe-bottom, 0px) + 220px);
+        top: 180px;
     }
 }
 

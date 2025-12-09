@@ -835,11 +835,13 @@ notificationStyles.textContent = `
 
 @media (max-width: 767px) {
     .prometey-notification {
-        top: auto;
-        bottom: calc(var(--mobile-safe-area-bottom, 0px) + 80px);
+        top: 20px;
         right: var(--space-xs);
         left: var(--space-xs);
         width: calc(100% - var(--space-xs) * 2);
+        max-width: none;
+        font-size: var(--font-small);
+        padding: 12px 16px;
     }
 }
 `;
