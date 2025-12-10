@@ -47,6 +47,10 @@
     box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
 }
 
+.target-audience-section .container {
+    margin-top: 0;
+}
+
 .section-title {
     font-size: var(--font-large);
     font-weight: 700;
@@ -590,6 +594,10 @@
         width: 100%;
         font-size: var(--font-base);
         padding: 6px 0 6px 20px;
+    }
+
+    .target-audience-section .container {
+        margin-top: 0;
     }
 
     /* Programs grid - одна колонка */
