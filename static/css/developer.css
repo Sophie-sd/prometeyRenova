@@ -157,7 +157,7 @@
 }
 
 .program-modules {
-    padding: var(--space-sm) 0;
+    padding: 20px 0;
     border-top: 1px solid rgba(230, 81, 0, 0.3);
     border-bottom: 1px solid rgba(230, 81, 0, 0.3);
 }
@@ -202,7 +202,7 @@
 }
 
 .program-status {
-    padding-top: var(--space-sm);
+    padding-top: 10px;
     border-top: 1px solid rgba(230, 81, 0, 0.3);
 }
 
@@ -234,7 +234,7 @@
 }
 
 .benefit-item {
-    padding: var(--space-md);
+    padding: 10px;
     background: transparent;
     border-left: 3px solid var(--color-brand-orange);
     padding-left: var(--space-md);
@@ -400,6 +400,45 @@
 
 /* ===== DESKTOP АДАПТАЦІЯ ===== */
 @media (min-width: 1025px) {
+    /* Hero-блок оптимізація для desktop */
+    .developer-hero {
+        min-height: auto;
+        height: auto;
+        padding: var(--space-lg) 0;
+    }
+
+    .developer-hero .hero-content {
+        padding: var(--space-md) 0;
+    }
+
+    .developer-hero .hero-text h1 {
+        margin-bottom: var(--space-md);
+    }
+
+    .developer-hero .hero-text p {
+        margin-bottom: var(--space-md);
+    }
+
+    .developer-hero .hero-content .container {
+        max-width: 100%;
+        padding: 0 var(--space-md);
+    }
+
+    .developer-hero .hero-text {
+        max-width: 100%;
+        padding: 0 var(--space-lg);
+    }
+
+    .developer-hero .status-badge {
+        margin-bottom: var(--space-xs);
+    }
+
+    .developer-hero .hero-cta-buttons {
+        margin-top: var(--space-xs);
+        gap: var(--space-xs);
+    }
+
+    /* Інші секції */
     .target-audience-section {
         padding: var(--space-xl) var(--space-md);
     }

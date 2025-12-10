@@ -126,11 +126,11 @@
 }
 
 .mb-md {
-    margin-bottom: var(--space-md);
+    margin-bottom: 20px;
 }
 
 .mb-lg {
-    margin-bottom: var(--space-lg);
+    margin-bottom: 10px;
 }
 
 .mb-xl {
