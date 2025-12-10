@@ -117,17 +117,30 @@
 .programs-section {
     position: relative;
     padding: var(--space-xl) var(--space-sm);
-    background: url('../images/first_background.png') center/cover fixed;
+    background: transparent;
     z-index: 10;
+    overflow: hidden;
+}
+
+/* Фіксований фон через псевдоелемент */
+.programs-section::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url('../images/first_background.png') center/cover no-repeat;
+    z-index: -1;
     
-    /* GPU прискорення для паралакс ефекту */
-    transform: translate3d(0, 0, 0);
+    /* GPU прискорення */
+    transform: translateZ(0);
     backface-visibility: hidden;
     will-change: transform;
 }
 
 .programs-section .section-title {
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 .programs-grid {
@@ -271,17 +284,30 @@
 .format-section {
     position: relative;
     padding: var(--space-xl) var(--space-sm);
-    background: url('../images/first_background.png') center/cover fixed;
+    background: transparent;
     z-index: 10;
+    overflow: hidden;
+}
+
+/* Фіксований фон через псевдоелемент */
+.format-section::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url('../images/first_background.png') center/cover no-repeat;
+    z-index: -1;
     
-    /* GPU прискорення для паралакс ефекту */
-    transform: translate3d(0, 0, 0);
+    /* GPU прискорення */
+    transform: translateZ(0);
     backface-visibility: hidden;
     will-change: transform;
 }
 
 .format-section .section-title {
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 .format-content {
@@ -314,13 +340,13 @@
 .format-list h4 {
     font-size: var(--font-sub);
     font-weight: 700;
-    color: var(--color-black);
+    color: var(--color-white);
     margin-bottom: 8px;
 }
 
 .format-list p {
     font-size: var(--font-base);
-    color: #666;
+    color: var(--color-white);
     line-height: 1.5;
 }
 
@@ -340,7 +366,7 @@
 
 .career-description {
     font-size: var(--font-base);
-    color: var(--color-black);
+    color: var(--color-white);
     line-height: 1.6;
 }
 
@@ -737,17 +763,18 @@
     .target-audience-card,
     .program-card,
     .benefit-item,
-    .programs-section,
-    .format-section {
-        transition: none;
+    .programs-section::before,
+    .format-section::before {
         will-change: auto;
     }
 }
 
-/* ===== iOS SAFARI FALLBACK ДЛЯ ПАРАЛАКС ЕФЕКТУ ===== */
-@supports (-webkit-touch-callout: none) {
-    .programs-section,
-    .format-section {
-        background-attachment: scroll;
+/* ===== МОБІЛЬНА ОПТИМІЗАЦІЯ ФІКСОВАНОГО ФОНУ ===== */
+@media (max-width: 767px) {
+    .programs-section::before,
+    .format-section::before {
+        /* На мобільних використовуємо absolute замість fixed для кращої продуктивності */
+        position: absolute;
+        height: 100%;
     }
 }
