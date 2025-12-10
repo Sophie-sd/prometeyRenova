@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from .mixins import BasePageView
 from .form_handlers import (
-    validate_phone, create_form_response, get_form_type_from_path,
+    validate_phone, validate_name, create_form_response, get_form_type_from_path,
     create_form_data, send_form_email, save_form_submission,
     send_test_result_email
 )
@@ -56,6 +56,10 @@ def handle_form_submission(request):
         if not name or not phone:
             return create_form_response(False, 'Заповніть обов\'язкові поля: ім\'я та телефон')
         
+        # Валідація імені
+        if not validate_name(name):
+            return create_form_response(False, 'Введіть коректне ім\'я (мінімум 2 символи, хоча б одна літера)')
+        
         # Валідація телефону
         if not validate_phone(phone):
             return create_form_response(False, 'Введіть коректний номер телефону')
@@ -63,6 +67,7 @@ def handle_form_submission(request):
         # Обробка різних типів форм
         handlers = {
             'site-request': handle_site_request,
+            'site_request': handle_site_request,  # Альтернативна назва з підкреслюванням
             'developer': handle_developer_request,
             'consultation': handle_consultation_request,
             'contact': handle_contact_request,
@@ -84,10 +89,13 @@ def handle_form_submission(request):
 
 def handle_site_request(request, name, phone):
     """Обробка заявки на сайт"""
+    email = request.POST.get('email', '').strip()
+    details = request.POST.get('details', '').strip()
+    
     form_data = create_form_data(
         'Заявка на розробку сайту', name, phone, request,
-        details=request.POST.get('details', ''),
-        email=request.POST.get('email', '')
+        email=email,
+        details=details
     )
     
     send_form_email(form_data)
@@ -101,11 +109,15 @@ def handle_site_request(request, name, phone):
 
 def handle_developer_request(request, name, phone):
     """Обробка заявки на курси"""
+    email = request.POST.get('email', '').strip()
+    course_type = request.POST.get('course_type', '').strip()
+    experience = request.POST.get('experience', '').strip()
+    
     form_data = create_form_data(
         'Заявка на курси програмування', name, phone, request,
-        course_type=request.POST.get('course_type', ''),
-        experience=request.POST.get('experience', ''),
-        email=request.POST.get('email', '')
+        email=email,
+        course_type=course_type,
+        experience=experience
     )
     
     send_form_email(form_data)
@@ -119,10 +131,13 @@ def handle_developer_request(request, name, phone):
 
 def handle_consultation_request(request, name, phone):
     """Обробка заявки на консультацію"""
+    email = request.POST.get('email', '').strip()
+    topic = request.POST.get('topic', '').strip()
+    
     form_data = create_form_data(
         'Заявка на консультацію', name, phone, request,
-        topic=request.POST.get('topic', ''),
-        email=request.POST.get('email', '')
+        email=email,
+        topic=topic
     )
     
     send_form_email(form_data)
@@ -136,10 +151,13 @@ def handle_consultation_request(request, name, phone):
 
 def handle_contact_request(request, name, phone):
     """Обробка заявки зі сторінки контактів"""
+    email = request.POST.get('email', '').strip()
+    message = request.POST.get('message', '').strip()
+    
     form_data = create_form_data(
         'Заявка зі сторінки контактів', name, phone, request,
-        message=request.POST.get('message', ''),
-        email=request.POST.get('email', '')
+        email=email,
+        message=message
     )
     
     send_form_email(form_data)
