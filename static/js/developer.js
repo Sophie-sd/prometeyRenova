@@ -5,34 +5,40 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initCourseCards();
-    initHapticFeedback();
+    initProgramNavigation();
+    initMobileOptimizations();
 });
 
-// ===== COURSE CARDS =====
-function initCourseCards() {
-    const courseCards = document.querySelectorAll('.course-card');
-
-    courseCards.forEach(card => {
-        // Desktop hover працює через CSS - не потрібен JS
-
-        // Touch target для mobile (MobileCore додає стилі)
-        if (window.MobileCore?.getDevice().isTouch) {
-            card.classList.add('mobile-touch-target');
-        }
+// ===== SMOOTH SCROLL TO PROGRAMS SECTION =====
+function initProgramNavigation() {
+    const programLinks = document.querySelectorAll('a[href="#programs"]');
+    
+    programLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.getElementById('programs');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
     });
 }
 
-// ===== HAPTIC FEEDBACK =====
-function initHapticFeedback() {
-    if (!('vibrate' in navigator)) return;
+// ===== MOBILE OPTIMIZATIONS =====
+function initMobileOptimizations() {
     if (!window.MobileCore?.getDevice().isTouch) return;
 
-    const interactiveElements = document.querySelectorAll('.course-card, [data-modal]');
-
+    // Add mobile touch targets for interactive elements
+    const interactiveElements = document.querySelectorAll('.btn, .program-card, .target-audience-card, .benefit-item');
+    
     interactiveElements.forEach(element => {
-        element.addEventListener('touchstart', () => {
-            navigator.vibrate(10);
-        }, { passive: true });
+        element.classList.add('mobile-touch-target');
+        
+        // Add haptic feedback for touch devices
+        if ('vibrate' in navigator) {
+            element.addEventListener('touchstart', () => {
+                navigator.vibrate(10);
+            }, { passive: true });
+        }
     });
 }

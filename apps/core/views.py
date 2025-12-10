@@ -30,8 +30,8 @@ class CalculatorView(BasePageView):
 
 class DeveloperView(BasePageView):
     template_name = 'pages/developer.html'
-    page_title = 'Курси програмування | Стати веб-розробником - PrometeyLabs'
-    meta_description = 'Курси програмування у PrometeyLabs. Навчання веб-розробки з нуля. Індивідуальні та групові заняття. Практичний досвід, сучасні технології.'
+    page_title = 'PrometeyLabs — Навчання web-розробці та AI'
+    meta_description = 'Навчання веб-розробці та AI у PrometeyLabs. Програми для новачків та розробників з досвідом. Практичне навчання, комунікація з експертами, можливість кар\'єри у нашій компанії.'
 
 class ContactsView(BasePageView):
     template_name = 'pages/contacts.html'
