@@ -1,5 +1,56 @@
 /* DEVELOPER.CSS - Оновлена сторінка з новою структурою */
 
+/* ===== PARALLAX BACKGROUND SYSTEM ===== */
+.parallax-background {
+    position: relative;
+    background: var(--color-white);
+    overflow: hidden;
+}
+
+/* Фоновий елемент для паралаксу */
+.parallax-background__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/static/images/first_background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    
+    /* GPU acceleration для гладкого паралаксу */
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* Overlay для читабельності тексту поверх фону */
+.parallax-background__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.75);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Контент має бути вище overlay */
+.parallax-background__content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Вимкнути will-change після скролу для оптимізації */
+.parallax-background__image.parallax-inactive {
+    will-change: auto;
+}
+
 /* ===== STATUS BADGE В HERO-БЛОКУ ===== */
 .status-badge {
     display: inline-block;
@@ -40,7 +91,6 @@
 .target-audience-section {
     position: relative;
     padding: var(--space-lg) var(--space-sm);
-    background: var(--color-black);
     z-index: 10;
     border-radius: 20px 20px 0 0;
     margin-top: -20px;
@@ -69,7 +119,6 @@
 
 .target-audience-card {
     padding: var(--space-md);
-    background: var(--color-white);
     border-radius: 8px;
     position: relative;
     transition: all var(--transition-normal) var(--easing-default);
@@ -117,12 +166,12 @@
 .programs-section {
     position: relative;
     padding: var(--space-xl) var(--space-sm);
-    background: var(--color-white);
     z-index: 10;
+    background: transparent;
 }
 
 .programs-section .section-title {
-    color: var(--color-black);
+    color: var(--color-brand-orange);
 }
 
 .programs-grid {
@@ -266,12 +315,12 @@
 .format-section {
     position: relative;
     padding: var(--space-xl) var(--space-sm);
-    background: var(--color-white);
     z-index: 10;
+    background: transparent;
 }
 
 .format-section .section-title {
-    color: var(--color-black);
+    color: var(--color-brand-orange);
 }
 
 .format-content {
