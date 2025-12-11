@@ -447,25 +447,31 @@
         gap: var(--space-xs);
     }
 
-    /* Інші секції */
+    /* Інші секції - максимум 70px відступ від заголовка до попереднього блоку */
     .target-audience-section {
-        padding: var(--space-xl) var(--space-md);
+        padding: 70px var(--space-md) var(--space-xl) var(--space-md);
     }
 
     .programs-section {
-        padding: var(--space-xl) var(--space-md);
+        padding: 70px var(--space-md) var(--space-xl) var(--space-md);
     }
 
     .benefits-section {
-        padding: var(--space-xl) var(--space-md);
+        padding: 70px var(--space-md) var(--space-xl) var(--space-md);
     }
 
     .format-section {
-        padding: var(--space-xl) var(--space-md);
+        padding: 70px var(--space-md) var(--space-xl) var(--space-md);
     }
 
     .enrollment-section {
-        padding: var(--space-xl) var(--space-md);
+        padding: 70px var(--space-md) var(--space-xl) var(--space-md);
+    }
+
+    /* Видалити hover-ефекти на картках "Для кого це навчання" */
+    .target-audience-card:hover {
+        transform: none;
+        box-shadow: none;
     }
 }
 
@@ -643,12 +649,21 @@
     }
 
     .benefit-item {
+        display: block;
         padding: var(--space-sm);
         padding-left: var(--space-sm);
     }
 
     .benefit-title {
+        display: block;
+        width: 100%;
         font-size: var(--font-sub);
+        margin-bottom: 8px;
+    }
+
+    .benefit-description {
+        display: block;
+        width: 100%;
     }
 
     /* Format section */
@@ -719,13 +734,16 @@
         font-size: var(--font-base);
     }
 
-    /* Background padding adjustment */
+    /* Background padding adjustment - однакові відступи для всіх секцій */
     .target-audience-section,
     .programs-section,
     .benefits-section,
     .format-section,
     .enrollment-section {
-        padding: var(--space-md) var(--space-xs);
+        padding-top: var(--space-md);
+        padding-bottom: var(--space-md);
+        padding-left: var(--space-xs);
+        padding-right: var(--space-xs);
     }
 
     /* Паралакс оптимізація для мобільних пристроїв */
