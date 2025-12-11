@@ -51,6 +51,13 @@
     margin-top: 0;
 }
 
+.programs-section .container,
+.benefits-section .container,
+.format-section .container,
+.enrollment-section .container {
+    margin-top: 0;
+}
+
 .section-title {
     font-size: var(--font-large);
     font-weight: 700;
@@ -466,6 +473,11 @@
 
     .enrollment-section {
         padding: 70px var(--space-md) var(--space-xl) var(--space-md);
+    }
+
+    /* Додати помаранчевий border для карток */
+    .target-audience-card {
+        border: 3px solid var(--color-brand-orange);
     }
 
     /* Видалити hover-ефекти на картках "Для кого це навчання" */
