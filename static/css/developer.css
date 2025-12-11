@@ -69,7 +69,8 @@
 
 .target-audience-card {
     padding: var(--space-md);
-    background: var(--color-white);
+    background: var(--color-black) url('../images/first_background.png') center/cover no-repeat;
+    background-attachment: fixed;
     border-radius: 8px;
     position: relative;
     transition: all var(--transition-normal) var(--easing-default);
@@ -88,7 +89,7 @@
 
 .card-description {
     font-size: var(--font-base);
-    color: var(--color-black);
+    color: var(--color-white);
     line-height: 1.6;
 }
 
@@ -99,7 +100,7 @@
 
 .card-features li {
     font-size: var(--font-base);
-    color: var(--color-black);
+    color: var(--color-white);
     padding: 8px 0;
     padding-left: 24px;
     position: relative;
@@ -728,6 +729,7 @@
     }
 
     /* Паралакс оптимізація для мобільних пристроїв */
+    .target-audience-card,
     .programs-section,
     .format-section {
         background-attachment: scroll;
