@@ -79,6 +79,7 @@
     grid-template-columns: 1fr 1fr;
     /* Двоколонковий layout */
     gap: 60px;
+    position: relative;
 }
 
 /* === КОНТАКТНА ІНФОРМАЦІЯ === */
@@ -88,8 +89,6 @@
 
 .contact-block {
     max-width: 100%;
-    position: relative;
-    overflow: hidden;
 }
 
 .contact-text {
