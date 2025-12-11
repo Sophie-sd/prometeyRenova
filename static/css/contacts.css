@@ -22,7 +22,11 @@
 /* === ЗАГАЛЬНІ СТИЛІ СТОРІНКИ === */
 .contacts-page {
     background-color: var(--color-black);
-    /* Глибокий чорний фон */
+    background-image: url('../images/first_background.png');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    /* Фіксоване фонове зображення - не рухається при скролі */
     color: var(--color-white);
     /* Білий для основного тексту на чорному фоні */
     font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -83,13 +87,26 @@
 }
 
 .contact-block {
-    max-width: 400px;
+    max-width: 100%;
 }
 
 .contact-text {
     font-size: 16px;
     line-height: 1.5;
     margin-bottom: 40px;
+}
+
+.contact-items-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 40px;
+}
+
+.contact-column {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
 .contact-item {
@@ -157,19 +174,20 @@
 }
 
 .contact-form-wrapper {
-    background: #FFFFFF;
+    background: var(--color-black);
+    border: 2px solid var(--color-brand-orange);
     padding: 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px rgba(230, 81, 0, 0.1);
 }
 
 .contact-form-wrapper .medium-title {
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 .form-intro {
     font-size: 16px;
     margin-bottom: 30px;
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 .form-group {
@@ -184,7 +202,7 @@
     display: block;
     font-size: 14px;
     margin-bottom: 8px;
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 .required {
@@ -196,16 +214,23 @@
     width: 100%;
     padding: 12px;
     font-size: 16px;
-    border: 1px solid #E0E0E0;
-    background: var(--color-white);
+    border: 1px solid #444444;
+    background: #1a1a1a;
+    color: var(--color-white);
     transition: border-color 0.3s ease-out;
     font-family: inherit;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: #888888;
 }
 
 .form-input:focus,
 .form-textarea:focus {
     border-color: var(--color-brand-orange);
     outline: none;
+    background: #252525;
 }
 
 .form-textarea {
@@ -232,7 +257,7 @@
     margin-top: 20px;
     font-size: 14px;
     font-weight: 500;
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 /* === ДЕКОРАТИВНИЙ ЕЛЕМЕНТ === */
@@ -296,6 +321,11 @@
 
     .contact-block {
         max-width: 100%;
+    }
+
+    .contact-items-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
     }
 
     .medium-title {
