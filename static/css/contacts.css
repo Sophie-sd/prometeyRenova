@@ -91,8 +91,6 @@
 
 .contact-block {
     max-width: 100%;
-    border-bottom: 2px solid var(--color-brand-orange);
-    padding-bottom: 30px;
 }
 
 .contact-text {
@@ -267,13 +265,24 @@
 /* === ЗОБРАЖЕННЯ КОНТАКТІВ === */
 .contact-photo {
     position: absolute;
-    bottom: 2px;
+    bottom: 0;
     left: 0;
     width: 410px;
     height: auto;
     object-fit: cover;
     z-index: 5;
     display: block;
+}
+
+.contact-photo::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-brand-orange);
+    z-index: 6;
 }
 
 /* === ДЕКОРАТИВНИЙ ЕЛЕМЕНТ === */
@@ -343,8 +352,6 @@
 
     .contact-block {
         max-width: 100%;
-        border-bottom: none;
-        padding-bottom: 0;
     }
 
     .contact-photo {
@@ -356,7 +363,11 @@
         z-index: auto;
         border-left: 2px solid var(--color-brand-orange);
         padding-left: 15px;
-        border-bottom: 2px solid var(--color-brand-orange);
+    }
+
+    .contact-photo::after {
+        bottom: 0;
+        width: 100%;
     }
 
     .contact-items-grid {
