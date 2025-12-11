@@ -270,6 +270,7 @@
     object-fit: cover;
     z-index: 5;
     display: block;
+    border-bottom: 2px solid var(--color-brand-orange);
 }
 
 /* === ДЕКОРАТИВНИЙ ЕЛЕМЕНТ === */
