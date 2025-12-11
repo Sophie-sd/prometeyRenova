@@ -22,7 +22,10 @@
 /* === ЗАГАЛЬНІ СТИЛІ СТОРІНКИ === */
 .contacts-page {
     background-color: var(--color-black);
-    background-image: url('../images/first_background.png');
+    background-image: image-set(
+        url('../images/first_background-desktop.webp') type('image/webp'),
+        url('../images/first_background-desktop.png') type('image/png')
+    );
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
@@ -33,6 +36,7 @@
     /* Sans-serif згідно стандарту */
     overflow-x: hidden;
     position: relative;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 /* === ЗАГОЛОВКИ === */
@@ -315,6 +319,14 @@
     .contact-form-wrapper {
         padding: 30px;
     }
+    
+    /* Оптимізоване зображення для планшетів */
+    .contacts-page {
+        background-image: image-set(
+            url('../images/first_background-tablet.webp') type('image/webp'),
+            url('../images/first_background-tablet.png') type('image/png')
+        );
+    }
 }
 
 /* === АДАПТИВНІСТЬ ДЛЯ МОБІЛЬНИХ (320px - 767px) === */
@@ -343,9 +355,17 @@
         margin-bottom: 25px;
     }
 
-    /* Мобільні: background-attachment scroll (iOS Safari не підтримує fixed) */
+    /* Мобільні: оптимізоване зображення та scroll (iOS Safari не підтримує fixed) */
     .contacts-page {
+        background-image: image-set(
+            url('../images/first_background-mobile.webp') type('image/webp'),
+            url('../images/first_background-mobile.png') type('image/png')
+        );
         background-attachment: scroll;
+        /* Оптимізація якості для мобільних */
+        background-size: cover;
+        background-position: center;
+        image-rendering: crisp-edges;
     }
 
     .contacts-grid {
@@ -423,16 +443,25 @@
         -webkit-background-size: cover;
         background-size: cover;
         
+        /* Оптимізація якості відображення зображення */
+        image-rendering: -webkit-optimize-contrast;
+        -webkit-image-rendering: optimizeQuality;
+        
         /* Оптимізація рендерингу */
         -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
+        
+        /* Покращена якість при масштабуванні */
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: 100%;
     }
 
     .submit-btn {
         /* Уникаємо проблем з нативними стилями кнопок на iOS */
         -webkit-appearance: none;
+        appearance: none;
         border-radius: 0;
     }
 
