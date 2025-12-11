@@ -274,17 +274,6 @@
     display: block;
 }
 
-.contact-photo::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--color-brand-orange);
-    z-index: 6;
-}
-
 /* === ДЕКОРАТИВНИЙ ЕЛЕМЕНТ === */
 .decorative-element {
     position: absolute;
@@ -363,11 +352,6 @@
         z-index: auto;
         border-left: 2px solid var(--color-brand-orange);
         padding-left: 15px;
-    }
-
-    .contact-photo::after {
-        bottom: 0;
-        width: 100%;
     }
 
     .contact-items-grid {
