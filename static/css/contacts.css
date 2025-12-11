@@ -343,6 +343,11 @@
         margin-bottom: 25px;
     }
 
+    /* Мобільні: background-attachment scroll (iOS Safari не підтримує fixed) */
+    .contacts-page {
+        background-attachment: scroll;
+    }
+
     .contacts-grid {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -413,6 +418,16 @@
     .contacts-page {
         /* Застосовуємо -webkit-fill-available для коректного відображення висоти */
         min-height: -webkit-fill-available;
+        
+        /* Оптимізація якості фону для iOS Safari */
+        -webkit-background-size: cover;
+        background-size: cover;
+        
+        /* Оптимізація рендерингу */
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
     }
 
     .submit-btn {
