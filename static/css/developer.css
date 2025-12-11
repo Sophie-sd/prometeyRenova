@@ -117,32 +117,9 @@
 .programs-section {
     position: relative;
     padding: var(--space-xl) var(--space-sm);
-    background: transparent;
+    background: var(--color-black) url('../images/first_background.png') center/cover no-repeat;
+    background-attachment: fixed;
     z-index: 10;
-    isolation: isolate;
-}
-
-/* Фіксований фон через псевдоелемент */
-.programs-section::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: url('../images/first_background.png') center/cover no-repeat;
-    z-index: 0;
-    
-    /* GPU прискорення */
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    will-change: transform;
-}
-
-/* Контент поверх фону */
-.programs-section .container {
-    position: relative;
-    z-index: 1;
 }
 
 .programs-section .section-title {
@@ -159,7 +136,7 @@
 
 .program-card {
     padding: var(--space-md);
-    background: var(--color-black);
+    background: rgba(0, 0, 0, 0.7);
     border: 2px solid var(--color-brand-orange);
     border-radius: 8px;
     transition: all var(--transition-normal) var(--easing-default);
@@ -290,32 +267,9 @@
 .format-section {
     position: relative;
     padding: var(--space-xl) var(--space-sm);
-    background: transparent;
+    background: var(--color-black) url('../images/first_background.png') center/cover no-repeat;
+    background-attachment: fixed;
     z-index: 10;
-    isolation: isolate;
-}
-
-/* Фіксований фон через псевдоелемент */
-.format-section::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: url('../images/first_background.png') center/cover no-repeat;
-    z-index: 0;
-    
-    /* GPU прискорення */
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    will-change: transform;
-}
-
-/* Контент поверх фону */
-.format-section .container {
-    position: relative;
-    z-index: 1;
 }
 
 .format-section .section-title {
@@ -332,7 +286,9 @@
 }
 
 .format-info {
-    padding: var(--space-md) 0;
+    padding: var(--space-md);
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
 }
 
 .format-list {
@@ -342,7 +298,7 @@
 
 .format-list li {
     padding: var(--space-sm) 0;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid rgba(230, 81, 0, 0.3);
 }
 
 .format-list li:last-child {
@@ -352,7 +308,7 @@
 .format-list h4 {
     font-size: var(--font-sub);
     font-weight: 700;
-    color: var(--color-white);
+    color: var(--color-brand-orange);
     margin-bottom: 8px;
 }
 
@@ -364,7 +320,7 @@
 
 .career-highlight {
     padding: var(--space-md);
-    background: linear-gradient(135deg, rgba(230, 81, 0, 0.08) 0%, rgba(230, 81, 0, 0.03) 100%);
+    background: rgba(0, 0, 0, 0.5);
     border-left: 4px solid var(--color-brand-orange);
     border-radius: 4px;
 }
@@ -701,7 +657,9 @@
     }
 
     .format-info {
-        padding: var(--space-sm) 0;
+        padding: var(--space-sm);
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
     }
 
     .format-list li {
@@ -768,25 +726,19 @@
     .enrollment-section {
         padding: var(--space-md) var(--space-xs);
     }
+
+    /* Паралакс оптимізація для мобільних пристроїв */
+    .programs-section,
+    .format-section {
+        background-attachment: scroll;
+    }
 }
 
 /* ===== PERFORMANCE ОПТИМІЗАЦІЇ ===== */
 @media (prefers-reduced-motion: reduce) {
     .target-audience-card,
     .program-card,
-    .benefit-item,
-    .programs-section::before,
-    .format-section::before {
-        will-change: auto;
-    }
-}
-
-/* ===== МОБІЛЬНА ОПТИМІЗАЦІЯ ФІКСОВАНОГО ФОНУ ===== */
-@media (max-width: 767px) {
-    .programs-section::before,
-    .format-section::before {
-        /* На мобільних використовуємо absolute замість fixed для кращої продуктивності */
-        position: absolute;
-        height: 100%;
+    .benefit-item {
+        transition: none;
     }
 }
