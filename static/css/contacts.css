@@ -88,6 +88,8 @@
 
 .contact-block {
     max-width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 .contact-text {
@@ -106,7 +108,6 @@
 .contact-column {
     display: flex;
     flex-direction: column;
-    gap: 40px;
 }
 
 .contact-item {
@@ -260,6 +261,18 @@
     color: var(--color-white);
 }
 
+/* === ЗОБРАЖЕННЯ КОНТАКТІВ === */
+.contact-photo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    max-width: 280px;
+    height: auto;
+    object-fit: cover;
+    z-index: 5;
+    display: block;
+}
+
 /* === ДЕКОРАТИВНИЙ ЕЛЕМЕНТ === */
 .decorative-element {
     position: absolute;
@@ -289,6 +302,10 @@
 
     .contacts-grid {
         gap: 30px;
+    }
+
+    .contact-photo {
+        max-width: 200px;
     }
 
     .contact-form-wrapper {
@@ -323,9 +340,18 @@
         max-width: 100%;
     }
 
+    .contact-photo {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        max-width: 100%;
+        margin-top: 30px;
+        z-index: auto;
+    }
+
     .contact-items-grid {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 0;
     }
 
     .medium-title {
