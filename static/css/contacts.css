@@ -454,6 +454,16 @@
         -webkit-text-size-adjust: 100%;
     }
 
+    /* Мобільна версія для iOS Safari */
+    @media (max-width: 767px) {
+        .contacts-page {
+            background-image: url('../images/mobile_menu.png');
+            background-attachment: scroll;
+            background-position: center;
+            background-color: #1a1a1a;
+        }
+    }
+
     .submit-btn {
         /* Уникаємо проблем з нативними стилями кнопок на iOS */
         -webkit-appearance: none;

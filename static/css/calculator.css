@@ -684,6 +684,8 @@
 /* ===== RESPONSIVE: МОБІЛЬНІ ===== */
 @media (max-width: 767px) {
     .calc-hero {
+        background-image: url('../images/mobile_menu.png');
+        background-attachment: scroll;
         padding: 60px 0 80px;
     }
 
@@ -863,5 +865,16 @@
     .calc-field__input {
         font-size: 16px;
         /* Запобігає auto-zoom на iOS */
+    }
+
+    /* Мобільна версія hero блоку для iOS Safari */
+    @media (max-width: 767px) {
+        .calc-hero {
+            background-image: url('../images/mobile_menu.png');
+            background-attachment: scroll;
+            -webkit-background-size: cover;
+            background-size: cover;
+            background-position: center;
+        }
     }
 }
