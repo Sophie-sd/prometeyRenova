@@ -1,6 +1,6 @@
 /* =================================
    OFFER.CSS - Публічна оферта на надання послуг
-   Оформлення довгих текстів для максимальної читабельності
+   Компактне документоподібне оформлення
    ================================= */
 
 /* ===== OFFER ARTICLE ===== */
@@ -10,24 +10,29 @@
 
 /* ===== OFFER HEADER ===== */
 .offer-header {
-    padding: var(--space-xl) 0;
+    padding: 40px 0 20px;
     position: relative;
+    background: transparent;
+    text-align: center;
 }
 
-.offer-header h1 {
-    max-width: 900px;
-    margin-bottom: var(--space-md);
+.offer-title {
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 700;
+    color: var(--color-brand-orange);
+    margin-bottom: 10px;
+    line-height: 1.2;
+    letter-spacing: -1px;
 }
 
 .offer-meta {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: var(--space-sm);
-    flex-wrap: wrap;
 }
 
 .offer-date {
-    font-size: var(--font-base);
+    font-size: 14px;
     color: var(--color-black);
     opacity: 0.7;
     font-weight: 500;
@@ -35,7 +40,7 @@
 
 /* ===== OFFER CONTENT ===== */
 .offer-content {
-    padding: var(--space-xl) 0;
+    padding: 20px 0;
 }
 
 .offer-wrapper {
@@ -45,49 +50,88 @@
 
 /* ===== OFFER SECTIONS ===== */
 .offer-section {
-    margin-bottom: var(--space-lg);
+    margin-bottom: 20px;
 }
 
-.offer-section h2 {
-    font-size: var(--font-medium);
+.offer-section-title {
+    font-size: clamp(18px, 3vw, 22px);
     font-weight: 700;
     color: var(--color-brand-orange);
-    margin-bottom: var(--space-md);
+    margin-bottom: 30px;
     line-height: 1.2;
     letter-spacing: -0.5px;
 }
 
-.offer-section h3 {
+/* ===== SUBSECTIONS (підпункти) ===== */
+.offer-subsection {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.offer-subsection-number {
     font-size: 16px;
     font-weight: 600;
     color: var(--color-black);
-    margin-top: var(--space-md);
-    margin-bottom: var(--space-sm);
+    flex-shrink: 0;
+    line-height: 1.7;
 }
 
-.offer-section p {
+.offer-subsection p {
     font-size: 16px;
     line-height: 1.7;
     color: var(--color-black);
-    margin-bottom: 1.2em;
+    margin: 0 0 10px 0;
     text-align: justify;
-    hyphens: auto;
+    flex: 1;
+}
+
+.offer-subsection > div {
+    flex: 1;
+}
+
+.offer-subsection ul,
+.offer-subsection ol {
+    margin: 0;
+    padding-left: 20px;
+}
+
+/* ===== LEGACY H3 + P (для сумісності) ===== */
+.offer-section h3 {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-black);
+    margin: 0 8px 0 0;
+    vertical-align: top;
+    line-height: 1.7;
+}
+
+.offer-section h3 + p {
+    display: inline;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-black);
+    margin: 0;
+    text-align: justify;
 }
 
 /* ===== LISTS ===== */
 .offer-definitions,
 .offer-list,
 .offer-steps {
-    margin: var(--space-sm) 0 var(--space-md);
-    padding-left: var(--space-md);
+    margin: 10px 0;
+    padding-left: 20px;
 }
 
 .offer-definitions li,
 .offer-list li,
 .offer-steps li {
-    margin-bottom: var(--space-xs);
+    margin-bottom: 8px;
     line-height: 1.7;
     color: var(--color-black);
+    font-size: 16px;
 }
 
 .offer-definitions li {
@@ -104,7 +148,7 @@
 }
 
 .offer-steps li {
-    margin-bottom: var(--space-sm);
+    margin-bottom: 10px;
 }
 
 .offer-definitions strong {
@@ -112,62 +156,22 @@
     color: var(--color-black);
 }
 
-/* ===== TEXT UTILITIES ===== */
-.bg-beige {
-    background: var(--color-beige);
-}
-
-.bg-white {
-    background: var(--color-white);
-}
-
-.color-brand-orange {
-    color: var(--color-brand-orange);
-}
-
-.mb-md {
-    margin-bottom: 20px;
-}
-
-/* ===== ADAPTIVE TYPOGRAPHY FOR OFFER ===== */
-@media (max-width: 1024px) {
-    .offer-header h1 {
-        font-size: clamp(28px, 5vw, 40px);
-    }
-
-    .offer-section h2 {
-        font-size: clamp(18px, 3vw, 24px);
-    }
-}
-
-/* ===== TABLET АДАПТАЦІЯ (768px - 1024px) ===== */
-@media (max-width: 1024px) and (min-width: 768px) {
-    .offer-header {
-        padding: var(--space-md) 0;
-    }
-
-    .offer-content {
-        padding: var(--space-md) 0;
-    }
-
-    .offer-wrapper {
-        max-width: 700px;
-        padding: 0 var(--space-sm);
-    }
-
-    .offer-section p {
-        font-size: 15px;
-    }
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-sm);
 }
 
 /* ===== МОБІЛЬНА АДАПТАЦІЯ (320px - 767px) ===== */
 @media (max-width: 767px) {
     .offer-header {
-        padding: var(--space-md) 0;
+        padding-top: 100px;
+        padding-bottom: 20px;
     }
 
-    .offer-header h1 {
-        font-size: clamp(24px, 6vw, 36px);
+    .offer-title {
+        font-size: clamp(20px, 6vw, 28px);
         letter-spacing: -0.5px;
         line-height: 1.1;
     }
@@ -177,7 +181,7 @@
     }
 
     .offer-content {
-        padding: var(--space-md) 0;
+        padding: 20px 0;
     }
 
     .offer-wrapper {
@@ -186,32 +190,34 @@
     }
 
     .offer-section {
-        margin-bottom: var(--space-md);
+        margin-bottom: 20px;
     }
 
-    .offer-section h2 {
-        font-size: clamp(16px, 4vw, 20px);
-        margin-bottom: var(--space-sm);
+    .offer-section-title {
+        font-size: clamp(16px, 4vw, 18px);
+        margin-bottom: 20px;
     }
 
-    .offer-section h3 {
+    .offer-subsection {
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+
+    .offer-subsection-number {
         font-size: 15px;
-        margin-top: var(--space-sm);
-        margin-bottom: 8px;
     }
 
-    .offer-section p {
+    .offer-subsection p {
         font-size: 16px;
         /* iOS Safari: 16px запобігає zoom */
         line-height: 1.6;
         text-align: left;
-        margin-bottom: 1em;
     }
 
     .offer-definitions,
     .offer-list,
     .offer-steps {
-        margin: var(--space-sm) 0;
+        margin: 10px 0;
         padding-left: 1.5em;
     }
 
@@ -223,91 +229,33 @@
     }
 }
 
+/* ===== TABLET АДАПТАЦІЯ (768px - 1024px) ===== */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .offer-header {
+        padding: 60px 0 20px;
+    }
+
+    .offer-content {
+        padding: 20px 0;
+    }
+
+    .offer-wrapper {
+        max-width: 700px;
+        padding: 0 var(--space-sm);
+    }
+
+    .offer-subsection p {
+        font-size: 15px;
+    }
+}
+
 /* ===== iOS SAFARI СПЕЦИФІКА ===== */
 @supports (-webkit-touch-callout: none) {
     .offer-wrapper {
         -webkit-transform: translateZ(0);
     }
 
-    .offer-section p {
+    .offer-subsection p {
         -webkit-font-smoothing: antialiased;
     }
 }
-
-/* ===== CONTAINER ===== */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-sm);
-}
-
-/* ===== АНІМАЦІЇ ===== */
-.offer-header {
-    animation: fadeInUp-large 0.8s ease-out;
-}
-
-.offer-section {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.6s ease-out forwards;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .offer-section:nth-child(1) {
-        animation-delay: 0.1s;
-    }
-
-    .offer-section:nth-child(2) {
-        animation-delay: 0.2s;
-    }
-
-    .offer-section:nth-child(3) {
-        animation-delay: 0.3s;
-    }
-
-    .offer-section:nth-child(4) {
-        animation-delay: 0.4s;
-    }
-
-    .offer-section:nth-child(5) {
-        animation-delay: 0.5s;
-    }
-
-    .offer-section:nth-child(6) {
-        animation-delay: 0.6s;
-    }
-
-    .offer-section:nth-child(7) {
-        animation-delay: 0.7s;
-    }
-
-    .offer-section:nth-child(8) {
-        animation-delay: 0.8s;
-    }
-
-    .offer-section:nth-child(9) {
-        animation-delay: 0.9s;
-    }
-
-    .offer-section:nth-child(10) {
-        animation-delay: 1s;
-    }
-
-    .offer-section:nth-child(11) {
-        animation-delay: 1.1s;
-    }
-
-    .offer-section:nth-child(12) {
-        animation-delay: 1.2s;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .offer-header,
-    .offer-section {
-        opacity: 1;
-        transform: translateY(0);
-        animation: none;
-    }
-}
-
