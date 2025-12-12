@@ -53,6 +53,11 @@ class CookiesView(BasePageView):
     page_title = 'Політика щодо файлів cookie | PrometeyLabs'
     meta_description = 'Політика щодо файлів cookie від PrometeyLabs. Дізнайтеся, які файли cookie ми використовуємо та як керувати налаштуваннями.'
 
+class RefundPolicyView(BasePageView):
+    template_name = 'pages/refund.html'
+    page_title = 'Політика повернення коштів | PrometeyLabs'
+    meta_description = 'Політика повернення коштів від PrometeyLabs. Дізнайтеся про умови і порядок повернення коштів за наші послуги.'
+
 
 # ===== AJAX ОБРОБКА ФОРМ =====
 

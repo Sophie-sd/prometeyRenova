@@ -11,6 +11,7 @@ urlpatterns = [
     path('offer/', views.OfferView.as_view(), name='offer'),
     path('privacy/', views.PrivacyView.as_view(), name='privacy'),
     path('cookies/', views.CookiesView.as_view(), name='cookies'),
+    path('refund/', views.RefundPolicyView.as_view(), name='refund'),
 
     
     # AJAX обробка форм
