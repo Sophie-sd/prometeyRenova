@@ -58,6 +58,11 @@ class RefundPolicyView(BasePageView):
     page_title = 'Політика повернення коштів | PrometeyLabs'
     meta_description = 'Політика повернення коштів від PrometeyLabs. Дізнайтеся про умови і порядок повернення коштів за наші послуги.'
 
+class IntellectualPropertyView(BasePageView):
+    template_name = 'pages/intellectual-property.html'
+    page_title = 'Політика щодо інтелектуальної власності | PrometeyLabs'
+    meta_description = 'Політика щодо інтелектуальної власності від PrometeyLabs. Дізнайтеся про права на контент та захист авторських прав.'
+
 
 # ===== AJAX ОБРОБКА ФОРМ =====
 
