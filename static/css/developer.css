@@ -762,7 +762,8 @@
     .target-audience-card,
     .programs-section,
     .format-section {
-        background-attachment: scroll;
+        background-image: url('../images/mobile_menu.png');
+        background-attachment: fixed;
     }
 }
 
