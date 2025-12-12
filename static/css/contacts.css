@@ -37,6 +37,8 @@
     overflow-x: hidden;
     position: relative;
     image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -webkit-background-size: cover;
 }
 
 /* === ЗАГОЛОВКИ === */
@@ -89,8 +91,7 @@
 /* === КОНТАКТНА ІНФОРМАЦІЯ === */
 .contacts-info {
     padding-right: 40px;
-    border-left: 2px solid var(--color-brand-orange);
-    border-bottom: 2px solid var(--color-brand-orange);
+
     padding-left: 40px;
 }
 
@@ -355,10 +356,10 @@
         margin-bottom: 25px;
     }
 
-    /* Мобільні: mobile_menu.png з fixed attachment */
+    /* Мобільні: mobile_menu.png з scroll attachment для кращої якості */
     .contacts-page {
         background-image: url('../images/mobile_menu.png');
-        background-attachment: fixed;
+        background-attachment: scroll;
         background-size: cover;
         background-position: center;
         background-color: #1a1a1a;
@@ -437,9 +438,11 @@
         /* Оптимізація якості фону для iOS Safari */
         -webkit-background-size: cover;
         background-size: cover;
+        background-attachment: scroll;
         
         /* Оптимізація якості відображення зображення */
         image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
         -webkit-image-rendering: optimizeQuality;
         
         /* Оптимізація рендерингу */
@@ -460,6 +463,8 @@
             background-attachment: scroll;
             background-position: center;
             background-color: #1a1a1a;
+            -webkit-background-size: cover;
+            background-size: cover;
         }
     }
 
