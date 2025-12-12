@@ -68,17 +68,23 @@
 .offer-article .offer-content {
     background: #FFFFFF;
     padding: 20px 0;
+    column-count: 1;
+    column-gap: 0;
 }
 
 .offer-article .offer-wrapper {
     max-width: 900px;
     margin: 0 auto;
     padding: 0 20px;
+    column-count: 1;
+    column-gap: 0;
 }
 
 /* ===== OFFER SECTIONS ===== */
 .offer-article .offer-section {
     margin-bottom: 15px;
+    column-count: 1;
+    column-gap: 0;
 }
 
 .offer-article .offer-section h2 {
@@ -88,6 +94,7 @@
     margin: 0 0 30px 0;
     line-height: 1.2;
     letter-spacing: -0.5px;
+    column-span: none;
 }
 
 /* ===== OFFER SUBSECTIONS (h3 + p на одному рядку) ===== */
@@ -97,6 +104,8 @@
     flex-wrap: nowrap;
     align-items: flex-start;
     gap: 0.5em;
+    column-count: 1;
+    column-gap: 0;
 }
 
 .offer-article .offer-subsection h3 {
@@ -115,7 +124,9 @@
     color: #000000;
     margin: 0;
     flex: 1;
-    text-align: justify;
+    text-align: left;
+    column-count: 1;
+    column-gap: 0;
 }
 
 /* ===== LISTS ===== */
@@ -124,6 +135,8 @@
 .offer-article .offer-steps {
     margin: 10px 0 10px 20px;
     padding-left: 20px;
+    column-count: 1;
+    column-gap: 0;
 }
 
 .offer-article .offer-definitions li,
