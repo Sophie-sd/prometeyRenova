@@ -4,16 +4,36 @@
    ІЗОЛЬОВАНО: всі стилі застосовуються ТІЛЬКИ до .offer-article
    ================================= */
 
+/* ===== HEADER OVERRIDE (темний хедер на сторінці оферти) ===== */
+/* Цей файл завантажується тільки на сторінці оферти, тому стилі застосовуються тільки тут */
+.main-navigation {
+    background: #1a1a1a !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.main-navigation .nav-link {
+    color: #ffffff !important;
+}
+
+.main-navigation .nav-logo {
+    color: #E65100 !important;
+}
+
+.main-navigation .burger-line {
+    background: #E65100 !important;
+}
+
 /* ===== OFFER ARTICLE (контейнер для ізоляції стилів) ===== */
 .offer-article {
     min-height: 100vh;
     background: #FFFFFF;
+    padding-top: 100px;
 }
 
 /* ===== OFFER HEADER ===== */
 .offer-article .offer-header {
     background: #FFFFFF;
-    padding: 40px 0 30px;
+    padding: 60px 0 30px;
     text-align: center;
 }
 
@@ -74,7 +94,9 @@
 .offer-article .offer-subsection {
     margin-bottom: 10px;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 0.5em;
 }
 
 .offer-article .offer-subsection h3 {
@@ -83,8 +105,8 @@
     color: #000000;
     margin: 0;
     line-height: 1.6;
-    display: inline;
-    margin-right: 0.5em;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .offer-article .offer-subsection p {
@@ -92,7 +114,7 @@
     line-height: 1.6;
     color: #000000;
     margin: 0;
-    display: inline;
+    flex: 1;
     text-align: justify;
 }
 
@@ -165,11 +187,11 @@
 /* ===== АДАПТАЦІЯ МОБІЛЬНА (320px - 767px) ===== */
 @media (max-width: 767px) {
     .offer-article {
-        margin-top: 60px;
+        padding-top: 100px;
     }
 
     .offer-article .offer-header {
-        padding: 20px 0 20px;
+        padding: 30px 0 20px;
     }
 
     .offer-article .offer-title {
@@ -200,13 +222,15 @@
     }
 
     .offer-article .offer-subsection {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        gap: 0.3em;
     }
 
     .offer-article .offer-subsection h3 {
         font-size: 15px;
-        display: inline;
-        margin-right: 0.3em;
+        flex-shrink: 0;
+        white-space: nowrap;
+        margin: 0;
     }
 
     .offer-article .offer-subsection p {
@@ -214,7 +238,8 @@
         /* iOS Safari: 16px запобігає zoom, але 15px для компактності на мобільних */
         line-height: 1.5;
         text-align: left;
-        display: inline;
+        flex: 1;
+        margin: 0;
     }
 
     .offer-article .offer-definitions,
