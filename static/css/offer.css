@@ -1,261 +1,283 @@
 /* =================================
    OFFER.CSS - Публічна оферта на надання послуг
-   Компактне документоподібне оформлення
+   Компактний документоподібний формат
+   ІЗОЛЬОВАНО: всі стилі застосовуються ТІЛЬКИ до .offer-article
    ================================= */
 
-/* ===== OFFER ARTICLE ===== */
+/* ===== OFFER ARTICLE (контейнер для ізоляції стилів) ===== */
 .offer-article {
     min-height: 100vh;
+    background: #FFFFFF;
 }
 
 /* ===== OFFER HEADER ===== */
-.offer-header {
-    padding: 40px 0 20px;
-    position: relative;
-    background: transparent;
+.offer-article .offer-header {
+    background: #FFFFFF;
+    padding: 40px 0 30px;
     text-align: center;
 }
 
-.offer-title {
-    font-size: clamp(28px, 5vw, 40px);
+.offer-article .offer-header-inner {
+    max-width: 100%;
+}
+
+.offer-article .offer-title {
+    font-size: clamp(28px, 5vw, 48px);
     font-weight: 700;
-    color: var(--color-brand-orange);
-    margin-bottom: 10px;
+    color: #E65100;
+    margin: 0 0 15px 0;
     line-height: 1.2;
     letter-spacing: -1px;
 }
 
-.offer-meta {
+.offer-article .offer-meta {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10px;
 }
 
-.offer-date {
+.offer-article .offer-date {
     font-size: 14px;
-    color: var(--color-black);
+    color: #000000;
     opacity: 0.7;
     font-weight: 500;
 }
 
 /* ===== OFFER CONTENT ===== */
-.offer-content {
+.offer-article .offer-content {
+    background: #FFFFFF;
     padding: 20px 0;
 }
 
-.offer-wrapper {
-    max-width: 800px;
+.offer-article .offer-wrapper {
+    max-width: 900px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 /* ===== OFFER SECTIONS ===== */
-.offer-section {
-    margin-bottom: 20px;
+.offer-article .offer-section {
+    margin-bottom: 15px;
 }
 
-.offer-section-title {
-    font-size: clamp(18px, 3vw, 22px);
+.offer-article .offer-section h2 {
+    font-size: 18px;
     font-weight: 700;
-    color: var(--color-brand-orange);
-    margin-bottom: 30px;
+    color: #E65100;
+    margin: 0 0 30px 0;
     line-height: 1.2;
     letter-spacing: -0.5px;
 }
 
-/* ===== SUBSECTIONS (підпункти) ===== */
-.offer-subsection {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
+/* ===== OFFER SUBSECTIONS (h3 + p на одному рядку) ===== */
+.offer-article .offer-subsection {
     margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.offer-subsection-number {
+.offer-article .offer-subsection h3 {
     font-size: 16px;
     font-weight: 600;
-    color: var(--color-black);
-    flex-shrink: 0;
-    line-height: 1.7;
-}
-
-.offer-subsection p {
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--color-black);
-    margin: 0 0 10px 0;
-    text-align: justify;
-    flex: 1;
-}
-
-.offer-subsection > div {
-    flex: 1;
-}
-
-.offer-subsection ul,
-.offer-subsection ol {
+    color: #000000;
     margin: 0;
-    padding-left: 20px;
-}
-
-/* ===== LEGACY H3 + P (для сумісності) ===== */
-.offer-section h3 {
-    display: inline-block;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--color-black);
-    margin: 0 8px 0 0;
-    vertical-align: top;
-    line-height: 1.7;
-}
-
-.offer-section h3 + p {
+    line-height: 1.6;
     display: inline;
+    margin-right: 0.5em;
+}
+
+.offer-article .offer-subsection p {
     font-size: 16px;
-    line-height: 1.7;
-    color: var(--color-black);
+    line-height: 1.6;
+    color: #000000;
     margin: 0;
+    display: inline;
     text-align: justify;
 }
 
 /* ===== LISTS ===== */
-.offer-definitions,
-.offer-list,
-.offer-steps {
-    margin: 10px 0;
+.offer-article .offer-definitions,
+.offer-article .offer-list,
+.offer-article .offer-steps {
+    margin: 10px 0 10px 20px;
     padding-left: 20px;
 }
 
-.offer-definitions li,
-.offer-list li,
-.offer-steps li {
-    margin-bottom: 8px;
-    line-height: 1.7;
-    color: var(--color-black);
+.offer-article .offer-definitions li,
+.offer-article .offer-list li,
+.offer-article .offer-steps li {
+    margin-bottom: 6px;
+    line-height: 1.6;
+    color: #000000;
     font-size: 16px;
 }
 
-.offer-definitions li {
+.offer-article .offer-definitions li {
     list-style: disc;
 }
 
-.offer-list li {
+.offer-article .offer-list li {
     list-style: disc;
 }
 
-.offer-steps {
-    list-style: decimal;
-    padding-left: 2em;
+.offer-article .offer-steps {
+    list-style-type: decimal;
 }
 
-.offer-steps li {
-    margin-bottom: 10px;
+.offer-article .offer-steps li {
+    margin-bottom: 8px;
 }
 
-.offer-definitions strong {
+/* ===== ТЕКСТОВІ СТИЛІ ===== */
+.offer-article strong {
     font-weight: 700;
-    color: var(--color-black);
+    color: #000000;
 }
 
-/* ===== CONTAINER ===== */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-sm);
+/* ===== АДАПТАЦІЯ ДЕСКТОП ===== */
+@media (max-width: 1024px) {
+    .offer-article .offer-title {
+        font-size: clamp(24px, 4vw, 40px);
+    }
+
+    .offer-article .offer-section h2 {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
 }
 
-/* ===== МОБІЛЬНА АДАПТАЦІЯ (320px - 767px) ===== */
+/* ===== АДАПТАЦІЯ ПЛАНШЕТ (768px - 1024px) ===== */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .offer-article .offer-header {
+        padding: 30px 0 25px;
+    }
+
+    .offer-article .offer-wrapper {
+        padding: 0 15px;
+    }
+
+    .offer-article .offer-section p {
+        font-size: 15px;
+    }
+}
+
+/* ===== АДАПТАЦІЯ МОБІЛЬНА (320px - 767px) ===== */
 @media (max-width: 767px) {
-    .offer-header {
-        padding-top: 100px;
-        padding-bottom: 20px;
+    .offer-article {
+        margin-top: 60px;
     }
 
-    .offer-title {
-        font-size: clamp(20px, 6vw, 28px);
+    .offer-article .offer-header {
+        padding: 20px 0 20px;
+    }
+
+    .offer-article .offer-title {
+        font-size: clamp(20px, 5vw, 32px);
+        margin-bottom: 10px;
         letter-spacing: -0.5px;
-        line-height: 1.1;
     }
 
-    .offer-date {
+    .offer-article .offer-date {
         font-size: 12px;
     }
 
-    .offer-content {
-        padding: 20px 0;
+    .offer-article .offer-content {
+        padding: 15px 0;
     }
 
-    .offer-wrapper {
-        max-width: 100%;
-        padding: 0 var(--space-xs);
+    .offer-article .offer-wrapper {
+        padding: 0 12px;
     }
 
-    .offer-section {
-        margin-bottom: 20px;
+    .offer-article .offer-section {
+        margin-bottom: 12px;
     }
 
-    .offer-section-title {
-        font-size: clamp(16px, 4vw, 18px);
-        margin-bottom: 20px;
-    }
-
-    .offer-subsection {
-        gap: 6px;
-        margin-bottom: 10px;
-    }
-
-    .offer-subsection-number {
+    .offer-article .offer-section h2 {
         font-size: 15px;
+        margin-bottom: 20px;
     }
 
-    .offer-subsection p {
-        font-size: 16px;
-        /* iOS Safari: 16px запобігає zoom */
-        line-height: 1.6;
+    .offer-article .offer-subsection {
+        flex-wrap: wrap;
+    }
+
+    .offer-article .offer-subsection h3 {
+        font-size: 15px;
+        display: inline;
+        margin-right: 0.3em;
+    }
+
+    .offer-article .offer-subsection p {
+        font-size: 15px;
+        /* iOS Safari: 16px запобігає zoom, але 15px для компактності на мобільних */
+        line-height: 1.5;
         text-align: left;
+        display: inline;
     }
 
-    .offer-definitions,
-    .offer-list,
-    .offer-steps {
-        margin: 10px 0;
-        padding-left: 1.5em;
+    .offer-article .offer-definitions,
+    .offer-article .offer-list,
+    .offer-article .offer-steps {
+        margin: 8px 0 8px 16px;
+        padding-left: 16px;
     }
 
-    .offer-definitions li,
-    .offer-list li,
-    .offer-steps li {
-        margin-bottom: 8px;
-        font-size: 15px;
-    }
-}
-
-/* ===== TABLET АДАПТАЦІЯ (768px - 1024px) ===== */
-@media (max-width: 1024px) and (min-width: 768px) {
-    .offer-header {
-        padding: 60px 0 20px;
-    }
-
-    .offer-content {
-        padding: 20px 0;
-    }
-
-    .offer-wrapper {
-        max-width: 700px;
-        padding: 0 var(--space-sm);
-    }
-
-    .offer-subsection p {
+    .offer-article .offer-definitions li,
+    .offer-article .offer-list li,
+    .offer-article .offer-steps li {
+        margin-bottom: 5px;
         font-size: 15px;
     }
 }
 
 /* ===== iOS SAFARI СПЕЦИФІКА ===== */
 @supports (-webkit-touch-callout: none) {
-    .offer-wrapper {
+    .offer-article {
         -webkit-transform: translateZ(0);
     }
 
-    .offer-subsection p {
+    .offer-article .offer-wrapper {
         -webkit-font-smoothing: antialiased;
+    }
+
+    .offer-article .offer-subsection p {
+        -webkit-font-smoothing: antialiased;
+    }
+}
+
+/* ===== АНІМАЦІЇ (зберігаємо з core/animations.css) ===== */
+@media (prefers-reduced-motion: no-preference) {
+    .offer-article .offer-header {
+        animation: fadeInUp-large 0.8s ease-out;
+    }
+
+    .offer-article .offer-section {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .offer-article .offer-section:nth-child(1) { animation-delay: 0.1s; }
+    .offer-article .offer-section:nth-child(2) { animation-delay: 0.2s; }
+    .offer-article .offer-section:nth-child(3) { animation-delay: 0.3s; }
+    .offer-article .offer-section:nth-child(4) { animation-delay: 0.4s; }
+    .offer-article .offer-section:nth-child(5) { animation-delay: 0.5s; }
+    .offer-article .offer-section:nth-child(6) { animation-delay: 0.6s; }
+    .offer-article .offer-section:nth-child(7) { animation-delay: 0.7s; }
+    .offer-article .offer-section:nth-child(8) { animation-delay: 0.8s; }
+    .offer-article .offer-section:nth-child(9) { animation-delay: 0.9s; }
+    .offer-article .offer-section:nth-child(10) { animation-delay: 1s; }
+    .offer-article .offer-section:nth-child(11) { animation-delay: 1.1s; }
+    .offer-article .offer-section:nth-child(12) { animation-delay: 1.2s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .offer-article .offer-header,
+    .offer-article .offer-section {
+        opacity: 1;
+        transform: translateY(0);
+        animation: none;
     }
 }
