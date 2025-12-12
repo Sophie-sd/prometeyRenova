@@ -29,6 +29,15 @@
     position: relative;
 }
 
+/* ===== PARALLAX EFFECT FOR DESKTOP (>=768px) ===== */
+@media (min-width: 768px) {
+    .calc-hero {
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+    }
+}
+
 /* Прозорий логотип на фоні */
 .calc-hero::before {
     content: '';
@@ -300,7 +309,7 @@
 /* ===== ПИТАННЯ ===== */
 .calc-question {
     background: 
-        linear-gradient(rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.72)),
+        linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)),
         url('../images/first_background.png') center/cover fixed;
     padding: clamp(24px, 4vw, 32px);
     border-left: 2px solid var(--color-brand-orange);
@@ -423,7 +432,7 @@
 /* ===== ДАНІ КОРИСТУВАЧА ===== */
 .calc-user-data {
     background: 
-        linear-gradient(rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.78)),
+        linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)),
         url('../images/first_background.png') center/cover fixed;
     padding: clamp(32px, 5vw, 48px);
     position: relative;
