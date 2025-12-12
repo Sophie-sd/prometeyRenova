@@ -30,7 +30,7 @@
                 <h3>{% trans "ПРАВОВА ІНФОРМАЦІЯ" %}</h3>
                 <div class="footer-accordion-content">
                     <a href="{% url 'offer' %}" class="footer-link">{% trans "Публічний договір (оферта)" %}</a>
-                    <a href="#" class="footer-link">{% trans "Політика конфіденційності" %}</a>
+                    <a href="{% url 'privacy' %}" class="footer-link">{% trans "Політика конфіденційності" %}</a>
                     <a href="#" class="footer-link">{% trans "Політика cookies" %}</a>
                     <a href="#" class="footer-link">{% trans "Політика повернення коштів" %}</a>
                     <a href="#" class="footer-link">{% trans "Інтелектуальна власність" %}</a>
@@ -83,7 +83,7 @@
                     <div class="form-group">
                         <label class="form-checkbox footer-checkbox">
                             <input type="checkbox" name="consent" required>
-                            <span>{% trans "Даю згоду на обробку персональних даних згідно" %} <a href="#" class="footer-policy-link">{% trans "політики конфіденційності" %}</a></span>
+                            <span>{% trans "Даю згоду на обробку персональних даних згідно" %} <a href="{% url 'privacy' %}" class="footer-policy-link">{% trans "політики конфіденційності" %}</a></span>
                         </label>
                     </div>
                     <button type="submit" class="btn btn-primary footer-submit-btn">{% trans "Відправити" %}</button>

@@ -43,6 +43,11 @@ class OfferView(BasePageView):
     page_title = 'Публічна оферта на надання послуг | PrometeyLabs'
     meta_description = 'Публічна оферта на надання послуг від PrometeyLabs. Офіційні умови надання послуг веб-розробки, мобільних застосунків та маркетингу.'
 
+class PrivacyView(BasePageView):
+    template_name = 'pages/privacy.html'
+    page_title = 'Політика конфіденційності | PrometeyLabs'
+    meta_description = 'Політика конфіденційності PrometeyLabs. Дізнайтеся, як ми захищаємо ваші персональні дані відповідно до законодавства України та GDPR.'
+
 
 # ===== AJAX ОБРОБКА ФОРМ =====
 

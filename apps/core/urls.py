@@ -9,6 +9,7 @@ urlpatterns = [
     path('developer/', views.DeveloperView.as_view(), name='developer'),
     path('contacts/', views.ContactsView.as_view(), name='contacts'),
     path('offer/', views.OfferView.as_view(), name='offer'),
+    path('privacy/', views.PrivacyView.as_view(), name='privacy'),
 
     
     # AJAX обробка форм

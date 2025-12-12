@@ -1,0 +1,299 @@
+/* =================================
+   PRIVACY.CSS - Політика конфіденційності
+   Компактний документоподібний формат
+   ІЗОЛЬОВАНО: всі стилі застосовуються ТІЛЬКИ до .privacy-article
+   ================================= */
+
+/* ===== HEADER OVERRIDE (темний хедер на сторінці політики) ===== */
+/* Цей файл завантажується тільки на сторінці політики, тому стилі застосовуються тільки тут */
+.main-navigation {
+    background: #1a1a1a !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.main-navigation .nav-link {
+    color: #ffffff !important;
+}
+
+.main-navigation .nav-logo {
+    color: #E65100 !important;
+}
+
+.main-navigation .burger-line {
+    background: #E65100 !important;
+}
+
+/* ===== PRIVACY ARTICLE (контейнер для ізоляції стилів) ===== */
+.privacy-article {
+    min-height: 100vh;
+    background: #FFFFFF;
+    padding-top: 100px;
+}
+
+/* ===== PRIVACY HEADER ===== */
+.privacy-article .privacy-header {
+    background: #FFFFFF;
+    padding: 30px 0 15px;
+    text-align: center;
+}
+
+.privacy-article .privacy-header-inner {
+    max-width: 100%;
+}
+
+.privacy-article .privacy-title {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 700;
+    color: #E65100;
+    margin: 0 0 15px 0;
+    line-height: 1.2;
+    letter-spacing: -1px;
+}
+
+.privacy-article .privacy-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.privacy-article .privacy-date {
+    font-size: 14px;
+    color: #000000;
+    opacity: 0.7;
+    font-weight: 500;
+}
+
+/* ===== PRIVACY CONTENT ===== */
+.privacy-article .privacy-content {
+    background: #FFFFFF;
+    padding: 10px 0;
+}
+
+.privacy-article .privacy-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== PRIVACY SECTIONS ===== */
+.privacy-article .privacy-section {
+    margin-bottom: 15px;
+}
+
+.privacy-article .privacy-section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #E65100;
+    margin: 0 0 30px 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+/* ===== PRIVACY SUBSECTIONS (h3 + p як звичайний текст, inline) ===== */
+.privacy-article .privacy-subsection {
+    margin-bottom: 10px;
+}
+
+.privacy-article .privacy-subsection h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0;
+    line-height: 1.6;
+    display: inline;
+    margin-right: 0.8em;
+}
+
+.privacy-article .privacy-subsection p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #000000;
+    margin: 0;
+    display: inline;
+    text-align: left;
+}
+
+/* ===== LISTS (йдуть з нового рядка після inline тексту) ===== */
+.privacy-article .privacy-definitions,
+.privacy-article .privacy-list,
+.privacy-article .privacy-steps {
+    display: block;
+    margin: 10px 0 10px 20px;
+    padding-left: 20px;
+}
+
+.privacy-article .privacy-definitions li,
+.privacy-article .privacy-list li,
+.privacy-article .privacy-steps li {
+    margin-bottom: 6px;
+    line-height: 1.6;
+    color: #000000;
+    font-size: 16px;
+}
+
+.privacy-article .privacy-definitions li {
+    list-style: disc;
+}
+
+.privacy-article .privacy-list li {
+    list-style: disc;
+}
+
+.privacy-article .privacy-steps {
+    list-style-type: decimal;
+}
+
+.privacy-article .privacy-steps li {
+    margin-bottom: 8px;
+}
+
+/* ===== ТЕКСТОВІ СТИЛІ ===== */
+.privacy-article strong {
+    font-weight: 700;
+    color: #000000;
+}
+
+/* ===== АДАПТАЦІЯ ДЕСКТОП ===== */
+@media (max-width: 1024px) {
+    .privacy-article .privacy-title {
+        font-size: clamp(24px, 4vw, 40px);
+    }
+
+    .privacy-article .privacy-section h2 {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+}
+
+/* ===== АДАПТАЦІЯ ПЛАНШЕТ (768px - 1024px) ===== */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .privacy-article .privacy-header {
+        padding: 30px 0 25px;
+    }
+
+    .privacy-article .privacy-wrapper {
+        padding: 0 15px;
+    }
+
+    .privacy-article .privacy-section p {
+        font-size: 15px;
+    }
+}
+
+/* ===== АДАПТАЦІЯ МОБІЛЬНА (320px - 767px) ===== */
+@media (max-width: 767px) {
+    .privacy-article {
+        padding-top: 100px;
+    }
+
+    .privacy-article .privacy-header {
+        padding: 15px 0 10px;
+    }
+
+    .privacy-article .privacy-title {
+        font-size: clamp(20px, 5vw, 32px);
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+    }
+
+    .privacy-article .privacy-date {
+        font-size: 12px;
+    }
+
+    .privacy-article .privacy-content {
+        padding: 8px 0;
+    }
+
+    .privacy-article .privacy-wrapper {
+        padding: 0 12px;
+    }
+
+    .privacy-article .privacy-section {
+        margin-bottom: 12px;
+    }
+
+    .privacy-article .privacy-section h2 {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+
+    .privacy-article .privacy-subsection h3 {
+        font-size: 15px;
+        display: inline;
+        margin-right: 0.6em;
+    }
+
+    .privacy-article .privacy-subsection p {
+        font-size: 15px;
+        /* iOS Safari: 16px запобігає zoom, але 15px для компактності на мобільних */
+        line-height: 1.5;
+        text-align: left;
+        display: inline;
+        margin: 0;
+    }
+
+    .privacy-article .privacy-definitions,
+    .privacy-article .privacy-list,
+    .privacy-article .privacy-steps {
+        margin: 8px 0 8px 16px;
+        padding-left: 16px;
+    }
+
+    .privacy-article .privacy-definitions li,
+    .privacy-article .privacy-list li,
+    .privacy-article .privacy-steps li {
+        margin-bottom: 5px;
+        font-size: 15px;
+    }
+}
+
+/* ===== iOS SAFARI СПЕЦИФІКА ===== */
+@supports (-webkit-touch-callout: none) {
+    .privacy-article {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    .privacy-article .privacy-wrapper {
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .privacy-article .privacy-subsection p {
+        -webkit-font-smoothing: antialiased;
+    }
+}
+
+/* ===== АНІМАЦІЇ (зберігаємо з core/animations.css) ===== */
+@media (prefers-reduced-motion: no-preference) {
+    .privacy-article .privacy-header {
+        animation: fadeInUp-large 0.8s ease-out;
+    }
+
+    .privacy-article .privacy-section {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .privacy-article .privacy-section:nth-child(1) { animation-delay: 0.1s; }
+    .privacy-article .privacy-section:nth-child(2) { animation-delay: 0.2s; }
+    .privacy-article .privacy-section:nth-child(3) { animation-delay: 0.3s; }
+    .privacy-article .privacy-section:nth-child(4) { animation-delay: 0.4s; }
+    .privacy-article .privacy-section:nth-child(5) { animation-delay: 0.5s; }
+    .privacy-article .privacy-section:nth-child(6) { animation-delay: 0.6s; }
+    .privacy-article .privacy-section:nth-child(7) { animation-delay: 0.7s; }
+    .privacy-article .privacy-section:nth-child(8) { animation-delay: 0.8s; }
+    .privacy-article .privacy-section:nth-child(9) { animation-delay: 0.9s; }
+    .privacy-article .privacy-section:nth-child(10) { animation-delay: 1s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .privacy-article .privacy-header,
+    .privacy-article .privacy-section {
+        opacity: 1;
+        transform: translateY(0);
+        animation: none;
+    }
+}
+
