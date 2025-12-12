@@ -430,6 +430,13 @@ body.is-scrolling .service-card:hover .service-number {
     overflow: hidden;
 }
 
+/* ===== FIXED VIDEO SUPPORT FOR DESKTOP (>=768px) ===== */
+@media (min-width: 768px) {
+    .cta-section {
+        overflow: visible;
+    }
+}
+
 /* Абсолютний overlay для CTA */
 .cta-section .video-overlay {
     position: absolute;

@@ -44,6 +44,25 @@
     will-change: transform;
 }
 
+/* ===== FIXED VIDEO FOR DESKTOP (>=768px) ===== */
+@media (min-width: 768px) {
+    .hero-section .video-background,
+    .cta-section .video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        height: 100svh;
+    }
+    
+    /* CRITICAL: Allow fixed elements to escape overflow */
+    .hero-section,
+    .cta-section {
+        overflow: visible;
+    }
+}
+
 /* Desktop відео */
 .hero-parallax__video--desktop,
 .desktop-video {
@@ -80,6 +99,19 @@
     background: rgba(0, 0, 0, 0.4);
     z-index: 1;
     pointer-events: none;
+}
+
+/* ===== FIXED OVERLAY FOR DESKTOP (>=768px) ===== */
+@media (min-width: 768px) {
+    .hero-section .video-overlay,
+    .cta-section .video-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        height: 100svh;
+    }
 }
 
 /* ===== КОНТЕНТ (обидва варіанти) ===== */
@@ -215,6 +247,15 @@
     .hero-parallax__video--mobile,
     .mobile-video {
         display: block;
+    }
+
+    /* Забезпечити position absolute на мобільних (скасувати fixed) */
+    .hero-section .video-background,
+    .cta-section .video-background,
+    .hero-section .video-overlay,
+    .cta-section .video-overlay {
+        position: absolute;
+        height: 100%;
     }
 
     /* Адаптація spacing */
