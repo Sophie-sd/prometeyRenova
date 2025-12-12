@@ -8,6 +8,7 @@ urlpatterns = [
     path('calculator/', views.CalculatorView.as_view(), name='calculator'),
     path('developer/', views.DeveloperView.as_view(), name='developer'),
     path('contacts/', views.ContactsView.as_view(), name='contacts'),
+    path('offer/', views.OfferView.as_view(), name='offer'),
 
     
     # AJAX обробка форм

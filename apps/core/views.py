@@ -38,6 +38,11 @@ class ContactsView(BasePageView):
     page_title = 'Контакти | PrometeyLabs - Зв\'яжіться з нами'
     meta_description = 'Зв\'яжіться з командою PrometeyLabs для розробки сайтів, Telegram ботів, реклами чи навчання. Київ, Україна.'
 
+class OfferView(BasePageView):
+    template_name = 'pages/offer.html'
+    page_title = 'Публічна оферта на надання послуг | PrometeyLabs'
+    meta_description = 'Публічна оферта на надання послуг від PrometeyLabs. Офіційні умови надання послуг веб-розробки, мобільних застосунків та маркетингу.'
+
 
 # ===== AJAX ОБРОБКА ФОРМ =====
 
