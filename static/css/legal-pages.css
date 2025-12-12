@@ -1,0 +1,301 @@
+/* =================================
+   LEGAL-PAGES.CSS - Юридичні сторінки (Оферта, Політика конфіденційності, Cookies та ін.)
+   Компактний документоподібний формат
+   ІЗОЛЬОВАНО: всі стилі застосовуються ТІЛЬКИ до .legal-article
+   ================================= */
+
+/* ===== HEADER OVERRIDE (темний хедер на юридичних сторінках) ===== */
+/* Цей файл завантажується на всіх юридичних сторінках, тому стилі застосовуються тільки тут */
+.main-navigation {
+    background: #1a1a1a !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.main-navigation .nav-link {
+    color: #ffffff !important;
+}
+
+.main-navigation .nav-logo {
+    color: #E65100 !important;
+}
+
+.main-navigation .burger-line {
+    background: #E65100 !important;
+}
+
+/* ===== LEGAL ARTICLE (контейнер для ізоляції стилів) ===== */
+.legal-article {
+    min-height: 100vh;
+    background: #FFFFFF;
+    padding-top: 100px;
+}
+
+/* ===== LEGAL HEADER ===== */
+.legal-article .legal-header {
+    background: #FFFFFF;
+    padding: 30px 0 15px;
+    text-align: center;
+}
+
+.legal-article .legal-header-inner {
+    max-width: 100%;
+}
+
+.legal-article .legal-title {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 700;
+    color: #E65100;
+    margin: 0 0 15px 0;
+    line-height: 1.2;
+    letter-spacing: -1px;
+}
+
+.legal-article .legal-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.legal-article .legal-date {
+    font-size: 14px;
+    color: #000000;
+    opacity: 0.7;
+    font-weight: 500;
+}
+
+/* ===== LEGAL CONTENT ===== */
+.legal-article .legal-content {
+    background: #FFFFFF;
+    padding: 10px 0;
+}
+
+.legal-article .legal-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== LEGAL SECTIONS ===== */
+.legal-article .legal-section {
+    margin-bottom: 15px;
+}
+
+.legal-article .legal-section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #E65100;
+    margin: 0 0 30px 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+/* ===== LEGAL SUBSECTIONS (h3 + p як звичайний текст, inline) ===== */
+.legal-article .legal-subsection {
+    margin-bottom: 10px;
+}
+
+.legal-article .legal-subsection h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0;
+    line-height: 1.6;
+    display: inline;
+    margin-right: 0.8em;
+}
+
+.legal-article .legal-subsection p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #000000;
+    margin: 0;
+    display: inline;
+    text-align: left;
+}
+
+/* ===== LISTS (йдуть з нового рядка після inline тексту) ===== */
+.legal-article .legal-definitions,
+.legal-article .legal-list,
+.legal-article .legal-steps {
+    display: block;
+    margin: 10px 0 10px 20px;
+    padding-left: 20px;
+}
+
+.legal-article .legal-definitions li,
+.legal-article .legal-list li,
+.legal-article .legal-steps li {
+    margin-bottom: 6px;
+    line-height: 1.6;
+    color: #000000;
+    font-size: 16px;
+}
+
+.legal-article .legal-definitions li {
+    list-style: disc;
+}
+
+.legal-article .legal-list li {
+    list-style: disc;
+}
+
+.legal-article .legal-steps {
+    list-style-type: decimal;
+}
+
+.legal-article .legal-steps li {
+    margin-bottom: 8px;
+}
+
+/* ===== ТЕКСТОВІ СТИЛІ ===== */
+.legal-article strong {
+    font-weight: 700;
+    color: #000000;
+}
+
+/* ===== АДАПТАЦІЯ ДЕСКТОП ===== */
+@media (max-width: 1024px) {
+    .legal-article .legal-title {
+        font-size: clamp(24px, 4vw, 40px);
+    }
+
+    .legal-article .legal-section h2 {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+}
+
+/* ===== АДАПТАЦІЯ ПЛАНШЕТ (768px - 1024px) ===== */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .legal-article .legal-header {
+        padding: 30px 0 25px;
+    }
+
+    .legal-article .legal-wrapper {
+        padding: 0 15px;
+    }
+
+    .legal-article .legal-section p {
+        font-size: 15px;
+    }
+}
+
+/* ===== АДАПТАЦІЯ МОБІЛЬНА (320px - 767px) ===== */
+@media (max-width: 767px) {
+    .legal-article {
+        padding-top: 100px;
+    }
+
+    .legal-article .legal-header {
+        padding: 15px 0 10px;
+    }
+
+    .legal-article .legal-title {
+        font-size: clamp(20px, 5vw, 32px);
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+    }
+
+    .legal-article .legal-date {
+        font-size: 12px;
+    }
+
+    .legal-article .legal-content {
+        padding: 8px 0;
+    }
+
+    .legal-article .legal-wrapper {
+        padding: 0 12px;
+    }
+
+    .legal-article .legal-section {
+        margin-bottom: 12px;
+    }
+
+    .legal-article .legal-section h2 {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+
+    .legal-article .legal-subsection h3 {
+        font-size: 15px;
+        display: inline;
+        margin-right: 0.6em;
+    }
+
+    .legal-article .legal-subsection p {
+        font-size: 15px;
+        /* iOS Safari: 16px запобігає zoom, але 15px для компактності на мобільних */
+        line-height: 1.5;
+        text-align: left;
+        display: inline;
+        margin: 0;
+    }
+
+    .legal-article .legal-definitions,
+    .legal-article .legal-list,
+    .legal-article .legal-steps {
+        margin: 8px 0 8px 16px;
+        padding-left: 16px;
+    }
+
+    .legal-article .legal-definitions li,
+    .legal-article .legal-list li,
+    .legal-article .legal-steps li {
+        margin-bottom: 5px;
+        font-size: 15px;
+    }
+}
+
+/* ===== iOS SAFARI СПЕЦИФІКА ===== */
+@supports (-webkit-touch-callout: none) {
+    .legal-article {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    .legal-article .legal-wrapper {
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .legal-article .legal-subsection p {
+        -webkit-font-smoothing: antialiased;
+    }
+}
+
+/* ===== АНІМАЦІЇ (зберігаємо з core/animations.css) ===== */
+@media (prefers-reduced-motion: no-preference) {
+    .legal-article .legal-header {
+        animation: fadeInUp-large 0.8s ease-out;
+    }
+
+    .legal-article .legal-section {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .legal-article .legal-section:nth-child(1) { animation-delay: 0.1s; }
+    .legal-article .legal-section:nth-child(2) { animation-delay: 0.2s; }
+    .legal-article .legal-section:nth-child(3) { animation-delay: 0.3s; }
+    .legal-article .legal-section:nth-child(4) { animation-delay: 0.4s; }
+    .legal-article .legal-section:nth-child(5) { animation-delay: 0.5s; }
+    .legal-article .legal-section:nth-child(6) { animation-delay: 0.6s; }
+    .legal-article .legal-section:nth-child(7) { animation-delay: 0.7s; }
+    .legal-article .legal-section:nth-child(8) { animation-delay: 0.8s; }
+    .legal-article .legal-section:nth-child(9) { animation-delay: 0.9s; }
+    .legal-article .legal-section:nth-child(10) { animation-delay: 1s; }
+    .legal-article .legal-section:nth-child(11) { animation-delay: 1.1s; }
+    .legal-article .legal-section:nth-child(12) { animation-delay: 1.2s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .legal-article .legal-header,
+    .legal-article .legal-section {
+        opacity: 1;
+        transform: translateY(0);
+        animation: none;
+    }
+}
+

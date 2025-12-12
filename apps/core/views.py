@@ -48,6 +48,11 @@ class PrivacyView(BasePageView):
     page_title = 'Політика конфіденційності | PrometeyLabs'
     meta_description = 'Політика конфіденційності PrometeyLabs. Дізнайтеся, як ми захищаємо ваші персональні дані відповідно до законодавства України та GDPR.'
 
+class CookiesView(BasePageView):
+    template_name = 'pages/cookies.html'
+    page_title = 'Політика щодо файлів cookie | PrometeyLabs'
+    meta_description = 'Політика щодо файлів cookie від PrometeyLabs. Дізнайтеся, які файли cookie ми використовуємо та як керувати налаштуваннями.'
+
 
 # ===== AJAX ОБРОБКА ФОРМ =====
 
