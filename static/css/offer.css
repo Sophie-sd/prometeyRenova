@@ -90,13 +90,9 @@
     letter-spacing: -0.5px;
 }
 
-/* ===== OFFER SUBSECTIONS (h3 + p на одному рядку) ===== */
+/* ===== OFFER SUBSECTIONS (h3 + p як звичайний текст, inline) ===== */
 .offer-article .offer-subsection {
     margin-bottom: 10px;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: flex-start;
-    gap: 1em;
 }
 
 .offer-article .offer-subsection h3 {
@@ -105,8 +101,8 @@
     color: #000000;
     margin: 0;
     line-height: 1.6;
-    flex-shrink: 0;
-    white-space: nowrap;
+    display: inline;
+    margin-right: 0.8em;
 }
 
 .offer-article .offer-subsection p {
@@ -114,14 +110,15 @@
     line-height: 1.6;
     color: #000000;
     margin: 0;
-    flex: 1;
+    display: inline;
     text-align: left;
 }
 
-/* ===== LISTS ===== */
+/* ===== LISTS (йдуть з нового рядка після inline тексту) ===== */
 .offer-article .offer-definitions,
 .offer-article .offer-list,
 .offer-article .offer-steps {
+    display: block;
     margin: 10px 0 10px 20px;
     padding-left: 20px;
 }
@@ -221,16 +218,10 @@
         margin-bottom: 20px;
     }
 
-    .offer-article .offer-subsection {
-        flex-wrap: nowrap;
-        gap: 0.6em;
-    }
-
     .offer-article .offer-subsection h3 {
         font-size: 15px;
-        flex-shrink: 0;
-        white-space: nowrap;
-        margin: 0;
+        display: inline;
+        margin-right: 0.6em;
     }
 
     .offer-article .offer-subsection p {
@@ -238,7 +229,7 @@
         /* iOS Safari: 16px запобігає zoom, але 15px для компактності на мобільних */
         line-height: 1.5;
         text-align: left;
-        flex: 1;
+        display: inline;
         margin: 0;
     }
 
