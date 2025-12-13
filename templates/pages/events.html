@@ -43,19 +43,6 @@
 <section class="events-filter">
     <div class="container">
         <div class="filter-container">
-            <!-- Категорії -->
-            <div class="filter-group">
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-category="">Всі</button>
-                    {% for category in categories %}
-                    <button class="filter-btn" data-category="{{ category.slug }}"
-                        data-color="{{ category.color }}">
-                        {{ category.name }}
-                    </button>
-                    {% endfor %}
-                </div>
-            </div>
-
             <!-- Тип події -->
             <div class="filter-group">
                 <div class="filter-buttons">
