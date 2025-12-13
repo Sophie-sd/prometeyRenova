@@ -14,7 +14,6 @@ body {
 /* ===== BLOG HEADER - ПЕРША СЕКЦІЯ ПІСЛЯ HERO ===== */
 .blog-header {
     position: relative;
-    padding: var(--space-xl) 0;
     padding-top: 60px;
     background: transparent;
     z-index: 10;
@@ -114,7 +113,6 @@ body {
 
 /* ===== ARTICLES GRID ===== */
 .blog-articles {
-    padding: var(--space-md) 0;
     background: transparent;
 }
 
@@ -1120,7 +1118,7 @@ body {
 }
 
 .popular-header {
-    margin-bottom: var(--space-lg);
+    margin-bottom: 40px;
     color: var(--color-white);
 }
 
