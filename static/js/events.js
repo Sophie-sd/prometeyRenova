@@ -12,17 +12,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ===== FILTER SYSTEM =====
+let currentFilters = {
+    category: '',
+    type: '',
+    sort: '-start_date'
+};
+
 function initFilterSystem() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const eventsContainer = document.querySelector('.events-container');
+    const applyBtn = document.getElementById('apply-filters');
+    const clearBtn = document.getElementById('clear-filters');
 
     if (!filterButtons.length || !eventsContainer) return;
 
-    const currentFilters = {
-        category: '',
-        type: '',
-        sort: '-start_date'
-    };
+    // Встановлюємо початкові активні фільтри
+    updateActiveFilters();
 
     filterButtons.forEach(button => {
         button.addEventListener('click', (e) => {
@@ -34,18 +39,63 @@ function initFilterSystem() {
 
             if (!filterType) return;
 
-            // Оновлення active state
+            // Оновлення active state для UI
             const buttonGroup = button.closest('.filter-buttons');
             buttonGroup.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             button.classList.add('active');
 
-            // Оновлення фільтрів
+            // Зберігаємо значення для подальшого застосування
             currentFilters[filterType] = button.dataset[filterType];
+        });
+    });
 
-            // Застосування
+    // Обробники для кнопок дій
+    if (applyBtn) {
+        applyBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             applyFilters(currentFilters, eventsContainer);
+        });
+    }
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            clearFilters();
+        });
+    }
+}
+
+function updateActiveFilters() {
+    // Встановлюємо активні кнопки на основі URL параметрів
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('category') || '';
+    const type = params.get('type') || '';
+    const sort = params.get('sort') || '-start_date';
+
+    currentFilters = { category, type, sort };
+
+    // Визуально позначаємо активні кнопки
+    document.querySelectorAll('.filter-buttons').forEach(group => {
+        const buttons = group.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => {
+            btn.classList.remove('active');
+            
+            if (btn.dataset.category !== undefined && btn.dataset.category === category && category !== '') {
+                btn.classList.add('active');
+            } else if (btn.dataset.type !== undefined && btn.dataset.type === type && type !== '') {
+                btn.classList.add('active');
+            } else if (btn.dataset.sort !== undefined && btn.dataset.sort === sort) {
+                btn.classList.add('active');
+            } else if ((btn.dataset.category === '' && category === '') ||
+                       (btn.dataset.type === '' && type === '') ||
+                       (btn.dataset.sort === '-start_date' && sort === '-start_date')) {
+                // Позначаємо першу кнопку (Всі) якщо немає вибраних
+                if (buttons.indexOf(btn) === 0 && !group.querySelector('.active')) {
+                    btn.classList.add('active');
+                }
+            }
         });
     });
 }
@@ -76,6 +126,21 @@ async function applyFilters(filters, container) {
     } finally {
         container.classList.remove('loading-state');
     }
+}
+
+function clearFilters() {
+    // Скидаємо фільтри
+    currentFilters = {
+        category: '',
+        type: '',
+        sort: '-start_date'
+    };
+
+    // Оновлюємо UI
+    updateActiveFilters();
+
+    // Перезавантажуємо сторінку без параметрів
+    window.location.href = '/events/';
 }
 
 function updateEventsGrid(events, container) {

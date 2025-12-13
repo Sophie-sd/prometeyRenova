@@ -27,13 +27,12 @@
     <div class="hero-content">
         <div class="container">
             <div class="hero-text text-center">
-                <h1 class="text-mega color-brand-orange mb-lg">Актуальні події та акції</h1>
+                <h1 class="text-mega color-brand-orange mb-lg">Актуальні події та вебінари</h1>
                 <p class="text-large color-white mb-xl">
+                    <span class="hero-services">онлайн події</span> ·
                     <span class="hero-services">вебінари</span> ·
-                    <span class="hero-services">курси програмування</span> ·
-                    <span class="hero-services">знижки</span> ·
-                    <span class="hero-services">майстер-класи</span> ·
-                    <span class="hero-services">зустрічі розробників</span>
+                    <span class="hero-services">анонс нових курсів</span> ·
+                    <span class="hero-services">знижки</span>
                 </p>
             </div>
         </div>
@@ -41,12 +40,11 @@
 </section>
 
 <!-- Events Filter Section -->
-<section class="events-filter bg-beige">
+<section class="events-filter">
     <div class="container">
         <div class="filter-container">
             <!-- Категорії -->
             <div class="filter-group">
-                <label class="filter-label text-base">Категорія:</label>
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-category="">Всі</button>
                     {% for category in categories %}
@@ -60,7 +58,6 @@
 
             <!-- Тип події -->
             <div class="filter-group">
-                <label class="filter-label text-base">Тип:</label>
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-type="">Всі</button>
                     <button class="filter-btn" data-type="webinar">Вебінари</button>
@@ -72,12 +69,17 @@
 
             <!-- Сортування -->
             <div class="filter-group">
-                <label class="filter-label text-base">Сортування:</label>
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-sort="-start_date">Найближчі</button>
                     <button class="filter-btn" data-sort="price">За ціною</button>
                     <button class="filter-btn" data-sort="-is_featured">Рекомендовані</button>
                 </div>
+            </div>
+
+            <!-- Filter Actions -->
+            <div class="filter-actions">
+                <button class="filter-action-btn apply-filters" id="apply-filters">Застосувати</button>
+                <button class="filter-action-btn clear-filters" id="clear-filters">Очистити</button>
             </div>
         </div>
     </div>
@@ -189,29 +191,6 @@
     </div>
 </section>
 
-<!-- Events SEO Section -->
-<section class="events-seo bg-beige">
-    <div class="container">
-        <div class="seo-content">
-            <h2 class="text-large color-black mb-md">Події та акції PrometeyLabs</h2>
-            <p class="text-base mb-sm">
-                <strong>Вебінари та курси програмування</strong> - регулярні онлайн зустрічі для розробників.
-                Безкоштовні вебінари з Python, Django, React та інших технологій.
-                Практичні майстер-класи з реальними проектами.
-            </p>
-            <p class="text-base mb-sm">
-                <strong>Сезонні знижки</strong> на курси програмування та розробку сайтів.
-                Спеціальні пропозиції для студентів та початківців.
-                Гнучкі умови оплати та розстрочка.
-            </p>
-            <p class="text-base">
-                <strong>Зустрічі розробників</strong> - networking події для обміну досвідом.
-                Презентації нових технологій, case studies успішних проектів,
-                можливості для співпраці та кар'єрного росту.
-            </p>
-        </div>
-    </div>
-</section>
 {% endblock %}
 
 {% block extra_js %}
