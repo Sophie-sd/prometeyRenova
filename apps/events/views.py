@@ -11,45 +11,27 @@ def events_list(request):
     try:
         events = Event.objects.filter(is_published=True).select_related('category')
         
-        # Фільтри
-        category_slug = request.GET.get('category')
+        # Фільтр по типу
         event_type = request.GET.get('type')
-        status = request.GET.get('status')
-        
-        if category_slug:
-            events = events.filter(category__slug=category_slug)
-        
         if event_type:
             events = events.filter(event_type=event_type)
         
-        if status:
-            events = events.filter(status=status)
-        
-        # Сортування
-        sort_by = request.GET.get('sort', '-start_date')
-        events = events.order_by(sort_by)
+        # Сортування за замовчуванням
+        events = events.order_by('-start_date')
         
         # Пагінація
         paginator = Paginator(events, 6)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
-        
-        # Категорії для фільтрів
-        categories = EventCategory.objects.all()
     except Exception:
         # Fallback якщо таблиці не існують
         from django.core.paginator import Paginator
         paginator = Paginator([], 6)
         page_obj = paginator.get_page(1)
-        categories = []
     
     context = {
         'page_obj': page_obj,
-        'categories': categories,
-        'current_category': category_slug,
         'current_type': event_type,
-        'current_status': status,
-        'current_sort': sort_by,
         'page_title': 'Події та акції | PrometeyLabs',
         'meta_description': 'Актуальні вебінари, курси, знижки та події від PrometeyLabs. Реєструйтесь на безкоштовні вебінари та отримуйте знижки на курси програмування.',
         'og_title': 'Події PrometeyLabs - Вебінари, курси, знижки',
@@ -163,23 +145,13 @@ def events_ajax_filter(request):
         except Exception:
             return JsonResponse({'error': 'Database not available'})
         
-        # Застосовуємо фільтри
-        category_slug = request.GET.get('category')
+        # Застосовуємо фільтр по типу
         event_type = request.GET.get('type')
-        status = request.GET.get('status')
-        
-        if category_slug:
-            events = events.filter(category__slug=category_slug)
-        
         if event_type:
             events = events.filter(event_type=event_type)
         
-        if status:
-            events = events.filter(status=status)
-        
-        # Сортування
-        sort_by = request.GET.get('sort', '-start_date')
-        events = events.order_by(sort_by)
+        # Сортування за замовчуванням
+        events = events.order_by('-start_date')
         
         # Пагінація
         paginator = Paginator(events, 6)

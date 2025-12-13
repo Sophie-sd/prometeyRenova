@@ -39,42 +39,22 @@
     </div>
 </section>
 
-<!-- Events Filter Section -->
-<section class="events-filter">
-    <div class="container">
-        <div class="filter-container">
-            <!-- Тип події -->
-            <div class="filter-group">
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-type="">Всі</button>
-                    <button class="filter-btn" data-type="webinar">Вебінари</button>
-                    <button class="filter-btn" data-type="course">Курси</button>
-                    <button class="filter-btn" data-type="discount">Знижки</button>
-                    <button class="filter-btn" data-type="workshop">Майстер-класи</button>
-                </div>
-            </div>
-
-            <!-- Сортування -->
-            <div class="filter-group">
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-sort="-start_date">Найближчі</button>
-                    <button class="filter-btn" data-sort="price">За ціною</button>
-                    <button class="filter-btn" data-sort="-is_featured">Рекомендовані</button>
-                </div>
-            </div>
-
-            <!-- Filter Actions -->
-            <div class="filter-actions">
-                <button class="filter-action-btn apply-filters" id="apply-filters">Застосувати</button>
-                <button class="filter-action-btn clear-filters" id="clear-filters">Очистити</button>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Events Grid -->
 <section class="events-grid bg-white">
     <div class="container">
+        <div class="events-header">
+            <div class="event-type-filter">
+                <select id="event-type-filter" class="event-type-select">
+                    <option value="">Всі</option>
+                    <option value="webinar">Вебінари</option>
+                    <option value="course">Курси</option>
+                    <option value="discount">Знижки</option>
+                    <option value="workshop">Майстер-класи</option>
+                    <option value="meetup">Зустрічі</option>
+                    <option value="other">Інше</option>
+                </select>
+            </div>
+        </div>
         <div class="events-container">
             {% for event in page_obj %}
             <article class="event-card" data-event="{{ forloop.counter }}">
