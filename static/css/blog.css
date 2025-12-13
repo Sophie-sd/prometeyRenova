@@ -2,29 +2,56 @@
 
 /* Hero використовує hero-parallax.css компонент */
 
+/* ===== ФОНОВІ ЗОБРАЖЕННЯ ДЛЯ БЛОГУ ===== */
+body {
+    background-image: url('/static/images/first_background.png');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* ===== ДЕКОРАТИВНА ЛІНІЯ ПІСЛЯ HERO ===== */
+.blog-hero::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--color-brand-orange) 10%, 
+        var(--color-brand-orange) 90%, 
+        transparent 100%);
+    margin: var(--space-md) auto;
+    width: 80%;
+    max-width: 1200px;
+}
+
 /* ===== BLOG HEADER - ПЕРША СЕКЦІЯ ПІСЛЯ HERO ===== */
 .blog-header {
     position: relative;
     padding: var(--space-xl) 0;
     padding-top: 60px;
-    background: var(--color-black);
+    background: transparent;
     z-index: 10;
     border-radius: 20px 20px 0 0;
     margin-top: -20px;
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: none;
 }
 
 .blog-intro h1 {
     margin-bottom: var(--space-lg);
+    color: var(--color-brand-orange);
 }
 
 .blog-intro h2 {
     margin-bottom: var(--space-md);
+    color: var(--color-brand-orange);
 }
 
 .blog-intro p {
     max-width: 800px;
     margin: 0 auto var(--space-lg);
+    color: var(--color-white);
 }
 
 .blog-nav {
@@ -113,6 +140,7 @@
 /* ===== ARTICLES GRID ===== */
 .blog-articles {
     padding: var(--space-xl) 0;
+    background: transparent;
 }
 
 .articles-grid {
@@ -124,8 +152,8 @@
 
 /* ===== BLOG CARDS ===== */
 .blog-card {
-    background: var(--color-beige);
-    border: 3px solid transparent;
+    background: var(--color-black);
+    border: 3px solid var(--color-brand-orange);
     padding: var(--space-sm);
     transition: all 0.4s ease-out;
     cursor: pointer;
@@ -138,7 +166,8 @@
 .blog-card:hover {
     border-color: var(--color-brand-orange);
     transform: translateY(-5px);
-    background: var(--color-white);
+    background: var(--color-black);
+    box-shadow: 0 4px 12px rgba(230, 81, 0, 0.3);
 }
 
 /* Card Header */
@@ -162,13 +191,13 @@
 }
 
 .article-date {
-    color: var(--color-black);
+    color: var(--color-white);
     opacity: 0.7;
 }
 
 .reading-time-small {
     font-size: 10px;
-    color: var(--color-black);
+    color: var(--color-white);
     opacity: 0.6;
     font-weight: 500;
 }
@@ -177,6 +206,10 @@
 .card-content {
     flex: 1;
     margin-bottom: var(--space-sm);
+}
+
+.card-content h2 {
+    color: var(--color-white);
 }
 
 .article-category {
@@ -205,7 +238,7 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    color: var(--color-black);
+    color: var(--color-white);
     opacity: 0.7;
     font-size: 12px;
 }
@@ -215,7 +248,7 @@
 }
 
 .article-link {
-    color: var(--color-black);
+    color: var(--color-white);
     text-decoration: none;
     transition: color 0.3s ease-out;
 }
@@ -227,6 +260,7 @@
 .article-excerpt {
     line-height: 1.5;
     margin-bottom: var(--space-sm);
+    color: var(--color-white);
 }
 
 /* Keywords */
@@ -272,6 +306,7 @@
     border-top: 2px solid var(--color-brand-orange);
     max-width: 600px;
     margin: 0 auto;
+    color: var(--color-white);
 }
 
 .pagination-link {
@@ -282,57 +317,12 @@
 }
 
 .pagination-link:hover {
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 .pagination-info {
-    color: var(--color-black);
+    color: var(--color-white);
     opacity: 0.7;
-}
-
-/* ===== SEO CONTENT BLOCK ===== */
-.blog-seo {
-    padding: var(--space-xl) 0;
-    position: relative;
-}
-
-.seo-content h2 {
-    margin-bottom: var(--space-lg);
-}
-
-.seo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-md);
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.seo-item {
-    padding: var(--space-sm);
-    border-left: 3px solid var(--color-brand-orange);
-}
-
-/* Декоративні елементи для SEO блоку */
-.blog-seo::before {
-    content: '※';
-    position: absolute;
-    top: var(--space-sm);
-    left: var(--space-sm);
-    color: var(--color-brand-orange);
-    font-size: 28px;
-    opacity: 0.5;
-}
-
-.blog-seo::after {
-    content: '⟲';
-    position: absolute;
-    bottom: var(--space-sm);
-    right: var(--space-sm);
-    color: var(--color-brand-orange);
-    font-size: 32px;
-    font-weight: 700;
-    opacity: 0.4;
 }
 
 /* ===== NO ARTICLES ===== */
@@ -340,7 +330,7 @@
     grid-column: 1 / -1;
     text-align: center;
     padding: var(--space-xl);
-    background: var(--color-gray);
+    background: var(--color-black);
     border: 2px solid var(--color-brand-orange);
 }
 
@@ -356,6 +346,7 @@
 .article-header {
     padding: var(--space-xl) 0;
     position: relative;
+    background: transparent;
 }
 
 .article-meta {
@@ -364,6 +355,7 @@
     gap: var(--space-sm);
     margin-bottom: var(--space-md);
     flex-wrap: wrap;
+    color: var(--color-white);
 }
 
 .category-tag {
@@ -380,7 +372,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    color: var(--color-black);
+    color: var(--color-white);
     opacity: 0.7;
 }
 
@@ -391,11 +383,13 @@
 .article-title {
     max-width: 800px;
     margin-bottom: var(--space-md);
+    color: var(--color-brand-orange);
 }
 
 .article-excerpt {
     max-width: 600px;
     margin-bottom: var(--space-md);
+    color: var(--color-white);
 }
 
 .article-featured-image {
@@ -413,22 +407,24 @@
 
 .article-content {
     padding: var(--space-xl) 0;
+    background: transparent;
 }
 
 .content-wrapper {
     max-width: 800px;
     margin: 0 auto;
+    color: var(--color-white);
 }
 
 .article-text {
     font-size: 16px;
     line-height: 1.7;
-    color: var(--color-black);
+    color: var(--color-white);
     
     /* ЖУРНАЛЬНІ КОЛОНКИ - як в NY Times */
     column-count: 2;
     column-gap: 40px;
-    column-rule: 1px solid rgba(220, 20, 60, 0.2);
+    column-rule: 1px solid rgba(230, 81, 0, 0.2);
 }
 
 .article-text h2 {
@@ -445,7 +441,7 @@
 .article-text h3 {
     font-size: 22px;
     font-weight: 600;
-    color: var(--color-black);
+    color: var(--color-white);
     margin: var(--space-sm) 0 var(--space-xs);
     
     /* Підзаголовки всередині колонок */
@@ -457,12 +453,12 @@
     text-align: justify;
     hyphens: auto;
     line-height: 1.6;
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 .article-text strong {
     font-weight: 700;
-    color: var(--color-black);
+    color: var(--color-white);
 }
 
 .article-text ul,
@@ -493,7 +489,7 @@
     display: block;
     font-size: 4em;
     font-weight: 700;
-    color: var(--color-black);
+    color: var(--color-brand-orange);
     line-height: 1;
     margin-bottom: 0.5em;
     font-family: Georgia, serif;
@@ -504,7 +500,7 @@
     font-size: 1.3em;
     font-style: italic;
     line-height: 1.4;
-    color: var(--color-black);
+    color: var(--color-white);
     margin: 0;
     text-align: center;
     font-weight: 400;
@@ -516,7 +512,7 @@
     content: '';
     display: block;
     border: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(230, 81, 0, 0.3);
     width: 60%;
     margin: 0 auto 1.5em;
 }
@@ -526,7 +522,7 @@
     content: '';
     display: block;
     border: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(230, 81, 0, 0.3);
     width: 60%;
     margin: 1.5em auto 0;
 }
@@ -536,7 +532,8 @@
 .article-text blockquote .quote-source {
     display: block;
     font-size: 0.9em;
-    color: #666;
+    color: var(--color-white);
+    opacity: 0.7;
     margin-top: 0.5em;
     font-style: normal;
     text-align: center;
@@ -546,7 +543,8 @@
 /* Альтернативний варіант: якщо джерело в окремому елементі */
 .article-text blockquote footer {
     font-size: 0.9em;
-    color: #666;
+    color: var(--color-white);
+    opacity: 0.7;
     margin-top: 0.5em;
     font-style: normal;
     text-align: center;
@@ -557,7 +555,7 @@
 .article-text blockquote .quote-divider {
     display: block;
     border: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(230, 81, 0, 0.3);
     width: 60%;
     margin: 1.5em auto;
     height: 0;
@@ -566,12 +564,14 @@
 .article-keywords-section {
     margin-top: var(--space-lg);
     padding-top: var(--space-md);
-    border-top: 2px solid var(--color-gray);
+    border-top: 2px solid var(--color-brand-orange);
+    color: var(--color-white);
 }
 
 /* ===== СХОЖІ СТАТТІ ===== */
 .related-articles {
     padding: var(--space-xl) 0;
+    background: transparent;
 }
 
 .related-grid {
@@ -581,19 +581,21 @@
 }
 
 .related-card {
-    background: var(--color-white);
+    background: var(--color-black);
     padding: var(--space-sm);
-    border: 2px solid transparent;
+    border: 2px solid var(--color-brand-orange);
     transition: all 0.3s ease-out;
 }
 
 .related-card:hover {
     border-color: var(--color-brand-orange);
     transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(230, 81, 0, 0.3);
 }
 
 .related-card-content h3 {
     margin-bottom: var(--space-xs);
+    color: var(--color-white);
 }
 
 .related-card-meta {
@@ -602,6 +604,7 @@
     align-items: center;
     margin-top: var(--space-sm);
     opacity: 0.7;
+    color: var(--color-white);
 }
 
 .reading-time-small {
@@ -611,12 +614,14 @@
 /* ===== BACK TO BLOG ===== */
 .back-to-blog {
     padding: var(--space-md) 0;
+    background: transparent;
 }
 
 .back-link {
     text-decoration: none;
     transition: all 0.3s ease-out;
     display: inline-block;
+    color: var(--color-brand-orange);
 }
 
 .back-link:hover {
@@ -626,6 +631,7 @@
 /* ===== ПОШУК ===== */
 .search-header {
     padding: var(--space-xl) 0;
+    background: transparent;
 }
 
 .search-form {
@@ -646,6 +652,8 @@
     font-size: 16px;
     outline: none;
     transition: all 0.3s ease-out;
+    background: var(--color-white);
+    color: var(--color-black);
 }
 
 .search-input:focus {
@@ -675,15 +683,18 @@
 
 .search-results {
     padding: var(--space-xl) 0;
+    background: transparent;
 }
 
 .search-info {
     text-align: center;
     margin-bottom: var(--space-md);
+    color: var(--color-white);
 }
 
 .no-results {
     padding: var(--space-xl);
+    color: var(--color-white);
 }
 
 .suggestions-grid {
@@ -697,19 +708,20 @@
 .suggestion-link {
     display: block;
     padding: var(--space-sm);
-    background: var(--color-beige);
+    background: var(--color-black);
     color: var(--color-brand-orange);
     text-decoration: none;
     text-align: center;
     font-weight: 600;
     transition: all 0.3s ease-out;
-    border: 2px solid transparent;
+    border: 2px solid var(--color-brand-orange);
 }
 
 .suggestion-link:hover {
     background: var(--color-brand-orange);
     color: var(--color-white);
     border-color: var(--color-brand-orange);
+    box-shadow: 0 4px 12px rgba(230, 81, 0, 0.3);
 }
 
 /* Фільтри по категоріях */
@@ -723,7 +735,7 @@
 }
 
 .stats-text {
-    color: var(--color-black);
+    color: var(--color-white);
     opacity: 0.7;
     font-size: 14px;
     font-weight: 500;
@@ -832,6 +844,13 @@
 
 /* ===== АДАПТАЦІЯ МОБІЛЬНІ (iOS Safari) ===== */
 @media (max-width: 767px) {
+    body {
+        background-image: url('/static/images/mobile_menu.png');
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center;
+    }
+
     .blog-hero {
         min-height: 100vh;
         min-height: 100svh;
@@ -893,11 +912,6 @@
 
     .article-number {
         font-size: 24px;
-    }
-
-    .seo-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-sm);
     }
 
     .blog-pagination {
@@ -1007,16 +1021,14 @@
     }
 
     /* Декоративні елементи для мобільних */
-    .blog-header::before,
-    .blog-seo::before {
+    .blog-header::before {
         font-size: 18px;
         top: var(--space-xs);
         right: var(--space-xs);
         left: var(--space-xs);
     }
 
-    .blog-header::after,
-    .blog-seo::after {
+    .blog-header::after {
         font-size: 24px;
         bottom: var(--space-xs);
         right: var(--space-xs);
@@ -1115,11 +1127,12 @@
 /* ===== ПОПУЛЯРНІ СТАТТІ ===== */
 .popular-articles {
     padding: var(--space-xl) 0;
-    background: linear-gradient(135deg, var(--color-beige) 0%, var(--color-white) 100%);
+    background: transparent;
 }
 
 .popular-header {
     margin-bottom: var(--space-lg);
+    color: var(--color-white);
 }
 
 .popular-header h2 {
@@ -1148,14 +1161,14 @@
 }
 
 .popular-card {
-    background: var(--color-white);
+    background: var(--color-black);
     padding: var(--space-md);
-    border: 3px solid transparent;
+    border: 3px solid var(--color-brand-orange);
     border-radius: 12px;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px rgba(230, 81, 0, 0.15);
 }
 
 .popular-card::before {
@@ -1173,7 +1186,7 @@
 .popular-card:hover {
     border-color: var(--color-brand-orange);
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 35px rgba(220, 20, 60, 0.15);
+    box-shadow: 0 12px 35px rgba(230, 81, 0, 0.3);
 }
 
 .popular-card:hover::before {
@@ -1182,7 +1195,7 @@
 
 .popular-card.featured {
     border-color: var(--color-brand-orange);
-    background: linear-gradient(135deg, var(--color-white) 0%, var(--color-beige) 100%);
+    background: var(--color-black);
     position: relative;
 }
 
@@ -1211,10 +1224,11 @@
 .popular-card-content h3 {
     margin-bottom: var(--space-xs);
     line-height: 1.3;
+    color: var(--color-white);
 }
 
 .popular-card-content h3 a {
-    color: var(--color-black);
+    color: var(--color-white);
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -1226,7 +1240,7 @@
 .popular-card-content p {
     margin-bottom: var(--space-sm);
     line-height: 1.6;
-    color: var(--color-black);
+    color: var(--color-white);
     opacity: 0.8;
 }
 
@@ -1236,7 +1250,7 @@
     align-items: center;
     margin-top: var(--space-sm);
     padding-top: var(--space-sm);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .popular-card-meta .category-tag {
@@ -1250,7 +1264,7 @@
 
 .popular-card-meta .reading-time {
     font-size: 12px;
-    color: var(--color-black);
+    color: var(--color-white);
     opacity: 0.7;
     font-weight: 500;
 }

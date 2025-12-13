@@ -13,7 +13,7 @@
 {% block content %}
 <!-- Article Header -->
 <article class="blog-article">
-    <header class="article-header bg-beige">
+    <header class="article-header">
         <div class="container">
             <div class="article-meta">
                 <div class="article-category">
@@ -30,7 +30,7 @@
 
             {% if post.excerpt %}
             <div class="article-excerpt">
-                <p class="text-medium color-black">{{ post.excerpt }}</p>
+                <p class="text-medium color-white">{{ post.excerpt }}</p>
             </div>
             {% endif %}
 
@@ -43,7 +43,7 @@
     </header>
 
     <!-- Article Content -->
-    <div class="article-content bg-white">
+    <div class="article-content">
         <div class="container">
             <div class="content-wrapper">
                 <div class="article-text">
@@ -67,7 +67,7 @@
 
     <!-- Related Articles -->
     {% if related_posts %}
-    <section class="related-articles bg-beige">
+    <section class="related-articles">
         <div class="container">
             <h2 class="text-large color-brand-orange mb-md">Схожі статті</h2>
             <div class="related-grid">
@@ -93,7 +93,7 @@
     {% endif %}
 
     <!-- Back to Blog -->
-    <section class="back-to-blog bg-white">
+    <section class="back-to-blog">
         <div class="container">
             <div class="back-link-wrapper text-center">
                 <a href="{% url 'blog:blog_list' %}" class="back-link text-medium color-brand-orange">
