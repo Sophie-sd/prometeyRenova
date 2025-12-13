@@ -21,26 +21,26 @@ class Command(BaseCommand):
         created_categories = 0
         created_events = 0
         
-        # Дати для 15 статей рівномірно розподілені по 2025 року
-        post_dates_2025 = [
-            timezone.make_aware(datetime(2025, 1, 3)),    # 1. AI у веб-розробці
-            timezone.make_aware(datetime(2025, 1, 24)),   # 2. API інтеграції
-            timezone.make_aware(datetime(2025, 2, 14)),   # 3. Скільки коштує сайт
-            timezone.make_aware(datetime(2025, 3, 7)),    # 4. Мобільна версія сайту
-            timezone.make_aware(datetime(2025, 3, 28)),   # 5. 5 помилок на мобільних
-            timezone.make_aware(datetime(2025, 4, 18)),   # 6. WordPress vs Django
-            timezone.make_aware(datetime(2025, 5, 9)),    # 7. Python для веб-розробки
-            timezone.make_aware(datetime(2025, 5, 30)),   # 8. React vs Vue
-            timezone.make_aware(datetime(2025, 6, 20)),   # 9. TypeScript для веб-розробки
-            timezone.make_aware(datetime(2025, 7, 11)),   # 10. REST API vs GraphQL
-            timezone.make_aware(datetime(2025, 8, 1)),    # 11. Вибір хостингу
-            timezone.make_aware(datetime(2025, 8, 22)),   # 12. База даних для стартапу
-            timezone.make_aware(datetime(2025, 9, 12)),   # 13. SEO для розробників
-            timezone.make_aware(datetime(2025, 10, 3)),   # 14. Безпека веб-додатків
-            timezone.make_aware(datetime(2025, 10, 24)),  # 15. Майбутнє веб-розробки
+        # ========== СТВОРЕННЯ СТАТЕЙ БЛОГУ (ТОП-15 НАЙЦІКАВІШИХ) ==========
+        # Дати статей розподілені по 2025 році
+        dates_2025 = [
+            datetime(2025, 1, 5, 10, 0, 0),
+            datetime(2025, 1, 20, 10, 0, 0),
+            datetime(2025, 2, 8, 10, 0, 0),
+            datetime(2025, 2, 25, 10, 0, 0),
+            datetime(2025, 3, 15, 10, 0, 0),
+            datetime(2025, 4, 1, 10, 0, 0),
+            datetime(2025, 4, 18, 10, 0, 0),
+            datetime(2025, 5, 10, 10, 0, 0),
+            datetime(2025, 5, 28, 10, 0, 0),
+            datetime(2025, 6, 15, 10, 0, 0),
+            datetime(2025, 7, 5, 10, 0, 0),
+            datetime(2025, 7, 22, 10, 0, 0),
+            datetime(2025, 8, 12, 10, 0, 0),
+            datetime(2025, 9, 5, 10, 0, 0),
+            datetime(2025, 9, 20, 10, 0, 0),
         ]
         
-        # ========== СТВОРЕННЯ СТАТЕЙ БЛОГУ (ТОП-15 НАЙЦІКАВІШИХ) ==========
         blog_posts = [
             # 1. AI У ВЕБ-РОЗРОБЦІ
             {
@@ -2080,9 +2080,10 @@ _Хочете йти в ногу з часом?_ PrometeyLabs консульту
         for idx, post_data in enumerate(blog_posts):
             # Перевіряємо чи стаття вже існує
             if not BlogPost.objects.filter(slug=post_data['slug']).exists():
-                post_data['created_at'] = post_dates_2025[idx] if idx < len(post_dates_2025) else timezone.now()
+                # Додаємо дату з списку dates_2025
+                post_data_with_date = {**post_data, 'created_at': dates_2025[idx]}
                 BlogPost.objects.create(
-                    **post_data,
+                    **post_data_with_date,
                     is_published=True
                 )
                 created_posts += 1

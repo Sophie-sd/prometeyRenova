@@ -68,12 +68,6 @@ body {
     min-width: 60px;
 }
 
-/* Видалено hover ефект для кнопки пошуку на десктопу */
-/* .blog-search .search-button:hover {
-    background: var(--color-black);
-    border-color: var(--color-black);
-    transform: translateY(-2px);
-} */
 
 .blog-search .search-icon {
     font-size: 20px;
@@ -545,10 +539,8 @@ body {
 
 .related-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--space-md);
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .related-card {
@@ -679,10 +671,6 @@ body {
     justify-content: center;
 }
 
-.search-button:hover {
-    background: var(--color-black);
-    border-color: var(--color-black);
-}
 
 .search-icon {
     font-size: 18px;
@@ -817,12 +805,6 @@ body {
         padding: var(--space-sm);
     }
 
-    /* Видалено підкреслення для заголовка популярних статей на планшетах */
-    /* .popular-header h2::after {
-        width: 50px;
-        height: 2px;
-        bottom: -8px;
-    } */
 }
 
 /* ===== АДАПТАЦІЯ ПАРАЛАКС ДЛЯ МОБІЛЬНИХ ===== */
@@ -864,10 +846,8 @@ body {
     }
 
     .blog-search .search-button {
-        border-left: 3px solid var(--color-brand-orange);
-        border-bottom: 3px solid var(--color-brand-orange);
+        border-bottom: none;
         padding: 12px 16px;
-        min-width: 50px;
     }
 
     .articles-grid {
@@ -978,12 +958,6 @@ body {
         right: var(--space-xs);
     }
 
-    /* Видалено підкреслення для заголовка популярних статей на мобільних */
-    /* .popular-header h2::after {
-        width: 40px;
-        height: 2px;
-        bottom: -6px;
-    } */
 
     .search-header {
         padding: var(--space-md) 0;
@@ -1064,18 +1038,6 @@ body {
     display: inline-block;
 }
 
-/* Видалено підкреслення для заголовка популярних статей */
-/* .popular-header h2::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: var(--color-brand-orange);
-    border-radius: 2px;
-} */
 
 .popular-grid {
     display: grid;
@@ -1228,39 +1190,39 @@ body {
 /* Cascade delays для візуального ефекту */
 @media (prefers-reduced-motion: no-preference) {
     .blog-card:nth-child(1).visible {
-        transition-delay: 0.05s;
-    }
-
-    .blog-card:nth-child(2).visible {
         transition-delay: 0.1s;
     }
 
-    .blog-card:nth-child(3).visible {
-        transition-delay: 0.15s;
-    }
-
-    .blog-card:nth-child(4).visible {
+    .blog-card:nth-child(2).visible {
         transition-delay: 0.2s;
     }
 
-    .blog-card:nth-child(5).visible {
-        transition-delay: 0.25s;
-    }
-
-    .blog-card:nth-child(6).visible {
+    .blog-card:nth-child(3).visible {
         transition-delay: 0.3s;
     }
 
-    .blog-card:nth-child(7).visible {
-        transition-delay: 0.35s;
-    }
-
-    .blog-card:nth-child(8).visible {
+    .blog-card:nth-child(4).visible {
         transition-delay: 0.4s;
     }
 
+    .blog-card:nth-child(5).visible {
+        transition-delay: 0.5s;
+    }
+
+    .blog-card:nth-child(6).visible {
+        transition-delay: 0.6s;
+    }
+
+    .blog-card:nth-child(7).visible {
+        transition-delay: 0.7s;
+    }
+
+    .blog-card:nth-child(8).visible {
+        transition-delay: 0.8s;
+    }
+
     .blog-card:nth-child(9).visible {
-        transition-delay: 0.45s;
+        transition-delay: 0.9s;
     }
 }
 
@@ -1275,15 +1237,15 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
     .popular-card:nth-child(1).visible {
-        transition-delay: 0.35s;
+        transition-delay: 0.7s;
     }
 
     .popular-card:nth-child(2).visible {
-        transition-delay: 0.4s;
+        transition-delay: 0.8s;
     }
 
     .popular-card:nth-child(3).visible {
-        transition-delay: 0.45s;
+        transition-delay: 0.9s;
     }
 }
 

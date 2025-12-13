@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initArticleAnimations();
     initArticleTracking();
     setActiveMenuLink();
+    initPaginationScroll();
 });
 
 // ===== ARTICLE ANIMATIONS =====
@@ -23,8 +24,8 @@ function initArticleAnimations() {
             }
         });
     }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.05,
+        rootMargin: '0px 0px 50px 0px'
     });
 
     articles.forEach(article => observer.observe(article));
@@ -53,4 +54,27 @@ function initArticleTracking() {
 function setActiveMenuLink() {
     const blogLink = document.querySelector('.nav-link[href*="blog"]');
     blogLink?.classList.add('active');
+}
+
+// ===== PAGINATION SCROLL =====
+function initPaginationScroll() {
+    const paginationLinks = document.querySelectorAll('.pagination-link');
+    
+    paginationLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            // Зберігаємо посилання для пошуку секції статей
+            sessionStorage.setItem('scrollToArticles', 'true');
+        });
+    });
+    
+    // Якщо повертаємось після переходу на наступну сторінку
+    if (sessionStorage.getItem('scrollToArticles') === 'true') {
+        const articlesSection = document.querySelector('.blog-articles');
+        if (articlesSection) {
+            // Скролимо до секції статей
+            articlesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        // Очищаємо флаг
+        sessionStorage.removeItem('scrollToArticles');
+    }
 }
