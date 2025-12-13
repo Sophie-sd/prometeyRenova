@@ -5,7 +5,7 @@ Django management команда для створення початкових 
 """
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from datetime import timedelta
+from datetime import timedelta, datetime
 from apps.blog.models import BlogPost
 from apps.events.models import Event, EventCategory
 
@@ -20,6 +20,26 @@ class Command(BaseCommand):
         created_posts = 0
         created_categories = 0
         created_events = 0
+        
+        # Дати для 15 статей рівномірно розподілені по 2025 року
+        # Від 1 січня до 31 грудня
+        post_dates_2025 = [
+            timezone.make_aware(datetime(2025, 1, 3)),    # 1. AI у веб-розробці
+            timezone.make_aware(datetime(2025, 1, 24)),   # 2. API інтеграції
+            timezone.make_aware(datetime(2025, 2, 14)),   # 3. Скільки коштує сайт
+            timezone.make_aware(datetime(2025, 3, 7)),    # 4. Мобільна версія сайту
+            timezone.make_aware(datetime(2025, 3, 28)),   # 5. 5 помилок на мобільних
+            timezone.make_aware(datetime(2025, 4, 18)),   # 6. WordPress vs Django
+            timezone.make_aware(datetime(2025, 5, 9)),    # 7. Python для веб-розробки
+            timezone.make_aware(datetime(2025, 5, 30)),   # 8. React vs Vue
+            timezone.make_aware(datetime(2025, 6, 20)),   # 9. TypeScript для веб-розробки
+            timezone.make_aware(datetime(2025, 7, 11)),   # 10. REST API vs GraphQL
+            timezone.make_aware(datetime(2025, 8, 1)),    # 11. Вибір хостингу
+            timezone.make_aware(datetime(2025, 8, 22)),   # 12. База даних для стартапу
+            timezone.make_aware(datetime(2025, 9, 12)),   # 13. SEO для розробників
+            timezone.make_aware(datetime(2025, 10, 3)),   # 14. Безпека веб-додатків
+            timezone.make_aware(datetime(2025, 10, 24)),  # 15. Майбутнє веб-розробки
+        ]
         
         # ========== СТВОРЕННЯ СТАТЕЙ БЛОГУ (ТОП-15 НАЙЦІКАВІШИХ) ==========
         blog_posts = [
@@ -1426,7 +1446,7 @@ MVP за 4 тижні - це не фантастика. З AI це реальн�
             
             # 9. МОБІЛЬНА ОПТИМІЗАЦІЯ
             {
-                'title': 'Мобільна версія сайту: Чому 67% клієнтів відваливались на телефонах',
+                'title': 'Мобільна версія сайту: Чому 67% клієнтів відвалювались на телефонах',
                 'slug': 'mobilna-versiya-chому-67-kliyentiv-vidvalyvalys',
                 'excerpt': 'Інтернет-магазин втрачав 2/3 потенційних клієнтів. Причина - сайт на телефонах виглядав жахливо. Переробили - конверсія виросла в 3 рази. Історія та цифри.',
                 'content': '''
@@ -1567,8 +1587,8 @@ Google вже 3 роки використовує mobile-first indexing. Це о
 ''',
                 'category': 'web-development',
                 'reading_time': 9,
-                'seo_title': 'Мобільна оптимізація сайту 2024 | Збільшення конверсії в 3 рази',
-                'seo_description': 'Реальна історія як мобільна оптимізація збільшила виручку втричі. Що робити, скільки коштує, терміни. Кейси з України.',
+                'seo_title': 'Мобільна версія сайту | Як не втратити 67% клієнтів на телефонах',
+                'seo_description': 'Реальна історія як мобільна версія сайту повертає 67% клієнтів. Конверсія зросла в 3 рази. Що робити, скільки коштує, кейси.',
                 'keywords': 'мобільна версія сайту, адаптивний дизайн україна, оптимізація швидкості, mobile first, responsive design',
             },
             
@@ -2577,9 +2597,10 @@ Edge Computing - обробка максимально близько до ко�
             },
         ]
         
-        for post_data in blog_posts:
+        for idx, post_data in enumerate(blog_posts):
             # Перевіряємо чи стаття вже існує
             if not BlogPost.objects.filter(slug=post_data['slug']).exists():
+                post_data['created_at'] = post_dates_2025[idx] if idx < len(post_dates_2025) else timezone.now()
                 BlogPost.objects.create(
                     **post_data,
                     is_published=True

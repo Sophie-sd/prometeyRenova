@@ -139,13 +139,13 @@
 </section>
 
 <!-- Blog Articles Grid -->
-<section class="blog-articles">
+<section class="blog-articles" id="articles">
     <div class="container">
         <div class="articles-grid">
             {% for post in page_obj %}
-            <article class="blog-card" data-article="{{ forloop.counter }}">
+            <article class="blog-card" data-article="{{ page_obj.start_index|add:forloop.counter0 }}">
                 <div class="card-header">
-                    <span class="article-number text-page color-brand-orange">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <span class="article-number text-page color-brand-orange">{{ page_obj.start_index|add:forloop.counter0|stringformat:"02d" }}</span>
                     <div class="card-meta">
                         <time class="article-date text-small">{{ post.created_at|date:"d.m.Y" }}</time>
                         <span class="reading-time-small">⏱ {{ post.get_reading_time_text }}</span>
@@ -187,7 +187,7 @@
         {% if page_obj.has_other_pages %}
         <div class="blog-pagination">
             {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">← Попередня</a>
+            <a href="?page={{ page_obj.previous_page_number }}#articles" class="pagination-link">← Попередня</a>
             {% endif %}
 
             <span class="pagination-info text-base">
@@ -195,7 +195,7 @@
             </span>
 
             {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Наступна →</a>
+            <a href="?page={{ page_obj.next_page_number }}#articles" class="pagination-link">Наступна →</a>
             {% endif %}
         </div>
         {% endif %}

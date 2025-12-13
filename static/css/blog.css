@@ -68,11 +68,12 @@ body {
     min-width: 60px;
 }
 
-.blog-search .search-button:hover {
+/* Видалено hover ефект для кнопки пошуку на десктопу */
+/* .blog-search .search-button:hover {
     background: var(--color-black);
     border-color: var(--color-black);
     transform: translateY(-2px);
-}
+} */
 
 .blog-search .search-icon {
     font-size: 20px;
@@ -544,26 +545,66 @@ body {
 
 .related-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: var(--space-md);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .related-card {
     background: var(--color-black);
-    padding: var(--space-sm);
-    border: 2px solid var(--color-brand-orange);
-    transition: all 0.3s ease-out;
+    padding: var(--space-md);
+    border: 3px solid var(--color-brand-orange);
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(230, 81, 0, 0.15);
+}
+
+.related-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-brand-orange), #FF8A50);
+    transform: scaleX(0);
+    transition: transform 0.3s ease-out;
 }
 
 .related-card:hover {
     border-color: var(--color-brand-orange);
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(230, 81, 0, 0.3);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(230, 81, 0, 0.3);
+}
+
+.related-card:hover::before {
+    transform: scaleX(1);
 }
 
 .related-card-content h3 {
     margin-bottom: var(--space-xs);
+    line-height: 1.3;
     color: var(--color-white);
+}
+
+.related-card-content h3 a {
+    color: var(--color-white);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.related-card-content h3 a:hover {
+    color: var(--color-brand-orange);
+}
+
+.related-card-content p {
+    margin-bottom: var(--space-sm);
+    line-height: 1.6;
+    color: var(--color-white);
+    opacity: 0.8;
 }
 
 .related-card-meta {
@@ -571,7 +612,8 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-top: var(--space-sm);
-    opacity: 0.7;
+    padding-top: var(--space-sm);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--color-white);
 }
 
@@ -775,11 +817,12 @@ body {
         padding: var(--space-sm);
     }
 
-    .popular-header h2::after {
+    /* Видалено підкреслення для заголовка популярних статей на планшетах */
+    /* .popular-header h2::after {
         width: 50px;
         height: 2px;
         bottom: -8px;
-    }
+    } */
 }
 
 /* ===== АДАПТАЦІЯ ПАРАЛАКС ДЛЯ МОБІЛЬНИХ ===== */
@@ -811,18 +854,20 @@ body {
     }
 
     .blog-search .search-input-wrapper {
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .blog-search .search-input {
-        border-right: 3px solid var(--color-brand-orange);
-        border-bottom: none;
-        padding: 16px 20px;
+        border-right: none;
+        border-bottom: 3px solid var(--color-brand-orange);
+        padding: 12px 16px;
     }
 
     .blog-search .search-button {
-        border-top: none;
-        padding: 16px 20px;
+        border-left: 3px solid var(--color-brand-orange);
+        border-bottom: 3px solid var(--color-brand-orange);
+        padding: 12px 16px;
+        min-width: 50px;
     }
 
     .articles-grid {
@@ -933,11 +978,12 @@ body {
         right: var(--space-xs);
     }
 
-    .popular-header h2::after {
+    /* Видалено підкреслення для заголовка популярних статей на мобільних */
+    /* .popular-header h2::after {
         width: 40px;
         height: 2px;
         bottom: -6px;
-    }
+    } */
 
     .search-header {
         padding: var(--space-md) 0;
@@ -1018,7 +1064,8 @@ body {
     display: inline-block;
 }
 
-.popular-header h2::after {
+/* Видалено підкреслення для заголовка популярних статей */
+/* .popular-header h2::after {
     content: '';
     position: absolute;
     bottom: -10px;
@@ -1028,7 +1075,7 @@ body {
     height: 3px;
     background: var(--color-brand-orange);
     border-radius: 2px;
-}
+} */
 
 .popular-grid {
     display: grid;
@@ -1159,7 +1206,7 @@ body {
 .blog-card {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 
 .blog-card.visible {
@@ -1170,7 +1217,7 @@ body {
 .popular-card {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 
 .popular-card.visible {
@@ -1181,39 +1228,39 @@ body {
 /* Cascade delays для візуального ефекту */
 @media (prefers-reduced-motion: no-preference) {
     .blog-card:nth-child(1).visible {
-        transition-delay: 0.1s;
+        transition-delay: 0.05s;
     }
 
     .blog-card:nth-child(2).visible {
-        transition-delay: 0.2s;
+        transition-delay: 0.1s;
     }
 
     .blog-card:nth-child(3).visible {
-        transition-delay: 0.3s;
+        transition-delay: 0.15s;
     }
 
     .blog-card:nth-child(4).visible {
-        transition-delay: 0.4s;
+        transition-delay: 0.2s;
     }
 
     .blog-card:nth-child(5).visible {
-        transition-delay: 0.5s;
+        transition-delay: 0.25s;
     }
 
     .blog-card:nth-child(6).visible {
-        transition-delay: 0.6s;
+        transition-delay: 0.3s;
     }
 
     .blog-card:nth-child(7).visible {
-        transition-delay: 0.7s;
+        transition-delay: 0.35s;
     }
 
     .blog-card:nth-child(8).visible {
-        transition-delay: 0.8s;
+        transition-delay: 0.4s;
     }
 
     .blog-card:nth-child(9).visible {
-        transition-delay: 0.9s;
+        transition-delay: 0.45s;
     }
 }
 
@@ -1228,15 +1275,15 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
     .popular-card:nth-child(1).visible {
-        transition-delay: 0.7s;
+        transition-delay: 0.35s;
     }
 
     .popular-card:nth-child(2).visible {
-        transition-delay: 0.8s;
+        transition-delay: 0.4s;
     }
 
     .popular-card:nth-child(3).visible {
-        transition-delay: 0.9s;
+        transition-delay: 0.45s;
     }
 }
 
