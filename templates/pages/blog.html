@@ -9,6 +9,7 @@
 
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+<link rel="stylesheet" href="{% static 'css/components/marquee-why-choose.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -30,10 +31,67 @@
             <div class="hero-text text-center">
                 <h1 class="text-mega color-brand-orange mb-lg">БЛОГ</h1>
                 <p class="text-large color-white mb-xl">
-                    Корисні статті про веб-розробку, курси програмування,
-                    створення сайтів під ключ та Telegram ботів
+                    Корисні статті про веб-розробку, курси програмування, AI, та інші цікаві речі
                 </p>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Біжуча строчка послуг -->
+<section class="services-marquee" aria-label="Наші послуги">
+    <div class="marquee-track">
+        <div class="marquee-content">
+            <span class="marquee-item">Web</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">AI</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">Automation</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">SaaS</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">UI/UX</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">SEO</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">APIs</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">Integrations</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">CRM</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">Analytics</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">Performance</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">Security</span>
+            <span class="marquee-separator">·</span>
+        </div>
+        <div class="marquee-content" aria-hidden="true">
+            <span class="marquee-item">Web</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">AI</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">Automation</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">SaaS</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">UI/UX</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">SEO</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">APIs</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">Integrations</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">CRM</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">Analytics</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">Performance</span>
+            <span class="marquee-separator">·</span>
+            <span class="marquee-item">Security</span>
+            <span class="marquee-separator">·</span>
         </div>
     </div>
 </section>
@@ -42,7 +100,6 @@
 <section class="blog-header">
     <div class="container">
         <div class="blog-intro">
-            <h2 class="text-large color-brand-orange mb-md">Корисні статті про веб-розробку</h2>
             <p class="text-base mb-lg">
                 Читайте експертні поради, практичні керівництва та актуальну інформацію
                 про створення сайтів, навчання програмуванню та автоматизацію бізнесу

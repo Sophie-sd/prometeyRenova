@@ -11,21 +11,6 @@ body {
     background-repeat: no-repeat;
 }
 
-/* ===== ДЕКОРАТИВНА ЛІНІЯ ПІСЛЯ HERO ===== */
-.blog-hero::after {
-    content: '';
-    display: block;
-    height: 2px;
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        var(--color-brand-orange) 10%, 
-        var(--color-brand-orange) 90%, 
-        transparent 100%);
-    margin: var(--space-md) auto;
-    width: 80%;
-    max-width: 1200px;
-}
-
 /* ===== BLOG HEADER - ПЕРША СЕКЦІЯ ПІСЛЯ HERO ===== */
 .blog-header {
     position: relative;
@@ -113,17 +98,6 @@ body {
 
 .blog-search .search-icon {
     font-size: 20px;
-}
-
-/* Декоративні елементи */
-.blog-header::before {
-    content: '◆';
-    position: absolute;
-    top: var(--space-sm);
-    right: var(--space-sm);
-    color: var(--color-brand-orange);
-    font-size: 24px;
-    opacity: 0.6;
 }
 
 .blog-header::after {
@@ -347,6 +321,20 @@ body {
     padding: var(--space-xl) 0;
     position: relative;
     background: transparent;
+}
+
+.article-header::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--color-brand-orange) 10%, 
+        var(--color-brand-orange) 90%, 
+        transparent 100%);
+    margin: var(--space-md) auto;
+    width: 80%;
+    max-width: 1200px;
 }
 
 .article-meta {
