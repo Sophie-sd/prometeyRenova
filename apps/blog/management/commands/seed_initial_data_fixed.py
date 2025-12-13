@@ -5,7 +5,7 @@ Django management команда для створення початкових 
 """
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from datetime import timedelta, datetime
+from datetime import timedelta
 from apps.blog.models import BlogPost
 from apps.events.models import Event, EventCategory
 
@@ -22,23 +22,23 @@ class Command(BaseCommand):
         created_events = 0
         
         # ========== СТВОРЕННЯ СТАТЕЙ БЛОГУ (ТОП-15 НАЙЦІКАВІШИХ) ==========
-        # Дати статей розподілені по 2025 році
+        # Дати статей розподілені по 2025 році (з урахуванням часової зони)
         dates_2025 = [
-            datetime(2025, 1, 5, 10, 0, 0),
-            datetime(2025, 1, 20, 10, 0, 0),
-            datetime(2025, 2, 8, 10, 0, 0),
-            datetime(2025, 2, 25, 10, 0, 0),
-            datetime(2025, 3, 15, 10, 0, 0),
-            datetime(2025, 4, 1, 10, 0, 0),
-            datetime(2025, 4, 18, 10, 0, 0),
-            datetime(2025, 5, 10, 10, 0, 0),
-            datetime(2025, 5, 28, 10, 0, 0),
-            datetime(2025, 6, 15, 10, 0, 0),
-            datetime(2025, 7, 5, 10, 0, 0),
-            datetime(2025, 7, 22, 10, 0, 0),
-            datetime(2025, 8, 12, 10, 0, 0),
-            datetime(2025, 9, 5, 10, 0, 0),
-            datetime(2025, 9, 20, 10, 0, 0),
+            timezone.make_aware(timezone.datetime(2025, 1, 5, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 1, 20, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 2, 8, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 2, 25, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 3, 15, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 4, 1, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 4, 18, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 5, 10, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 5, 28, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 6, 15, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 7, 5, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 7, 22, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 8, 12, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 9, 5, 10, 0, 0)),
+            timezone.make_aware(timezone.datetime(2025, 9, 20, 10, 0, 0)),
         ]
         
         blog_posts = [
@@ -2078,16 +2078,18 @@ _Хочете йти в ногу з часом?_ PrometeyLabs консульту
         ]
         
         for idx, post_data in enumerate(blog_posts):
-            # Перевіряємо чи стаття вже існує
-            if not BlogPost.objects.filter(slug=post_data['slug']).exists():
-                # Додаємо дату з списку dates_2025
-                post_data_with_date = {**post_data, 'created_at': dates_2025[idx]}
-                BlogPost.objects.create(
-                    **post_data_with_date,
-                    is_published=True
-                )
-                created_posts += 1
+            # Використовуємо update_or_create для оновлення/створення статей
+            # Це забезпечує оновлення дат та назви навіть для існуючих статей
+            defaults = {**post_data, 'created_at': dates_2025[idx], 'is_published': True}
+            post, created = BlogPost.objects.update_or_create(
+                slug=post_data['slug'],
+                defaults=defaults
+            )
+            if created:
                 self.stdout.write(f'  ✅ Створено статтю: {post_data["title"]}')
+                created_posts += 1
+            else:
+                self.stdout.write(f'  🔄 Оновлено статтю: {post_data["title"]}')
         
         # ========== СТВОРЕННЯ КАТЕГОРІЙ ПОДІЙ ==========
         event_categories = [
