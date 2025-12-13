@@ -23,16 +23,6 @@
             </div>
             {% endif %}
 
-            <div class="article-meta">
-                <div class="article-category">
-                    <span class="category-tag">{{ post.get_category_display }}</span>
-                </div>
-                <div class="reading-time">
-                    <span class="reading-icon">⏱</span>
-                    <span class="reading-text">{{ post.get_reading_time_text }}</span>
-                </div>
-            </div>
-
             {% if post.featured_image %}
             <div class="article-featured-image">
                 <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" loading="lazy">

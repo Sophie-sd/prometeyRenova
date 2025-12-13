@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ===== ARTICLE ANIMATIONS =====
 function initArticleAnimations() {
-    const articles = document.querySelectorAll('.blog-card, .popular-card');
+    const articles = document.querySelectorAll('.blog-card, .popular-card, .related-card');
     if (articles.length === 0) return;
     if (!('IntersectionObserver' in window)) return;
 
@@ -25,7 +25,7 @@ function initArticleAnimations() {
         });
     }, {
         threshold: 0.01,
-        rootMargin: '0px 0px 100px 0px'
+        rootMargin: '0px 0px 300px 0px'
     });
 
     articles.forEach(article => observer.observe(article));
