@@ -317,7 +317,7 @@ body {
 }
 
 .article-header {
-    padding: var(--space-xl) 0;
+    padding: var(--space-lg) 0 0 0;
     position: relative;
     background: transparent;
 }
@@ -338,9 +338,10 @@ body {
 
 .article-meta {
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: var(--space-sm);
-    margin-bottom: var(--space-md);
+    margin-top: var(--space-md);
     flex-wrap: wrap;
     color: var(--color-white);
 }
@@ -370,13 +371,19 @@ body {
 .article-title {
     max-width: 800px;
     margin-bottom: var(--space-md);
+    margin-left: auto;
+    margin-right: auto;
     color: var(--color-brand-orange);
+    text-align: center;
 }
 
 .article-excerpt {
     max-width: 600px;
     margin-bottom: var(--space-md);
+    margin-left: auto;
+    margin-right: auto;
     color: var(--color-white);
+    text-align: center;
 }
 
 .article-featured-image {
@@ -393,7 +400,7 @@ body {
 }
 
 .article-content {
-    padding: var(--space-xl) 0;
+    padding: 0;
     background: transparent;
 }
 
@@ -407,11 +414,6 @@ body {
     font-size: 16px;
     line-height: 1.7;
     color: var(--color-white);
-    
-    /* ЖУРНАЛЬНІ КОЛОНКИ - як в NY Times */
-    column-count: 2;
-    column-gap: 40px;
-    column-rule: 1px solid rgba(230, 81, 0, 0.2);
 }
 
 .article-text h2 {
@@ -419,9 +421,6 @@ body {
     font-weight: 700;
     color: var(--color-brand-orange);
     margin: var(--space-md) 0 var(--space-sm);
-    
-    /* Заголовки розривають колонки - займають всю ширину */
-    column-span: all;
     text-align: left;
 }
 
@@ -430,9 +429,6 @@ body {
     font-weight: 600;
     color: var(--color-white);
     margin: var(--space-sm) 0 var(--space-xs);
-    
-    /* Підзаголовки всередині колонок */
-    break-after: avoid;
 }
 
 .article-text p {
@@ -451,8 +447,17 @@ body {
 .article-text ul,
 .article-text ol {
     margin: var(--space-sm) 0;
-    padding-left: var(--space-md);
-    break-inside: avoid;
+    padding-left: 1.5em;
+    display: block;
+    list-style-position: outside;
+}
+
+.article-text ul {
+    list-style-type: disc;
+}
+
+.article-text ol {
+    list-style-type: decimal;
 }
 
 .article-text li {
@@ -465,8 +470,6 @@ body {
     padding: 0;
     border: none;
     text-align: center;
-    break-inside: avoid;
-    column-span: all;
     position: relative;
 }
 
@@ -557,7 +560,7 @@ body {
 
 /* ===== СХОЖІ СТАТТІ ===== */
 .related-articles {
-    padding: var(--space-xl) 0;
+    padding: 0;
     background: transparent;
 }
 
@@ -600,7 +603,7 @@ body {
 
 /* ===== BACK TO BLOG ===== */
 .back-to-blog {
-    padding: var(--space-md) 0;
+    padding: 0 0 var(--space-md) 0;
     background: transparent;
 }
 
@@ -825,7 +828,7 @@ body {
     .blog-header {
         border-radius: 16px 16px 0 0;
         margin-top: -16px;
-        padding-top: 40px;
+        padding-top: 20px;
     }
 }
 
@@ -842,10 +845,6 @@ body {
         min-height: 100vh;
         min-height: 100svh;
         min-height: calc(var(--vh, 1vh) * 100);
-    }
-
-    .blog-header {
-        padding: var(--space-md) 0;
     }
 
     .blog-search {
@@ -879,6 +878,7 @@ body {
     .articles-grid {
         grid-template-columns: 1fr;
         gap: var(--space-sm);
+        margin-bottom: calc(var(--space-md) / 2);
     }
 
     .blog-card {
@@ -908,7 +908,7 @@ body {
     }
 
     .article-header {
-        padding: var(--space-md) 0;
+        padding: 0;
     }
 
     .article-meta {
@@ -922,7 +922,7 @@ body {
     }
 
     .article-content {
-        padding: var(--space-md) 0;
+        padding: 0;
     }
 
     .content-wrapper {
@@ -967,6 +967,10 @@ body {
     .popular-grid {
         grid-template-columns: 1fr;
         gap: var(--space-sm);
+    }
+
+    .popular-articles {
+        padding: calc(var(--space-md) / 2) 0;
     }
 
     .popular-card {
