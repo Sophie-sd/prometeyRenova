@@ -69,12 +69,13 @@ body {
     font-size: 16px;
     outline: none;
     transition: all 0.3s ease-out;
-    background: var(--color-white);
+    background: var(--color-black);
+    color: var(--color-white);
 }
 
 .blog-search .search-input:focus {
-    border-color: var(--color-black);
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-brand-orange);
+    box-shadow: 0 0 0 3px rgba(230, 81, 0, 0.1);
 }
 
 .blog-search .search-button {
@@ -113,7 +114,7 @@ body {
 
 /* ===== ARTICLES GRID ===== */
 .blog-articles {
-    padding: var(--space-xl) 0;
+    padding: var(--space-md) 0;
     background: transparent;
 }
 
@@ -121,7 +122,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: var(--space-md);
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-md);
 }
 
 /* ===== BLOG CARDS ===== */
@@ -640,12 +641,12 @@ body {
     font-size: 16px;
     outline: none;
     transition: all 0.3s ease-out;
-    background: var(--color-white);
-    color: var(--color-black);
+    background: var(--color-black);
+    color: var(--color-white);
 }
 
 .search-input:focus {
-    border-color: var(--color-black);
+    border-color: var(--color-brand-orange);
 }
 
 .search-button {
@@ -714,7 +715,7 @@ body {
 
 /* Фільтри по категоріях */
 .blog-categories {
-    margin-top: var(--space-md);
+    margin-top: var(--space-sm);
 }
 
 .blog-stats {
@@ -739,8 +740,8 @@ body {
 .category-filter {
     display: inline-block;
     padding: 8px 16px;
-    background: var(--color-white);
-    color: var(--color-black);
+    background: var(--color-black);
+    color: var(--color-white);
     text-decoration: none;
     border: 2px solid var(--color-brand-orange);
     border-radius: 20px;
@@ -759,7 +760,7 @@ body {
 .category-filter.active {
     background: var(--color-brand-orange);
     color: var(--color-white);
-    box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3);
+    box-shadow: 0 4px 12px rgba(230, 81, 0, 0.3);
 }
 
 /* ===== АДАПТАЦІЯ ПЛАНШЕТИ ===== */
@@ -1114,7 +1115,7 @@ body {
 
 /* ===== ПОПУЛЯРНІ СТАТТІ ===== */
 .popular-articles {
-    padding: var(--space-xl) 0;
+    padding: var(--space-md) 0;
     background: transparent;
 }
 

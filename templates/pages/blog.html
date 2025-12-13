@@ -31,7 +31,7 @@
             <div class="hero-text text-center">
                 <h1 class="text-mega color-brand-orange mb-lg">БЛОГ</h1>
                 <p class="text-large color-white mb-xl">
-                    Корисні статті про веб-розробку, курси програмування, AI, та інші цікаві речі
+                    Читайте експертні поради, практичні керівництва та актуальну інформацію про створення сайтів, навчання програмуванню та автоматизацію бізнесу
                 </p>
             </div>
         </div>
@@ -99,12 +99,6 @@
 <!-- Blog Header з пошуком -->
 <section class="blog-header">
     <div class="container">
-        <div class="blog-intro">
-            <p class="text-base mb-lg">
-                Читайте експертні поради, практичні керівництва та актуальну інформацію
-                про створення сайтів, навчання програмуванню та автоматизацію бізнесу
-            </p>
-        </div>
 
         <!-- Пошук по блогу -->
         <div class="blog-search">
@@ -120,10 +114,6 @@
 
         <!-- Фільтри по категоріях -->
         <div class="blog-categories">
-            <div class="blog-stats mb-sm">
-                <span class="stats-text">📚 {{ page_obj.paginator.count }} статей • {{ page_obj.paginator.num_pages }}
-                    сторінок</span>
-            </div>
             <div class="categories-list">
                 <a href="{% url 'blog:blog_list' %}" class="category-filter {% if not category %}active{% endif %}">
                     Всі статті

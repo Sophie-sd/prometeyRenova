@@ -32,7 +32,7 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
-    padding-right: 40px;
+    padding-right: 15px;
 }
 
 .marquee-item {
