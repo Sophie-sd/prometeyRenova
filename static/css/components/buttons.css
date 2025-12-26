@@ -99,9 +99,9 @@
 
 .call-button:hover {
     transform: translateY(-2px) scale(1.05);
-    background: rgba(37, 211, 102, 0.25);
-    border-color: rgba(37, 211, 102, 0.5);
-    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4),
+    background: rgba(230, 81, 0, 0.25);
+    border-color: rgba(230, 81, 0, 0.5);
+    box-shadow: 0 6px 25px rgba(230, 81, 0, 0.4),
         0 0 0 1px rgba(255, 255, 255, 0.2) inset;
 }
 

@@ -191,3 +191,56 @@ body.modal-open {
         font-size: 36px;
     }
 }
+
+/* ===== CALL REQUEST MODAL - Спеціальні стилі ===== */
+#call-request-modal .modal-content {
+    background-image: url('../images/mobile_menu.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--color-white);
+}
+
+#call-request-modal .modal-header p {
+    color: var(--color-white);
+}
+
+#call-request-modal .form-label {
+    color: var(--color-white);
+}
+
+#call-request-modal .form-input {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--color-white);
+}
+
+#call-request-modal .form-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#call-request-modal .form-input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-brand-orange);
+    color: var(--color-white);
+}
+
+#call-request-modal .modal-close {
+    color: var(--color-white);
+}
+
+#call-request-modal .modal-close:hover {
+    color: var(--color-brand-orange);
+}
+
+#call-request-modal .btn-primary {
+    background: var(--color-brand-orange);
+    color: var(--color-white);
+    border-color: var(--color-brand-orange);
+}
+
+#call-request-modal .btn-primary:hover {
+    background: var(--color-black);
+    color: var(--color-white);
+    border-color: var(--color-black);
+}
