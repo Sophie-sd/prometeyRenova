@@ -106,14 +106,6 @@
     transform: translate3d(0, 0, 0);
 }
 
-/* Десктоп 1025px+ */
-@media (min-width: 1025px) {
-    .project-card__image:hover {
-        transform: scale(1.02);
-        will-change: transform;
-    }
-}
-
 /* Великі десктопи 1400px+ - збільшені зображення */
 @media (min-width: 1400px) {
     .project-card__image {
@@ -719,14 +711,14 @@
 
 /* ===== PORTFOLIO MODAL CLOSE BUTTON (CROSS) ===== */
 
-/* Хрестик закриття - позиціонований абсолютно відносно .modal-content */
-/* Тепер всередину .modal-content для правильного позиціонування відносно рамки */
+/* Хрестик закриття - позиціонований фіксовано відносно viewport */
+/* Фіксований у правому верхньому куті, не скролиться разом з контентом */
 #project-coresync-modal .modal-close,
 #project-playvision-modal .modal-close,
 #project-beautyshop-modal .modal-close,
 #project-redrabbit-modal .modal-close,
 #project-sunpannel-modal .modal-close {
-    position: absolute;
+    position: fixed;
     top: 16px;
     right: 16px;
     width: 48px;
@@ -865,7 +857,7 @@
     #project-beautyshop-modal .modal-close,
     #project-redrabbit-modal .modal-close,
     #project-sunpannel-modal .modal-close {
-        position: absolute;
+        position: fixed;
         top: 12px;
         right: 12px;
         width: 40px;
@@ -925,7 +917,7 @@
     #project-beautyshop-modal .modal-close,
     #project-redrabbit-modal .modal-close,
     #project-sunpannel-modal .modal-close {
-        position: absolute;
+        position: fixed;
         top: 12px;
         right: 12px;
         width: 36px;
@@ -1051,7 +1043,7 @@
     #project-beautyshop-modal .modal-close,
     #project-redrabbit-modal .modal-close,
     #project-sunpannel-modal .modal-close {
-        position: absolute;
+        position: fixed;
         top: 10px;
         right: 10px;
         width: 32px;
