@@ -194,10 +194,9 @@ body.modal-open {
 
 /* ===== CALL REQUEST MODAL - Спеціальні стилі ===== */
 #call-request-modal .modal-content {
-    background-image: url('../images/mobile_menu.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),
+        url('/static/images/mobile_menu.png') center/cover no-repeat;
     color: var(--color-white);
 }
 
