@@ -309,7 +309,7 @@
 /* ===== ПИТАННЯ ===== */
 .calc-question {
     background: 
-        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
         url('../images/first_background.png') center/cover fixed;
     padding: clamp(24px, 4vw, 32px);
     border-left: 2px solid var(--color-brand-orange);
@@ -349,7 +349,7 @@
     align-items: center;
     gap: 12px;
     padding: 16px;
-    background: var(--color-black);
+    background: rgba(0, 0, 0, 0.4);
     cursor: pointer;
     transition: all var(--transition-normal) var(--easing-default);
     position: relative;
@@ -432,7 +432,7 @@
 /* ===== ДАНІ КОРИСТУВАЧА ===== */
 .calc-user-data {
     background: 
-        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
         url('../images/first_background.png') center/cover fixed;
     padding: clamp(32px, 5vw, 48px);
     position: relative;
