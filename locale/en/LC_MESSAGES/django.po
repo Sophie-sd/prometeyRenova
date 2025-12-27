@@ -18,7 +18,7 @@ msgstr ""
 
 #: apps/blog/models.py:8
 msgid "Заголовок"
-msgstr "Home"
+msgstr "Title"
 
 #: apps/blog/models.py:9 apps/events/models.py:11 apps/events/models.py:43
 msgid "URL"
@@ -30,11 +30,11 @@ msgstr "Short description"
 
 #: apps/blog/models.py:11
 msgid "Контент"
-msgstr "Contact"
+msgstr "Content"
 
 #: apps/blog/models.py:12 apps/events/models.py:75
 msgid "SEO заголовок"
-msgstr "Home"
+msgstr "SEO Title"
 
 #: apps/blog/models.py:13 apps/events/models.py:76
 msgid "SEO опис"
@@ -67,7 +67,7 @@ msgstr "Reading time (min)"
 
 #: apps/blog/models.py:24
 msgid "Головне зображення"
-msgstr "Comprehensive Web Solutions"
+msgstr "Featured Image"
 
 #: apps/blog/models.py:26 templates/pages/blog.html:123
 msgid "Веб-розробка"
@@ -84,7 +84,7 @@ msgstr "telegram bots"
 
 #: apps/blog/models.py:29
 msgid "Бізнес"
-msgstr ""
+msgstr "Business"
 
 #: apps/blog/models.py:30 templates/pages/blog.html:134
 msgid "Технології"
@@ -92,19 +92,19 @@ msgstr "Technologies"
 
 #: apps/blog/models.py:31
 msgid "AI розробка"
-msgstr "Web Development"
+msgstr "AI Development"
 
 #: apps/blog/models.py:32
 msgid "AI агенти"
-msgstr ""
+msgstr "AI Agents"
 
 #: apps/blog/models.py:33
 msgid "AI автоматизація"
-msgstr ""
+msgstr "AI Automation"
 
 #: apps/blog/models.py:34 apps/events/models.py:48
 msgid "Категорія"
-msgstr "Category:"
+msgstr "Category"
 
 #: apps/blog/models.py:36 apps/events/models.py:80
 msgid "Створено"
@@ -120,11 +120,11 @@ msgstr "Published"
 
 #: apps/blog/models.py:42
 msgid "Стаття блогу"
-msgstr "Articles in Progress"
+msgstr "Blog Post"
 
 #: apps/blog/models.py:43
 msgid "Статті блогу"
-msgstr "Articles in Progress"
+msgstr "Blog Posts"
 
 #: apps/core/views.py:18 templates/base.html:21
 msgid "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама"
@@ -1566,7 +1566,7 @@ msgstr "Calculate Cost Online"
 
 #: templates/pages/home.html:62
 msgid "Наші послуги"
-msgstr "Our Clients"
+msgstr "Our Services"
 
 #: templates/pages/home.html:65 templates/pages/home.html:87
 #: templates/pages/home.html:475
@@ -1587,7 +1587,7 @@ msgstr "Web application / PWA"
 
 #: templates/pages/home.html:81 templates/pages/home.html:103
 msgid "UX/UI дизайн"
-msgstr ""
+msgstr "UX/UI Design"
 
 #: templates/pages/home.html:83 templates/pages/home.html:105
 msgid "Навчання IT та AI"
@@ -1605,14 +1605,19 @@ msgid ""
 "розробку, зменшувати кількість технічних годин і забезпечувати стабільну "
 "якість у короткі строки."
 msgstr ""
+"PrometeyLabs is a company that combines classic experience in creating "
+"digital products with modern AI technologies. We use intelligent tools to "
+"automate part of the processes, which allows us to accelerate development, "
+"reduce the number of technical hours and ensure stable quality in short "
+"timeframes."
 
 #: templates/pages/home.html:126
 msgid "Прозорі строки,"
-msgstr ""
+msgstr "Transparent timelines,"
 
 #: templates/pages/home.html:126
 msgid "які ми дотримуємося"
-msgstr ""
+msgstr "that we adhere to"
 
 #: templates/pages/home.html:129
 msgid "Базові терміни виконання:"
@@ -1620,12 +1625,12 @@ msgstr "Timeline:"
 
 #: templates/pages/home.html:131 templates/pages/home.html:152
 msgid "Лендінги:"
-msgstr ""
+msgstr "Landings:"
 
 #: templates/pages/home.html:131 templates/pages/home.html:132
 #: templates/pages/home.html:133 templates/pages/home.html:134
 msgid "днів"
-msgstr ""
+msgstr "days"
 
 #: templates/pages/home.html:132 templates/pages/home.html:153
 msgid "Корпоративні сайти:"
@@ -1644,18 +1649,20 @@ msgid ""
 "Точний час розробки залежить від складності дизайну, інтеграцій та "
 "функціоналу — визначаємо на консультації."
 msgstr ""
+"The exact development time depends on the complexity of the design, "
+"integrations and functionality — we determine this during consultation."
 
 #: templates/pages/home.html:147
 msgid "Справедлива вартість"
-msgstr "Calculate Cost"
+msgstr "Fair pricing"
 
 #: templates/pages/home.html:147
 msgid "та гнучкі умови оплати"
-msgstr ""
+msgstr "and flexible payment terms"
 
 #: templates/pages/home.html:150
 msgid "Середні діапазони цін:"
-msgstr ""
+msgstr "Average price ranges:"
 
 #: templates/pages/home.html:155
 msgid "Веб-додатки:"
@@ -1663,70 +1670,76 @@ msgstr "Web application / PWA"
 
 #: templates/pages/home.html:158
 msgid "Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов."
-msgstr ""
+msgstr "We offer payment in installments — without overpayments or hidden terms."
 
 #: templates/pages/home.html:168
 msgid "5-річна"
-msgstr ""
+msgstr "5-year"
 
 #: templates/pages/home.html:169
 msgid "гарантія"
-msgstr ""
+msgstr "warranty"
 
 #: templates/pages/home.html:169
 msgid "на наші продукти"
-msgstr "Our Clients"
+msgstr "on our products"
 
 #: templates/pages/home.html:172
 msgid "Гарантія включає:"
-msgstr ""
+msgstr "Warranty includes:"
 
 #: templates/pages/home.html:174
 msgid "Виправлення технічних помилок"
-msgstr "Social Media Management"
+msgstr "Technical bug fixes"
 
 #: templates/pages/home.html:175
 msgid "Підтримку працездатності коду"
-msgstr ""
+msgstr "Code functionality support"
 
 #: templates/pages/home.html:176
 msgid "Реакцію на критичні технічні збої"
-msgstr ""
+msgstr "Response to critical technical failures"
 
 #: templates/pages/home.html:177
 msgid "Відповідність функціоналу ТЗ"
-msgstr ""
+msgstr "Compliance with technical specifications"
 
 #: templates/pages/home.html:180
 msgid ""
 "Не включає: нові функції, оновлення дизайну, інтеграції з новими сервісами."
 msgstr ""
+"Does not include: new features, design updates, integrations with new services."
 
 #: templates/pages/home.html:190
 msgid "AI-технології"
-msgstr "Technologies"
+msgstr "AI Technologies"
 
 #: templates/pages/home.html:190
 msgid "для оптимізації процесів"
-msgstr ""
+msgstr "for process optimization"
 
 #: templates/pages/home.html:194
 msgid ""
 "Використовуємо AI для оптимізації рутинних процесів: генерації базової "
 "структури коду, перевірки якості, прискорення розробки та тестування."
 msgstr ""
+"We use AI to optimize routine processes: generating basic code structure, "
+"quality checks, accelerating development and testing."
 
 #: templates/pages/home.html:197
 msgid ""
 "Це не замінює інженерів — навпаки, дає можливість фокусуватися на якості, "
 "безпеці та архітектурі."
 msgstr ""
+"This does not replace engineers — on the contrary, it allows us to focus on "
+"quality, security and architecture."
 
 #: templates/pages/home.html:200
 msgid ""
 "Результат: швидкий запуск, менша кількість технічних годин і нижча кінцева "
 "ціна для клієнта."
 msgstr ""
+"Result: fast launch, fewer technical hours and lower final price for the client."
 
 #: templates/pages/home.html:211
 msgid ""
@@ -1734,6 +1747,10 @@ msgid ""
 "інтеграціях, мобільних додатках та інтернет-маркетингу. Це гарантує, що ваш "
 "проект буде реалізований системно, технологічно та з розумінням бізнес-задач."
 msgstr ""
+"PrometeyLabs specialists have years of practice in web development, design, "
+"integrations, mobile applications and internet marketing. This guarantees "
+"that your project will be implemented systematically, technologically and "
+"with understanding of business tasks."
 
 #: templates/pages/home.html:225
 msgid "Послуги PrometeyLabs"
@@ -1741,7 +1758,7 @@ msgstr "PrometeyLabs Services"
 
 #: templates/pages/home.html:234
 msgid "Детальніше про Web-розробку"
-msgstr ""
+msgstr "More about Web Development"
 
 #: templates/pages/home.html:238 templates/pages/home.html:471
 msgid "Web-розробка"
@@ -1787,7 +1804,7 @@ msgstr "Our Clients"
 
 #: templates/pages/home.html:428
 msgid "Переглянути всі проєкти у портфоліо"
-msgstr ""
+msgstr "View all projects in portfolio"
 
 #: templates/pages/home.html:429
 msgid "Переглянути портфоліо"
@@ -1809,11 +1826,11 @@ msgstr "Telegram Consultation"
 
 #: templates/pages/home.html:475
 msgid "Landing, корпоративні, багатосторінкові з SEO"
-msgstr ""
+msgstr "Landing pages, corporate, multi-page with SEO"
 
 #: templates/pages/home.html:476
 msgid "Каталог, оплати, доставки, інтеграції з маркетплейсами"
-msgstr ""
+msgstr "Catalog, payments, delivery, marketplace integrations"
 
 #: templates/pages/home.html:477
 msgid "Веб-додатки / SaaS"
@@ -1821,29 +1838,31 @@ msgstr "Web application / PWA"
 
 #: templates/pages/home.html:477
 msgid "Особисті кабінети, підписки, аналітика, білінг"
-msgstr ""
+msgstr "Personal accounts, subscriptions, analytics, billing"
 
 #: templates/pages/home.html:478
 msgid "Автоматизація, продажі, інтеграції з CRM та платіжними системами"
-msgstr ""
+msgstr "Automation, sales, integrations with CRM and payment systems"
 
 #: templates/pages/home.html:479
 msgid "Оновлення проєктів"
-msgstr "Refund Policy"
+msgstr "Project Updates"
 
 #: templates/pages/home.html:479
 msgid "Редизайн, прискорення, безпека, перенесення"
-msgstr ""
+msgstr "Redesign, acceleration, security, migration"
 
 #: templates/pages/home.html:481 templates/pages/home.html:504
 msgid "Робота включає:"
-msgstr ""
+msgstr "Work includes:"
 
 #: templates/pages/home.html:482
 msgid ""
 "Прототипування → UI/UX → верстка → бекенд → інтеграції → адмін-панель → "
 "деплой → SEO → аналітика → тестування → запуск"
 msgstr ""
+"Prototyping → UI/UX → layout → backend → integrations → admin panel → "
+"deployment → SEO → analytics → testing → launch"
 
 #: templates/pages/home.html:483 templates/pages/home.html:506
 msgid "Технології:"
@@ -1851,53 +1870,55 @@ msgstr "Technologies"
 
 #: templates/pages/home.html:498
 msgid "Розробка з нуля"
-msgstr "Development"
+msgstr "Development from scratch"
 
 #: templates/pages/home.html:498
 msgid "iOS/Android додатки для e-commerce, CRM, фінанси, освіта"
-msgstr ""
+msgstr "iOS/Android apps for e-commerce, CRM, finance, education"
 
 #: templates/pages/home.html:499
 msgid "Оплати та підписки"
-msgstr "Have logo and branding"
+msgstr "Payments and subscriptions"
 
 #: templates/pages/home.html:499
 msgid "Apple Pay, Google Pay, in-app покупки, регулярні підписки"
-msgstr ""
+msgstr "Apple Pay, Google Pay, in-app purchases, recurring subscriptions"
 
 #: templates/pages/home.html:500
 msgid "Push та аналітика"
-msgstr ""
+msgstr "Push and analytics"
 
 #: templates/pages/home.html:500
 msgid "Персоналізовані повідомлення, трекінг, метрики утримання"
-msgstr ""
+msgstr "Personalized notifications, tracking, retention metrics"
 
 #: templates/pages/home.html:501
 msgid "Адмін-панель"
-msgstr ""
+msgstr "Admin panel"
 
 #: templates/pages/home.html:501
 msgid "Керування контентом, користувачами, інтеграції з API"
-msgstr ""
+msgstr "Content management, users, API integrations"
 
 #: templates/pages/home.html:502
 msgid "Оновлення"
-msgstr "Message"
+msgstr "Updates"
 
 #: templates/pages/home.html:502
 msgid "Редизайн, прискорення, адаптація під нові версії iOS/Android"
-msgstr ""
+msgstr "Redesign, acceleration, adaptation for new iOS/Android versions"
 
 #: templates/pages/home.html:505
 msgid ""
 "UX-прототип → дизайн → кросплатформенна розробка → інтеграції → push та "
 "аналітика → тестування → публікація App Store/Google Play → підтримка"
 msgstr ""
+"UX prototype → design → cross-platform development → integrations → push "
+"and analytics → testing → App Store/Google Play publication → support"
 
 #: templates/pages/home.html:520
 msgid "Реклама:"
-msgstr "advertising"
+msgstr "Advertising:"
 
 #: templates/pages/home.html:521
 msgid ""
@@ -1905,97 +1926,113 @@ msgid ""
 "TikTok Ads (нативні інтеграції, Spark Ads) • SEO (аудит, оптимізація, "
 "контент)"
 msgstr ""
+"Google Ads (search, shopping, YouTube) • Meta Ads (traffic, leads, Direct) "
+"• TikTok Ads (native integrations, Spark Ads) • SEO (audit, optimization, "
+"content)"
 
 #: templates/pages/home.html:522
 msgid ""
 "Налаштування кабінетів, аналіз конкурентів, формування бюджету, запуск "
 "кампаній, прозора звітність, регулярна оптимізація."
 msgstr ""
+"Account setup, competitor analysis, budget planning, campaign launch, "
+"transparent reporting, regular optimization."
 
 #: templates/pages/home.html:523
 msgid "SMM: Instagram / TikTok / Facebook"
-msgstr ""
+msgstr "SMM: Instagram / TikTok / Facebook"
 
 #: templates/pages/home.html:524
 msgid ""
 "Контент-стратегія • Контент-план • Продакшн (рілси, сторіз, UGC) • Модерація "
 "• Інтеграції та колаборації • Конкурси • Запуск реклами • Щомісячна аналітика"
 msgstr ""
+"Content strategy • Content plan • Production (reels, stories, UGC) • "
+"Moderation • Integrations and collaborations • Contests • Ad launch • "
+"Monthly analytics"
 
 #: templates/pages/home.html:525
 msgid "Контент:"
-msgstr "Contact"
+msgstr "Content:"
 
 #: templates/pages/home.html:527
 msgid "Брендинг"
-msgstr ""
+msgstr "Branding"
 
 #: templates/pages/home.html:527
 msgid "Логотипи, гайдлайни, візитки, шаблони, презентації, банери"
-msgstr ""
+msgstr "Logos, guidelines, business cards, templates, presentations, banners"
 
 #: templates/pages/home.html:528
 msgid "Фото/Відео/AI"
-msgstr ""
+msgstr "Photo/Video/AI"
 
 #: templates/pages/home.html:528
 msgid ""
 "Пости, каруселі, сторіз, Reels/Shorts, AI-відео (Veo-3), AI-аватари, субтитри"
 msgstr ""
+"Posts, carousels, stories, Reels/Shorts, AI video (Veo-3), AI avatars, "
+"subtitles"
 
 #: templates/pages/home.html:542
 msgid ""
 "Програмування та AI від нуля до реальних проєктів. Практика на сучасних "
 "технологіях, портфоліо та можливість працевлаштування в PrometeyLabs."
 msgstr ""
+"Programming and AI from zero to real projects. Practice on modern "
+"technologies, portfolio and employment opportunity at PrometeyLabs."
 
 #: templates/pages/home.html:543
 msgid "Для новачків:"
-msgstr "new course announcements"
+msgstr "For beginners:"
 
 #: templates/pages/home.html:546
 msgid "Бази даних та деплой проєктів"
-msgstr ""
+msgstr "Databases and project deployment"
 
 #: templates/pages/home.html:548
 msgid "Завершальні проєкти для портфоліо"
-msgstr ""
+msgstr "Final projects for portfolio"
 
 #: templates/pages/home.html:550
 msgid "AI для розробників:"
-msgstr "Become a Developer"
+msgstr "AI for Developers:"
 
 #: templates/pages/home.html:552
 msgid "Основи та види AI, принципи роботи"
-msgstr ""
+msgstr "AI basics and types, working principles"
 
 #: templates/pages/home.html:553
 msgid "Платформи для щоденного використання"
-msgstr ""
+msgstr "Platforms for daily use"
 
 #: templates/pages/home.html:554
 msgid "Генерація та оптимізація коду через AI"
-msgstr ""
+msgstr "Code generation and optimization through AI"
 
 #: templates/pages/home.html:555
 msgid "LLM, промпт-інженерія, практичні кейси"
-msgstr ""
+msgstr "LLM, prompt engineering, practical cases"
 
 #: templates/pages/home.html:557
 msgid "Підтримка:"
-msgstr ""
+msgstr "Support:"
 
 #: templates/pages/home.html:558
 msgid ""
 "Індивідуальні та групові заняття • Зворотний зв'язок • Код-рев'ю • Реальні "
 "бізнес-задачі • Підготовка CV/GitHub/LinkedIn"
 msgstr ""
+"Individual and group classes • Feedback • Code review • Real business tasks "
+"• CV/GitHub/LinkedIn preparation"
 
 #: templates/pages/home.html:560
 msgid ""
 "Найсильніші випускники після екзамену зможуть отримати офіційне "
 "працевлаштування як розробники чи дизайнери в PrometeyLabs."
 msgstr ""
+"The strongest graduates after the exam will be able to get official "
+"employment as developers or designers at PrometeyLabs."
 
 #: templates/pages/portfolio.html:5
 msgid "Портфоліо - PrometeyLabs"
