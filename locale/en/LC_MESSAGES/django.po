@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PrometeyLabs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-27 11:47+0200\n"
+"POT-Creation-Date: 2025-12-27 12:05+0200\n"
 "PO-Revision-Date: 2025-09-29 12:00+0000\n"
 "Last-Translator: PrometeyLabs <info@prometeylabs.com>\n"
 "Language-Team: English\n"
@@ -144,7 +144,7 @@ msgstr "Turnkey Website Development"
 
 #: apps/core/views.py:24
 msgid "Портфоліо | Створені нами сайти під ключ - PrometeyLabs"
-msgstr ""
+msgstr "Portfolio | Turnkey Websites Created by Us - PrometeyLabs"
 
 #: apps/core/views.py:25
 msgid ""
@@ -164,7 +164,7 @@ msgstr ""
 
 #: apps/core/views.py:34
 msgid "PrometeyLabs — Навчання web-розробці та AI"
-msgstr ""
+msgstr "PrometeyLabs — Web Development and AI Training"
 
 #: apps/core/views.py:35
 msgid ""
@@ -172,16 +172,21 @@ msgid ""
 "розробників з досвідом. Практичне навчання, комунікація з експертами, "
 "можливість кар'єри у нашій компанії."
 msgstr ""
+"Web development and AI training at PrometeyLabs. Programs for beginners and "
+"experienced developers. Practical training, communication with experts, "
+"career opportunity in our company."
 
 #: apps/core/views.py:39
 msgid "Контакти | PrometeyLabs - Зв'яжіться з нами"
-msgstr ""
+msgstr "Contacts | PrometeyLabs - Contact Us"
 
 #: apps/core/views.py:40
 msgid ""
 "Зв'яжіться з командою PrometeyLabs для розробки сайтів, Telegram ботів, "
 "реклами чи навчання. Київ, Україна."
 msgstr ""
+"Contact the PrometeyLabs team for website development, Telegram bots, "
+"advertising or training. Kyiv, Ukraine."
 
 #: apps/core/views.py:44 templates/pages/offer.html:5
 msgid "Публічна оферта на надання послуг | PrometeyLabs"
@@ -222,6 +227,8 @@ msgid ""
 "Політика повернення коштів від PrometeyLabs. Дізнайтеся про умови і порядок "
 "повернення коштів за наші послуги."
 msgstr ""
+"Refund policy from PrometeyLabs. Learn about the terms and procedure for "
+"refunding our services."
 
 #: apps/core/views.py:64 templates/pages/intellectual-property.html:5
 msgid "Політика щодо інтелектуальної власності | PrometeyLabs"
@@ -232,31 +239,33 @@ msgid ""
 "Політика щодо інтелектуальної власності від PrometeyLabs. Дізнайтеся про "
 "права на контент та захист авторських прав."
 msgstr ""
+"Intellectual property policy from PrometeyLabs. Learn about content rights "
+"and copyright protection."
 
 #: apps/core/views.py:73 apps/core/views.py:203
 msgid "Метод не дозволений"
-msgstr ""
+msgstr "Method not allowed"
 
 #: apps/core/views.py:83
 msgid "Заповніть обов'язкові поля: ім'я та телефон"
-msgstr ""
+msgstr "Fill in required fields: name and phone"
 
 #: apps/core/views.py:87 apps/core/views.py:213
 msgid "Введіть коректне ім'я (мінімум 2 символи, хоча б одна літера)"
-msgstr ""
+msgstr "Enter a valid name (minimum 2 characters, at least one letter)"
 
 #: apps/core/views.py:91
 msgid "Введіть коректний номер телефону"
-msgstr "Enter phone number"
+msgstr "Enter a valid phone number"
 
 #: apps/core/views.py:108
 #, python-brace-format
 msgid "Невідомий тип форми: {form_type}"
-msgstr ""
+msgstr "Unknown form type: {form_type}"
 
 #: apps/core/views.py:112
 msgid "Сталася помилка при обробці заявки. Спробуйте ще раз."
-msgstr ""
+msgstr "An error occurred while processing the request. Please try again."
 
 #: apps/core/views.py:122
 msgid "Заявка на розробку сайту"
@@ -289,23 +298,23 @@ msgstr "Contact Page Request"
 
 #: apps/core/views.py:194
 msgid "Дякуємо за ваше повідомлення! Ми зв'яжемося з вами найближчим часом."
-msgstr "Our manager will contact you soon"
+msgstr "Thank you for your message! We will contact you soon."
 
 #: apps/core/views.py:216
 msgid "Введіть коректний номер телефону (мінімум 10 цифр)"
-msgstr "Enter phone number"
+msgstr "Enter a valid phone number (minimum 10 digits)"
 
 #: apps/core/views.py:250
 msgid "Результат тесту калькулятора"
-msgstr "I Want to Become a Developer"
+msgstr "Calculator Test Result"
 
 #: apps/core/views.py:257 apps/core/views.py:296
 msgid "Дякуємо! Ми зв'яжемося з вами найближчим часом."
-msgstr "Our manager will contact you soon"
+msgstr "Thank you! We will contact you soon."
 
 #: apps/core/views.py:268
 msgid "Помилка при обробці тесту"
-msgstr ""
+msgstr "Error processing test"
 
 #: apps/core/views.py:273
 msgid "Замовлення дзвінка"
@@ -809,6 +818,18 @@ msgstr "Register"
 msgid "БЛОГ"
 msgstr "BLOG"
 
+#: templates/pages/blog.html:34
+msgid ""
+"Читайте експертні поради, практичні керівництва та актуальну інформацію про "
+"створення сайтів, навчання програмуванню та автоматизацію бізнесу"
+msgstr ""
+"Read expert advice, practical guides and up-to-date information about "
+"website creation, programming training and business automation"
+
+#: templates/pages/blog.html:42 templates/pages/home.html:62
+msgid "Наші послуги"
+msgstr "Our Services"
+
 #: templates/pages/blog.html:107
 msgid "Знайти статтю..."
 msgstr "Find article..."
@@ -854,51 +875,51 @@ msgstr "Popular Articles"
 
 #: templates/pages/blog_detail.html:62
 msgid "Схожі статті"
-msgstr "All Articles"
+msgstr "Related Articles"
 
 #: templates/pages/blog_detail.html:91
 msgid "Повернутися до блогу"
-msgstr ""
+msgstr "Back to blog"
 
 #: templates/pages/blog_search.html:21
 msgid "Результати пошуку:"
-msgstr "I Want to Become a Developer"
+msgstr "Search results:"
 
 #: templates/pages/blog_search.html:23
 msgid "Пошук по блогу"
-msgstr ""
+msgstr "Blog search"
 
 #: templates/pages/blog_search.html:30
 msgid "Введіть пошуковий запит..."
-msgstr ""
+msgstr "Enter search query..."
 
 #: templates/pages/blog_search.html:48
 #, python-format
 msgid "Знайдено %(count)s результатів для \"%(query)s\""
-msgstr ""
+msgstr "Found %(count)s results for \"%(query)s\""
 
 #: templates/pages/blog_search.html:90
 #, python-format
 msgid "Сторінка %(current)s з %(total)s"
-msgstr ""
+msgstr "Page %(current)s of %(total)s"
 
 #: templates/pages/blog_search.html:100
 msgid "Нічого не знайдено"
-msgstr ""
+msgstr "Nothing found"
 
 #: templates/pages/blog_search.html:102
 #, python-format
 msgid ""
 "За запитом \"%(query)s\" нічого не знайдено. Спробуйте інші ключові слова."
-msgstr ""
+msgstr "Nothing found for query \"%(query)s\". Try other keywords."
 
 #: templates/pages/blog_search.html:105
 msgid "Переглянути всі статті"
-msgstr "Popular Articles"
+msgstr "View all articles"
 
 #: templates/pages/blog_search.html:111
 msgid "Популярні пошукові запити"
-msgstr "Popular Articles"
+msgstr "Popular search queries"
 
 #: templates/pages/calculator.html:19
 msgid "Калькулятор"
@@ -1088,13 +1109,15 @@ msgstr "GET ESTIMATE"
 
 #: templates/pages/contacts.html:5
 msgid "Контакти | PrometeyLabs"
-msgstr "PrometeyLabs Services"
+msgstr "Contacts | PrometeyLabs"
 
 #: templates/pages/contacts.html:8
 msgid ""
 "Зв'яжіться з командою PrometeyLabs. Ми завжди на зв'язку для обговорення "
 "вашого проекту, консультації чи навчання. Київ, Україна."
 msgstr ""
+"Contact the PrometeyLabs team. We are always available to discuss your "
+"project, consultation or training. Kyiv, Ukraine."
 
 #: templates/pages/contacts.html:30
 msgid "Зв'язок з нами"
@@ -1122,7 +1145,7 @@ msgstr "PrometeyLabs team"
 
 #: templates/pages/contacts.html:91
 msgid "Напишіть нам"
-msgstr "Enter your name"
+msgstr "Write to us"
 
 #: templates/pages/contacts.html:92
 msgid "Заповніть форму, і ми зв'яжемося з вами протягом 15 хвилин"
@@ -1152,19 +1175,23 @@ msgstr ""
 
 #: templates/pages/developer.html:29
 msgid "СТАТИ РОЗРОБНИКОМ"
-msgstr "GET ESTIMATE"
+msgstr "BECOME A DEVELOPER"
 
 #: templates/pages/developer.html:31
 msgid ""
 "Мрієте стати веб-розробником? Наші курси програмування - це ваш шлях до "
 "успішної кар'єри в IT."
 msgstr ""
+"Dreaming of becoming a web developer? Our programming courses are your path "
+"to a successful career in IT."
 
 #: templates/pages/developer.html:36
 msgid ""
 "Усі групи зараз заповнені. Напишіть адміністратору PrometeyLabs, щоб "
 "потрапити у список очікування."
 msgstr ""
+"All groups are currently full. Write to the PrometeyLabs administrator to "
+"get on the waiting list."
 
 #: templates/pages/developer.html:42
 msgid "Написати адміністратору"
@@ -1176,63 +1203,67 @@ msgstr "Programming Courses"
 
 #: templates/pages/developer.html:56
 msgid "Для кого підходить навчання"
-msgstr ""
+msgstr "Who is the training for"
 
 #: templates/pages/developer.html:61
 msgid "Для новачків"
-msgstr "new course announcements"
+msgstr "For beginners"
 
 #: templates/pages/developer.html:63
 msgid ""
 "Повний вступ у веб-розробку з нуля. Створите своє перше портфоліо, "
 "оволодієте базовими навичками та готуватимеся до першої роботи в IT."
 msgstr ""
+"Complete introduction to web development from scratch. Create your first "
+"portfolio, master basic skills and prepare for your first job in IT."
 
 #: templates/pages/developer.html:67 templates/pages/developer.html:110
 msgid "Адаптивний дизайн"
-msgstr "Have mockups/design"
+msgstr "Responsive design"
 
 #: templates/pages/developer.html:68
 msgid "Бази даних"
-msgstr "Read More"
+msgstr "Databases"
 
 #: templates/pages/developer.html:69
 msgid "Git та контроль версій"
-msgstr ""
+msgstr "Git and version control"
 
 #: templates/pages/developer.html:70
 msgid "Командна робота"
-msgstr ""
+msgstr "Teamwork"
 
 #: templates/pages/developer.html:76
 msgid "Для розробників з досвідом"
-msgstr "Become a Developer"
+msgstr "For experienced developers"
 
 #: templates/pages/developer.html:78
 msgid ""
 "Глибока інтеграція AI у ваш робочий процес. Навчіться використовувати "
 "передові методи для оптимізації та прискорення розробки."
 msgstr ""
+"Deep integration of AI into your workflow. Learn to use advanced methods for "
+"optimization and acceleration of development."
 
 #: templates/pages/developer.html:81 templates/pages/developer.html:137
 msgid "Типи AI та LLM"
-msgstr ""
+msgstr "AI types and LLM"
 
 #: templates/pages/developer.html:82 templates/pages/developer.html:138
 msgid "Промпт-інженерія"
-msgstr ""
+msgstr "Prompt engineering"
 
 #: templates/pages/developer.html:83
 msgid "Оптимізація коду з AI"
-msgstr ""
+msgstr "Code optimization with AI"
 
 #: templates/pages/developer.html:84
 msgid "Практичні кейси"
-msgstr ""
+msgstr "Practical cases"
 
 #: templates/pages/developer.html:85
 msgid "Інтеграція у робочий процес"
-msgstr ""
+msgstr "Integration into workflow"
 
 #: templates/pages/developer.html:95
 msgid "Програми навчання"
@@ -1247,30 +1278,32 @@ msgid ""
 "Комплексна програма для новачків. Від основ HTML/CSS до сучасних JavaScript-"
 "фреймворків і backend-розробки."
 msgstr ""
+"Comprehensive program for beginners. From HTML/CSS basics to modern "
+"JavaScript frameworks and backend development."
 
 #: templates/pages/developer.html:106 templates/pages/developer.html:135
 msgid "Модулі курсу:"
-msgstr ""
+msgstr "Course modules:"
 
 #: templates/pages/developer.html:108
 msgid "Основи HTML та CSS"
-msgstr ""
+msgstr "HTML and CSS basics"
 
 #: templates/pages/developer.html:109
 msgid "JavaScript та взаємодія"
-msgstr ""
+msgstr "JavaScript and interaction"
 
 #: templates/pages/developer.html:111 templates/pages/home.html:547
 msgid "Git та командна робота"
-msgstr ""
+msgstr "Git and teamwork"
 
 #: templates/pages/developer.html:112
 msgid "Основи backend"
-msgstr ""
+msgstr "Backend basics"
 
 #: templates/pages/developer.html:113
 msgid "Фінальний проєкт у портфоліо"
-msgstr ""
+msgstr "Final portfolio project"
 
 #: templates/pages/developer.html:118 templates/pages/developer.html:147
 #: templates/pages/events.html:105
@@ -1279,132 +1312,136 @@ msgstr "Format:"
 
 #: templates/pages/developer.html:119
 msgid "Групові та індивідуальні заняття, гнучкий графік"
-msgstr ""
+msgstr "Group and individual classes, flexible schedule"
 
 #: templates/pages/developer.html:123
 msgid ""
 "Усі групи зараз заповнені. Напишіть адміністратору, щоб потрапити у список "
 "очікування."
 msgstr ""
+"All groups are currently full. Write to the administrator to get on the "
+"waiting list."
 
 #: templates/pages/developer.html:129
 msgid "AI для розробників"
-msgstr "Become a Developer"
+msgstr "AI for Developers"
 
 #: templates/pages/developer.html:131
 msgid ""
 "Спеціалізована програма для розробників. Навчіться ефективно використовувати "
 "AI у повсякденній роботі."
 msgstr ""
+"Specialized program for developers. Learn to effectively use AI in daily "
+"work."
 
 #: templates/pages/developer.html:139
 msgid "Рефакторинг коду"
-msgstr ""
+msgstr "Code refactoring"
 
 #: templates/pages/developer.html:140
 msgid "Практичні кейси розробки"
-msgstr "web developer training"
+msgstr "Practical development cases"
 
 #: templates/pages/developer.html:141
 msgid "Оптимізація робочого процесу"
-msgstr ""
+msgstr "Workflow optimization"
 
 #: templates/pages/developer.html:142
 msgid "Реальні проєкти"
-msgstr "Mobile Apps"
+msgstr "Real projects"
 
 #: templates/pages/developer.html:148
 msgid "Групові та індивідуальні заняття, інтенсивні спринти"
-msgstr ""
+msgstr "Group and individual classes, intensive sprints"
 
 #: templates/pages/developer.html:152
 msgid "Запишіться у список очікування для наступної групи."
-msgstr ""
+msgstr "Sign up for the waiting list for the next group."
 
 #: templates/pages/developer.html:162
 msgid "Що ви отримуєте"
-msgstr ""
+msgstr "What you get"
 
 #: templates/pages/developer.html:166
 msgid "Системне розуміння"
-msgstr ""
+msgstr "Systematic understanding"
 
 #: templates/pages/developer.html:167
 msgid "Глибокі знання web та AI, які допоможуть розвиватися в кар'єрі"
-msgstr ""
+msgstr "Deep knowledge of web and AI that will help you grow in your career"
 
 #: templates/pages/developer.html:171
 msgid "Практичні навички"
-msgstr ""
+msgstr "Practical skills"
 
 #: templates/pages/developer.html:172
 msgid "Робота над реальними задачами з безпосереднім застосуванням знань"
-msgstr ""
+msgstr "Working on real tasks with direct application of knowledge"
 
 #: templates/pages/developer.html:176
 msgid "Портфоліо проєкт"
-msgstr "Portfolio"
+msgstr "Portfolio project"
 
 #: templates/pages/developer.html:177
 msgid "Персональний проєкт, який продемонструє ваші навички роботодавцю"
-msgstr ""
+msgstr "Personal project that will demonstrate your skills to employers"
 
 #: templates/pages/developer.html:181
 msgid "Контроль версій"
-msgstr ""
+msgstr "Version control"
 
 #: templates/pages/developer.html:182
 msgid "Практика роботи з Git та сучасним робочим процесом розробки"
-msgstr ""
+msgstr "Practice working with Git and modern development workflow"
 
 #: templates/pages/developer.html:186
 msgid "Командна взаємодія"
-msgstr ""
+msgstr "Team interaction"
 
 #: templates/pages/developer.html:187
 msgid "Розвиток навичок спілкування та командної роботи на реальних проєктах"
-msgstr ""
+msgstr "Development of communication and teamwork skills on real projects"
 
 #: templates/pages/developer.html:191
 msgid "AI у розробці"
-msgstr ""
+msgstr "AI in development"
 
 #: templates/pages/developer.html:192
 msgid ""
 "Розуміння того, як ефективно використовувати AI у щоденній роботі розробника"
-msgstr ""
+msgstr "Understanding how to effectively use AI in daily developer work"
 
 #: templates/pages/developer.html:201
 msgid "Формат та підтримка"
-msgstr ""
+msgstr "Format and support"
 
 #: templates/pages/developer.html:207
 msgid "Групові та індивідуальні заняття"
-msgstr ""
+msgstr "Group and individual classes"
 
 #: templates/pages/developer.html:208
 msgid "Вибирайте формат, який підходить вам найбільше"
-msgstr ""
+msgstr "Choose the format that suits you best"
 
 #: templates/pages/developer.html:211
 msgid "Зворотний зв'язок по задачах"
-msgstr ""
+msgstr "Feedback on tasks"
 
 #: templates/pages/developer.html:212
 msgid "Детальний розбір кожного завдання з менторами"
-msgstr ""
+msgstr "Detailed analysis of each task with mentors"
 
 #: templates/pages/developer.html:215
 msgid "Комунікація з розробниками PrometeyLabs"
-msgstr "I Want to Become a Developer"
+msgstr "Communication with PrometeyLabs developers"
 
 #: templates/pages/developer.html:216
 msgid "Прямий контакт з досвідченими фахівцями команди"
-msgstr ""
+msgstr "Direct contact with experienced team specialists"
 
 #: templates/pages/developer.html:222 templates/pages/home.html:559
 msgid "Кар'єра в PrometeyLabs"
-msgstr "PrometeyLabs Services"
+msgstr "Career at PrometeyLabs"
 
 #: templates/pages/developer.html:224
 msgid ""
@@ -1412,39 +1449,45 @@ msgid ""
 "офіційне працевлаштування в нашій компанії. Це чудова можливість почати свою "
 "кар'єру в IT з досвідченою командою."
 msgstr ""
+"The strongest graduates have the opportunity to take the final exam and get "
+"official employment in our company. This is a great opportunity to start "
+"your IT career with an experienced team."
 
 #: templates/pages/developer.html:234
 msgid "Як записатися на навчання"
-msgstr "Sign up for course"
+msgstr "How to enroll in training"
 
 #: templates/pages/developer.html:239
 msgid "Напишіть адміністратору"
-msgstr "Enter your name"
+msgstr "Write to administrator"
 
 #: templates/pages/developer.html:240
 msgid "Зв'яжіться з нами у Telegram або іншому месенджері, зручному для вас"
-msgstr ""
+msgstr "Contact us on Telegram or another messenger convenient for you"
 
 #: templates/pages/developer.html:245
 msgid "Виберіть програму"
-msgstr "Enter your name"
+msgstr "Choose a program"
 
 #: templates/pages/developer.html:246
 msgid "Розповідайте про ваш рівень та цілі. Допоможемо вибрати підходящий курс"
 msgstr ""
+"Tell us about your level and goals. We'll help you choose the right course"
 
 #: templates/pages/developer.html:251
 msgid "Отримайте інформацію"
-msgstr "Useful Information"
+msgstr "Get information"
 
 #: templates/pages/developer.html:252
 msgid ""
 "Дізнайтесь про розклад, деталі та всю необхідну інформацію про старт групи"
 msgstr ""
+"Learn about the schedule, details and all necessary information about the "
+"group start"
 
 #: templates/pages/developer.html:258
 msgid "Зв'язатися з адміністратором"
-msgstr ""
+msgstr "Contact administrator"
 
 #: templates/pages/events.html:30
 msgid "Актуальні події та вебінари"
@@ -1563,10 +1606,6 @@ msgstr "Write in Telegram"
 #: templates/pages/home.html:54
 msgid "Розрахувати вартість онлайн"
 msgstr "Calculate Cost Online"
-
-#: templates/pages/home.html:62
-msgid "Наші послуги"
-msgstr "Our Services"
 
 #: templates/pages/home.html:65 templates/pages/home.html:87
 #: templates/pages/home.html:475
@@ -2040,6 +2079,14 @@ msgstr ""
 #: templates/pages/portfolio.html:5
 msgid "Портфоліо - PrometeyLabs"
 msgstr "Portfolio - PrometeyLabs"
+
+#: templates/pages/portfolio.html:6
+msgid ""
+"Наше портфоліо веб-сайтів під ключ. Приклади сучасних веб-рішень для різних сфер "
+"бізнесу."
+msgstr ""
+"Our portfolio of turnkey websites. Examples of modern web solutions for "
+"various business sectors."
 
 #: templates/pages/portfolio.html:30
 msgid "СТВОРЕНІ НАМИ"
