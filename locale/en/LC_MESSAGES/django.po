@@ -628,7 +628,7 @@ msgstr "GET CONSULTATION"
 #: templates/components/footer.html:77 templates/components/modals.html:26
 #: templates/components/modals.html:64 templates/components/modals.html:166
 #: templates/components/modals.html:206 templates/pages/calculator.html:222
-msgid "Введіть ваше ім\\"
+msgid "Введіть ваше ім'я"
 msgstr "Enter your name"
 
 #: templates/components/footer.html:80
@@ -637,7 +637,7 @@ msgstr "Contact"
 
 #: templates/components/footer.html:81
 msgid "Telegram або номер телефону"
-msgstr "Phone number"
+msgstr "Telegram or phone number"
 
 #: templates/components/footer.html:86
 msgid "Даю згоду на обробку персональних даних згідно"
