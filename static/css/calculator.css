@@ -482,11 +482,6 @@
     color: rgba(0, 0, 0, 0.4);
 }
 
-.calc-field__input.error {
-    border-color: #dc3545;
-    background-color: rgba(220, 53, 69, 0.05);
-}
-
 .calc-field__error {
     display: none;
     font-size: 12px;
