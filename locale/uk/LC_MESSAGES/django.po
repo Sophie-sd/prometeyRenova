@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PrometeyLabs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-27 00:29+0200\n"
+"POT-Creation-Date: 2025-12-27 11:19+0200\n"
 "PO-Revision-Date: 2025-09-29 12:00+0000\n"
 "Last-Translator: PrometeyLabs <info@prometeylabs.com>\n"
 "Language-Team: Ukrainian\n"
@@ -17,7 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: apps/blog/models.py:8
-#| msgid "головна"
 msgid "Заголовок"
 msgstr "головна"
 
@@ -30,12 +29,10 @@ msgid "Короткий опис"
 msgstr "Короткий опис"
 
 #: apps/blog/models.py:11
-#| msgid "Контакт"
 msgid "Контент"
 msgstr "Контакт"
 
 #: apps/blog/models.py:12 apps/events/models.py:75
-#| msgid "головна"
 msgid "SEO заголовок"
 msgstr "головна"
 
@@ -69,12 +66,10 @@ msgid "Час читання (хв)"
 msgstr "Час читання (хв)"
 
 #: apps/blog/models.py:24
-#| msgid "Комплексні веб-рішення"
 msgid "Головне зображення"
 msgstr "Комплексні веб-рішення"
 
 #: apps/blog/models.py:26 templates/pages/blog.html:123
-#| msgid "Web-розробка"
 msgid "Веб-розробка"
 msgstr "Web-розробка"
 
@@ -84,7 +79,6 @@ msgid "Курси програмування"
 msgstr "Курси програмування"
 
 #: apps/blog/models.py:28 templates/pages/blog.html:130
-#| msgid "telegram боти"
 msgid "Telegram боти"
 msgstr "telegram боти"
 
@@ -97,7 +91,6 @@ msgid "Технології"
 msgstr "Технології"
 
 #: apps/blog/models.py:31
-#| msgid "Web-розробка"
 msgid "AI розробка"
 msgstr "Web-розробка"
 
@@ -126,12 +119,10 @@ msgid "Опубліковано"
 msgstr "Опубліковано"
 
 #: apps/blog/models.py:42
-#| msgid "Статті готуються"
 msgid "Стаття блогу"
 msgstr "Статті готуються"
 
 #: apps/blog/models.py:43
-#| msgid "Статті готуються"
 msgid "Статті блогу"
 msgstr "Статті готуються"
 
@@ -147,7 +138,6 @@ msgid ""
 msgstr ""
 
 #: apps/core/views.py:20
-#| msgid "Розробка сайтів під ключ"
 msgid "PrometeyLabs - Розробка сайтів під ключ"
 msgstr "Розробка сайтів під ключ"
 
@@ -162,7 +152,6 @@ msgid ""
 msgstr ""
 
 #: apps/core/views.py:29
-#| msgid "Розрахувати вартість онлайн"
 msgid "Розрахувати вартість сайту | Калькулятор ціни - PrometeyLabs"
 msgstr "Розрахувати вартість онлайн"
 
@@ -204,7 +193,6 @@ msgid ""
 msgstr ""
 
 #: apps/core/views.py:49 templates/pages/privacy.html:5
-#| msgid "Політика конфіденційності"
 msgid "Політика конфіденційності | PrometeyLabs"
 msgstr "Політика конфіденційності"
 
@@ -215,7 +203,6 @@ msgid ""
 msgstr ""
 
 #: apps/core/views.py:54 templates/pages/cookies.html:5
-#| msgid "Портфоліо - PrometeyLabs"
 msgid "Політика щодо файлів cookie | PrometeyLabs"
 msgstr "Портфоліо - PrometeyLabs"
 
@@ -226,7 +213,6 @@ msgid ""
 msgstr ""
 
 #: apps/core/views.py:59 templates/pages/refund.html:5
-#| msgid "Політика повернення коштів"
 msgid "Політика повернення коштів | PrometeyLabs"
 msgstr "Політика повернення коштів"
 
@@ -237,7 +223,6 @@ msgid ""
 msgstr ""
 
 #: apps/core/views.py:64 templates/pages/intellectual-property.html:5
-#| msgid "Інтелектуальна власність"
 msgid "Політика щодо інтелектуальної власності | PrometeyLabs"
 msgstr "Інтелектуальна власність"
 
@@ -260,7 +245,6 @@ msgid "Введіть коректне ім'я (мінімум 2 символи,
 msgstr "Введіть коректне ім'я (мінімум 2 символи, хоча б одна літера)"
 
 #: apps/core/views.py:91
-#| msgid "Введіть номер телефону"
 msgid "Введіть коректний номер телефону"
 msgstr "Введіть ваше ім'я"
 
@@ -274,17 +258,14 @@ msgid "Сталася помилка при обробці заявки. Спр�
 msgstr "Сталася помилка при обробці заявки. Спробуйте ще раз."
 
 #: apps/core/views.py:122
-#| msgid "Заявка на створення сайту"
 msgid "Заявка на розробку сайту"
 msgstr "Заявка на створення сайту"
 
 #: apps/core/views.py:132
-#| msgid "Наш менеджер зв'яжеться з вами найближчим часом"
 msgid "Дякуємо! Ваша заявка отримана. Ми зв'яжемося з вами найближчим часом."
 msgstr "Наш менеджер зв'яжеться з вами найближчим часом"
 
 #: apps/core/views.py:143
-#| msgid "Курси програмування"
 msgid "Заявка на курси програмування"
 msgstr "Курси програмування"
 
@@ -294,37 +275,30 @@ msgid ""
 msgstr ""
 
 #: apps/core/views.py:164
-#| msgid "Заявка на створення сайту"
 msgid "Заявка на консультацію"
 msgstr "Заявка на створення сайту"
 
 #: apps/core/views.py:174
-#| msgid "Заповніть форму, і ми зв'яжемося з вами протягом 15 хвилин"
 msgid "Дякуємо! Наш спеціаліст зв'яжеться з вами протягом 15 хвилин."
 msgstr "Заповніть форму, і ми зв'яжемося з вами протягом 15 хвилин"
 
 #: apps/core/views.py:184
-#| msgid "Заявка на створення сайту"
 msgid "Заявка зі сторінки контактів"
 msgstr "Заявка на створення сайту"
 
 #: apps/core/views.py:194
-#| msgid "Наш менеджер зв'яжеться з вами найближчим часом"
 msgid "Дякуємо за ваше повідомлення! Ми зв'яжемося з вами найближчим часом."
 msgstr "Наш менеджер зв'яжеться з вами найближчим часом"
 
 #: apps/core/views.py:216
-#| msgid "Введіть номер телефону"
 msgid "Введіть коректний номер телефону (мінімум 10 цифр)"
 msgstr "Введіть ваше ім'я"
 
 #: apps/core/views.py:250
-#| msgid "Результат розрахунку"
 msgid "Результат тесту калькулятора"
 msgstr "Результат розрахунку"
 
 #: apps/core/views.py:257 apps/core/views.py:296
-#| msgid "Наш менеджер зв'яжеться з вами найближчим часом"
 msgid "Дякуємо! Ми зв'яжемося з вами найближчим часом."
 msgstr "Наш менеджер зв'яжеться з вами найближчим часом"
 
@@ -333,22 +307,18 @@ msgid "Помилка при обробці тесту"
 msgstr "Помилка при обробці тесту"
 
 #: apps/core/views.py:273
-#| msgid "Замовити дзвінок"
 msgid "Замовлення дзвінка"
 msgstr "Замовити дзвінок"
 
 #: apps/core/views.py:281
-#| msgid "Залишіть контакти і наш менеджер зателефонує вам протягом 15 хвилин"
 msgid "Дякуємо! Наш менеджер зателефонує вам протягом 15 хвилин."
 msgstr "Залишіть контакти і наш менеджер зателефонує вам протягом 15 хвилин"
 
 #: apps/core/views.py:288
-#| msgid "Telegram консультація"
 msgid "Заявка з footer - Консультація"
 msgstr "Telegram консультація"
 
 #: apps/events/models.py:10
-#| msgid "Назва компанії"
 msgid "Назва категорії"
 msgstr "Назва компанії"
 
@@ -369,27 +339,22 @@ msgid "Категорії подій"
 msgstr "Категорії подій"
 
 #: apps/events/models.py:27
-#| msgid "Вебінари"
 msgid "Вебінар"
 msgstr "Вебінари"
 
 #: apps/events/models.py:28
-#| msgid "Знижки"
 msgid "Знижка"
 msgstr "Знижки"
 
 #: apps/events/models.py:29
-#| msgid "Курси"
 msgid "Курс"
 msgstr "Курси"
 
 #: apps/events/models.py:30
-#| msgid "Майстер-класи"
 msgid "Майстер-клас"
 msgstr "Майстер-класи"
 
 #: apps/events/models.py:31
-#| msgid "Зустрічі"
 msgid "Зустріч"
 msgstr "Зустрічі"
 
@@ -414,7 +379,6 @@ msgid "Скасована"
 msgstr "Скасована"
 
 #: apps/events/models.py:42
-#| msgid "Назва компанії"
 msgid "Назва події"
 msgstr "Назва компанії"
 
@@ -423,7 +387,6 @@ msgid "Повний опис"
 msgstr "Повний опис"
 
 #: apps/events/models.py:49
-#| msgid "події"
 msgid "Тип події"
 msgstr "події"
 
@@ -432,7 +395,6 @@ msgid "Статус"
 msgstr "Статус"
 
 #: apps/events/models.py:53
-#| msgid "Готові почати?"
 msgid "Дата та час початку"
 msgstr "Готові почати?"
 
@@ -441,17 +403,14 @@ msgid "Дата та час завершення"
 msgstr "Дата та час завершення"
 
 #: apps/events/models.py:55
-#| msgid "Реєстрація на подію"
 msgid "Дедлайн реєстрації"
 msgstr "Реєстрація на подію"
 
 #: apps/events/models.py:58
-#| msgid "Надіслати повідомлення"
 msgid "Місце проведення"
 msgstr "Надіслати повідомлення"
 
 #: apps/events/models.py:59
-#| msgid "події"
 msgid "Онлайн подія"
 msgstr "події"
 
@@ -464,12 +423,10 @@ msgid "Ціна"
 msgstr "Ціна"
 
 #: apps/events/models.py:64
-#| msgid "Зв'язок з нами"
 msgid "Відсоток знижки"
 msgstr "Зв'язок з нами"
 
 #: apps/events/models.py:65
-#| msgid "Закрити модальне вікно"
 msgid "Оригінальна ціна"
 msgstr "Закрити меню"
 
@@ -478,12 +435,10 @@ msgid "Максимальна кількість учасників"
 msgstr "Максимальна кількість учасників"
 
 #: apps/events/models.py:69
-#| msgid "Яка поточна готовність проєкту?"
 msgid "Поточна кількість учасників"
 msgstr "Яка поточна готовність проєкту?"
 
 #: apps/events/models.py:72
-#| msgid "події"
 msgid "Зображення події"
 msgstr "події"
 
@@ -492,7 +447,6 @@ msgid "Рекомендована"
 msgstr "Рекомендована"
 
 #: apps/events/models.py:87 apps/events/models.py:142
-#| msgid "Події"
 msgid "Подія"
 msgstr "Події"
 
@@ -517,7 +471,6 @@ msgid "Телефон"
 msgstr "Телефон"
 
 #: apps/events/models.py:146
-#| msgid "Назва компанії"
 msgid "Компанія"
 msgstr "Назва компанії"
 
@@ -526,7 +479,6 @@ msgid "Додаткова інформація"
 msgstr "Додаткова інформація"
 
 #: apps/events/models.py:149
-#| msgid "Реєстрація на подію"
 msgid "Дата реєстрації"
 msgstr "Реєстрація на подію"
 
@@ -539,7 +491,6 @@ msgid "Реєстрація на подію"
 msgstr "Реєстрація на подію"
 
 #: apps/events/models.py:154
-#| msgid "Реєстрація на подію"
 msgid "Реєстрації на події"
 msgstr "Реєстрація на подію"
 
@@ -548,12 +499,10 @@ msgid "Налаштування платіжної системи"
 msgstr "Налаштування платіжної системи"
 
 #: apps/payment/models.py:59
-#| msgid "Реклама та просування"
 msgid "Платіжне посилання"
 msgstr "Реклама та просування"
 
 #: apps/payment/models.py:60
-#| msgid "Реклама та просування"
 msgid "Платіжні посилання"
 msgstr "Реклама та просування"
 
@@ -677,7 +626,6 @@ msgid "Контакт"
 msgstr "Контакт"
 
 #: templates/components/footer.html:81
-#| msgid "Номер телефону"
 msgid "Telegram або номер телефону"
 msgstr "Номер телефону"
 
@@ -715,12 +663,10 @@ msgid "Навчання"
 msgstr "Навчання"
 
 #: templates/components/header.html:7
-#| msgid "PrometeyLabs команда"
 msgid "PrometeyLabs - Головна сторінка"
 msgstr "PrometeyLabs команда"
 
 #: templates/components/header.html:13
-#| msgid "Мобільне меню"
 msgid "Основне меню"
 msgstr "Мобільне меню"
 
@@ -753,7 +699,6 @@ msgid "контакти"
 msgstr "контакти"
 
 #: templates/components/header.html:38
-#| msgid "Закрити модальне вікно"
 msgid "Відкрити мобільне меню"
 msgstr "Закрити меню"
 
@@ -861,6 +806,10 @@ msgstr "Ваші питання або побажання"
 msgid "Зареєструватися"
 msgstr "Зареєструватися"
 
+#: templates/pages/blog.html:32
+msgid "БЛОГ"
+msgstr "БЛОГ"
+
 #: templates/pages/blog.html:107
 msgid "Знайти статтю..."
 msgstr "Знайти статтю..."
@@ -905,7 +854,6 @@ msgid "Популярні статті"
 msgstr "Популярні статті"
 
 #: templates/pages/blog_detail.html:62
-#| msgid "Всі статті"
 msgid "Схожі статті"
 msgstr "Всі статті"
 
@@ -914,7 +862,6 @@ msgid "Повернутися до блогу"
 msgstr "Повернутися до блогу"
 
 #: templates/pages/blog_search.html:21
-#| msgid "Результат розрахунку"
 msgid "Результати пошуку:"
 msgstr "Результат розрахунку"
 
@@ -947,12 +894,10 @@ msgid ""
 msgstr ""
 
 #: templates/pages/blog_search.html:105
-#| msgid "Популярні статті"
 msgid "Переглянути всі статті"
 msgstr "Популярні статті"
 
 #: templates/pages/blog_search.html:111
-#| msgid "Популярні статті"
 msgid "Популярні пошукові запити"
 msgstr "Популярні статті"
 
@@ -1143,7 +1088,6 @@ msgid "ОТРИМАТИ РОЗРАХУНОК"
 msgstr "ОТРИМАТИ КОНСУЛЬТАЦІЮ"
 
 #: templates/pages/contacts.html:5
-#| msgid "Послуги PrometeyLabs"
 msgid "Контакти | PrometeyLabs"
 msgstr "Послуги PrometeyLabs"
 
@@ -1208,7 +1152,6 @@ msgid ""
 msgstr ""
 
 #: templates/pages/developer.html:29
-#| msgid "ОТРИМАТИ РОЗРАХУНОК"
 msgid "СТАТИ РОЗРОБНИКОМ"
 msgstr "ОТРИМАТИ КОНСУЛЬТАЦІЮ"
 
@@ -1225,12 +1168,10 @@ msgid ""
 msgstr ""
 
 #: templates/pages/developer.html:42
-#| msgid "Записатися на курс"
 msgid "Написати адміністратору"
 msgstr "Записатися на курс"
 
 #: templates/pages/developer.html:45
-#| msgid "Курси програмування"
 msgid "Переглянути програми навчання"
 msgstr "Курси програмування"
 
@@ -1239,7 +1180,6 @@ msgid "Для кого підходить навчання"
 msgstr "Для кого підходить навчання"
 
 #: templates/pages/developer.html:61
-#| msgid "анонс нових курсів"
 msgid "Для новачків"
 msgstr "анонс нових курсів"
 
@@ -1250,12 +1190,10 @@ msgid ""
 msgstr ""
 
 #: templates/pages/developer.html:67 templates/pages/developer.html:110
-#| msgid "Є макети/дизайн"
 msgid "Адаптивний дизайн"
 msgstr "Є макети/дизайн"
 
 #: templates/pages/developer.html:68
-#| msgid "Читати далі"
 msgid "Бази даних"
 msgstr "Читати далі"
 
@@ -1268,7 +1206,6 @@ msgid "Командна робота"
 msgstr "Командна робота"
 
 #: templates/pages/developer.html:76
-#| msgid "Стати розробником"
 msgid "Для розробників з досвідом"
 msgstr "Стати розробником"
 
@@ -1299,12 +1236,10 @@ msgid "Інтеграція у робочий процес"
 msgstr "Інтеграція у робочий процес"
 
 #: templates/pages/developer.html:95
-#| msgid "Курси програмування"
 msgid "Програми навчання"
 msgstr "Курси програмування"
 
 #: templates/pages/developer.html:100
-#| msgid "Web-розробка"
 msgid "Web-розробка з нуля"
 msgstr "Web-розробка"
 
@@ -1354,7 +1289,6 @@ msgid ""
 msgstr ""
 
 #: templates/pages/developer.html:129
-#| msgid "Стати розробником"
 msgid "AI для розробників"
 msgstr "Стати розробником"
 
@@ -1369,7 +1303,6 @@ msgid "Рефакторинг коду"
 msgstr "Рефакторинг коду"
 
 #: templates/pages/developer.html:140
-#| msgid "AI агенти для швидкої розробки"
 msgid "Практичні кейси розробки"
 msgstr "AI агенти для швидкої розробки"
 
@@ -1378,7 +1311,6 @@ msgid "Оптимізація робочого процесу"
 msgstr "Оптимізація робочого процесу"
 
 #: templates/pages/developer.html:142
-#| msgid "Мобільні застосунки"
 msgid "Реальні проєкти"
 msgstr "Мобільні застосунки"
 
@@ -1411,7 +1343,6 @@ msgid "Робота над реальними задачами з безпосе
 msgstr "Робота над реальними задачами з безпосереднім застосуванням знань"
 
 #: templates/pages/developer.html:176
-#| msgid "Портфоліо"
 msgid "Портфоліо проєкт"
 msgstr "Портфоліо"
 
@@ -1465,7 +1396,6 @@ msgid "Детальний розбір кожного завдання з мен
 msgstr "Детальний розбір кожного завдання з менторами"
 
 #: templates/pages/developer.html:215
-#| msgid "Хочу стати розробником"
 msgid "Комунікація з розробниками PrometeyLabs"
 msgstr "Хочу стати розробником"
 
@@ -1474,7 +1404,6 @@ msgid "Прямий контакт з досвідченими фахівцям�
 msgstr "Прямий контакт з досвідченими фахівцями команди"
 
 #: templates/pages/developer.html:222 templates/pages/home.html:559
-#| msgid "Послуги PrometeyLabs"
 msgid "Кар'єра в PrometeyLabs"
 msgstr "Послуги PrometeyLabs"
 
@@ -1486,12 +1415,10 @@ msgid ""
 msgstr ""
 
 #: templates/pages/developer.html:234
-#| msgid "Записатися на курс"
 msgid "Як записатися на навчання"
 msgstr "Записатися на курс"
 
 #: templates/pages/developer.html:239
-#| msgid "Напишіть нам"
 msgid "Напишіть адміністратору"
 msgstr "Введіть ваше ім'я"
 
@@ -1500,16 +1427,15 @@ msgid "Зв'яжіться з нами у Telegram або іншому месе�
 msgstr "Зв'яжіться з нами у Telegram або іншому месенджері, зручному для вас"
 
 #: templates/pages/developer.html:245
-#| msgid "Напишіть нам"
 msgid "Виберіть програму"
 msgstr "Введіть ваше ім'я"
 
 #: templates/pages/developer.html:246
 msgid "Розповідайте про ваш рівень та цілі. Допоможемо вибрати підходящий курс"
-msgstr "Розповідайте про ваш рівень та цілі. Допоможемо вибрати підходящий курс"
+msgstr ""
+"Розповідайте про ваш рівень та цілі. Допоможемо вибрати підходящий курс"
 
 #: templates/pages/developer.html:251
-#| msgid "Додаткова інформація"
 msgid "Отримайте інформацію"
 msgstr "Додаткова інформація"
 
@@ -1523,17 +1449,14 @@ msgid "Зв'язатися з адміністратором"
 msgstr "Зв'язатися з адміністратором"
 
 #: templates/pages/events.html:30
-#| msgid "Події та вебінари"
 msgid "Актуальні події та вебінари"
 msgstr "Події та вебінари"
 
 #: templates/pages/events.html:32
-#| msgid "події"
 msgid "онлайн події"
 msgstr "події"
 
 #: templates/pages/events.html:33
-#| msgid "Події та вебінари"
 msgid "вебінари"
 msgstr "Події та вебінари"
 
@@ -1592,17 +1515,14 @@ msgstr "Місця:"
 #: templates/pages/events.html:122 templates/pages/home.html:235
 #: templates/pages/home.html:249 templates/pages/home.html:263
 #: templates/pages/home.html:277
-#| msgid "Соціальні мережі"
 msgid "Детальніше"
 msgstr "Ведення соціальних мереж"
 
 #: templates/pages/events.html:127
-#| msgid "Реєстрація на подію"
 msgid "Реєстрація"
 msgstr "Реєстрація на подію"
 
 #: templates/pages/events.html:130
-#| msgid "Реєстрація на подію"
 msgid "Реєстрація закрита"
 msgstr "Реєстрація на подію"
 
@@ -1647,28 +1567,23 @@ msgid "Розрахувати вартість онлайн"
 msgstr "Розрахувати вартість онлайн"
 
 #: templates/pages/home.html:62
-#| msgid "Наші клієнти"
 msgid "Наші послуги"
 msgstr "Наші клієнти"
 
 #: templates/pages/home.html:65 templates/pages/home.html:87
 #: templates/pages/home.html:475
-#| msgid "сайти під ключ"
 msgid "Сайти під ключ"
 msgstr "Розробка сайтів під ключ"
 
 #: templates/pages/home.html:67 templates/pages/home.html:89
-#| msgid "Корпоративний сайт або сайт послуг"
 msgid "Корпоративні сайти"
 msgstr "Корпоративний сайт або сайт послуг"
 
 #: templates/pages/home.html:69 templates/pages/home.html:91
-#| msgid "Інтернет-магазин"
 msgid "Інтернет-магазини"
 msgstr "Інтернет-магазин"
 
 #: templates/pages/home.html:75 templates/pages/home.html:97
-#| msgid "Веб-додаток / PWA"
 msgid "Веб-додатки"
 msgstr "Веб-додаток / PWA"
 
@@ -1677,12 +1592,10 @@ msgid "UX/UI дизайн"
 msgstr "UX/UI дизайн"
 
 #: templates/pages/home.html:83 templates/pages/home.html:105
-#| msgid "Навчання"
 msgid "Навчання IT та AI"
 msgstr "Навчання"
 
 #: templates/pages/home.html:113
-#| msgid "Портфоліо - PrometeyLabs"
 msgid "Чому варто обрати PrometeyLabs"
 msgstr "Портфоліо - PrometeyLabs"
 
@@ -1704,7 +1617,6 @@ msgid "які ми дотримуємося"
 msgstr "які ми дотримуємося"
 
 #: templates/pages/home.html:129
-#| msgid "Терміни виконання:"
 msgid "Базові терміни виконання:"
 msgstr "Терміни виконання:"
 
@@ -1718,17 +1630,14 @@ msgid "днів"
 msgstr "днів"
 
 #: templates/pages/home.html:132 templates/pages/home.html:153
-#| msgid "Корпоративний сайт або сайт послуг"
 msgid "Корпоративні сайти:"
 msgstr "Корпоративний сайт або сайт послуг"
 
 #: templates/pages/home.html:133
-#| msgid "Інтернет-магазин"
 msgid "Інтернет-магазини:"
 msgstr "Інтернет-магазин"
 
 #: templates/pages/home.html:134
-#| msgid "Веб-додаток / PWA"
 msgid "Веб-додатки / SaaS:"
 msgstr "Веб-додаток / PWA"
 
@@ -1739,7 +1648,6 @@ msgid ""
 msgstr ""
 
 #: templates/pages/home.html:147
-#| msgid "Розрахувати вартість"
 msgid "Справедлива вартість"
 msgstr "Розрахувати вартість"
 
@@ -1752,7 +1660,6 @@ msgid "Середні діапазони цін:"
 msgstr "Середні діапазони цін:"
 
 #: templates/pages/home.html:155
-#| msgid "Веб-додаток / PWA"
 msgid "Веб-додатки:"
 msgstr "Веб-додаток / PWA"
 
@@ -1769,7 +1676,6 @@ msgid "гарантія"
 msgstr "гарантія"
 
 #: templates/pages/home.html:169
-#| msgid "Наші клієнти"
 msgid "на наші продукти"
 msgstr "Наші клієнти"
 
@@ -1778,7 +1684,6 @@ msgid "Гарантія включає:"
 msgstr "Гарантія включає:"
 
 #: templates/pages/home.html:174
-#| msgid "Ведення соціальних мереж"
 msgid "Виправлення технічних помилок"
 msgstr "Ведення соціальних мереж"
 
@@ -1800,7 +1705,6 @@ msgid ""
 msgstr ""
 
 #: templates/pages/home.html:190
-#| msgid "Технології"
 msgid "AI-технології"
 msgstr "Технології"
 
@@ -1847,12 +1751,12 @@ msgstr "Web-розробка"
 
 #: templates/pages/home.html:239
 msgid "Сайти під ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-боти"
-msgstr "Сайти під ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-боти"
+msgstr ""
 "Сайти під ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-ботиСайти "
-"під ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-боти"
+"під ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-ботиСайти під "
+"ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-боти"
 
 #: templates/pages/home.html:248
-#| msgid "Мобільні застосунки"
 msgid "Детальніше про Мобільні застосунки"
 msgstr "Мобільні застосунки"
 
@@ -1861,7 +1765,6 @@ msgid "iOS та Android додатки з сучасним дизайном"
 msgstr "iOS та Android додатки з сучасним дизайном"
 
 #: templates/pages/home.html:262
-#| msgid "Реклама та ведення соціальних мереж"
 msgid "Детальніше про Реклама та ведення соціальних мереж"
 msgstr "Реклама та ведення соціальних мереж"
 
@@ -1874,7 +1777,6 @@ msgid "Google Ads, Meta Ads, TikTok Ads, SMM, контент"
 msgstr "Google Ads, Meta Ads, TikTok Ads, SMM, контент"
 
 #: templates/pages/home.html:276
-#| msgid "Соціальні мережі"
 msgid "Детальніше про Навчання"
 msgstr "Ведення соціальних мереж"
 
@@ -1891,7 +1793,6 @@ msgid "Переглянути всі проєкти у портфоліо"
 msgstr "Переглянути всі проєкти у портфоліо"
 
 #: templates/pages/home.html:429
-#| msgid "портфоліо"
 msgid "Переглянути портфоліо"
 msgstr "портфоліо"
 
@@ -1920,7 +1821,6 @@ msgid "Каталог, оплати, доставки, інтеграції з �
 msgstr "Каталог, оплати, доставки, інтеграції з маркетплейсами"
 
 #: templates/pages/home.html:477
-#| msgid "Веб-додаток / PWA"
 msgid "Веб-додатки / SaaS"
 msgstr "Веб-додаток / PWA"
 
@@ -1933,7 +1833,6 @@ msgid "Автоматизація, продажі, інтеграції з CRM �
 msgstr "Автоматизація, продажі, інтеграції з CRM та платіжними системами"
 
 #: templates/pages/home.html:479
-#| msgid "Політика повернення коштів"
 msgid "Оновлення проєктів"
 msgstr "Політика повернення коштів"
 
@@ -1952,12 +1851,10 @@ msgid ""
 msgstr ""
 
 #: templates/pages/home.html:483 templates/pages/home.html:506
-#| msgid "Технології"
 msgid "Технології:"
 msgstr "Технології"
 
 #: templates/pages/home.html:498
-#| msgid "Розробка"
 msgid "Розробка з нуля"
 msgstr "Розробка"
 
@@ -1966,7 +1863,6 @@ msgid "iOS/Android додатки для e-commerce, CRM, фінанси, осв
 msgstr "iOS/Android додатки для e-commerce, CRM, фінанси, освіта"
 
 #: templates/pages/home.html:499
-#| msgid "Є логотип та брендинг"
 msgid "Оплати та підписки"
 msgstr "Є логотип та брендинг"
 
@@ -1991,7 +1887,6 @@ msgid "Керування контентом, користувачами, інт
 msgstr "Керування контентом, користувачами, інтеграції з API"
 
 #: templates/pages/home.html:502
-#| msgid "Повідомлення"
 msgid "Оновлення"
 msgstr "Повідомлення"
 
@@ -2006,7 +1901,6 @@ msgid ""
 msgstr ""
 
 #: templates/pages/home.html:520
-#| msgid "реклама"
 msgid "Реклама:"
 msgstr "реклама"
 
@@ -2034,7 +1928,6 @@ msgid ""
 msgstr ""
 
 #: templates/pages/home.html:525
-#| msgid "Контакт"
 msgid "Контент:"
 msgstr "Контакт"
 
@@ -2062,7 +1955,6 @@ msgid ""
 msgstr ""
 
 #: templates/pages/home.html:543
-#| msgid "анонс нових курсів"
 msgid "Для новачків:"
 msgstr "анонс нових курсів"
 
@@ -2075,7 +1967,6 @@ msgid "Завершальні проєкти для портфоліо"
 msgstr "Завершальні проєкти для портфоліо"
 
 #: templates/pages/home.html:550
-#| msgid "Стати розробником"
 msgid "AI для розробників:"
 msgstr "Стати розробником"
 
@@ -2142,7 +2033,6 @@ msgid "AI-кол-центр"
 msgstr "AI-кол-центр"
 
 #: templates/pages/portfolio.html:58
-#| msgid "просування"
 msgid "AI-бронювання"
 msgstr "просування"
 
@@ -2153,7 +2043,6 @@ msgstr "внутрішня CRM"
 #: templates/pages/portfolio.html:63 templates/pages/portfolio.html:93
 #: templates/pages/portfolio.html:123 templates/pages/portfolio.html:153
 #: templates/pages/portfolio.html:183
-#| msgid "Додаткова інформація"
 msgid "Більше інформації"
 msgstr "Додаткова інформація"
 
@@ -2176,7 +2065,6 @@ msgid "CRM оплат і підписок"
 msgstr "CRM оплат і підписок"
 
 #: templates/pages/portfolio.html:88
-#| msgid "Політика cookies"
 msgid "аналітика"
 msgstr "Політика cookies"
 
@@ -2196,7 +2084,6 @@ msgstr ""
 
 #: templates/pages/portfolio.html:116 templates/pages/portfolio.html:177
 #: templates/pages/portfolio.html:275
-#| msgid "події"
 msgid "онлайн-оплати"
 msgstr "події"
 
@@ -2226,12 +2113,10 @@ msgid "промокоди"
 msgstr "промокоди"
 
 #: templates/pages/portfolio.html:148 templates/pages/portfolio.html:310
-#| msgid "Політика cookies"
 msgid "CRM-аналітика"
 msgstr "Політика cookies"
 
 #: templates/pages/portfolio.html:149
-#| msgid "Наші клієнти"
 msgid "нотифікації клієнтам"
 msgstr "Наші клієнти"
 
@@ -2246,12 +2131,10 @@ msgid ""
 msgstr ""
 
 #: templates/pages/portfolio.html:176 templates/pages/portfolio.html:342
-#| msgid "Заявка на створення сайту"
 msgid "автооновлення каталогу"
 msgstr "Заявка на створення сайту"
 
 #: templates/pages/portfolio.html:178
-#| msgid "Розрахувати пропозицію"
 msgid "заявки на пропозицію"
 msgstr "Розрахувати пропозицію"
 
@@ -2274,7 +2157,6 @@ msgstr ""
 #: templates/pages/portfolio.html:206 templates/pages/portfolio.html:240
 #: templates/pages/portfolio.html:273 templates/pages/portfolio.html:306
 #: templates/pages/portfolio.html:340
-#| msgid "Реєстрація на подію"
 msgid "Інтеграції:"
 msgstr "Реєстрація на подію"
 
@@ -2334,7 +2216,6 @@ msgid "CRM оплати та підписок"
 msgstr "CRM оплати та підписок"
 
 #: templates/pages/portfolio.html:244
-#| msgid "Політика повернення коштів"
 msgid "аналітика прогресу"
 msgstr "Політика повернення коштів"
 
@@ -2385,7 +2266,6 @@ msgid "промокоди та акційні правила"
 msgstr "промокоди та акційні правила"
 
 #: templates/pages/portfolio.html:277
-#| msgid "Політика повернення коштів"
 msgid "аналітика замовлень і поведінки"
 msgstr "Політика повернення коштів"
 
@@ -2469,7 +2349,6 @@ msgid "RedRabbit - десктопна версія"
 msgstr "RedRabbit - десктопна версія"
 
 #: templates/pages/portfolio.html:334
-#| msgid "Комплексні веб-рішення"
 msgid "Сонячні панелі та енергорішення"
 msgstr "Комплексні веб-рішення"
 
@@ -2485,12 +2364,10 @@ msgid ""
 msgstr ""
 
 #: templates/pages/portfolio.html:343
-#| msgid "Чи потрібні онлайн-оплати на сайті?"
 msgid "онлайн-оплати та рахунки"
 msgstr "Чи потрібні онлайн-оплати на сайті?"
 
 #: templates/pages/portfolio.html:344
-#| msgid "Розрахувати пропозицію"
 msgid "заявка на комерційну пропозицію"
 msgstr "Розрахувати пропозицію"
 
@@ -2536,7 +2413,6 @@ msgid "Статус:"
 msgstr "Статус:"
 
 #: templates/payment/link_inactive.html:18
-#| msgid "Ні, оплата на сайті не потрібна"
 msgid "Це платіжне посилання недоступне."
 msgstr "Ні, оплата на сайті не потрібна"
 
@@ -2553,7 +2429,6 @@ msgid "Не вдалося створити інвойс або здійснит
 msgstr "Не вдалося створити інвойс або здійснити платіж."
 
 #: templates/payment/payment_page.html:5
-#| msgid "Реклама та просування"
 msgid "Оплата послуг"
 msgstr "Реклама та просування"
 
@@ -2562,7 +2437,6 @@ msgid "Оплата"
 msgstr "Оплата"
 
 #: templates/payment/payment_page.html:22
-#| msgid "Наші клієнти"
 msgid "Клієнт:"
 msgstr "Наші клієнти"
 
@@ -2571,7 +2445,6 @@ msgid "Сума:"
 msgstr "Сума:"
 
 #: templates/payment/payment_page.html:27
-#| msgid "Так, оплата карткою онлайн"
 msgid "Оплатити карткою"
 msgstr "Розрахувати вартість онлайн"
 
@@ -2596,7 +2469,6 @@ msgid "Оплата успішна"
 msgstr "Оплата успішна"
 
 #: templates/payment/payment_success.html:14
-#| msgid "Дякуємо за заявку!"
 msgid "Дякуємо!"
 msgstr "Дякуємо за заявку!"
 
@@ -2605,6 +2477,5 @@ msgid "Оплата пройшла успішно."
 msgstr "Оплата пройшла успішно."
 
 #: templates/payment/payment_success.html:17
-#| msgid "Лендінг (одна сторінка)"
 msgid "Перейти до платіжної сторінки"
 msgstr "Лендінг (одна сторінка)"
