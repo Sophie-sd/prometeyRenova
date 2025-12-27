@@ -486,3 +486,27 @@
         }
     }
 }
+
+/* ===== FOOTER OVERRIDE для сторінки контактів ===== */
+/* Гарантуємо, що footer завжди виглядає правильно, як на інших сторінках */
+/* Використовуємо :has() для визначення сторінки контактів */
+/* Оскільки contacts.css завантажується тільки на сторінці контактів через {% block page_css %}, */
+/* ці стилі будуть застосовуватися тільки тут і матимуть пріоритет через порядок завантаження */
+body:has(.contacts-page) .main-footer {
+    background: #1a1a1a;
+    color: #888888;
+    border-top: 3px solid var(--color-brand-orange);
+    position: relative;
+    z-index: var(--z-content-base, 10);
+    padding: 0px 0 15px;
+}
+
+/* Альтернативний селектор для браузерів з підтримкою :has() */
+.main-content:has(.contacts-page) ~ .main-footer {
+    background: #1a1a1a;
+    color: #888888;
+    border-top: 3px solid var(--color-brand-orange);
+    position: relative;
+    z-index: var(--z-content-base, 10);
+    padding: 0px 0 15px;
+}
