@@ -353,6 +353,7 @@ class PrometeyApp {
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn?.textContent;
 
+        // При помилці валідації на клієнті - форма НЕ очищається, відповіді залишаються
         if (!this.validateForm(form)) return;
 
         // Показуємо loading
@@ -373,6 +374,7 @@ class PrometeyApp {
             const data = await response.json();
 
             if (response.ok && data.success) {
+                // ТІЛЬКИ при успішній відправці - очищаємо форму
                 // Для тесту - виклик спеціального очищення
                 if (formType === 'test' && window.calculatorInstance) {
                     window.calculatorInstance.clearForm();
@@ -383,6 +385,7 @@ class PrometeyApp {
                 this.handleFormSuccess(data, formType);
                 this.closeModal();
             } else {
+                // При помилці від сервера - форма НЕ очищається, відповіді залишаються
                 // Обробляємо помилку від сервера
                 const errorMessage = data.message || 'Помилка при відправці. Спробуйте ще раз.';
                 
@@ -405,6 +408,7 @@ class PrometeyApp {
             }
 
         } catch (error) {
+            // При помилці мережі/винятку - форма НЕ очищається, відповіді залишаються
             console.error('Form error:', error);
             this.showNotification('Помилка при відправці форми. Спробуйте ще раз.', 'error');
         } finally {
