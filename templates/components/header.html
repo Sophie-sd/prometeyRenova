@@ -4,13 +4,13 @@
     <div class="nav-container">
         <!-- Логотип PrometeyLabs -->
         <div class="nav-logo-section">
-            <a href="{% url 'home' %}" class="nav-logo" aria-label="PrometeyLabs - Головна сторінка">
+            <a href="{% url 'home' %}" class="nav-logo" aria-label="{% trans 'PrometeyLabs - Головна сторінка' %}">
                 Prometey<span class="nav-logo-labs">Labs</span>
             </a>
         </div>
 
         <!-- Desktop Navigation -->
-        <nav class="nav-menu" role="navigation" aria-label="Основне меню">
+        <nav class="nav-menu" role="navigation" aria-label="{% trans 'Основне меню' %}">
             <a href="{% url 'home' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "головна" %}</a>
             <a href="{% url 'portfolio' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "портфоліо" %}</a>
             <a href="{% url 'calculator' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "розрахувати пропозицію" %}</a>
@@ -35,7 +35,7 @@
         </div>
 
         <!-- Mobile Burger Button -->
-        <button class="burger-menu mobile-touch-target mobile-focus-visible" aria-label="Відкрити мобільне меню"
+        <button class="burger-menu mobile-touch-target mobile-focus-visible" aria-label="{% trans 'Відкрити мобільне меню' %}"
             aria-expanded="false">
             <span class="burger-line"></span>
             <span class="burger-line"></span>

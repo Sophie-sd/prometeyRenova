@@ -1,17 +1,18 @@
+{% load i18n %}
 <!-- Модальні вікна згідно STYLE.MDC -->
 
 <!-- Модалка "Стати розробником" -->
 <div class="modal" id="developer-modal" role="dialog" aria-labelledby="developer-modal-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити модальне вікно">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}">&times;</button>
 
         <div class="modal-header">
             <h3 class="text-medium color-brand-orange mb-sm" id="developer-modal-title">
-                Хочу стати розробником
+                {% trans "Хочу стати розробником" %}
             </h3>
             <p class="text-base mb-md">
-                Залишіть контакти і ми зв'яжемося з вами для консультації про курси програмування
+                {% trans "Залишіть контакти і ми зв'яжемося з вами для консультації про курси програмування" %}
             </p>
         </div>
 
@@ -20,19 +21,19 @@
             <input type="hidden" name="form_type" value="developer">
 
             <div class="form-group">
-                <label for="dev-name" class="form-label">Ім'я</label>
+                <label for="dev-name" class="form-label">{% trans "Ім'я" %}</label>
                 <input type="text" id="dev-name" name="name" class="form-input mobile-form-input mobile-touch-target"
-                    autocomplete="given-name" inputmode="text" required placeholder="Введіть ваше ім'я">
+                    autocomplete="given-name" inputmode="text" required placeholder="{% trans 'Введіть ваше ім\'я' %}">
             </div>
 
             <div class="form-group">
-                <label for="dev-phone" class="form-label">Номер телефону</label>
+                <label for="dev-phone" class="form-label">{% trans "Номер телефону" %}</label>
                 <input type="tel" id="dev-phone" name="phone" class="form-input mobile-form-input mobile-touch-target"
                     autocomplete="tel" inputmode="tel" required placeholder="+380XX XXX XX XX">
             </div>
 
             <button type="submit" class="btn btn-primary form-submit mobile-touch-target">
-                Записатися на курс
+                {% trans "Записатися на курс" %}
             </button>
         </form>
     </div>
@@ -42,14 +43,14 @@
 <div class="modal" id="site-request-modal" role="dialog" aria-labelledby="site-modal-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити модальне вікно">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}">&times;</button>
 
         <div class="modal-header">
             <h3 class="text-medium color-brand-orange mb-sm" id="site-modal-title">
-                Заявка на створення сайту
+                {% trans "Заявка на створення сайту" %}
             </h3>
             <p class="text-base mb-md">
-                Залишіть контакти і ми розрахуємо вартість вашого проєкту
+                {% trans "Залишіть контакти і ми розрахуємо вартість вашого проєкту" %}
             </p>
         </div>
 
@@ -58,19 +59,19 @@
             <input type="hidden" name="form_type" value="site_request">
 
             <div class="form-group">
-                <label for="site-name" class="form-label">Ім'я</label>
+                <label for="site-name" class="form-label">{% trans "Ім'я" %}</label>
                 <input type="text" id="site-name" name="name" class="form-input mobile-form-input mobile-touch-target"
-                    autocomplete="given-name" inputmode="text" required placeholder="Введіть ваше ім'я">
+                    autocomplete="given-name" inputmode="text" required placeholder="{% trans 'Введіть ваше ім\'я' %}">
             </div>
 
             <div class="form-group">
-                <label for="site-phone" class="form-label">Номер телефону</label>
+                <label for="site-phone" class="form-label">{% trans "Номер телефону" %}</label>
                 <input type="tel" id="site-phone" name="phone" class="form-input mobile-form-input mobile-touch-target"
                     autocomplete="tel" inputmode="tel" required placeholder="+380XX XXX XX XX">
             </div>
 
             <button type="submit" class="btn btn-primary form-submit mobile-touch-target">
-                Розрахувати вартість
+                {% trans "Розрахувати вартість" %}
             </button>
         </form>
     </div>
@@ -80,36 +81,36 @@
 <div class="modal" id="test-result-modal" role="dialog" aria-labelledby="result-modal-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити модальне вікно">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}">&times;</button>
 
         <div class="modal-header">
             <h3 class="text-medium color-brand-orange mb-sm" id="result-modal-title">
-                Результат розрахунку
+                {% trans "Результат розрахунку" %}
             </h3>
         </div>
 
         <div class="result-content">
             <div class="result-summary mb-md">
                 <div class="result-item">
-                    <span class="result-label text-base">Тип проєкту:</span>
+                    <span class="result-label text-base">{% trans "Тип проєкту:" %}</span>
                     <span class="result-value text-base" id="result-project-type"></span>
                 </div>
                 <div class="result-item">
-                    <span class="result-label text-base">Орієнтовна вартість:</span>
+                    <span class="result-label text-base">{% trans "Орієнтовна вартість:" %}</span>
                     <span class="result-price text-large color-brand-orange" id="result-price"></span>
                 </div>
                 <div class="result-item">
-                    <span class="result-label text-base">Терміни виконання:</span>
+                    <span class="result-label text-base">{% trans "Терміни виконання:" %}</span>
                     <span class="result-value text-base" id="result-timeline"></span>
                 </div>
             </div>
 
             <div class="result-actions text-center">
                 <a href="https://t.me/prometeylabs" class="btn btn-primary" target="_blank">
-                    Обговорити деталі в Telegram
+                    {% trans "Обговорити деталі в Telegram" %}
                 </a>
                 <button type="button" class="btn btn-secondary modal-close-specific" data-modal-id="test-result-modal">
-                    Закрити
+                    {% trans "Закрити" %}
                 </button>
             </div>
         </div>
@@ -120,21 +121,21 @@
 <div class="modal" id="thank-you-modal" role="dialog" aria-labelledby="thanks-modal-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити модальне вікно">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}">&times;</button>
 
         <div class="modal-header text-center">
             <div class="success-icon mb-sm">✓</div>
             <h3 class="text-medium color-brand-orange mb-sm" id="thanks-modal-title">
-                Дякуємо за заявку!
+                {% trans "Дякуємо за заявку!" %}
             </h3>
             <p class="text-base mb-md">
-                Наш менеджер зв'яжеться з вами найближчим часом
+                {% trans "Наш менеджер зв'яжеться з вами найближчим часом" %}
             </p>
         </div>
 
         <div class="thank-you-actions text-center">
             <a href="https://t.me/prometeylabs" class="btn btn-primary" target="_blank">
-                Написати в Telegram зараз
+                {% trans "Написати в Telegram зараз" %}
             </a>
         </div>
     </div>
@@ -144,14 +145,14 @@
 <div class="modal" id="call-request-modal" role="dialog" aria-labelledby="call-modal-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити модальне вікно">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}">&times;</button>
 
         <div class="modal-header">
             <h3 class="text-medium color-brand-orange mb-sm" id="call-modal-title">
-                Замовити дзвінок
+                {% trans "Замовити дзвінок" %}
             </h3>
             <p class="text-base mb-md">
-                Залишіть контакти і наш менеджер зателефонує вам протягом 15 хвилин
+                {% trans "Залишіть контакти і наш менеджер зателефонує вам протягом 15 хвилин" %}
             </p>
         </div>
 
@@ -160,19 +161,19 @@
             <input type="hidden" name="form_type" value="call_request">
 
             <div class="form-group">
-                <label for="call-name" class="form-label">Ім'я</label>
+                <label for="call-name" class="form-label">{% trans "Ім'я" %}</label>
                 <input type="text" id="call-name" name="name" class="form-input mobile-form-input mobile-touch-target"
-                    autocomplete="given-name" inputmode="text" required placeholder="Введіть ваше ім'я">
+                    autocomplete="given-name" inputmode="text" required placeholder="{% trans 'Введіть ваше ім\'я' %}">
             </div>
 
             <div class="form-group">
-                <label for="call-phone" class="form-label">Номер телефону</label>
+                <label for="call-phone" class="form-label">{% trans "Номер телефону" %}</label>
                 <input type="tel" id="call-phone" name="phone" class="form-input mobile-form-input mobile-touch-target"
                     autocomplete="tel" inputmode="tel" required placeholder="+380XX XXX XX XX">
             </div>
 
             <button type="submit" class="btn btn-primary form-submit mobile-touch-target">
-                Замовити дзвінок
+                {% trans "Замовити дзвінок" %}
             </button>
         </form>
     </div>
@@ -183,14 +184,14 @@
     aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити модальне вікно">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}">&times;</button>
 
         <div class="modal-header">
             <h3 class="text-medium color-brand-orange mb-sm" id="event-registration-modal-title">
-                Реєстрація на подію
+                {% trans "Реєстрація на подію" %}
             </h3>
             <p class="text-base mb-md">
-                Заповніть форму для реєстрації на подію
+                {% trans "Заповніть форму для реєстрації на подію" %}
             </p>
         </div>
 
@@ -200,9 +201,9 @@
             <input type="hidden" name="event_id" id="event-id-input">
 
             <div class="form-group">
-                <label for="event-reg-name" class="form-label">Ім'я</label>
+                <label for="event-reg-name" class="form-label">{% trans "Ім'я" %}</label>
                 <input type="text" id="event-reg-name" name="name" class="form-input" required
-                    placeholder="Введіть ваше ім'я">
+                    placeholder="{% trans 'Введіть ваше ім\'я' %}">
             </div>
 
             <div class="form-group">
@@ -212,25 +213,25 @@
             </div>
 
             <div class="form-group">
-                <label for="event-reg-phone" class="form-label">Телефон</label>
+                <label for="event-reg-phone" class="form-label">{% trans "Телефон" %}</label>
                 <input type="tel" id="event-reg-phone" name="phone" class="form-input" required
                     placeholder="+380XX XXX XX XX">
             </div>
 
             <div class="form-group">
-                <label for="event-reg-company" class="form-label">Компанія (необов'язково)</label>
+                <label for="event-reg-company" class="form-label">{% trans "Компанія (необов'язково)" %}</label>
                 <input type="text" id="event-reg-company" name="company" class="form-input"
-                    placeholder="Назва компанії">
+                    placeholder="{% trans 'Назва компанії' %}">
             </div>
 
             <div class="form-group">
-                <label for="event-reg-message" class="form-label">Додаткова інформація</label>
+                <label for="event-reg-message" class="form-label">{% trans "Додаткова інформація" %}</label>
                 <textarea id="event-reg-message" name="message" class="form-input" rows="3"
-                    placeholder="Ваші питання або побажання"></textarea>
+                    placeholder="{% trans 'Ваші питання або побажання' %}"></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary form-submit">
-                Зареєструватися
+                {% trans "Зареєструватися" %}
             </button>
         </form>
     </div>

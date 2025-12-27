@@ -27,12 +27,12 @@
     <div class="hero-content">
         <div class="container">
             <div class="hero-text text-center">
-                <h1 class="text-mega color-brand-orange mb-lg">Актуальні події та вебінари</h1>
+                <h1 class="text-mega color-brand-orange mb-lg">{% trans "Актуальні події та вебінари" %}</h1>
                 <p class="text-large color-white mb-xl">
-                    <span class="hero-services">онлайн події</span> ·
-                    <span class="hero-services">вебінари</span> ·
-                    <span class="hero-services">анонс нових курсів</span> ·
-                    <span class="hero-services">знижки</span>
+                    <span class="hero-services">{% trans "онлайн події" %}</span> ·
+                    <span class="hero-services">{% trans "вебінари" %}</span> ·
+                    <span class="hero-services">{% trans "анонс нових курсів" %}</span> ·
+                    <span class="hero-services">{% trans "знижки" %}</span>
                 </p>
             </div>
         </div>
@@ -45,13 +45,13 @@
         <div class="events-header">
             <div class="event-type-filter">
                 <select id="event-type-filter" class="event-type-select">
-                    <option value="">Всі</option>
-                    <option value="webinar">Вебінари</option>
-                    <option value="course">Курси</option>
-                    <option value="discount">Знижки</option>
-                    <option value="workshop">Майстер-класи</option>
-                    <option value="meetup">Зустрічі</option>
-                    <option value="other">Інше</option>
+                    <option value="">{% trans "Всі" %}</option>
+                    <option value="webinar">{% trans "Вебінари" %}</option>
+                    <option value="course">{% trans "Курси" %}</option>
+                    <option value="discount">{% trans "Знижки" %}</option>
+                    <option value="workshop">{% trans "Майстер-класи" %}</option>
+                    <option value="meetup">{% trans "Зустрічі" %}</option>
+                    <option value="other">{% trans "Інше" %}</option>
                 </select>
             </div>
         </div>
@@ -76,13 +76,13 @@
 
                     <div class="event-details">
                         <div class="detail-item">
-                            <span class="detail-label">Категорія:</span>
+                            <span class="detail-label">{% trans "Категорія:" %}</span>
                             <span class="detail-value">{{ event.category.name }}</span>
                         </div>
 
                         {% if event.price %}
                         <div class="detail-item">
-                            <span class="detail-label">Ціна:</span>
+                            <span class="detail-label">{% trans "Ціна:" %}</span>
                             <span class="detail-value price-value">
                                 {% if event.discount_percent > 0 %}
                                 <span class="original-price">{{ event.original_price }} грн</span>
@@ -95,21 +95,21 @@
                         </div>
                         {% else %}
                         <div class="detail-item">
-                            <span class="detail-label">Ціна:</span>
-                            <span class="detail-value free-price">Безкоштовно</span>
+                            <span class="detail-label">{% trans "Ціна:" %}</span>
+                            <span class="detail-value free-price">{% trans "Безкоштовно" %}</span>
                         </div>
                         {% endif %}
 
                         {% if event.is_online %}
                         <div class="detail-item">
-                            <span class="detail-label">Формат:</span>
-                            <span class="detail-value online-badge">Онлайн</span>
+                            <span class="detail-label">{% trans "Формат:" %}</span>
+                            <span class="detail-value online-badge">{% trans "Онлайн" %}</span>
                         </div>
                         {% endif %}
 
                         {% if event.available_spots %}
                         <div class="detail-item">
-                            <span class="detail-label">Місця:</span>
+                            <span class="detail-label">{% trans "Місця:" %}</span>
                             <span class="detail-value spots-available">{{ event.available_spots }} з {{
                                 event.max_participants }}</span>
                         </div>
@@ -119,22 +119,22 @@
 
                 <div class="card-footer">
                     <a href="{{ event.get_absolute_url }}" class="event-details-link text-base color-brand-orange">
-                        Детальніше →
+                        {% trans "Детальніше" %} →
                     </a>
 
                     {% if event.is_registration_open %}
                     <button class="register-btn btn btn-primary" data-event-id="{{ event.id }}">
-                        Реєстрація
+                        {% trans "Реєстрація" %}
                     </button>
                     {% else %}
-                    <span class="registration-closed text-small">Реєстрація закрита</span>
+                    <span class="registration-closed text-small">{% trans "Реєстрація закрита" %}</span>
                     {% endif %}
                 </div>
             </article>
             {% empty %}
             <div class="no-events">
-                <h3 class="text-medium color-brand-orange mb-sm">Події готуються</h3>
-                <p class="text-base">Найближчим часом тут з'являться актуальні події та акції</p>
+                <h3 class="text-medium color-brand-orange mb-sm">{% trans "Події готуються" %}</h3>
+                <p class="text-base">{% trans "Найближчим часом тут з'являться актуальні події та акції" %}</p>
             </div>
             {% endfor %}
         </div>
@@ -143,15 +143,15 @@
         {% if page_obj.has_other_pages %}
         <div class="events-pagination">
             {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">← Попередня</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">← {% trans "Попередня" %}</a>
             {% endif %}
 
             <span class="pagination-info text-base">
-                Сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
+                {% trans "Сторінка" %} {{ page_obj.number }} {% trans "з" %} {{ page_obj.paginator.num_pages }}
             </span>
 
             {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Наступна →</a>
+            <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">{% trans "Наступна" %} →</a>
             {% endif %}
         </div>
         {% endif %}

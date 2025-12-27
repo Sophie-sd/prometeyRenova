@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Оплата послуг{% endblock %}
+{% block title %}{% trans "Оплата послуг" %}{% endblock %}
 
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'payment/css/payment.css' %}">
@@ -10,7 +11,7 @@
 {% block content %}
 <section class="payment-hero full-height">
     <div class="container">
-        <h1 class="text-mega color-brand-orange mb-lg">Оплата</h1>
+        <h1 class="text-mega color-brand-orange mb-lg">{% trans "Оплата" %}</h1>
         {% if payment_settings %}
         <p class="text-large">{{ payment_settings.title }}</p>
         <p>{{ payment_settings.description }}</p>
@@ -18,27 +19,27 @@
 
         {% if payment_link %}
         <div class="payment-box">
-            <p class="text-large">Клієнт: <strong>{{ payment_link.client_name }}</strong></p>
-            <p>Сума: <strong>{{ payment_link.amount_usd }} USD</strong> (~ {{ payment_link.final_amount_uah }} UAH)</p>
+            <p class="text-large">{% trans "Клієнт:" %} <strong>{{ payment_link.client_name }}</strong></p>
+            <p>{% trans "Сума:" %} <strong>{{ payment_link.amount_usd }} USD</strong> (~ {{ payment_link.final_amount_uah }} UAH)</p>
 
             <form method="post" action="{% url 'payment:create_invoice' unique_id=payment_link.unique_id %}">
                 {% csrf_token %}
-                <button class="btn btn-primary">Оплатити карткою</button>
+                <button class="btn btn-primary">{% trans "Оплатити карткою" %}</button>
             </form>
         </div>
         {% elif test_mode %}
         <form method="post">
             {% csrf_token %}
-            <button class="btn btn-primary">Створити тестовий інвойс</button>
+            <button class="btn btn-primary">{% trans "Створити тестовий інвойс" %}</button>
         </form>
         {% else %}
-        <p>Немає даних для платежу</p>
+        <p>{% trans "Немає даних для платежу" %}</p>
         {% endif %}
 
         <div class="bank-transfer mt-lg">
-            <h2 class="text-large color-brand-orange mb-sm">Банківський переказ</h2>
+            <h2 class="text-large color-brand-orange mb-sm">{% trans "Банківський переказ" %}</h2>
             <p>IBAN: UA00 0000 0000 0000 0000 0000 0000</p>
-            <p>Отримувач: ТОВ "Ваша Компанія"</p>
+            <p>{% trans "Отримувач:" %} ТОВ "Ваша Компанія"</p>
             <p>ІПН: 0000000000</p>
         </div>
     </div>

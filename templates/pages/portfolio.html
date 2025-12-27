@@ -43,24 +43,24 @@
                 <div class="project-card__image-wrapper">
                     <picture>
                         <source media="(max-width: 767px)" srcset="{% static 'images/portfolio_page/coresync_card_mb.png' %}">
-                        <img src="{% static 'images/portfolio_page/coresync.png' %}" alt="CoreSync - AI Spa & Wellness Platform" class="project-card__image" loading="lazy" decoding="async">
+                        <img src="{% static 'images/portfolio_page/coresync.png' %}" alt="{% trans 'CoreSync - AI Spa & Wellness Platform' %}" class="project-card__image" loading="lazy" decoding="async">
                     </picture>
                 </div>
                 <div class="project-card__content">
                     <h2 class="project-card__title">CoreSync
                         <span class="project-card__subtitle">AI Spa & Wellness</span>
                     </h2>
-                    <p class="project-card__description">Корпоративний сайт і мобільний застосунок із повністю ШІ-керованим сервісом: онлайн-бронювання, iOS/Android застосунок і планшетна панель для персоналу.</p>
+                    <p class="project-card__description">{% trans "Корпоративний сайт і мобільний застосунок із повністю ШІ-керованим сервісом: онлайн-бронювання, iOS/Android застосунок і планшетна панель для персоналу." %}</p>
                     
                     <div class="project-card__integrations">
-                        <span class="integration-tag"><span class="integration-hash">#</span>центральний AI-агент</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>AI-кол-центр</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>AI-бронювання</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>внутрішня CRM</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "центральний AI-агент" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "AI-кол-центр" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "AI-бронювання" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "внутрішня CRM" %}</span>
                     </div>
                     
                     <button class="btn btn-secondary project-card__more-btn" data-modal="project-coresync-modal" type="button">
-                        <span>Більше інформації</span>
+                        <span>{% trans "Більше інформації" %}</span>
                         <span class="detail-arrow" aria-hidden="true">↗</span>
                     </button>
                 </div>
@@ -73,24 +73,24 @@
                 <div class="project-card__image-wrapper">
                     <picture>
                         <source media="(max-width: 767px)" srcset="{% static 'images/portfolio_page/play_vision_card_mb.png' %}">
-                        <img src="{% static 'images/portfolio_page/play_vision.png' %}" alt="PlayVision - футбольна освітня платформа" class="project-card__image" loading="lazy" decoding="async">
+                        <img src="{% static 'images/portfolio_page/play_vision.png' %}" alt="{% trans 'PlayVision - футбольна освітня платформа' %}" class="project-card__image" loading="lazy" decoding="async">
                     </picture>
                 </div>
                 <div class="project-card__content">
                     <h2 class="project-card__title">PlayVision
                         <span class="project-card__subtitle">PWA</span>
                     </h2>
-                    <p class="project-card__description">Футбольна освітня платформа з PWA-додатком і особистими кабінетами для гравців, тренерів та батьків, включно із системою курсів та івентів.</p>
+                    <p class="project-card__description">{% trans "Футбольна освітня платформа з PWA-додатком і особистими кабінетами для гравців, тренерів та батьків, включно із системою курсів та івентів." %}</p>
                     
                     <div class="project-card__integrations">
-                        <span class="integration-tag"><span class="integration-hash">#</span>персональний AI-помічник</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>CRM оплат і підписок</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>аналітика</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>e-mail/SMS-сповіщення</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "персональний AI-помічник" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "CRM оплат і підписок" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "аналітика" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "e-mail/SMS-сповіщення" %}</span>
                     </div>
                     
                     <button class="btn btn-secondary project-card__more-btn" data-modal="project-playvision-modal" type="button">
-                        <span>Більше інформації</span>
+                        <span>{% trans "Більше інформації" %}</span>
                         <span class="detail-arrow" aria-hidden="true">↗</span>
                     </button>
                 </div>
@@ -103,24 +103,24 @@
                 <div class="project-card__image-wrapper">
                     <picture>
                         <source media="(max-width: 767px)" srcset="{% static 'images/portfolio_page/beauty_shop_card_mb.png' %}">
-                        <img src="{% static 'images/portfolio_page/beauty_shop.png' %}" alt="BeautyShop - онлайн-магазин косметики" class="project-card__image" loading="lazy" decoding="async">
+                        <img src="{% static 'images/portfolio_page/beauty_shop.png' %}" alt="{% trans 'BeautyShop - онлайн-магазин косметики' %}" class="project-card__image" loading="lazy" decoding="async">
                     </picture>
                 </div>
                 <div class="project-card__content">
                     <h2 class="project-card__title">BEAUTYSHOP
                         <span class="project-card__subtitle">ОНЛАЙН-МАГАЗИН КОСМЕТИКИ</span>
                     </h2>
-                    <p class="project-card__description">Онлайн-магазин косметики з власною CRM, особистим кабінетом клієнта та гнучкою системою цін, промокодів і акцій.</p>
+                    <p class="project-card__description">{% trans "Онлайн-магазин косметики з власною CRM, особистим кабінетом клієнта та гнучкою системою цін, промокодів і акцій." %}</p>
                     
                     <div class="project-card__integrations">
-                        <span class="integration-tag"><span class="integration-hash">#</span>онлайн-оплати</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>промокоди та акції</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>аналітика замовлень</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>e-mail/SMS-нотифікації</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "онлайн-оплати" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "промокоди та акції" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "аналітика замовлень" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "e-mail/SMS-нотифікації" %}</span>
                     </div>
                     
                     <button class="btn btn-secondary project-card__more-btn" data-modal="project-beautyshop-modal" type="button">
-                        <span>Більше інформації</span>
+                        <span>{% trans "Більше інформації" %}</span>
                         <span class="detail-arrow" aria-hidden="true">↗</span>
                     </button>
                 </div>
@@ -140,17 +140,17 @@
                     <h2 class="project-card__title">REDRABBIT
                         <span class="project-card__subtitle">E-COMMERCE 18+</span>
                     </h2>
-                    <p class="project-card__description">Інтернет-магазин із 18+ age-gate, розширеною адмін-панеллю та CRM-аналітикою.</p>
+                    <p class="project-card__description">{% trans "Інтернет-магазин із 18+ age-gate, розширеною адмін-панеллю та CRM-аналітикою." %}</p>
                     
                     <div class="project-card__integrations">
-                        <span class="integration-tag"><span class="integration-hash">#</span>платіжна система</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>промокоди</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>CRM-аналітика</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>нотифікації клієнтам</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "платіжна система" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "промокоди" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "CRM-аналітика" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "нотифікації клієнтам" %}</span>
                     </div>
                     
                     <button class="btn btn-secondary project-card__more-btn" data-modal="project-redrabbit-modal" type="button">
-                        <span>Більше інформації</span>
+                        <span>{% trans "Більше інформації" %}</span>
                         <span class="detail-arrow" aria-hidden="true">↗</span>
                     </button>
                 </div>
@@ -163,24 +163,24 @@
                 <div class="project-card__image-wrapper">
                     <picture>
                         <source media="(max-width: 767px)" srcset="{% static 'images/portfolio_page/greensolar_card_mb.png' %}">
-                        <img src="{% static 'images/portfolio_page/greensolar.png' %}" alt="SunPannel - сонячні панелі та енергорішення" class="project-card__image" loading="lazy" decoding="async">
+                        <img src="{% static 'images/portfolio_page/greensolar.png' %}" alt="{% trans 'SunPannel - сонячні панелі та енергорішення' %}" class="project-card__image" loading="lazy" decoding="async">
                     </picture>
                 </div>
                 <div class="project-card__content">
                     <h2 class="project-card__title">SUNPANNEL
                         <span class="project-card__subtitle">СОНЯЧНІ ПАНЕЛІ ТА ЕНЕРГОРІШЕННЯ</span>
                     </h2>
-                    <p class="project-card__description">Корпоративний сайт і інтернет-магазин із технічним каталогом, що автоматично оновлюється.</p>
+                    <p class="project-card__description">{% trans "Корпоративний сайт і інтернет-магазин із технічним каталогом, що автоматично оновлюється." %}</p>
                     
                     <div class="project-card__integrations">
-                        <span class="integration-tag"><span class="integration-hash">#</span>автооновлення каталогу</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>онлайн-оплати</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>заявки на пропозицію</span>
-                        <span class="integration-tag"><span class="integration-hash">#</span>e-mail менеджерам</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "автооновлення каталогу" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "онлайн-оплати" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "заявки на пропозицію" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "e-mail менеджерам" %}</span>
                     </div>
                     
                     <button class="btn btn-secondary project-card__more-btn" data-modal="project-sunpannel-modal" type="button">
-                        <span>Більше інформації</span>
+                        <span>{% trans "Більше інформації" %}</span>
                         <span class="detail-arrow" aria-hidden="true">↗</span>
                     </button>
                 </div>
@@ -195,33 +195,33 @@
 <div class="modal" id="project-coresync-modal" role="dialog" aria-labelledby="coresync-modal-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content portfolio-modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити модальне вікно" data-modal-id="project-coresync-modal">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}" data-modal-id="project-coresync-modal">&times;</button>
         
         <h2 class="portfolio-modal-title" id="coresync-modal-title">CoreSync — AI Spa & Wellness</h2>
         
-        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/coresync_desc.png' %}" alt="CoreSync - опис проекту" loading="lazy" decoding="async">
+        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/coresync_desc.png' %}" alt="{% trans 'CoreSync - опис проекту' %}" loading="lazy" decoding="async">
         
-        <p class="portfolio-modal-text">Корпоративний сайт та мобільний застосунок із повністю ШІ-керованим сервісом: онлайн-бронюванням, застосунками для iOS/Android і планшетною панеллю персоналу. Платформа автоматизує роботу салону та забезпечує клієнтську підтримку 24/7.</p>
+        <p class="portfolio-modal-text">{% trans "Корпоративний сайт та мобільний застосунок із повністю ШІ-керованим сервісом: онлайн-бронюванням, застосунками для iOS/Android і планшетною панеллю персоналу. Платформа автоматизує роботу салону та забезпечує клієнтську підтримку 24/7." %}</p>
         
-        <p class="portfolio-modal-integrations-title">Інтеграції:</p>
+        <p class="portfolio-modal-integrations-title">{% trans "Інтеграції:" %}</p>
         <ul class="portfolio-modal-integrations-list">
-            <li>центральний AI-агент</li>
-            <li>AI-кол-центр (голос/текст)</li>
-            <li>AI-бронювання за типами послуг</li>
-            <li>AI-контроль атмосфери (світло, температура, музика)</li>
-            <li>внутрішня CRM</li>
+            <li>{% trans "центральний AI-агент" %}</li>
+            <li>{% trans "AI-кол-центр (голос/текст)" %}</li>
+            <li>{% trans "AI-бронювання за типами послуг" %}</li>
+            <li>{% trans "AI-контроль атмосфери (світло, температура, музика)" %}</li>
+            <li>{% trans "внутрішня CRM" %}</li>
         </ul>
         
-        <p class="portfolio-modal-text">Рішення об'єднує сайт, мобільні застосунки та робочу систему персоналу в єдину екосистему.</p>
+        <p class="portfolio-modal-text">{% trans "Рішення об'єднує сайт, мобільні застосунки та робочу систему персоналу в єдину екосистему." %}</p>
         
         <div class="portfolio-modal-images-grid">
-            <img src="{% static 'images/portfolio_page/coresync_mob.png' %}" alt="CoreSync - мобільна версія" loading="lazy" decoding="async">
-            <img src="{% static 'images/portfolio_page/coresync_tab.png' %}" alt="CoreSync - планшетна версія" loading="lazy" decoding="async">
+            <img src="{% static 'images/portfolio_page/coresync_mob.png' %}" alt="{% trans 'CoreSync - мобільна версія' %}" loading="lazy" decoding="async">
+            <img src="{% static 'images/portfolio_page/coresync_tab.png' %}" alt="{% trans 'CoreSync - планшетна версія' %}" loading="lazy" decoding="async">
         </div>
         
-        <p class="portfolio-modal-text">AI-агенти забезпечують швидке обслуговування, точну комунікацію та автоматизацію всіх операцій — від дзвінків до push-сповіщень. Платформа адаптована під мобільні, планшетні й десктопні пристрої та містить аналітику для управління завантаженістю й оптимізацією процесів. Система легко масштабується новими модулями: від wellness-програм до фінансового й маркетингового управління.</p>
+        <p class="portfolio-modal-text">{% trans "AI-агенти забезпечують швидке обслуговування, точну комунікацію та автоматизацію всіх операцій — від дзвінків до push-сповіщень. Платформа адаптована під мобільні, планшетні й десктопні пристрої та містить аналітику для управління завантаженістю й оптимізацією процесів. Система легко масштабується новими модулями: від wellness-програм до фінансового й маркетингового управління." %}</p>
         
-        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/coresync_lap.png' %}" alt="CoreSync - десктопна версія" loading="lazy" decoding="async">
+        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/coresync_lap.png' %}" alt="{% trans 'CoreSync - десктопна версія' %}" loading="lazy" decoding="async">
     </div>
 </div>
 
@@ -229,32 +229,32 @@
 <div class="modal" id="project-playvision-modal" role="dialog" aria-labelledby="playvision-modal-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content portfolio-modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити модальне вікно" data-modal-id="project-playvision-modal">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}" data-modal-id="project-playvision-modal">&times;</button>
         
         <h2 class="portfolio-modal-title" id="playvision-modal-title">PlayVision — PWA</h2>
         
-        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/play_vision_desc.png' %}" alt="PlayVision - опис проекту" loading="lazy" decoding="async">
+        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/play_vision_desc.png' %}" alt="{% trans 'PlayVision - опис проекту' %}" loading="lazy" decoding="async">
         
-        <p class="portfolio-modal-text">Футбольна освітня платформа з PWA-додатком і особистими кабінетами для гравців, тренерів та батьків. Рішення охоплює курси, івенти, контент та інструменти для комплексного розвитку у футбольній індустрії.</p>
+        <p class="portfolio-modal-text">{% trans "Футбольна освітня платформа з PWA-додатком і особистими кабінетами для гравців, тренерів та батьків. Рішення охоплює курси, івенти, контент та інструменти для комплексного розвитку у футбольній індустрії." %}</p>
         
-        <p class="portfolio-modal-integrations-title">Інтеграції:</p>
+        <p class="portfolio-modal-integrations-title">{% trans "Інтеграції:" %}</p>
         <ul class="portfolio-modal-integrations-list">
-            <li>персональний AI-помічник</li>
-            <li>CRM оплати та підписок</li>
-            <li>аналітика прогресу</li>
-            <li>e-mail/SMS-сповіщення</li>
+            <li>{% trans "персональний AI-помічник" %}</li>
+            <li>{% trans "CRM оплати та підписок" %}</li>
+            <li>{% trans "аналітика прогресу" %}</li>
+            <li>{% trans "e-mail/SMS-сповіщення" %}</li>
         </ul>
         
-        <p class="portfolio-modal-text">Платформа включає веб-додаток і мобільну версію, реалізована як універсальний конструктор для управління контентом, структурою сторінок, курсами та івентами без участі розробників.</p>
+        <p class="portfolio-modal-text">{% trans "Платформа включає веб-додаток і мобільну версію, реалізована як універсальний конструктор для управління контентом, структурою сторінок, курсами та івентами без участі розробників." %}</p>
         
         <div class="portfolio-modal-images-grid">
-            <img src="{% static 'images/portfolio_page/play_vision_mb.png' %}" alt="PlayVision - мобільна версія" loading="lazy" decoding="async">
-            <img src="{% static 'images/portfolio_page/play_vision_tab.png' %}" alt="PlayVision - планшетна версія" loading="lazy" decoding="async">
+            <img src="{% static 'images/portfolio_page/play_vision_mb.png' %}" alt="{% trans 'PlayVision - мобільна версія' %}" loading="lazy" decoding="async">
+            <img src="{% static 'images/portfolio_page/play_vision_tab.png' %}" alt="{% trans 'PlayVision - планшетна версія' %}" loading="lazy" decoding="async">
         </div>
         
-        <p class="portfolio-modal-text">Підтримує темну/світлу теми, адаптивну навігацію та ролі з тарифами, що формують гнучкий доступ для різних категорій користувачів. Система створена як масштабована екосистема з можливістю інтеграції нових модулів та сервісів без зміни ядра.</p>
+        <p class="portfolio-modal-text">{% trans "Підтримує темну/світлу теми, адаптивну навігацію та ролі з тарифами, що формують гнучкий доступ для різних категорій користувачів. Система створена як масштабована екосистема з можливістю інтеграції нових модулів та сервісів без зміни ядра." %}</p>
         
-        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/play_vision_lap.png' %}" alt="PlayVision - десктопна версія" loading="lazy" decoding="async">
+        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/play_vision_lap.png' %}" alt="{% trans 'PlayVision - десктопна версія' %}" loading="lazy" decoding="async">
     </div>
 </div>
 
@@ -262,32 +262,32 @@
 <div class="modal" id="project-beautyshop-modal" role="dialog" aria-labelledby="beautyshop-modal-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content portfolio-modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити модальне вікно" data-modal-id="project-beautyshop-modal">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}" data-modal-id="project-beautyshop-modal">&times;</button>
         
-        <h2 class="portfolio-modal-title" id="beautyshop-modal-title">BeautyShop — Онлайн-магазин косметики</h2>
+        <h2 class="portfolio-modal-title" id="beautyshop-modal-title">BeautyShop — {% trans "Онлайн-магазин косметики" %}</h2>
         
-        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/beauty_shop_desc.png' %}" alt="BeautyShop - опис проекту" loading="lazy" decoding="async">
+        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/beauty_shop_desc.png' %}" alt="{% trans 'BeautyShop - опис проекту' %}" loading="lazy" decoding="async">
         
-        <p class="portfolio-modal-text">E-commerce платформа з CRM, особистим кабінетом та гнучкими механіками цін, промокодів та акцій. Рішення створене для персоналізованого досвіду покупки та автоматизації роботи адміністратора.</p>
+        <p class="portfolio-modal-text">{% trans "E-commerce платформа з CRM, особистим кабінетом та гнучкими механіками цін, промокодів та акцій. Рішення створене для персоналізованого досвіду покупки та автоматизації роботи адміністратора." %}</p>
         
-        <p class="portfolio-modal-integrations-title">Інтеграції:</p>
+        <p class="portfolio-modal-integrations-title">{% trans "Інтеграції:" %}</p>
         <ul class="portfolio-modal-integrations-list">
-            <li>онлайн-оплати</li>
-            <li>промокоди та акційні правила</li>
-            <li>аналітика замовлень і поведінки</li>
-            <li>e-mail/SMS-нотифікації</li>
+            <li>{% trans "онлайн-оплати" %}</li>
+            <li>{% trans "промокоди та акційні правила" %}</li>
+            <li>{% trans "аналітика замовлень і поведінки" %}</li>
+            <li>{% trans "e-mail/SMS-нотифікації" %}</li>
         </ul>
         
-        <p class="portfolio-modal-text">Система поєднує магазин і CRM-адмінку для керування товарами, категоріями, залишками й замовленнями.</p>
+        <p class="portfolio-modal-text">{% trans "Система поєднує магазин і CRM-адмінку для керування товарами, категоріями, залишками й замовленнями." %}</p>
         
         <div class="portfolio-modal-images-grid">
-            <img src="{% static 'images/portfolio_page/beauty_shop_mb.png' %}" alt="BeautyShop - мобільна версія" loading="lazy" decoding="async">
-            <img src="{% static 'images/portfolio_page/beauty_shop_tab.png' %}" alt="BeautyShop - планшетна версія" loading="lazy" decoding="async">
+            <img src="{% static 'images/portfolio_page/beauty_shop_mb.png' %}" alt="{% trans 'BeautyShop - мобільна версія' %}" loading="lazy" decoding="async">
+            <img src="{% static 'images/portfolio_page/beauty_shop_tab.png' %}" alt="{% trans 'BeautyShop - планшетна версія' %}" loading="lazy" decoding="async">
         </div>
         
-        <p class="portfolio-modal-text">Платформа підтримує сегментацію користувачів, персональні рекомендації та різні цінові групи, що підвищує конверсію. Інтерфейс повністю адаптивний, оптимізований для мобільних та десктопів. Адмін-панель дозволяє швидко оновлювати товари, запускати акції та відстежувати ефективність маркетингових дій у реальному часі. Система масштабована й готова до підключення AI-рекомендацій та омніканальних продажів.</p>
+        <p class="portfolio-modal-text">{% trans "Платформа підтримує сегментацію користувачів, персональні рекомендації та різні цінові групи, що підвищує конверсію. Інтерфейс повністю адаптивний, оптимізований для мобільних та десктопів. Адмін-панель дозволяє швидко оновлювати товари, запускати акції та відстежувати ефективність маркетингових дій у реальному часі. Система масштабована й готова до підключення AI-рекомендацій та омніканальних продажів." %}</p>
         
-        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/beauty_shop_lap.png' %}" alt="BeautyShop - десктопна версія" loading="lazy" decoding="async">
+        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/beauty_shop_lap.png' %}" alt="{% trans 'BeautyShop - десктопна версія' %}" loading="lazy" decoding="async">
     </div>
 </div>
 
@@ -295,33 +295,33 @@
 <div class="modal" id="project-redrabbit-modal" role="dialog" aria-labelledby="redrabbit-modal-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content portfolio-modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити модальне вікно" data-modal-id="project-redrabbit-modal">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}" data-modal-id="project-redrabbit-modal">&times;</button>
         
         <h2 class="portfolio-modal-title" id="redrabbit-modal-title">RedRabbit — E-commerce 18+</h2>
         
-        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/redrabbit_desc.png' %}" alt="RedRabbit - опис проекту" loading="lazy" decoding="async">
+        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/redrabbit_desc.png' %}" alt="{% trans 'RedRabbit - опис проекту' %}" loading="lazy" decoding="async">
         
-        <p class="portfolio-modal-text">Інтернет-магазин із 18+ age-gate, розширеною адмін-панеллю та CRM-аналітикою. Платформа розроблена для великих товарних обсягів, категорій і різних акційних моделей.</p>
+        <p class="portfolio-modal-text">{% trans "Інтернет-магазин із 18+ age-gate, розширеною адмін-панеллю та CRM-аналітикою. Платформа розроблена для великих товарних обсягів, категорій і різних акційних моделей." %}</p>
         
-        <p class="portfolio-modal-integrations-title">Інтеграції:</p>
+        <p class="portfolio-modal-integrations-title">{% trans "Інтеграції:" %}</p>
         <ul class="portfolio-modal-integrations-list">
-            <li>платіжна система</li>
-            <li>промокоди та акційні сценарії</li>
-            <li>CRM-аналітика</li>
-            <li>автоматичні нотифікації</li>
-            <li>автооновлюваний каталог товарів (синхронізація кожні 2 години)</li>
+            <li>{% trans "платіжна система" %}</li>
+            <li>{% trans "промокоди та акційні сценарії" %}</li>
+            <li>{% trans "CRM-аналітика" %}</li>
+            <li>{% trans "автоматичні нотифікації" %}</li>
+            <li>{% trans "автооновлюваний каталог товарів (синхронізація кожні 2 години)" %}</li>
         </ul>
         
-        <p class="portfolio-modal-text">Платформа включає сайт із захищеним доступом, рольову систему та інструменти управління товарами, замовленнями й маркетингом.</p>
+        <p class="portfolio-modal-text">{% trans "Платформа включає сайт із захищеним доступом, рольову систему та інструменти управління товарами, замовленнями й маркетингом." %}</p>
         
         <div class="portfolio-modal-images-grid">
-            <img src="{% static 'images/portfolio_page/redrabbit_mb.png' %}" alt="RedRabbit - мобільна версія" loading="lazy" decoding="async">
-            <img src="{% static 'images/portfolio_page/redrabbit_tab.png' %}" alt="RedRabbit - планшетна версія" loading="lazy" decoding="async">
+            <img src="{% static 'images/portfolio_page/redrabbit_mb.png' %}" alt="{% trans 'RedRabbit - мобільна версія' %}" loading="lazy" decoding="async">
+            <img src="{% static 'images/portfolio_page/redrabbit_tab.png' %}" alt="{% trans 'RedRabbit - планшетна версія' %}" loading="lazy" decoding="async">
         </div>
         
-        <p class="portfolio-modal-text">Age-gate забезпечує відповідність 18+ та захист контенту. Система надає деталізовану статистику акцій, конверсій та поведінки користувачів. Автооновлення каталогу гарантує актуальні залишки, ціни й пропозиції без ручного втручання. Інтерфейс адаптивний і оптимізований під мобільні пристрої. Платформа масштабована під нових постачальників та розширення функціоналу.</p>
+        <p class="portfolio-modal-text">{% trans "Age-gate забезпечує відповідність 18+ та захист контенту. Система надає деталізовану статистику акцій, конверсій та поведінки користувачів. Автооновлення каталогу гарантує актуальні залишки, ціни й пропозиції без ручного втручання. Інтерфейс адаптивний і оптимізований під мобільні пристрої. Платформа масштабована під нових постачальників та розширення функціоналу." %}</p>
         
-        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/redrabbit_lap.png' %}" alt="RedRabbit - десктопна версія" loading="lazy" decoding="async">
+        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/redrabbit_lap.png' %}" alt="{% trans 'RedRabbit - десктопна версія' %}" loading="lazy" decoding="async">
     </div>
 </div>
 
@@ -329,33 +329,33 @@
 <div class="modal" id="project-sunpannel-modal" role="dialog" aria-labelledby="sunpannel-modal-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content portfolio-modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити модальне вікно" data-modal-id="project-sunpannel-modal">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}" data-modal-id="project-sunpannel-modal">&times;</button>
         
-        <h2 class="portfolio-modal-title" id="sunpannel-modal-title">SunPannel — Сонячні панелі та енергорішення</h2>
+        <h2 class="portfolio-modal-title" id="sunpannel-modal-title">SunPannel — {% trans "Сонячні панелі та енергорішення" %}</h2>
         
-        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/greensolar_desc.png' %}" alt="SunPannel - опис проекту" loading="lazy" decoding="async">
+        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/greensolar_desc.png' %}" alt="{% trans 'SunPannel - опис проекту' %}" loading="lazy" decoding="async">
         
-        <p class="portfolio-modal-text">Корпоративний сайт і інтернет-магазин з технічним каталогом, що автоматично оновлюється. Рішення призначене для продажу сонячних комплектів, панелей, інверторів та енергосистем.</p>
+        <p class="portfolio-modal-text">{% trans "Корпоративний сайт і інтернет-магазин з технічним каталогом, що автоматично оновлюється. Рішення призначене для продажу сонячних комплектів, панелей, інверторів та енергосистем." %}</p>
         
-        <p class="portfolio-modal-integrations-title">Інтеграції:</p>
+        <p class="portfolio-modal-integrations-title">{% trans "Інтеграції:" %}</p>
         <ul class="portfolio-modal-integrations-list">
-            <li>автооновлення каталогу</li>
-            <li>онлайн-оплати та рахунки</li>
-            <li>заявка на комерційну пропозицію</li>
-            <li>e-mail менеджерам</li>
-            <li>керування контентом, товарами та маркетинговими сторінками</li>
+            <li>{% trans "автооновлення каталогу" %}</li>
+            <li>{% trans "онлайн-оплати та рахунки" %}</li>
+            <li>{% trans "заявка на комерційну пропозицію" %}</li>
+            <li>{% trans "e-mail менеджерам" %}</li>
+            <li>{% trans "керування контентом, товарами та маркетинговими сторінками" %}</li>
         </ul>
         
-        <p class="portfolio-modal-text">Платформа поєднує маркетингові сторінки, каталог, фільтри й кошик у єдину систему.</p>
+        <p class="portfolio-modal-text">{% trans "Платформа поєднує маркетингові сторінки, каталог, фільтри й кошик у єдину систему." %}</p>
         
         <div class="portfolio-modal-images-grid">
-            <img src="{% static 'images/portfolio_page/greensolar_mb.png' %}" alt="SunPannel - мобільна версія" loading="lazy" decoding="async">
-            <img src="{% static 'images/portfolio_page/greensolar_tab.png' %}" alt="SunPannel - планшетна версія" loading="lazy" decoding="async">
+            <img src="{% static 'images/portfolio_page/greensolar_mb.png' %}" alt="{% trans 'SunPannel - мобільна версія' %}" loading="lazy" decoding="async">
+            <img src="{% static 'images/portfolio_page/greensolar_tab.png' %}" alt="{% trans 'SunPannel - планшетна версія' %}" loading="lazy" decoding="async">
         </div>
         
-        <p class="portfolio-modal-text">Технічні фільтри дозволяють зібрати комплект за параметрами (потужність, інвертор, кількість панелей). Інтерфейс адаптивний і зручний навіть у складних технічних розділах. Автоматичне оновлення забезпечує актуальність характеристик, залишків і цін у швидкозмінному енергетичному сегменті. Платформа створена для масштабування й інтеграції з будь-якими постачальниками та новими модулями.</p>
+        <p class="portfolio-modal-text">{% trans "Технічні фільтри дозволяють зібрати комплект за параметрами (потужність, інвертор, кількість панелей). Інтерфейс адаптивний і зручний навіть у складних технічних розділах. Автоматичне оновлення забезпечує актуальність характеристик, залишків і цін у швидкозмінному енергетичному сегменті. Платформа створена для масштабування й інтеграції з будь-якими постачальниками та новими модулями." %}</p>
         
-        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/greensolar_lap.png' %}" alt="SunPannel - десктопна версія" loading="lazy" decoding="async">
+        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/greensolar_lap.png' %}" alt="{% trans 'SunPannel - десктопна версія' %}" loading="lazy" decoding="async">
     </div>
 </div>
 

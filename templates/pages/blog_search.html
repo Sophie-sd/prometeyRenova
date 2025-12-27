@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}{{ page_title }}{% endblock %}
 {% block description %}{{ meta_description }}{% endblock %}
@@ -17,16 +18,16 @@
         <div class="search-content text-center">
             <h1 class="text-large color-brand-orange mb-md">
                 {% if query %}
-                Результати пошуку: "{{ query }}"
+                {% trans "Результати пошуку:" %} "{{ query }}"
                 {% else %}
-                Пошук по блогу
+                {% trans "Пошук по блогу" %}
                 {% endif %}
             </h1>
 
             <!-- Search Form -->
             <form method="get" action="{% url 'blog:blog_search' %}" class="search-form">
                 <div class="search-input-wrapper">
-                    <input type="text" name="q" value="{{ query }}" placeholder="Введіть пошуковий запит..."
+                    <input type="text" name="q" value="{{ query }}" placeholder="{% trans 'Введіть пошуковий запит...' %}"
                         class="search-input" required>
                     <button type="submit" class="search-button">
                         <span class="search-icon">🔍</span>
@@ -44,7 +45,7 @@
         {% if page_obj %}
         <div class="search-info mb-md">
             <p class="text-base">
-                Знайдено {{ page_obj.paginator.count }} результатів для "{{ query }}"
+                {% blocktrans with count=page_obj.paginator.count query=query %}Знайдено {{ count }} результатів для "{{ query }}"{% endblocktrans %}
             </p>
         </div>
 
@@ -71,7 +72,7 @@
 
                 <div class="card-footer">
                     <a href="{{ post.get_absolute_url }}" class="read-more-link text-base color-brand-orange">
-                        Читати далі →
+                        {% trans "Читати далі" %} →
                     </a>
                 </div>
             </article>
@@ -82,32 +83,32 @@
         {% if page_obj.has_other_pages %}
         <div class="blog-pagination">
             {% if page_obj.has_previous %}
-            <a href="?q={{ query }}&page={{ page_obj.previous_page_number }}" class="pagination-link">← Попередня</a>
+            <a href="?q={{ query }}&page={{ page_obj.previous_page_number }}" class="pagination-link">← {% trans "Попередня" %}</a>
             {% endif %}
 
             <span class="pagination-info text-base">
-                Сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
+                {% blocktrans with current=page_obj.number total=page_obj.paginator.num_pages %}Сторінка {{ current }} з {{ total }}{% endblocktrans %}
             </span>
 
             {% if page_obj.has_next %}
-            <a href="?q={{ query }}&page={{ page_obj.next_page_number }}" class="pagination-link">Наступна →</a>
+            <a href="?q={{ query }}&page={{ page_obj.next_page_number }}" class="pagination-link">{% trans "Наступна" %} →</a>
             {% endif %}
         </div>
         {% endif %}
         {% else %}
         <div class="no-results text-center">
-            <h3 class="text-medium color-brand-orange mb-sm">Нічого не знайдено</h3>
+            <h3 class="text-medium color-brand-orange mb-sm">{% trans "Нічого не знайдено" %}</h3>
             <p class="text-base mb-md">
-                За запитом "{{ query }}" нічого не знайдено. Спробуйте інші ключові слова.
+                {% blocktrans with query=query %}За запитом "{{ query }}" нічого не знайдено. Спробуйте інші ключові слова.{% endblocktrans %}
             </p>
             <a href="{% url 'blog:blog_list' %}" class="btn btn-primary">
-                Переглянути всі статті
+                {% trans "Переглянути всі статті" %}
             </a>
         </div>
         {% endif %}
         {% else %}
         <div class="search-suggestions text-center">
-            <h3 class="text-medium color-brand-orange mb-md">Популярні пошукові запити</h3>
+            <h3 class="text-medium color-brand-orange mb-md">{% trans "Популярні пошукові запити" %}</h3>
             <div class="suggestions-grid">
                 <a href="?q=розробка сайтів" class="suggestion-link">розробка сайтів</a>
                 <a href="?q=сайти під ключ" class="suggestion-link">сайти під ключ</a>

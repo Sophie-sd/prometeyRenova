@@ -104,7 +104,7 @@
         <div class="blog-search">
             <form method="get" action="{% url 'blog:blog_search' %}" class="search-form">
                 <div class="search-input-wrapper">
-                    <input type="text" name="q" placeholder="Знайти статтю..." class="search-input" required>
+                    <input type="text" name="q" placeholder="{% trans 'Знайти статтю...' %}" class="search-input" required>
                     <button type="submit" class="search-button">
                         <span class="search-icon">🔍</span>
                     </button>
@@ -116,22 +116,22 @@
         <div class="blog-categories">
             <div class="categories-list">
                 <a href="{% url 'blog:blog_list' %}" class="category-filter {% if not category %}active{% endif %}">
-                    Всі статті
+                    {% trans "Всі статті" %}
                 </a>
                 <a href="?category=web-development"
                     class="category-filter {% if category == 'web-development' %}active{% endif %}">
-                    Веб-розробка
+                    {% trans "Веб-розробка" %}
                 </a>
                 <a href="?category=courses" class="category-filter {% if category == 'courses' %}active{% endif %}">
-                    Курси програмування
+                    {% trans "Курси програмування" %}
                 </a>
                 <a href="?category=telegram-bots"
                     class="category-filter {% if category == 'telegram-bots' %}active{% endif %}">
-                    Telegram боти
+                    {% trans "Telegram боти" %}
                 </a>
                 <a href="?category=technology"
                     class="category-filter {% if category == 'technology' %}active{% endif %}">
-                    Технології
+                    {% trans "Технології" %}
                 </a>
             </div>
         </div>
@@ -171,14 +171,14 @@
 
                 <div class="card-footer">
                     <a href="{{ post.get_absolute_url }}" class="read-more-link text-base color-brand-orange">
-                        Читати далі →
+                        {% trans "Читати далі" %} →
                     </a>
                 </div>
             </article>
             {% empty %}
             <div class="no-articles">
-                <h3 class="text-medium color-brand-orange mb-sm">Статті готуються</h3>
-                <p class="text-base">Найближчим часом тут з'являться корисні статті про веб-розробку</p>
+                <h3 class="text-medium color-brand-orange mb-sm">{% trans "Статті готуються" %}</h3>
+                <p class="text-base">{% trans "Найближчим часом тут з'являться корисні статті про веб-розробку" %}</p>
             </div>
             {% endfor %}
         </div>
@@ -187,15 +187,15 @@
         {% if page_obj.has_other_pages %}
         <div class="blog-pagination">
             {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">← Попередня</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">← {% trans "Попередня" %}</a>
             {% endif %}
 
             <span class="pagination-info text-base">
-                Сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
+                {% trans "Сторінка" %} {{ page_obj.number }} {% trans "з" %} {{ page_obj.paginator.num_pages }}
             </span>
 
             {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Наступна →</a>
+            <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">{% trans "Наступна" %} →</a>
             {% endif %}
         </div>
         {% endif %}
@@ -206,7 +206,7 @@
 <section class="popular-articles">
     <div class="container">
         <div class="popular-header text-center">
-            <h2 class="text-large color-brand-orange mb-md">🔥 Популярні статті</h2>
+            <h2 class="text-large color-brand-orange mb-md">🔥 {% trans "Популярні статті" %}</h2>
         </div>
 
         <div class="popular-grid">

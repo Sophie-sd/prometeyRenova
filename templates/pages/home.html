@@ -59,50 +59,50 @@
     </div>
 </section>
 
-<section class="services-marquee" aria-label="Наші послуги">
+<section class="services-marquee" aria-label="{% trans 'Наші послуги' %}">
     <div class="marquee-track">
         <div class="marquee-content">
-            <span class="marquee-item">Сайти під ключ</span>
+            <span class="marquee-item">{% trans "Сайти під ключ" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Корпоративні сайти</span>
+            <span class="marquee-item">{% trans "Корпоративні сайти" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Інтернет-магазини</span>
+            <span class="marquee-item">{% trans "Інтернет-магазини" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Мобільні застосунки</span>
+            <span class="marquee-item">{% trans "Мобільні застосунки" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Telegram-боти</span>
+            <span class="marquee-item">{% trans "Telegram-боти" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Веб-додатки</span>
+            <span class="marquee-item">{% trans "Веб-додатки" %}</span>
             <span class="marquee-separator">•</span>
             <span class="marquee-item">CRM</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Реклама та просування</span>
+            <span class="marquee-item">{% trans "Реклама та просування" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">UX/UI дизайн</span>
+            <span class="marquee-item">{% trans "UX/UI дизайн" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Навчання IT та AI</span>
+            <span class="marquee-item">{% trans "Навчання IT та AI" %}</span>
             <span class="marquee-separator">•</span>
         </div>
         <div class="marquee-content" aria-hidden="true">
-            <span class="marquee-item">Сайти під ключ</span>
+            <span class="marquee-item">{% trans "Сайти під ключ" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Корпоративні сайти</span>
+            <span class="marquee-item">{% trans "Корпоративні сайти" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Інтернет-магазини</span>
+            <span class="marquee-item">{% trans "Інтернет-магазини" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Мобільні застосунки</span>
+            <span class="marquee-item">{% trans "Мобільні застосунки" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Telegram-боти</span>
+            <span class="marquee-item">{% trans "Telegram-боти" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Веб-додатки</span>
+            <span class="marquee-item">{% trans "Веб-додатки" %}</span>
             <span class="marquee-separator">•</span>
             <span class="marquee-item">CRM</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Реклама та просування</span>
+            <span class="marquee-item">{% trans "Реклама та просування" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">UX/UI дизайн</span>
+            <span class="marquee-item">{% trans "UX/UI дизайн" %}</span>
             <span class="marquee-separator">•</span>
-            <span class="marquee-item">Навчання IT та AI</span>
+            <span class="marquee-item">{% trans "Навчання IT та AI" %}</span>
             <span class="marquee-separator">•</span>
         </div>
     </div>
@@ -110,14 +110,11 @@
 
 <section class="why-choose-section">
     <div class="container">
-        <h2 class="text-large color-brand-orange mb-lg text-center">Чому варто обрати PrometeyLabs</h2>
+        <h2 class="text-large color-brand-orange mb-lg text-center">{% trans "Чому варто обрати PrometeyLabs" %}</h2>
         
         <div class="why-choose-intro">
             <p class="text-base color-white">
-                PrometeyLabs — компанія, яка поєднує класичний досвід створення цифрових продуктів 
-                із сучасними AI-технологіями. Ми використовуємо інтелектуальні інструменти для 
-                автоматизації частини процесів, що дозволяє прискорювати розробку, зменшувати 
-                кількість технічних годин і забезпечувати стабільну якість у короткі строки.
+                {% trans "PrometeyLabs — компанія, яка поєднує класичний досвід створення цифрових продуктів із сучасними AI-технологіями. Ми використовуємо інтелектуальні інструменти для автоматизації частини процесів, що дозволяє прискорювати розробку, зменшувати кількість технічних годин і забезпечувати стабільну якість у короткі строки." %}
             </p>
         </div>
 
@@ -126,19 +123,18 @@
                 <img src="{% static 'images/calendar.svg' %}" alt="" loading="lazy" class="why-card-icon">
                 <div class="why-card-content">
                     <h3 class="why-card-title">
-                        <span class="color-brand-orange">Прозорі строки,</span> які ми дотримуємося
+                        <span class="color-brand-orange">{% trans "Прозорі строки," %}</span> {% trans "які ми дотримуємося" %}
                     </h3>
                     <div class="why-card-body">
-                        <p class="why-card-subtitle">Базові терміни виконання:</p>
+                        <p class="why-card-subtitle">{% trans "Базові терміни виконання:" %}</p>
                         <ul class="why-list">
-                            <li><strong>Лендінги:</strong> 3–5 днів</li>
-                            <li><strong>Корпоративні сайти:</strong> 7–10 днів</li>
-                            <li><strong>Інтернет-магазини:</strong> 10–15 днів</li>
-                            <li><strong>Веб-додатки / SaaS:</strong> 14–30 днів</li>
+                            <li><strong>{% trans "Лендінги:" %}</strong> 3–5 {% trans "днів" %}</li>
+                            <li><strong>{% trans "Корпоративні сайти:" %}</strong> 7–10 {% trans "днів" %}</li>
+                            <li><strong>{% trans "Інтернет-магазини:" %}</strong> 10–15 {% trans "днів" %}</li>
+                            <li><strong>{% trans "Веб-додатки / SaaS:" %}</strong> 14–30 {% trans "днів" %}</li>
                         </ul>
                         <p class="why-card-note">
-                            Точний час розробки залежить від складності дизайну, інтеграцій та 
-                            функціоналу — визначаємо на консультації.
+                            {% trans "Точний час розробки залежить від складності дизайну, інтеграцій та функціоналу — визначаємо на консультації." %}
                         </p>
                     </div>
                 </div>
@@ -148,18 +144,18 @@
                 <img src="{% static 'images/dollar.svg' %}" alt="" loading="lazy" class="why-card-icon">
                 <div class="why-card-content">
                     <h3 class="why-card-title">
-                        <span class="color-brand-orange">Справедлива вартість</span> та гнучкі умови оплати
+                        <span class="color-brand-orange">{% trans "Справедлива вартість" %}</span> {% trans "та гнучкі умови оплати" %}
                     </h3>
                     <div class="why-card-body">
-                        <p class="why-card-subtitle">Середні діапазони цін:</p>
+                        <p class="why-card-subtitle">{% trans "Середні діапазони цін:" %}</p>
                         <ul class="why-list">
-                            <li><strong>Лендінги:</strong> $100–350</li>
-                            <li><strong>Корпоративні сайти:</strong> $350–500</li>
+                            <li><strong>{% trans "Лендінги:" %}</strong> $100–350</li>
+                            <li><strong>{% trans "Корпоративні сайти:" %}</strong> $350–500</li>
                             <li><strong>E-commerce:</strong> $350–700</li>
-                            <li><strong>Веб-додатки:</strong> $500–1000+</li>
+                            <li><strong>{% trans "Веб-додатки:" %}</strong> $500–1000+</li>
                         </ul>
                         <p class="why-card-note">
-                            Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов.
+                            {% trans "Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов." %}
                         </p>
                     </div>
                 </div>
@@ -169,19 +165,19 @@
                 <img src="{% static 'images/shield.svg' %}" alt="" loading="lazy" class="why-card-icon">
                 <div class="why-card-content">
                     <h3 class="why-card-title">
-                        <span class="why-card-highlight">5-річна</span> 
-                        <span class="color-brand-orange">гарантія</span> на наші продукти
+                        <span class="why-card-highlight">{% trans "5-річна" %}</span> 
+                        <span class="color-brand-orange">{% trans "гарантія" %}</span> {% trans "на наші продукти" %}
                     </h3>
                     <div class="why-card-body">
-                        <p class="why-card-subtitle">Гарантія включає:</p>
+                        <p class="why-card-subtitle">{% trans "Гарантія включає:" %}</p>
                         <ul class="why-list">
-                            <li>Виправлення технічних помилок</li>
-                            <li>Підтримку працездатності коду</li>
-                            <li>Реакцію на критичні технічні збої</li>
-                            <li>Відповідність функціоналу ТЗ</li>
+                            <li>{% trans "Виправлення технічних помилок" %}</li>
+                            <li>{% trans "Підтримку працездатності коду" %}</li>
+                            <li>{% trans "Реакцію на критичні технічні збої" %}</li>
+                            <li>{% trans "Відповідність функціоналу ТЗ" %}</li>
                         </ul>
                         <p class="why-card-note">
-                            Не включає: нові функції, оновлення дизайну, інтеграції з новими сервісами.
+                            {% trans "Не включає: нові функції, оновлення дизайну, інтеграції з новими сервісами." %}
                         </p>
                     </div>
                 </div>
@@ -191,20 +187,17 @@
                 <img src="{% static 'images/ai.svg' %}" alt="" loading="lazy" class="why-card-icon">
                 <div class="why-card-content">
                     <h3 class="why-card-title">
-                        <span class="color-brand-orange">AI-технології</span> для оптимізації процесів
+                        <span class="color-brand-orange">{% trans "AI-технології" %}</span> {% trans "для оптимізації процесів" %}
                     </h3>
                     <div class="why-card-body">
                         <p class="why-card-text">
-                            Використовуємо AI для оптимізації рутинних процесів: генерації базової 
-                            структури коду, перевірки якості, прискорення розробки та тестування.
+                            {% trans "Використовуємо AI для оптимізації рутинних процесів: генерації базової структури коду, перевірки якості, прискорення розробки та тестування." %}
                         </p>
                         <p class="why-card-highlight-text">
-                            Це не замінює інженерів — навпаки, дає можливість фокусуватися на якості, 
-                            безпеці та архітектурі.
+                            {% trans "Це не замінює інженерів — навпаки, дає можливість фокусуватися на якості, безпеці та архітектурі." %}
                         </p>
                         <p class="why-card-note">
-                            Результат: швидкий запуск, менша кількість технічних годин і нижча 
-                            кінцева ціна для клієнта.
+                            {% trans "Результат: швидкий запуск, менша кількість технічних годин і нижча кінцева ціна для клієнта." %}
                         </p>
                     </div>
                 </div>
@@ -215,10 +208,7 @@
             <div class="experience-content">
                 <div class="experience-text">
                     <p class="text-base color-white">
-                        Спеціалісти PrometeyLabs мають роки практики у веб-розробці, дизайні, 
-                        інтеграціях, мобільних додатках та інтернет-маркетингу. Це гарантує, 
-                        що ваш проект буде реалізований системно, технологічно та з розумінням 
-                        бізнес-задач.
+                        {% trans "Спеціалісти PrometeyLabs мають роки практики у веб-розробці, дизайні, інтеграціях, мобільних додатках та інтернет-маркетингу. Це гарантує, що ваш проект буде реалізований системно, технологічно та з розумінням бізнес-задач." %}
                     </p>
                 </div>
             </div>
@@ -241,8 +231,8 @@
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">01</span>
-                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="Детальніше про Web-розробку">
-                                <span>Детальніше</span>
+                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="{% trans 'Детальніше про Web-розробку' %}">
+                                <span>{% trans "Детальніше" %}</span>
                                 <span class="detail-arrow" aria-hidden="true">↗</span>
                             </button>
                             <h3 class="service-title">{% trans "Web-розробка" %}</h3>
@@ -255,8 +245,8 @@
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">02</span>
-                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="Детальніше про Мобільні застосунки">
-                                <span>Детальніше</span>
+                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="{% trans 'Детальніше про Мобільні застосунки' %}">
+                                <span>{% trans "Детальніше" %}</span>
                                 <span class="detail-arrow" aria-hidden="true">↗</span>
                             </button>
                             <h3 class="service-title">{% trans "Мобільні застосунки" %}</h3>
@@ -269,8 +259,8 @@
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">03</span>
-                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="Детальніше про Реклама та ведення соціальних мереж">
-                                <span>Детальніше</span>
+                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="{% trans 'Детальніше про Реклама та ведення соціальних мереж' %}">
+                                <span>{% trans "Детальніше" %}</span>
                                 <span class="detail-arrow" aria-hidden="true">↗</span>
                             </button>
                             <h3 class="service-title">{% trans "Реклама та ведення соціальних мереж" %}</h3>
@@ -283,8 +273,8 @@
                         <div class="service-card-overlay"></div>
                         <div class="service-card-content">
                             <span class="service-number">04</span>
-                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="Детальніше про Навчання">
-                                <span>Детальніше</span>
+                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="{% trans 'Детальніше про Навчання' %}">
+                                <span>{% trans "Детальніше" %}</span>
                                 <span class="detail-arrow" aria-hidden="true">↗</span>
                             </button>
                             <h3 class="service-title">{% trans "Навчання" %}</h3>
@@ -435,8 +425,8 @@
                 </div>
 
                 <div class="projects-cta">
-                    <a href="{% url 'portfolio' %}" class="detail-btn-base" aria-label="Переглянути всі проєкти у портфоліо">
-                        <span>Переглянути портфоліо</span>
+                    <a href="{% url 'portfolio' %}" class="detail-btn-base" aria-label="{% trans 'Переглянути всі проєкти у портфоліо' %}">
+                        <span>{% trans "Переглянути портфоліо" %}</span>
                         <span class="detail-arrow" aria-hidden="true">↗</span>
                     </a>
                 </div>
@@ -476,21 +466,21 @@
 <div class="modal" id="service-web-modal" role="dialog" aria-labelledby="service-web-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content service-modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити' %}">&times;</button>
         <div class="modal-header">
-            <h3 class="text-medium color-brand-orange mb-sm" id="service-web-title">Web-розробка</h3>
+            <h3 class="text-medium color-brand-orange mb-sm" id="service-web-title">{% trans "Web-розробка" %}</h3>
         </div>
         <div class="service-modal-body">
             <ul class="service-list">
-                <li><strong>Сайти під ключ</strong>Landing, корпоративні, багатосторінкові з SEO</li>
-                <li><strong>E-commerce</strong>Каталог, оплати, доставки, інтеграції з маркетплейсами</li>
-                <li><strong>Веб-додатки / SaaS</strong>Особисті кабінети, підписки, аналітика, білінг</li>
-                <li><strong>Telegram-боти</strong>Автоматизація, продажі, інтеграції з CRM та платіжними системами</li>
-                <li><strong>Оновлення проєктів</strong>Редизайн, прискорення, безпека, перенесення</li>
+                <li><strong>{% trans "Сайти під ключ" %}</strong>{% trans "Landing, корпоративні, багатосторінкові з SEO" %}</li>
+                <li><strong>E-commerce</strong>{% trans "Каталог, оплати, доставки, інтеграції з маркетплейсами" %}</li>
+                <li><strong>{% trans "Веб-додатки / SaaS" %}</strong>{% trans "Особисті кабінети, підписки, аналітика, білінг" %}</li>
+                <li><strong>{% trans "Telegram-боти" %}</strong>{% trans "Автоматизація, продажі, інтеграції з CRM та платіжними системами" %}</li>
+                <li><strong>{% trans "Оновлення проєктів" %}</strong>{% trans "Редизайн, прискорення, безпека, перенесення" %}</li>
             </ul>
-            <h4 class="service-subtitle">Робота включає:</h4>
-            <p class="service-text">Прототипування → UI/UX → верстка → бекенд → інтеграції → адмін-панель → деплой → SEO → аналітика → тестування → запуск</p>
-            <h4 class="service-subtitle">Технології:</h4>
+            <h4 class="service-subtitle">{% trans "Робота включає:" %}</h4>
+            <p class="service-text">{% trans "Прототипування → UI/UX → верстка → бекенд → інтеграції → адмін-панель → деплой → SEO → аналітика → тестування → запуск" %}</p>
+            <h4 class="service-subtitle">{% trans "Технології:" %}</h4>
             <p class="service-text">React, Next.js, Vue, Node.js, Django, PostgreSQL, MongoDB, Docker, AWS, Firebase, WordPress</p>
         </div>
     </div>
@@ -499,21 +489,21 @@
 <div class="modal" id="service-mobile-modal" role="dialog" aria-labelledby="service-mobile-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content service-modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити' %}">&times;</button>
         <div class="modal-header">
-            <h3 class="text-medium color-brand-orange mb-sm" id="service-mobile-title">Мобільні застосунки</h3>
+            <h3 class="text-medium color-brand-orange mb-sm" id="service-mobile-title">{% trans "Мобільні застосунки" %}</h3>
         </div>
         <div class="service-modal-body">
             <ul class="service-list">
-                <li><strong>Розробка з нуля</strong>iOS/Android додатки для e-commerce, CRM, фінанси, освіта</li>
-                <li><strong>Оплати та підписки</strong>Apple Pay, Google Pay, in-app покупки, регулярні підписки</li>
-                <li><strong>Push та аналітика</strong>Персоналізовані повідомлення, трекінг, метрики утримання</li>
-                <li><strong>Адмін-панель</strong>Керування контентом, користувачами, інтеграції з API</li>
-                <li><strong>Оновлення</strong>Редизайн, прискорення, адаптація під нові версії iOS/Android</li>
+                <li><strong>{% trans "Розробка з нуля" %}</strong>{% trans "iOS/Android додатки для e-commerce, CRM, фінанси, освіта" %}</li>
+                <li><strong>{% trans "Оплати та підписки" %}</strong>{% trans "Apple Pay, Google Pay, in-app покупки, регулярні підписки" %}</li>
+                <li><strong>{% trans "Push та аналітика" %}</strong>{% trans "Персоналізовані повідомлення, трекінг, метрики утримання" %}</li>
+                <li><strong>{% trans "Адмін-панель" %}</strong>{% trans "Керування контентом, користувачами, інтеграції з API" %}</li>
+                <li><strong>{% trans "Оновлення" %}</strong>{% trans "Редизайн, прискорення, адаптація під нові версії iOS/Android" %}</li>
             </ul>
-            <h4 class="service-subtitle">Робота включає:</h4>
-            <p class="service-text">UX-прототип → дизайн → кросплатформенна розробка → інтеграції → push та аналітика → тестування → публікація App Store/Google Play → підтримка</p>
-            <h4 class="service-subtitle">Технології:</h4>
+            <h4 class="service-subtitle">{% trans "Робота включає:" %}</h4>
+            <p class="service-text">{% trans "UX-прототип → дизайн → кросплатформенна розробка → інтеграції → push та аналітика → тестування → публікація App Store/Google Play → підтримка" %}</p>
+            <h4 class="service-subtitle">{% trans "Технології:" %}</h4>
             <p class="service-text">React Native, Flutter, Swift, Kotlin, Firebase, REST/GraphQL API, PostgreSQL, MongoDB</p>
         </div>
     </div>
@@ -522,20 +512,20 @@
 <div class="modal" id="service-smm-modal" role="dialog" aria-labelledby="service-smm-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content service-modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити' %}">&times;</button>
         <div class="modal-header">
-            <h3 class="text-medium color-brand-orange mb-sm" id="service-smm-title">Реклама та ведення соціальних мереж</h3>
+            <h3 class="text-medium color-brand-orange mb-sm" id="service-smm-title">{% trans "Реклама та ведення соціальних мереж" %}</h3>
         </div>
         <div class="service-modal-body">
-            <h4 class="service-subtitle">Реклама:</h4>
-            <p class="service-text">Google Ads (пошук, торгові, YouTube) • Meta Ads (трафік, ліди, Direct) • TikTok Ads (нативні інтеграції, Spark Ads) • SEO (аудит, оптимізація, контент)</p>
-            <p class="service-text">Налаштування кабінетів, аналіз конкурентів, формування бюджету, запуск кампаній, прозора звітність, регулярна оптимізація.</p>
-            <h4 class="service-subtitle">SMM: Instagram / TikTok / Facebook</h4>
-            <p class="service-text">Контент-стратегія • Контент-план • Продакшн (рілси, сторіз, UGC) • Модерація • Інтеграції та колаборації • Конкурси • Запуск реклами • Щомісячна аналітика</p>
-            <h4 class="service-subtitle">Контент:</h4>
+            <h4 class="service-subtitle">{% trans "Реклама:" %}</h4>
+            <p class="service-text">{% trans "Google Ads (пошук, торгові, YouTube) • Meta Ads (трафік, ліди, Direct) • TikTok Ads (нативні інтеграції, Spark Ads) • SEO (аудит, оптимізація, контент)" %}</p>
+            <p class="service-text">{% trans "Налаштування кабінетів, аналіз конкурентів, формування бюджету, запуск кампаній, прозора звітність, регулярна оптимізація." %}</p>
+            <h4 class="service-subtitle">{% trans "SMM: Instagram / TikTok / Facebook" %}</h4>
+            <p class="service-text">{% trans "Контент-стратегія • Контент-план • Продакшн (рілси, сторіз, UGC) • Модерація • Інтеграції та колаборації • Конкурси • Запуск реклами • Щомісячна аналітика" %}</p>
+            <h4 class="service-subtitle">{% trans "Контент:" %}</h4>
             <ul class="service-list">
-                <li><strong>Брендинг</strong>Логотипи, гайдлайни, візитки, шаблони, презентації, банери</li>
-                <li><strong>Фото/Відео/AI</strong>Пости, каруселі, сторіз, Reels/Shorts, AI-відео (Veo-3), AI-аватари, субтитри</li>
+                <li><strong>{% trans "Брендинг" %}</strong>{% trans "Логотипи, гайдлайни, візитки, шаблони, презентації, банери" %}</li>
+                <li><strong>{% trans "Фото/Відео/AI" %}</strong>{% trans "Пости, каруселі, сторіз, Reels/Shorts, AI-відео (Veo-3), AI-аватари, субтитри" %}</li>
             </ul>
         </div>
     </div>
@@ -544,30 +534,30 @@
 <div class="modal" id="service-education-modal" role="dialog" aria-labelledby="service-education-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content service-modal-content">
-        <button class="modal-close" type="button" aria-label="Закрити">&times;</button>
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити' %}">&times;</button>
         <div class="modal-header">
-            <h3 class="text-medium color-brand-orange mb-sm" id="service-education-title">Навчання</h3>
+            <h3 class="text-medium color-brand-orange mb-sm" id="service-education-title">{% trans "Навчання" %}</h3>
         </div>
         <div class="service-modal-body">
-            <p class="service-text">Програмування та AI від нуля до реальних проєктів. Практика на сучасних технологіях, портфоліо та можливість працевлаштування в PrometeyLabs.</p>
-            <h4 class="service-subtitle">Для новачків:</h4>
+            <p class="service-text">{% trans "Програмування та AI від нуля до реальних проєктів. Практика на сучасних технологіях, портфоліо та можливість працевлаштування в PrometeyLabs." %}</p>
+            <h4 class="service-subtitle">{% trans "Для новачків:" %}</h4>
             <ul class="service-list">
                 <li>HTML, CSS, JavaScript, Python/Django, React</li>
-                <li>Бази даних та деплой проєктів</li>
-                <li>Git та командна робота</li>
-                <li>Завершальні проєкти для портфоліо</li>
+                <li>{% trans "Бази даних та деплой проєктів" %}</li>
+                <li>{% trans "Git та командна робота" %}</li>
+                <li>{% trans "Завершальні проєкти для портфоліо" %}</li>
             </ul>
-            <h4 class="service-subtitle">AI для розробників:</h4>
+            <h4 class="service-subtitle">{% trans "AI для розробників:" %}</h4>
             <ul class="service-list">
-                <li>Основи та види AI, принципи роботи</li>
-                <li>Платформи для щоденного використання</li>
-                <li>Генерація та оптимізація коду через AI</li>
-                <li>LLM, промпт-інженерія, практичні кейси</li>
+                <li>{% trans "Основи та види AI, принципи роботи" %}</li>
+                <li>{% trans "Платформи для щоденного використання" %}</li>
+                <li>{% trans "Генерація та оптимізація коду через AI" %}</li>
+                <li>{% trans "LLM, промпт-інженерія, практичні кейси" %}</li>
             </ul>
-            <h4 class="service-subtitle">Підтримка:</h4>
-            <p class="service-text">Індивідуальні та групові заняття • Зворотний зв'язок • Код-рев'ю • Реальні бізнес-задачі • Підготовка CV/GitHub/LinkedIn</p>
-            <h4 class="service-subtitle">Кар'єра в PrometeyLabs</h4>
-            <p class="service-text">Найсильніші випускники після екзамену зможуть отримати офіційне працевлаштування як розробники чи дизайнери в PrometeyLabs.</p>
+            <h4 class="service-subtitle">{% trans "Підтримка:" %}</h4>
+            <p class="service-text">{% trans "Індивідуальні та групові заняття • Зворотний зв'язок • Код-рев'ю • Реальні бізнес-задачі • Підготовка CV/GitHub/LinkedIn" %}</p>
+            <h4 class="service-subtitle">{% trans "Кар'єра в PrometeyLabs" %}</h4>
+            <p class="service-text">{% trans "Найсильніші випускники після екзамену зможуть отримати офіційне працевлаштування як розробники чи дизайнери в PrometeyLabs." %}</p>
         </div>
     </div>
 </div>

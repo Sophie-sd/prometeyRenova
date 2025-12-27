@@ -2,18 +2,19 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 
 class EventCategory(models.Model):
     """Категорії подій"""
-    name = models.CharField(max_length=100, verbose_name="Назва категорії")
-    slug = models.SlugField(max_length=100, unique=True, verbose_name="URL")
-    color = models.CharField(max_length=7, default="#E65100", verbose_name="Колір категорії")
-    icon = models.CharField(max_length=50, blank=True, verbose_name="Іконка")
+    name = models.CharField(max_length=100, verbose_name=_("Назва категорії"))
+    slug = models.SlugField(max_length=100, unique=True, verbose_name=_("URL"))
+    color = models.CharField(max_length=7, default="#E65100", verbose_name=_("Колір категорії"))
+    icon = models.CharField(max_length=50, blank=True, verbose_name=_("Іконка"))
     
     class Meta:
-        verbose_name = "Категорія подій"
-        verbose_name_plural = "Категорії подій"
+        verbose_name = _("Категорія подій")
+        verbose_name_plural = _("Категорії подій")
         ordering = ['name']
     
     def __str__(self):
@@ -23,68 +24,68 @@ class EventCategory(models.Model):
 class Event(models.Model):
     """Модель події"""
     EVENT_TYPES = [
-        ('webinar', 'Вебінар'),
-        ('discount', 'Знижка'),
-        ('course', 'Курс'),
-        ('workshop', 'Майстер-клас'),
-        ('meetup', 'Зустріч'),
-        ('other', 'Інше'),
+        ('webinar', _('Вебінар')),
+        ('discount', _('Знижка')),
+        ('course', _('Курс')),
+        ('workshop', _('Майстер-клас')),
+        ('meetup', _('Зустріч')),
+        ('other', _('Інше')),
     ]
     
     STATUS_CHOICES = [
-        ('upcoming', 'Майбутня'),
-        ('active', 'Активна'),
-        ('completed', 'Завершена'),
-        ('cancelled', 'Скасована'),
+        ('upcoming', _('Майбутня')),
+        ('active', _('Активна')),
+        ('completed', _('Завершена')),
+        ('cancelled', _('Скасована')),
     ]
     
-    title = models.CharField(max_length=200, verbose_name="Назва події")
-    slug = models.SlugField(max_length=200, unique=True, verbose_name="URL")
-    excerpt = models.TextField(max_length=300, verbose_name="Короткий опис")
-    content = models.TextField(verbose_name="Повний опис")
+    title = models.CharField(max_length=200, verbose_name=_("Назва події"))
+    slug = models.SlugField(max_length=200, unique=True, verbose_name=_("URL"))
+    excerpt = models.TextField(max_length=300, verbose_name=_("Короткий опис"))
+    content = models.TextField(verbose_name=_("Повний опис"))
     
     # Категорія та тип
-    category = models.ForeignKey(EventCategory, on_delete=models.CASCADE, verbose_name="Категорія")
-    event_type = models.CharField(max_length=20, choices=EVENT_TYPES, verbose_name="Тип події")
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='upcoming', verbose_name="Статус")
+    category = models.ForeignKey(EventCategory, on_delete=models.CASCADE, verbose_name=_("Категорія"))
+    event_type = models.CharField(max_length=20, choices=EVENT_TYPES, verbose_name=_("Тип події"))
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='upcoming', verbose_name=_("Статус"))
     
     # Дати та час
-    start_date = models.DateTimeField(verbose_name="Дата та час початку")
-    end_date = models.DateTimeField(verbose_name="Дата та час завершення")
-    registration_deadline = models.DateTimeField(verbose_name="Дедлайн реєстрації", null=True, blank=True)
+    start_date = models.DateTimeField(verbose_name=_("Дата та час початку"))
+    end_date = models.DateTimeField(verbose_name=_("Дата та час завершення"))
+    registration_deadline = models.DateTimeField(verbose_name=_("Дедлайн реєстрації"), null=True, blank=True)
     
     # Місце проведення
-    location = models.CharField(max_length=200, blank=True, verbose_name="Місце проведення")
-    is_online = models.BooleanField(default=True, verbose_name="Онлайн подія")
-    meeting_link = models.URLField(blank=True, verbose_name="Посилання на зустріч")
+    location = models.CharField(max_length=200, blank=True, verbose_name=_("Місце проведення"))
+    is_online = models.BooleanField(default=True, verbose_name=_("Онлайн подія"))
+    meeting_link = models.URLField(blank=True, verbose_name=_("Посилання на зустріч"))
     
     # Ціна та знижки
-    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name="Ціна")
-    discount_percent = models.IntegerField(default=0, verbose_name="Відсоток знижки")
-    original_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name="Оригінальна ціна")
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name=_("Ціна"))
+    discount_percent = models.IntegerField(default=0, verbose_name=_("Відсоток знижки"))
+    original_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, verbose_name=_("Оригінальна ціна"))
     
     # Обмеження
-    max_participants = models.IntegerField(null=True, blank=True, verbose_name="Максимальна кількість учасників")
-    current_participants = models.IntegerField(default=0, verbose_name="Поточна кількість учасників")
+    max_participants = models.IntegerField(null=True, blank=True, verbose_name=_("Максимальна кількість учасників"))
+    current_participants = models.IntegerField(default=0, verbose_name=_("Поточна кількість учасників"))
     
     # Зображення
-    image = models.ImageField(upload_to='events/', blank=True, verbose_name="Зображення події")
+    image = models.ImageField(upload_to='events/', blank=True, verbose_name=_("Зображення події"))
     
     # SEO
-    seo_title = models.CharField(max_length=70, verbose_name="SEO заголовок", blank=True)
-    seo_description = models.CharField(max_length=160, verbose_name="SEO опис", blank=True)
-    keywords = models.CharField(max_length=255, verbose_name="Ключові слова", blank=True)
+    seo_title = models.CharField(max_length=70, verbose_name=_("SEO заголовок"), blank=True)
+    seo_description = models.CharField(max_length=160, verbose_name=_("SEO опис"), blank=True)
+    keywords = models.CharField(max_length=255, verbose_name=_("Ключові слова"), blank=True)
     
     # Метадані
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Створено")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Оновлено")
-    is_published = models.BooleanField(default=True, verbose_name="Опубліковано")
-    is_featured = models.BooleanField(default=False, verbose_name="Рекомендована")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Створено"))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Оновлено"))
+    is_published = models.BooleanField(default=True, verbose_name=_("Опубліковано"))
+    is_featured = models.BooleanField(default=False, verbose_name=_("Рекомендована"))
     
     class Meta:
         ordering = ['-start_date']
-        verbose_name = "Подія"
-        verbose_name_plural = "Події"
+        verbose_name = _("Подія")
+        verbose_name_plural = _("Події")
     
     def __str__(self):
         return self.title
@@ -138,19 +139,19 @@ class Event(models.Model):
 
 class EventRegistration(models.Model):
     """Реєстрація на подію"""
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name="Подія")
-    name = models.CharField(max_length=100, verbose_name="Ім'я")
-    email = models.EmailField(verbose_name="Email")
-    phone = models.CharField(max_length=20, verbose_name="Телефон")
-    company = models.CharField(max_length=100, blank=True, verbose_name="Компанія")
-    message = models.TextField(blank=True, verbose_name="Додаткова інформація")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_("Подія"))
+    name = models.CharField(max_length=100, verbose_name=_("Ім'я"))
+    email = models.EmailField(verbose_name=_("Email"))
+    phone = models.CharField(max_length=20, verbose_name=_("Телефон"))
+    company = models.CharField(max_length=100, blank=True, verbose_name=_("Компанія"))
+    message = models.TextField(blank=True, verbose_name=_("Додаткова інформація"))
     
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата реєстрації")
-    is_confirmed = models.BooleanField(default=False, verbose_name="Підтверджено")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Дата реєстрації"))
+    is_confirmed = models.BooleanField(default=False, verbose_name=_("Підтверджено"))
     
     class Meta:
-        verbose_name = "Реєстрація на подію"
-        verbose_name_plural = "Реєстрації на події"
+        verbose_name = _("Реєстрація на подію")
+        verbose_name_plural = _("Реєстрації на події")
         ordering = ['-created_at']
         unique_together = ['event', 'email']
     

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}{{ page_title }}{% endblock %}
 {% block description %}{{ meta_description }}{% endblock %}
@@ -42,7 +43,7 @@
                 <!-- Article Keywords -->
                 {% if post.keywords %}
                 <div class="article-keywords-section">
-                    <h3 class="text-medium color-brand-orange mb-sm">Ключові слова</h3>
+                    <h3 class="text-medium color-brand-orange mb-sm">{% trans "Ключові слова" %}</h3>
                     <div class="article-keywords">
                         {% for keyword in post.get_keywords_list %}
                         <span class="keyword-tag">{{ keyword }}</span>
@@ -58,7 +59,7 @@
     {% if related_posts %}
     <section class="related-articles">
         <div class="container">
-            <h2 class="text-large color-brand-orange mb-md">Схожі статті</h2>
+            <h2 class="text-large color-brand-orange mb-md">{% trans "Схожі статті" %}</h2>
             <div class="related-grid">
                 {% for related_post in related_posts %}
                 <article class="related-card">
@@ -73,7 +74,7 @@
                             <time class="text-small">{{ related_post.created_at|date:"d.m.Y" }}</time>
                             <span class="reading-time-small">{{ related_post.get_reading_time_text }}</span>
                         </div>
-                        <a href="{{ related_post.get_absolute_url }}" class="related-read-more">Читати далі →</a>
+                        <a href="{{ related_post.get_absolute_url }}" class="related-read-more">{% trans "Читати далі" %} →</a>
                     </div>
                 </article>
                 {% endfor %}
@@ -87,7 +88,7 @@
         <div class="container">
             <div class="back-link-wrapper text-center">
                 <a href="{% url 'blog:blog_list' %}" class="back-link text-medium color-brand-orange">
-                    ← Повернутися до блогу
+                    ← {% trans "Повернутися до блогу" %}
                 </a>
             </div>
         </div>

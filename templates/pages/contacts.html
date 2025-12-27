@@ -2,11 +2,10 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}Контакти | PrometeyLabs{% endblock %}
+{% block title %}{% trans "Контакти | PrometeyLabs" %}{% endblock %}
 
 {% block description %}
-Зв'яжіться з командою PrometeyLabs. Ми завжди на зв'язку для обговорення вашого проекту, консультації чи навчання. Київ,
-Україна.
+{% trans "Зв'яжіться з командою PrometeyLabs. Ми завжди на зв'язку для обговорення вашого проекту, консультації чи навчання. Київ, Україна." %}
 {% endblock %}
 
 {% block og_title %}Контакти | PrometeyLabs{% endblock %}
@@ -28,14 +27,13 @@
                 <!-- Інформація про контакти -->
                 <div class="contacts-info">
                     <div class="contact-block">
-                        <h2 class="medium-title">Зв'язок з нами</h2>
-                        <p class="contact-text">Потрібна консультація? Маєте питання про наші послуги? Зв'яжіться з нами
-                            будь-яким зручним способом:</p>
+                        <h2 class="medium-title">{% trans "Зв'язок з нами" %}</h2>
+                        <p class="contact-text">{% trans "Потрібна консультація? Маєте питання про наші послуги? Зв'яжіться з нами будь-яким зручним способом:" %}</p>
 
                         <div class="contact-items-grid">
                             <div class="contact-column">
                                 <div class="contact-item">
-                                    <h3>Телефон</h3>
+                                    <h3>{% trans "Телефон" %}</h3>
                                     <a href="tel:+380639520565" class="contact-link">+38 (063) 952-05-65</a>
                                 </div>
                             </div>
@@ -47,7 +45,7 @@
                                 </div>
 
                                 <div class="contact-item">
-                                    <h3>Соціальні мережі</h3>
+                                    <h3>{% trans "Соціальні мережі" %}</h3>
                                     <div class="social-links">
                                         <a href="https://instagram.com/prometeylabs" class="social-link" target="_blank"
                                             rel="noopener">
@@ -65,7 +63,7 @@
                                 </div>
 
                                 <div class="contact-item">
-                                    <h3>Месенджери</h3>
+                                    <h3>{% trans "Месенджери" %}</h3>
                                     <div class="messengers">
                                         <a href="https://t.me/prometeylabs" class="messenger-link" target="_blank"
                                             rel="noopener">
@@ -83,36 +81,36 @@
                                 </div>
                             </div>
                         </div>
-                        <img src="{% static 'images/contacts_photo.png' %}" alt="PrometeyLabs команда" class="contact-photo">
+                        <img src="{% static 'images/contacts_photo.png' %}" alt="{% trans 'PrometeyLabs команда' %}" class="contact-photo">
                     </div>
                 </div>
 
                 <!-- Форма зворотного зв'язку -->
                 <div class="contact-form-container">
                     <div class="contact-form-wrapper">
-                        <h2 class="medium-title">Напишіть нам</h2>
-                        <p class="form-intro">Заповніть форму, і ми зв'яжемося з вами протягом 15 хвилин</p>
+                        <h2 class="medium-title">{% trans "Напишіть нам" %}</h2>
+                        <p class="form-intro">{% trans "Заповніть форму, і ми зв'яжемося з вами протягом 15 хвилин" %}</p>
 
                         <form id="contactForm" class="contact-form" data-form-type="contact">
                             <div class="form-group">
-                                <label for="name" class="form-label">Ваше ім'я <span class="required">*</span></label>
-                                <input type="text" id="name" name="name" class="form-input" required placeholder="Ім'я">
+                                <label for="name" class="form-label">{% trans "Ваше ім'я" %} <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" class="form-input" required placeholder="{% trans 'Ім\'я' %}">
                             </div>
 
                             <div class="form-group">
-                                <label for="phone" class="form-label">Телефон <span class="required">*</span></label>
+                                <label for="phone" class="form-label">{% trans "Телефон" %} <span class="required">*</span></label>
                                 <input type="tel" id="phone" name="phone" class="form-input" required
                                     placeholder="+380">
                             </div>
 
                             <div class="form-group full-width">
-                                <label for="message" class="form-label">Повідомлення</label>
+                                <label for="message" class="form-label">{% trans "Повідомлення" %}</label>
                                 <textarea id="message" name="message" class="form-textarea" rows="5"
-                                    placeholder="Опишіть ваш проект або задайте питання"></textarea>
+                                    placeholder="{% trans 'Опишіть ваш проект або задайте питання' %}"></textarea>
                             </div>
 
                             <div class="form-group full-width">
-                                <button type="submit" class="submit-btn">Надіслати повідомлення</button>
+                                <button type="submit" class="submit-btn">{% trans "Надіслати повідомлення" %}</button>
                             </div>
 
                             <div class="form-response" id="formResponse"></div>

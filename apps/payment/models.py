@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.db import models
 from django.utils import timezone
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 
 class PaymentSettings(models.Model):
@@ -11,8 +12,8 @@ class PaymentSettings(models.Model):
     default_contract_file = models.FileField(upload_to='contracts/', blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Налаштування платіжної системи'
-        verbose_name_plural = 'Налаштування платіжної системи'
+        verbose_name = _('Налаштування платіжної системи')
+        verbose_name_plural = _('Налаштування платіжної системи')
 
     def save(self, *args, **kwargs):
         # Забороняємо створення другого запису
@@ -55,8 +56,8 @@ class PaymentLink(models.Model):
 
     class Meta:
         ordering = ['-created_at']
-        verbose_name = 'Платіжне посилання'
-        verbose_name_plural = 'Платіжні посилання'
+        verbose_name = _('Платіжне посилання')
+        verbose_name_plural = _('Платіжні посилання')
 
     def __str__(self):
         return f'{self.client_name} — {self.amount_usd} USD'

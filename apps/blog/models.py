@@ -1,45 +1,46 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
 
 
 class BlogPost(models.Model):
-    title = models.CharField(max_length=200, verbose_name="Заголовок")
-    slug = models.SlugField(max_length=200, unique=True, verbose_name="URL")
-    excerpt = models.TextField(max_length=300, verbose_name="Короткий опис")
-    content = models.TextField(verbose_name="Контент")
-    seo_title = models.CharField(max_length=70, verbose_name="SEO заголовок")
-    seo_description = models.CharField(max_length=160, verbose_name="SEO опис")
-    keywords = models.CharField(max_length=255, verbose_name="Ключові слова")
+    title = models.CharField(max_length=200, verbose_name=_("Заголовок"))
+    slug = models.SlugField(max_length=200, unique=True, verbose_name=_("URL"))
+    excerpt = models.TextField(max_length=300, verbose_name=_("Короткий опис"))
+    content = models.TextField(verbose_name=_("Контент"))
+    seo_title = models.CharField(max_length=70, verbose_name=_("SEO заголовок"))
+    seo_description = models.CharField(max_length=160, verbose_name=_("SEO опис"))
+    keywords = models.CharField(max_length=255, verbose_name=_("Ключові слова"))
     
     # Нові поля для SEO
-    meta_title = models.CharField(max_length=60, verbose_name="Meta Title", blank=True)
-    meta_description = models.CharField(max_length=160, verbose_name="Meta Description", blank=True)
-    og_title = models.CharField(max_length=60, verbose_name="OG Title", blank=True)
-    og_description = models.CharField(max_length=160, verbose_name="OG Description", blank=True)
+    meta_title = models.CharField(max_length=60, verbose_name=_("Meta Title"), blank=True)
+    meta_description = models.CharField(max_length=160, verbose_name=_("Meta Description"), blank=True)
+    og_title = models.CharField(max_length=60, verbose_name=_("OG Title"), blank=True)
+    og_description = models.CharField(max_length=160, verbose_name=_("OG Description"), blank=True)
     
     # Додаткові поля
-    reading_time = models.PositiveIntegerField(default=5, verbose_name="Час читання (хв)")
-    featured_image = models.ImageField(upload_to='blog/', verbose_name="Головне зображення", blank=True)
+    reading_time = models.PositiveIntegerField(default=5, verbose_name=_("Час читання (хв)"))
+    featured_image = models.ImageField(upload_to='blog/', verbose_name=_("Головне зображення"), blank=True)
     category = models.CharField(max_length=50, choices=[
-        ('web-development', 'Веб-розробка'),
-        ('courses', 'Курси програмування'),
-        ('telegram-bots', 'Telegram боти'),
-        ('business', 'Бізнес'),
-        ('technology', 'Технології'),
-        ('ai-development', 'AI розробка'),
-        ('ai-agents', 'AI агенти'),
-        ('ai-automation', 'AI автоматизація'),
-    ], default='web-development', verbose_name="Категорія")
+        ('web-development', _('Веб-розробка')),
+        ('courses', _('Курси програмування')),
+        ('telegram-bots', _('Telegram боти')),
+        ('business', _('Бізнес')),
+        ('technology', _('Технології')),
+        ('ai-development', _('AI розробка')),
+        ('ai-agents', _('AI агенти')),
+        ('ai-automation', _('AI автоматизація')),
+    ], default='web-development', verbose_name=_("Категорія"))
     
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Створено")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Оновлено")
-    is_published = models.BooleanField(default=True, verbose_name="Опубліковано")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Створено"))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Оновлено"))
+    is_published = models.BooleanField(default=True, verbose_name=_("Опубліковано"))
     
     class Meta:
         ordering = ['-created_at']
-        verbose_name = "Стаття блогу"
-        verbose_name_plural = "Статті блогу"
+        verbose_name = _("Стаття блогу")
+        verbose_name_plural = _("Статті блогу")
     
     def __str__(self):
         return self.title
