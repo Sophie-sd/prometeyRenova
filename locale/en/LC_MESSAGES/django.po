@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PrometeyLabs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-27 11:19+0200\n"
+"POT-Creation-Date: 2025-12-27 11:47+0200\n"
 "PO-Revision-Date: 2025-09-29 12:00+0000\n"
 "Last-Translator: PrometeyLabs <info@prometeylabs.com>\n"
 "Language-Team: English\n"
@@ -260,7 +260,7 @@ msgstr ""
 
 #: apps/core/views.py:122
 msgid "Заявка на розробку сайту"
-msgstr "Refund Policy"
+msgstr "Website Development Request"
 
 #: apps/core/views.py:132
 msgid "Дякуємо! Ваша заявка отримана. Ми зв'яжемося з вами найближчим часом."
@@ -277,7 +277,7 @@ msgstr ""
 
 #: apps/core/views.py:164
 msgid "Заявка на консультацію"
-msgstr "Refund Policy"
+msgstr "Consultation Request"
 
 #: apps/core/views.py:174
 msgid "Дякуємо! Наш спеціаліст зв'яжеться з вами протягом 15 хвилин."
@@ -285,7 +285,7 @@ msgstr "Fill out the form and we will contact you within 15 minutes"
 
 #: apps/core/views.py:184
 msgid "Заявка зі сторінки контактів"
-msgstr "Refund Policy"
+msgstr "Contact Page Request"
 
 #: apps/core/views.py:194
 msgid "Дякуємо за ваше повідомлення! Ми зв'яжемося з вами найближчим часом."
@@ -405,7 +405,7 @@ msgstr "End date and time"
 
 #: apps/events/models.py:55
 msgid "Дедлайн реєстрації"
-msgstr "Registration"
+msgstr "Registration Deadline"
 
 #: apps/events/models.py:58
 msgid "Місце проведення"
@@ -481,7 +481,7 @@ msgstr "Useful Information"
 
 #: apps/events/models.py:149
 msgid "Дата реєстрації"
-msgstr "Registration"
+msgstr "Registration Date"
 
 #: apps/events/models.py:150
 msgid "Підтверджено"
@@ -733,7 +733,7 @@ msgstr "Sign up for course"
 
 #: templates/components/modals.html:50
 msgid "Заявка на створення сайту"
-msgstr "Refund Policy"
+msgstr "Website Creation Request"
 
 #: templates/components/modals.html:53
 msgid "Залишіть контакти і ми розрахуємо вартість вашого проєкту"
@@ -1670,7 +1670,8 @@ msgstr "Web application / PWA"
 
 #: templates/pages/home.html:158
 msgid "Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов."
-msgstr "We offer payment in installments — without overpayments or hidden terms."
+msgstr ""
+"We offer payment in installments — without overpayments or hidden terms."
 
 #: templates/pages/home.html:168
 msgid "5-річна"
@@ -1708,7 +1709,8 @@ msgstr "Compliance with technical specifications"
 msgid ""
 "Не включає: нові функції, оновлення дизайну, інтеграції з новими сервісами."
 msgstr ""
-"Does not include: new features, design updates, integrations with new services."
+"Does not include: new features, design updates, integrations with new "
+"services."
 
 #: templates/pages/home.html:190
 msgid "AI-технології"
@@ -1739,7 +1741,8 @@ msgid ""
 "Результат: швидкий запуск, менша кількість технічних годин і нижча кінцева "
 "ціна для клієнта."
 msgstr ""
-"Result: fast launch, fewer technical hours and lower final price for the client."
+"Result: fast launch, fewer technical hours and lower final price for the "
+"client."
 
 #: templates/pages/home.html:211
 msgid ""
@@ -1913,8 +1916,8 @@ msgid ""
 "UX-прототип → дизайн → кросплатформенна розробка → інтеграції → push та "
 "аналітика → тестування → публікація App Store/Google Play → підтримка"
 msgstr ""
-"UX prototype → design → cross-platform development → integrations → push "
-"and analytics → testing → App Store/Google Play publication → support"
+"UX prototype → design → cross-platform development → integrations → push and "
+"analytics → testing → App Store/Google Play publication → support"
 
 #: templates/pages/home.html:520
 msgid "Реклама:"
@@ -1926,8 +1929,8 @@ msgid ""
 "TikTok Ads (нативні інтеграції, Spark Ads) • SEO (аудит, оптимізація, "
 "контент)"
 msgstr ""
-"Google Ads (search, shopping, YouTube) • Meta Ads (traffic, leads, Direct) "
-"• TikTok Ads (native integrations, Spark Ads) • SEO (audit, optimization, "
+"Google Ads (search, shopping, YouTube) • Meta Ads (traffic, leads, Direct) • "
+"TikTok Ads (native integrations, Spark Ads) • SEO (audit, optimization, "
 "content)"
 
 #: templates/pages/home.html:522
@@ -2048,29 +2051,31 @@ msgstr "TURNKEY WEBSITES"
 
 #: templates/pages/portfolio.html:46
 msgid "CoreSync - AI Spa & Wellness Platform"
-msgstr ""
+msgstr "CoreSync - AI Spa & Wellness Platform"
 
 #: templates/pages/portfolio.html:53
 msgid ""
 "Корпоративний сайт і мобільний застосунок із повністю ШІ-керованим сервісом: "
 "онлайн-бронювання, iOS/Android застосунок і планшетна панель для персоналу."
 msgstr ""
+"Corporate website and mobile app with fully AI-driven service: online "
+"booking, iOS/Android app and staff tablet panel."
 
 #: templates/pages/portfolio.html:56 templates/pages/portfolio.html:208
 msgid "центральний AI-агент"
-msgstr ""
+msgstr "central AI agent"
 
 #: templates/pages/portfolio.html:57
 msgid "AI-кол-центр"
-msgstr ""
+msgstr "AI call center"
 
 #: templates/pages/portfolio.html:58
 msgid "AI-бронювання"
-msgstr "promotion"
+msgstr "AI booking"
 
 #: templates/pages/portfolio.html:59 templates/pages/portfolio.html:212
 msgid "внутрішня CRM"
-msgstr ""
+msgstr "internal CRM"
 
 #: templates/pages/portfolio.html:63 templates/pages/portfolio.html:93
 #: templates/pages/portfolio.html:123 templates/pages/portfolio.html:153
@@ -2080,103 +2085,126 @@ msgstr "Useful Information"
 
 #: templates/pages/portfolio.html:76
 msgid "PlayVision - футбольна освітня платформа"
-msgstr ""
+msgstr "PlayVision - Football Education Platform"
 
 #: templates/pages/portfolio.html:83
 msgid ""
 "Футбольна освітня платформа з PWA-додатком і особистими кабінетами для "
 "гравців, тренерів та батьків, включно із системою курсів та івентів."
 msgstr ""
+"Football education platform with PWA app and personal accounts for players, "
+"coaches and parents, including course and event system."
 
 #: templates/pages/portfolio.html:86 templates/pages/portfolio.html:242
 msgid "персональний AI-помічник"
-msgstr ""
+msgstr "personal AI assistant"
 
 #: templates/pages/portfolio.html:87
 msgid "CRM оплат і підписок"
-msgstr ""
+msgstr "payment and subscription CRM"
 
 #: templates/pages/portfolio.html:88
 msgid "аналітика"
-msgstr "Cookie Policy"
+msgstr "analytics"
 
 #: templates/pages/portfolio.html:89 templates/pages/portfolio.html:245
 msgid "e-mail/SMS-сповіщення"
-msgstr ""
+msgstr "e-mail/SMS notifications"
 
 #: templates/pages/portfolio.html:106
 msgid "BeautyShop - онлайн-магазин косметики"
-msgstr ""
+msgstr "BeautyShop - Online Cosmetics Store"
+
+#: templates/pages/portfolio.html:111
+msgid "ОНЛАЙН-МАГАЗИН КОСМЕТИКИ"
+msgstr "ONLINE COSMETICS STORE"
 
 #: templates/pages/portfolio.html:113
 msgid ""
 "Онлайн-магазин косметики з власною CRM, особистим кабінетом клієнта та "
 "гнучкою системою цін, промокодів і акцій."
 msgstr ""
+"Online cosmetics store with own CRM, customer personal account and flexible "
+"pricing, promo codes and promotions system."
 
 #: templates/pages/portfolio.html:116 templates/pages/portfolio.html:177
 #: templates/pages/portfolio.html:275
 msgid "онлайн-оплати"
-msgstr "online events"
+msgstr "online payments"
 
 #: templates/pages/portfolio.html:117
 msgid "промокоди та акції"
-msgstr ""
+msgstr "promo codes and promotions"
 
 #: templates/pages/portfolio.html:118
 msgid "аналітика замовлень"
-msgstr ""
+msgstr "order analytics"
 
 #: templates/pages/portfolio.html:119 templates/pages/portfolio.html:278
 msgid "e-mail/SMS-нотифікації"
-msgstr ""
+msgstr "e-mail/SMS notifications"
+
+#: templates/pages/portfolio.html:136
+msgid "RedRabbit - e-commerce 18+"
+msgstr "RedRabbit - e-commerce 18+"
+
+#: templates/pages/portfolio.html:141
+msgid "E-COMMERCE 18+"
+msgstr "E-COMMERCE 18+"
 
 #: templates/pages/portfolio.html:143
 msgid ""
 "Інтернет-магазин із 18+ age-gate, розширеною адмін-панеллю та CRM-аналітикою."
 msgstr ""
+"E-commerce store with 18+ age-gate, extended admin panel and CRM analytics."
 
 #: templates/pages/portfolio.html:146 templates/pages/portfolio.html:308
 msgid "платіжна система"
-msgstr ""
+msgstr "payment system"
 
 #: templates/pages/portfolio.html:147
 msgid "промокоди"
-msgstr ""
+msgstr "promo codes"
 
 #: templates/pages/portfolio.html:148 templates/pages/portfolio.html:310
 msgid "CRM-аналітика"
-msgstr "Cookie Policy"
+msgstr "CRM analytics"
 
 #: templates/pages/portfolio.html:149
 msgid "нотифікації клієнтам"
-msgstr "Our Clients"
+msgstr "client notifications"
 
 #: templates/pages/portfolio.html:166
 msgid "SunPannel - сонячні панелі та енергорішення"
-msgstr ""
+msgstr "SunPannel - Solar Panels and Energy Solutions"
+
+#: templates/pages/portfolio.html:171
+msgid "СОНЯЧНІ ПАНЕЛІ ТА ЕНЕРГОРІШЕННЯ"
+msgstr "SOLAR PANELS AND ENERGY SOLUTIONS"
 
 #: templates/pages/portfolio.html:173
 msgid ""
 "Корпоративний сайт і інтернет-магазин із технічним каталогом, що автоматично "
 "оновлюється."
 msgstr ""
+"Corporate website and e-commerce store with technical catalog that "
+"automatically updates."
 
 #: templates/pages/portfolio.html:176 templates/pages/portfolio.html:342
 msgid "автооновлення каталогу"
-msgstr "Refund Policy"
+msgstr "automatic catalog update"
 
 #: templates/pages/portfolio.html:178
 msgid "заявки на пропозицію"
-msgstr "Calculate Proposal"
+msgstr "proposal requests"
 
 #: templates/pages/portfolio.html:179 templates/pages/portfolio.html:345
 msgid "e-mail менеджерам"
-msgstr ""
+msgstr "e-mail to managers"
 
 #: templates/pages/portfolio.html:202
 msgid "CoreSync - опис проекту"
-msgstr ""
+msgstr "CoreSync - Project Description"
 
 #: templates/pages/portfolio.html:204
 msgid ""
@@ -2185,38 +2213,43 @@ msgid ""
 "панеллю персоналу. Платформа автоматизує роботу салону та забезпечує "
 "клієнтську підтримку 24/7."
 msgstr ""
+"Corporate website and mobile app with fully AI-driven service: online "
+"booking, iOS/Android apps and staff tablet panel. The platform automates "
+"salon operations and provides 24/7 customer support."
 
 #: templates/pages/portfolio.html:206 templates/pages/portfolio.html:240
 #: templates/pages/portfolio.html:273 templates/pages/portfolio.html:306
 #: templates/pages/portfolio.html:340
 msgid "Інтеграції:"
-msgstr "Registration"
+msgstr "Integrations:"
 
 #: templates/pages/portfolio.html:209
 msgid "AI-кол-центр (голос/текст)"
-msgstr ""
+msgstr "AI call center (voice/text)"
 
 #: templates/pages/portfolio.html:210
 msgid "AI-бронювання за типами послуг"
-msgstr ""
+msgstr "AI booking by service types"
 
 #: templates/pages/portfolio.html:211
 msgid "AI-контроль атмосфери (світло, температура, музика)"
-msgstr ""
+msgstr "AI atmosphere control (light, temperature, music)"
 
 #: templates/pages/portfolio.html:215
 msgid ""
 "Рішення об'єднує сайт, мобільні застосунки та робочу систему персоналу в "
 "єдину екосистему."
 msgstr ""
+"The solution combines website, mobile apps and staff work system into a "
+"unified ecosystem."
 
 #: templates/pages/portfolio.html:218
 msgid "CoreSync - мобільна версія"
-msgstr ""
+msgstr "CoreSync - Mobile Version"
 
 #: templates/pages/portfolio.html:219
 msgid "CoreSync - планшетна версія"
-msgstr ""
+msgstr "CoreSync - Tablet Version"
 
 #: templates/pages/portfolio.html:222
 msgid ""
@@ -2227,14 +2260,19 @@ msgid ""
 "масштабується новими модулями: від wellness-програм до фінансового й "
 "маркетингового управління."
 msgstr ""
+"AI agents provide fast service, accurate communication and automation of all "
+"operations — from calls to push notifications. The platform is adapted for "
+"mobile, tablet and desktop devices and includes analytics for managing "
+"workload and optimizing processes. The system easily scales with new "
+"modules: from wellness programs to financial and marketing management."
 
 #: templates/pages/portfolio.html:224
 msgid "CoreSync - десктопна версія"
-msgstr ""
+msgstr "CoreSync - Desktop Version"
 
 #: templates/pages/portfolio.html:236
 msgid "PlayVision - опис проекту"
-msgstr ""
+msgstr "PlayVision - Project Description"
 
 #: templates/pages/portfolio.html:238
 msgid ""
@@ -2242,14 +2280,17 @@ msgid ""
 "гравців, тренерів та батьків. Рішення охоплює курси, івенти, контент та "
 "інструменти для комплексного розвитку у футбольній індустрії."
 msgstr ""
+"Football education platform with PWA app and personal accounts for players, "
+"coaches and parents. The solution covers courses, events, content and tools "
+"for comprehensive development in the football industry."
 
 #: templates/pages/portfolio.html:243
 msgid "CRM оплати та підписок"
-msgstr ""
+msgstr "payment and subscription CRM"
 
 #: templates/pages/portfolio.html:244
 msgid "аналітика прогресу"
-msgstr "Refund Policy"
+msgstr "progress analytics"
 
 #: templates/pages/portfolio.html:248
 msgid ""
@@ -2257,14 +2298,17 @@ msgid ""
 "універсальний конструктор для управління контентом, структурою сторінок, "
 "курсами та івентами без участі розробників."
 msgstr ""
+"The platform includes web app and mobile version, implemented as a universal "
+"constructor for managing content, page structure, courses and events without "
+"developer involvement."
 
 #: templates/pages/portfolio.html:251
 msgid "PlayVision - мобільна версія"
-msgstr ""
+msgstr "PlayVision - Mobile Version"
 
 #: templates/pages/portfolio.html:252
 msgid "PlayVision - планшетна версія"
-msgstr ""
+msgstr "PlayVision - Tablet Version"
 
 #: templates/pages/portfolio.html:255
 msgid ""
@@ -2273,18 +2317,22 @@ msgid ""
 "як масштабована екосистема з можливістю інтеграції нових модулів та сервісів "
 "без зміни ядра."
 msgstr ""
+"Supports dark/light themes, adaptive navigation and roles with tariffs that "
+"form flexible access for different user categories. The system is created as "
+"a scalable ecosystem with the ability to integrate new modules and services "
+"without changing the core."
 
 #: templates/pages/portfolio.html:257
 msgid "PlayVision - десктопна версія"
-msgstr ""
+msgstr "PlayVision - Desktop Version"
 
 #: templates/pages/portfolio.html:267
 msgid "Онлайн-магазин косметики"
-msgstr ""
+msgstr "Online Cosmetics Store"
 
 #: templates/pages/portfolio.html:269
 msgid "BeautyShop - опис проекту"
-msgstr ""
+msgstr "BeautyShop - Project Description"
 
 #: templates/pages/portfolio.html:271
 msgid ""
@@ -2292,28 +2340,33 @@ msgid ""
 "промокодів та акцій. Рішення створене для персоналізованого досвіду покупки "
 "та автоматизації роботи адміністратора."
 msgstr ""
+"E-commerce platform with CRM, personal account and flexible pricing, promo "
+"codes and promotions mechanics. The solution is created for personalized "
+"shopping experience and administrator work automation."
 
 #: templates/pages/portfolio.html:276
 msgid "промокоди та акційні правила"
-msgstr ""
+msgstr "promo codes and promotion rules"
 
 #: templates/pages/portfolio.html:277
 msgid "аналітика замовлень і поведінки"
-msgstr "Refund Policy"
+msgstr "order and behavior analytics"
 
 #: templates/pages/portfolio.html:281
 msgid ""
 "Система поєднує магазин і CRM-адмінку для керування товарами, категоріями, "
 "залишками й замовленнями."
 msgstr ""
+"The system combines store and CRM admin panel for managing products, "
+"categories, inventory and orders."
 
 #: templates/pages/portfolio.html:284
 msgid "BeautyShop - мобільна версія"
-msgstr ""
+msgstr "BeautyShop - Mobile Version"
 
 #: templates/pages/portfolio.html:285
 msgid "BeautyShop - планшетна версія"
-msgstr ""
+msgstr "BeautyShop - Tablet Version"
 
 #: templates/pages/portfolio.html:288
 msgid ""
@@ -2324,14 +2377,20 @@ msgid ""
 "маркетингових дій у реальному часі. Система масштабована й готова до "
 "підключення AI-рекомендацій та омніканальних продажів."
 msgstr ""
+"The platform supports user segmentation, personal recommendations and "
+"different price groups, which increases conversion. The interface is fully "
+"adaptive, optimized for mobile and desktop. The admin panel allows quick "
+"product updates, launching promotions and tracking marketing effectiveness "
+"in real time. The system is scalable and ready for AI recommendations and "
+"omnichannel sales integration."
 
 #: templates/pages/portfolio.html:290
 msgid "BeautyShop - десктопна версія"
-msgstr ""
+msgstr "BeautyShop - Desktop Version"
 
 #: templates/pages/portfolio.html:302
 msgid "RedRabbit - опис проекту"
-msgstr ""
+msgstr "RedRabbit - Project Description"
 
 #: templates/pages/portfolio.html:304
 msgid ""
@@ -2339,32 +2398,37 @@ msgid ""
 "аналітикою. Платформа розроблена для великих товарних обсягів, категорій і "
 "різних акційних моделей."
 msgstr ""
+"E-commerce store with 18+ age-gate, extended admin panel and CRM analytics. "
+"The platform is designed for large product volumes, categories and various "
+"promotion models."
 
 #: templates/pages/portfolio.html:309
 msgid "промокоди та акційні сценарії"
-msgstr ""
+msgstr "promo codes and promotion scenarios"
 
 #: templates/pages/portfolio.html:311
 msgid "автоматичні нотифікації"
-msgstr ""
+msgstr "automatic notifications"
 
 #: templates/pages/portfolio.html:312
 msgid "автооновлюваний каталог товарів (синхронізація кожні 2 години)"
-msgstr ""
+msgstr "auto-updating product catalog (sync every 2 hours)"
 
 #: templates/pages/portfolio.html:315
 msgid ""
 "Платформа включає сайт із захищеним доступом, рольову систему та інструменти "
 "управління товарами, замовленнями й маркетингом."
 msgstr ""
+"The platform includes a website with protected access, role system and tools "
+"for managing products, orders and marketing."
 
 #: templates/pages/portfolio.html:318
 msgid "RedRabbit - мобільна версія"
-msgstr ""
+msgstr "RedRabbit - Mobile Version"
 
 #: templates/pages/portfolio.html:319
 msgid "RedRabbit - планшетна версія"
-msgstr ""
+msgstr "RedRabbit - Tablet Version"
 
 #: templates/pages/portfolio.html:322
 msgid ""
@@ -2375,18 +2439,24 @@ msgid ""
 "пристрої. Платформа масштабована під нових постачальників та розширення "
 "функціоналу."
 msgstr ""
+"Age-gate ensures 18+ compliance and content protection. The system provides "
+"detailed statistics on promotions, conversions and user behavior. Automatic "
+"catalog updates guarantee current inventory, prices and offers without "
+"manual intervention. The interface is adaptive and optimized for mobile "
+"devices. The platform is scalable for new suppliers and functionality "
+"expansion."
 
 #: templates/pages/portfolio.html:324
 msgid "RedRabbit - десктопна версія"
-msgstr ""
+msgstr "RedRabbit - Desktop Version"
 
 #: templates/pages/portfolio.html:334
 msgid "Сонячні панелі та енергорішення"
-msgstr "Comprehensive Web Solutions"
+msgstr "Solar Panels and Energy Solutions"
 
 #: templates/pages/portfolio.html:336
 msgid "SunPannel - опис проекту"
-msgstr ""
+msgstr "SunPannel - Project Description"
 
 #: templates/pages/portfolio.html:338
 msgid ""
@@ -2394,32 +2464,37 @@ msgid ""
 "оновлюється. Рішення призначене для продажу сонячних комплектів, панелей, "
 "інверторів та енергосистем."
 msgstr ""
+"Corporate website and e-commerce store with technical catalog that "
+"automatically updates. The solution is designed for selling solar kits, "
+"panels, inverters and energy systems."
 
 #: templates/pages/portfolio.html:343
 msgid "онлайн-оплати та рахунки"
-msgstr "Are online payments needed on the website?"
+msgstr "online payments and invoices"
 
 #: templates/pages/portfolio.html:344
 msgid "заявка на комерційну пропозицію"
-msgstr "Calculate Proposal"
+msgstr "commercial proposal request"
 
 #: templates/pages/portfolio.html:346
 msgid "керування контентом, товарами та маркетинговими сторінками"
-msgstr ""
+msgstr "content, products and marketing pages management"
 
 #: templates/pages/portfolio.html:349
 msgid ""
 "Платформа поєднує маркетингові сторінки, каталог, фільтри й кошик у єдину "
 "систему."
 msgstr ""
+"The platform combines marketing pages, catalog, filters and shopping cart "
+"into a unified system."
 
 #: templates/pages/portfolio.html:352
 msgid "SunPannel - мобільна версія"
-msgstr ""
+msgstr "SunPannel - Mobile Version"
 
 #: templates/pages/portfolio.html:353
 msgid "SunPannel - планшетна версія"
-msgstr ""
+msgstr "SunPannel - Tablet Version"
 
 #: templates/pages/portfolio.html:356
 msgid ""
@@ -2430,101 +2505,89 @@ msgid ""
 "Платформа створена для масштабування й інтеграції з будь-якими "
 "постачальниками та новими модулями."
 msgstr ""
+"Technical filters allow assembling a kit by parameters (power, inverter, "
+"number of panels). The interface is adaptive and convenient even in complex "
+"technical sections. Automatic updates ensure current specifications, "
+"inventory and prices in the fast-changing energy segment. The platform is "
+"created for scaling and integration with any suppliers and new modules."
 
 #: templates/pages/portfolio.html:358
 msgid "SunPannel - десктопна версія"
-msgstr ""
+msgstr "SunPannel - Desktop Version"
 
 #: templates/payment/link_inactive.html:5
 #: templates/payment/link_inactive.html:14
 msgid "Посилання недоступне"
-msgstr ""
+msgstr "Link Unavailable"
 
 #: templates/payment/link_inactive.html:16
 msgid "Статус:"
-msgstr ""
+msgstr "Status:"
 
 #: templates/payment/link_inactive.html:18
 msgid "Це платіжне посилання недоступне."
-msgstr "No, payment on the website is not needed"
+msgstr "This payment link is unavailable."
 
 #: templates/payment/payment_failure.html:5
 msgid "Помилка оплати"
-msgstr ""
+msgstr "Payment Error"
 
 #: templates/payment/payment_failure.html:14
 msgid "Помилка"
-msgstr ""
+msgstr "Error"
 
 #: templates/payment/payment_failure.html:15
 msgid "Не вдалося створити інвойс або здійснити платіж."
-msgstr ""
+msgstr "Failed to create invoice or process payment."
 
 #: templates/payment/payment_page.html:5
 msgid "Оплата послуг"
-msgstr "Advertising & Promotion"
+msgstr "Service Payment"
 
 #: templates/payment/payment_page.html:14
 msgid "Оплата"
-msgstr ""
+msgstr "Payment"
 
 #: templates/payment/payment_page.html:22
 msgid "Клієнт:"
-msgstr "Our Clients"
+msgstr "Client:"
 
 #: templates/payment/payment_page.html:23
 msgid "Сума:"
-msgstr ""
+msgstr "Amount:"
 
 #: templates/payment/payment_page.html:27
 msgid "Оплатити карткою"
-msgstr "Yes, online card payment"
+msgstr "Pay by Card"
 
 #: templates/payment/payment_page.html:33
 msgid "Створити тестовий інвойс"
-msgstr ""
+msgstr "Create Test Invoice"
 
 #: templates/payment/payment_page.html:36
 msgid "Немає даних для платежу"
-msgstr ""
+msgstr "No payment data available"
 
 #: templates/payment/payment_page.html:40
 msgid "Банківський переказ"
-msgstr ""
+msgstr "Bank Transfer"
 
 #: templates/payment/payment_page.html:42
 msgid "Отримувач:"
-msgstr ""
+msgstr "Recipient:"
 
 #: templates/payment/payment_success.html:5
 msgid "Оплата успішна"
-msgstr ""
+msgstr "Payment Successful"
 
 #: templates/payment/payment_success.html:14
 msgid "Дякуємо!"
-msgstr "Thank you for your request!"
+msgstr "Thank you!"
 
 #: templates/payment/payment_success.html:15
 msgid "Оплата пройшла успішно."
-msgstr ""
+msgstr "Payment completed successfully."
 
 #: templates/payment/payment_success.html:17
 msgid "Перейти до платіжної сторінки"
-msgstr "Landing page (single page)"
-
-#~ msgid "Створення Telegram ботів"
-#~ msgstr "Telegram Bot Development"
-
-#~ msgid "Чому наші ціни конкурентні?"
-#~ msgstr "Why Are Our Prices Competitive?"
-
-#~ msgid ""
-#~ "Наше портфоліо веб-сайтів під ключ. Приклади сучасних веб-рішень для "
-#~ "різних сфер бізнесу."
-#~ msgstr ""
-#~ "Our turnkey website portfolio. Examples of modern web solutions for "
-#~ "various business sectors."
-
-#~ msgid "Приклади наших робіт - сучасні веб-рішення для різних сфер бізнесу"
-#~ msgstr ""
-#~ "Examples of our work - modern web solutions for various business sectors"
+msgstr "Go to Payment Page"
