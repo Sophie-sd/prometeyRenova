@@ -1208,10 +1208,10 @@ msgstr "For beginners"
 #: templates/pages/developer.html:63
 msgid ""
 "Повний вступ у веб-розробку з нуля. Створите своє перше портфоліо, "
-"оволодієте базовими навичками та готуватимеся до першої роботи в IT."
+"оволодієте базовими навичками та дізнаєтесь більше інформації про роботу в IT."
 msgstr ""
 "Complete introduction to web development from scratch. Create your first "
-"portfolio, master basic skills and prepare for your first job in IT."
+"portfolio, master basic skills and learn more about working in IT."
 
 #: templates/pages/developer.html:67 templates/pages/developer.html:110
 msgid "Адаптивний дизайн"
@@ -1467,8 +1467,7 @@ msgstr "Choose a program"
 
 #: templates/pages/developer.html:246
 msgid "Розповідайте про ваш рівень та цілі. Допоможемо вибрати підходящий курс"
-msgstr ""
-"Tell us about your level and goals. We'll help you choose the right course"
+msgstr "Tell us about your level and goals. We'll help you choose the right course"
 
 #: templates/pages/developer.html:251
 msgid "Отримайте інформацію"
