@@ -1195,7 +1195,7 @@ msgstr "Sign up for course"
 
 #: templates/pages/developer.html:45
 msgid "Переглянути програми навчання"
-msgstr "Programming Courses"
+msgstr "View Training Programs"
 
 #: templates/pages/developer.html:56
 msgid "Для кого підходить навчання"
