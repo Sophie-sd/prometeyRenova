@@ -1173,17 +1173,13 @@ msgid ""
 "використовуємо та як керувати налаштуваннями."
 msgstr ""
 
-#: templates/pages/developer.html:29
-msgid "СТАТИ РОЗРОБНИКОМ"
-msgstr "BECOME A DEVELOPER"
+#: templates/pages/developer.html:30
+msgid "Мрієте стати веб-розробником?"
+msgstr "Dreaming of becoming a web developer?"
 
 #: templates/pages/developer.html:31
-msgid ""
-"Мрієте стати веб-розробником? Наші курси програмування - це ваш шлях до "
-"успішної кар'єри в IT."
-msgstr ""
-"Dreaming of becoming a web developer? Our programming courses are your path "
-"to a successful career in IT."
+msgid "Наші курси програмування - це ваш шлях до успішної кар'єри в IT."
+msgstr "Our programming courses are your path to a successful career in IT."
 
 #: templates/pages/developer.html:36
 msgid ""

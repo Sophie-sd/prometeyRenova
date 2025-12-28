@@ -436,10 +436,6 @@
         padding: var(--space-md) 0;
     }
 
-    .developer-hero .hero-text h1 {
-        margin-bottom: var(--space-md);
-    }
-
     .developer-hero .hero-text p {
         margin-bottom: var(--space-md);
     }
