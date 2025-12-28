@@ -1762,7 +1762,7 @@ function initServiceCardsOptimized() {
         });
     }, {
         threshold: 0.01,
-        rootMargin: '0px'
+        rootMargin: '200px'
     });
 
     serviceCards.forEach(card => {
