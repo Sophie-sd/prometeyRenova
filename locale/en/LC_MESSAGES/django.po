@@ -1466,7 +1466,7 @@ msgid "Виберіть програму"
 msgstr "Choose a program"
 
 #: templates/pages/developer.html:246
-msgid "Розповідайте про ваш рівень та цілі. Допоможемо вибрати підходящий курс"
+msgid "Розкажіть про ваш рівень та цілі. Допоможемо вибрати підходящий курс"
 msgstr "Tell us about your level and goals. We'll help you choose the right course"
 
 #: templates/pages/developer.html:251
