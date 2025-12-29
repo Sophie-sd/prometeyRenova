@@ -632,15 +632,15 @@ msgid "Введіть ваше ім'я"
 msgstr "Enter your name"
 
 #: templates/components/footer.html:80
-msgid "Контакт"
-msgstr "Contact"
+msgid "Номер телефону"
+msgstr "Phone number"
 
 #: templates/components/footer.html:81
 msgid "Telegram або номер телефону"
 msgstr "Telegram or phone number"
 
 #: templates/components/footer.html:86
-msgid "Даю згоду на обробку персональних даних згідно"
+msgid "Даю згоду на обробку персональних даних згідно з"
 msgstr "I agree to the processing of personal data according to"
 
 #: templates/components/footer.html:86
@@ -791,7 +791,7 @@ msgid "Написати в Telegram зараз"
 msgstr "Write in Telegram"
 
 #: templates/components/modals.html:155
-msgid "Залишіть контакти і наш менеджер зателефонує вам протягом 15 хвилин"
+msgid "Залиште контакти і наш менеджер зателефонує вам протягом 15 хвилин"
 msgstr "Leave your contacts and our manager will call you within 15 minutes"
 
 #: templates/components/modals.html:194
@@ -1001,7 +1001,7 @@ msgstr "Corporate website or services website"
 
 #: templates/pages/calculator.html:101
 msgid "Інтернет-магазин"
-msgstr "E-commerce Stores"
+msgstr "E-commerce stores"
 
 #: templates/pages/calculator.html:105
 msgid "Веб-додаток / PWA"
@@ -1613,7 +1613,7 @@ msgstr "Corporate website or services website"
 
 #: templates/pages/home.html:69 templates/pages/home.html:91
 msgid "Інтернет-магазини"
-msgstr "E-commerce Stores"
+msgstr "E-commerce stores"
 
 #: templates/pages/home.html:75 templates/pages/home.html:97
 msgid "Веб-додатки"
@@ -1647,11 +1647,11 @@ msgstr ""
 
 #: templates/pages/home.html:126
 msgid "Прозорі строки,"
-msgstr "Transparent timelines,"
+msgstr "Transparent timelines"
 
 #: templates/pages/home.html:126
 msgid "які ми дотримуємося"
-msgstr "that we adhere to"
+msgstr "we adhere to"
 
 #: templates/pages/home.html:129
 msgid "Базові терміни виконання:"
@@ -1672,7 +1672,7 @@ msgstr "Corporate website or services website"
 
 #: templates/pages/home.html:133
 msgid "Інтернет-магазини:"
-msgstr "E-commerce Stores"
+msgstr "E-commerce stores"
 
 #: templates/pages/home.html:134
 msgid "Веб-додатки / SaaS:"
@@ -1817,11 +1817,11 @@ msgstr "iOS and Android apps with modern design"
 
 #: templates/pages/home.html:262
 msgid "Детальніше про Реклама та ведення соціальних мереж"
-msgstr "Advertising & Social Media Management"
+msgstr "Content production"
 
 #: templates/pages/home.html:266 templates/pages/home.html:517
 msgid "Реклама та ведення соціальних мереж"
-msgstr "Advertising & Social Media Management"
+msgstr "Content production"
 
 #: templates/pages/home.html:267
 msgid "Google Ads, Meta Ads, TikTok Ads, SMM, контент"
@@ -1858,8 +1858,8 @@ msgid ""
 msgstr "Contact us for a free consultation and project cost estimate"
 
 #: templates/pages/home.html:459
-msgid "Telegram консультація"
-msgstr "Telegram Consultation"
+msgid "telegram-консультація"
+msgstr "Telegram consultation"
 
 #: templates/pages/home.html:475
 msgid "Landing, корпоративні, багатосторінкові з SEO"
@@ -2006,9 +2006,9 @@ msgstr "Photo/Video/AI"
 
 #: templates/pages/home.html:528
 msgid ""
-"Пости, каруселі, сторіз, Reels/Shorts, AI-відео (Veo-3), AI-аватари, субтитри"
+"Пости, каруселі, сторіз, Reels/Shorts, AI-відео, AI-аватари, субтитри"
 msgstr ""
-"Posts, carousels, stories, Reels/Shorts, AI video (Veo-3), AI avatars, "
+"Posts, carousels, stories, Reels/Shorts, AI video, AI avatars, "
 "subtitles"
 
 #: templates/pages/home.html:542
