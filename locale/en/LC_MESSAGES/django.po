@@ -1664,15 +1664,15 @@ msgstr "days"
 
 #: templates/pages/home.html:132 templates/pages/home.html:153
 msgid "Корпоративні сайти:"
-msgstr "Corporate website or services website"
+msgstr "Corporate website or services website:"
 
 #: templates/pages/home.html:133
 msgid "Інтернет-магазини:"
-msgstr "E-commerce stores"
+msgstr "E-commerce stores:"
 
 #: templates/pages/home.html:134
 msgid "Веб-додатки / SaaS:"
-msgstr "Web application / PWA"
+msgstr "Web application / SaaS:"
 
 #: templates/pages/home.html:137
 msgid ""
@@ -1696,7 +1696,7 @@ msgstr "Average price ranges:"
 
 #: templates/pages/home.html:155
 msgid "Веб-додатки:"
-msgstr "Web application / PWA"
+msgstr "Web application / SaaS:"
 
 #: templates/pages/home.html:158
 msgid "Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов."

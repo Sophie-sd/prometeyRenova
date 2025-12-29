@@ -592,8 +592,8 @@ class PrometeyApp {
         // Next URL - видаляємо префікс мови якщо є
         let nextUrl = window.location.pathname + window.location.search;
         const originalUrl = nextUrl;
-        // Видаляємо /uk/ або /en/ з початку URL
-        nextUrl = nextUrl.replace(/^\/(uk|en)\//, '/');
+        // Видаляємо /en/ з початку URL (uk не має префікса)
+        nextUrl = nextUrl.replace(/^\/en\//, '/');
 
         const nextInput = document.createElement('input');
         nextInput.type = 'hidden';

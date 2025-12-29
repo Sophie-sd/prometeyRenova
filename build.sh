@@ -5,7 +5,7 @@ echo "📦 Installing dependencies..."
 pip install -r requirements.txt
 
 echo "🌍 Compiling translations..."
-python manage.py compilemessages --ignore=prometey_env
+python manage.py compilemessages --locale=en --ignore=prometey_env
 
 echo "📁 Collecting static files (з автоматичною compression)..."
 python manage.py collectstatic --no-input
