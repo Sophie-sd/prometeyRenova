@@ -132,6 +132,15 @@
     {% include 'components/modals.html' %}
 
     <!-- Modern JavaScript Systems (2025) - чіткий порядок завантаження -->
+    <!-- Translations for JavaScript -->
+    <script>
+        window.I18N = {
+            'thankYouSent': '{% trans "Дякуємо! Ваша заявка відправлена." %}',
+            'errorSubmittingForm': '{% trans "Помилка при відправці форми. Спробуйте ще раз." %}',
+            'errorSending': '{% trans "Помилка при відправці. Спробуйте ще раз." %}',
+            'close': '{% trans "Закрити" %}'
+        };
+    </script>
     {% block base_js %}
     <script src="{% static 'js/core/utils.js' %}"></script>
     <script src="{% static 'js/mobile-core.js' %}"></script>

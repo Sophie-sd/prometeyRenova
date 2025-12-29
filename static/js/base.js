@@ -387,7 +387,7 @@ class PrometeyApp {
             } else {
                 // При помилці від сервера - форма НЕ очищається, відповіді залишаються
                 // Обробляємо помилку від сервера
-                const errorMessage = data.message || 'Помилка при відправці. Спробуйте ще раз.';
+                const errorMessage = data.message || (window.I18N?.errorSending || 'Помилка при відправці. Спробуйте ще раз.');
                 
                 // Перевіримо чи це помилка валідації конкретного поля
                 if (errorMessage.includes('ім\'я') || errorMessage.includes('name') || errorMessage.includes('коректне ім')) {
@@ -410,7 +410,7 @@ class PrometeyApp {
         } catch (error) {
             // При помилці мережі/винятку - форма НЕ очищається, відповіді залишаються
             console.error('Form error:', error);
-            this.showNotification('Помилка при відправці форми. Спробуйте ще раз.', 'error');
+            this.showNotification(window.I18N?.errorSubmittingForm || 'Помилка при відправці форми. Спробуйте ще раз.', 'error');
         } finally {
             if (submitBtn) {
                 submitBtn.classList.remove('btn-loading');
@@ -522,7 +522,7 @@ class PrometeyApp {
         if (formType === 'test' && data.result) {
             this.showTestResult(data.result);
         } else {
-            this.showNotification('Дякуємо! Ваша заявка відправлена.', 'success');
+            this.showNotification(window.I18N?.thankYouSent || 'Дякуємо! Ваша заявка відправлена.', 'success');
             this.openModal('thank-you-modal');
         }
     }
@@ -681,7 +681,7 @@ class PrometeyApp {
         const closeBtn = document.createElement('button');
         closeBtn.className = 'prometey-notification__close';
         closeBtn.textContent = '×';
-        closeBtn.setAttribute('aria-label', 'Закрити');
+        closeBtn.setAttribute('aria-label', window.I18N?.close || 'Закрити');
         closeBtn.addEventListener('click', () => this.removeNotification(notification));
 
         notification.appendChild(messageSpan);

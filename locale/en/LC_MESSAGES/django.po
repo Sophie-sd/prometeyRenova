@@ -770,9 +770,9 @@ msgstr "Write in Telegram"
 
 #: templates/components/modals.html:113 templates/pages/home.html:469
 #: templates/pages/home.html:492 templates/pages/home.html:515
-#: templates/pages/home.html:537
+#: templates/pages/home.html:537 static/js/base.js:684 static/js/home-bundle.js:1550
 msgid "Закрити"
-msgstr "Close Menu"
+msgstr "Close"
 
 #: templates/components/modals.html:129
 msgid "Дякуємо за заявку!"
@@ -964,6 +964,18 @@ msgstr "Get an accurate cost estimate in 2 minutes"
 #: static/js/calculator.js:70
 msgid "Питання"
 msgstr "Question"
+
+#: static/js/base.js:525 static/js/home-bundle.js:1407
+msgid "Дякуємо! Ваша заявка відправлена."
+msgstr "Thank you! Your request has been sent."
+
+#: static/js/base.js:413 static/js/home-bundle.js:1295
+msgid "Помилка при відправці форми. Спробуйте ще раз."
+msgstr "Error submitting form. Please try again."
+
+#: static/js/base.js:390 static/js/home-bundle.js:1272
+msgid "Помилка при відправці. Спробуйте ще раз."
+msgstr "Error sending. Please try again."
 
 #: templates/pages/calculator.html:68
 msgid "Розрахунок вартості"
