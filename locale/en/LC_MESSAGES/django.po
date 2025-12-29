@@ -631,7 +631,8 @@ msgstr "GET CONSULTATION"
 msgid "Введіть ваше ім'я"
 msgstr "Enter your name"
 
-#: templates/components/footer.html:80
+#: templates/components/footer.html:80 templates/components/modals.html:30
+#: templates/components/modals.html:68 templates/components/modals.html:170
 msgid "Номер телефону"
 msgstr "Phone number"
 
@@ -730,11 +731,6 @@ msgid ""
 "Залишіть контакти і ми зв'яжемося з вами для консультації про курси "
 "програмування"
 msgstr "Contact us for a free consultation and project cost estimate"
-
-#: templates/components/modals.html:30 templates/components/modals.html:68
-#: templates/components/modals.html:170
-msgid "Номер телефону"
-msgstr "Phone number"
 
 #: templates/components/modals.html:36
 msgid "Записатися на курс"
