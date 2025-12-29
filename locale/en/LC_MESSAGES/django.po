@@ -922,16 +922,16 @@ msgid "Калькулятор"
 msgstr "Calculator"
 
 #: templates/pages/calculator.html:21
-msgid "Розрахувати вартість проекту"
-msgstr "Calculate project cost"
+msgid "Розрахувати"
+msgstr "Calculate"
 
 #: templates/pages/calculator.html:22
-msgid "вартість"
-msgstr "cost"
-
-#: templates/pages/calculator.html:23
 msgid "проекту"
 msgstr "project"
+
+#: templates/pages/calculator.html:23
+msgid "вартість"
+msgstr "cost"
 
 #: templates/pages/calculator.html:29
 msgid "AI агенти для швидкої розробки"
