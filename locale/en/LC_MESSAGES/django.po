@@ -923,7 +923,7 @@ msgstr "Calculator"
 
 #: templates/pages/calculator.html:21
 msgid "Розрахувати"
-msgstr "Calculate Cost"
+msgstr "Calculate"
 
 #: templates/pages/calculator.html:22
 msgid "вартість"
