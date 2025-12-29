@@ -922,8 +922,8 @@ msgid "Калькулятор"
 msgstr "Calculator"
 
 #: templates/pages/calculator.html:21
-msgid "Розрахувати"
-msgstr "Calculate"
+msgid "Розрахувати вартість проекту"
+msgstr "Calculate project cost"
 
 #: templates/pages/calculator.html:22
 msgid "вартість"
@@ -935,7 +935,7 @@ msgstr "project"
 
 #: templates/pages/calculator.html:29
 msgid "AI агенти для швидкої розробки"
-msgstr "AI agents for rapid development"
+msgstr "AI agents for accelerated development"
 
 #: templates/pages/calculator.html:33
 msgid "Продумана архітектура та логіка продукту"
@@ -943,7 +943,7 @@ msgstr "Thoughtful architecture and product logic"
 
 #: templates/pages/calculator.html:37
 msgid "Власна LLM модель Prometey"
-msgstr "Own Prometey LLM model"
+msgstr "Our proprietary Prometey LLM model"
 
 #: templates/pages/calculator.html:41
 msgid "Автоматизоване тестування"
@@ -960,6 +960,10 @@ msgstr "TAKE THE TEST"
 #: templates/pages/calculator.html:55
 msgid "Отримайте точну оцінку вартості за 2 хвилини"
 msgstr "Get an accurate cost estimate in 2 minutes"
+
+#: static/js/calculator.js:70
+msgid "Питання"
+msgstr "Question"
 
 #: templates/pages/calculator.html:68
 msgid "Розрахунок вартості"
@@ -993,7 +997,7 @@ msgstr "Extended landing / promo site (multi-page)"
 
 #: templates/pages/calculator.html:97
 msgid "Корпоративний сайт або сайт послуг"
-msgstr "Corporate website or services website"
+msgstr "Corporate website or service website"
 
 #: templates/pages/calculator.html:101
 msgid "Інтернет-магазин"
@@ -1451,7 +1455,7 @@ msgstr "How to enroll in training"
 
 #: templates/pages/developer.html:239
 msgid "Напишіть адміністратору"
-msgstr "Write to administrator"
+msgstr "Contact the administrator"
 
 #: templates/pages/developer.html:240
 msgid "Зв'яжіться з нами у Telegram або іншому месенджері, зручному для вас"
@@ -1605,7 +1609,7 @@ msgstr "Turnkey Website Development"
 
 #: templates/pages/home.html:67 templates/pages/home.html:89
 msgid "Корпоративні сайти"
-msgstr "Corporate website or services website"
+msgstr "Corporate website or service website"
 
 #: templates/pages/home.html:69 templates/pages/home.html:91
 msgid "Інтернет-магазини"
@@ -1664,7 +1668,7 @@ msgstr "days"
 
 #: templates/pages/home.html:132 templates/pages/home.html:153
 msgid "Корпоративні сайти:"
-msgstr "Corporate website or services website:"
+msgstr "Corporate website or service website:"
 
 #: templates/pages/home.html:133
 msgid "Інтернет-магазини:"

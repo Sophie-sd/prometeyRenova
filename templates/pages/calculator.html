@@ -18,9 +18,7 @@
             <div class="calc-hero__content">
                 <div class="calc-hero__label">{% trans "Калькулятор" %}</div>
                 <h1 class="calc-hero__title">
-                    {% trans "Розрахувати" %}<br>
-                    {% trans "вартість" %}<br>
-                    {% trans "проекту" %}
+                    {% trans "Розрахувати вартість проекту" %}
                 </h1>
 
                 <div class="calc-hero__benefits">
@@ -75,7 +73,9 @@
                 </div>
             </div>
 
-            <form id="calculator-test" class="calc-form" data-form-type="test">
+            <form id="calculator-test" class="calc-form" data-form-type="test" 
+                  data-question-label="{% trans 'Питання' %}" 
+                  data-of-label="{% trans 'з' %}">
                 {% csrf_token %}
 
                 <div class="calc-question">

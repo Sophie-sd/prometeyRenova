@@ -61,13 +61,17 @@ class ProjectCalculator {
 
     // ===== PROGRESS INDICATOR =====
     addProgressIndicator() {
+        // Отримуємо переклади з data-атрибутів форми
+        const questionLabel = this.testForm?.dataset.questionLabel || 'Питання';
+        const ofLabel = this.testForm?.dataset.ofLabel || 'з';
+        
         const progressHtml = `
             <div class="calculator-progress mb-md">
                 <div class="calculator-progress__bar">
                     <div class="calculator-progress__fill" data-progress="0"></div>
                 </div>
                 <span class="calculator-progress__text">
-                    Питання <span class="calculator-progress__current">0</span> з 
+                    ${questionLabel} <span class="calculator-progress__current">0</span> ${ofLabel} 
                     <span class="calculator-progress__total">${this.totalSteps}</span>
                 </span>
             </div>
