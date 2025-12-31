@@ -19,6 +19,7 @@ class PrometeyApp {
         };
 
         this.elements = {}; // Кеш DOM елементів
+        this.phoneMasks = new Map(); // Зберігаємо інстанси PhoneMask
 
         this.init();
     }
@@ -42,6 +43,7 @@ class PrometeyApp {
         this.setupNavigation();
         this.setupMobileMenu();
         this.setupModals();
+        this.setupPhoneMasks();
         this.setupForms();
         this.setupLanguageSwitcher();
         this.setupAccessibility();
@@ -326,6 +328,20 @@ class PrometeyApp {
         if (phoneField && userData.phone) phoneField.value = userData.phone;
     }
 
+    // ===== PHONE MASK SYSTEM =====
+    setupPhoneMasks() {
+        // Ініціалізуємо маску для всіх полів телефону
+        const phoneInputs = document.querySelectorAll('input[type="tel"], input[name="phone"]');
+        
+        phoneInputs.forEach(input => {
+            // Перевіряємо чи PhoneMask доступний
+            if (typeof PhoneMask !== 'undefined') {
+                const mask = new PhoneMask(input);
+                this.phoneMasks.set(input, mask);
+            }
+        });
+    }
+
     // ===== FORM SYSTEM =====
     setupForms() {
         const forms = document.querySelectorAll('form[data-form-type]');
@@ -365,6 +381,14 @@ class PrometeyApp {
         try {
             const formData = new FormData(form);
             const formType = form.getAttribute('data-form-type');
+
+            // Оновлюємо значення телефону з PhoneMask якщо доступний
+            const phoneField = form.querySelector('[name="phone"]');
+            if (phoneField && this.phoneMasks.has(phoneField)) {
+                const mask = this.phoneMasks.get(phoneField);
+                const cleanedValue = mask.getCleanedValue();
+                formData.set('phone', cleanedValue);
+            }
 
             // Зберігаємо дані користувача
             this.saveUserData(formData);
@@ -462,15 +486,29 @@ class PrometeyApp {
         }
 
         if (phoneField && phoneField.value) {
-            const phone = phoneField.value;
-            const clean = phone.replace(/[^\d+]/g, '');
-            const digitCount = clean.replace(/\D/g, '').length;
             let phoneError = null;
-
-            if (digitCount < 10) {
-                phoneError = 'Введіть коректний номер (мінімум 10 цифр)';
-            } else if (clean.length > 20) {
-                phoneError = 'Введіть коректний номер телефону';
+            
+            // Використовуємо PhoneMask валідацію якщо доступна
+            if (this.phoneMasks.has(phoneField)) {
+                const mask = this.phoneMasks.get(phoneField);
+                const validation = mask.validate();
+                
+                if (!validation.valid) {
+                    phoneError = validation.message;
+                }
+            } else {
+                // Fallback валідація якщо PhoneMask не доступний
+                const phone = phoneField.value;
+                const clean = phone.replace(/[^\d+]/g, '');
+                
+                // Перевірка формату +380XXXXXXXXX
+                if (!clean.startsWith('+380')) {
+                    phoneError = 'Номер має починатися з 0';
+                } else if (clean.length !== 13) {
+                    phoneError = 'Введіть коректний номер телефону';
+                } else if (!/^\+380\d{9}$/.test(clean)) {
+                    phoneError = 'Введіть коректний номер телефону';
+                }
             }
 
             if (phoneError) {

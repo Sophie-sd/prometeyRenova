@@ -3,7 +3,9 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib import messages
 from django.http import JsonResponse
+from django.utils.translation import gettext_lazy as _
 from .models import Event, EventCategory, EventRegistration
+from apps.core.form_handlers import validate_phone, validate_name
 
 
 def events_list(request):
@@ -115,6 +117,21 @@ def event_registration(request, event_id):
         except Exception:
             # Якщо таблиця не існує, просто продовжуємо
             pass
+        
+        # Валідація даних форми
+        name = request.POST.get('name', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        email = request.POST.get('email', '').strip()
+        
+        # Валідація імені
+        if not name or not validate_name(name):
+            messages.error(request, _('Введіть коректне ім\'я (мінімум 2 символи, хоча б одна літера)'))
+            return redirect('event_detail', slug=event.slug)
+        
+        # Валідація телефону
+        if not phone or not validate_phone(phone):
+            messages.error(request, _('Введіть коректний номер телефону. Номер має починатися з 0'))
+            return redirect('event_detail', slug=event.slug)
         
         # Створюємо реєстрацію
         try:
