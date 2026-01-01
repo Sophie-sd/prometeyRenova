@@ -232,8 +232,14 @@ class PhoneMask {
         // Після 9 цифр (максимум 10)
         if (digitsAfterPrefix <= 10) {
             // +38(0XX)XX-XX-XXX
-            // +38 + ( + 3 + ) + 2 + - + 2 + - + 3
-            return 3 + 1 + 3 + 1 + 2 + 1 + 2 + 1 + (digitsAfterPrefix - 7); // +38 + ( + 3 + ) + 2 + - + 2 + - + решта
+            // +38 + ( + 3 + ) + 2 + - + 2 + - + решта (3 цифри для повного номера)
+            if (digitsAfterPrefix <= 9) {
+                // +38(0XX)XX-XX-XX (9 цифр після префіксу)
+                return 3 + 1 + 3 + 1 + 2 + 1 + 2 + 1 + (digitsAfterPrefix - 7); // +38 + ( + 3 + ) + 2 + - + 2 + - + решта
+            } else {
+                // +38(0XX)XX-XX-XXX (10 цифр після префіксу - повний номер)
+                return 3 + 1 + 3 + 1 + 2 + 1 + 2 + 1 + 3; // +38 + ( + 3 + ) + 2 + - + 2 + - + 3
+            }
         }
         
         // Максимум - в кінці
@@ -352,24 +358,25 @@ class PhoneMask {
         
         // Форматуємо: +38(0XX)XX-XX-XXX
         // ЗАВЖДИ починаємо з +38
+        // digits містить: 38 + 10 цифр номера (0 + ще 9) = 12 цифр максимум
         let formatted = '';
         if (digits.length <= 2) {
             formatted = '+' + digits; // +38
         } else if (digits.length <= 5) {
-            // +38(0XX)
+            // +38(0XX) - 3-5 цифр (38 + 1-3 цифри після)
             formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2);
         } else if (digits.length <= 7) {
-            // +38(0XX)XX
+            // +38(0XX)XX - 6-7 цифр (38 + 4-5 цифр після)
             formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5);
         } else if (digits.length <= 9) {
-            // +38(0XX)XX-XX
+            // +38(0XX)XX-XX - 8-9 цифр (38 + 6-7 цифр після)
             formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7);
         } else if (digits.length <= 11) {
-            // +38(0XX)XX-XX-XX
+            // +38(0XX)XX-XX-XX - 10-11 цифр (38 + 8-9 цифр після)
             formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7, 9) + '-' + digits.substring(9);
         } else {
-            // +38(0XX)XX-XX-XXX (повний номер)
-            formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7, 9) + '-' + digits.substring(9, 11);
+            // +38(0XX)XX-XX-XXX - 12 цифр (38 + 10 цифр після) - ПОВНИЙ НОМЕР
+            formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7, 9) + '-' + digits.substring(9, 12);
         }
         
         // КРИТИЧНО: Переконуємось що +38 завжди присутнє
