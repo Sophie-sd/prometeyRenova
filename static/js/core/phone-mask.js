@@ -15,12 +15,15 @@ class PhoneMask {
     }
 
     init() {
-        // Встановлюємо +38 завжди при ініціалізації якщо поле порожнє або не містить +38
-        if (!this.input.value || this.input.value.trim() === '' || !this.input.value.startsWith('+38')) {
+        // КРИТИЧНО: Встановлюємо +38 завжди при ініціалізації
+        const currentValue = this.input.value || '';
+        
+        // Якщо поле порожнє або не починається з +38, встановлюємо +38
+        if (!currentValue.trim() || !currentValue.startsWith('+38')) {
             this.input.value = this.prefix;
         } else {
-            // Якщо є значення, форматуємо його та переконуємось що +38 є
-            this.formatValue(this.input.value);
+            // Якщо є значення з +38, форматуємо його
+            this.formatValue(currentValue);
         }
         
         // Прибираємо placeholder оскільки +38 завжди в полі
@@ -97,9 +100,15 @@ class PhoneMask {
         // Форматуємо значення
         this.formatValue(cleaned);
         
-        // Відновлюємо позицію курсора з урахуванням форматування
-        // Але не дозволяємо курсору бути перед +38
+        // КРИТИЧНО: Переконуємось що +38 завжди присутнє після форматування
         setTimeout(() => {
+            if (!this.input.value.startsWith('+38')) {
+                this.input.value = this.prefix + (this.input.value || '');
+                this.formatValue(this.input.value);
+            }
+            
+            // Відновлюємо позицію курсора з урахуванням форматування
+            // Але не дозволяємо курсору бути перед +38
             const newCursorPos = Math.max(this.prefix.length, cursorPos);
             this.setCursorPosition(newCursorPos);
         }, 0);
@@ -187,6 +196,12 @@ class PhoneMask {
     }
 
     formatValue(value) {
+        // Якщо value порожнє або undefined, встановлюємо +38
+        if (!value || typeof value !== 'string') {
+            this.input.value = this.prefix;
+            return;
+        }
+        
         // Видаляємо все крім цифр та +
         let digits = value.replace(/[^\d]/g, '');
         
@@ -225,7 +240,7 @@ class PhoneMask {
             this.input.value = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7, 9) + '-' + digits.substring(9, 11);
         }
         
-        // Переконуємось що +38 завжди присутнє
+        // КРИТИЧНО: Переконуємось що +38 завжди присутнє
         if (!this.input.value.startsWith('+38')) {
             this.input.value = this.prefix;
         }

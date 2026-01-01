@@ -72,7 +72,8 @@ class PrometeyApp {
     }
 
     onDOMReady() {
-        // PrometeyLabs готово
+        // Ініціалізуємо PhoneMask для полів, які могли з'явитися після початкової ініціалізації
+        this.initPhoneMasksForElement(document);
     }
 
     // ===== NAVIGATION SYSTEM =====
@@ -282,6 +283,10 @@ class PrometeyApp {
         if (!modal) return;
 
         this.saveScrollPosition();
+        
+        // Ініціалізуємо PhoneMask для полів телефону в модальному вікні ПЕРЕД prefill
+        this.initPhoneMasksForElement(modal);
+        
         this.prefillModalForm(modal);
 
         modal.classList.add('active');
@@ -325,17 +330,34 @@ class PrometeyApp {
         const phoneField = modal.querySelector('input[name="phone"]');
 
         if (nameField && userData.name) nameField.value = userData.name;
-        if (phoneField && userData.phone) phoneField.value = userData.phone;
+        
+        // Для телефону використовуємо PhoneMask якщо він ініціалізований
+        if (phoneField && userData.phone) {
+            if (this.phoneMasks.has(phoneField)) {
+                // Якщо PhoneMask ініціалізований, встановлюємо значення через нього
+                const mask = this.phoneMasks.get(phoneField);
+                phoneField.value = userData.phone;
+                mask.formatValue(userData.phone);
+            } else {
+                // Якщо PhoneMask не ініціалізований, просто встановлюємо значення
+                phoneField.value = userData.phone;
+            }
+        }
     }
 
     // ===== PHONE MASK SYSTEM =====
     setupPhoneMasks() {
         // Ініціалізуємо маску для всіх полів телефону
-        const phoneInputs = document.querySelectorAll('input[type="tel"], input[name="phone"]');
+        this.initPhoneMasksForElement(document);
+    }
+    
+    initPhoneMasksForElement(container) {
+        // Ініціалізуємо маску для полів телефону в контейнері (document або modal)
+        const phoneInputs = container.querySelectorAll('input[type="tel"], input[name="phone"]');
         
         phoneInputs.forEach(input => {
-            // Перевіряємо чи PhoneMask доступний
-            if (typeof PhoneMask !== 'undefined') {
+            // Перевіряємо чи PhoneMask доступний та чи не ініціалізований вже
+            if (typeof PhoneMask !== 'undefined' && !this.phoneMasks.has(input)) {
                 const mask = new PhoneMask(input);
                 this.phoneMasks.set(input, mask);
             }
