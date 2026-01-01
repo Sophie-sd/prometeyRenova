@@ -267,6 +267,8 @@ class ProjectCalculator {
     clearSavedData() {
         try {
             sessionStorage.removeItem('calculator_answers');
+            // Також очищаємо дані користувача після відправки калькулятора
+            sessionStorage.removeItem('prometey_user_data');
         } catch (error) {
             console.error('Failed to clear data:', error);
         }

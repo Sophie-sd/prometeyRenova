@@ -472,6 +472,10 @@ class PrometeyApp {
                     // Після reset відновлюємо префікс +38 для всіх полів телефону
                     this.restorePhonePrefixes(form);
                 }
+                
+                // КРИТИЧНО: Очищаємо збережені дані користувача після успішної відправки
+                // щоб вони не з'являлися в інших формах
+                this.clearUserData();
 
                 this.handleFormSuccess(data, formType);
                 this.closeModal();
@@ -863,6 +867,17 @@ class PrometeyApp {
         } catch (error) {
             console.error('Failed to get user data:', error);
             return null;
+        }
+    }
+    
+    /**
+     * Очищає збережені дані користувача з sessionStorage
+     */
+    clearUserData() {
+        try {
+            sessionStorage.removeItem('prometey_user_data');
+        } catch (error) {
+            console.error('Failed to clear user data:', error);
         }
     }
 
