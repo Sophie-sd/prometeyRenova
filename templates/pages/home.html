@@ -564,6 +564,8 @@
 {% endblock %}
 
 {% block base_js %}
+<!-- Phone mask для валідації телефону -->
+<script src="{% static 'js/core/phone-mask.js' %}"></script>
 <!-- Використовуємо оптимізований bundle замість окремих файлів -->
 <script src="{% static 'js/home-bundle.js' %}"></script>
 {% endblock %}

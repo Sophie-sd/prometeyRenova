@@ -912,6 +912,7 @@ class PrometeyApp {
         };
 
         this.elements = {};
+        this.phoneMasks = new Map(); // Зберігаємо інстанси PhoneMask
 
         this.init();
     }
@@ -931,6 +932,7 @@ class PrometeyApp {
         this.setupNavigation();
         this.setupMobileMenu();
         this.setupModals();
+        this.setupPhoneMasks();
         this.setupForms();
         this.setupLanguageSwitcher();
         this.setupAccessibility();
@@ -958,7 +960,8 @@ class PrometeyApp {
     }
 
     onDOMReady() {
-        // PrometeyLabs готово
+        // Ініціалізуємо PhoneMask для полів, які могли з'явитися після початкової ініціалізації
+        this.initPhoneMasksForElement(document);
     }
 
     setupNavigation() {
@@ -1166,6 +1169,10 @@ class PrometeyApp {
         if (!modal) return;
 
         this.saveScrollPosition();
+        
+        // Ініціалізуємо PhoneMask для полів телефону в модальному вікні ПЕРЕД prefill
+        this.initPhoneMasksForElement(modal);
+        
         this.prefillModalForm(modal);
 
         modal.classList.add('active');
@@ -1209,7 +1216,81 @@ class PrometeyApp {
         const phoneField = modal.querySelector('input[name="phone"]');
 
         if (nameField && userData.name) nameField.value = userData.name;
-        if (phoneField && userData.phone) phoneField.value = userData.phone;
+        
+        // Для телефону використовуємо PhoneMask якщо він ініціалізований
+        if (phoneField && userData.phone) {
+            // Переконуємось що PhoneMask ініціалізований
+            if (!this.phoneMasks.has(phoneField)) {
+                // Якщо PhoneMask не ініціалізований, ініціалізуємо його
+                this.initPhoneMasksForElement(modal);
+            }
+            
+            if (this.phoneMasks.has(phoneField)) {
+                // Якщо PhoneMask ініціалізований, встановлюємо значення через нього
+                const mask = this.phoneMasks.get(phoneField);
+                // Використовуємо formatValue для правильного форматування
+                mask.formatValue(userData.phone);
+            } else {
+                // Якщо PhoneMask все ще не доступний, встановлюємо значення і форматуємо вручну
+                phoneField.value = userData.phone;
+                // Спробуємо ініціалізувати PhoneMask ще раз
+                setTimeout(() => {
+                    if (typeof PhoneMask !== 'undefined' && !this.phoneMasks.has(phoneField)) {
+                        const mask = new PhoneMask(phoneField);
+                        this.phoneMasks.set(phoneField, mask);
+                        mask.formatValue(userData.phone);
+                    }
+                }, 0);
+            }
+        } else if (phoneField) {
+            // Якщо немає збереженого телефону, переконуємось що +38 відображається
+            if (!this.phoneMasks.has(phoneField)) {
+                this.initPhoneMasksForElement(modal);
+            }
+            if (this.phoneMasks.has(phoneField)) {
+                const mask = this.phoneMasks.get(phoneField);
+                mask.ensurePrefix();
+            }
+        }
+    }
+
+    // ===== PHONE MASK SYSTEM =====
+    setupPhoneMasks() {
+        // Ініціалізуємо маску для всіх полів телефону
+        this.initPhoneMasksForElement(document);
+    }
+    
+    initPhoneMasksForElement(container) {
+        // Ініціалізуємо маску для полів телефону в контейнері (document або modal)
+        const phoneInputs = container.querySelectorAll('input[type="tel"], input[name="phone"]');
+        
+        phoneInputs.forEach(input => {
+            // Перевіряємо чи PhoneMask доступний та чи не ініціалізований вже
+            if (typeof PhoneMask !== 'undefined' && !this.phoneMasks.has(input)) {
+                const mask = new PhoneMask(input);
+                this.phoneMasks.set(input, mask);
+            }
+        });
+    }
+    
+    /**
+     * Відновлює префікс +38 для всіх полів телефону в формі після reset
+     */
+    restorePhonePrefixes(form) {
+        const phoneInputs = form.querySelectorAll('input[type="tel"], input[name="phone"]');
+        
+        phoneInputs.forEach(input => {
+            if (this.phoneMasks.has(input)) {
+                const mask = this.phoneMasks.get(input);
+                mask.ensurePrefix();
+            } else {
+                // Якщо PhoneMask не ініціалізований, ініціалізуємо його
+                if (typeof PhoneMask !== 'undefined') {
+                    const mask = new PhoneMask(input);
+                    this.phoneMasks.set(input, mask);
+                }
+            }
+        });
     }
 
     setupForms() {
@@ -1250,6 +1331,14 @@ class PrometeyApp {
             const formData = new FormData(form);
             const formType = form.getAttribute('data-form-type');
 
+            // Оновлюємо значення телефону з PhoneMask якщо доступний
+            const phoneField = form.querySelector('[name="phone"]');
+            if (phoneField && this.phoneMasks.has(phoneField)) {
+                const mask = this.phoneMasks.get(phoneField);
+                const cleanedValue = mask.getCleanedValue();
+                formData.set('phone', cleanedValue);
+            }
+
             this.saveUserData(formData);
 
             const response = await this.submitForm(formData, formType);
@@ -1262,6 +1351,8 @@ class PrometeyApp {
                     window.calculatorInstance.clearForm();
                 } else {
                     form.reset();
+                    // Після reset відновлюємо префікс +38 для всіх полів телефону
+                    this.restorePhonePrefixes(form);
                 }
 
                 this.handleFormSuccess(data, formType);
@@ -1344,15 +1435,29 @@ class PrometeyApp {
         }
 
         if (phoneField && phoneField.value) {
-            const phone = phoneField.value;
-            const clean = phone.replace(/[^\d+]/g, '');
-            const digitCount = clean.replace(/\D/g, '').length;
             let phoneError = null;
-
-            if (digitCount < 10) {
-                phoneError = 'Введіть коректний номер (мінімум 10 цифр)';
-            } else if (clean.length > 20) {
-                phoneError = 'Введіть коректний номер телефону';
+            
+            // Використовуємо PhoneMask валідацію якщо доступна
+            if (this.phoneMasks.has(phoneField)) {
+                const mask = this.phoneMasks.get(phoneField);
+                const validation = mask.validate();
+                
+                if (!validation.valid) {
+                    phoneError = validation.message;
+                }
+            } else {
+                // Fallback валідація якщо PhoneMask не доступний
+                const phone = phoneField.value;
+                const clean = phone.replace(/[^\d+]/g, '');
+                
+                // Перевірка формату +380XXXXXXXXX
+                if (!clean.startsWith('+380')) {
+                    phoneError = 'Номер має починатися з 0';
+                } else if (clean.length !== 13) {
+                    phoneError = 'Введіть коректний номер телефону';
+                } else if (!/^\+380\d{9}$/.test(clean)) {
+                    phoneError = 'Введіть коректний номер телефону';
+                }
             }
 
             if (phoneError) {
