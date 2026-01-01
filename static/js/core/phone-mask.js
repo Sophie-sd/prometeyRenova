@@ -135,8 +135,17 @@ class PhoneMask {
     handleInput(e) {
         let value = this.input.value;
         
-        // Зберігаємо позицію курсора
+        // Зберігаємо позицію курсора та виділення
         const cursorPos = this.input.selectionStart;
+        const selectionEnd = this.input.selectionEnd;
+        
+        // Підраховуємо скільки цифр було перед курсором (включаючи префікс 38)
+        const textBeforeCursor = value.substring(0, cursorPos);
+        const allDigitsBeforeCursor = textBeforeCursor.replace(/[^\d]/g, '').length;
+        
+        // Рахуємо тільки цифри після префіксу 38 (включаючи 0 якщо є)
+        // Якщо є префікс 38, то віднімаємо 2, інакше залишаємо як є
+        const digitsAfterPrefix = allDigitsBeforeCursor >= 2 ? allDigitsBeforeCursor - 2 : 0;
         
         // Видаляємо все крім цифр та +
         let cleaned = value.replace(/[^\d+]/g, '');
@@ -173,11 +182,62 @@ class PhoneMask {
                 this.formatValue(this.input.value);
             }
             
-            // Відновлюємо позицію курсора з урахуванням форматування
-            // Але не дозволяємо курсору бути перед +38
-            const newCursorPos = Math.max(this.prefix.length, cursorPos);
+            // Розраховуємо нову позицію курсора на основі кількості цифр після префіксу
+            // Враховуємо форматування: +38(0XX)XX-XX-XXX
+            const newCursorPos = this.calculateCursorPosition(digitsAfterPrefix);
             this.setCursorPosition(newCursorPos);
         }, 0);
+    }
+    
+    /**
+     * Розраховує позицію курсора після форматування на основі кількості цифр після префіксу 38
+     * @param {number} digitsAfterPrefix - кількість цифр після префіксу 38 (0-10)
+     * @returns {number} - нова позиція курсора
+     */
+    calculateCursorPosition(digitsAfterPrefix) {
+        // Префікс +38 завжди присутній (3 символи)
+        if (digitsAfterPrefix === 0) {
+            // Тільки префікс +38, курсор після нього
+            return 3;
+        }
+        
+        // Після +38 йде дужка "(" і перші цифри
+        if (digitsAfterPrefix <= 3) {
+            // +38(0, +38(0X, +38(0XX
+            // +38 + ( + цифри
+            return 3 + 1 + digitsAfterPrefix; // +38 + ( + цифри
+        }
+        
+        // Після 3 цифр йде дужка ")"
+        if (digitsAfterPrefix <= 5) {
+            // +38(0XX)X, +38(0XX)XX
+            // +38 + ( + 3 цифри + ) + решта
+            return 3 + 1 + 3 + 1 + (digitsAfterPrefix - 3); // +38 + ( + 3 + ) + решта
+        }
+        
+        // Після 5 цифр йде дефіс "-"
+        if (digitsAfterPrefix <= 7) {
+            // +38(0XX)XX-X, +38(0XX)XX-XX
+            // +38 + ( + 3 + ) + 2 + - + решта
+            return 3 + 1 + 3 + 1 + 2 + 1 + (digitsAfterPrefix - 5); // +38 + ( + 3 + ) + 2 + - + решта
+        }
+        
+        // Після 7 цифр йде другий дефіс "-"
+        if (digitsAfterPrefix <= 9) {
+            // +38(0XX)XX-XX-X, +38(0XX)XX-XX-XX
+            // +38 + ( + 3 + ) + 2 + - + 2 + - + решта
+            return 3 + 1 + 3 + 1 + 2 + 1 + 2 + 1 + (digitsAfterPrefix - 7); // +38 + ( + 3 + ) + 2 + - + 2 + - + решта
+        }
+        
+        // Після 9 цифр (максимум 10)
+        if (digitsAfterPrefix <= 10) {
+            // +38(0XX)XX-XX-XXX
+            // +38 + ( + 3 + ) + 2 + - + 2 + - + 3
+            return 3 + 1 + 3 + 1 + 2 + 1 + 2 + 1 + (digitsAfterPrefix - 7); // +38 + ( + 3 + ) + 2 + - + 2 + - + решта
+        }
+        
+        // Максимум - в кінці
+        return this.input.value.length;
     }
 
     handleKeyDown(e) {
