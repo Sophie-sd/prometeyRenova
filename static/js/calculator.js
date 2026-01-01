@@ -196,7 +196,38 @@ class ProjectCalculator {
 
         if (userData.phone) {
             const phoneField = document.querySelector('#test-phone');
-            if (phoneField) phoneField.value = userData.phone;
+            if (phoneField) {
+                // Використовуємо PhoneMask для правильного форматування
+                const app = window.prometeyApp;
+                if (app && app.phoneMasks && app.phoneMasks.has(phoneField)) {
+                    const mask = app.phoneMasks.get(phoneField);
+                    mask.formatValue(userData.phone);
+                } else {
+                    // Якщо PhoneMask не ініціалізований, встановлюємо значення і спробуємо ініціалізувати
+                    phoneField.value = userData.phone;
+                    if (app && typeof PhoneMask !== 'undefined') {
+                        // Ініціалізуємо PhoneMask для цього поля
+                        app.initPhoneMasksForElement(document);
+                        if (app.phoneMasks && app.phoneMasks.has(phoneField)) {
+                            const mask = app.phoneMasks.get(phoneField);
+                            mask.formatValue(userData.phone);
+                        }
+                    }
+                }
+            }
+        } else {
+            // Якщо немає збереженого телефону, переконуємось що +38 відображається
+            const phoneField = document.querySelector('#test-phone');
+            if (phoneField) {
+                const app = window.prometeyApp;
+                if (app && app.phoneMasks && app.phoneMasks.has(phoneField)) {
+                    const mask = app.phoneMasks.get(phoneField);
+                    mask.ensurePrefix();
+                } else if (app && typeof PhoneMask !== 'undefined') {
+                    // Ініціалізуємо PhoneMask якщо не ініціалізований
+                    app.initPhoneMasksForElement(document);
+                }
+            }
         }
     }
 
@@ -262,7 +293,15 @@ class ProjectCalculator {
             nameField.classList.remove('error');
         }
         if (phoneField) {
-            phoneField.value = '';
+            // Використовуємо PhoneMask для відновлення префіксу +38 замість простого очищення
+            const app = window.prometeyApp;
+            if (app && app.phoneMasks && app.phoneMasks.has(phoneField)) {
+                const mask = app.phoneMasks.get(phoneField);
+                mask.ensurePrefix();
+            } else {
+                // Якщо PhoneMask не ініціалізований, встановлюємо +38 вручну
+                phoneField.value = '+38';
+            }
             phoneField.classList.remove('error');
         }
 

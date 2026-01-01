@@ -333,14 +333,37 @@ class PrometeyApp {
         
         // Для телефону використовуємо PhoneMask якщо він ініціалізований
         if (phoneField && userData.phone) {
+            // Переконуємось що PhoneMask ініціалізований
+            if (!this.phoneMasks.has(phoneField)) {
+                // Якщо PhoneMask не ініціалізований, ініціалізуємо його
+                this.initPhoneMasksForElement(modal);
+            }
+            
             if (this.phoneMasks.has(phoneField)) {
                 // Якщо PhoneMask ініціалізований, встановлюємо значення через нього
                 const mask = this.phoneMasks.get(phoneField);
-                phoneField.value = userData.phone;
+                // Використовуємо formatValue для правильного форматування
                 mask.formatValue(userData.phone);
             } else {
-                // Якщо PhoneMask не ініціалізований, просто встановлюємо значення
+                // Якщо PhoneMask все ще не доступний, встановлюємо значення і форматуємо вручну
                 phoneField.value = userData.phone;
+                // Спробуємо ініціалізувати PhoneMask ще раз
+                setTimeout(() => {
+                    if (typeof PhoneMask !== 'undefined' && !this.phoneMasks.has(phoneField)) {
+                        const mask = new PhoneMask(phoneField);
+                        this.phoneMasks.set(phoneField, mask);
+                        mask.formatValue(userData.phone);
+                    }
+                }, 0);
+            }
+        } else if (phoneField) {
+            // Якщо немає збереженого телефону, переконуємось що +38 відображається
+            if (!this.phoneMasks.has(phoneField)) {
+                this.initPhoneMasksForElement(modal);
+            }
+            if (this.phoneMasks.has(phoneField)) {
+                const mask = this.phoneMasks.get(phoneField);
+                mask.ensurePrefix();
             }
         }
     }
@@ -360,6 +383,26 @@ class PrometeyApp {
             if (typeof PhoneMask !== 'undefined' && !this.phoneMasks.has(input)) {
                 const mask = new PhoneMask(input);
                 this.phoneMasks.set(input, mask);
+            }
+        });
+    }
+    
+    /**
+     * Відновлює префікс +38 для всіх полів телефону в формі після reset
+     */
+    restorePhonePrefixes(form) {
+        const phoneInputs = form.querySelectorAll('input[type="tel"], input[name="phone"]');
+        
+        phoneInputs.forEach(input => {
+            if (this.phoneMasks.has(input)) {
+                const mask = this.phoneMasks.get(input);
+                mask.ensurePrefix();
+            } else {
+                // Якщо PhoneMask не ініціалізований, ініціалізуємо його
+                if (typeof PhoneMask !== 'undefined') {
+                    const mask = new PhoneMask(input);
+                    this.phoneMasks.set(input, mask);
+                }
             }
         });
     }
@@ -426,6 +469,8 @@ class PrometeyApp {
                     window.calculatorInstance.clearForm();
                 } else {
                     form.reset();
+                    // Після reset відновлюємо префікс +38 для всіх полів телефону
+                    this.restorePhonePrefixes(form);
                 }
 
                 this.handleFormSuccess(data, formType);

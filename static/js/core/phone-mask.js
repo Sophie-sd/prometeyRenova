@@ -16,15 +16,7 @@ class PhoneMask {
 
     init() {
         // КРИТИЧНО: Встановлюємо +38 завжди при ініціалізації
-        const currentValue = this.input.value || '';
-        
-        // Якщо поле порожнє або не починається з +38, встановлюємо +38
-        if (!currentValue.trim() || !currentValue.startsWith('+38')) {
-            this.input.value = this.prefix;
-        } else {
-            // Якщо є значення з +38, форматуємо його
-            this.formatValue(currentValue);
-        }
+        this.ensurePrefix();
         
         // Прибираємо placeholder оскільки +38 завжди в полі
         if (this.input.placeholder) {
@@ -49,6 +41,80 @@ class PhoneMask {
         
         // Обробка виділення тексту - не дозволяти виділяти +38
         this.input.addEventListener('select', () => this.handleSelect());
+        
+        // Обробка reset форми - відновлюємо +38 після reset
+        const form = this.input.closest('form');
+        if (form) {
+            form.addEventListener('reset', () => {
+                // Використовуємо setTimeout щоб спрацювало після стандартного reset
+                setTimeout(() => {
+                    this.ensurePrefix();
+                }, 0);
+            });
+        }
+        
+        // MutationObserver для відстеження змін значення ззовні
+        this.setupValueObserver();
+    }
+    
+    /**
+     * Гарантує наявність префіксу +38 в полі
+     */
+    ensurePrefix() {
+        const currentValue = this.input.value || '';
+        
+        // Якщо поле порожнє або не починається з +38, встановлюємо +38
+        if (!currentValue.trim() || !currentValue.startsWith('+38')) {
+            this.input.value = this.prefix;
+            this.setCursorPosition(this.prefix.length);
+        } else {
+            // Якщо є значення з +38, форматуємо його
+            this.formatValue(currentValue);
+        }
+    }
+    
+    /**
+     * Налаштовує відстеження змін значення ззовні
+     */
+    setupValueObserver() {
+        // Відстежуємо зміни значення через setInterval
+        let lastValue = this.input.value;
+        let isActive = true;
+        
+        // Перевіряємо зміни значення через setInterval (більш надійно ніж MutationObserver для input.value)
+        this.valueCheckInterval = setInterval(() => {
+            if (!isActive) return;
+            
+            const currentValue = this.input.value;
+            
+            // Якщо значення змінилося ззовні і не починається з +38
+            if (currentValue !== lastValue) {
+                lastValue = currentValue;
+                
+                // Якщо значення порожнє або не починається з +38, відновлюємо префікс
+                if (!currentValue || !currentValue.trim() || !currentValue.startsWith('+38')) {
+                    this.ensurePrefix();
+                    lastValue = this.input.value;
+                }
+            }
+        }, 100);
+        
+        // Зупиняємо перевірку при blur (не перезапускаємо, щоб уникнути накопичення інтервалів)
+        const blurHandler = () => {
+            isActive = false;
+        };
+        
+        // Відновлюємо перевірку при focus
+        const focusHandler = () => {
+            isActive = true;
+            lastValue = this.input.value;
+        };
+        
+        this.input.addEventListener('blur', blurHandler);
+        this.input.addEventListener('focus', focusHandler);
+        
+        // Зберігаємо обробники для можливості очищення
+        this._valueObserverHandlers = { blur: blurHandler, focus: focusHandler };
     }
 
     handleFocus() {
@@ -224,23 +290,36 @@ class PhoneMask {
             digits = '38';
         }
         
-        // Форматуємо: +38(XXX)XX-XX-XXX
+        // Форматуємо: +38(0XX)XX-XX-XXX
         // ЗАВЖДИ починаємо з +38
+        let formatted = '';
         if (digits.length <= 2) {
-            this.input.value = '+' + digits; // +38
+            formatted = '+' + digits; // +38
         } else if (digits.length <= 5) {
-            this.input.value = '+' + digits.substring(0, 2) + '(' + digits.substring(2);
+            // +38(0XX)
+            formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2);
         } else if (digits.length <= 7) {
-            this.input.value = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5);
+            // +38(0XX)XX
+            formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5);
         } else if (digits.length <= 9) {
-            this.input.value = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7);
+            // +38(0XX)XX-XX
+            formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7);
         } else if (digits.length <= 11) {
-            this.input.value = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7, 9) + '-' + digits.substring(9);
+            // +38(0XX)XX-XX-XX
+            formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7, 9) + '-' + digits.substring(9);
         } else {
-            this.input.value = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7, 9) + '-' + digits.substring(9, 11);
+            // +38(0XX)XX-XX-XXX (повний номер)
+            formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7, 9) + '-' + digits.substring(9, 11);
         }
         
         // КРИТИЧНО: Переконуємось що +38 завжди присутнє
+        if (!formatted.startsWith('+38')) {
+            formatted = this.prefix;
+        }
+        
+        this.input.value = formatted;
+        
+        // Додаткова перевірка після встановлення значення
         if (!this.input.value.startsWith('+38')) {
             this.input.value = this.prefix;
         }
@@ -333,6 +412,23 @@ class PhoneMask {
     getCleanedValue() {
         const value = this.input.value;
         return value.replace(/[^\d+]/g, '');
+    }
+    
+    /**
+     * Очищення ресурсів (викликати при видаленні об'єкта)
+     */
+    destroy() {
+        if (this.valueCheckInterval) {
+            clearInterval(this.valueCheckInterval);
+            this.valueCheckInterval = null;
+        }
+        
+        // Видаляємо обробники подій
+        if (this._valueObserverHandlers) {
+            this.input.removeEventListener('blur', this._valueObserverHandlers.blur);
+            this.input.removeEventListener('focus', this._valueObserverHandlers.focus);
+            this._valueObserverHandlers = null;
+        }
     }
 }
 
