@@ -628,11 +628,10 @@ class PrometeyApp {
     }
 
     handleFormSuccess(data, formType) {
-        if (formType === 'test' && data.result) {
+        if (data.redirect) {
+            window.location.href = data.redirect;
+        } else if (formType === 'test' && data.result) {
             this.showTestResult(data.result);
-        } else {
-            this.showNotification(window.I18N?.thankYouSent || 'Дякуємо! Ваша заявка відправлена.', 'success');
-            this.openModal('thank-you-modal');
         }
     }
 
@@ -780,35 +779,6 @@ class PrometeyApp {
     }
 
     // ===== NOTIFICATIONS =====
-    showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `prometey-notification prometey-notification--${type}`;
-
-        const messageSpan = document.createElement('span');
-        messageSpan.textContent = message;
-
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'prometey-notification__close';
-        closeBtn.textContent = '×';
-        closeBtn.setAttribute('aria-label', window.I18N?.close || 'Закрити');
-        closeBtn.addEventListener('click', () => this.removeNotification(notification));
-
-        notification.appendChild(messageSpan);
-        notification.appendChild(closeBtn);
-        document.body.appendChild(notification);
-
-        // Показуємо з анімацією
-        setTimeout(() => notification.classList.add('prometey-notification--show'), 50);
-
-        // Автозакриття
-        setTimeout(() => this.removeNotification(notification), this.config.notificationDuration);
-    }
-
-    removeNotification(notification) {
-        notification.classList.remove('prometey-notification--show');
-        setTimeout(() => notification.remove(), 300);
-    }
-
     // ===== SCROLL POSITION MANAGEMENT =====
     saveScrollPosition() {
         this.scrollPosition = window.pageYOffset || document.documentElement.scrollTop;

@@ -64,6 +64,11 @@ class IntellectualPropertyView(BasePageView):
     page_title = _('Політика щодо інтелектуальної власності | PrometeyLabs')
     meta_description = _('Політика щодо інтелектуальної власності від PrometeyLabs. Дізнайтеся про права на контент та захист авторських прав.')
 
+class ThankYouView(BasePageView):
+    template_name = 'pages/thank_you.html'
+    page_title = _('Дякуємо за вашу заявку | PrometeyLabs')
+    meta_description = _('Ваша заявка успішно отримана. Ми з вами скоро зв\'яжемось.')
+
 
 # ===== AJAX ОБРОБКА ФОРМ =====
 
@@ -131,7 +136,7 @@ def handle_site_request(request, name, phone):
     return create_form_response(
         True, 
         _('Дякуємо! Ваша заявка отримана. Ми зв\'яжемося з вами найближчим часом.'),
-        redirect=None
+        redirect='/thank-you/'
     )
 
 def handle_developer_request(request, name, phone):
@@ -153,7 +158,7 @@ def handle_developer_request(request, name, phone):
     return create_form_response(
         True,
         _('Дякуємо! Ваша заявка на курси отримана. Ми надішлемо детальну інформацію.'),
-        redirect=None
+        redirect='/thank-you/'
     )
 
 def handle_consultation_request(request, name, phone):
@@ -173,7 +178,7 @@ def handle_consultation_request(request, name, phone):
     return create_form_response(
         True,
         _('Дякуємо! Наш спеціаліст зв\'яжеться з вами протягом 15 хвилин.'),
-        redirect=None
+        redirect='/thank-you/'
     )
 
 def handle_contact_request(request, name, phone):
@@ -193,7 +198,7 @@ def handle_contact_request(request, name, phone):
     return create_form_response(
         True,
         _('Дякуємо за ваше повідомлення! Ми зв\'яжемося з вами найближчим часом.'),
-        redirect=None
+        redirect='/thank-you/'
     )
 
 
@@ -280,7 +285,7 @@ def handle_call_request(request, name, phone):
     return create_form_response(
         True, 
         _('Дякуємо! Наш менеджер зателефонує вам протягом 15 хвилин.'),
-        redirect=None
+        redirect='/thank-you/'
     )
 
 def handle_footer_consultation(request, name, phone):
@@ -295,7 +300,7 @@ def handle_footer_consultation(request, name, phone):
     return create_form_response(
         True,
         _('Дякуємо! Ми зв\'яжемося з вами найближчим часом.'),
-        redirect=None
+        redirect='/thank-you/'
     )
 
 def handle_event_registration(request, name, phone):
@@ -364,7 +369,7 @@ def handle_event_registration(request, name, phone):
         return create_form_response(
             True,
             _('Ви успішно зареєструвалися на подію "{event_title}"!').format(event_title=event.title),
-            redirect=None
+            redirect='/thank-you/'
         )
         
     except Event.DoesNotExist:

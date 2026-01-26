@@ -13,6 +13,7 @@ urlpatterns = [
     path('cookies/', views.CookiesView.as_view(), name='cookies'),
     path('refund/', views.RefundPolicyView.as_view(), name='refund'),
     path('intellectual-property/', views.IntellectualPropertyView.as_view(), name='intellectual_property'),
+    path('thank-you/', views.ThankYouView.as_view(), name='thank_you'),
 
     
     # AJAX обробка форм
