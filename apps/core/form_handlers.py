@@ -128,13 +128,45 @@ Email: {form_data.get('email', 'Не вказано')}
 
 
 def save_form_submission(form_type, form_data):
-    """Збереження даних форми в БД (placeholder)"""
+    """Збереження даних форми в БД"""
     try:
-        # TODO: Реалізувати збереження в БД коли будуть створені моделі
-        logger.info(f"Form data saved: {form_type} - {form_data['name']}")
+        from apps.core.models import FormSubmission
+        
+        # Основні поля
+        submission_data = {
+            'form_type': form_type,
+            'name': form_data.get('name', ''),
+            'phone': form_data.get('phone', ''),
+            'email': form_data.get('email', ''),
+            'ip_address': form_data.get('ip'),
+            'user_agent': form_data.get('user_agent'),
+            'status': 'new',  # Завжди новий при створенні
+        }
+        
+        # Деталі (текстові поля)
+        detail_fields = ['details', 'message', 'topic']
+        for field in detail_fields:
+            if form_data.get(field):
+                submission_data['details'] = form_data[field]
+                break
+        
+        # Додаткові дані в JSON
+        extra_data = {}
+        extra_fields = ['course_type', 'experience', 'company', 'answers', 
+                       'alt_services_checked', 'event_title']
+        for field in extra_fields:
+            if form_data.get(field):
+                extra_data[field] = form_data[field]
+        
+        if extra_data:
+            submission_data['extra_data'] = extra_data
+        
+        submission = FormSubmission.objects.create(**submission_data)
+        logger.info(f"Form submission saved: ID {submission.id}")
         return True
+        
     except Exception as e:
-        logger.error(f"Failed to save form data: {e}")
+        logger.error(f"Failed to save form submission: {e}")
         return False
 
 

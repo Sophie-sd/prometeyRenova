@@ -1,0 +1,226 @@
+/**
+ * Кольорове виділення рядків заявок в Django Admin
+ * Система CRM для PrometeyLabs
+ */
+
+/* ===== КОЛЬОРОВЕ ВИДІЛЕННЯ РЯДКІВ ЗА СТАТУСОМ ===== */
+
+/* Базовий стиль для всіх рядків таблиці */
+.model-formsubmission tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+/* НОВИЙ - Яскраво-жовтий */
+#result_list tbody tr[data-status="new"],
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Новий")) {
+    background-color: rgba(255, 215, 0, 0.15) !important;
+    border-left: 4px solid #FFD700;
+}
+
+#result_list tbody tr[data-status="new"]:hover,
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Новий")):hover {
+    background-color: rgba(255, 215, 0, 0.25) !important;
+}
+
+/* В РОБОТІ - Блакитний */
+#result_list tbody tr[data-status="in_progress"],
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("В роботі")) {
+    background-color: rgba(30, 144, 255, 0.1) !important;
+    border-left: 4px solid #1E90FF;
+}
+
+#result_list tbody tr[data-status="in_progress"]:hover,
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("В роботі")):hover {
+    background-color: rgba(30, 144, 255, 0.2) !important;
+}
+
+/* ДУМАЄ/ОЧІКУЄ - Фіолетовий */
+#result_list tbody tr[data-status="thinking"],
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Думає")) {
+    background-color: rgba(147, 112, 219, 0.1) !important;
+    border-left: 4px solid #9370DB;
+}
+
+#result_list tbody tr[data-status="thinking"]:hover,
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Думає")):hover {
+    background-color: rgba(147, 112, 219, 0.2) !important;
+}
+
+/* НЕ НА ЗВ'ЯЗКУ - Оранжевий */
+#result_list tbody tr[data-status="no_contact"],
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Не на")) {
+    background-color: rgba(255, 140, 0, 0.1) !important;
+    border-left: 4px solid #FF8C00;
+}
+
+#result_list tbody tr[data-status="no_contact"]:hover,
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Не на")):hover {
+    background-color: rgba(255, 140, 0, 0.2) !important;
+}
+
+/* ЗАМОВИВ САЙТ - Зелений */
+#result_list tbody tr[data-status="ordered"],
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Замовив")) {
+    background-color: rgba(50, 205, 50, 0.15) !important;
+    border-left: 4px solid #32CD32;
+}
+
+#result_list tbody tr[data-status="ordered"]:hover,
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Замовив")):hover {
+    background-color: rgba(50, 205, 50, 0.25) !important;
+}
+
+/* ВІДМОВА/АРХІВ - Темно-сірий */
+#result_list tbody tr[data-status="rejected"],
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Відмова")) {
+    background-color: rgba(105, 105, 105, 0.1) !important;
+    border-left: 4px solid #696969;
+    opacity: 0.7;
+}
+
+#result_list tbody tr[data-status="rejected"]:hover,
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Відмова")):hover {
+    background-color: rgba(105, 105, 105, 0.2) !important;
+    opacity: 0.85;
+}
+
+/* ===== КРИТИЧНІ ЗАЯВКИ (>24 години) ===== */
+
+.is_urgent_indicator_critical {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    }
+}
+
+/* ===== ПРІОРИТЕТ =====  */
+
+/* Високий пріоритет - червоний оттінок */
+.priority-high {
+    background: rgba(220, 20, 60, 0.05) !important;
+}
+
+/* Нормальний пріоритет - без зміни */
+.priority-normal {
+    background: transparent !important;
+}
+
+/* Низький пріоритет - світліший */
+.priority-low {
+    opacity: 0.75;
+}
+
+/* ===== УЛУЧШЕНИЯ ЧИТАБЕЛЬНОСТІ ===== */
+
+#changelist table tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#changelist table tbody tr:last-child {
+    border-bottom: 2px solid #ddd;
+}
+
+/* Виділення важливих полів */
+.field-is_urgent_indicator {
+    font-weight: bold;
+}
+
+.field-status_badge {
+    font-weight: bold;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 1200px) {
+    #result_list tbody tr {
+        border-left-width: 3px;
+    }
+}
+
+@media (max-width: 768px) {
+    #result_list tbody tr {
+        border-left-width: 2px;
+    }
+}
+
+/* ===== СТАТИСТИКА В CHANGELIST VIEW ===== */
+
+.form-submission-stats {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border-left: 4px solid #0066cc;
+}
+
+.form-submission-stats h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.stat-item {
+    background: white;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #666;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0066cc;
+    margin-top: 5px;
+}
+
+/* ===== ТЕМНА ТЕМА (для більшості браузерів) ===== */
+
+@media (prefers-color-scheme: dark) {
+    #result_list tbody tr[data-status="new"] {
+        background-color: rgba(255, 215, 0, 0.05) !important;
+    }
+    
+    #result_list tbody tr[data-status="in_progress"] {
+        background-color: rgba(30, 144, 255, 0.05) !important;
+    }
+    
+    #result_list tbody tr[data-status="thinking"] {
+        background-color: rgba(147, 112, 219, 0.05) !important;
+    }
+    
+    #result_list tbody tr[data-status="no_contact"] {
+        background-color: rgba(255, 140, 0, 0.05) !important;
+    }
+    
+    #result_list tbody tr[data-status="ordered"] {
+        background-color: rgba(50, 205, 50, 0.05) !important;
+    }
+    
+    #result_list tbody tr[data-status="rejected"] {
+        background-color: rgba(105, 105, 105, 0.05) !important;
+    }
+}
