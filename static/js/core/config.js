@@ -86,7 +86,6 @@ export const CONFIG = {
         developer: 'developer-modal',
         siteRequest: 'site-request-modal',
         testResult: 'test-result-modal',
-        thankYou: 'thank-you-modal',
         callRequest: 'call-request-modal',
         eventRegistration: 'event-registration-modal',
     },

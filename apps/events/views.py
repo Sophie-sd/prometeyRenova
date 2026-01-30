@@ -144,8 +144,7 @@ def event_registration(request, event_id):
                 message=request.POST.get('message', '')
             )
             
-            messages.success(request, f'Ви успішно зареєструвалися на подію "{event.title}"!')
-            return redirect('event_detail', slug=event.slug)
+            return redirect('thank_you')
             
         except Exception as e:
             messages.error(request, 'Помилка при реєстрації. Спробуйте ще раз.')

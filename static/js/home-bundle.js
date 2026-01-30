@@ -1743,11 +1743,6 @@ notificationStyles.textContent = `
     transform: translateX(0);
 }
 
-.prometey-notification--success {
-    border-color: var(--color-brand-orange);
-    color: var(--color-brand-orange);
-}
-
 .prometey-notification--error {
     border-color: var(--color-brand-orange);
     color: var(--color-brand-orange);

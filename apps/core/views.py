@@ -259,12 +259,13 @@ def handle_test_submission(request):
         )
         save_form_submission('test_result', form_data)
         
-        # Формуємо відповідь користувачу
+        # Формуємо відповідь користувачу (редірект на сторінку подяки для аналітики/реклами)
         success_message = _('Дякуємо! Ми зв\'яжемося з вами найближчим часом.')
         
         return create_form_response(
             True,
             success_message,
+            redirect='/thank-you/',
             answers=answers,
             alt_services_checked=alt_services_checked
         )
