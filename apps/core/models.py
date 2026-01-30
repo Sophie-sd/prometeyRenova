@@ -10,6 +10,7 @@ class FormSubmission(models.Model):
     
     # Вибір типів форм
     FORM_TYPE_CHOICES = [
+        ('manual', _('Ручна заявка')),
         ('site-request', _('Заявка на розробку сайту')),
         ('developer', _('Заявка на курси')),
         ('consultation', _('Заявка на консультацію')),
@@ -149,6 +150,7 @@ class FormSubmission(models.Model):
     def get_form_type_display_uk(self):
         """Більш короткий вивід типу форми для таблиці"""
         display_map = {
+            'manual': 'Ручна',
             'site-request': 'Сайт',
             'developer': 'Курси',
             'consultation': 'Консультація',
@@ -159,3 +161,11 @@ class FormSubmission(models.Model):
             'test_result': 'Тест',
         }
         return display_map.get(self.form_type, self.get_form_type_display())
+
+
+class ArchivedFormSubmission(FormSubmission):
+    """Proxy-модель для відображення архівованих заявок (status=rejected)"""
+    class Meta:
+        proxy = True
+        verbose_name = _('Архівна заявка')
+        verbose_name_plural = _('Архів заявок')

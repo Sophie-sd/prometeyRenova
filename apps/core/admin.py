@@ -3,10 +3,11 @@ from django.utils.html import format_html
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.contrib.admin.actions import delete_selected
 from datetime import timedelta
 import csv
 from django.http import HttpResponse
-from .models import FormSubmission
+from .models import FormSubmission, ArchivedFormSubmission
 
 
 @admin.register(FormSubmission)
@@ -31,7 +32,7 @@ class FormSubmissionAdmin(admin.ModelAdmin):
     search_fields = ['name', 'phone', 'email', 'details', 'manager_comment']
     readonly_fields = [
         'created_at', 'updated_at', 'ip_address', 'user_agent', 
-        'form_type', 'extra_data_formatted', 'priority_badge'
+        'form_type', 'priority_badge'
     ]
     
     list_editable = ['status']
@@ -48,7 +49,7 @@ class FormSubmissionAdmin(admin.ModelAdmin):
             'classes': ('wide',)
         }),
         (_('Деталі заявки'), {
-            'fields': ('details', 'extra_data_formatted'),
+            'fields': ('details',),
             'classes': ('wide',)
         }),
         (_('Робота менеджера'), {
@@ -63,6 +64,7 @@ class FormSubmissionAdmin(admin.ModelAdmin):
     
     # ===== ДІЇ (ACTIONS) =====
     actions = [
+        delete_selected,
         'mark_as_in_progress', 
         'mark_as_thinking',
         'mark_as_no_contact',
@@ -109,6 +111,7 @@ class FormSubmissionAdmin(admin.ModelAdmin):
     def form_type_badge(self, obj):
         """Тип форми з малюнком"""
         colors = {
+            'manual': '#9E9E9E',
             'site-request': '#FF6B6B',
             'developer': '#4ECDC4',
             'consultation': '#45B7D1',
@@ -342,6 +345,24 @@ class FormSubmissionAdmin(admin.ModelAdmin):
     # ===== QUERYSET ОПТИМІЗАЦІЯ =====
     
     def get_queryset(self, request):
-        """Оптимізація для змешування з assign_to та уникнення N+1"""
+        """Оптимізація для змешування з assign_to та уникнення N+1. Виключає архівовані заявки."""
         qs = super().get_queryset(request)
-        return qs.select_related('assigned_to')
+        return qs.exclude(status='rejected').select_related('assigned_to')
+    
+    def get_changeform_initial_data(self, request):
+        """Встановлює замовчування для нових заявок при додаванні через адмінку"""
+        initial = super().get_changeform_initial_data(request)
+        initial['form_type'] = 'manual'
+        return initial
+
+
+@admin.register(ArchivedFormSubmission)
+class ArchivedFormSubmissionAdmin(FormSubmissionAdmin):
+    """Admin для архівованих заявок (status=rejected)"""
+    
+    def get_queryset(self, request):
+        """Показує тільки архівовані заявки (status=rejected)"""
+        # Викликаємо super().get_queryset() від admin.ModelAdmin, щоб обійти фільтр exclude(status='rejected')
+        # з FormSubmissionAdmin.get_queryset()
+        qs = admin.ModelAdmin.get_queryset(self, request)
+        return qs.filter(status='rejected').select_related('assigned_to')
