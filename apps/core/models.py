@@ -76,6 +76,18 @@ class FormSubmission(models.Model):
     details = models.TextField(blank=True, verbose_name=_('Деталі / Повідомлення'))
     extra_data = models.JSONField(blank=True, null=True, verbose_name=_('Додаткові дані'))
     
+    # ===== EMAIL ВІДПРАВКА =====
+    email_sent = models.BooleanField(
+        default=False, 
+        db_index=True,
+        verbose_name=_('Email відправлено')
+    )
+    email_sent_at = models.DateTimeField(
+        null=True, 
+        blank=True, 
+        verbose_name=_('Час відправки email')
+    )
+    
     # ===== СИСТЕМНІ ПОЛЯ =====
     created_at = models.DateTimeField(
         auto_now_add=True, 

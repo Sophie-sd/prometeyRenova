@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.db import transaction
 from .mixins import BasePageView
 from .form_handlers import (
     validate_phone, validate_name, create_form_response, get_form_type_from_path,
@@ -130,8 +131,18 @@ def handle_site_request(request, name, phone):
         details=details
     )
     
-    send_form_email(form_data)
-    save_form_submission('site-request', form_data)
+    # Відправляємо email СПОЧАТКУ щоб дізнатися успіх
+    email_success, email_error = send_form_email(form_data)
+    
+    if not email_success:
+        logger.warning(f"Email not sent for site-request: {email_error}")
+    
+    # КРИТИЧНО: Спочатку зберігаємо у БД з інформацією про email успіх
+    submission_saved, submission_id, save_error = save_form_submission('site-request', form_data, email_success=email_success)
+    
+    if not submission_saved:
+        logger.error(f"Failed to save site-request submission: {save_error}")
+        return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
     
     return create_form_response(
         True, 
@@ -152,8 +163,18 @@ def handle_developer_request(request, name, phone):
         experience=experience
     )
     
-    send_form_email(form_data)
-    save_form_submission('developer', form_data)
+    # Відправляємо email СПОЧАТКУ
+    email_success, email_error = send_form_email(form_data)
+    
+    if not email_success:
+        logger.warning(f"Email not sent for developer: {email_error}")
+    
+    # КРИТИЧНО: Зберігаємо у БД з інформацією про email успіх
+    submission_saved, submission_id, save_error = save_form_submission('developer', form_data, email_success=email_success)
+    
+    if not submission_saved:
+        logger.error(f"Failed to save developer submission: {save_error}")
+        return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
     
     return create_form_response(
         True,
@@ -172,8 +193,18 @@ def handle_consultation_request(request, name, phone):
         topic=topic
     )
     
-    send_form_email(form_data)
-    save_form_submission('consultation', form_data)
+    # Відправляємо email СПОЧАТКУ
+    email_success, email_error = send_form_email(form_data)
+    
+    if not email_success:
+        logger.warning(f"Email not sent for consultation: {email_error}")
+    
+    # КРИТИЧНО: Зберігаємо у БД з інформацією про email успіх
+    submission_saved, submission_id, save_error = save_form_submission('consultation', form_data, email_success=email_success)
+    
+    if not submission_saved:
+        logger.error(f"Failed to save consultation submission: {save_error}")
+        return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
     
     return create_form_response(
         True,
@@ -192,8 +223,18 @@ def handle_contact_request(request, name, phone):
         message=message
     )
     
-    send_form_email(form_data)
-    save_form_submission('contact', form_data)
+    # Відправляємо email СПОЧАТКУ
+    email_success, email_error = send_form_email(form_data)
+    
+    if not email_success:
+        logger.warning(f"Email not sent for contact: {email_error}")
+    
+    # КРИТИЧНО: Зберігаємо у БД з інформацією про email успіх
+    submission_saved, submission_id, save_error = save_form_submission('contact', form_data, email_success=email_success)
+    
+    if not submission_saved:
+        logger.error(f"Failed to save contact submission: {save_error}")
+        return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
     
     return create_form_response(
         True,
@@ -248,16 +289,25 @@ def handle_test_submission(request):
             'user_agent': request.META.get('HTTP_USER_AGENT', '')
         }
         
-        # Відправка email з результатом
-        send_test_result_email(test_data)
-        
-        # Збереження результату в БД
+        # Підготовка даних для БД
         form_data = create_form_data(
             _('Результат тесту калькулятора'), name, phone, request,
             answers=answers,
             alt_services_checked=alt_services_checked
         )
-        save_form_submission('test_result', form_data)
+        
+        # Відправка email СПОЧАТКУ
+        email_success, email_error = send_test_result_email(test_data)
+        
+        if not email_success:
+            logger.warning(f"Email not sent for test_result: {email_error}")
+        
+        # КРИТИЧНО: Спочатку збережемо у БД з інформацією про email успіх
+        submission_saved, submission_id, save_error = save_form_submission('test_result', form_data, email_success=email_success)
+        
+        if not submission_saved:
+            logger.error(f"Failed to save test_result submission: {save_error}")
+            return create_form_response(False, _('Помилка при обробці тесту'))
         
         # Формуємо відповідь користувачу (редірект на сторінку подяки для аналітики/реклами)
         success_message = _('Дякуємо! Ми зв\'яжемося з вами найближчим часом.')
@@ -280,8 +330,18 @@ def handle_call_request(request, name, phone):
         _('Замовлення дзвінка'), name, phone, request
     )
     
-    send_form_email(form_data)
-    save_form_submission('call-request', form_data)
+    # Відправляємо email СПОЧАТКУ
+    email_success, email_error = send_form_email(form_data)
+    
+    if not email_success:
+        logger.warning(f"Email not sent for call-request: {email_error}")
+    
+    # КРИТИЧНО: Зберігаємо у БД з інформацією про email успіх
+    submission_saved, submission_id, save_error = save_form_submission('call-request', form_data, email_success=email_success)
+    
+    if not submission_saved:
+        logger.error(f"Failed to save call-request submission: {save_error}")
+        return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
     
     return create_form_response(
         True, 
@@ -295,8 +355,18 @@ def handle_footer_consultation(request, name, phone):
         _('Заявка з footer - Консультація'), name, phone, request
     )
     
-    send_form_email(form_data)
-    save_form_submission('footer-consultation', form_data)
+    # Відправляємо email СПОЧАТКУ
+    email_success, email_error = send_form_email(form_data)
+    
+    if not email_success:
+        logger.warning(f"Email not sent for footer-consultation: {email_error}")
+    
+    # КРИТИЧНО: Зберігаємо у БД з інформацією про email успіх
+    submission_saved, submission_id, save_error = save_form_submission('footer-consultation', form_data, email_success=email_success)
+    
+    if not submission_saved:
+        logger.error(f"Failed to save footer-consultation submission: {save_error}")
+        return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
     
     return create_form_response(
         True,
@@ -304,6 +374,7 @@ def handle_footer_consultation(request, name, phone):
         redirect='/thank-you/'
     )
 
+@transaction.atomic
 def handle_event_registration(request, name, phone):
     """Обробка реєстрації на подію через AJAX"""
     event_id = request.POST.get('event_id')
@@ -347,7 +418,22 @@ def handle_event_registration(request, name, phone):
         if EventRegistration.objects.filter(event=event, email=email).exists():
             return create_form_response(False, _('Ви вже зареєстровані на цю подію.'))
         
-        # Створюємо реєстрацію
+        # КРИТИЧНО: Спочатку зберігаємо у FormSubmission
+        form_data = create_form_data(
+            _('Реєстрація на подію'), name, phone, request,
+            email=email,
+            company=company,
+            message=message,
+            event_title=event.title
+        )
+        submission_saved, submission_id, save_error = save_form_submission('event_registration', form_data, email_success=email_success)
+        
+        if not submission_saved:
+            logger.error(f"Failed to save event_registration submission: {save_error}")
+            return create_form_response(False, _('Помилка при реєстрації. Спробуйте ще раз.'))
+        
+        # Потім створюємо EventRegistration (яка автоматично збільшує лічильник)
+        # Це все всередині @transaction.atomic, тому якщо щось пійде не так - все відкатується
         registration = EventRegistration.objects.create(
             event=event,
             name=name,
@@ -357,15 +443,14 @@ def handle_event_registration(request, name, phone):
             message=message
         )
         
-        # Відправляємо email
-        form_data = create_form_data(
-            _('Реєстрація на подію'), name, phone, request,
-            email=email,
-            company=company,
-            message=message,
-            event_title=event.title
-        )
-        send_form_email(form_data)
+        # Відправка email СПОЧАТКУ
+        email_success, email_error = send_form_email(form_data)
+        
+        if not email_success:
+            logger.warning(f"Email not sent for event_registration: {email_error}")
+        
+        # Зберігаємо у БД з інформацією про email успіх
+        submission_saved, submission_id, save_error = save_form_submission('event_registration', form_data, email_success=email_success)
         
         return create_form_response(
             True,

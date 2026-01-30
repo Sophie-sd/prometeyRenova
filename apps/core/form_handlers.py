@@ -2,13 +2,18 @@
 Допоміжні функції для обробки форм
 """
 import re
+import socket
+from smtplib import SMTPException, SMTPAuthenticationError, SMTPConnectError
 from django.http import JsonResponse
 from django.utils import timezone
-from django.core.mail import send_mail
+from django.core.mail import send_mail, get_connection
 from django.conf import settings
 import logging
 
 logger = logging.getLogger(__name__)
+
+# Email timeout (максимум 10 секунд)
+EMAIL_TIMEOUT = 10
 
 
 def validate_phone(phone):
@@ -78,7 +83,7 @@ def create_form_data(form_type, name, phone, request, **extra_fields):
 
 
 def send_form_email(form_data):
-    """Відправка email з даними форми"""
+    """Відправка email з даними форми. Повертає (success: bool, error_message: str)"""
     try:
         subject = f"[PrometeyLabs] {form_data['type']}"
         
@@ -111,24 +116,41 @@ Email: {form_data.get('email', 'Не вказано')}
         
         message_body += f"\n=== ДОДАТКОВА ІНФОРМАЦІЯ ===\nIP: {form_data.get('ip', 'Невідомо')}\nUser Agent: {form_data.get('user_agent', 'Невідомо')}"
         
+        # Створюємо connection з timeout
+        connection = get_connection(timeout=EMAIL_TIMEOUT)
+        
         send_mail(
             subject=subject,
             message=message_body,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[settings.CONTACT_EMAIL],
             fail_silently=False,
+            connection=connection
         )
         
         logger.info(f"Email sent successfully for form type: {form_data['type']}")
-        return True
+        return (True, None)
         
+    except (SMTPAuthenticationError, SMTPConnectError) as e:
+        error_msg = f"SMTP authentication error: {str(e)}"
+        logger.error(error_msg)
+        return (False, error_msg)
+    except socket.timeout as e:
+        error_msg = f"Email timeout (>10 seconds): {str(e)}"
+        logger.error(error_msg)
+        return (False, error_msg)
+    except SMTPException as e:
+        error_msg = f"SMTP error: {str(e)}"
+        logger.error(error_msg)
+        return (False, error_msg)
     except Exception as e:
-        logger.error(f"Failed to send email: {e}")
-        return False
+        error_msg = f"Failed to send email: {str(e)}"
+        logger.error(error_msg)
+        return (False, error_msg)
 
 
-def save_form_submission(form_type, form_data):
-    """Збереження даних форми в БД"""
+def save_form_submission(form_type, form_data, email_success=False):
+    """Збереження даних форми в БД. Повертає (success: bool, submission_id, error_message)"""
     try:
         from apps.core.models import FormSubmission
         
@@ -141,7 +163,12 @@ def save_form_submission(form_type, form_data):
             'ip_address': form_data.get('ip'),
             'user_agent': form_data.get('user_agent'),
             'status': 'new',  # Завжди новий при створенні
+            'email_sent': email_success,
         }
+        
+        # Встановлюємо час відправки email якщо успішно
+        if email_success:
+            submission_data['email_sent_at'] = timezone.now()
         
         # Деталі (текстові поля)
         detail_fields = ['details', 'message', 'topic']
@@ -162,12 +189,13 @@ def save_form_submission(form_type, form_data):
             submission_data['extra_data'] = extra_data
         
         submission = FormSubmission.objects.create(**submission_data)
-        logger.info(f"Form submission saved: ID {submission.id}")
-        return True
+        logger.info(f"Form submission saved: ID {submission.id}, email_sent={email_success}")
+        return (True, submission.id, None)
         
     except Exception as e:
-        logger.error(f"Failed to save form submission: {e}")
-        return False
+        error_msg = f"Failed to save form submission: {str(e)}"
+        logger.error(error_msg)
+        return (False, None, error_msg)
 
 
 ANSWER_TEXT_MAP = {
@@ -222,7 +250,7 @@ def get_answer_text(question, answer):
 
 
 def send_test_result_email(test_data):
-    """Відправка email з результатом тесту - з повними текстами відповідей"""
+    """Відправка email з результатом тесту - з повними текстами відповідей. Повертає (success: bool, error_message: str)"""
     try:
         name = test_data['name']
         phone = test_data['phone']
@@ -277,17 +305,34 @@ def send_test_result_email(test_data):
 IP: {test_data.get('ip', 'Невідомо')}
 """
         
+        # Створюємо connection з timeout
+        connection = get_connection(timeout=EMAIL_TIMEOUT)
+        
         send_mail(
             subject=admin_subject,
             message=admin_message,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[settings.CONTACT_EMAIL],
             fail_silently=False,
+            connection=connection
         )
         
         logger.info(f"Test result emails sent for {name}")
-        return True
+        return (True, None)
         
+    except (SMTPAuthenticationError, SMTPConnectError) as e:
+        error_msg = f"SMTP authentication error: {str(e)}"
+        logger.error(error_msg)
+        return (False, error_msg)
+    except socket.timeout as e:
+        error_msg = f"Email timeout (>10 seconds): {str(e)}"
+        logger.error(error_msg)
+        return (False, error_msg)
+    except SMTPException as e:
+        error_msg = f"SMTP error: {str(e)}"
+        logger.error(error_msg)
+        return (False, error_msg)
     except Exception as e:
-        logger.error(f"Failed to send test result email: {e}")
-        return False
+        error_msg = f"Failed to send test result email: {str(e)}"
+        logger.error(error_msg)
+        return (False, error_msg)
