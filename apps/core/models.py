@@ -43,11 +43,18 @@ class FormSubmission(models.Model):
     phone = models.CharField(max_length=20, verbose_name=_('Телефон'))
     email = models.EmailField(blank=True, verbose_name=_('Email'))
     messenger_link = models.URLField(blank=True, verbose_name=_('Посилання на месенджер'))
+    project = models.CharField(
+        max_length=200, 
+        blank=True, 
+        verbose_name=_('Проект'),
+        help_text=_('Короткий опис проекту для швидкого огляду в списку')
+    )
     
     # ===== ДЖЕРЕЛО ТА КЛАСИФІКАЦІЯ =====
     form_type = models.CharField(
         max_length=30, 
         choices=FORM_TYPE_CHOICES, 
+        default='manual',
         verbose_name=_('Тип форми'),
         db_index=True
     )

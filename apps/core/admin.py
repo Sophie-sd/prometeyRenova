@@ -16,9 +16,9 @@ class FormSubmissionAdmin(admin.ModelAdmin):
     
     # ===== ОСНОВНА КОНФІГУРАЦІЯ =====
     list_display = [
-        'id_badge', 'name_display', 'phone_display', 'form_type_badge', 
-        'status', 'priority_badge', 'created_at_display', 'time_elapsed', 
-        'is_urgent_indicator', 'assigned_to_display'
+        'id_badge', 'project_display', 'name_display', 'phone_display', 
+        'form_type_badge', 'status', 'priority_badge', 'created_at_display', 
+        'time_elapsed', 'assigned_to_display'
     ]
     
     list_filter = [
@@ -29,10 +29,10 @@ class FormSubmissionAdmin(admin.ModelAdmin):
         'assigned_to'
     ]
     
-    search_fields = ['name', 'phone', 'email', 'details', 'manager_comment']
+    search_fields = ['name', 'phone', 'email', 'details', 'manager_comment', 'project']
     readonly_fields = [
         'created_at', 'updated_at', 'ip_address', 'user_agent', 
-        'form_type', 'priority_badge'
+        'priority_badge'
     ]
     
     list_editable = ['status']
@@ -45,7 +45,7 @@ class FormSubmissionAdmin(admin.ModelAdmin):
             'fields': ('name', 'phone', 'email', 'messenger_link')
         }),
         (_('Класифікація'), {
-            'fields': ('form_type', 'status', 'priority', 'assigned_to'),
+            'fields': ('project', 'form_type', 'status', 'priority', 'assigned_to'),
             'classes': ('wide',)
         }),
         (_('Деталі заявки'), {
@@ -108,8 +108,18 @@ class FormSubmissionAdmin(admin.ModelAdmin):
         )
     phone_display.short_description = _('Телефон')
     
+    def project_display(self, obj):
+        """Проект — короткий опис або тире якщо порожнє"""
+        if obj.project:
+            return obj.project[:50] + '...' if len(obj.project) > 50 else obj.project
+        return '—'
+    project_display.short_description = _('Проект')
+    
     def form_type_badge(self, obj):
         """Тип форми з малюнком"""
+        # Обробка порожнього form_type для старих записів
+        form_type = obj.form_type or 'manual'
+        
         colors = {
             'manual': '#9E9E9E',
             'site-request': '#FF6B6B',
@@ -121,12 +131,15 @@ class FormSubmissionAdmin(admin.ModelAdmin):
             'event_registration': '#BB8FCE',
             'test_result': '#85C1E2',
         }
-        color = colors.get(obj.form_type, '#999999')
+        color = colors.get(form_type, '#999999')
+        
+        # Отримуємо текст відображення, якщо не знаходимо — розглядаємо як manual
+        display_text = obj.get_form_type_display_uk() if obj.form_type else 'Ручна'
         
         return format_html(
             '<span style="background-color: {}; color: white; padding: 4px 10px; '
             'border-radius: 12px; font-size: 12px; font-weight: bold;">{}</span>',
-            color, obj.get_form_type_display_uk()
+            color, display_text
         )
     form_type_badge.short_description = _('Тип форми')
     
