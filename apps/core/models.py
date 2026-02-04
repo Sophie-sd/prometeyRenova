@@ -27,9 +27,10 @@ class FormSubmission(models.Model):
         ('in_progress', _('В роботі')),
         ('thinking', _('Думає / Очікує')),
         ('no_contact', _('Не на зв\'язку')),
-        ('ordered', _('Замовив сайт')),
+        ('back_to_applications', _('Назад в заявки')),
         ('completed', _('Завершено')),
-        ('rejected', _('Відмова / Архів')),
+        ('pause', _('Пауза')),
+        ('rejected', _('Архів заявок')),
     ]
     
     # Вибір пріоритету
@@ -133,13 +134,14 @@ class FormSubmission(models.Model):
     def get_status_color(self):
         """Повертає колір для статусу"""
         colors = {
-            'new': '#FFD700',           # Яскраво-жовтий
-            'in_progress': '#1E90FF',   # Блакитний
-            'thinking': '#9370DB',      # Фіолетовий
-            'no_contact': '#FF8C00',    # Оранжевий
-            'ordered': '#32CD32',       # Зелений
-            'completed': '#228B22',     # Forest green (темно-зелений)
-            'rejected': '#696969'       # Темно-сірий
+            'new': '#FFD700',                # Яскраво-жовтий
+            'in_progress': '#1E90FF',        # Блакитний
+            'thinking': '#9370DB',           # Фіолетовий
+            'no_contact': '#FF8C00',         # Оранжевий
+            'back_to_applications': '#20B2AA', # Світло-морський синій
+            'completed': '#228B22',          # Forest green (темно-зелений)
+            'pause': '#DC143C',              # Crimson (Червоний)
+            'rejected': '#696969'            # Темно-сірий
         }
         return colors.get(self.status, '#999999')
     

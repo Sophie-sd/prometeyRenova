@@ -58,16 +58,16 @@
     background-color: rgba(255, 140, 0, 0.2) !important;
 }
 
-/* ЗАМОВИВ САЙТ - Зелений */
-#result_list tbody tr[data-status="ordered"],
-.model-formsubmission tbody tr:has(td:nth-child(5):contains("Замовив")) {
-    background-color: rgba(50, 205, 50, 0.15) !important;
-    border-left: 4px solid #32CD32;
+/* НАЗАД В ЗАЯВКИ - Світло-морський синій */
+#result_list tbody tr[data-status="back_to_applications"],
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Назад")) {
+    background-color: rgba(32, 178, 170, 0.1) !important;
+    border-left: 4px solid #20B2AA;
 }
 
-#result_list tbody tr[data-status="ordered"]:hover,
-.model-formsubmission tbody tr:has(td:nth-child(5):contains("Замовив")):hover {
-    background-color: rgba(50, 205, 50, 0.25) !important;
+#result_list tbody tr[data-status="back_to_applications"]:hover,
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Назад")):hover {
+    background-color: rgba(32, 178, 170, 0.2) !important;
 }
 
 /* ЗАВЕРШЕНО - Forest green */
@@ -80,6 +80,18 @@
 #result_list tbody tr[data-status="completed"]:hover,
 .model-formsubmission tbody tr:has(td:nth-child(5):contains("Завершено")):hover {
     background-color: rgba(34, 139, 34, 0.25) !important;
+}
+
+/* ПАУЗА - Червоний */
+#result_list tbody tr[data-status="pause"],
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Пауза")) {
+    background-color: rgba(220, 20, 60, 0.1) !important;
+    border-left: 4px solid #DC143C;
+}
+
+#result_list tbody tr[data-status="pause"]:hover,
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Пауза")):hover {
+    background-color: rgba(220, 20, 60, 0.2) !important;
 }
 
 /* ВІДМОВА/АРХІВ - Темно-сірий */
@@ -228,12 +240,16 @@
         background-color: rgba(255, 140, 0, 0.05) !important;
     }
     
-    #result_list tbody tr[data-status="ordered"] {
-        background-color: rgba(50, 205, 50, 0.05) !important;
+    #result_list tbody tr[data-status="back_to_applications"] {
+        background-color: rgba(32, 178, 170, 0.05) !important;
     }
     
     #result_list tbody tr[data-status="completed"] {
         background-color: rgba(34, 139, 34, 0.05) !important;
+    }
+    
+    #result_list tbody tr[data-status="pause"] {
+        background-color: rgba(220, 20, 60, 0.05) !important;
     }
     
     #result_list tbody tr[data-status="rejected"] {

@@ -74,8 +74,9 @@ class FormSubmissionAdmin(admin.ModelAdmin):
         'mark_as_in_progress', 
         'mark_as_thinking',
         'mark_as_no_contact',
-        'mark_as_ordered',
         'mark_as_completed',
+        'mark_as_back_to_applications',
+        'mark_as_pause',
         'mark_as_rejected',
         'assign_to_me',
         'remove_assignment',
@@ -244,11 +245,17 @@ class FormSubmissionAdmin(admin.ModelAdmin):
         self.message_user(request, f'✓ {updated} заявок позначено як "Не на зв\'язку".')
     mark_as_no_contact.short_description = "❌ Позначити як 'Не на зв'язку'"
     
-    def mark_as_ordered(self, request, queryset):
-        """Позначити як 'Замовив сайт'"""
-        updated = queryset.update(status='ordered')
-        self.message_user(request, f'✓ {updated} заявок позначено як "Замовив сайт". Вітаємо! 🎉')
-    mark_as_ordered.short_description = "✅ Позначити як 'Замовив сайт' (успіх!)"
+    def mark_as_back_to_applications(self, request, queryset):
+        """Перевести назад в заявки"""
+        updated = queryset.update(status='back_to_applications')
+        self.message_user(request, f'✓ {updated} заявок переведено назад в заявки.')
+    mark_as_back_to_applications.short_description = "⬅ Перевести назад в заявки"
+    
+    def mark_as_pause(self, request, queryset):
+        """Встановити паузу"""
+        updated = queryset.update(status='pause')
+        self.message_user(request, f'✓ {updated} заявок встановлено на паузу.')
+    mark_as_pause.short_description = "⏸ Встановити паузу"
     
     def mark_as_completed(self, request, queryset):
         """Позначити як 'Завершено'"""
@@ -351,10 +358,10 @@ class FormSubmissionAdmin(admin.ModelAdmin):
         # Заявки без призначення
         unassigned_count = FormSubmission.objects.filter(assigned_to__isnull=True).count()
         
-        # Успішні угоди (статус 'ordered') за останній місяць
+        # Успішні угоди (статус 'completed') за останній місяць
         one_month_ago = timezone.now() - timedelta(days=30)
-        ordered_this_month = FormSubmission.objects.filter(
-            status='ordered',
+        completed_this_month = FormSubmission.objects.filter(
+            status='completed',
             updated_at__gte=one_month_ago
         ).count()
         
@@ -363,7 +370,7 @@ class FormSubmissionAdmin(admin.ModelAdmin):
             'status_stats': status_stats,
             'urgent_count': urgent_count,
             'unassigned_count': unassigned_count,
-            'ordered_this_month': ordered_this_month,
+            'completed_this_month': completed_this_month,
         })
         
         return super().changelist_view(request, extra_context)
@@ -390,10 +397,49 @@ class FormSubmissionAdmin(admin.ModelAdmin):
     
     # ===== QUERYSET ОПТИМІЗАЦІЯ =====
     
+    def formfield_for_choice_field(self, db_field, request, **kwargs):
+        """Обмежує доступні статуси залежно від admin-класу"""
+        if db_field.name == 'status':
+            admin_class_name = self.__class__.__name__
+            
+            # Блок "Заявки" (FormSubmissionAdmin) - може переводити тільки в роботу
+            if admin_class_name == 'FormSubmissionAdmin':
+                kwargs['choices'] = [
+                    ('new', _('Новий')),
+                    ('thinking', _('Думає / Очікує')),
+                    ('no_contact', _('Не на зв\'язку')),
+                    ('back_to_applications', _('Назад в заявки')),
+                    ('in_progress', _('В роботі')),
+                ]
+            # Блок "В роботі" (InProgressFormSubmissionAdmin)
+            elif admin_class_name == 'InProgressFormSubmissionAdmin':
+                kwargs['choices'] = [
+                    ('in_progress', _('В роботі')),
+                    ('completed', _('Завершено')),
+                    ('back_to_applications', _('Назад в заявки')),
+                    ('pause', _('Пауза')),
+                ]
+            # Блок "Завершено" (CompletedFormSubmissionAdmin)
+            elif admin_class_name == 'CompletedFormSubmissionAdmin':
+                kwargs['choices'] = [
+                    ('completed', _('Завершено')),
+                    ('in_progress', _('В роботі')),
+                    ('back_to_applications', _('Назад в заявки')),
+                ]
+            # Блок "Архів заявок" (ArchivedFormSubmissionAdmin)
+            elif admin_class_name == 'ArchivedFormSubmissionAdmin':
+                kwargs['choices'] = [
+                    ('rejected', _('Архів заявок')),
+                    ('back_to_applications', _('Назад в заявки')),
+                    ('in_progress', _('В роботі')),
+                ]
+        
+        return super().formfield_for_choice_field(db_field, request, **kwargs)
+    
     def get_queryset(self, request):
-        """Оптимізація для змешування з assign_to та уникнення N+1. Виключає архівовані та завершені заявки, а також ті, що в роботі."""
+        """Оптимізація для змешування з assign_to та уникнення N+1. Виключає архівовані та завершені заявки, а також ті, що в роботі та на паузі."""
         qs = super().get_queryset(request)
-        return qs.exclude(status__in=['rejected', 'in_progress', 'completed']).select_related('assigned_to')
+        return qs.exclude(status__in=['rejected', 'in_progress', 'completed', 'pause']).select_related('assigned_to')
     
     def get_changeform_initial_data(self, request):
         """Встановлює замовчування для нових заявок при додаванні через адмінку"""
@@ -419,9 +465,9 @@ class InProgressFormSubmissionAdmin(FormSubmissionAdmin):
     """Admin для заявок у статусі «В роботі»"""
     
     def get_queryset(self, request):
-        """Показує тільки заявки у статусі «В роботі»"""
+        """Показує тільки заявки у статусі «В роботі» та на паузі"""
         qs = admin.ModelAdmin.get_queryset(self, request)
-        return qs.filter(status='in_progress').select_related('assigned_to')
+        return qs.filter(status__in=['in_progress', 'pause']).select_related('assigned_to')
 
 
 @admin.register(CompletedFormSubmission)
