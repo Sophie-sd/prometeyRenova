@@ -74,13 +74,14 @@ class FormSubmissionAdmin(admin.ModelAdmin):
         """Обмежує статуси залежно від типу блоку (admin class)"""
         if db_field.name == 'status':
             if self.model == FormSubmission:
-                # Заявки: new, thinking, no_contact, back_to_applications, in_progress
+                # Заявки: new, thinking, no_contact, back_to_applications, in_progress, rejected
                 kwargs['choices'] = [
                     ('new', _('Новий')),
                     ('thinking', _('Думає / Очікує')),
                     ('no_contact', _("Не на зв'язку")),
                     ('back_to_applications', _('Назад в заявки')),
                     ('in_progress', _('В роботі')),
+                    ('rejected', _('Архів заявок')),
                 ]
             elif self.model == InProgressFormSubmission:
                 # В роботі: in_progress, pause, completed, back_to_applications
@@ -288,10 +289,10 @@ class FormSubmissionAdmin(admin.ModelAdmin):
     mark_as_completed.short_description = "✅ Позначити як «Завершено»"
     
     def mark_as_rejected(self, request, queryset):
-        """Позначити як 'Відмова'"""
+        """Позначити як 'Архів заявок'"""
         updated = queryset.update(status='rejected')
-        self.message_user(request, f'✓ {updated} заявок позначено як "Відмова".')
-    mark_as_rejected.short_description = "🗑 Позначити як 'Відмова'"
+        self.message_user(request, f'✓ {updated} заявок позначено як "Архів заявок".')
+    mark_as_rejected.short_description = "🗑 Позначити як 'Архів заявок'"
     
     def assign_to_me(self, request, queryset):
         """Призначити на себе"""
