@@ -15,8 +15,4 @@ class Migration(migrations.Migration):
             name='status',
             field=models.CharField(choices=[('new', 'Новий'), ('in_progress', 'В роботі'), ('thinking', 'Думає / Очікує'), ('no_contact', "Не на зв'язку"), ('back_to_applications', 'Назад в заявки'), ('completed', 'Завершено'), ('pause', 'Пауза'), ('rejected', 'Архів заявок')], db_index=True, default='new', max_length=20, verbose_name='Статус'),
         ),
-        migrations.RunPython(
-            code=lambda apps, schema_editor: apps.get_model('core', 'FormSubmission').objects.filter(status='ordered').update(status='in_progress'),
-            reverse_code=lambda apps, schema_editor: None,
-        ),
     ]

@@ -68,6 +68,44 @@ class FormSubmissionAdmin(admin.ModelAdmin):
         })
     )
     
+    # ===== ОБМЕЖЕННЯ ВИБОРУ СТАТУСІВ ПО БЛОКАХ =====
+    
+    def formfield_for_choice_field(self, db_field, request, **kwargs):
+        """Обмежує статуси залежно від типу блоку (admin class)"""
+        if db_field.name == 'status':
+            if self.model == FormSubmission:
+                # Заявки: new, thinking, no_contact, back_to_applications, in_progress
+                kwargs['choices'] = [
+                    ('new', _('Новий')),
+                    ('thinking', _('Думає / Очікує')),
+                    ('no_contact', _("Не на зв'язку")),
+                    ('back_to_applications', _('Назад в заявки')),
+                    ('in_progress', _('В роботі')),
+                ]
+            elif self.model == InProgressFormSubmission:
+                # В роботі: in_progress, pause, completed, back_to_applications
+                kwargs['choices'] = [
+                    ('in_progress', _('В роботі')),
+                    ('pause', _('Пауза')),
+                    ('completed', _('Завершено')),
+                    ('back_to_applications', _('Назад в заявки')),
+                ]
+            elif self.model == CompletedFormSubmission:
+                # Завершено: completed, in_progress, back_to_applications
+                kwargs['choices'] = [
+                    ('completed', _('Завершено')),
+                    ('in_progress', _('В роботі')),
+                    ('back_to_applications', _('Назад в заявки')),
+                ]
+            elif self.model == ArchivedFormSubmission:
+                # Архів: rejected, back_to_applications, in_progress
+                kwargs['choices'] = [
+                    ('rejected', _('Архів заявок')),
+                    ('back_to_applications', _('Назад в заявки')),
+                    ('in_progress', _('В роботі')),
+                ]
+        return super().formfield_for_choice_field(db_field, request, **kwargs)
+    
     # ===== ДІЇ (ACTIONS) =====
     actions = [
         delete_selected,
@@ -75,8 +113,6 @@ class FormSubmissionAdmin(admin.ModelAdmin):
         'mark_as_thinking',
         'mark_as_no_contact',
         'mark_as_completed',
-        'mark_as_back_to_applications',
-        'mark_as_pause',
         'mark_as_rejected',
         'assign_to_me',
         'remove_assignment',
@@ -245,18 +281,6 @@ class FormSubmissionAdmin(admin.ModelAdmin):
         self.message_user(request, f'✓ {updated} заявок позначено як "Не на зв\'язку".')
     mark_as_no_contact.short_description = "❌ Позначити як 'Не на зв'язку'"
     
-    def mark_as_back_to_applications(self, request, queryset):
-        """Перевести назад в заявки"""
-        updated = queryset.update(status='back_to_applications')
-        self.message_user(request, f'✓ {updated} заявок переведено назад в заявки.')
-    mark_as_back_to_applications.short_description = "⬅ Перевести назад в заявки"
-    
-    def mark_as_pause(self, request, queryset):
-        """Встановити паузу"""
-        updated = queryset.update(status='pause')
-        self.message_user(request, f'✓ {updated} заявок встановлено на паузу.')
-    mark_as_pause.short_description = "⏸ Встановити паузу"
-    
     def mark_as_completed(self, request, queryset):
         """Позначити як 'Завершено'"""
         updated = queryset.update(status='completed')
@@ -397,47 +421,8 @@ class FormSubmissionAdmin(admin.ModelAdmin):
     
     # ===== QUERYSET ОПТИМІЗАЦІЯ =====
     
-    def formfield_for_choice_field(self, db_field, request, **kwargs):
-        """Обмежує доступні статуси залежно від admin-класу"""
-        if db_field.name == 'status':
-            admin_class_name = self.__class__.__name__
-            
-            # Блок "Заявки" (FormSubmissionAdmin) - може переводити тільки в роботу
-            if admin_class_name == 'FormSubmissionAdmin':
-                kwargs['choices'] = [
-                    ('new', _('Новий')),
-                    ('thinking', _('Думає / Очікує')),
-                    ('no_contact', _('Не на зв\'язку')),
-                    ('back_to_applications', _('Назад в заявки')),
-                    ('in_progress', _('В роботі')),
-                ]
-            # Блок "В роботі" (InProgressFormSubmissionAdmin)
-            elif admin_class_name == 'InProgressFormSubmissionAdmin':
-                kwargs['choices'] = [
-                    ('in_progress', _('В роботі')),
-                    ('completed', _('Завершено')),
-                    ('back_to_applications', _('Назад в заявки')),
-                    ('pause', _('Пауза')),
-                ]
-            # Блок "Завершено" (CompletedFormSubmissionAdmin)
-            elif admin_class_name == 'CompletedFormSubmissionAdmin':
-                kwargs['choices'] = [
-                    ('completed', _('Завершено')),
-                    ('in_progress', _('В роботі')),
-                    ('back_to_applications', _('Назад в заявки')),
-                ]
-            # Блок "Архів заявок" (ArchivedFormSubmissionAdmin)
-            elif admin_class_name == 'ArchivedFormSubmissionAdmin':
-                kwargs['choices'] = [
-                    ('rejected', _('Архів заявок')),
-                    ('back_to_applications', _('Назад в заявки')),
-                    ('in_progress', _('В роботі')),
-                ]
-        
-        return super().formfield_for_choice_field(db_field, request, **kwargs)
-    
     def get_queryset(self, request):
-        """Оптимізація для змешування з assign_to та уникнення N+1. Виключає архівовані та завершені заявки, а також ті, що в роботі та на паузі."""
+        """Оптимізація для змешування з assign_to та уникнення N+1. Виключає архівовані, завершені заявки, ті що в роботі та на паузі."""
         qs = super().get_queryset(request)
         return qs.exclude(status__in=['rejected', 'in_progress', 'completed', 'pause']).select_related('assigned_to')
     
@@ -465,7 +450,7 @@ class InProgressFormSubmissionAdmin(FormSubmissionAdmin):
     """Admin для заявок у статусі «В роботі»"""
     
     def get_queryset(self, request):
-        """Показує тільки заявки у статусі «В роботі» та на паузі"""
+        """Показує тільки заявки у статусі «В роботі» та «Пауза»"""
         qs = admin.ModelAdmin.get_queryset(self, request)
         return qs.filter(status__in=['in_progress', 'pause']).select_related('assigned_to')
 

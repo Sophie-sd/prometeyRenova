@@ -58,16 +58,28 @@
     background-color: rgba(255, 140, 0, 0.2) !important;
 }
 
-/* НАЗАД В ЗАЯВКИ - Світло-морський синій */
+/* НАЗАД В ЗАЯВКИ - Оранжевий */
 #result_list tbody tr[data-status="back_to_applications"],
 .model-formsubmission tbody tr:has(td:nth-child(5):contains("Назад")) {
-    background-color: rgba(32, 178, 170, 0.1) !important;
-    border-left: 4px solid #20B2AA;
+    background-color: rgba(255, 140, 0, 0.1) !important;
+    border-left: 4px solid #FF8C00;
 }
 
 #result_list tbody tr[data-status="back_to_applications"]:hover,
 .model-formsubmission tbody tr:has(td:nth-child(5):contains("Назад")):hover {
-    background-color: rgba(32, 178, 170, 0.2) !important;
+    background-color: rgba(255, 140, 0, 0.2) !important;
+}
+
+/* ПАУЗА - Фіолетовий */
+#result_list tbody tr[data-status="pause"],
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Пауза")) {
+    background-color: rgba(147, 112, 219, 0.1) !important;
+    border-left: 4px solid #9370DB;
+}
+
+#result_list tbody tr[data-status="pause"]:hover,
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Пауза")):hover {
+    background-color: rgba(147, 112, 219, 0.2) !important;
 }
 
 /* ЗАВЕРШЕНО - Forest green */
@@ -82,28 +94,16 @@
     background-color: rgba(34, 139, 34, 0.25) !important;
 }
 
-/* ПАУЗА - Червоний */
-#result_list tbody tr[data-status="pause"],
-.model-formsubmission tbody tr:has(td:nth-child(5):contains("Пауза")) {
-    background-color: rgba(220, 20, 60, 0.1) !important;
-    border-left: 4px solid #DC143C;
-}
-
-#result_list tbody tr[data-status="pause"]:hover,
-.model-formsubmission tbody tr:has(td:nth-child(5):contains("Пауза")):hover {
-    background-color: rgba(220, 20, 60, 0.2) !important;
-}
-
-/* ВІДМОВА/АРХІВ - Темно-сірий */
+/* АРХІВ ЗАЯВОК - Темно-сірий */
 #result_list tbody tr[data-status="rejected"],
-.model-formsubmission tbody tr:has(td:nth-child(5):contains("Відмова")) {
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Архів")) {
     background-color: rgba(105, 105, 105, 0.1) !important;
     border-left: 4px solid #696969;
     opacity: 0.7;
 }
 
 #result_list tbody tr[data-status="rejected"]:hover,
-.model-formsubmission tbody tr:has(td:nth-child(5):contains("Відмова")):hover {
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Архів")):hover {
     background-color: rgba(105, 105, 105, 0.2) !important;
     opacity: 0.85;
 }
@@ -241,15 +241,15 @@
     }
     
     #result_list tbody tr[data-status="back_to_applications"] {
-        background-color: rgba(32, 178, 170, 0.05) !important;
+        background-color: rgba(255, 140, 0, 0.05) !important;
+    }
+    
+    #result_list tbody tr[data-status="pause"] {
+        background-color: rgba(147, 112, 219, 0.05) !important;
     }
     
     #result_list tbody tr[data-status="completed"] {
         background-color: rgba(34, 139, 34, 0.05) !important;
-    }
-    
-    #result_list tbody tr[data-status="pause"] {
-        background-color: rgba(220, 20, 60, 0.05) !important;
     }
     
     #result_list tbody tr[data-status="rejected"] {
