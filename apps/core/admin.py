@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.utils.html import format_html
 from django.utils import timezone
 from django.db import models
@@ -8,7 +8,7 @@ from django.contrib.auth.models import Group
 from datetime import timedelta
 import csv
 from django.http import HttpResponse
-from .models import FormSubmission, ArchivedFormSubmission, InProgressFormSubmission, CompletedFormSubmission, Employee
+from .models import FormSubmission, ArchivedFormSubmission, InProgressFormSubmission, CompletedFormSubmission
 
 
 # ===== ВИДАЛЕННЯ ГРУП З ADMIN =====
@@ -368,6 +368,26 @@ class FormSubmissionAdmin(admin.ModelAdmin):
         
         return super().changelist_view(request, extra_context)
     
+    # ===== ВИДАЛЕННЯ =====
+    
+    def delete_queryset(self, request, queryset):
+        """Гарантує коректне bulk-видалення заявок з логуванням."""
+        count, _ = queryset.delete()
+        self.message_user(
+            request, 
+            _('Видалено %(count)d заявок.') % {'count': count}, 
+            messages.SUCCESS
+        )
+    
+    def delete_model(self, request, obj):
+        """Гарантує коректне одиночне видалення заявки."""
+        super().delete_model(request, obj)
+        self.message_user(
+            request, 
+            _('Заявку видалено.'), 
+            messages.SUCCESS
+        )
+    
     # ===== QUERYSET ОПТИМІЗАЦІЯ =====
     
     def get_queryset(self, request):
@@ -412,73 +432,3 @@ class CompletedFormSubmissionAdmin(FormSubmissionAdmin):
         """Показує тільки завершені заявки"""
         qs = admin.ModelAdmin.get_queryset(self, request)
         return qs.filter(status='completed').select_related('assigned_to')
-
-
-@admin.register(Employee)
-class EmployeeAdmin(admin.ModelAdmin):
-    """Admin для управління співробітниками"""
-    
-    # ===== ОСНОВНА КОНФІГУРАЦІЯ =====
-    list_display = [
-        'full_name_display', 'position', 'email', 'phone', 
-        'hire_date_display', 'is_active', 'order'
-    ]
-    
-    list_filter = [
-        'is_active',
-        'position',
-        ('hire_date', admin.DateFieldListFilter),
-    ]
-    
-    search_fields = ['last_name', 'first_name', 'patronymic', 'position', 'email', 'phone']
-    
-    list_editable = ['is_active', 'order']
-    
-    readonly_fields = ['created_at', 'updated_at']
-    
-    ordering = ['order', 'last_name', 'first_name']
-    
-    date_hierarchy = 'hire_date'
-    
-    list_per_page = 50
-    
-    # ===== FIELDSETS ДЛЯ ДЕТАЛЕЙ =====
-    fieldsets = (
-        (_('Особисті дані'), {
-            'fields': ('last_name', 'first_name', 'patronymic')
-        }),
-        (_('Посадові дані'), {
-            'fields': ('position', 'hire_date', 'order')
-        }),
-        (_('Контактна інформація'), {
-            'fields': ('email', 'phone')
-        }),
-        (_('Описова інформація'), {
-            'fields': ('bio',),
-            'classes': ('wide',)
-        }),
-        (_('Статус'), {
-            'fields': ('is_active',)
-        }),
-        (_('Системна інформація'), {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',)
-        }),
-    )
-    
-    # ===== МЕТОДИ DISPLAY =====
-    
-    def full_name_display(self, obj):
-        """Повне ім'я з форматуванням"""
-        return format_html(
-            '<strong>{}</strong>',
-            obj.get_full_name()
-        )
-    full_name_display.short_description = _('Ім\'я')
-    
-    def hire_date_display(self, obj):
-        """Дата прийому в форматованому вигляді"""
-        if obj.hire_date:
-            return obj.hire_date.strftime('%d.%m.%Y')
-        return '—'
-    hire_date_display.short_description = _('Дата прийому')
