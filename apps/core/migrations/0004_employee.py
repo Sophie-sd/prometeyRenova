@@ -29,6 +29,7 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Оновлено')),
             ],
             options={
+                'db_table': 'auth_employee',
                 'verbose_name': 'Співробітник',
                 'verbose_name_plural': 'Співробітники',
                 'ordering': ['order', 'last_name', 'first_name'],

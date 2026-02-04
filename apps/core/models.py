@@ -261,6 +261,7 @@ class Employee(models.Model):
     class Meta:
         # app_label = 'auth' — щоб модель з'являлася в блоці "Аутентифікація та авторизація"
         app_label = 'auth'
+        db_table = 'auth_employee'
         verbose_name = _('Співробітник')
         verbose_name_plural = _('Співробітники')
         ordering = ['order', 'last_name', 'first_name']
