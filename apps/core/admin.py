@@ -8,7 +8,7 @@ from django.contrib.auth.models import Group
 from datetime import timedelta
 import csv
 from django.http import HttpResponse
-from .models import FormSubmission, ArchivedFormSubmission, Employee
+from .models import FormSubmission, ArchivedFormSubmission, InProgressFormSubmission, CompletedFormSubmission, Employee
 
 
 # ===== ВИДАЛЕННЯ ГРУП З ADMIN =====
@@ -74,7 +74,8 @@ class FormSubmissionAdmin(admin.ModelAdmin):
         'mark_as_in_progress', 
         'mark_as_thinking',
         'mark_as_no_contact',
-        'mark_as_ordered', 
+        'mark_as_ordered',
+        'mark_as_completed',
         'mark_as_rejected',
         'assign_to_me',
         'remove_assignment',
@@ -249,6 +250,12 @@ class FormSubmissionAdmin(admin.ModelAdmin):
         self.message_user(request, f'✓ {updated} заявок позначено як "Замовив сайт". Вітаємо! 🎉')
     mark_as_ordered.short_description = "✅ Позначити як 'Замовив сайт' (успіх!)"
     
+    def mark_as_completed(self, request, queryset):
+        """Позначити як 'Завершено'"""
+        updated = queryset.update(status='completed')
+        self.message_user(request, f'✓ {updated} заявок позначено як «Завершено». Розробку завершено! 🎉')
+    mark_as_completed.short_description = "✅ Позначити як «Завершено»"
+    
     def mark_as_rejected(self, request, queryset):
         """Позначити як 'Відмова'"""
         updated = queryset.update(status='rejected')
@@ -364,9 +371,9 @@ class FormSubmissionAdmin(admin.ModelAdmin):
     # ===== QUERYSET ОПТИМІЗАЦІЯ =====
     
     def get_queryset(self, request):
-        """Оптимізація для змешування з assign_to та уникнення N+1. Виключає архівовані заявки."""
+        """Оптимізація для змешування з assign_to та уникнення N+1. Виключає архівовані та завершені заявки, а також ті, що в роботі."""
         qs = super().get_queryset(request)
-        return qs.exclude(status='rejected').select_related('assigned_to')
+        return qs.exclude(status__in=['rejected', 'in_progress', 'completed']).select_related('assigned_to')
     
     def get_changeform_initial_data(self, request):
         """Встановлює замовчування для нових заявок при додаванні через адмінку"""
@@ -385,6 +392,26 @@ class ArchivedFormSubmissionAdmin(FormSubmissionAdmin):
         # з FormSubmissionAdmin.get_queryset()
         qs = admin.ModelAdmin.get_queryset(self, request)
         return qs.filter(status='rejected').select_related('assigned_to')
+
+
+@admin.register(InProgressFormSubmission)
+class InProgressFormSubmissionAdmin(FormSubmissionAdmin):
+    """Admin для заявок у статусі «В роботі»"""
+    
+    def get_queryset(self, request):
+        """Показує тільки заявки у статусі «В роботі»"""
+        qs = admin.ModelAdmin.get_queryset(self, request)
+        return qs.filter(status='in_progress').select_related('assigned_to')
+
+
+@admin.register(CompletedFormSubmission)
+class CompletedFormSubmissionAdmin(FormSubmissionAdmin):
+    """Admin для завершених заявок"""
+    
+    def get_queryset(self, request):
+        """Показує тільки завершені заявки"""
+        qs = admin.ModelAdmin.get_queryset(self, request)
+        return qs.filter(status='completed').select_related('assigned_to')
 
 
 @admin.register(Employee)

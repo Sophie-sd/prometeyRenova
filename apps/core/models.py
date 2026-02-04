@@ -28,6 +28,7 @@ class FormSubmission(models.Model):
         ('thinking', _('Думає / Очікує')),
         ('no_contact', _('Не на зв\'язку')),
         ('ordered', _('Замовив сайт')),
+        ('completed', _('Завершено')),
         ('rejected', _('Відмова / Архів')),
     ]
     
@@ -137,6 +138,7 @@ class FormSubmission(models.Model):
             'thinking': '#9370DB',      # Фіолетовий
             'no_contact': '#FF8C00',    # Оранжевий
             'ordered': '#32CD32',       # Зелений
+            'completed': '#228B22',     # Forest green (темно-зелений)
             'rejected': '#696969'       # Темно-сірий
         }
         return colors.get(self.status, '#999999')
@@ -188,6 +190,22 @@ class ArchivedFormSubmission(FormSubmission):
         proxy = True
         verbose_name = _('Архівна заявка')
         verbose_name_plural = _('Архів заявок')
+
+
+class InProgressFormSubmission(FormSubmission):
+    """Proxy-модель для заявок у статусі «В роботі»"""
+    class Meta:
+        proxy = True
+        verbose_name = _('Заявка в роботі')
+        verbose_name_plural = _('В роботі')
+
+
+class CompletedFormSubmission(FormSubmission):
+    """Proxy-модель для завершених заявок"""
+    class Meta:
+        proxy = True
+        verbose_name = _('Завершена заявка')
+        verbose_name_plural = _('Завершено')
 
 
 class Employee(models.Model):

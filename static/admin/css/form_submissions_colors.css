@@ -70,6 +70,18 @@
     background-color: rgba(50, 205, 50, 0.25) !important;
 }
 
+/* ЗАВЕРШЕНО - Forest green */
+#result_list tbody tr[data-status="completed"],
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Завершено")) {
+    background-color: rgba(34, 139, 34, 0.15) !important;
+    border-left: 4px solid #228B22;
+}
+
+#result_list tbody tr[data-status="completed"]:hover,
+.model-formsubmission tbody tr:has(td:nth-child(5):contains("Завершено")):hover {
+    background-color: rgba(34, 139, 34, 0.25) !important;
+}
+
 /* ВІДМОВА/АРХІВ - Темно-сірий */
 #result_list tbody tr[data-status="rejected"],
 .model-formsubmission tbody tr:has(td:nth-child(5):contains("Відмова")) {
@@ -218,6 +230,10 @@
     
     #result_list tbody tr[data-status="ordered"] {
         background-color: rgba(50, 205, 50, 0.05) !important;
+    }
+    
+    #result_list tbody tr[data-status="completed"] {
+        background-color: rgba(34, 139, 34, 0.05) !important;
     }
     
     #result_list tbody tr[data-status="rejected"] {
