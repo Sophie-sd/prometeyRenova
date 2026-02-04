@@ -4,10 +4,16 @@ from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.admin.actions import delete_selected
+from django.contrib.auth.models import Group
 from datetime import timedelta
 import csv
 from django.http import HttpResponse
-from .models import FormSubmission, ArchivedFormSubmission
+from .models import FormSubmission, ArchivedFormSubmission, Employee
+
+
+# ===== ВИДАЛЕННЯ ГРУП З ADMIN =====
+admin.site.unregister(Group)
+
 
 
 @admin.register(FormSubmission)
@@ -379,3 +385,73 @@ class ArchivedFormSubmissionAdmin(FormSubmissionAdmin):
         # з FormSubmissionAdmin.get_queryset()
         qs = admin.ModelAdmin.get_queryset(self, request)
         return qs.filter(status='rejected').select_related('assigned_to')
+
+
+@admin.register(Employee)
+class EmployeeAdmin(admin.ModelAdmin):
+    """Admin для управління співробітниками"""
+    
+    # ===== ОСНОВНА КОНФІГУРАЦІЯ =====
+    list_display = [
+        'full_name_display', 'position', 'email', 'phone', 
+        'hire_date_display', 'is_active', 'order'
+    ]
+    
+    list_filter = [
+        'is_active',
+        'position',
+        ('hire_date', admin.DateFieldListFilter),
+    ]
+    
+    search_fields = ['last_name', 'first_name', 'patronymic', 'position', 'email', 'phone']
+    
+    list_editable = ['is_active', 'order']
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    ordering = ['order', 'last_name', 'first_name']
+    
+    date_hierarchy = 'hire_date'
+    
+    list_per_page = 50
+    
+    # ===== FIELDSETS ДЛЯ ДЕТАЛЕЙ =====
+    fieldsets = (
+        (_('Особисті дані'), {
+            'fields': ('last_name', 'first_name', 'patronymic')
+        }),
+        (_('Посадові дані'), {
+            'fields': ('position', 'hire_date', 'order')
+        }),
+        (_('Контактна інформація'), {
+            'fields': ('email', 'phone')
+        }),
+        (_('Описова інформація'), {
+            'fields': ('bio',),
+            'classes': ('wide',)
+        }),
+        (_('Статус'), {
+            'fields': ('is_active',)
+        }),
+        (_('Системна інформація'), {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    # ===== МЕТОДИ DISPLAY =====
+    
+    def full_name_display(self, obj):
+        """Повне ім'я з форматуванням"""
+        return format_html(
+            '<strong>{}</strong>',
+            obj.get_full_name()
+        )
+    full_name_display.short_description = _('Ім\'я')
+    
+    def hire_date_display(self, obj):
+        """Дата прийому в форматованому вигляді"""
+        if obj.hire_date:
+            return obj.hire_date.strftime('%d.%m.%Y')
+        return '—'
+    hire_date_display.short_description = _('Дата прийому')

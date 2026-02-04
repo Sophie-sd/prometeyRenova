@@ -188,3 +188,94 @@ class ArchivedFormSubmission(FormSubmission):
         proxy = True
         verbose_name = _('Архівна заявка')
         verbose_name_plural = _('Архів заявок')
+
+
+class Employee(models.Model):
+    """Модель співробітника для відображення в блоці 'Аутентифікація та авторизація'"""
+    
+    # ===== ОСОБИСТІ ДАНІ =====
+    last_name = models.CharField(
+        max_length=100,
+        verbose_name=_('Прізвище')
+    )
+    first_name = models.CharField(
+        max_length=100,
+        verbose_name=_('Ім\'я')
+    )
+    patronymic = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name=_('По батькові')
+    )
+    
+    # ===== ПОСАДОВІ ДАНІ =====
+    position = models.CharField(
+        max_length=200,
+        verbose_name=_('Посада')
+    )
+    hire_date = models.DateField(
+        null=True,
+        blank=True,
+        verbose_name=_('Дата прийому на роботу')
+    )
+    
+    # ===== КОНТАКТНА ІНФОРМАЦІЯ =====
+    email = models.EmailField(
+        blank=True,
+        verbose_name=_('Email')
+    )
+    phone = models.CharField(
+        max_length=20,
+        blank=True,
+        verbose_name=_('Телефон')
+    )
+    
+    # ===== ОПИСОВА ІНФОРМАЦІЯ =====
+    bio = models.TextField(
+        blank=True,
+        verbose_name=_('Короткий опис / Біо')
+    )
+    
+    # ===== СТАТУС ТА ПОРЯДОК =====
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name=_('Активний'),
+        db_index=True
+    )
+    order = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_('Порядок відображення'),
+        db_index=True
+    )
+    
+    # ===== СИСТЕМНІ ПОЛЯ =====
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Створено')
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_('Оновлено')
+    )
+    
+    class Meta:
+        # app_label = 'auth' — щоб модель з'являлася в блоці "Аутентифікація та авторизація"
+        app_label = 'auth'
+        verbose_name = _('Співробітник')
+        verbose_name_plural = _('Співробітники')
+        ordering = ['order', 'last_name', 'first_name']
+        indexes = [
+            models.Index(fields=['order', 'is_active']),
+            models.Index(fields=['is_active']),
+        ]
+    
+    def __str__(self):
+        """Представлення як Прізвище Ім'я По батькові"""
+        full_name = f"{self.last_name} {self.first_name}"
+        if self.patronymic:
+            full_name += f" {self.patronymic}"
+        return full_name
+    
+    def get_full_name(self):
+        """Повертає повне ім'я"""
+        return str(self)
