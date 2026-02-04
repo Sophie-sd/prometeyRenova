@@ -372,7 +372,7 @@ class FormSubmissionAdmin(admin.ModelAdmin):
     
     def delete_queryset(self, request, queryset):
         """Гарантує коректне bulk-видалення заявок з логуванням."""
-        count, _ = queryset.delete()
+        count, deleted_by_model = queryset.delete()
         self.message_user(
             request, 
             _('Видалено %(count)d заявок.') % {'count': count}, 
