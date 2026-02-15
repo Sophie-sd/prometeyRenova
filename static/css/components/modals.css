@@ -350,17 +350,3 @@ body.modal-open {
         height: 20px;
     }
 }
-
-/* ===== TELEGRAM SOCIAL LINK - BLUE COLOR ===== */
-.modal-social-link-telegram svg {
-    color: #0088cc;
-}
-
-.modal-social-link-telegram:hover {
-    background: #0088cc;
-    color: var(--color-white);
-}
-
-.modal-social-link-telegram:hover svg {
-    color: var(--color-white);
-}
