@@ -293,6 +293,7 @@ class PrometeyApp {
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.top = `-${this.scrollPosition}px`;
         document.body.style.overflow = 'hidden';
+        document.body.classList.add('modal-open');
 
         this.state.activeModal = modalId;
 
@@ -315,6 +316,7 @@ class PrometeyApp {
         modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
         document.body.style.top = '';
+        document.body.classList.remove('modal-open');
 
         this.state.activeModal = null;
         this.restoreScrollPosition();

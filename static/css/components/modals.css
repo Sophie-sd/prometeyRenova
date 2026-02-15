@@ -70,26 +70,34 @@ body.modal-open {
 
 /* ===== MODAL CLOSE BUTTON ===== */
 .modal-close {
-    position: absolute;
-    top: var(--space-xs);
-    right: var(--space-xs);
+    position: fixed;
+    top: 20px;
+    right: 20px;
     background: transparent;
     border: none;
-    font-size: 24px;
+    font-size: 28px;
     cursor: pointer;
     color: var(--color-black);
     line-height: 1;
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: color var(--transition-normal) var(--easing-default);
+    z-index: 10005;
+    padding: 0;
 }
 
 .modal-close:hover {
     color: var(--color-brand-orange);
     transform: rotate(90deg);
+}
+
+.modal-close:active {
+    transform: rotate(90deg) scale(0.95);
 }
 
 /* ===== MODAL HEADER ===== */
@@ -153,16 +161,24 @@ body.modal-open {
 @media (max-width: 767px) {
     .modal-content {
         width: 95%;
-        padding: var(--space-sm);
-        max-height: 95vh;
-        max-height: 95dvh;
+        padding: 16px;
+        padding-top: 12px;
+        max-height: 80dvh;
         margin: var(--space-xs);
         border-width: 2px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: auto;
     }
 
     .modal-header h3 {
         font-size: var(--font-medium);
-        padding-right: var(--space-md);
+        margin-bottom: 8px;
+    }
+
+    .modal-header p {
+        margin-bottom: 12px;
+        font-size: 14px;
+        line-height: 1.4;
     }
 
     .result-item {
@@ -174,6 +190,16 @@ body.modal-open {
     .result-actions .btn {
         width: 100%;
         margin: 5px 0;
+    }
+
+    .modal-close {
+        top: max(12px, env(safe-area-inset-top, 12px));
+        right: max(12px, env(safe-area-inset-right, 12px));
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+        font-size: 24px;
     }
 }
 
@@ -315,29 +341,63 @@ body.modal-open {
 
 /* ===== RESPONSIVE: Мобільний ===== */
 @media (max-width: 767px) {
+    .modal-direct-contact {
+        margin: 0 0 12px;
+        padding: 12px 0;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        text-align: center;
+    }
+
     .modal-separator-text {
-        font-size: var(--font-small);
+        font-size: 12px;
+        margin-bottom: 8px;
     }
 
     .modal-phone-link {
         display: block;
-        font-size: 18px;
+        font-size: 16px;
         word-break: break-word;
-        padding: 0 0 7px 0;
+        padding: 0 0 6px 0;
     }
 
     .modal-social-links {
-        gap: 35px;
+        gap: 28px;
         justify-content: center;
     }
 
     .modal-social-link {
         min-width: 44px;
         min-height: 44px;
+        width: 44px;
+        height: 44px;
     }
 
     .modal-social-link svg {
         width: 20px;
         height: 20px;
+    }
+
+    .modal-form .form-group {
+        margin-bottom: 10px;
+    }
+
+    .modal-form .form-label {
+        margin-bottom: 6px;
+        font-size: 13px;
+    }
+
+    .modal-form .form-input {
+        padding: 10px 12px;
+        font-size: 16px;
+        height: auto;
+        min-height: 40px;
+    }
+
+    .modal-form .form-submit {
+        margin-top: 12px;
+        min-height: 44px;
+        font-size: 16px;
     }
 }
