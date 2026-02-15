@@ -4,6 +4,23 @@
    Portfolio Projects - асиметричний layout з чергуванням
    ================================= */
 
+/* ===== SCROLL-SNAP: ОДНА КАРТКА ЗА ОДИН СКРОЛ ===== */
+/* Файл portfolio.css підключається тільки на сторінці портфоліо */
+html {
+    scroll-snap-type: y proximity;
+    scroll-padding-top: var(--nav-height, 60px);
+}
+
+.hero-section {
+    scroll-snap-align: start;
+}
+
+.project-card-section {
+    height: 100vh;
+    height: 100svh;
+    scroll-snap-align: start;
+}
+
 /* ===== PORTFOLIO PROJECTS SECTION ===== */
 /* Використовує .content-section--first з hero-parallax.css для автоматичного стилювання */
 
@@ -27,27 +44,27 @@
 }
 
 /* Z-index для sticky cards ефекту */
-.project-card:nth-child(1) {
+.project-card-section:nth-child(1) > .project-card {
     z-index: 1;
 }
 
-.project-card:nth-child(2) {
+.project-card-section:nth-child(2) > .project-card {
     z-index: 2;
 }
 
-.project-card:nth-child(3) {
+.project-card-section:nth-child(3) > .project-card {
     z-index: 3;
 }
 
-.project-card:nth-child(4) {
+.project-card-section:nth-child(4) > .project-card {
     z-index: 4;
 }
 
-.project-card:nth-child(5) {
+.project-card-section:nth-child(5) > .project-card {
     z-index: 5;
 }
 
-.project-card:nth-child(6) {
+.project-card-section:nth-child(6) > .project-card {
     z-index: 6;
 }
 
@@ -317,6 +334,12 @@
         padding-top: 0;  /* Перевизначаємо padding-top з .content-section--first */
     }
     /* padding видалено з .portfolio-projects для коректного відображення border */
+
+    .project-card-section {
+        height: auto;
+        min-height: 100vh;
+        min-height: 100svh;
+    }
 
     .project-card {
         top: max(var(--nav-height, 60px), env(safe-area-inset-top));
