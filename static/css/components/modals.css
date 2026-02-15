@@ -231,8 +231,8 @@ body.modal-open {
 
 /* ===== CALL REQUEST MODAL - DIRECT CONTACT SECTION ===== */
 .modal-direct-contact {
-    margin: var(--space-md) 0;
-    padding: var(--space-md);
+    margin: 0 0 20px;
+    padding: 20px 0;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
@@ -242,17 +242,17 @@ body.modal-open {
 .modal-separator-text {
     color: var(--color-white);
     font-size: var(--font-small);
-    margin-bottom: var(--space-sm);
+    margin-bottom: 10px;
     opacity: 0.9;
 }
 
 .modal-phone-link {
     display: inline-block;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--color-brand-orange);
     text-decoration: none;
-    margin-bottom: var(--space-md);
+    margin-bottom: 10px;
     transition: all var(--transition-normal) var(--easing-default);
 }
 
@@ -272,8 +272,8 @@ body.modal-open {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
     color: var(--color-white);
@@ -349,4 +349,18 @@ body.modal-open {
         width: 20px;
         height: 20px;
     }
+}
+
+/* ===== TELEGRAM SOCIAL LINK - BLUE COLOR ===== */
+.modal-social-link-telegram svg {
+    color: #0088cc;
+}
+
+.modal-social-link-telegram:hover {
+    background: #0088cc;
+    color: var(--color-white);
+}
+
+.modal-social-link-telegram:hover svg {
+    color: var(--color-white);
 }
