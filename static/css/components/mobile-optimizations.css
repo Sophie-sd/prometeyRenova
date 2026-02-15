@@ -226,9 +226,32 @@
     }
 
     .modal-close {
-        position: sticky;
-        top: 0;
-        z-index: 10004;
+        position: fixed;
+        top: max(var(--mobile-safe-area-top), 16px);
+        right: max(var(--mobile-safe-area-right), 16px);
+        z-index: var(--z-modal-close-mobile, 10005);
+        
+        /* Покращена видимість */
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        
+        /* Збільшені розміри для кращого touch */
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        
+        /* Тінь для контрасту на темних фонах */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        
+        /* Touch оптимізації */
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    .modal-close:active {
+        transform: scale(0.95);
+        background: rgba(255, 255, 255, 1);
     }
 
     body.modal-open .call-button {
@@ -236,6 +259,25 @@
         opacity: 0;
         transition: opacity 0.3s ease;
         z-index: var(--z-fixed-buttons);
+    }
+}
+
+/* ===== iOS SAFARI MODAL OPTIMIZATIONS ===== */
+@supports (-webkit-touch-callout: none) {
+    @media (max-width: 767px) {
+        .modal-close {
+            /* Підтримка safe-area для пристроїв з вирізами */
+            top: max(env(safe-area-inset-top, 16px), 16px);
+            right: max(env(safe-area-inset-right, 16px), 16px);
+        }
+        
+        /* Fallback для старих версій iOS */
+        @supports (top: max(constant(safe-area-inset-top, 16px), 16px)) {
+            .modal-close {
+                top: max(constant(safe-area-inset-top, 16px), 16px);
+                right: max(constant(safe-area-inset-right, 16px), 16px);
+            }
+        }
     }
 }
 
@@ -370,36 +412,6 @@
     .mobile-touch-target:active,
     .mobile-touch-target.touch-active {
         outline: 2px solid currentColor;
-    }
-}
-
-/* ===== MODAL CLOSE BUTTON - iOS SAFE AREAS ===== */
-
-/* Базові мобільні стилі з підтримкою safe areas */
-@media (max-width: 767px) {
-    .modal-close {
-        top: max(16px, env(safe-area-inset-top, 16px));
-        right: max(16px, env(safe-area-inset-right, 16px));
-    }
-}
-
-/* iOS Safari специфічна підтримка safe areas */
-@supports (padding-top: env(safe-area-inset-top)) {
-    @media (max-width: 767px) {
-        .modal-close {
-            top: calc(16px + env(safe-area-inset-top));
-            right: calc(16px + env(safe-area-inset-right));
-        }
-    }
-}
-
-/* Fallback для старих iOS версій з constant() */
-@supports (padding-top: constant(safe-area-inset-top)) {
-    @media (max-width: 767px) {
-        .modal-close {
-            top: calc(16px + constant(safe-area-inset-top));
-            right: calc(16px + constant(safe-area-inset-right));
-        }
     }
 }
 
