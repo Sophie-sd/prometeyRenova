@@ -210,11 +210,21 @@ body.modal-open {
 }
 
 #call-request-modal .modal-close {
-    color: var(--color-white);
+    color: var(--color-brand-orange);
+    background: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    text-shadow: none;
+    padding: 0;
 }
 
 #call-request-modal .modal-close:hover {
     color: var(--color-brand-orange);
+    opacity: 0.8;
 }
 
 #call-request-modal .btn-primary {
@@ -339,21 +349,5 @@ body.modal-open {
     .modal-social-link svg {
         width: 20px;
         height: 20px;
-    }
-}
-
-/* ===== CALL REQUEST MODAL - MOBILE CLOSE BUTTON ===== */
-@media (max-width: 767px) {
-    #call-request-modal .modal-close {
-        /* Білий фон для контрасту з темним фоном модалки */
-        background: rgba(255, 255, 255, 0.95);
-        color: var(--color-black);
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-    }
-    
-    #call-request-modal .modal-close:hover,
-    #call-request-modal .modal-close:active {
-        background: rgba(255, 255, 255, 1);
-        color: var(--color-brand-orange);
     }
 }

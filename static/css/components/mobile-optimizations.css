@@ -231,27 +231,160 @@
         right: max(var(--mobile-safe-area-right), 16px);
         z-index: var(--z-modal-close-mobile, 10005);
         
-        /* Покращена видимість */
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        /* Прозорий фон */
+        background: transparent;
+        border: none;
         
-        /* Збільшені розміри для кращого touch */
+        /* Оранжевий колір */
+        color: var(--color-brand-orange);
+        
+        /* Збільшений розмір для touch та видимості */
+        font-size: 36px;
         width: 44px;
         height: 44px;
-        border-radius: 50%;
-        
-        /* Тінь для контрасту на темних фонах */
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        line-height: 1;
         
         /* Touch оптимізації */
         -webkit-tap-highlight-color: transparent;
         touch-action: manipulation;
+        cursor: pointer;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform var(--transition-normal) var(--easing-default);
     }
     
     .modal-close:active {
         transform: scale(0.95);
-        background: rgba(255, 255, 255, 1);
+    }
+
+    /* ===== CALL-REQUEST MODAL — адаптивний flexbox layout ===== */
+
+    /* Зменшуємо зовнішній padding модалки щоб дати більше простору контенту */
+    #call-request-modal {
+        padding: 20px 0 10px;
+        align-items: center;
+    }
+
+    /* Close-button всередині модалки (absolute замість fixed) — економить простір */
+    #call-request-modal .modal-close {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        z-index: 10;
+        background: none;
+        -webkit-appearance: none;
+        appearance: none;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        outline: none;
+        text-shadow: none;
+        color: var(--color-brand-orange);
+        font-size: 32px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    /* Flexbox-контейнер для автомасштабування вмісту */
+    #call-request-modal .modal-content {
+        display: flex;
+        flex-direction: column;
+        max-height: calc(100dvh - 40px);
+        max-height: calc(var(--mobile-vh, 100vh) - 40px);
+        overflow: hidden;
+        padding: 40px 16px 16px;
+        gap: 10px;
+    }
+
+    /* Header компактніший */
+    #call-request-modal .modal-header {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    #call-request-modal .modal-header h3 {
+        font-size: 18px;
+        margin-bottom: 4px;
+        padding-right: 32px;
+    }
+
+    #call-request-modal .modal-header p {
+        font-size: 13px;
+        margin-bottom: 0;
+        line-height: 1.3;
+    }
+
+    /* Direct-contact секція — компактна, стискається */
+    #call-request-modal .modal-direct-contact {
+        margin: 0;
+        padding: 10px 8px;
+        flex-shrink: 1;
+        min-height: 0;
+    }
+
+    #call-request-modal .modal-separator-text {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    #call-request-modal .modal-phone-link {
+        font-size: 16px;
+        margin-bottom: 6px;
+        padding: 0;
+    }
+
+    #call-request-modal .modal-social-links {
+        gap: 20px;
+    }
+
+    #call-request-modal .modal-social-link {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+    }
+
+    #call-request-modal .modal-social-link svg,
+    #call-request-modal .modal-social-link img {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Форма — flex-grow щоб зайняла залишок, але стискається */
+    #call-request-modal .modal-form {
+        flex-shrink: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #call-request-modal .modal-form .form-group {
+        margin-bottom: 0;
+    }
+
+    #call-request-modal .modal-form .form-label {
+        font-size: 13px;
+        margin-bottom: 3px;
+    }
+
+    #call-request-modal .modal-form .form-input {
+        padding: 8px 10px;
+        font-size: 14px;
+        height: auto;
+        min-height: 38px;
+    }
+
+    #call-request-modal .modal-form .form-submit {
+        margin-top: 4px;
+        padding: 10px 16px;
+        font-size: 14px;
+        flex-shrink: 0;
     }
 
     body.modal-open .call-button {
@@ -259,6 +392,82 @@
         opacity: 0;
         transition: opacity 0.3s ease;
         z-index: var(--z-fixed-buttons);
+    }
+}
+
+/* ===== CALL-REQUEST MODAL — маленькі екрани по висоті ===== */
+@media (max-height: 640px) and (max-width: 767px) {
+    #call-request-modal {
+        padding: 10px 0 5px;
+    }
+
+    #call-request-modal .modal-content {
+        max-height: calc(100dvh - 20px);
+        max-height: calc(var(--mobile-vh, 100vh) - 20px);
+        padding: 32px 12px 12px;
+        gap: 6px;
+    }
+
+    #call-request-modal .modal-close {
+        top: 4px;
+        right: 4px;
+        font-size: 28px;
+        width: 36px;
+        height: 36px;
+    }
+
+    #call-request-modal .modal-header h3 {
+        font-size: 16px;
+        margin-bottom: 2px;
+    }
+
+    #call-request-modal .modal-header p {
+        font-size: 12px;
+        line-height: 1.2;
+    }
+
+    #call-request-modal .modal-direct-contact {
+        padding: 6px;
+    }
+
+    #call-request-modal .modal-separator-text {
+        font-size: 11px;
+        margin-bottom: 4px;
+    }
+
+    #call-request-modal .modal-phone-link {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    #call-request-modal .modal-social-link {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+    }
+
+    #call-request-modal .modal-social-link svg,
+    #call-request-modal .modal-social-link img {
+        width: 16px;
+        height: 16px;
+    }
+
+    #call-request-modal .modal-form .form-label {
+        font-size: 12px;
+        margin-bottom: 2px;
+    }
+
+    #call-request-modal .modal-form .form-input {
+        padding: 6px 8px;
+        font-size: 13px;
+        min-height: 34px;
+    }
+
+    #call-request-modal .modal-form .form-submit {
+        margin-top: 2px;
+        padding: 8px 12px;
+        font-size: 13px;
     }
 }
 
@@ -277,6 +486,33 @@
                 top: max(constant(safe-area-inset-top, 16px), 16px);
                 right: max(constant(safe-area-inset-right, 16px), 16px);
             }
+        }
+
+        /* iOS Safari: call-request-modal — точний розрахунок висоти з safe-area */
+        #call-request-modal .modal-content {
+            max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 40px);
+        }
+
+        /* Close-button всередині модалки з урахуванням safe-area */
+        #call-request-modal .modal-close {
+            position: absolute;
+            top: max(env(safe-area-inset-top, 8px), 8px);
+            right: max(env(safe-area-inset-right, 8px), 8px);
+            background: none;
+            -webkit-appearance: none;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            outline: none;
+        }
+    }
+}
+
+/* iOS Safari: маленькі екрани */
+@supports (-webkit-touch-callout: none) {
+    @media (max-height: 640px) and (max-width: 767px) {
+        #call-request-modal .modal-content {
+            max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 20px);
         }
     }
 }
