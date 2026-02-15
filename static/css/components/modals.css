@@ -315,32 +315,23 @@ body.modal-open {
 
 /* ===== RESPONSIVE: Мобільний ===== */
 @media (max-width: 767px) {
-    .modal-direct-contact {
-        margin: var(--space-md) 0;
-        padding: var(--space-sm);
-        background: rgba(255, 255, 255, 0.08);
-    }
-
     .modal-separator-text {
         font-size: var(--font-small);
-        margin-bottom: var(--space-sm);
     }
 
     .modal-phone-link {
         display: block;
         font-size: 18px;
-        padding: var(--space-xs) 0;
         word-break: break-word;
+        padding: 0 0 7px 0;
     }
 
     .modal-social-links {
-        gap: 12px;
+        gap: 35px;
         justify-content: center;
     }
 
     .modal-social-link {
-        width: 44px;
-        height: 44px;
         min-width: 44px;
         min-height: 44px;
     }
