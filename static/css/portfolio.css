@@ -4,23 +4,6 @@
    Portfolio Projects - асиметричний layout з чергуванням
    ================================= */
 
-/* ===== SCROLL-SNAP: ОДНА КАРТКА ЗА ОДИН СКРОЛ ===== */
-/* Файл portfolio.css підключається тільки на сторінці портфоліо */
-html {
-    scroll-snap-type: y proximity;
-    scroll-padding-top: var(--nav-height, 60px);
-}
-
-.hero-section {
-    scroll-snap-align: start;
-}
-
-.project-card-section {
-    height: 100vh;
-    height: 100svh;
-    scroll-snap-align: start;
-}
-
 /* ===== PORTFOLIO PROJECTS SECTION ===== */
 /* Використовує .content-section--first з hero-parallax.css для автоматичного стилювання */
 
@@ -29,6 +12,12 @@ html {
     /* padding видалено для коректного відображення border карток */
     padding-top: 0;  /* Перевизначаємо padding-top з .content-section--first */
     padding-bottom: 0;  /* Видалено нижній padding */
+    
+    /* ===== SCROLL SNAP: 1 скролл = 1 картка ===== */
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+    height: 100vh;
+    -webkit-overflow-scrolling: touch; /* Для плавності на iOS */
 }
 
 /* Скидуємо margin-top для .container усередині portfolio */
@@ -44,27 +33,27 @@ html {
 }
 
 /* Z-index для sticky cards ефекту */
-.project-card-section:nth-child(1) > .project-card {
+.project-card:nth-child(1) {
     z-index: 1;
 }
 
-.project-card-section:nth-child(2) > .project-card {
+.project-card:nth-child(2) {
     z-index: 2;
 }
 
-.project-card-section:nth-child(3) > .project-card {
+.project-card:nth-child(3) {
     z-index: 3;
 }
 
-.project-card-section:nth-child(4) > .project-card {
+.project-card:nth-child(4) {
     z-index: 4;
 }
 
-.project-card-section:nth-child(5) > .project-card {
+.project-card:nth-child(5) {
     z-index: 5;
 }
 
-.project-card-section:nth-child(6) > .project-card {
+.project-card:nth-child(6) {
     z-index: 6;
 }
 
@@ -83,6 +72,11 @@ html {
     border: 3px solid rgba(230, 81, 0, 0.3);
     border-radius: var(--radius-md);
     overflow: hidden;
+    
+    /* ===== SCROLL SNAP: Кожна картка - точка зупинки ===== */
+    scroll-snap-align: start;
+    scroll-snap-stop: always; /* Критично: не пропускати картки при швидкому скролі */
+    min-height: 100vh; /* Кожна картка займає мінімум весь екран */
 }
 
 .project-card.visible,
@@ -297,6 +291,7 @@ html {
 @media (max-width: 1024px) {
     .portfolio-projects {
         padding-top: 0;  /* Перевизначаємо padding-top з .content-section--first */
+        /* Scroll snap залишається активним на планшетах */
     }
     .project-card__container {
         gap: var(--space-md);
@@ -332,18 +327,18 @@ html {
 @media (max-width: 767px) {
     .portfolio-projects {
         padding-top: 0;  /* Перевизначаємо padding-top з .content-section--first */
+        /* Вимикаємо scroll snap на мобільних для звичайного плавного скролу */
+        scroll-snap-type: none;
+        height: auto; /* Дозволяємо природну висоту */
     }
     /* padding видалено з .portfolio-projects для коректного відображення border */
-
-    .project-card-section {
-        height: auto;
-        min-height: 100vh;
-        min-height: 100svh;
-    }
 
     .project-card {
         top: max(var(--nav-height, 60px), env(safe-area-inset-top));
         border-radius: var(--radius-sm);
+        /* Вимикаємо scroll snap для карток на мобільних */
+        scroll-snap-align: none;
+        min-height: auto; /* Дозволяємо природну висоту карток */
     }
 
     .project-card__container {
