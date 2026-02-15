@@ -228,3 +228,125 @@ body.modal-open {
     color: var(--color-white);
     border-color: var(--color-black);
 }
+
+/* ===== CALL REQUEST MODAL - DIRECT CONTACT SECTION ===== */
+.modal-direct-contact {
+    margin: var(--space-md) 0;
+    padding: var(--space-md);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.modal-separator-text {
+    color: var(--color-white);
+    font-size: var(--font-small);
+    margin-bottom: var(--space-sm);
+    opacity: 0.9;
+}
+
+.modal-phone-link {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-brand-orange);
+    text-decoration: none;
+    margin-bottom: var(--space-md);
+    transition: all var(--transition-normal) var(--easing-default);
+}
+
+.modal-phone-link:hover {
+    color: var(--color-white);
+    text-shadow: 0 0 8px rgba(220, 20, 60, 0.4);
+}
+
+.modal-social-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+.modal-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+    text-decoration: none;
+    transition: all var(--transition-normal) var(--easing-default);
+}
+
+.modal-social-link svg {
+    width: 24px;
+    height: 24px;
+}
+
+.modal-social-link:hover {
+    background: var(--color-brand-orange);
+    color: var(--color-white);
+    transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVE: Планшет ===== */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .modal-direct-contact {
+        padding: var(--space-md);
+    }
+
+    .modal-phone-link {
+        font-size: 18px;
+    }
+
+    .modal-social-link {
+        width: 40px;
+        height: 40px;
+    }
+
+    .modal-social-link svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* ===== RESPONSIVE: Мобільний ===== */
+@media (max-width: 767px) {
+    .modal-direct-contact {
+        margin: var(--space-md) 0;
+        padding: var(--space-sm);
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .modal-separator-text {
+        font-size: var(--font-small);
+        margin-bottom: var(--space-sm);
+    }
+
+    .modal-phone-link {
+        display: block;
+        font-size: 18px;
+        padding: var(--space-xs) 0;
+        word-break: break-word;
+    }
+
+    .modal-social-links {
+        gap: 12px;
+        justify-content: center;
+    }
+
+    .modal-social-link {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .modal-social-link svg {
+        width: 20px;
+        height: 20px;
+    }
+}
