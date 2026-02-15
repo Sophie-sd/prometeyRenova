@@ -47,6 +47,10 @@
     z-index: 5;
 }
 
+.project-card:nth-child(6) {
+    z-index: 6;
+}
+
 /* ===== PROJECT CARD BASE ===== */
 
 .project-card {
@@ -426,6 +430,7 @@
 
 @supports (-webkit-touch-callout: none) {
     /* iOS Safari - webkit префікси для transitions */
+    #project-speakup-modal .modal-close,
     #project-coresync-modal .modal-close,
     #project-playvision-modal .modal-close,
     #project-beautyshop-modal .modal-close,
@@ -628,6 +633,7 @@
 
 /* ===== PORTFOLIO MODAL Z-INDEX - ГАРАНТІЯ ПРАВИЛЬНОГО НАКЛАДАННЯ ===== */
 /* Явні z-index для портфоліо модальних вікон, щоб вони завжди були вище кнопки "Замовити дзвінок" та footer */
+#project-speakup-modal,
 #project-coresync-modal,
 #project-playvision-modal,
 #project-beautyshop-modal,
@@ -636,6 +642,7 @@
     z-index: var(--z-modal-backdrop, 10002);
 }
 
+#project-speakup-modal .modal-backdrop,
 #project-coresync-modal .modal-backdrop,
 #project-playvision-modal .modal-backdrop,
 #project-beautyshop-modal .modal-backdrop,
@@ -644,6 +651,7 @@
     z-index: var(--z-modal-backdrop, 10002);
 }
 
+#project-speakup-modal .modal-content,
 #project-coresync-modal .modal-content,
 #project-playvision-modal .modal-content,
 #project-beautyshop-modal .modal-content,
@@ -714,6 +722,7 @@
 /* Хрестик закриття - позиціонований sticky відносно .modal-content */
 /* Залишається у верхній частині при скролі контенту всередині модального вікна */
 /* Glassmorphism ефект: напівпрозорий кружечок навколо хрестика */
+#project-speakup-modal .modal-close,
 #project-coresync-modal .modal-close,
 #project-playvision-modal .modal-close,
 #project-beautyshop-modal .modal-close,
@@ -745,11 +754,13 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+#project-speakup-modal .modal-close:hover,
 #project-coresync-modal .modal-close:hover,
 #project-playvision-modal .modal-close:hover,
 #project-beautyshop-modal .modal-close:hover,
 #project-redrabbit-modal .modal-close:hover,
 #project-sunpannel-modal .modal-close:hover,
+#project-speakup-modal .modal-close:focus,
 #project-coresync-modal .modal-close:focus,
 #project-playvision-modal .modal-close:focus,
 #project-beautyshop-modal .modal-close:focus,
@@ -860,6 +871,7 @@
     }
 
     /* Адаптація хрестика для планшетів */
+    #project-speakup-modal .modal-close,
     #project-coresync-modal .modal-close,
     #project-playvision-modal .modal-close,
     #project-beautyshop-modal .modal-close,
@@ -920,6 +932,7 @@
     }
 
     /* Адаптація хрестика для мобільних */
+    #project-speakup-modal .modal-close,
     #project-coresync-modal .modal-close,
     #project-playvision-modal .modal-close,
     #project-beautyshop-modal .modal-close,
@@ -935,6 +948,7 @@
 
     /* ===== PORTFOLIO MODAL PADDING - РІВНОМІРНІ ВІДСТУПИ ===== */
     /* Перевизначаємо padding з mobile-optimizations.css для рівномірних відступів */
+    #project-speakup-modal,
     #project-coresync-modal,
     #project-playvision-modal,
     #project-beautyshop-modal,
@@ -951,6 +965,7 @@
     /* ===== PORTFOLIO MODAL CONTENT HEIGHT - КОРЕКТНА ВИСОТА ===== */
     /* Оновлюємо max-height для .portfolio-modal-content з урахуванням нових відступів */
     /* Враховуємо: padding-top + padding-bottom на .modal + margin на .portfolio-modal-content */
+    #project-speakup-modal .portfolio-modal-content,
     #project-coresync-modal .portfolio-modal-content,
     #project-playvision-modal .portfolio-modal-content,
     #project-beautyshop-modal .portfolio-modal-content,
@@ -1046,6 +1061,7 @@
     }
 
     /* Адаптація хрестика для дуже маленьких екранів */
+    #project-speakup-modal .modal-close,
     #project-coresync-modal .modal-close,
     #project-playvision-modal .modal-close,
     #project-beautyshop-modal .modal-close,

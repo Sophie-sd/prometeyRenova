@@ -37,7 +37,37 @@
 <!-- Portfolio Projects Section -->
 <section class="portfolio-projects content-section--first">
     <div class="container container-wide">
-        <!-- PROJECT 1: CoreSync - Image Right -->
+        <!-- PROJECT 1: Speak Up - Image Right -->
+        <article class="project-card project-card--image-right">
+            <div class="project-card__container">
+                <div class="project-card__image-wrapper">
+                    <picture>
+                        <source media="(max-width: 767px)" srcset="{% static 'images/portfolio_page/speakup_card_mb.png' %}">
+                        <img src="{% static 'images/portfolio_page/speakup.png' %}" alt="{% trans 'Speak Up - Educational Platform' %}" class="project-card__image" loading="lazy" decoding="async">
+                    </picture>
+                </div>
+                <div class="project-card__content">
+                    <h2 class="project-card__title">SPEAK UP
+                        <span class="project-card__subtitle">{% trans "EDUCATIONAL PLATFORM" %}</span>
+                    </h2>
+                    <p class="project-card__description">{% trans "Корпоративний сайт, інтерактивна онлайн-платформа для вивчення англійської мови, що об'єднує студентів та викладачів в єдину екосистему. Автоматизація навчального процесу, від тестування рівня знань до отримання сертифікату." %}</p>
+                    
+                    <div class="project-card__integrations">
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "інтеграція платіжних систем" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "мультимовність" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "LMS-система" %}</span>
+                        <span class="integration-tag"><span class="integration-hash">#</span>{% trans "особистий кабінет студента" %}</span>
+                    </div>
+                    
+                    <button class="btn btn-secondary project-card__more-btn" data-modal="project-speakup-modal" type="button">
+                        <span>{% trans "Більше інформації" %}</span>
+                        <span class="detail-arrow" aria-hidden="true">↗</span>
+                    </button>
+                </div>
+            </div>
+        </article>
+
+        <!-- PROJECT 2: CoreSync - Image Right -->
         <article class="project-card project-card--image-right">
             <div class="project-card__container">
                 <div class="project-card__image-wrapper">
@@ -67,7 +97,7 @@
             </div>
         </article>
 
-        <!-- PROJECT 2: PlayVision - Image Left -->
+        <!-- PROJECT 3: PlayVision - Image Left -->
         <article class="project-card project-card--image-left">
             <div class="project-card__container">
                 <div class="project-card__image-wrapper">
@@ -97,7 +127,7 @@
             </div>
         </article>
 
-        <!-- PROJECT 3: BeautyShop - Image Right -->
+        <!-- PROJECT 4: BeautyShop - Image Right -->
         <article class="project-card project-card--image-right">
             <div class="project-card__container">
                 <div class="project-card__image-wrapper">
@@ -127,7 +157,7 @@
             </div>
         </article>
 
-        <!-- PROJECT 4: RedRabbit - Image Left -->
+        <!-- PROJECT 5: RedRabbit - Image Left -->
         <article class="project-card project-card--image-left">
             <div class="project-card__container">
                 <div class="project-card__image-wrapper">
@@ -157,7 +187,7 @@
             </div>
         </article>
 
-        <!-- PROJECT 5: SunPannel - Image Right -->
+        <!-- PROJECT 6: SunPannel - Image Right -->
         <article class="project-card project-card--image-right">
             <div class="project-card__container">
                 <div class="project-card__image-wrapper">
@@ -190,6 +220,39 @@
 </section>
 
 <!-- Portfolio Project Modals -->
+
+<!-- Speak Up Modal -->
+<div class="modal" id="project-speakup-modal" role="dialog" aria-labelledby="speakup-modal-title" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content portfolio-modal-content">
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}" data-modal-id="project-speakup-modal">&times;</button>
+        
+        <h2 class="portfolio-modal-title" id="speakup-modal-title">Speak Up — {% trans "Educational Platform" %}</h2>
+        
+        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/speakup_desc.png' %}" alt="{% trans 'Speak Up - опис проекту' %}" loading="lazy" decoding="async">
+        
+        <p class="portfolio-modal-text">{% trans "Масштабна освітня платформа (LMS) з адаптивним інтерфейсом та особистими кабінетами для різних ролей: студент, викладач, адміністратор. Рішення забезпечує повний цикл навчання: онлайн-уроки, інтерактивні домашні завдання, трекінг успішності та автоматизовану систему оцінювання." %}</p>
+        
+        <p class="portfolio-modal-integrations-title">{% trans "ІНТЕГРАЦІЇ:" %}</p>
+        <ul class="portfolio-modal-integrations-list">
+            <li>{% trans "безпечні онлайн-платежі та рекурентні списання (підписки)" %}</li>
+            <li>{% trans "інтерактивний календар та букінг занять" %}</li>
+            <li>{% trans "система сповіщень (e-mail/push) про уроки" %}</li>
+            <li>{% trans "модуль відеозв'язку для проведення занять" %}</li>
+        </ul>
+        
+        <p class="portfolio-modal-text">{% trans "Платформа включає потужну адміністративну панель, реалізовану як універсальний інструмент для керування розкладом, базою студентів, фінансовою звітністю та контентом курсів без необхідності залучення розробників." %}</p>
+        
+        <div class="portfolio-modal-images-grid">
+            <img src="{% static 'images/portfolio_page/speakup_mb.png' %}" alt="{% trans 'Speak Up - мобільна версія' %}" loading="lazy" decoding="async">
+            <img src="{% static 'images/portfolio_page/speakup_tab.png' %}" alt="{% trans 'Speak Up - планшетна версія' %}" loading="lazy" decoding="async">
+        </div>
+        
+        <p class="portfolio-modal-text">{% trans "Підтримує мультимовність інтерфейсу та автоматичну конвертацію валют, що дозволяє працювати на міжнародних ринках. Система побудована на модульній архітектурі, що гарантує високу швидкість роботи при великих навантаженнях та можливість легкого додавання нових навчальних інструментів або мовних курсів без зміни ядра." %}</p>
+        
+        <img class="portfolio-modal-image-full" src="{% static 'images/portfolio_page/speakup_lap.png' %}" alt="{% trans 'Speak Up - десктопна версія' %}" loading="lazy" decoding="async">
+    </div>
+</div>
 
 <!-- CoreSync Modal -->
 <div class="modal" id="project-coresync-modal" role="dialog" aria-labelledby="coresync-modal-title" aria-hidden="true">
