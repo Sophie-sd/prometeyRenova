@@ -39,6 +39,7 @@ class PaymentLink(models.Model):
     description = models.CharField(max_length=500, blank=True, default='')
     contract_file = models.FileField(upload_to='contracts/', blank=True, null=True, help_text='Персональний договір для цього посилання')
     company_info = models.TextField(blank=True, default='')
+    payment_instructions = models.TextField(blank=True, default='')
 
     amount_usd = models.DecimalField(max_digits=12, decimal_places=2)
     exchange_rate_usd_to_uah = models.DecimalField(max_digits=12, decimal_places=4, default=Decimal('40.0000'))
