@@ -11,45 +11,99 @@
 {% block content %}
 <section class="payment-hero full-height">
     <div class="container">
+        <!-- Header -->
         <h1 class="text-mega color-brand-orange mb-lg">{% trans "Оплата" %}</h1>
+        
         {% if payment_settings %}
-        <p class="text-large">{{ payment_settings.title }}</p>
-        <p>{{ payment_settings.description }}</p>
+        <div class="payment-header mb-lg">
+            <p class="text-large">{{ payment_settings.title }}</p>
+            <p>{{ payment_settings.description }}</p>
+        </div>
         {% endif %}
 
         {% if payment_link %}
         <div class="payment-box">
-            <p class="text-large">{% trans "Клієнт:" %} <strong>{{ payment_link.client_name }}</strong></p>
-            <p>{% trans "Сума:" %} <strong>{{ payment_link.amount_usd }} USD</strong> (~ {{ payment_link.final_amount_uah }} UAH)</p>
-
-            {% if payment_link.contract_file %}
-            <div class="mb-md">
-                <a href="{{ payment_link.contract_file.url }}" class="btn btn-outline" target="_blank" download>
-                    {% trans "Завантажити договір" %}
-                </a>
+            <!-- Client Info -->
+            <div class="payment-section">
+                <p class="text-large">{% trans "Клієнт:" %} <strong>{{ payment_link.client_name }}</strong></p>
+                {% if payment_link.description %}
+                <p class="mt-sm">{{ payment_link.description }}</p>
+                {% endif %}
             </div>
-            {% elif payment_settings.default_contract_file %}
-            <div class="mb-md">
-                <a href="{{ payment_settings.default_contract_file.url }}" class="btn btn-outline" target="_blank" download>
-                    {% trans "Завантажити типовий договір" %}
-                </a>
+
+            <!-- Amount -->
+            <div class="payment-section amount-section">
+                <p>{% trans "Сума до сплати:" %}</p>
+                <p class="amount-display">
+                    <span class="amount-usd">{{ payment_link.amount_usd }} USD</span>
+                    <span class="amount-uah">(~ {{ payment_link.final_amount_uah }} UAH)</span>
+                </p>
+            </div>
+
+            <!-- Timer -->
+            {% if expires_at_iso %}
+            <div class="payment-section timer-section" id="countdown-container">
+                <p>{% trans "Час на оплату:" %}</p>
+                <div class="countdown" id="countdown">--:--:--</div>
             </div>
             {% endif %}
 
-            <form method="post" action="{% url 'payment:create_invoice' unique_id=payment_link.unique_id %}">
+            <!-- Company Info & Instructions -->
+            {% if payment_link.company_info or payment_link.payment_instructions %}
+            <div class="payment-section info-section">
+                {% if payment_link.company_info %}
+                <div class="mb-md">
+                    <strong>{% trans "Інформація про компанію:" %}</strong>
+                    <p>{{ payment_link.company_info|linebreaksbr }}</p>
+                </div>
+                {% endif %}
+                
+                {% if payment_link.payment_instructions %}
+                <div class="mb-md">
+                    <strong>{% trans "Інструкції:" %}</strong>
+                    <p>{{ payment_link.payment_instructions|linebreaksbr }}</p>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Contract -->
+            {% if payment_link.contract_file or payment_settings.default_contract_file %}
+            <div class="payment-section contract-section">
+                {% if payment_link.contract_file %}
+                    <a href="{{ payment_link.contract_file.url }}" class="btn btn-outline w-100" target="_blank">
+                        {% trans "Переглянути / Завантажити договір" %}
+                    </a>
+                {% elif payment_settings.default_contract_file %}
+                    <a href="{{ payment_settings.default_contract_file.url }}" class="btn btn-outline w-100" target="_blank">
+                        {% trans "Завантажити типовий договір" %}
+                    </a>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Pay Button -->
+            <div class="payment-section action-section">
+                <form method="post" action="{% url 'payment:create_invoice' unique_id=payment_link.unique_id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-primary w-100">{% trans "Оплатити карткою" %}</button>
+                </form>
+            </div>
+        </div>
+
+        {% elif test_mode %}
+        <div class="payment-box">
+            <p class="text-large">{% trans "Тестовий режим" %}</p>
+            <form method="post">
                 {% csrf_token %}
-                <button class="btn btn-primary">{% trans "Оплатити карткою" %}</button>
+                <button class="btn btn-primary w-100">{% trans "Створити тестовий інвойс" %}</button>
             </form>
         </div>
-        {% elif test_mode %}
-        <form method="post">
-            {% csrf_token %}
-            <button class="btn btn-primary">{% trans "Створити тестовий інвойс" %}</button>
-        </form>
         {% else %}
         <p>{% trans "Немає даних для платежу" %}</p>
         {% endif %}
 
+        <!-- Bank Transfer (Fallback) -->
         <div class="bank-transfer mt-lg">
             <h2 class="text-large color-brand-orange mb-sm">{% trans "Банківський переказ" %}</h2>
             <p>IBAN: UA00 0000 0000 0000 0000 0000 0000</p>
@@ -58,4 +112,37 @@
         </div>
     </div>
 </section>
+
+{% if expires_at_iso %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const expiresAt = new Date("{{ expires_at_iso }}").getTime();
+        const countdownEl = document.getElementById('countdown');
+        
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = expiresAt - now;
+            
+            if (distance < 0) {
+                countdownEl.innerHTML = "{% trans 'ЧАС ВИЙШОВ' %}";
+                countdownEl.classList.add('expired');
+                document.querySelector('.action-section button').disabled = true;
+                return;
+            }
+            
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            countdownEl.innerHTML = 
+                (hours < 10 ? "0" + hours : hours) + ":" + 
+                (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+                (seconds < 10 ? "0" + seconds : seconds);
+        }
+        
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    });
+</script>
+{% endif %}
 {% endblock %}

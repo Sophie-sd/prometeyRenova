@@ -34,9 +34,15 @@ def payment_page(request: HttpRequest, unique_id):
         return render(request, 'payment/link_inactive.html', {'payment_link': payment_link})
 
     payment_settings = get_payment_settings()
+    
+    expires_at_iso = None
+    if payment_link.expires_at:
+        expires_at_iso = payment_link.expires_at.isoformat()
+
     return render(request, 'payment/payment_page.html', {
         'payment_link': payment_link,
         'payment_settings': payment_settings,
+        'expires_at_iso': expires_at_iso,
     })
 
 

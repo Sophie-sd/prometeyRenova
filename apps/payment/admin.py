@@ -22,7 +22,25 @@ class PaymentLinkAdmin(admin.ModelAdmin):
     list_filter = ('status', 'created_at')
     search_fields = ('client_name', 'client_email', 'unique_id')
     readonly_fields = ('final_amount_uah', 'first_opened_at', 'expires_at', 'monobank_invoice_id', 'monobank_invoice_url', 'payment_processed_at')
-    fields = ('client_name', 'client_email', 'description', 'contract_file', 'amount_usd', 'exchange_rate_usd_to_uah', 'final_amount_uah', 'status', 'duration_minutes', 'first_opened_at', 'expires_at', 'monobank_invoice_id', 'monobank_invoice_url', 'payment_processed_at')
+    
+    fieldsets = (
+        ('Клієнт', {
+            'fields': ('client_name', 'client_email')
+        }),
+        ('Деталі платежу', {
+            'fields': ('description', 'company_info', 'payment_instructions', 'contract_file')
+        }),
+        ('Сума та Валюта', {
+            'fields': ('amount_usd', 'exchange_rate_usd_to_uah', 'final_amount_uah')
+        }),
+        ('Налаштування', {
+            'fields': ('status', 'duration_minutes')
+        }),
+        ('Системна інформація', {
+            'fields': ('first_opened_at', 'expires_at', 'payment_processed_at', 'monobank_invoice_id', 'monobank_invoice_url'),
+            'classes': ('collapse',)
+        }),
+    )
 
     def get_client_facing_link(self, obj: PaymentLink) -> str:
         base_url = getattr(settings, 'SITE_URL', '').rstrip('/') or 'https://pay.prometeylabs.com'
