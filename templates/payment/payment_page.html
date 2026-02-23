@@ -22,6 +22,20 @@
             <p class="text-large">{% trans "Клієнт:" %} <strong>{{ payment_link.client_name }}</strong></p>
             <p>{% trans "Сума:" %} <strong>{{ payment_link.amount_usd }} USD</strong> (~ {{ payment_link.final_amount_uah }} UAH)</p>
 
+            {% if payment_link.contract_file %}
+            <div class="mb-md">
+                <a href="{{ payment_link.contract_file.url }}" class="btn btn-outline" target="_blank" download>
+                    {% trans "Завантажити договір" %}
+                </a>
+            </div>
+            {% elif payment_settings.default_contract_file %}
+            <div class="mb-md">
+                <a href="{{ payment_settings.default_contract_file.url }}" class="btn btn-outline" target="_blank" download>
+                    {% trans "Завантажити типовий договір" %}
+                </a>
+            </div>
+            {% endif %}
+
             <form method="post" action="{% url 'payment:create_invoice' unique_id=payment_link.unique_id %}">
                 {% csrf_token %}
                 <button class="btn btn-primary">{% trans "Оплатити карткою" %}</button>

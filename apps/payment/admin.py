@@ -22,6 +22,7 @@ class PaymentLinkAdmin(admin.ModelAdmin):
     list_filter = ('status', 'created_at')
     search_fields = ('client_name', 'client_email', 'unique_id')
     readonly_fields = ('final_amount_uah', 'first_opened_at', 'expires_at', 'monobank_invoice_id', 'monobank_invoice_url', 'payment_processed_at')
+    fields = ('client_name', 'client_email', 'description', 'contract_file', 'amount_usd', 'exchange_rate_usd_to_uah', 'final_amount_uah', 'status', 'duration_minutes', 'first_opened_at', 'expires_at', 'monobank_invoice_id', 'monobank_invoice_url', 'payment_processed_at')
 
     def get_client_facing_link(self, obj: PaymentLink) -> str:
         base_url = getattr(settings, 'SITE_URL', '').rstrip('/') or 'https://pay.prometeylabs.com'
