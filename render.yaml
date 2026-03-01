@@ -32,3 +32,27 @@ services:
         value: "Prometey Labs <info@prometeylabs.com>"
       - key: CONTACT_EMAIL
         value: "info@prometeylabs.com"
+      - key: KEYCRM_API_KEY
+        sync: false
+      - key: KEYCRM_PIPELINE_ID
+        value: "1"
+      - key: KEYCRM_SOURCE_ID
+        sync: false
+      - key: KEYCRM_GCLID_FIELD_UUID
+        sync: false
+      - key: KEYCRM_WEBHOOK_SECRET
+        generateValue: true
+      - key: KEYCRM_SUCCESS_STATUS_ID
+        sync: false
+      - key: GOOGLE_ADS_DEVELOPER_TOKEN
+        sync: false
+      - key: GOOGLE_ADS_CLIENT_ID
+        sync: false
+      - key: GOOGLE_ADS_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_ADS_REFRESH_TOKEN
+        sync: false
+      - key: GOOGLE_ADS_CUSTOMER_ID
+        sync: false
+      - key: GOOGLE_ADS_CONVERSION_ACTION_ID
+        sync: false

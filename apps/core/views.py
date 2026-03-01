@@ -6,11 +6,21 @@ from .form_handlers import (
     create_form_data, send_form_email, save_form_submission,
     send_test_result_email
 )
+from .keycrm_service import sync_submission_to_keycrm
 import logging
 from django.utils.translation import gettext_lazy as _
 
-# Налаштування логування
 logger = logging.getLogger(__name__)
+
+
+def _sync_to_keycrm(submission_id):
+    """Асинхронно синхронізує заявку з KeyCRM (не блокує відповідь користувачу)."""
+    try:
+        from apps.core.models import FormSubmission
+        submission = FormSubmission.objects.get(id=submission_id)
+        sync_submission_to_keycrm(submission)
+    except Exception as e:
+        logger.error(f"KeyCRM sync error for submission {submission_id}: {e}")
 
 # ===== БАЗОВІ СТОРІНКИ =====
 
@@ -144,6 +154,8 @@ def handle_site_request(request, name, phone):
         logger.error(f"Failed to save site-request submission: {save_error}")
         return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
     
+    _sync_to_keycrm(submission_id)
+    
     return create_form_response(
         True, 
         _('Дякуємо! Ваша заявка отримана. Ми зв\'яжемося з вами найближчим часом.'),
@@ -176,6 +188,8 @@ def handle_developer_request(request, name, phone):
         logger.error(f"Failed to save developer submission: {save_error}")
         return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
     
+    _sync_to_keycrm(submission_id)
+    
     return create_form_response(
         True,
         _('Дякуємо! Ваша заявка на курси отримана. Ми надішлемо детальну інформацію.'),
@@ -206,6 +220,8 @@ def handle_consultation_request(request, name, phone):
         logger.error(f"Failed to save consultation submission: {save_error}")
         return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
     
+    _sync_to_keycrm(submission_id)
+    
     return create_form_response(
         True,
         _('Дякуємо! Наш спеціаліст зв\'яжеться з вами протягом 15 хвилин.'),
@@ -235,6 +251,8 @@ def handle_contact_request(request, name, phone):
     if not submission_saved:
         logger.error(f"Failed to save contact submission: {save_error}")
         return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
+    
+    _sync_to_keycrm(submission_id)
     
     return create_form_response(
         True,
@@ -309,7 +327,8 @@ def handle_test_submission(request):
             logger.error(f"Failed to save test_result submission: {save_error}")
             return create_form_response(False, _('Помилка при обробці тесту'))
         
-        # Формуємо відповідь користувачу (редірект на сторінку подяки для аналітики/реклами)
+        _sync_to_keycrm(submission_id)
+        
         success_message = _('Дякуємо! Ми зв\'яжемося з вами найближчим часом.')
         
         return create_form_response(
@@ -343,6 +362,8 @@ def handle_call_request(request, name, phone):
         logger.error(f"Failed to save call-request submission: {save_error}")
         return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
     
+    _sync_to_keycrm(submission_id)
+    
     return create_form_response(
         True, 
         _('Дякуємо! Наш менеджер зателефонує вам протягом 15 хвилин.'),
@@ -367,6 +388,8 @@ def handle_footer_consultation(request, name, phone):
     if not submission_saved:
         logger.error(f"Failed to save footer-consultation submission: {save_error}")
         return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
+    
+    _sync_to_keycrm(submission_id)
     
     return create_form_response(
         True,

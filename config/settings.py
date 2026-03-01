@@ -157,6 +157,23 @@ if DEBUG:
 # FACEBOOK PIXEL
 FACEBOOK_PIXEL_ID = os.environ.get('FACEBOOK_PIXEL_ID', '1991082531458369')
 
+# KEYCRM
+KEYCRM_API_KEY = os.environ.get('KEYCRM_API_KEY', '')
+KEYCRM_PIPELINE_ID = int(os.environ.get('KEYCRM_PIPELINE_ID', '1'))
+KEYCRM_SOURCE_ID = os.environ.get('KEYCRM_SOURCE_ID', '')
+KEYCRM_GCLID_FIELD_UUID = os.environ.get('KEYCRM_GCLID_FIELD_UUID', '')
+KEYCRM_WEBHOOK_SECRET = os.environ.get('KEYCRM_WEBHOOK_SECRET', '')
+KEYCRM_SUCCESS_STATUS_ID = os.environ.get('KEYCRM_SUCCESS_STATUS_ID', '')
+
+# GOOGLE ADS API
+GOOGLE_ADS_DEVELOPER_TOKEN = os.environ.get('GOOGLE_ADS_DEVELOPER_TOKEN', '')
+GOOGLE_ADS_CLIENT_ID = os.environ.get('GOOGLE_ADS_CLIENT_ID', '')
+GOOGLE_ADS_CLIENT_SECRET = os.environ.get('GOOGLE_ADS_CLIENT_SECRET', '')
+GOOGLE_ADS_REFRESH_TOKEN = os.environ.get('GOOGLE_ADS_REFRESH_TOKEN', '')
+GOOGLE_ADS_CUSTOMER_ID = os.environ.get('GOOGLE_ADS_CUSTOMER_ID', '')
+GOOGLE_ADS_LOGIN_CUSTOMER_ID = os.environ.get('GOOGLE_ADS_LOGIN_CUSTOMER_ID', '')
+GOOGLE_ADS_CONVERSION_ACTION_ID = os.environ.get('GOOGLE_ADS_CONVERSION_ACTION_ID', '')
+
 # CSRF налаштування - ВИПРАВЛЕНО
 # Завжди включаємо основні домени
 CSRF_TRUSTED_ORIGINS = [
@@ -222,6 +239,21 @@ LOGGING = {
             'propagate': True,
         },
         'apps': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'apps.core.keycrm_service': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'apps.core.google_ads_service': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'apps.core.webhooks': {
             'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,

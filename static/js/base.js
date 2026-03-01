@@ -618,6 +618,10 @@ class PrometeyApp {
             formData.append('form_type', formType);
         }
 
+        if (window.GCLIDCapture) {
+            window.GCLIDCapture.appendToFormData(formData);
+        }
+
         return fetch(url, {
             method: 'POST',
             body: formData,

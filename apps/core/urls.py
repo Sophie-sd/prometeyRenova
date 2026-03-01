@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . import webhooks
 
 urlpatterns = [
     # Основні сторінки
@@ -15,8 +16,10 @@ urlpatterns = [
     path('intellectual-property/', views.IntellectualPropertyView.as_view(), name='intellectual_property'),
     path('thank-you/', views.ThankYouView.as_view(), name='thank_you'),
 
-    
     # AJAX обробка форм
     path('forms/submit/', views.handle_form_submission, name='form_submit'),
     path('forms/test/', views.handle_test_submission, name='test_submit'),
-] 
+    
+    # Webhooks
+    path('webhook/keycrm/', webhooks.keycrm_webhook, name='keycrm_webhook'),
+]

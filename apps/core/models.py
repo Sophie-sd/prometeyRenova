@@ -104,6 +104,27 @@ class FormSubmission(models.Model):
     )
     user_agent = models.TextField(blank=True, verbose_name=_('User Agent'))
     
+    # ===== GOOGLE ADS TRACKING =====
+    gclid = models.CharField(
+        max_length=255, blank=True,
+        verbose_name=_('Google Click ID')
+    )
+    utm_source = models.CharField(max_length=255, blank=True, verbose_name=_('UTM Source'))
+    utm_medium = models.CharField(max_length=255, blank=True, verbose_name=_('UTM Medium'))
+    utm_campaign = models.CharField(max_length=255, blank=True, verbose_name=_('UTM Campaign'))
+    utm_term = models.CharField(max_length=255, blank=True, verbose_name=_('UTM Term'))
+    utm_content = models.CharField(max_length=255, blank=True, verbose_name=_('UTM Content'))
+    
+    # ===== KEYCRM ІНТЕГРАЦІЯ =====
+    keycrm_card_id = models.IntegerField(
+        null=True, blank=True, db_index=True,
+        verbose_name=_('KeyCRM Card ID')
+    )
+    keycrm_synced = models.BooleanField(
+        default=False,
+        verbose_name=_('Синхронізовано з KeyCRM')
+    )
+    
     # ===== МЕНЕДЖМЕНТ =====
     manager_comment = models.TextField(
         blank=True, 

@@ -76,7 +76,13 @@ def create_form_data(form_type, name, phone, request, **extra_fields):
         'phone': phone,
         'timestamp': timezone.now().strftime('%d.%m.%Y %H:%M'),
         'ip': request.META.get('REMOTE_ADDR', ''),
-        'user_agent': request.META.get('HTTP_USER_AGENT', '')
+        'user_agent': request.META.get('HTTP_USER_AGENT', ''),
+        'gclid': request.POST.get('gclid', '').strip(),
+        'utm_source': request.POST.get('utm_source', '').strip(),
+        'utm_medium': request.POST.get('utm_medium', '').strip(),
+        'utm_campaign': request.POST.get('utm_campaign', '').strip(),
+        'utm_term': request.POST.get('utm_term', '').strip(),
+        'utm_content': request.POST.get('utm_content', '').strip(),
     }
     form_data.update(extra_fields)
     return form_data
@@ -162,11 +168,16 @@ def save_form_submission(form_type, form_data, email_success=False):
             'email': form_data.get('email', ''),
             'ip_address': form_data.get('ip'),
             'user_agent': form_data.get('user_agent'),
-            'status': 'new',  # Завжди новий при створенні
+            'status': 'new',
             'email_sent': email_success,
+            'gclid': form_data.get('gclid', ''),
+            'utm_source': form_data.get('utm_source', ''),
+            'utm_medium': form_data.get('utm_medium', ''),
+            'utm_campaign': form_data.get('utm_campaign', ''),
+            'utm_term': form_data.get('utm_term', ''),
+            'utm_content': form_data.get('utm_content', ''),
         }
         
-        # Встановлюємо час відправки email якщо успішно
         if email_success:
             submission_data['email_sent_at'] = timezone.now()
         
