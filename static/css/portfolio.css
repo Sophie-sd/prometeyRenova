@@ -14,10 +14,11 @@
     padding-bottom: 0;  /* Видалено нижній padding */
     
     /* ===== SCROLL SNAP: 1 скролл = 1 картка ===== */
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
     overflow-y: auto;
     height: 100vh;
     -webkit-overflow-scrolling: touch; /* Для плавності на iOS */
+    overscroll-behavior: contain;
 }
 
 /* Скидуємо margin-top для .container усередині portfolio */
@@ -75,7 +76,7 @@
     
     /* ===== SCROLL SNAP: Кожна картка - точка зупинки ===== */
     scroll-snap-align: start;
-    scroll-snap-stop: always; /* Критично: не пропускати картки при швидкому скролі */
+    scroll-snap-stop: normal;
     min-height: 100vh; /* Кожна картка займає мінімум весь екран */
 }
 
