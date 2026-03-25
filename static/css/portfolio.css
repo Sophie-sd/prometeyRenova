@@ -10,15 +10,10 @@
 .portfolio-projects {
     /* background, position, z-index вже є в .content-section--first */
     /* padding видалено для коректного відображення border карток */
-    padding-top: 0;  /* Перевизначаємо padding-top з .content-section--first */
-    padding-bottom: 0;  /* Видалено нижній padding */
-    
-    /* ===== SCROLL SNAP: 1 скролл = 1 картка ===== */
-    scroll-snap-type: y proximity;
-    overflow-y: auto;
-    height: 100vh;
-    -webkit-overflow-scrolling: touch; /* Для плавності на iOS */
-    overscroll-behavior: contain;
+    padding-top: 0;
+    padding-bottom: 0;
+    /* Природна висота — картки самі задають висоту через min-height: 100vh */
+    /* height, overflow, scroll-snap прибрані: вони ламали sticky-stacking і блокували футер */
 }
 
 /* Скидуємо margin-top для .container усередині portfolio */
@@ -73,11 +68,7 @@
     border: 3px solid rgba(230, 81, 0, 0.3);
     border-radius: var(--radius-md);
     overflow: hidden;
-    
-    /* ===== SCROLL SNAP: Кожна картка - точка зупинки ===== */
-    scroll-snap-align: start;
-    scroll-snap-stop: normal;
-    min-height: 100vh; /* Кожна картка займає мінімум весь екран */
+    min-height: 100vh;
 }
 
 .project-card.visible,
@@ -291,8 +282,7 @@
 /* Tablet (768px - 1024px) */
 @media (max-width: 1024px) {
     .portfolio-projects {
-        padding-top: 0;  /* Перевизначаємо padding-top з .content-section--first */
-        /* Scroll snap залишається активним на планшетах */
+        padding-top: 0;
     }
     .project-card__container {
         gap: var(--space-md);
@@ -327,19 +317,13 @@
 /* Mobile (до 767px) */
 @media (max-width: 767px) {
     .portfolio-projects {
-        padding-top: 0;  /* Перевизначаємо padding-top з .content-section--first */
-        /* Вимикаємо scroll snap на мобільних для звичайного плавного скролу */
-        scroll-snap-type: none;
-        height: auto; /* Дозволяємо природну висоту */
+        padding-top: 0;
     }
-    /* padding видалено з .portfolio-projects для коректного відображення border */
 
     .project-card {
         top: max(var(--nav-height, 60px), env(safe-area-inset-top));
         border-radius: var(--radius-sm);
-        /* Вимикаємо scroll snap для карток на мобільних */
-        scroll-snap-align: none;
-        min-height: auto; /* Дозволяємо природну висоту карток */
+        min-height: auto;
     }
 
     .project-card__container {
