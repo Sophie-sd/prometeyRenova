@@ -38,7 +38,21 @@
         </main>
 
         <footer class="pay-footer">
-            <a href="https://prometeylabs.com" target="_blank" rel="noopener">prometeylabs.com</a>
+            <p class="pay-footer-brand">
+                © PrometeyLabs ·
+                <a href="https://prometeylabs.com" target="_blank" rel="noopener">prometeylabs.com</a>
+            </p>
+            <nav class="pay-footer-legal" aria-label="Legal">
+                <a href="{% url 'offer' %}" target="_blank" rel="noopener">{% trans "Публічна оферта" %}</a>
+                <span class="pay-footer-dot">·</span>
+                <a href="{% url 'privacy' %}" target="_blank" rel="noopener">{% trans "Конфіденційність" %}</a>
+                <span class="pay-footer-dot">·</span>
+                <a href="{% url 'cookies' %}" target="_blank" rel="noopener">{% trans "Cookies" %}</a>
+                <span class="pay-footer-dot">·</span>
+                <a href="{% url 'refund' %}" target="_blank" rel="noopener">{% trans "Повернення коштів" %}</a>
+                <span class="pay-footer-dot">·</span>
+                <a href="{% url 'intellectual_property' %}" target="_blank" rel="noopener">{% trans "Інтел. власність" %}</a>
+            </nav>
         </footer>
 
     </div>
