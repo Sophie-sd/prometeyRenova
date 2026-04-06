@@ -20,7 +20,7 @@ def get_payment_settings():
 
 
 def parse_requisites(text: str) -> list:
-    """Розбиває company_info на структуровані рядки {label, value}."""
+    """Розбиває company_info на структуровані рядки {label, value, copyable}."""
     rows = []
     for line in (text or '').splitlines():
         line = line.strip()
@@ -28,9 +28,9 @@ def parse_requisites(text: str) -> list:
             continue
         if ':' in line:
             label, _, value = line.partition(':')
-            rows.append({'label': label.strip(), 'value': value.strip()})
+            rows.append({'label': label.strip(), 'value': value.strip(), 'copyable': True})
         else:
-            rows.append({'label': '', 'value': line})
+            rows.append({'label': '', 'value': line, 'copyable': True})
     return rows
 
 

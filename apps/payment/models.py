@@ -47,14 +47,14 @@ class RecipientProfile(models.Model):
 
     def as_requisites_rows(self) -> list:
         fields = [
-            ('Отримувач', self.recipient),
-            ('IBAN', self.iban),
-            ('ІПН/ЄДРПОУ', self.ipn),
-            ('Банк', self.bank),
-            ('МФО', self.mfo),
-            ('ЄДРПОУ Банку', self.bank_edrpou),
+            ('Отримувач',    self.recipient,   True),
+            ('IBAN',         self.iban,         True),
+            ('ІПН/ЄДРПОУ',  self.ipn,          True),
+            ('Банк',         self.bank,         False),
+            ('МФО',          self.mfo,          False),
+            ('ЄДРПОУ Банку', self.bank_edrpou,  False),
         ]
-        return [{'label': lbl, 'value': val} for lbl, val in fields if val]
+        return [{'label': lbl, 'value': val, 'copyable': cp} for lbl, val, cp in fields if val]
 
 
 class PaymentLink(models.Model):

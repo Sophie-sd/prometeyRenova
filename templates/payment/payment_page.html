@@ -25,8 +25,8 @@
     <div class="pay-section pay-section--amount">
         <p class="section-label">{% trans "Сума до сплати" %}</p>
         <div class="amount-row">
-            <span class="amount-usd">{{ payment_link.amount_usd }} <span class="amount-currency">USD</span></span>
-            <span class="amount-uah">≈ {{ payment_link.final_amount_uah }} UAH</span>
+            <span class="amount-uah">{{ payment_link.final_amount_uah }} <span class="amount-currency">UAH</span></span>
+            <span class="amount-usd">({{ payment_link.amount_usd }} USD)</span>
         </div>
         <p class="exchange-rate">
             {% trans "Курс НБУ:" %} <strong>{{ payment_link.exchange_rate_usd_to_uah }} грн/USD</strong>
@@ -46,12 +46,28 @@
     <div class="pay-section">
         <p class="section-label">{% trans "Реквізити для оплати" %}</p>
         <div class="req-list">
+            <!-- Сума (перший рядок, завжди copyable) -->
+            <div class="req-row">
+                <div class="req-info">
+                    <span class="req-label">{% trans "Сума до сплати" %}</span>
+                    <span class="req-value">{{ payment_link.final_amount_uah }} UAH</span>
+                </div>
+                <button type="button" class="btn-copy-row"
+                    onclick="copyRow(this, '{{ payment_link.final_amount_uah }}')"
+                    title="{% trans 'Скопіювати' %}">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2"/>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                    </svg>
+                </button>
+            </div>
             {% for row in requisites_rows %}
             <div class="req-row">
                 <div class="req-info">
                     {% if row.label %}<span class="req-label">{{ row.label }}</span>{% endif %}
                     <span class="req-value">{{ row.value }}</span>
                 </div>
+                {% if row.copyable %}
                 <button type="button" class="btn-copy-row"
                     onclick="copyRow(this, '{{ row.value|escapejs }}')"
                     title="{% trans 'Скопіювати' %}">
@@ -60,6 +76,7 @@
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
                     </svg>
                 </button>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
@@ -196,7 +213,7 @@
 
 {% block extra_js %}
 <script>
-var allReqText = "{% for row in requisites_rows %}{% if row.label %}{{ row.label|escapejs }}: {% endif %}{{ row.value|escapejs }}\n{% endfor %}".trim();
+var allReqText = "{% trans 'Сума до сплати' %}: {{ payment_link.final_amount_uah }} UAH\n{% for row in requisites_rows %}{% if row.copyable %}{{ row.label|escapejs }}: {{ row.value|escapejs }}\n{% endif %}{% endfor %}".trim();
 
 function doCopy(text, cb) {
     if (navigator.clipboard && window.isSecureContext) {
