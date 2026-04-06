@@ -23,4 +23,6 @@ urlpatterns += i18n_patterns(
 # Статичні файли для розробки
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Media файли — завжди (Render Persistent Disk)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
