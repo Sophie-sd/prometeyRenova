@@ -1,22 +1,12 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'payment/base_payment.html' %}
 {% load i18n %}
 
 {% block title %}{% trans "Оплата успішна" %}{% endblock %}
 
-{% block page_css %}
-<link rel="stylesheet" href="{% static 'payment/css/payment.css' %}">
-{% endblock %}
-
 {% block content %}
-<section class="payment-status">
-    <div class="container text-center">
-        <h1 class="text-mega color-brand-orange mb-lg">{% trans "Дякуємо!" %}</h1>
-        <p class="text-large">{% trans "Оплата пройшла успішно." %}</p>
-        {% if page_url %}
-        <p><a class="btn btn-secondary" href="{{ page_url }}">{% trans "Перейти до платіжної сторінки" %}</a></p>
-        {% endif %}
-    </div>
-
-</section>
+<div class="pay-status">
+    <div class="pay-status-icon">✅</div>
+    <h1 class="pay-status-title">{% trans "Дякуємо!" %}</h1>
+    <p class="pay-status-text">{% trans "Оплата пройшла успішно. Ми вже отримали підтвердження." %}</p>
+</div>
 {% endblock %}

@@ -152,7 +152,7 @@ CONTACT_EMAIL = os.environ.get('CONTACT_EMAIL', 'info@prometeylabs.com')
 MONOBANK_TOKEN = os.environ.get('MONOBANK_TOKEN', '')
 SITE_URL = os.environ.get('SITE_URL', 'https://www.prometeylabs.com')
 if DEBUG:
-    SITE_URL = 'http://localhost:8001'
+    SITE_URL = os.environ.get('SITE_URL', 'http://localhost:8000')
 
 # FACEBOOK PIXEL
 FACEBOOK_PIXEL_ID = os.environ.get('FACEBOOK_PIXEL_ID', '1991082531458369')

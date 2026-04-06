@@ -1,22 +1,18 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'payment/base_payment.html' %}
 {% load i18n %}
 
 {% block title %}{% trans "Посилання недоступне" %}{% endblock %}
 
-{% block page_css %}
-<link rel="stylesheet" href="{% static 'payment/css/payment.css' %}">
-{% endblock %}
-
 {% block content %}
-<section class="payment-status">
-    <div class="container text-center">
-        <h1 class="text-mega color-brand-orange mb-lg">{% trans "Посилання недоступне" %}</h1>
-        {% if payment_link %}
-        <p class="text-large">{% trans "Статус:" %} {{ payment_link.get_status_display }}</p>
-        {% else %}
-        <p class="text-large">{% trans "Це платіжне посилання недоступне." %}</p>
-        {% endif %}
-    </div>
-</section>
+<div class="pay-status">
+    <div class="pay-status-icon">🔒</div>
+    <h1 class="pay-status-title">{% trans "Недоступно" %}</h1>
+    {% if payment_link %}
+    <p class="pay-status-text">
+        {% trans "Статус:" %} <strong>{{ payment_link.get_status_display }}</strong>
+    </p>
+    {% else %}
+    <p class="pay-status-text">{% trans "Це платіжне посилання більше не активне." %}</p>
+    {% endif %}
+</div>
 {% endblock %}

@@ -1,4 +1,5 @@
 import json
+from decimal import Decimal
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -10,13 +11,27 @@ from .monobank_service import MonobankAcquiringService
 
 
 def get_payment_settings():
-    """Кешована функція для отримання PaymentSettings (оптимізація)"""
+    """Кешована функція для отримання PaymentSettings"""
     settings = cache.get('payment_settings')
     if settings is None:
         settings = PaymentSettings.objects.first()
-        # Кешуємо на 1 годину (settings рідко змінюються)
         cache.set('payment_settings', settings, 3600)
     return settings
+
+
+def parse_requisites(text: str) -> list:
+    """Розбиває company_info на структуровані рядки {label, value}."""
+    rows = []
+    for line in (text or '').splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if ':' in line:
+            label, _, value = line.partition(':')
+            rows.append({'label': label.strip(), 'value': value.strip()})
+        else:
+            rows.append({'label': '', 'value': line})
+    return rows
 
 
 def payment_page(request: HttpRequest, unique_id):
@@ -39,10 +54,16 @@ def payment_page(request: HttpRequest, unique_id):
     if payment_link.expires_at:
         expires_at_iso = payment_link.expires_at.isoformat()
 
+    if payment_link.recipient:
+        requisites_rows = payment_link.recipient.as_requisites_rows()
+    else:
+        requisites_rows = parse_requisites(payment_link.company_info)
+
     return render(request, 'payment/payment_page.html', {
         'payment_link': payment_link,
         'payment_settings': payment_settings,
         'expires_at_iso': expires_at_iso,
+        'requisites_rows': requisites_rows,
     })
 
 
