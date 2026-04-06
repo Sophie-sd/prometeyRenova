@@ -85,7 +85,7 @@ class PaymentLink(models.Model):
     )
 
     amount_usd = models.DecimalField(max_digits=12, decimal_places=2)
-    exchange_rate_usd_to_uah = models.DecimalField(max_digits=12, decimal_places=4, default=Decimal('40.0000'))
+    exchange_rate_usd_to_uah = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('40.00'))
     final_amount_uah = models.DecimalField(max_digits=14, decimal_places=2, editable=False)
 
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW)

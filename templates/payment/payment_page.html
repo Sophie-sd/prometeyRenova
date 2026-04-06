@@ -11,6 +11,9 @@
 {% endif %}
 
 {% if payment_link %}
+
+<h2 class="pay-page-title">{% trans "Оплата за послуги" %}</h2>
+
 <div class="pay-card">
 
     <!-- Клієнт -->
@@ -29,7 +32,7 @@
             <span class="amount-usd">({{ payment_link.amount_usd }} USD)</span>
         </div>
         <p class="exchange-rate">
-            {% trans "Курс НБУ:" %} <strong>{{ payment_link.exchange_rate_usd_to_uah }} грн/USD</strong>
+            {% trans "Курс НБУ:" %} <strong>{{ payment_link.exchange_rate_usd_to_uah|floatformat:2 }} грн/USD</strong>
         </p>
     </div>
 
@@ -41,117 +44,7 @@
     </div>
     {% endif %}
 
-    <!-- Реквізити -->
-    {% if requisites_rows %}
-    <div class="pay-section">
-        <p class="section-label">{% trans "Реквізити для оплати" %}</p>
-        <div class="req-list">
-
-            <!-- Сума -->
-            <div class="req-row">
-                <div class="req-info">
-                    <span class="req-label">{% trans "Сума до сплати" %}</span>
-                    <span class="req-value">{{ payment_link.final_amount_uah }} UAH</span>
-                </div>
-                <button type="button" class="btn-copy-row"
-                    onclick="copyRow(this, '{{ payment_link.final_amount_uah }}')"
-                    title="{% trans 'Скопіювати' %}">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2"/>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                    </svg>
-                </button>
-            </div>
-
-            <!-- Призначення платежу -->
-            {% if payment_link.description %}
-            <div class="req-row">
-                <div class="req-info">
-                    <span class="req-label">{% trans "Призначення платежу" %}</span>
-                    <span class="req-value">{{ payment_link.description }}</span>
-                </div>
-                <button type="button" class="btn-copy-row"
-                    onclick="copyRow(this, '{{ payment_link.description|escapejs }}')"
-                    title="{% trans 'Скопіювати' %}">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2"/>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                    </svg>
-                </button>
-            </div>
-            {% endif %}
-
-            <!-- Копіювальні реквізити: Отримувач, IBAN, ІПН/ЄДРПОУ -->
-            {% for row in requisites_rows %}
-            {% if row.copyable %}
-            <div class="req-row">
-                <div class="req-info">
-                    {% if row.label %}<span class="req-label">{{ row.label }}</span>{% endif %}
-                    <span class="req-value">{{ row.value }}</span>
-                </div>
-                <button type="button" class="btn-copy-row"
-                    onclick="copyRow(this, '{{ row.value|escapejs }}')"
-                    title="{% trans 'Скопіювати' %}">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2"/>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                    </svg>
-                </button>
-            </div>
-            {% endif %}
-            {% endfor %}
-
-        </div>
-
-        <!-- Банківський блок: Банк, МФО, ЄДРПОУ Банку -->
-        {% with bank_rows=requisites_rows %}
-        {% if bank_rows %}
-        <div class="bank-info-block">
-            <span class="bank-info-title">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                    <polyline points="9 22 9 12 15 12 15 22"/>
-                </svg>
-                {% trans "Банківські реквізити" %}
-            </span>
-            <div class="bank-info-grid">
-                {% for row in bank_rows %}
-                {% if not row.copyable %}
-                <span class="bank-field-label">{{ row.label }}</span>
-                <span class="bank-field-value">{{ row.value }}</span>
-                {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-        {% endwith %}
-
-        <button type="button" class="btn-copy-all" onclick="copyAllRequisites()">
-            {% trans "Скопіювати реквізити" %}
-        </button>
-    </div>
-    {% endif %}
-
-    <!-- Інструкції (авто, залежно від use_acquiring) -->
-    <div class="pay-section pay-section--instructions">
-        <p class="section-label">{% trans "Як оплатити" %}</p>
-        {% if payment_link.use_acquiring %}
-        <p class="instructions-text">
-            Оплату можна провести онлайн карткою, <strong>Apple Pay</strong> або <strong>Google Pay</strong> — натисніть кнопку нижче.
-            Також доступний банківський переказ за реквізитами вище.
-            Після оплати переказом обов'язково надішліть нам фото квитанції в Telegram:
-            <a href="https://t.me/prometeylabs" target="_blank" rel="noopener" class="instr-link">t.me/prometeylabs</a>
-        </p>
-        {% else %}
-        <p class="instructions-text">
-            До посилання прикріплений рахунок — завантажте його нижче або проведіть оплату вручну за реквізитами вище.
-            Після оплати обов'язково надішліть нам фото квитанції в Telegram:
-            <a href="https://t.me/prometeylabs" target="_blank" rel="noopener" class="instr-link">t.me/prometeylabs</a>
-        </p>
-        {% endif %}
-    </div>
-
-    <!-- Документи -->
+    <!-- Документи (одразу після суми) -->
     {% with files=payment_link.attached_files.all %}
     {% if files or payment_link.contract_file or payment_settings.default_contract_file %}
     <div class="pay-section">
@@ -206,14 +99,118 @@
     {% endif %}
     {% endwith %}
 
-    <!-- Еквайринг / оплата карткою -->
+    <!-- Реквізити: Отримувач → IBAN → ІПН → Призначення → Сума, потім банк -->
+    {% if requisites_rows %}
+    <div class="pay-section">
+        <p class="section-label">{% trans "Реквізити для оплати" %}</p>
+        <div class="req-list">
+
+            <!-- Отримувач, IBAN, ІПН/ЄДРПОУ -->
+            {% for row in requisites_rows %}
+            {% if row.copyable %}
+            <div class="req-row">
+                <div class="req-info">
+                    {% if row.label %}<span class="req-label">{{ row.label }}</span>{% endif %}
+                    <span class="req-value">{{ row.value }}</span>
+                </div>
+                <button type="button" class="btn-copy-row"
+                    onclick="copyRow(this, '{{ row.value|escapejs }}')"
+                    title="{% trans 'Скопіювати' %}">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2"/>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                    </svg>
+                </button>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            <!-- Призначення платежу -->
+            {% if payment_link.description %}
+            <div class="req-row">
+                <div class="req-info">
+                    <span class="req-label">{% trans "Призначення платежу" %}</span>
+                    <span class="req-value">{{ payment_link.description }}</span>
+                </div>
+                <button type="button" class="btn-copy-row"
+                    onclick="copyRow(this, '{{ payment_link.description|escapejs }}')"
+                    title="{% trans 'Скопіювати' %}">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2"/>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                    </svg>
+                </button>
+            </div>
+            {% endif %}
+
+            <!-- Сума -->
+            <div class="req-row">
+                <div class="req-info">
+                    <span class="req-label">{% trans "Сума до сплати" %}</span>
+                    <span class="req-value">{{ payment_link.final_amount_uah }} UAH</span>
+                </div>
+                <button type="button" class="btn-copy-row"
+                    onclick="copyRow(this, '{{ payment_link.final_amount_uah }}')"
+                    title="{% trans 'Скопіювати' %}">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2"/>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Банківський блок: без заголовку -->
+        <div class="bank-info-block">
+            <div class="bank-info-grid">
+                {% for row in requisites_rows %}
+                {% if not row.copyable %}
+                <span class="bank-field-label">{{ row.label }}</span>
+                <span class="bank-field-value">{{ row.value }}</span>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="button" class="btn-copy-all" onclick="copyAllRequisites()">
+            {% trans "Скопіювати реквізити" %}
+        </button>
+    </div>
+    {% endif %}
+
+    <!-- Інструкції (авто) -->
+    <div class="pay-section pay-section--instructions">
+        <p class="section-label">{% trans "Як оплатити" %}</p>
+        {% if payment_link.use_acquiring %}
+        <p class="instructions-text">
+            Оплату можна провести онлайн карткою, <strong>Apple Pay</strong> або <strong>Google Pay</strong>.
+            Також доступний банківський переказ за реквізитами вище.
+            Після оплати переказом — надішліть нам фото квитанції:
+        </p>
+        {% else %}
+        <p class="instructions-text">
+            До посилання прикріплений рахунок — завантажте його або проведіть оплату вручну за реквізитами вище.
+            Після оплати — надішліть нам фото квитанції:
+        </p>
+        {% endif %}
+        <a href="https://t.me/prometeylabs" target="_blank" rel="noopener" class="btn-telegram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.48 14.013l-2.95-.924c-.642-.204-.654-.642.136-.953l11.52-4.44c.535-.194 1.003.13.376.552z"/>
+            </svg>
+            {% trans "Написати в Telegram" %}
+        </a>
+    </div>
+
+    <!-- Еквайринг -->
     {% if payment_link.use_acquiring %}
     <div class="pay-section pay-section--action">
-        <p class="section-label">{% trans "Онлайн-оплата" %}</p>
+        <p class="pay-acquiring-title">{% trans "Або оплатіть онлайн" %}</p>
+        <p class="pay-acquiring-sub">{% trans "Картка · Apple Pay · Google Pay · Monobank" %}</p>
         <form method="post" action="{% url 'payment:create_invoice' unique_id=payment_link.unique_id %}">
             {% csrf_token %}
             <button type="submit" class="btn-pay" id="pay-btn">
-                {% trans "Оплатити онлайн" %}
+                {% trans "Перейти до оплати" %}
             </button>
         </form>
         <div class="pay-methods">
@@ -244,9 +241,9 @@
 {% block extra_js %}
 <script>
 var allReqText = [
-    "{% trans 'Сума до сплати' %}: {{ payment_link.final_amount_uah }} UAH",
-    {% if payment_link.description %}"{% trans 'Призначення' %}: {{ payment_link.description|escapejs }}",{% endif %}
     {% for row in requisites_rows %}{% if row.copyable %}"{{ row.label|escapejs }}: {{ row.value|escapejs }}",{% endif %}{% endfor %}
+    {% if payment_link.description %}"{% trans 'Призначення' %}: {{ payment_link.description|escapejs }}",{% endif %}
+    "{% trans 'Сума' %}: {{ payment_link.final_amount_uah }} UAH",
 ].join("\n");
 
 function doCopy(text, cb) {
