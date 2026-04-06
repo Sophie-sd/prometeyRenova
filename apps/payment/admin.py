@@ -38,17 +38,11 @@ class RecipientProfileAdmin(admin.ModelAdmin):
 
 class PaymentLinkAdminForm(forms.ModelForm):
     description = forms.CharField(
-        label='Опис замовлення',
+        label='Опис / Призначення платежу',
         widget=forms.Textarea(attrs={'rows': 3, 'style': 'width:100%; resize:vertical'}),
         required=False,
         max_length=500,
-        help_text='Що саме замовлено — буде показано клієнту на сторінці оплати.',
-    )
-    payment_instructions = forms.CharField(
-        label='Інструкції для клієнта',
-        widget=forms.Textarea(attrs={'rows': 4, 'style': 'width:100%; resize:vertical'}),
-        required=False,
-        help_text='Крок за кроком: як оплатити (через картку або переказ).',
+        help_text='Що саме замовлено. Це поле використовується як призначення платежу — клієнт зможе його скопіювати.',
     )
 
     class Meta:
@@ -89,8 +83,8 @@ class PaymentLinkAdmin(admin.ModelAdmin):
         ('Клієнт', {
             'fields': ('client_name', 'client_email'),
         }),
-        ('Замовлення', {
-            'fields': ('description', 'payment_instructions'),
+        ('Замовлення / Призначення платежу', {
+            'fields': ('description',),
         }),
         ('Отримувач платежу', {
             'fields': ('recipient', 'company_info'),
