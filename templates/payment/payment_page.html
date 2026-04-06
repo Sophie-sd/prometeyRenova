@@ -6,10 +6,6 @@
 
 {% block content %}
 
-{% if payment_settings and payment_settings.description %}
-<p class="pay-tagline">{{ payment_settings.description }}</p>
-{% endif %}
-
 {% if payment_link %}
 
 <h2 class="pay-page-title">{% trans "Оплата за послуги" %}</h2>
@@ -179,7 +175,27 @@
     </div>
     {% endif %}
 
-    <!-- Інструкції (авто) -->
+    <!-- Еквайринг (перед інструкціями) -->
+    {% if payment_link.use_acquiring %}
+    <div class="pay-section pay-section--action">
+        <p class="pay-acquiring-title">{% trans "Або оплатіть онлайн" %}</p>
+        <p class="pay-acquiring-sub">{% trans "Картка · Apple Pay · Google Pay · Monobank" %}</p>
+        <form method="post" action="{% url 'payment:create_invoice' unique_id=payment_link.unique_id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-pay" id="pay-btn">
+                {% trans "Перейти до оплати" %}
+            </button>
+        </form>
+        <div class="pay-methods">
+            <img src="{% static 'payment/images/paylogos/visa.png' %}" alt="Visa" class="pay-method-logo">
+            <img src="{% static 'payment/images/paylogos/mastercard.png' %}" alt="Mastercard" class="pay-method-logo">
+            <img src="{% static 'payment/images/paylogos/applepay.png' %}" alt="Apple Pay" class="pay-method-logo">
+            <img src="{% static 'payment/images/paylogos/gpay.png' %}" alt="Google Pay" class="pay-method-logo">
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Інструкції (після еквайрингу) -->
     <div class="pay-section pay-section--instructions">
         <p class="section-label">{% trans "Як оплатити" %}</p>
         {% if payment_link.use_acquiring %}
@@ -201,26 +217,6 @@
             {% trans "Написати в Telegram" %}
         </a>
     </div>
-
-    <!-- Еквайринг -->
-    {% if payment_link.use_acquiring %}
-    <div class="pay-section pay-section--action">
-        <p class="pay-acquiring-title">{% trans "Або оплатіть онлайн" %}</p>
-        <p class="pay-acquiring-sub">{% trans "Картка · Apple Pay · Google Pay · Monobank" %}</p>
-        <form method="post" action="{% url 'payment:create_invoice' unique_id=payment_link.unique_id %}">
-            {% csrf_token %}
-            <button type="submit" class="btn-pay" id="pay-btn">
-                {% trans "Перейти до оплати" %}
-            </button>
-        </form>
-        <div class="pay-methods">
-            <img src="{% static 'payment/images/paylogos/visa.png' %}" alt="Visa" class="pay-method-logo">
-            <img src="{% static 'payment/images/paylogos/mastercard.png' %}" alt="Mastercard" class="pay-method-logo">
-            <img src="{% static 'payment/images/paylogos/applepay.png' %}" alt="Apple Pay" class="pay-method-logo">
-            <img src="{% static 'payment/images/paylogos/gpay.png' %}" alt="Google Pay" class="pay-method-logo">
-        </div>
-    </div>
-    {% endif %}
 
 </div>
 
