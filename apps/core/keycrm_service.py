@@ -5,6 +5,7 @@ KeyCRM API інтеграція.
 import requests
 import logging
 from django.conf import settings
+from apps.core.form_handlers import get_answer_text
 
 logger = logging.getLogger(__name__)
 
@@ -79,6 +80,27 @@ class KeyCRMService:
         comment_parts.append(f'Site ID: {submission.id}')
         if submission.gclid:
             comment_parts.append(f'GCLID: {submission.gclid}')
+
+        if submission.form_type == 'test_result' and submission.extra_data:
+            extra = submission.extra_data
+            answers = extra.get('answers', {})
+            alt_checked = extra.get('alt_services_checked', False)
+
+            if alt_checked and answers:
+                comment_parts.append('Галочка: Так\nТест: Пройдений')
+            elif alt_checked:
+                comment_parts.append('Галочка: Так\nТест: Не пройдений')
+            elif answers:
+                comment_parts.append('Галочка: Ні\nТест: Пройдений')
+
+            if answers:
+                lines = ['=== ВІДПОВІДІ НА ТЕСТ ===']
+                for i in range(1, 6):
+                    key = f'question_{i}'
+                    if key in answers:
+                        lines.append(f'{i}. {get_answer_text(key, answers[key])}')
+                comment_parts.append('\n'.join(lines))
+
         payload['manager_comment'] = '\n'.join(comment_parts)
 
         try:
