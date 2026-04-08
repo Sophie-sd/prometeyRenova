@@ -33,8 +33,9 @@
         if (progressBar) progressBar.style.width = progress + '%';
         if (stepNumEl)   stepNumEl.textContent    = stepNum;
 
-        /* На контактному кроці весь nav зникає */
+        /* На контактному кроці весь nav зникає; деталі збираємо одразу */
         if (navDiv) navDiv.hidden = isContact;
+        if (isContact) compileDetails();
 
         if (!isContact) {
             if (nextBtn) {
@@ -147,8 +148,6 @@
         });
         detailsInput.value = parts.join('\n');
     }
-
-    form.addEventListener('submit', compileDetails);
 
     /* ── Ініціалізація ──────────────────────────────────────── */
     showStep(0);

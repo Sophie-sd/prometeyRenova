@@ -140,11 +140,13 @@ def handle_site_request(request, name, phone):
     """Обробка заявки на сайт"""
     email = request.POST.get('email', '').strip()
     details = request.POST.get('details', '').strip()
-    
+    source_page = request.POST.get('source_page', '').strip()
+
     form_data = create_form_data(
         _('Заявка на розробку сайту'), name, phone, request,
         email=email,
-        details=details
+        details=details,
+        **(({'source_page': source_page}) if source_page else {}),
     )
     
     # Відправляємо email СПОЧАТКУ щоб дізнатися успіх
