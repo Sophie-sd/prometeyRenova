@@ -1,0 +1,501 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Розробка інтернет-магазинів під ключ | PrometeyLabs{% endblock %}
+{% block description %}Розробка інтернет-магазинів під ключ від PrometeyLabs. Кастомний код, зручна адмінка, інтеграції з платіжними системами та Новою Поштою. Міграція з Prom, Rozetka.{% endblock %}
+{% block og_title %}Інтернет-магазини під ключ — PrometeyLabs{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/internet-shop-parallax.js' %}" defer></script>
+<script src="{% static 'js/internet-shop-quiz.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="is-page" style="--shop-parallax-bg: url('{% static 'images/shop_page_hero_desc.png' %}'); --shop-parallax-bg-mob: url('{% static 'images/shop_page_hero_mob.png' %}')">
+
+    <!-- ===== BLOCK 1: HERO (parallax bg) ===== -->
+    <section class="is-hero is-parallax-section" data-parallax-section>
+        <div class="is-parallax-section__bg is-parallax-section__bg--hero" aria-hidden="true"></div>
+        <div class="is-parallax-section__overlay is-parallax-section__overlay--hero" aria-hidden="true"></div>
+        <div class="container is-parallax-section__inner">
+
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb">
+                <ol class="is-breadcrumb">
+                    <li><a href="{% url 'home' %}">PrometeyLabs</a></li>
+                    <li><a href="#">Послуги з розробки</a></li>
+                    <li>Інтернет-магазини</li>
+                </ol>
+            </nav>
+
+            <div class="is-hero__inner">
+
+                <!-- Grid row 1, col 1: title -->
+                <div class="is-hero__left-title">
+                    <h1 class="is-hero__title">
+                        Інтернет-магазини<br>
+                        від <span class="is-accent">PrometeyLabs</span>
+                        <span class="is-hero__title-price">під ключ від $700</span>
+                    </h1>
+                </div>
+
+                <!-- Grid row 1, col 2 (spans all rows on desktop): image -->
+                <div class="is-hero__right">
+                    <div class="is-hero__image-wrap">
+                        <img
+                            src="{% static 'images/shop_hero.png' %}"
+                            alt="Інтернет-магазин на ноутбуці та смартфоні"
+                            class="is-hero__float-img"
+                            width="540"
+                            height="540"
+                            loading="eager"
+                            decoding="async"
+                        >
+                    </div>
+                </div>
+
+                <!-- Grid row 2, col 1-2 (full width): marquee -->
+                <div class="is-marquee is-hero__marquee">
+                    <div class="is-marquee__track" aria-hidden="true">
+                        <div class="is-marquee__content">
+                            <span class="is-marquee__item">Розробка з нуля</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Доробка та покращення</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Переробка існуючого</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Міграція з Prom / Rozetka</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Парсинг товарів</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Автооновлення через Google Таблиці</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Інтеграція платіжних систем</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Підключення CRM</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Автоматизація Нової Пошти</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">SEO-оптимізація</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Мобільна версія</span>
+                            <span class="is-marquee__sep">•</span>
+                        </div>
+                        <div class="is-marquee__content" aria-hidden="true">
+                            <span class="is-marquee__item">Розробка з нуля</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Доробка та покращення</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Переробка існуючого</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Міграція з Prom / Rozetka</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Парсинг товарів</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Автооновлення через Google Таблиці</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Інтеграція платіжних систем</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Підключення CRM</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Автоматизація Нової Пошти</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">SEO-оптимізація</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Мобільна версія</span>
+                            <span class="is-marquee__sep">•</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid row 3, col 1: USP + CTA -->
+                <div class="is-hero__left-bottom">
+                    <div class="is-usp">
+                        <div class="is-usp__item">
+                            <div class="is-usp__body">
+                                <p class="is-usp__title">Жодних плагінів — тільки чистий код</p>
+                                <p class="is-usp__text">Сторінки завантажуються миттєво, сайт не залежить від сторонніх оновлень.</p>
+                            </div>
+                        </div>
+                        <div class="is-usp__item">
+                            <div class="is-usp__body">
+                                <p class="is-usp__title">Адміністративна панель без обмежень</p>
+                                <p class="is-usp__text">Додавайте товари, коригуйте ціни, запускайте акції, змінюйте тексти і навіть кольори сайту через зручну панель, яку ми створюємо під вас.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="is-hero__cta">
+                        <button class="btn btn-primary btn-large mobile-touch-target"
+                                data-modal="call-request-modal"
+                                type="button">
+                            Безкоштовна консультація ↗
+                        </button>
+                        <a href="#brief" class="btn btn-secondary btn-large mobile-touch-target">
+                            Розрахувати вартість онлайн ↗
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 2: GUARANTEE STRIP ===== -->
+    <section class="is-guarantee-strip">
+        <div class="container">
+            <p class="is-guarantee-strip__intro">
+                Ми впевнені у якості нашого коду —<br>
+                тому надаємо <span class="is-accent">унікальні умови для ринку</span>
+            </p>
+            <div class="is-guarantee-strip__items">
+                <div class="is-guarantee-card">
+                    <div class="is-guarantee-card__num is-guarantee-card__num--year">1 рік</div>
+                    <div>
+                        <p class="is-guarantee-card__title">Безкоштовна підтримка після запуску</p>
+                        <p class="is-guarantee-card__text">Ми залишаємось поруч, щоб допомагати з технічними питаннями протягом першого року роботи проєкту.</p>
+                    </div>
+                </div>
+                <div class="is-guarantee-card">
+                    <div class="is-guarantee-card__num">∞</div>
+                    <div>
+                        <p class="is-guarantee-card__title">Пожиттєва гарантія стабільності</p>
+                        <p class="is-guarantee-card__text">Ми не використовуємо плагіни, які потребують оновлень. Тільки чистий код — жодних зламів через застарілі залежності.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 3: WHAT'S INCLUDED (parallax) ===== -->
+    <section class="is-included is-parallax-section is-section" data-parallax-section>
+        <div class="is-parallax-section__bg is-parallax-section__bg--shared" aria-hidden="true"></div>
+        <div class="is-parallax-section__overlay is-parallax-section__overlay--section" aria-hidden="true"></div>
+        <div class="container is-parallax-section__inner">
+            <span class="is-section__label">Розробляємо гнучкі рішення</span>
+            <h2 class="is-section__title">Інтернет-магазин під ключ</h2>
+
+            <div class="is-included__grid">
+
+                <!-- Group A: Features -->
+                <div>
+                    <p class="is-included__subhead">Функціонал магазину</p>
+                    <ul class="is-feature-list">
+                        <li>Каталог товарів із фільтрами та сортуванням</li>
+                        <li>Особистий кабінет покупця (замовлення, збережені товари)</li>
+                        <li>Кошик, порівняння, списки бажань</li>
+                        <li>Акції, промокоди, знижки</li>
+                        <li>Блог і статті для SEO</li>
+                        <li>Форма зворотного зв'язку та онлайн-чат</li>
+                        <li>SEO-оптимізована структура сторінок товарів</li>
+                    </ul>
+                </div>
+
+                <!-- Group B: Migration -->
+                <div class="is-migration-block">
+                    <span class="is-migration-block__badge">Є товари — перенесемо за вас</span>
+                    <p class="is-migration-block__title">Міграція та наповнення</p>
+                    <ul class="is-feature-list">
+                        <li>Парсинг товарів з будь-якого сайту чи сервісу</li>
+                        <li>Міграція з Prom, Rozetka, Хорошоп, OpenCart, WooCommerce, Shopify та інші</li>
+                        <li>Автооновлення товарів через Google Таблиці</li>
+                        <li>Масове завантаження через Excel / CSV</li>
+                        <li>Реферальні посилання та UTM-розмітка</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA після блоку «Що ми робимо» — темний фон -->
+    <section class="is-cta-strip is-section--surface">
+        <div class="container">
+            <div class="is-cta-inline is-cta-inline--flush">
+                <p class="is-cta-inline__text">Потрібно щось конкретне? Розкажіть — підберемо рішення</p>
+                <button class="btn btn-primary mobile-touch-target"
+                        data-modal="call-request-modal"
+                        type="button">
+                    Безкоштовна консультація →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 4: TECH ADVANTAGE (parallax) ===== -->
+    <section class="is-tech is-parallax-section is-section" data-parallax-section>
+        <div class="is-parallax-section__bg is-parallax-section__bg--shared" aria-hidden="true"></div>
+        <div class="is-parallax-section__overlay is-parallax-section__overlay--section" aria-hidden="true"></div>
+        <div class="container is-parallax-section__inner">
+            <span class="is-section__label">Технічна перевага</span>
+            <h2 class="is-section__title">Швидко. Надійно.<br>За розумною ціною.</h2>
+            <p class="is-section__subtitle">Сайт написаний на сучасному стеку — без плагінів, без сторонніх залежностей. Працюватиме коректно доти, доки існує інтернет.</p>
+
+            <div class="is-tech__cards">
+
+                <div class="is-tech-card">
+                    <span class="is-tech-card__icon">⚡</span>
+                    <p class="is-tech-card__title">Миттєве завантаження</p>
+                    <p class="is-tech-card__text">Сторінки оновлюються без повного перезавантаження — фільтрація товарів, перехід між розділами. Критично для зручності на смартфоні.</p>
+                </div>
+
+                <div class="is-tech-card">
+                    <span class="is-tech-card__icon">📱</span>
+                    <p class="is-tech-card__title">Ідеальна мобільна версія</p>
+                    <p class="is-tech-card__text">Кожен елемент проєктується насамперед для смартфона. Зручна навігація, великі кнопки, швидка робота навіть на повільному інтернеті.</p>
+                </div>
+
+                <div class="is-tech-card">
+                    <span class="is-tech-card__icon">🔍</span>
+                    <p class="is-tech-card__title">SEO-адаптація під вашу нішу</p>
+                    <p class="is-tech-card__text">Сайт проєктується разом із маркетологом під популярні пошукові запити вашої ніші. Правильна структура, мета-теги, швидкість — для максимальної релевантності реклами та органіки.</p>
+                </div>
+
+                <div class="is-tech-card">
+                    <span class="is-tech-card__icon">🛡</span>
+                    <p class="is-tech-card__title">Пожиттєва гарантія стабільності</p>
+                    <p class="is-tech-card__text">Ми не використовуємо плагіни, які потребують оновлень. Тільки чистий код — жодних зламів через застарілі залежності.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 5: ADMIN PANEL (темний фон) ===== -->
+    <section class="is-admin is-section is-section--dark">
+        <div class="container">
+            <span class="is-section__label">Адміністративна панель</span>
+            <h2 class="is-section__title">Керуйте сайтом самі — без розробника</h2>
+            <p class="is-section__subtitle">Ми обговорюємо з вами все, що ви хочете бачити в адмінці.</p>
+
+            <ul class="is-admin__list">
+                <li class="is-admin__item">
+                    <p class="is-admin__item-title">Повне керування контентом</p>
+                    <p class="is-admin__item-desc">Редагування всіх текстів, банерів та ведення професійного блогу прямо з панелі.</p>
+                </li>
+                <li class="is-admin__item">
+                    <p class="is-admin__item-title">Робота з товарами та цінами</p>
+                    <p class="is-admin__item-desc">Масове завантаження, редагування та синхронізація залишків через Google Таблиці.</p>
+                </li>
+                <li class="is-admin__item">
+                    <p class="is-admin__item-title">Інструменти маркетингу та SEO</p>
+                    <p class="is-admin__item-desc">Налаштування акцій, промокодів, знижок та SEO-параметрів для кожної сторінки.</p>
+                </li>
+                <li class="is-admin__item">
+                    <p class="is-admin__item-title">Адміністрування та дизайн</p>
+                    <p class="is-admin__item-desc">Керування замовленнями та базою клієнтів.</p>
+                </li>
+            </ul>
+
+            <p class="is-admin__tagline">Ви отримуєте потужний інструмент — і повний контроль над ним.</p>
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 6: INTEGRATIONS (parallax) ===== -->
+    <section class="is-integrations is-parallax-section is-section" data-parallax-section>
+        <div class="is-parallax-section__bg is-parallax-section__bg--shared" aria-hidden="true"></div>
+        <div class="is-parallax-section__overlay is-parallax-section__overlay--section" aria-hidden="true"></div>
+        <div class="container is-parallax-section__inner">
+            <span class="is-section__label">Інтеграції</span>
+            <h2 class="is-section__title">Автоматизуємо все, що можна</h2>
+            <p class="is-section__subtitle">Ваш магазин працює — ви займаєтесь бізнесом.</p>
+
+            <div class="is-integrations__cols">
+
+                <div class="is-integration-col">
+                    <span class="is-integration-col__icon">💳</span>
+                    <p class="is-integration-col__title">Платіжні системи</p>
+                    <ul class="is-integration-col__list is-integration-col__list--two-cols">
+                        <li>LiqPay</li>
+                        <li>Monobank</li>
+                        <li>WayForPay</li>
+                        <li>Приват24</li>
+                        <li>Portmone, Fondy</li>
+                        <li>Та інші</li>
+                    </ul>
+                </div>
+
+                <div class="is-integration-col">
+                    <span class="is-integration-col__icon">📦</span>
+                    <p class="is-integration-col__title">Доставка</p>
+                    <ul class="is-integration-col__list">
+                        <li>Автоматичне створення ТТН після замовлення</li>
+                        <li>Підрахунок вартості доставки в кошику</li>
+                        <li>Відстеження посилки у кабінеті покупця</li>
+                        <li>Нова Пошта, Укрпошта, Justin</li>
+                    </ul>
+                </div>
+
+                <div class="is-integration-col">
+                    <span class="is-integration-col__icon">🔗</span>
+                    <p class="is-integration-col__title">CRM та сповіщення</p>
+                    <ul class="is-integration-col__list">
+                        <li>KeyCRM, NetHunt, SalesDrive, HubSpot та інші</li>
+                        <li>Власна індивідуальна CRM для обліку</li>
+                        <li>Нові замовлення — в адмінку, Telegram, email, SMS</li>
+                        <li>Збір заявок із форм і чату</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="is-integration-note">
+                <p class="is-integration-note__text">Немає потрібної інтеграції у списку? Скоріш за все, ми її вже робили</p>
+                <button class="btn btn-primary mobile-touch-target"
+                        data-modal="call-request-modal"
+                        type="button">
+                    Запитати →
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 8: PORTFOLIO + CTA (об'єднаний блок) ===== -->
+    <section class="is-portfolio-cta is-section--dark">
+        <div class="container">
+
+            <div class="is-portfolio-cta__grid">
+
+                <!-- Ліва колонка: Портфоліо -->
+                <div class="is-portfolio-cta__col">
+                    <h2 class="is-portfolio-cta__title">Наші роботи</h2>
+                    <p class="is-portfolio-cta__desc">Реальні проєкти, реальні результати. Переконайтесь у якості нашої роботи самі.</p>
+                    <a href="{% url 'portfolio' %}" class="btn btn-secondary btn-large mobile-touch-target">
+                        Переглянути портфоліо →
+                    </a>
+                </div>
+
+                <!-- Роздільник -->
+                <div class="is-portfolio-cta__sep" aria-hidden="true"></div>
+
+                <!-- Права колонка: CTA -->
+                <div class="is-portfolio-cta__col is-portfolio-cta__col--cta">
+                    <h2 class="is-portfolio-cta__title">Готові обговорити ваш проєкт?</h2>
+                    <p class="is-portfolio-cta__desc">Розкажіть про задачу — отримайте безкоштовну консультацію і орієнтовну вартість.</p>
+                    <a href="#brief" class="btn btn-primary btn-large mobile-touch-target">
+                        Заповнити бриф →
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 9: QUIZ BRIEF ===== -->
+    <section class="is-brief is-parallax-section" id="brief" data-parallax-section>
+        <div class="is-parallax-section__bg is-parallax-section__bg--shared" aria-hidden="true"></div>
+        <div class="is-parallax-section__overlay is-parallax-section__overlay--section" aria-hidden="true"></div>
+        <div class="container container-narrow is-parallax-section__inner">
+            <h2 class="is-section__title">Розрахуйте вартість онлайн</h2>
+            <p class="is-section__subtitle">5 коротких запитань — і ми підберемо рішення під ваш проєкт.</p>
+
+            <form class="is-quiz" id="internet-shop-quiz-form" method="post" action="{% url 'form_submit' %}" data-form-type="site_request">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="site_request">
+                <input type="hidden" name="source_page" value="internet-shop">
+                <input type="hidden" name="details" id="quiz-details">
+
+                <!-- Progress -->
+                <div class="is-quiz__header">
+                    <div class="is-quiz__progress">
+                        <div class="is-quiz__progress-bar" data-quiz-progress></div>
+                    </div>
+                    <p class="is-quiz__progress-label">Крок <span data-quiz-step-num>1</span> з 5</p>
+                </div>
+
+                <!-- Крок 1 -->
+                <div class="is-quiz__step" data-step="1">
+                    <p class="is-quiz__question">Що вам потрібно?</p>
+                    <ul class="is-quiz__options">
+                        <li><label class="is-quiz__option"><input type="radio" name="q_need" value="Розробка магазину з нуля"><span>Розробка магазину з нуля</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_need" value="Доробка існуючого сайту"><span>Доробка існуючого сайту</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_need" value="Міграція з Prom / Rozetka / іншої платформи"><span>Міграція з Prom / Rozetka / іншої платформи</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_need" value="Потрібна консультація"><span>Ще не визначився — потрібна консультація</span></label></li>
+                    </ul>
+                </div>
+
+                <!-- Крок 2 -->
+                <div class="is-quiz__step" data-step="2" hidden>
+                    <p class="is-quiz__question">Скільки товарів у каталозі?</p>
+                    <ul class="is-quiz__options">
+                        <li><label class="is-quiz__option"><input type="radio" name="q_products" value="До 100 товарів"><span>До 100 товарів</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_products" value="100–1000 товарів"><span>100–1000 товарів</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_products" value="1000–10 000 товарів"><span>1000–10 000 товарів</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_products" value="Більше 10 000 товарів"><span>Більше 10 000 товарів</span></label></li>
+                    </ul>
+                </div>
+
+                <!-- Крок 3: мульти-вибір -->
+                <div class="is-quiz__step" data-step="3" data-multi="true" hidden>
+                    <p class="is-quiz__question">Яка автоматизація для вас важлива?</p>
+                    <p class="is-quiz__hint">Можна обрати декілька варіантів</p>
+                    <ul class="is-quiz__options is-quiz__options--multi">
+                        <li><label class="is-quiz__option"><input type="checkbox" name="q_automation" value="Платіжні системи та онлайн-оплата"><span>Платіжні системи та онлайн-оплата</span></label></li>
+                        <li><label class="is-quiz__option"><input type="checkbox" name="q_automation" value="Автоматизація доставки (Нова Пошта)"><span>Автоматизація доставки (Нова Пошта)</span></label></li>
+                        <li><label class="is-quiz__option"><input type="checkbox" name="q_automation" value="CRM та сповіщення (Telegram, email)"><span>CRM та сповіщення (Telegram, email)</span></label></li>
+                        <li><label class="is-quiz__option is-quiz__option--all"><input type="checkbox" name="q_automation" value="Все з переліченого" data-select-all><span>Все з переліченого</span></label></li>
+                    </ul>
+                </div>
+
+                <!-- Крок 4 -->
+                <div class="is-quiz__step" data-step="4" hidden>
+                    <p class="is-quiz__question">Чи потрібен особистий кабінет для покупців?</p>
+                    <ul class="is-quiz__options">
+                        <li><label class="is-quiz__option"><input type="radio" name="q_accounts" value="Так — реєстрація, замовлення, вибране, бонуси"><span>Так — реєстрація, замовлення, вибране, бонуси</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_accounts" value="Базова авторизація — вхід та відстеження замовлень"><span>Базова авторизація — вхід та відстеження замовлень</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_accounts" value="Ні — оформлення без реєстрації"><span>Ні — оформлення без реєстрації</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_accounts" value="Ще не визначився"><span>Ще не визначився</span></label></li>
+                    </ul>
+                </div>
+
+                <!-- Крок 5 -->
+                <div class="is-quiz__step" data-step="5" hidden>
+                    <p class="is-quiz__question">Коли потрібен запуск?</p>
+                    <ul class="is-quiz__options">
+                        <li><label class="is-quiz__option"><input type="radio" name="q_timeline" value="Якнайшвидше (до 2 тижнів)"><span>Якнайшвидше (до 2 тижнів)</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_timeline" value="Протягом місяця"><span>Протягом місяця</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_timeline" value="1–3 місяці"><span>1–3 місяці</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_timeline" value="Терміни гнучкі"><span>Терміни гнучкі</span></label></li>
+                    </ul>
+                </div>
+
+                <!-- Контактний крок -->
+                <div class="is-quiz__step is-quiz__step--contact" data-step="contact" hidden>
+                    <p class="is-quiz__question">Майже готово!</p>
+                    <p class="is-quiz__hint">Залишіть контакти — ми зателефонуємо і підберемо рішення відповідно до ваших відповідей.</p>
+                    <div class="form-group">
+                        <input type="text" id="quiz-name" name="name"
+                            class="form-input mobile-form-input mobile-touch-target"
+                            autocomplete="given-name" inputmode="text"
+                            placeholder="Ваше ім'я">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="quiz-phone" name="phone"
+                            class="form-input mobile-form-input mobile-touch-target"
+                            autocomplete="tel" inputmode="tel"
+                            placeholder="+38(___)__-__-___" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-large mobile-touch-target is-quiz__submit">
+                        Дізнатися вартість →
+                    </button>
+                </div>
+
+                <!-- Навігація -->
+                <div class="is-quiz__nav">
+                    <button type="button" class="btn btn-secondary mobile-touch-target is-quiz__prev" hidden>← Назад</button>
+                    <button type="button" class="btn btn-primary mobile-touch-target is-quiz__next-btn" hidden>Далі →</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

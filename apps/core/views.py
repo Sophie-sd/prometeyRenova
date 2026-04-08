@@ -75,6 +75,12 @@ class IntellectualPropertyView(BasePageView):
     page_title = _('Політика щодо інтелектуальної власності | PrometeyLabs')
     meta_description = _('Політика щодо інтелектуальної власності від PrometeyLabs. Дізнайтеся про права на контент та захист авторських прав.')
 
+class InternetShopView(BasePageView):
+    template_name = 'pages/internet-shop.html'
+    page_title = _('Розробка інтернет-магазинів під ключ | PrometeyLabs')
+    meta_description = _('Розробка інтернет-магазинів під ключ від PrometeyLabs. Кастомний код, зручна адмінка, інтеграції з платіжними системами та Новою Поштою. Міграція з Prom, Rozetka.')
+    og_title = _('Інтернет-магазини під ключ — PrometeyLabs')
+
 class ThankYouView(BasePageView):
     template_name = 'pages/thank_you.html'
     page_title = _('Дякуємо за вашу заявку | PrometeyLabs')

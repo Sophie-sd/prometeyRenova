@@ -112,12 +112,13 @@ Email: {form_data.get('email', 'Не вказано')}
         for field, value in form_data.items():
             if field not in ['type', 'name', 'phone', 'email', 'timestamp', 'ip', 'user_agent'] and value:
                 field_name = {
-                    'details': 'Опис проекту',
-                    'message': 'Повідомлення', 
+                    'details': 'Деталі заявки',
+                    'message': 'Повідомлення',
                     'course_type': 'Тип курсу',
                     'experience': 'Досвід',
-                    'topic': 'Тема консультації'
-                }.get(field, field.title())
+                    'topic': 'Тема консультації',
+                    'source_page': 'Сторінка',
+                }.get(field, field.replace('_', ' ').title())
                 message_body += f"{field_name}: {value}\n"
         
         message_body += f"\n=== ДОДАТКОВА ІНФОРМАЦІЯ ===\nIP: {form_data.get('ip', 'Невідомо')}\nUser Agent: {form_data.get('user_agent', 'Невідомо')}"
