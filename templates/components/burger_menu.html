@@ -46,11 +46,13 @@
 
         <div class="mobile-lang-switcher">
             {% for language_code, language_name in LANGUAGES %}
+            {% if language_code != 'ru' %}
             <a href="#"
                 class="mobile-lang-btn {% if language_code == LANGUAGE_CODE %}active{% endif %} mobile-touch-target mobile-focus-visible lang-switcher-link"
                 data-language-code="{{ language_code }}">
                 {{ language_code|upper }}
             </a>
+            {% endif %}
             {% endfor %}
         </div>
 

@@ -1,0 +1,884 @@
+# Russian translations for PrometeyLabs
+# Copyright (C) 2025 PrometeyLabs
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PrometeyLabs\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-09 12:00+0200\n"
+"PO-Revision-Date: 2025-04-09 12:00+0000\n"
+"Last-Translator: PrometeyLabs <info@prometeylabs.com>\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ===== views.py — HomeView meta =====
+
+#: apps/core/views.py
+msgid "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама"
+msgstr "PrometeyLabs - Разработка сайтов под ключ | Telegram боты | Реклама"
+
+#: apps/core/views.py
+msgid ""
+"PrometeyLabs - професійна розробка сайтів під ключ, створення Telegram "
+"ботів, налаштування реклами Google Ads, навчання веб-розробки. Сучасні "
+"технології, конкурентні ціни."
+msgstr ""
+"PrometeyLabs - профессиональная разработка сайтов под ключ, создание Telegram "
+"ботов, настройка рекламы Google Ads, обучение веб-разработке. Современные "
+"технологии, конкурентные цены."
+
+#: apps/core/views.py
+msgid "PrometeyLabs - Розробка сайтів під ключ"
+msgstr "PrometeyLabs - Разработка сайтов под ключ"
+
+# ===== base.html title =====
+
+# ===== header.html =====
+
+#: templates/components/header.html
+msgid "PrometeyLabs - Головна сторінка"
+msgstr "PrometeyLabs - Главная страница"
+
+#: templates/components/header.html
+msgid "Основне меню"
+msgstr "Главное меню"
+
+#: templates/components/header.html
+msgid "головна"
+msgstr "главная"
+
+#: templates/components/header.html
+msgid "портфоліо"
+msgstr "портфолио"
+
+#: templates/components/header.html
+msgid "розрахувати пропозицію"
+msgstr "рассчитать предложение"
+
+#: templates/components/header.html
+msgid "стати розробником"
+msgstr "стать разработчиком"
+
+#: templates/components/header.html
+msgid "блог"
+msgstr "блог"
+
+#: templates/components/header.html
+msgid "події"
+msgstr "события"
+
+#: templates/components/header.html
+msgid "контакти"
+msgstr "контакты"
+
+#: templates/components/header.html
+msgid "Відкрити мобільне меню"
+msgstr "Открыть мобильное меню"
+
+# ===== burger_menu.html =====
+
+#: templates/components/burger_menu.html
+msgid "Мобільне меню"
+msgstr "Мобильное меню"
+
+#: templates/components/burger_menu.html
+msgid "Закрити меню"
+msgstr "Закрыть меню"
+
+#: templates/components/burger_menu.html
+msgid "Головна"
+msgstr "Главная"
+
+#: templates/components/burger_menu.html
+msgid "Портфоліо"
+msgstr "Портфолио"
+
+#: templates/components/burger_menu.html
+msgid "Розрахувати пропозицію"
+msgstr "Рассчитать предложение"
+
+#: templates/components/burger_menu.html
+msgid "Стати розробником"
+msgstr "Стать разработчиком"
+
+#: templates/components/burger_menu.html
+msgid "Блог"
+msgstr "Блог"
+
+#: templates/components/burger_menu.html
+msgid "Події"
+msgstr "События"
+
+#: templates/components/burger_menu.html
+msgid "Контакти"
+msgstr "Контакты"
+
+# ===== footer.html =====
+
+#: templates/components/footer.html
+msgid "Розробка сайтів під ключ"
+msgstr "Разработка сайтов под ключ"
+
+#: templates/components/footer.html
+msgid "Мобільні застосунки"
+msgstr "Мобильные приложения"
+
+#: templates/components/footer.html
+msgid "Telegram-боти"
+msgstr "Telegram-боты"
+
+#: templates/components/footer.html
+msgid "Реклама та просування"
+msgstr "Реклама и продвижение"
+
+#: templates/components/footer.html
+msgid "Ведення соціальних мереж"
+msgstr "Ведение социальных сетей"
+
+#: templates/components/footer.html
+msgid "Курси програмування"
+msgstr "Курсы программирования"
+
+#: templates/components/footer.html
+msgid "КОМПАНІЯ"
+msgstr "КОМПАНИЯ"
+
+#: templates/components/footer.html
+msgid "Події та вебінари"
+msgstr "События и вебинары"
+
+#: templates/components/footer.html
+msgid "ПРАВОВА ІНФОРМАЦІЯ"
+msgstr "ПРАВОВАЯ ИНФОРМАЦИЯ"
+
+#: templates/components/footer.html
+msgid "Публічний договір (оферта)"
+msgstr "Публичный договор (оферта)"
+
+#: templates/components/footer.html
+msgid "Політика конфіденційності"
+msgstr "Политика конфиденциальности"
+
+#: templates/components/footer.html
+msgid "Політика cookies"
+msgstr "Политика cookies"
+
+#: templates/components/footer.html
+msgid "Політика повернення коштів"
+msgstr "Политика возврата средств"
+
+#: templates/components/footer.html
+msgid "Інтелектуальна власність"
+msgstr "Интеллектуальная собственность"
+
+#: templates/components/footer.html
+msgid "КОНТАКТИ"
+msgstr "КОНТАКТЫ"
+
+#: templates/components/footer.html
+msgid "Графік роботи: Цілодобово"
+msgstr "График работы: Круглосуточно"
+
+#: templates/components/footer.html
+msgid "ОТРИМАТИ КОНСУЛЬТАЦІЮ"
+msgstr "ПОЛУЧИТЬ КОНСУЛЬТАЦИЮ"
+
+#: templates/components/footer.html
+msgid "Ім'я"
+msgstr "Имя"
+
+#: templates/components/footer.html
+msgid "Введіть ваше ім'я"
+msgstr "Введите ваше имя"
+
+#: templates/components/footer.html
+msgid "Номер телефону"
+msgstr "Номер телефона"
+
+#: templates/components/footer.html
+msgid "Даю згоду на обробку персональних даних згідно з"
+msgstr "Даю согласие на обработку персональных данных согласно"
+
+#: templates/components/footer.html
+msgid "політики конфіденційності"
+msgstr "политике конфиденциальности"
+
+#: templates/components/footer.html
+msgid "Відправити"
+msgstr "Отправить"
+
+#: templates/components/footer.html
+msgid "Усі права захищені."
+msgstr "Все права защищены."
+
+#: templates/components/footer.html
+msgid "Комплексні веб-рішення"
+msgstr "Комплексные веб-решения"
+
+#: templates/components/footer.html
+msgid "Розробка"
+msgstr "Разработка"
+
+#: templates/components/footer.html
+msgid "просування"
+msgstr "продвижение"
+
+#: templates/components/footer.html
+msgid "Навчання"
+msgstr "Обучение"
+
+# ===== modals.html =====
+
+#: templates/components/modals.html
+msgid "Закрити модальне вікно"
+msgstr "Закрыть модальное окно"
+
+#: templates/components/modals.html
+msgid "Хочу стати розробником"
+msgstr "Хочу стать разработчиком"
+
+#: templates/components/modals.html
+msgid "Залишіть контакти і ми зв'яжемося з вами для консультації про курси програмування"
+msgstr "Оставьте контакты и мы свяжемся с вами для консультации о курсах программирования"
+
+#: templates/components/modals.html
+msgid "Записатися на курс"
+msgstr "Записаться на курс"
+
+#: templates/components/modals.html
+msgid "Результат розрахунку"
+msgstr "Результат расчёта"
+
+#: templates/components/modals.html
+msgid "Тип проєкту:"
+msgstr "Тип проекта:"
+
+#: templates/components/modals.html
+msgid "Орієнтовна вартість:"
+msgstr "Ориентировочная стоимость:"
+
+#: templates/components/modals.html
+msgid "Терміни виконання:"
+msgstr "Сроки выполнения:"
+
+#: templates/components/modals.html
+msgid "Обговорити деталі в Telegram"
+msgstr "Обсудить детали в Telegram"
+
+#: templates/components/modals.html
+msgid "Закрити"
+msgstr "Закрыть"
+
+#: templates/components/modals.html
+msgid "Замовити дзвінок"
+msgstr "Заказать звонок"
+
+#: templates/components/modals.html
+msgid "Залиште контакти і наш менеджер зателефонує вам протягом 15 хвилин"
+msgstr "Оставьте контакты и наш менеджер позвонит вам в течение 15 минут"
+
+#: templates/components/modals.html
+msgid "Або зв'яжіться зараз:"
+msgstr "Или свяжитесь сейчас:"
+
+#: templates/components/modals.html
+msgid "Реєстрація на подію"
+msgstr "Регистрация на событие"
+
+#: templates/components/modals.html
+msgid "Заповніть форму для реєстрації на подію"
+msgstr "Заполните форму для регистрации на событие"
+
+#: templates/components/modals.html
+msgid "Телефон"
+msgstr "Телефон"
+
+#: templates/components/modals.html
+msgid "Компанія (необов'язково)"
+msgstr "Компания (необязательно)"
+
+#: templates/components/modals.html
+msgid "Назва компанії"
+msgstr "Название компании"
+
+#: templates/components/modals.html
+msgid "Додаткова інформація"
+msgstr "Дополнительная информация"
+
+#: templates/components/modals.html
+msgid "Ваші питання або побажання"
+msgstr "Ваши вопросы или пожелания"
+
+#: templates/components/modals.html
+msgid "Зареєструватися"
+msgstr "Зарегистрироваться"
+
+# ===== home.html — hero =====
+
+#: templates/pages/home.html
+msgid "сайти"
+msgstr "сайты"
+
+#: templates/pages/home.html
+msgid "мобільні застосунки"
+msgstr "мобильные приложения"
+
+#: templates/pages/home.html
+msgid "telegram боти"
+msgstr "telegram боты"
+
+#: templates/pages/home.html
+msgid "реклама"
+msgstr "реклама"
+
+#: templates/pages/home.html
+msgid "ведення соціальних мереж"
+msgstr "ведение социальных сетей"
+
+#: templates/pages/home.html
+msgid "Написати в Telegram"
+msgstr "Написать в Telegram"
+
+#: templates/pages/home.html
+msgid "Розрахувати вартість онлайн"
+msgstr "Рассчитать стоимость онлайн"
+
+# ===== home.html — marquee =====
+
+#: templates/pages/home.html
+msgid "Наші послуги"
+msgstr "Наши услуги"
+
+#: templates/pages/home.html
+msgid "Сайти під ключ"
+msgstr "Сайты под ключ"
+
+#: templates/pages/home.html
+msgid "Корпоративні сайти"
+msgstr "Корпоративные сайты"
+
+#: templates/pages/home.html
+msgid "Інтернет-магазини"
+msgstr "Интернет-магазины"
+
+#: templates/pages/home.html
+msgid "Веб-додатки"
+msgstr "Веб-приложения"
+
+#: templates/pages/home.html
+msgid "UX/UI дизайн"
+msgstr "UX/UI дизайн"
+
+#: templates/pages/home.html
+msgid "Навчання IT та AI"
+msgstr "Обучение IT и AI"
+
+# ===== home.html — why choose =====
+
+#: templates/pages/home.html
+msgid "Чому варто обрати PrometeyLabs"
+msgstr "Почему стоит выбрать PrometeyLabs"
+
+#: templates/pages/home.html
+msgid ""
+"PrometeyLabs — компанія, яка поєднує класичний досвід створення цифрових "
+"продуктів із сучасними AI-технологіями. Ми використовуємо інтелектуальні "
+"інструменти для автоматизації частини процесів, що дозволяє прискорювати "
+"розробку, зменшувати кількість технічних годин і забезпечувати стабільну "
+"якість у короткі строки."
+msgstr ""
+"PrometeyLabs — компания, которая сочетает классический опыт создания цифровых "
+"продуктов с современными AI-технологиями. Мы используем интеллектуальные "
+"инструменты для автоматизации части процессов, что позволяет ускорять "
+"разработку, сокращать количество технических часов и обеспечивать стабильное "
+"качество в короткие сроки."
+
+#: templates/pages/home.html
+msgid "Прозорі строки,"
+msgstr "Прозрачные сроки,"
+
+#: templates/pages/home.html
+msgid "які ми дотримуємося"
+msgstr "которые мы соблюдаем"
+
+#: templates/pages/home.html
+msgid "Базові терміни виконання:"
+msgstr "Базовые сроки выполнения:"
+
+#: templates/pages/home.html
+msgid "Лендінги:"
+msgstr "Лендинги:"
+
+#: templates/pages/home.html
+msgid "Корпоративні сайти:"
+msgstr "Корпоративные сайты:"
+
+#: templates/pages/home.html
+msgid "Інтернет-магазини:"
+msgstr "Интернет-магазины:"
+
+#: templates/pages/home.html
+msgid "Веб-додатки / SaaS:"
+msgstr "Веб-приложения / SaaS:"
+
+#: templates/pages/home.html
+msgid "днів"
+msgstr "дней"
+
+#: templates/pages/home.html
+msgid ""
+"Точний час розробки залежить від складності дизайну, інтеграцій та "
+"функціоналу — визначаємо на консультації."
+msgstr ""
+"Точное время разработки зависит от сложности дизайна, интеграций и "
+"функционала — определяем на консультации."
+
+#: templates/pages/home.html
+msgid "Справедлива вартість"
+msgstr "Справедливая стоимость"
+
+#: templates/pages/home.html
+msgid "та гнучкі умови оплати"
+msgstr "и гибкие условия оплаты"
+
+#: templates/pages/home.html
+msgid "Середні діапазони цін:"
+msgstr "Средние диапазоны цен:"
+
+#: templates/pages/home.html
+msgid "Веб-додатки:"
+msgstr "Веб-приложения:"
+
+#: templates/pages/home.html
+msgid ""
+"Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов."
+msgstr ""
+"Предлагаем разбивку оплаты на этапы — без переплат и скрытых условий."
+
+#: templates/pages/home.html
+msgid "5-річна"
+msgstr "5-летняя"
+
+#: templates/pages/home.html
+msgid "гарантія"
+msgstr "гарантия"
+
+#: templates/pages/home.html
+msgid "на наші продукти"
+msgstr "на наши продукты"
+
+#: templates/pages/home.html
+msgid "Гарантія включає:"
+msgstr "Гарантия включает:"
+
+#: templates/pages/home.html
+msgid "Виправлення технічних помилок"
+msgstr "Исправление технических ошибок"
+
+#: templates/pages/home.html
+msgid "Підтримку працездатності коду"
+msgstr "Поддержку работоспособности кода"
+
+#: templates/pages/home.html
+msgid "Реакцію на критичні технічні збої"
+msgstr "Реакцию на критические технические сбои"
+
+#: templates/pages/home.html
+msgid "Відповідність функціоналу ТЗ"
+msgstr "Соответствие функционала ТЗ"
+
+#: templates/pages/home.html
+msgid ""
+"Не включає: нові функції, оновлення дизайну, інтеграції з новими сервісами."
+msgstr ""
+"Не включает: новые функции, обновление дизайна, интеграции с новыми сервисами."
+
+#: templates/pages/home.html
+msgid "AI-технології"
+msgstr "AI-технологии"
+
+#: templates/pages/home.html
+msgid "для оптимізації процесів"
+msgstr "для оптимизации процессов"
+
+#: templates/pages/home.html
+msgid ""
+"Використовуємо AI для оптимізації рутинних процесів: генерації базової "
+"структури коду, перевірки якості, прискорення розробки та тестування."
+msgstr ""
+"Используем AI для оптимизации рутинных процессов: генерации базовой "
+"структуры кода, проверки качества, ускорения разработки и тестирования."
+
+#: templates/pages/home.html
+msgid ""
+"Це не замінює інженерів — навпаки, дає можливість фокусуватися на якості, "
+"безпеці та архітектурі."
+msgstr ""
+"Это не заменяет инженеров — напротив, даёт возможность фокусироваться на "
+"качестве, безопасности и архитектуре."
+
+#: templates/pages/home.html
+msgid ""
+"Результат: швидкий запуск, менша кількість технічних годин і нижча кінцева "
+"ціна для клієнта."
+msgstr ""
+"Результат: быстрый запуск, меньшее количество технических часов и более "
+"низкая итоговая цена для клиента."
+
+#: templates/pages/home.html
+msgid ""
+"Спеціалісти PrometeyLabs мають роки практики у веб-розробці, дизайні, "
+"інтеграціях, мобільних додатках та інтернет-маркетингу. Це гарантує, що ваш "
+"проект буде реалізований системно, технологічно та з розумінням бізнес-задач."
+msgstr ""
+"Специалисты PrometeyLabs имеют годы практики в веб-разработке, дизайне, "
+"интеграциях, мобильных приложениях и интернет-маркетинге. Это гарантирует, "
+"что ваш проект будет реализован системно, технологично и с пониманием "
+"бизнес-задач."
+
+# ===== home.html — services =====
+
+#: templates/pages/home.html
+msgid "Послуги PrometeyLabs"
+msgstr "Услуги PrometeyLabs"
+
+#: templates/pages/home.html
+msgid "Детальніше про Web-розробку"
+msgstr "Подробнее о Web-разработке"
+
+#: templates/pages/home.html
+msgid "Детальніше"
+msgstr "Подробнее"
+
+#: templates/pages/home.html
+msgid "Web-розробка"
+msgstr "Web-разработка"
+
+#: templates/pages/home.html
+msgid "Сайти під ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-боти"
+msgstr "Сайты под ключ, лендинги, интернет-магазины, веб-приложения, телеграм-боты"
+
+#: templates/pages/home.html
+msgid "Детальніше про Мобільні застосунки"
+msgstr "Подробнее о Мобильных приложениях"
+
+#: templates/pages/home.html
+msgid "iOS та Android додатки з сучасним дизайном"
+msgstr "iOS и Android приложения с современным дизайном"
+
+#: templates/pages/home.html
+msgid "Детальніше про Реклама та ведення соціальних мереж"
+msgstr "Подробнее о Рекламе и ведении социальных сетей"
+
+#: templates/pages/home.html
+msgid "Реклама та ведення соціальних мереж"
+msgstr "Реклама и ведение социальных сетей"
+
+#: templates/pages/home.html
+msgid "Google Ads, Meta Ads, TikTok Ads, SMM, контент"
+msgstr "Google Ads, Meta Ads, TikTok Ads, SMM, контент"
+
+#: templates/pages/home.html
+msgid "Детальніше про Навчання"
+msgstr "Подробнее об Обучении"
+
+#: templates/pages/home.html
+msgid "Програмування та AI від нуля до працевлаштування"
+msgstr "Программирование и AI с нуля до трудоустройства"
+
+# ===== home.html — clients / portfolio =====
+
+#: templates/pages/home.html
+msgid "Наші клієнти"
+msgstr "Наши клиенты"
+
+#: templates/pages/home.html
+msgid "Переглянути всі проєкти у портфоліо"
+msgstr "Просмотреть все проекты в портфолио"
+
+#: templates/pages/home.html
+msgid "Переглянути портфоліо"
+msgstr "Просмотреть портфолио"
+
+# ===== home.html — CTA section =====
+
+#: templates/pages/home.html
+msgid "Готові почати?"
+msgstr "Готовы начать?"
+
+#: templates/pages/home.html
+msgid "Зв'яжіться з нами для безкоштовної консультації та розрахунку вартості проєкту"
+msgstr "Свяжитесь с нами для бесплатной консультации и расчёта стоимости проекта"
+
+#: templates/pages/home.html
+msgid "Розрахувати вартість"
+msgstr "Рассчитать стоимость"
+
+#: templates/pages/home.html
+msgid "telegram-консультація"
+msgstr "telegram-консультация"
+
+# ===== home.html — service modals =====
+
+#: templates/pages/home.html
+msgid "Landing, корпоративні, багатосторінкові з SEO"
+msgstr "Landing, корпоративные, многостраничные с SEO"
+
+#: templates/pages/home.html
+msgid "Каталог, оплати, доставки, інтеграції з маркетплейсами"
+msgstr "Каталог, оплаты, доставки, интеграции с маркетплейсами"
+
+#: templates/pages/home.html
+msgid "Веб-додатки / SaaS"
+msgstr "Веб-приложения / SaaS"
+
+#: templates/pages/home.html
+msgid "Особисті кабінети, підписки, аналітика, білінг"
+msgstr "Личные кабинеты, подписки, аналитика, биллинг"
+
+#: templates/pages/home.html
+msgid "Автоматизація, продажі, інтеграції з CRM та платіжними системами"
+msgstr "Автоматизация, продажи, интеграции с CRM и платёжными системами"
+
+#: templates/pages/home.html
+msgid "Оновлення проєктів"
+msgstr "Обновление проектов"
+
+#: templates/pages/home.html
+msgid "Редизайн, прискорення, безпека, перенесення"
+msgstr "Редизайн, ускорение, безопасность, перенос"
+
+#: templates/pages/home.html
+msgid "Робота включає:"
+msgstr "Работа включает:"
+
+#: templates/pages/home.html
+msgid ""
+"Прототипування → UI/UX → верстка → бекенд → інтеграції → адмін-панель → "
+"деплой → SEO → аналітика → тестування → запуск"
+msgstr ""
+"Прототипирование → UI/UX → вёрстка → бэкенд → интеграции → админ-панель → "
+"деплой → SEO → аналитика → тестирование → запуск"
+
+#: templates/pages/home.html
+msgid "Технології:"
+msgstr "Технологии:"
+
+#: templates/pages/home.html
+msgid "Розробка з нуля"
+msgstr "Разработка с нуля"
+
+#: templates/pages/home.html
+msgid "iOS/Android додатки для e-commerce, CRM, фінанси, освіта"
+msgstr "iOS/Android приложения для e-commerce, CRM, финансов, образования"
+
+#: templates/pages/home.html
+msgid "Оплати та підписки"
+msgstr "Оплаты и подписки"
+
+#: templates/pages/home.html
+msgid "Apple Pay, Google Pay, in-app покупки, регулярні підписки"
+msgstr "Apple Pay, Google Pay, in-app покупки, регулярные подписки"
+
+#: templates/pages/home.html
+msgid "Push та аналітика"
+msgstr "Push и аналитика"
+
+#: templates/pages/home.html
+msgid "Персоналізовані повідомлення, трекінг, метрики утримання"
+msgstr "Персонализированные уведомления, трекинг, метрики удержания"
+
+#: templates/pages/home.html
+msgid "Адмін-панель"
+msgstr "Админ-панель"
+
+#: templates/pages/home.html
+msgid "Керування контентом, користувачами, інтеграції з API"
+msgstr "Управление контентом, пользователями, интеграции с API"
+
+#: templates/pages/home.html
+msgid "Оновлення"
+msgstr "Обновление"
+
+#: templates/pages/home.html
+msgid "Редизайн, прискорення, адаптація під нові версії iOS/Android"
+msgstr "Редизайн, ускорение, адаптация под новые версии iOS/Android"
+
+#: templates/pages/home.html
+msgid ""
+"UX-прототип → дизайн → кросплатформенна розробка → інтеграції → push та "
+"аналітика → тестування → публікація App Store/Google Play → підтримка"
+msgstr ""
+"UX-прототип → дизайн → кроссплатформенная разработка → интеграции → push и "
+"аналитика → тестирование → публикация App Store/Google Play → поддержка"
+
+#: templates/pages/home.html
+msgid "Реклама:"
+msgstr "Реклама:"
+
+#: templates/pages/home.html
+msgid ""
+"Google Ads (пошук, торгові, YouTube) • Meta Ads (трафік, ліди, Direct) • "
+"TikTok Ads (нативні інтеграції, Spark Ads) • SEO (аудит, оптимізація, контент)"
+msgstr ""
+"Google Ads (поиск, торговые, YouTube) • Meta Ads (трафик, лиды, Direct) • "
+"TikTok Ads (нативные интеграции, Spark Ads) • SEO (аудит, оптимизация, контент)"
+
+#: templates/pages/home.html
+msgid ""
+"Налаштування кабінетів, аналіз конкурентів, формування бюджету, запуск "
+"кампаній, прозора звітність, регулярна оптимізація."
+msgstr ""
+"Настройка кабинетов, анализ конкурентов, формирование бюджета, запуск "
+"кампаний, прозрачная отчётность, регулярная оптимизация."
+
+#: templates/pages/home.html
+msgid "SMM: Instagram / TikTok / Facebook"
+msgstr "SMM: Instagram / TikTok / Facebook"
+
+#: templates/pages/home.html
+msgid ""
+"Контент-стратегія • Контент-план • Продакшн (рілси, сторіз, UGC) • "
+"Модерація • Інтеграції та колаборації • Конкурси • Запуск реклами • "
+"Щомісячна аналітика"
+msgstr ""
+"Контент-стратегия • Контент-план • Продакшн (рилсы, сторис, UGC) • "
+"Модерация • Интеграции и коллаборации • Конкурсы • Запуск рекламы • "
+"Ежемесячная аналитика"
+
+#: templates/pages/home.html
+msgid "Контент:"
+msgstr "Контент:"
+
+#: templates/pages/home.html
+msgid "Брендинг"
+msgstr "Брендинг"
+
+#: templates/pages/home.html
+msgid "Логотипи, гайдлайни, візитки, шаблони, презентації, банери"
+msgstr "Логотипы, гайдлайны, визитки, шаблоны, презентации, баннеры"
+
+#: templates/pages/home.html
+msgid "Фото/Відео/AI"
+msgstr "Фото/Видео/AI"
+
+#: templates/pages/home.html
+msgid "Пости, каруселі, сторіз, Reels/Shorts, AI-відео, AI-аватари, субтитри"
+msgstr "Посты, карусели, сторис, Reels/Shorts, AI-видео, AI-аватары, субтитры"
+
+#: templates/pages/home.html
+msgid "Програмування та AI від нуля до реальних проєктів. Практика на сучасних технологіях, портфоліо та можливість працевлаштування в PrometeyLabs."
+msgstr "Программирование и AI с нуля до реальных проектов. Практика на современных технологиях, портфолио и возможность трудоустройства в PrometeyLabs."
+
+#: templates/pages/home.html
+msgid "Для новачків:"
+msgstr "Для новичков:"
+
+#: templates/pages/home.html
+msgid "Бази даних та деплой проєктів"
+msgstr "Базы данных и деплой проектов"
+
+#: templates/pages/home.html
+msgid "Git та командна робота"
+msgstr "Git и командная работа"
+
+#: templates/pages/home.html
+msgid "Завершальні проєкти для портфоліо"
+msgstr "Завершающие проекты для портфолио"
+
+#: templates/pages/home.html
+msgid "AI для розробників:"
+msgstr "AI для разработчиков:"
+
+#: templates/pages/home.html
+msgid "Основи та види AI, принципи роботи"
+msgstr "Основы и виды AI, принципы работы"
+
+#: templates/pages/home.html
+msgid "Платформи для щоденного використання"
+msgstr "Платформы для ежедневного использования"
+
+#: templates/pages/home.html
+msgid "Генерація та оптимізація коду через AI"
+msgstr "Генерация и оптимизация кода через AI"
+
+#: templates/pages/home.html
+msgid "LLM, промпт-інженерія, практичні кейси"
+msgstr "LLM, промпт-инженерия, практические кейсы"
+
+#: templates/pages/home.html
+msgid "Підтримка:"
+msgstr "Поддержка:"
+
+#: templates/pages/home.html
+msgid ""
+"Індивідуальні та групові заняття • Зворотний зв'язок • Код-рев'ю • Реальні "
+"бізнес-задачі • Підготовка CV/GitHub/LinkedIn"
+msgstr ""
+"Индивидуальные и групповые занятия • Обратная связь • Код-ревью • Реальные "
+"бизнес-задачи • Подготовка CV/GitHub/LinkedIn"
+
+#: templates/pages/home.html
+msgid "Кар'єра в PrometeyLabs"
+msgstr "Карьера в PrometeyLabs"
+
+#: templates/pages/home.html
+msgid ""
+"Найсильніші випускники після екзамену зможуть отримати офіційне "
+"працевлаштування як розробники чи дизайнери в PrometeyLabs."
+msgstr ""
+"Сильнейшие выпускники после экзамена смогут получить официальное "
+"трудоустройство как разработчики или дизайнеры в PrometeyLabs."
+
+# ===== Form response messages (views.py) =====
+
+#: apps/core/views.py
+msgid "Метод не дозволений"
+msgstr "Метод не разрешён"
+
+#: apps/core/views.py
+msgid "Заповніть обов'язкові поля: ім'я та телефон"
+msgstr "Заполните обязательные поля: имя и телефон"
+
+#: apps/core/views.py
+msgid "Введіть коректне ім'я (мінімум 2 символи, хоча б одна літера)"
+msgstr "Введите корректное имя (минимум 2 символа, хотя бы одна буква)"
+
+#: apps/core/views.py
+msgid "Введіть коректний номер телефону"
+msgstr "Введите корректный номер телефона"
+
+#: apps/core/views.py
+msgid "Дякуємо! Ваша заявка отримана. Ми зв'яжемося з вами найближчим часом."
+msgstr "Спасибо! Ваша заявка получена. Мы свяжемся с вами в ближайшее время."
+
+#: apps/core/views.py
+msgid "Дякуємо! Ваша заявка на курси отримана. Ми надішлемо детальну інформацію."
+msgstr "Спасибо! Ваша заявка на курсы получена. Мы отправим подробную информацию."
+
+#: apps/core/views.py
+msgid "Дякуємо! Наш спеціаліст зв'яжеться з вами протягом 15 хвилин."
+msgstr "Спасибо! Наш специалист свяжется с вами в течение 15 минут."
+
+#: apps/core/views.py
+msgid "Дякуємо за ваше повідомлення! Ми зв'яжемося з вами найближчим часом."
+msgstr "Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время."
+
+#: apps/core/views.py
+msgid "Дякуємо! Наш менеджер зателефонує вам протягом 15 хвилин."
+msgstr "Спасибо! Наш менеджер позвонит вам в течение 15 минут."
+
+#: apps/core/views.py
+msgid "Дякуємо! Ми зв'яжемося з вами найближчим часом."
+msgstr "Спасибо! Мы свяжемся с вами в ближайшее время."
+
+#: apps/core/views.py
+msgid "Помилка при збереженні заявки. Спробуйте ще раз."
+msgstr "Ошибка при сохранении заявки. Попробуйте ещё раз."
+
+#: apps/core/views.py
+msgid "Сталася помилка при обробці заявки. Спробуйте ще раз."
+msgstr "Произошла ошибка при обработке заявки. Попробуйте ещё раз."
