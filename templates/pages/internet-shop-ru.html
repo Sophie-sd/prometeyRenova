@@ -1,0 +1,513 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Разработка интернет-магазинов под ключ | PrometeyLabs{% endblock %}
+{% block description %}Разработка интернет-магазина под ключ от PrometeyLabs. Создание интернет-магазина с нуля, заказать интернет-магазин, стоимость от $700. Кастомный код, интеграции с платёжными системами, дропшиппинг-платформы.{% endblock %}
+{% block og_title %}Интернет-магазин под ключ — PrometeyLabs{% endblock %}
+
+{% block page_css %}
+<!-- LCP hero float image — preload must precede CSS to eliminate resource load delay -->
+<link rel="preload" as="image"
+    imagesrcset="{% static 'images/shop_hero_540.webp' %} 540w, {% static 'images/shop_hero.webp' %} 1080w"
+    imagesizes="(max-width: 767px) 320px, (max-width: 1199px) 400px, 540px"
+    fetchpriority="high">
+<!-- BG parallax images -->
+<link rel="preload" as="image" href="{% static 'images/shop_page_hero_desc.webp' %}" media="(min-width: 768px)" fetchpriority="high">
+<link rel="preload" as="image" href="{% static 'images/shop_page_hero_mob.webp' %}" media="(max-width: 767px)" fetchpriority="high">
+<!-- Page CSS — loaded non-blocking to eliminate render-blocking resource -->
+<link rel="preload" href="{% static 'css/internet-shop.css' %}?v=7" as="style">
+<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=7" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=7"></noscript>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/internet-shop-parallax.js' %}" defer></script>
+<script src="{% static 'js/internet-shop-quiz.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="is-page" style="--shop-parallax-bg: url('{% static 'images/shop_page_hero_desc.webp' %}'); --shop-parallax-bg-mob: url('{% static 'images/shop_page_hero_mob.webp' %}')">
+
+    <div class="is-page-bg" aria-hidden="true"></div>
+
+    <!-- ===== BLOCK 1: HERO ===== -->
+    <section class="is-hero is-bg-section">
+        <div class="is-bg-overlay is-bg-overlay--hero" aria-hidden="true"></div>
+        <div class="container is-bg-section__inner">
+
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb">
+                <ol class="is-breadcrumb">
+                    <li><a href="{% url 'home' %}">PrometeyLabs</a></li>
+                    <li><a href="#">Услуги по разработке</a></li>
+                    <li>Интернет-магазины</li>
+                </ol>
+            </nav>
+
+            <div class="is-hero__inner">
+
+                <!-- Grid row 1, col 1: title -->
+                <div class="is-hero__left-title">
+                    <h1 class="is-hero__title">
+                        Интернет-магазины<br>
+                        от <span class="is-accent">PrometeyLabs</span>
+                        <span class="is-hero__title-price">под ключ от $700</span>
+                    </h1>
+                </div>
+
+                <!-- Grid row 1, col 2: image -->
+                <div class="is-hero__right">
+                    <div class="is-hero__image-wrap">
+                        <picture>
+                            <source
+                                type="image/webp"
+                                srcset="{% static 'images/shop_hero_540.webp' %} 540w, {% static 'images/shop_hero.webp' %} 1080w"
+                                sizes="(max-width: 767px) 320px, (max-width: 1199px) 400px, 540px">
+                            <img
+                                src="{% static 'images/shop_hero.png' %}"
+                                alt="Интернет-магазин на ноутбуке и смартфоне"
+                                class="is-hero__float-img"
+                                width="540"
+                                height="540"
+                                loading="eager"
+                                decoding="sync"
+                                fetchpriority="high"
+                            >
+                        </picture>
+                    </div>
+                </div>
+
+                <!-- Grid row 2: marquee -->
+                <div class="is-marquee is-hero__marquee">
+                    <div class="is-marquee__track" aria-hidden="true">
+                        <div class="is-marquee__content">
+                            <span class="is-marquee__item">Создание интернет-магазина</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Разработка с нуля</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Интернет-магазин под ключ</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Заказать интернет-магазин</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Парсинг товаров</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Автообновление через Google Таблицы</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Интеграция платёжных систем</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Подключение CRM</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Дропшиппинг-платформа</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">SEO-оптимизация</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Мобильная версия</span>
+                            <span class="is-marquee__sep">•</span>
+                        </div>
+                        <div class="is-marquee__content" aria-hidden="true">
+                            <span class="is-marquee__item">Создание интернет-магазина</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Разработка с нуля</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Интернет-магазин под ключ</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Заказать интернет-магазин</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Парсинг товаров</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Автообновление через Google Таблицы</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Интеграция платёжных систем</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Подключение CRM</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Дропшиппинг-платформа</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">SEO-оптимизация</span>
+                            <span class="is-marquee__sep">•</span>
+                            <span class="is-marquee__item">Мобильная версия</span>
+                            <span class="is-marquee__sep">•</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid row 3: USP + CTA -->
+                <div class="is-hero__left-bottom">
+                    <div class="is-usp">
+                        <div class="is-usp__item">
+                            <div class="is-usp__body">
+                                <p class="is-usp__title">Никаких плагинов — только чистый код</p>
+                                <p class="is-usp__text">Страницы загружаются мгновенно, сайт не зависит от сторонних обновлений.</p>
+                            </div>
+                        </div>
+                        <div class="is-usp__item">
+                            <div class="is-usp__body">
+                                <p class="is-usp__title">Административная панель без ограничений</p>
+                                <p class="is-usp__text">Добавляйте товары, корректируйте цены, запускайте акции, изменяйте тексты и даже цвета сайта через удобную панель, которую мы создаём под вас.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="is-hero__cta">
+                        <button class="btn btn-primary btn-large mobile-touch-target"
+                                data-modal="call-request-modal"
+                                type="button">
+                            Бесплатная консультация ↗
+                        </button>
+                        <a href="#brief" class="btn btn-secondary btn-large mobile-touch-target">
+                            Рассчитать стоимость онлайн ↗
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 2: GUARANTEE STRIP ===== -->
+    <section class="is-guarantee-strip">
+        <div class="container">
+            <p class="is-guarantee-strip__intro">
+                Мы уверены в качестве нашего кода —<br>
+                поэтому предоставляем <span class="is-accent">уникальные условия на рынке</span>
+            </p>
+            <div class="is-guarantee-strip__items">
+                <div class="is-guarantee-card">
+                    <div class="is-guarantee-card__num is-guarantee-card__num--year">1 год</div>
+                    <div>
+                        <p class="is-guarantee-card__title">Бесплатная поддержка после запуска</p>
+                        <p class="is-guarantee-card__text">Мы остаёмся рядом, чтобы помогать с техническими вопросами в течение первого года работы проекта.</p>
+                    </div>
+                </div>
+                <div class="is-guarantee-card">
+                    <div class="is-guarantee-card__num">∞</div>
+                    <div>
+                        <p class="is-guarantee-card__title">Пожизненная гарантия стабильности</p>
+                        <p class="is-guarantee-card__text">Мы не используем плагины, требующие обновлений. Только чистый код — никаких сбоев из-за устаревших зависимостей.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 3: WHAT'S INCLUDED ===== -->
+    <section class="is-included is-bg-section is-section">
+        <div class="is-bg-overlay is-bg-overlay--section" aria-hidden="true"></div>
+        <div class="container is-bg-section__inner">
+            <span class="is-section__label">Разрабатываем гибкие решения</span>
+            <h2 class="is-section__title">Интернет-магазин под ключ</h2>
+
+            <div class="is-included__grid">
+
+                <!-- Group A: Features -->
+                <div>
+                    <p class="is-included__subhead">Функционал магазина</p>
+                    <ul class="is-feature-list">
+                        <li>Каталог товаров с фильтрами и сортировкой</li>
+                        <li>Личный кабинет покупателя (заказы, сохранённые товары)</li>
+                        <li>Корзина, сравнение, списки желаний</li>
+                        <li>Акции, промокоды, скидки</li>
+                        <li>Блог и статьи для SEO</li>
+                        <li>Форма обратной связи и онлайн-чат</li>
+                        <li>SEO-оптимизированная структура страниц товаров</li>
+                    </ul>
+                </div>
+
+                <!-- Group B: Migration -->
+                <div class="is-migration-block">
+                    <span class="is-migration-block__badge">Есть товары — перенесём за вас</span>
+                    <p class="is-migration-block__title">Миграция и наполнение</p>
+                    <ul class="is-feature-list">
+                        <li>Парсинг товаров с любого сайта или сервиса</li>
+                        <li>Миграция с Prom, Rozetka, Horoshop, OpenCart, WooCommerce, Shopify и других</li>
+                        <li>Автообновление товаров через Google Таблицы</li>
+                        <li>Массовая загрузка через Excel / CSV</li>
+                        <li>Реферальные ссылки и UTM-разметка</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA strip -->
+    <section class="is-cta-strip is-section--surface">
+        <div class="container">
+            <div class="is-cta-inline is-cta-inline--flush">
+                <p class="is-cta-inline__text">Нужно что-то конкретное? Расскажите — подберём решение</p>
+                <button class="btn btn-primary mobile-touch-target"
+                        data-modal="call-request-modal"
+                        type="button">
+                    Бесплатная консультация →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 4: TECH ADVANTAGE ===== -->
+    <section class="is-tech is-bg-section is-section">
+        <div class="is-bg-overlay is-bg-overlay--section" aria-hidden="true"></div>
+        <div class="container is-bg-section__inner">
+            <span class="is-section__label">Техническое преимущество</span>
+            <h2 class="is-section__title">Быстро. Надёжно.<br>По разумной цене.</h2>
+            <p class="is-section__subtitle">Сайт написан на современном стеке — без плагинов, без сторонних зависимостей. Будет работать корректно, пока существует интернет.</p>
+
+            <div class="is-tech__cards">
+
+                <div class="is-tech-card">
+                    <span class="is-tech-card__icon">⚡</span>
+                    <p class="is-tech-card__title">Мгновенная загрузка</p>
+                    <p class="is-tech-card__text">Страницы обновляются без полной перезагрузки — фильтрация товаров, переход между разделами. Критично для удобства на смартфоне.</p>
+                </div>
+
+                <div class="is-tech-card">
+                    <span class="is-tech-card__icon">📱</span>
+                    <p class="is-tech-card__title">Идеальная мобильная версия</p>
+                    <p class="is-tech-card__text">Каждый элемент проектируется прежде всего для смартфона. Удобная навигация, крупные кнопки, быстрая работа даже на медленном интернете.</p>
+                </div>
+
+                <div class="is-tech-card">
+                    <span class="is-tech-card__icon">🔍</span>
+                    <p class="is-tech-card__title">SEO-адаптация под вашу нишу</p>
+                    <p class="is-tech-card__text">Сайт проектируется вместе с маркетологом под популярные поисковые запросы вашей ниши. Правильная структура, мета-теги, скорость — для максимальной релевантности рекламы и органики.</p>
+                </div>
+
+                <div class="is-tech-card">
+                    <span class="is-tech-card__icon">🛡</span>
+                    <p class="is-tech-card__title">Пожизненная гарантия стабильности</p>
+                    <p class="is-tech-card__text">Мы не используем плагины, требующие обновлений. Только чистый код — никаких сбоев из-за устаревших зависимостей.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 5: ADMIN PANEL ===== -->
+    <section class="is-admin is-section is-section--dark">
+        <div class="container">
+            <span class="is-section__label">Административная панель</span>
+            <h2 class="is-section__title">Управляйте сайтом сами — без разработчика</h2>
+            <p class="is-section__subtitle">Мы обсуждаем с вами всё, что вы хотите видеть в админке.</p>
+
+            <ul class="is-admin__list">
+                <li class="is-admin__item">
+                    <p class="is-admin__item-title">Полное управление контентом</p>
+                    <p class="is-admin__item-desc">Редактирование всех текстов, баннеров и ведение профессионального блога прямо из панели.</p>
+                </li>
+                <li class="is-admin__item">
+                    <p class="is-admin__item-title">Работа с товарами и ценами</p>
+                    <p class="is-admin__item-desc">Массовая загрузка, редактирование и синхронизация остатков через Google Таблицы.</p>
+                </li>
+                <li class="is-admin__item">
+                    <p class="is-admin__item-title">Инструменты маркетинга и SEO</p>
+                    <p class="is-admin__item-desc">Настройка акций, промокодов, скидок и SEO-параметров для каждой страницы.</p>
+                </li>
+                <li class="is-admin__item">
+                    <p class="is-admin__item-title">Администрирование и дизайн</p>
+                    <p class="is-admin__item-desc">Управление заказами и базой клиентов.</p>
+                </li>
+            </ul>
+
+            <p class="is-admin__tagline">Вы получаете мощный инструмент — и полный контроль над ним.</p>
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 6: INTEGRATIONS ===== -->
+    <section class="is-integrations is-bg-section is-section">
+        <div class="is-bg-overlay is-bg-overlay--section" aria-hidden="true"></div>
+        <div class="container is-bg-section__inner">
+            <span class="is-section__label">Интеграции</span>
+            <h2 class="is-section__title">Автоматизируем всё что можно</h2>
+            <p class="is-section__subtitle">Ваш магазин работает — вы занимаетесь бизнесом.</p>
+
+            <div class="is-integrations__cols">
+
+                <div class="is-integration-col">
+                    <span class="is-integration-col__icon">💳</span>
+                    <p class="is-integration-col__title">Платёжные системы</p>
+                    <ul class="is-integration-col__list is-integration-col__list--two-cols">
+                        <li>LiqPay</li>
+                        <li>Monobank</li>
+                        <li>WayForPay</li>
+                        <li>Приват24</li>
+                        <li>Portmone, Fondy</li>
+                        <li>И другие</li>
+                    </ul>
+                </div>
+
+                <div class="is-integration-col">
+                    <span class="is-integration-col__icon">📦</span>
+                    <p class="is-integration-col__title">Доставка</p>
+                    <ul class="is-integration-col__list">
+                        <li>Автоматическое создание ТТН после заказа</li>
+                        <li>Расчёт стоимости доставки в корзине</li>
+                        <li>Отслеживание посылки в кабинете покупателя</li>
+                        <li>Нова Пошта, Укрпошта, Justin</li>
+                    </ul>
+                </div>
+
+                <div class="is-integration-col">
+                    <span class="is-integration-col__icon">🔗</span>
+                    <p class="is-integration-col__title">CRM и уведомления</p>
+                    <ul class="is-integration-col__list">
+                        <li>KeyCRM, NetHunt, SalesDrive, HubSpot и другие</li>
+                        <li>Собственная индивидуальная CRM для учёта</li>
+                        <li>Новые заказы — в админку, Telegram, email, SMS</li>
+                        <li>Сбор заявок из форм и чата</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="is-integration-note">
+                <p class="is-integration-note__text">Нет нужной интеграции в списке? Скорее всего, мы её уже делали</p>
+                <button class="btn btn-primary mobile-touch-target"
+                        data-modal="call-request-modal"
+                        type="button">
+                    Спросить →
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 8: PORTFOLIO + CTA ===== -->
+    <section class="is-portfolio-cta is-section--dark">
+        <div class="container">
+
+            <div class="is-portfolio-cta__grid">
+
+                <div class="is-portfolio-cta__col">
+                    <h2 class="is-portfolio-cta__title">Наши работы</h2>
+                    <p class="is-portfolio-cta__desc">Реальные проекты, реальные результаты. Убедитесь в качестве нашей работы сами.</p>
+                    <a href="{% url 'portfolio' %}" class="btn btn-secondary btn-large mobile-touch-target">
+                        Посмотреть портфолио →
+                    </a>
+                </div>
+
+                <div class="is-portfolio-cta__sep" aria-hidden="true"></div>
+
+                <div class="is-portfolio-cta__col is-portfolio-cta__col--cta">
+                    <h2 class="is-portfolio-cta__title">Готовы обсудить ваш проект?</h2>
+                    <p class="is-portfolio-cta__desc">Расскажите о задаче — получите бесплатную консультацию и ориентировочную стоимость.</p>
+                    <a href="#brief" class="btn btn-primary btn-large mobile-touch-target">
+                        Заполнить бриф →
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 9: QUIZ BRIEF ===== -->
+    <section class="is-brief is-bg-section" id="brief">
+        <div class="is-bg-overlay is-bg-overlay--section" aria-hidden="true"></div>
+        <div class="container container-narrow is-bg-section__inner">
+            <h2 class="is-section__title">Рассчитайте стоимость онлайн</h2>
+            <p class="is-section__subtitle">5 коротких вопросов — и мы подберём решение под ваш проект.</p>
+
+            <form class="is-quiz" id="internet-shop-quiz-form" method="post" action="{% url 'form_submit' %}" data-form-type="site_request">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="site_request">
+                <input type="hidden" name="source_page" value="internet-shop-ru">
+                <input type="hidden" name="details" id="quiz-details">
+
+                <!-- Progress -->
+                <div class="is-quiz__header">
+                    <div class="is-quiz__progress">
+                        <div class="is-quiz__progress-bar" data-quiz-progress></div>
+                    </div>
+                    <p class="is-quiz__progress-label">Шаг <span data-quiz-step-num>1</span> из 5</p>
+                </div>
+
+                <!-- Шаг 1 -->
+                <div class="is-quiz__step" data-step="1">
+                    <p class="is-quiz__question">Что вам нужно?</p>
+                    <ul class="is-quiz__options">
+                        <li><label class="is-quiz__option"><input type="radio" name="q_need" value="Создание интернет-магазина с нуля"><span>Создание интернет-магазина с нуля</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_need" value="Доработка существующего сайта"><span>Доработка существующего сайта</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_need" value="Миграция с другой платформы"><span>Миграция с Prom / Rozetka / другой платформы</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_need" value="Нужна консультация"><span>Ещё не определился — нужна консультация</span></label></li>
+                    </ul>
+                </div>
+
+                <!-- Шаг 2 -->
+                <div class="is-quiz__step" data-step="2" hidden>
+                    <p class="is-quiz__question">Сколько товаров в каталоге?</p>
+                    <ul class="is-quiz__options">
+                        <li><label class="is-quiz__option"><input type="radio" name="q_products" value="До 100 товаров"><span>До 100 товаров</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_products" value="100–1000 товаров"><span>100–1000 товаров</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_products" value="1000–10 000 товаров"><span>1000–10 000 товаров</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_products" value="Более 10 000 товаров"><span>Более 10 000 товаров</span></label></li>
+                    </ul>
+                </div>
+
+                <!-- Шаг 3: мульти-выбор -->
+                <div class="is-quiz__step" data-step="3" data-multi="true" hidden>
+                    <p class="is-quiz__question">Какая автоматизация для вас важна?</p>
+                    <p class="is-quiz__hint">Можно выбрать несколько вариантов</p>
+                    <ul class="is-quiz__options is-quiz__options--multi">
+                        <li><label class="is-quiz__option"><input type="checkbox" name="q_automation" value="Платёжные системы и онлайн-оплата"><span>Платёжные системы и онлайн-оплата</span></label></li>
+                        <li><label class="is-quiz__option"><input type="checkbox" name="q_automation" value="Автоматизация доставки (Нова Пошта)"><span>Автоматизация доставки (Нова Пошта)</span></label></li>
+                        <li><label class="is-quiz__option"><input type="checkbox" name="q_automation" value="CRM и уведомления (Telegram, email)"><span>CRM и уведомления (Telegram, email)</span></label></li>
+                        <li><label class="is-quiz__option is-quiz__option--all"><input type="checkbox" name="q_automation" value="Всё из перечисленного" data-select-all><span>Всё из перечисленного</span></label></li>
+                    </ul>
+                </div>
+
+                <!-- Шаг 4 -->
+                <div class="is-quiz__step" data-step="4" hidden>
+                    <p class="is-quiz__question">Нужен ли личный кабинет для покупателей?</p>
+                    <ul class="is-quiz__options">
+                        <li><label class="is-quiz__option"><input type="radio" name="q_accounts" value="Да — регистрация, заказы, избранное, бонусы"><span>Да — регистрация, заказы, избранное, бонусы</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_accounts" value="Базовая авторизация — вход и отслеживание заказов"><span>Базовая авторизация — вход и отслеживание заказов</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_accounts" value="Нет — оформление без регистрации"><span>Нет — оформление без регистрации</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_accounts" value="Ещё не определился"><span>Ещё не определился</span></label></li>
+                    </ul>
+                </div>
+
+                <!-- Шаг 5 -->
+                <div class="is-quiz__step" data-step="5" hidden>
+                    <p class="is-quiz__question">Когда нужен запуск?</p>
+                    <ul class="is-quiz__options">
+                        <li><label class="is-quiz__option"><input type="radio" name="q_timeline" value="Как можно быстрее (до 2 недель)"><span>Как можно быстрее (до 2 недель)</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_timeline" value="В течение месяца"><span>В течение месяца</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_timeline" value="1–3 месяца"><span>1–3 месяца</span></label></li>
+                        <li><label class="is-quiz__option"><input type="radio" name="q_timeline" value="Сроки гибкие"><span>Сроки гибкие</span></label></li>
+                    </ul>
+                </div>
+
+                <!-- Контактный шаг -->
+                <div class="is-quiz__step is-quiz__step--contact" data-step="contact" hidden>
+                    <p class="is-quiz__question">Почти готово!</p>
+                    <p class="is-quiz__hint">Оставьте контакты — мы позвоним и подберём решение в соответствии с вашими ответами.</p>
+                    <div class="form-group">
+                        <input type="text" id="quiz-name" name="name"
+                            class="form-input mobile-form-input mobile-touch-target"
+                            autocomplete="given-name" inputmode="text"
+                            required placeholder="Ваше имя">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="quiz-phone" name="phone"
+                            class="form-input mobile-form-input mobile-touch-target"
+                            autocomplete="tel" inputmode="tel"
+                            placeholder="+38(___)__-__-___" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-large mobile-touch-target is-quiz__submit">
+                        Узнать стоимость →
+                    </button>
+                </div>
+
+                <!-- Навигация -->
+                <div class="is-quiz__nav">
+                    <button type="button" class="btn btn-secondary mobile-touch-target is-quiz__prev" hidden>← Назад</button>
+                    <button type="button" class="btn btn-primary mobile-touch-target is-quiz__next-btn" hidden>Далее →</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
