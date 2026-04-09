@@ -780,7 +780,7 @@
     .target-audience-card,
     .programs-section,
     .format-section {
-        background-image: url('../images/mobile_menu.png');
+        background-image: url('../images/mobile_menu.webp');
         background-attachment: scroll;
     }
 }

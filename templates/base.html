@@ -13,8 +13,7 @@
     })(window,document,'script','dataLayer','GTM-K2FVPPTK');</script>
     <!-- End Google Tag Manager -->
     <!-- iOS Safari оптимізований viewport -->
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- Відключення кешування для розробки -->
@@ -45,23 +44,8 @@
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:image" content="{% block og_image %}{% static 'images/og-image.jpg' %}{% endblock %}">
 
-    <!-- CSS Core (завантажуються першими) -->
-    <link rel="stylesheet" href="{% static 'css/core/reset.css' %}">
-    <link rel="stylesheet" href="{% static 'css/core/variables.css' %}">
-    <link rel="stylesheet" href="{% static 'css/core/z-index-system.css' %}">
-    <link rel="stylesheet" href="{% static 'css/core/typography.css' %}">
-    <link rel="stylesheet" href="{% static 'css/core/layout.css' %}">
-    <link rel="stylesheet" href="{% static 'css/core/animations.css' %}">
-    <link rel="stylesheet" href="{% static 'css/core/performance.css' %}">
-
-    <!-- CSS Components -->
-    <link rel="stylesheet" href="{% static 'css/components/navigation.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components/buttons.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components/forms.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components/modals.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components/footer.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components/hero-parallax.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components/mobile-optimizations.css' %}">
+    <!-- CSS Base Bundle (core + components in one request) -->
+    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=1">
 
     <!-- Page specific CSS -->
     {% block page_css %}{% endblock %}
@@ -71,9 +55,8 @@
     <meta name="csrf-token" content="{{ csrf_token }}">
 
     <!-- Resource hints for performance -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json">
@@ -152,12 +135,12 @@
         };
     </script>
     {% block base_js %}
-    <script src="{% static 'js/core/gclid-capture.js' %}"></script>
-    <script src="{% static 'js/core/utils.js' %}"></script>
-    <script src="{% static 'js/mobile-core.js' %}"></script>
-    <script src="{% static 'js/video-system.js' %}"></script>
-    <script src="{% static 'js/core/phone-mask.js' %}"></script>
-    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/core/gclid-capture.js' %}" defer></script>
+    <script src="{% static 'js/core/utils.js' %}" defer></script>
+    <script src="{% static 'js/mobile-core.js' %}" defer></script>
+    <script src="{% static 'js/video-system.js' %}" defer></script>
+    <script src="{% static 'js/core/phone-mask.js' %}" defer></script>
+    <script src="{% static 'js/base.js' %}" defer></script>
     {% endblock %}
     {% block extra_js %}{% endblock %}
 

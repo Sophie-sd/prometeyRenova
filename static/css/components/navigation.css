@@ -292,7 +292,7 @@
     /* Фонова картинка з легким затемненням для видимості */
     background: 
         linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),
-        url('/static/images/mobile_menu.png') center/cover no-repeat;
+        url('/static/images/mobile_menu.webp') center/cover no-repeat;
     
     /* Fallback фон якщо картинка не завантажиться */
     background-color: #1a1a1a;

@@ -861,7 +861,7 @@ body {
 /* ===== АДАПТАЦІЯ МОБІЛЬНІ (iOS Safari) ===== */
 @media (max-width: 767px) {
     body {
-        background-image: url('/static/images/mobile_menu.png');
+        background-image: url('/static/images/mobile_menu.webp');
         background-attachment: scroll;
         background-size: cover;
         background-position: center;

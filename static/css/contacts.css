@@ -358,9 +358,9 @@
         margin-bottom: 25px;
     }
 
-    /* Мобільні: mobile_menu.png з scroll attachment для кращої якості */
+    /* Мобільні: mobile_menu.webp з scroll attachment для кращої якості */
     .contacts-page {
-        background-image: url('../images/mobile_menu.png');
+        background-image: url('../images/mobile_menu.webp');
         background-attachment: scroll;
         background-size: cover;
         background-position: center;
@@ -461,7 +461,7 @@
     /* Мобільна версія для iOS Safari */
     @media (max-width: 767px) {
         .contacts-page {
-            background-image: url('../images/mobile_menu.png');
+            background-image: url('../images/mobile_menu.webp');
             background-attachment: scroll;
             background-position: center;
             background-color: #1a1a1a;

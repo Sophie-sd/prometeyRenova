@@ -52,7 +52,10 @@
                 <div class="is-hero__right">
                     <div class="is-hero__image-wrap">
                         <picture>
-                            <source srcset="{% static 'images/shop_hero.webp' %}" type="image/webp">
+                            <source
+                                type="image/webp"
+                                srcset="{% static 'images/shop_hero_540.webp' %} 540w, {% static 'images/shop_hero.webp' %} 1080w"
+                                sizes="(max-width: 767px) 320px, 540px">
                             <img
                                 src="{% static 'images/shop_hero.png' %}"
                                 alt="Інтернет-магазин на ноутбуці та смартфоні"

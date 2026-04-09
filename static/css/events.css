@@ -340,7 +340,7 @@
 
 @media (max-width: 767px) {
     .events-filter {
-        background-image: url('../images/mobile_menu.png');
+        background-image: url('../images/mobile_menu.webp');
         background-attachment: scroll;
         border-radius: 16px 16px 0 0;
         margin-top: -16px;
@@ -350,7 +350,7 @@
     }
 
     .events-grid {
-        background-image: url('../images/mobile_menu.png');
+        background-image: url('../images/mobile_menu.webp');
         background-attachment: scroll;
     }
 }

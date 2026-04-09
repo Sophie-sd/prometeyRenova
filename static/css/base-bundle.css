@@ -1,0 +1,3820 @@
+/* =================================
+   CORE RESET - CSS Reset & Base
+   Базові стилі для всього додатку
+   ================================= */
+
+/* ===== CSS RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #000000;
+    background-color: var(--color-beige, #F5F1ED);
+    overflow-x: hidden;
+}
+
+/* ===== LINK RESET ===== */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition-normal) var(--easing-default);
+}
+
+a:hover {
+    color: var(--color-brand-orange);
+}
+
+/* ===== BUTTON RESET ===== */
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* ===== IMAGE RESET ===== */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ===== LIST RESET ===== */
+ul,
+ol {
+    list-style: none;
+}
+
+/* ===== FORM ELEMENT RESET ===== */
+input,
+textarea,
+select {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* ===== FOCUS STYLES ===== */
+:focus {
+    outline: 2px solid var(--color-brand-orange);
+    outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ===== SELECTION STYLES ===== */
+::selection {
+    background-color: var(--color-brand-orange);
+    color: var(--color-white);
+}
+
+::-moz-selection {
+    background-color: var(--color-brand-orange);
+    color: var(--color-white);
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+    position: relative;
+}/* =================================
+   CORE VARIABLES - CSS змінні проєкту
+   Кольори, розміри, spacing, breakpoints
+   
+   ВАЖЛИВО: Mobile viewport змінні (--vh, --vw) 
+   знаходяться в mobile-optimizations.css
+   ================================= */
+
+:root {
+    /* ===== КОЛЬОРОВА СИСТЕМА (оновлена: все помаранчеве!) ===== */
+    --color-brand-orange: #E65100;
+    /* Головний бренд колір - темно насичено помаранчевий */
+    --color-brand-purple: #7B2CBF;
+    /* Фірмовий фіолетовий колір для акцентів */
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+    --color-beige: #bab8b7;
+    --color-beige-alt: #FAF7F2;
+    --color-gray: #F8F8F8;
+
+    /* ===== ТИПОГРАФІЧНА ШКАЛА ===== */
+    /* Використовуємо clamp() для fluid typography */
+    --font-mega: clamp(60px, 12vw, 120px);
+    --font-large: clamp(32px, 6vw, 50px);
+    --font-medium: clamp(20px, 3vw, 24px);
+    --font-sub: 16px;
+    --font-base: 14px;
+    --font-small: 12px;
+    --font-page: clamp(24px, 4vw, 32px);
+
+    /* ===== SPACING ШКАЛА ===== */
+    /* Responsive spacing використовуючи clamp() */
+    --space-xs: clamp(16px, 2vw, 20px);
+    --space-sm: clamp(24px, 4vw, 40px);
+    --space-md: clamp(40px, 6vw, 60px);
+    --space-lg: clamp(60px, 8vw, 80px);
+    --space-xl: clamp(80px, 12vw, 120px);
+
+    /* ===== BREAKPOINTS (для використання в JS) ===== */
+    /* Доступні через getComputedStyle */
+    --breakpoint-mobile: 767px;
+    --breakpoint-tablet: 1024px;
+    --breakpoint-desktop: 1200px;
+
+    /* ===== TRANSITIONS ===== */
+    --transition-fast: 150ms;
+    --transition-normal: 300ms;
+    --transition-slow: 500ms;
+    --easing-default: ease-out;
+    --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --easing-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* ===== BORDER RADIUS ===== */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+
+    /* ===== SHADOWS ===== */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 25px 60px rgba(0, 0, 0, 0.3);
+
+    /* Помаранчеві тіні для бренду та акцентів (Deep Orange RGB: 230, 81, 0) */
+    --shadow-orange-sm: 0 2px 8px rgba(230, 81, 0, 0.1);
+    --shadow-orange-md: 0 4px 12px rgba(230, 81, 0, 0.2);
+    --shadow-orange-lg: 0 25px 60px rgba(230, 81, 0, 0.3);
+
+    /* ===== Z-INDEX - визначено в z-index-system.css ===== */
+    /* Тут тільки fallback values якщо z-index-system не завантажився */
+}
+
+/* ===== ТЕМНА ТЕМА (для майбутнього) ===== */
+/* 
+[data-theme="dark"] {
+    --color-beige: #1a1a1a;
+    --color-black: #ffffff;
+    --color-white: #000000;
+}
+*//* =================================
+   Z-INDEX СИСТЕМА - ЄДИНА ДЛЯ ВСЬОГО ПРОЄКТУ
+   Ця система забезпечує відсутність конфліктів
+   ================================= */
+
+/* ===== ГЛОБАЛЬНІ Z-INDEX РІВНІ ===== */
+:root {
+    /* Фонові елементи (найнижчий рівень) */
+    --z-background: -1;
+    /* Фіксоване відео фон */
+    --z-video-overlay: 1;
+    /* Overlay поверх відео */
+
+    /* Основний контент */
+    --z-content-base: 10;
+    /* Звичайні секції */
+    --z-content-elevated: 50;
+    /* Піднятий контент */
+    --z-content-hero: 100;
+    /* Hero контент */
+
+    /* Навігація */
+    --z-navigation: 1000;
+    /* Основна навігація */
+    --z-mobile-menu: 10000;
+    /* Мобільне меню */
+    --z-burger-button: 10001;
+    /* Кнопка бургер */
+
+    /* UI елементи */
+    --z-dropdown: 500;
+    /* Dropdown меню */
+    --z-tooltip: 800;
+    /* Підказки */
+    --z-fixed-buttons: 999;
+    /* Фіксовані кнопки */
+
+    /* Модальні вікна (найвищий рівень) */
+    --z-modal-backdrop: 10002;
+    /* Backdrop модалок */
+    --z-modal-content: 10003;
+    /* Контент модалок */
+    --z-modal-close-mobile: 10005;
+    /* Мобільна кнопка закриття модалок (фіксована) */
+}
+
+/* ===== СЕКЦІЇ З ВІДЕО ФОНОМ ===== */
+/* Hero секції використовують isolation: isolate замість z-index */
+/* Це створює новий stacking context без конфліктів */
+
+.hero-section .video-background,
+.hero-parallax .video-background,
+.cta-section .video-background {
+    z-index: var(--z-background);
+}
+
+.hero-section .video-overlay,
+.hero-parallax .video-overlay,
+.cta-section .video-overlay {
+    z-index: var(--z-video-overlay);
+}
+
+.hero-content,
+.hero-parallax__content,
+.cta-content {
+    z-index: var(--z-content-hero);
+}
+
+/* ===== НАВІГАЦІЯ ===== */
+.main-navigation {
+    z-index: var(--z-navigation);
+}
+
+.mobile-menu {
+    z-index: var(--z-mobile-menu);
+}
+
+.burger-menu {
+    z-index: var(--z-burger-button);
+}
+
+/* ===== КНОПКИ ===== */
+.call-button {
+    z-index: var(--z-fixed-buttons);
+}
+
+/* ===== МОДАЛЬНІ ВІКНА ===== */
+/* Правила для модальних вікон визначені в components/modals.css */
+/* Тут залишаємо тільки визначення змінних в :root вище */
+
+/* ===== DROPDOWN МЕНЮ ===== */
+.lang-dropdown-menu,
+.dropdown-menu {
+    z-index: var(--z-dropdown);
+}/* =================================
+   CORE TYPOGRAPHY - Типографічна система
+   Згідно STYLE.MDC - контраст розмірів
+   ================================= */
+
+/* ===== ТИПОГРАФІЧНА ІЄРАРХІЯ ===== */
+
+.text-mega {
+    font-size: var(--font-mega);
+    font-weight: 700;
+    line-height: 0.8;
+    letter-spacing: -2px;
+    color: var(--color-brand-orange);
+}
+
+.text-large {
+    font-size: var(--font-large);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -1px;
+    color: var(--color-brand-orange);
+}
+
+.text-medium {
+    font-size: var(--font-medium);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-black);
+}
+
+.text-sub {
+    font-size: var(--font-sub);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-black);
+}
+
+.text-base {
+    font-size: var(--font-base);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--color-black);
+}
+
+.text-small {
+    font-size: var(--font-small);
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--color-black);
+}
+
+.text-page {
+    font-size: var(--font-page);
+    font-weight: 700;
+    color: var(--color-brand-orange);
+}
+
+/* ===== КОЛІРНІ МОДИФІКАТОРИ ===== */
+
+.color-brand-orange {
+    color: var(--color-brand-orange);
+}
+
+.color-black {
+    color: var(--color-black);
+}
+
+.color-white {
+    color: var(--color-white);
+}
+
+.color-gray {
+    color: #666666;
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-lowercase {
+    text-transform: lowercase;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.font-normal {
+    font-weight: 400;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+/* ===== SPACING UTILITIES ===== */
+
+.mb-xs {
+    margin-bottom: var(--space-xs);
+}
+
+.mb-sm {
+    margin-bottom: var(--space-sm);
+}
+
+.mb-md {
+    margin-bottom: 20px;
+}
+
+.mb-lg {
+    margin-bottom: 10px;
+}
+
+.mb-xl {
+    margin-bottom: var(--space-xl);
+}
+
+.mt-xs {
+    margin-top: var(--space-xs);
+}
+
+.mt-sm {
+    margin-top: var(--space-sm);
+}
+
+.mt-md {
+    margin-top: var(--space-md);
+}
+
+.mt-lg {
+    margin-top: var(--space-lg);
+}
+
+.mt-xl {
+    margin-top: var(--space-xl);
+}
+
+/* ===== RESPONSIVE TYPOGRAPHY ===== */
+
+/* Планшети (768px - 1024px) */
+@media (max-width: 1024px) {
+    .text-mega {
+        font-size: clamp(50px, 10vw, 100px);
+        letter-spacing: -1.5px;
+    }
+
+    .text-large {
+        font-size: clamp(28px, 5vw, 40px);
+    }
+
+    .text-medium {
+        font-size: clamp(18px, 2.5vw, 22px);
+    }
+}
+
+/* Мобільні (320px - 767px) */
+@media (max-width: 767px) {
+    .text-mega {
+        font-size: clamp(40px, 8vw, 60px);
+        letter-spacing: -1px;
+        line-height: 0.9;
+    }
+
+    .text-large {
+        font-size: clamp(24px, 4vw, 32px);
+        line-height: 1;
+    }
+
+    .text-medium {
+        font-size: clamp(18px, 2vw, 20px);
+    }
+
+    .text-base {
+        font-size: 16px;
+        /* iOS Safari: 16px запобігає zoom */
+    }
+
+    .text-page {
+        font-size: 24px;
+    }
+
+    /* Менші відступи на мобільних */
+    .mb-xl {
+        margin-bottom: var(--space-lg);
+    }
+
+    .mb-lg {
+        margin-bottom: var(--space-md);
+    }
+
+    .mt-xl {
+        margin-top: var(--space-lg);
+    }
+
+    .mt-lg {
+        margin-top: var(--space-md);
+    }
+}/* =================================
+   CORE LAYOUT - Layout utilities
+   Container, Grid, Flexbox utilities
+   ================================= */
+
+/* ===== CONTAINER СИСТЕМА ===== */
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--space-xs);
+    margin-top: 60px;
+}
+
+.container-fluid {
+    width: 100%;
+    padding: 0 var(--space-xs);
+}
+
+.container-narrow {
+    max-width: 1000px;
+}
+
+.container-wide {
+    max-width: 1600px;
+}
+
+/* ===== GRID СИСТЕМА ===== */
+
+/* Асиметричні сітки згідно STYLE.MDC */
+.grid-70-30 {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    gap: var(--space-sm);
+    align-items: start;
+}
+
+.grid-60-40 {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    gap: var(--space-sm);
+    align-items: start;
+}
+
+.grid-50-50 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+    align-items: start;
+}
+
+/* Auto-fill responsive grid */
+.grid-auto {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md);
+}
+
+/* ===== FLEXBOX UTILITIES ===== */
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex-start {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.flex-end {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+/* Gap utilities */
+.gap-xs {
+    gap: var(--space-xs);
+}
+
+.gap-sm {
+    gap: var(--space-sm);
+}
+
+.gap-md {
+    gap: var(--space-md);
+}
+
+.gap-lg {
+    gap: var(--space-lg);
+}
+
+/* ===== SECTION UTILITIES ===== */
+
+.full-width {
+    width: 100%;
+}
+
+.full-height {
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: calc(var(--vh, 1vh) * 100);
+}
+
+.section-padding {
+    padding: var(--space-xl) 0;
+}
+
+.section-padding-sm {
+    padding: var(--space-md) 0;
+}
+
+.section-padding-lg {
+    padding: calc(var(--space-xl) * 1.5) 0;
+}
+
+/* ===== BACKGROUND UTILITIES ===== */
+
+.bg-beige {
+    background-color: var(--color-beige);
+}
+
+.bg-white {
+    background-color: var(--color-white);
+}
+
+.bg-black {
+    background-color: var(--color-black);
+}
+
+.bg-gray {
+    background-color: var(--color-gray);
+}
+
+/* ===== PADDING UTILITIES ===== */
+
+.p-xs {
+    padding: var(--space-xs);
+}
+
+.p-sm {
+    padding: var(--space-sm);
+}
+
+.p-md {
+    padding: var(--space-md);
+}
+
+.p-lg {
+    padding: var(--space-lg);
+}
+
+.p-xl {
+    padding: var(--space-xl);
+}
+
+/* Padding по сторонах */
+.px-xs {
+    padding-left: var(--space-xs);
+    padding-right: var(--space-xs);
+}
+
+.px-sm {
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+}
+
+.py-xs {
+    padding-top: var(--space-xs);
+    padding-bottom: var(--space-xs);
+}
+
+.py-sm {
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-sm);
+}
+
+.py-md {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+}
+
+.py-lg {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+}
+
+/* ===== DISPLAY UTILITIES ===== */
+
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+/* ===== POSITION UTILITIES ===== */
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.sticky {
+    position: sticky;
+}
+
+/* ===== RESPONSIVE UTILITIES ===== */
+
+/* Desktop only */
+@media (max-width: 767px) {
+    .desktop-only {
+        display: none;
+    }
+}
+
+/* Mobile only */
+@media (min-width: 768px) {
+    .mobile-only {
+        display: none;
+    }
+}
+
+/* Tablet only */
+@media (max-width: 767px), (min-width: 1025px) {
+    .tablet-only {
+        display: none;
+    }
+}
+
+/* ===== RESPONSIVE GRID ===== */
+
+/* Планшети */
+@media (max-width: 1024px) {
+    .grid-70-30,
+    .grid-60-40 {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 0 var(--space-sm);
+    }
+}
+
+/* Мобільні */
+@media (max-width: 767px) {
+    .grid-70-30,
+    .grid-60-40,
+    .grid-50-50 {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+    }
+
+    .grid-auto {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+    }
+
+    .container {
+        padding: 0 var(--space-xs);
+        margin-top: 60px;
+    }
+
+    .flex-column-mobile {
+        flex-direction: column;
+    }
+
+    .section-padding {
+        padding: var(--space-md) 0;
+    }
+
+    .section-padding-lg {
+        padding: var(--space-lg) 0;
+    }
+}
+
+/* =================================
+   CORE ANIMATIONS - Централізовані анімації
+   Всі @keyframes зібрані в одному місці
+   ================================= */
+
+/* ===== FADE IN ANIMATIONS ===== */
+
+/* Базова fadeInUp анімація (для home та інших) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Варіант fadeInUp з більшою відстанню (для blog) */
+@keyframes fadeInUp-large {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* FadeIn з лівого боку */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* FadeIn з правого боку */
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ===== SLIDE ANIMATIONS ===== */
+
+/* Slide in з лівого боку (для мобільного меню) */
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ===== SPECIAL EFFECTS ===== */
+
+/* Pulse ефект */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* Loading spinner для відео */
+@keyframes video-loading-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===== UTILITY CLASSES З АНІМАЦІЯМИ ===== */
+
+/* Базові класи з анімаціями для швидкого використання */
+.animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-fadeInUp-large {
+    animation: fadeInUp-large 0.8s ease-out;
+}
+
+.animate-fadeInLeft {
+    animation: fadeInLeft 0.6s ease-out;
+}
+
+.animate-fadeInRight {
+    animation: fadeInRight 0.6s ease-out;
+}
+
+.animate-pulse {
+    animation: pulse 2s infinite;
+}
+
+/* ===== ANIMATION DELAYS (для каскадних ефектів) ===== */
+
+/* Для послідовної появи елементів */
+.delay-100 { animation-delay: 0.1s; }
+.delay-150 { animation-delay: 0.15s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-250 { animation-delay: 0.25s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-350 { animation-delay: 0.35s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+.delay-900 { animation-delay: 0.9s; }
+
+/* ===== ACCESSIBILITY: Reduce Motion ===== */
+
+/* Для користувачів які вимкнули анімації */
+@media (prefers-reduced-motion: reduce) {
+    *:not(.portfolio-hero__image),
+    *::before,
+    *::after {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+        transition-duration: 0.01ms;
+        scroll-behavior: auto;
+    }
+}
+
+/* Клас для примусового вимкнення анімацій */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+}
+
+/* ===== UTILITY ANIMATION CLASSES ===== */
+
+/* Page transition ефект */
+.page-transition {
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+/* Button click ефект */
+.button-clicked {
+    transform: scale(0.95);
+    transition: transform 0.15s ease-out;
+}
+
+/* Visible class для Intersection Observer */
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/**
+ * PERFORMANCE.CSS - Глобальні оптимізації для плавної роботи
+ * Застосовується на всіх пристроях та браузерах
+ */
+
+/* Smooth scroll тільки для користувачів без prefers-reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+    html.smooth-scroll {
+        scroll-behavior: smooth;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* iOS Safari специфічні оптимізації */
+@supports (-webkit-touch-callout: none) {
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* ===== HARDWARE ACCELERATION ДЛЯ CRITICAL ELEMENTS ===== */
+.main-navigation,
+.mobile-menu {
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+/* ===== HOVER НА TOUCH ПРИСТРОЯХ ===== */
+@media (hover: none) and (pointer: coarse) {
+    *:hover {
+        transition-duration: 0.01ms;
+    }
+}
+
+/* ===== ОПТИМІЗАЦІЯ АНІМАЦІЙ ===== */
+@media (prefers-reduced-motion: reduce) {
+    *:not(.portfolio-hero__image),
+    *::before,
+    *::after {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+        transition-duration: 0.01ms;
+        scroll-behavior: auto;
+    }
+}
+
+/* ===== ЗАПОБІГАННЯ LAYOUT SHIFT ===== */
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ===== ОПТИМІЗАЦІЯ REPAINTS ===== */
+.service-card,
+.event-card,
+.blog-card {
+    contain: layout;
+}
+
+/* ===== 60FPS ANIMATIONS ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Використання GPU для animations */
+.animate-on-scroll {
+    will-change: opacity, transform;
+}
+
+.animate-on-scroll.visible {
+    animation: fadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-on-scroll.visible.animated {
+    will-change: auto;
+}
+
+/* =================================
+   NAVIGATION COMPONENT
+   Header, Desktop меню, Mobile menu, Language switcher
+   З animation cascade для mobile menu
+   ================================= */
+
+/* ===== HEADER & NAVIGATION ===== */
+.main-navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-navigation, 1000);
+    padding: var(--space-xs) 0;
+    transition: background-color var(--transition-normal) var(--easing-default), 
+                box-shadow var(--transition-normal) var(--easing-default);
+    background: transparent;
+    
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Прозора навігація - білий текст */
+.main-navigation:not(.scrolled) .nav-link {
+    color: var(--color-white);
+}
+
+.main-navigation:not(.scrolled) .nav-logo {
+    color: var(--color-white);
+}
+
+/* Прозора навігація - слово "Labs" залишається фіолетовим */
+.main-navigation:not(.scrolled) .nav-logo-labs {
+    color: var(--color-brand-purple);
+}
+
+/* Scrolled навігація - темний фон як footer */
+.main-navigation.scrolled {
+    background: #1a1a1a;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    will-change: background-color, box-shadow;
+}
+
+@supports (backdrop-filter: blur(10px)) {
+    .main-navigation.scrolled {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+}
+
+/* Вимкнути will-change під час активного скролу для економії */
+.is-scrolling .main-navigation {
+    will-change: auto;
+}
+
+.main-navigation.scrolled .nav-link {
+    color: #ffffff;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-xs);
+}
+
+/* ===== ЛОГОТИП ===== */
+.nav-logo-section {
+    flex: 0 0 auto;
+}
+
+.nav-logo {
+    font-size: var(--font-medium);
+    font-weight: 700;
+    color: var(--color-brand-orange);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    transition: color var(--transition-normal) var(--easing-default);
+}
+
+.nav-logo:hover {
+    color: var(--color-black);
+}
+
+/* Стилізація слова "Labs" фірмовим фіолетовим */
+.nav-logo-labs {
+    color: var(--color-brand-purple);
+    transition: color var(--transition-normal) var(--easing-default);
+}
+
+/* Scrolled навігація - помаранчевий логотип */
+.main-navigation.scrolled .nav-logo {
+    color: var(--color-brand-orange);
+}
+
+/* Scrolled навігація - слово "Labs" залишається фіолетовим */
+.main-navigation.scrolled .nav-logo-labs {
+    color: var(--color-brand-purple);
+}
+
+.main-navigation.scrolled .lang-btn {
+    color: #ffffff;
+}
+
+/* ===== DESKTOP МЕНЮ ===== */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 2vw, 24px);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    font-size: var(--font-base);
+    font-weight: 700;
+    color: var(--color-white);
+    text-decoration: none;
+    transition: color var(--transition-normal) var(--easing-default);
+    position: relative;
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    text-align: center;
+    padding: 8px 4px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--color-brand-orange);
+}
+
+/* Анімована підкреслення */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-brand-orange);
+    transition: width var(--transition-normal) var(--easing-default);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* ===== PAGE NUMBER ===== */
+.nav-page-number {
+    font-size: var(--font-page);
+    font-weight: 700;
+    color: var(--color-brand-orange);
+    margin-left: var(--space-xs);
+}
+
+/* ===== LANGUAGE SWITCHER (Desktop) ===== */
+.language-switcher {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.lang-btn {
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all var(--transition-normal) ease;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.lang-btn.active {
+    background: var(--color-brand-orange);
+    color: white;
+    border-color: var(--color-brand-orange);
+}
+
+/* ===== MODERN BURGER MENU BUTTON ===== */
+.burger-menu {
+    display: none;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+    z-index: var(--z-burger-button, 10001);
+}
+
+@media (max-width: 767px) {
+    .burger-menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .main-navigation .burger-menu,
+    .nav-container .burger-menu,
+    button.burger-menu {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+/* Креативні лінії бургер меню */
+.burger-line {
+    position: absolute;
+    width: 26px;
+    height: 2px;
+    background: var(--color-white);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.burger-line:nth-child(1) {
+    top: 10px;
+}
+
+.burger-line:nth-child(2) {
+    top: 19px;
+}
+
+.burger-line:nth-child(3) {
+    top: 28px;
+}
+
+/* Scrolled state */
+.main-navigation.scrolled .burger-line {
+    background: var(--color-brand-orange);
+}
+
+/* Active state - морфінг в X */
+.burger-menu.active .burger-line:nth-child(1) {
+    top: 19px;
+    transform: translateX(-50%) rotate(45deg);
+    background: var(--color-brand-orange);
+}
+
+.burger-menu.active .burger-line:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+}
+
+.burger-menu.active .burger-line:nth-child(3) {
+    top: 19px;
+    transform: translateX(-50%) rotate(-45deg);
+    background: var(--color-brand-orange);
+}
+
+/* Hover effect */
+.burger-menu:hover .burger-line {
+    background: var(--color-brand-orange);
+}
+
+.main-navigation.scrolled .burger-menu:hover .burger-line {
+    background: var(--color-black);
+}
+
+/* ===== MODERN CREATIVE MOBILE MENU ===== */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    height: calc(var(--vh, 1vh) * 100);
+    
+    /* Фонова картинка з легким затемненням для видимості */
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),
+        url('/static/images/mobile_menu.webp') center/cover no-repeat;
+    
+    /* Fallback фон якщо картинка не завантажиться */
+    background-color: #1a1a1a;
+    
+    z-index: var(--z-mobile-menu, 10000);
+    padding: max(env(safe-area-inset-top), 30px) max(env(safe-area-inset-right), 30px) max(env(safe-area-inset-bottom), 30px) max(env(safe-area-inset-left), 30px);
+
+    /* Hardware acceleration + анімація (комбінований transform) */
+    transform: translate3d(100%, 0, 0);
+    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+
+.mobile-menu.active {
+    transform: translate3d(0, 0, 0);
+}
+
+/* ===== MOBILE MENU HEADER ===== */
+.mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mobile-menu-label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--color-white);
+}
+
+.mobile-menu-close {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-icon {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    transition: transform 0.3s ease;
+}
+
+.close-icon::before,
+.close-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 28px;
+    height: 2px;
+    background: var(--color-brand-orange);
+    transition: background 0.3s ease;
+}
+
+.close-icon::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.close-icon::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.mobile-menu-close:hover .close-icon {
+    transform: rotate(90deg);
+}
+
+.mobile-menu-close:hover .close-icon::before,
+.mobile-menu-close:hover .close-icon::after {
+    background: var(--color-white);
+}
+
+/* ===== MOBILE MENU CONTENT ===== */
+
+.mobile-nav-link {
+    position: relative;
+    font-size: clamp(32px, 7vw, 56px);
+    font-weight: 800;
+    color: var(--color-white);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    line-height: 1.2;
+
+    display: block;
+    padding: 12px 0;
+
+    /* Дозволяємо перенос для довгих слів */
+    white-space: normal;
+    word-wrap: break-word;
+    text-align: center;
+
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Початковий стан для анімації */
+    opacity: 0;
+    transform: translateY(30px) rotate(-2deg);
+}
+
+/* Індекси для посилань - абсолютно позиціоновані */
+.mobile-nav-link::before {
+    content: attr(data-index);
+    position: absolute;
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    font-size: clamp(12px, 2.5vw, 16px);
+    font-weight: 700;
+    color: var(--color-brand-orange);
+    opacity: 0;
+
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-link:hover::before {
+    opacity: 1;
+    left: -40px;
+}
+
+/* Декоративна лінія */
+.mobile-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--color-brand-orange);
+    transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mobile-nav-link:hover {
+    color: var(--color-brand-orange);
+    transform: translateY(0) rotate(0deg) translateX(10px);
+}
+
+.mobile-nav-link:hover::after {
+    width: 100%;
+}
+
+.mobile-nav-link:active {
+    transform: scale(0.98) translateX(10px);
+}
+
+/* Каскадна анімація появи */
+.mobile-menu.active .mobile-nav-link {
+    animation: menuLinkReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.mobile-menu.active .mobile-nav-link:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.mobile-menu.active .mobile-nav-link:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.mobile-menu.active .mobile-nav-link:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.mobile-menu.active .mobile-nav-link:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.mobile-menu.active .mobile-nav-link:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.mobile-menu.active .mobile-nav-link:nth-child(6) {
+    animation-delay: 0.3s;
+}
+
+.mobile-menu.active .mobile-nav-link:nth-child(7) {
+    animation-delay: 0.35s;
+}
+
+@keyframes menuLinkReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) rotate(-2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+/* ===== MOBILE MENU FOOTER ===== */
+.mobile-menu-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease 0.4s;
+}
+
+.mobile-menu.active .mobile-menu-footer {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Language Switcher */
+.mobile-lang-switcher {
+    display: flex;
+    gap: 12px;
+}
+
+.mobile-lang-btn {
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50px;
+
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    transition: all 0.3s ease;
+}
+
+.mobile-lang-btn:hover,
+.mobile-lang-btn.active {
+    background: var(--color-brand-orange);
+    border-color: var(--color-brand-orange);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Menu Info */
+.mobile-menu-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-menu-credits {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.5px;
+}
+
+/* ===== ДЕКОРАТИВНИЙ ЕЛЕМЕНТ ===== */
+.mobile-menu-decoration {
+    display: none;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Desktop - показати desktop navigation */
+@media (min-width: 768px) {
+    .nav-menu {
+        display: flex;
+    }
+
+    .burger-menu {
+        display: none;
+    }
+
+    .language-switcher {
+        display: flex;
+    }
+
+    .mobile-menu {
+        display: none;
+    }
+}
+
+/* Mobile - показати burger menu та mobile menu */
+@media (max-width: 767px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .burger-menu {
+        display: flex;
+    }
+
+    .language-switcher {
+        display: none;
+    }
+
+    /* Адаптація для маленьких екранів - однакові розміри */
+    .mobile-nav-link {
+        font-size: clamp(26px, 5.5vw, 44px);
+        letter-spacing: -1px;
+        line-height: 1.2;
+    }
+
+    .mobile-menu-content {
+        gap: clamp(12px, 0.3vh, 20px);
+    }
+}
+
+/* Дуже маленькі екрани - однакові розміри */
+@media (max-width: 375px) {
+    .mobile-nav-link {
+        font-size: clamp(22px, 5vw, 32px);
+        line-height: 1.2;
+    }
+
+    .mobile-menu {
+        gap: 30px;
+        padding: max(env(safe-area-inset-top), 20px) max(env(safe-area-inset-right), 20px) max(env(safe-area-inset-bottom), 20px) max(env(safe-area-inset-left), 20px);
+    }
+}
+
+/* Landscape orientation на мобільних - однакові розміри */
+@media (max-width: 767px) and (orientation: landscape) {
+    .mobile-menu {
+        gap: 20px;
+    }
+
+    .mobile-menu-content {
+        gap: 8px;
+    }
+
+    .mobile-nav-link {
+        font-size: clamp(18px, 4vh, 28px);
+        padding: 8px 0;
+        line-height: 1.2;
+    }
+}/* =================================
+   BUTTONS COMPONENT
+   Всі типи кнопок: primary, secondary, call button
+   БЕЗ .mobile-touch-target (він в mobile-optimizations.css)
+   ================================= */
+
+/* ===== BASE BUTTON STYLES ===== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    font-size: var(--font-base);
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: background-color var(--transition-normal) var(--easing-default),
+                color var(--transition-normal) var(--easing-default),
+                border-color var(--transition-normal) var(--easing-default),
+                transform var(--transition-normal) var(--easing-default);
+    text-align: center;
+    background: transparent;
+    min-width: 140px;
+    border-radius: 0;
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
+}
+
+/* ===== BUTTON VARIANTS ===== */
+
+/* Primary button - червона кнопка */
+.btn-primary {
+    background: var(--color-brand-orange);
+    color: var(--color-white);
+    border-color: var(--color-brand-orange);
+}
+
+.btn-primary:hover {
+    background: var(--color-white);
+    color: var(--color-brand-orange);
+    border-color: var(--color-brand-orange);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-orange-md);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Secondary button - прозора з червоною рамкою */
+.btn-secondary {
+    background: transparent;
+    color: var(--color-brand-orange);
+    border-color: var(--color-brand-orange);
+}
+
+.btn-secondary:hover {
+    background: var(--color-brand-orange);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-orange-md);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* ===== FIXED CALL BUTTON ===== */
+.call-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: var(--z-fixed-buttons, 999);
+    /* Скляний ефект (glass effect) */
+    background: rgb(255 255 255 / 23%);
+    border: 2px solid rgba(254, 254, 254, 0.3);
+    color: var(--color-white);
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+    transition: background-color var(--transition-normal) var(--easing-default),
+                color var(--transition-normal) var(--easing-default),
+                border-color var(--transition-normal) var(--easing-default),
+                transform var(--transition-normal) var(--easing-default);
+    border-radius: 50%;
+    box-shadow: 00 1px 5px #f5f1ed, 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.call-button-icon {
+    font-size: 28px;
+    line-height: 1;
+    filter: brightness(0) invert(1);
+    /* Робить іконку телефону білою */
+}
+
+.call-button:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: rgba(230, 81, 0, 0.25);
+    border-color: rgba(230, 81, 0, 0.5);
+    box-shadow: 0 6px 25px rgba(230, 81, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+
+.call-button:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* ===== BUTTON SIZES ===== */
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 12px;
+    min-width: 100px;
+}
+
+.btn-large {
+    padding: 16px 32px;
+    font-size: 16px;
+    min-width: 180px;
+}
+
+/* ===== BUTTON STATES ===== */
+
+.btn:disabled,
+.btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btn-loading {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: video-loading-spin 0.6s linear infinite;
+}
+
+/* ===== BUTTON GROUPS ===== */
+
+.btn-group {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+}
+
+.btn-group-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 767px) {
+    .btn {
+        min-width: 120px;
+        padding: 12px 20px;
+        font-size: 12px;
+    }
+
+    .btn-large {
+        padding: 14px 24px;
+        font-size: 15px;
+        min-width: 140px;
+    }
+
+    .call-button {
+        bottom: 20px;
+        left: 20px;
+        width: 56px;
+        height: 56px;
+        /* Враховуємо safe area для iPhone */
+        bottom: max(env(safe-area-inset-bottom, 20px), 20px);
+        left: max(env(safe-area-inset-left, 20px), 20px);
+    }
+
+    .call-button-icon {
+        font-size: 24px;
+    }
+
+    .btn-group {
+        flex-direction: column;
+    }
+
+    .btn-group .btn {
+        width: 100%;
+    }
+}
+
+/* ===== iOS SAFARI ОПТИМІЗАЦІЇ ===== */
+
+@supports (-webkit-touch-callout: none) {
+    .call-button {
+        /* Додатковий відступ для iOS Safari */
+        bottom: max(env(safe-area-inset-bottom, 20px), 20px);
+        left: max(env(safe-area-inset-left, 20px), 20px);
+    }
+}/* =================================
+   FORMS COMPONENT
+   Всі форми, inputs, labels
+   ================================= */
+
+/* ===== FORM GROUP ===== */
+.form-group {
+    margin-bottom: var(--space-xs);
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+/* ===== FORM LABELS ===== */
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--color-black);
+    font-size: var(--font-base);
+}
+
+.required {
+    color: var(--color-brand-orange);
+    margin-left: 2px;
+}
+
+/* ===== FORM INPUTS ===== */
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--color-gray);
+    font-size: var(--font-base);
+    color: var(--color-black);
+    background: var(--color-white);
+    transition: all var(--transition-normal) var(--easing-default);
+    font-family: inherit;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    border-color: var(--color-brand-orange);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.1);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: #999999;
+}
+
+/* Textarea specific */
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* ===== FORM VALIDATION ===== */
+.form-input.error,
+.form-textarea.error {
+    border-color: var(--color-brand-orange);
+}
+
+.form-input.success,
+.form-textarea.success {
+    border-color: #28a745;
+}
+
+.form-error {
+    color: var(--color-brand-orange);
+    font-size: var(--font-small);
+    margin-top: 4px;
+    display: none;
+}
+
+.form-input.error + .form-error,
+.form-textarea.error + .form-error {
+    display: block;
+}
+
+/* ===== FORM RESPONSE ===== */
+.form-response {
+    margin-top: var(--space-sm);
+    padding: var(--space-xs);
+    border-radius: var(--radius-sm);
+    display: none;
+}
+
+.form-response.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    display: block;
+}
+
+.form-response.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    display: block;
+}
+
+/* ===== CHECKBOX & RADIO ===== */
+.form-checkbox,
+.form-radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.form-checkbox input[type="checkbox"],
+.form-radio input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* ===== SELECT ===== */
+.form-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--color-gray);
+    font-size: var(--font-base);
+    color: var(--color-black);
+    background: var(--color-white);
+    cursor: pointer;
+    transition: all var(--transition-normal) var(--easing-default);
+}
+
+.form-select:focus {
+    border-color: var(--color-brand-orange);
+    outline: none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 767px) {
+    .form-input,
+    .form-textarea,
+    .form-select {
+        font-size: 16px;
+        /* iOS Safari: 16px запобігає zoom */
+        padding: 14px 16px;
+    }
+
+    .form-textarea {
+        min-height: 100px;
+    }
+}
+
+/* =================================
+   MODALS COMPONENT
+   Всі модальні вікна
+   ================================= */
+
+/* ===== MODAL BASE ===== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: var(--mobile-vh, 100vh);
+    z-index: var(--z-modal-backdrop, 10002);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-normal) var(--easing-default), 
+                visibility var(--transition-normal) var(--easing-default);
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    height: var(--mobile-vh, 100vh);
+}
+
+/* ===== MODAL BACKDROP ===== */
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: var(--mobile-vh, 100vh);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: var(--z-modal-backdrop, 10002);
+}
+
+/* ===== MODAL CONTENT ===== */
+.modal-content {
+    background: var(--color-white);
+    border: 3px solid var(--color-brand-orange);
+    padding: var(--space-lg);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(50px) scale(0.9);
+    transition: transform var(--transition-normal) var(--easing-default);
+    z-index: var(--z-modal-content, 10003);
+    border-radius: 0;
+}
+
+.modal.active .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+/* ===== MODAL CLOSE BUTTON ===== */
+.modal-close {
+    position: absolute;
+    top: var(--space-xs);
+    right: var(--space-xs);
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--color-black);
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition-normal) var(--easing-default);
+}
+
+.modal-close:hover {
+    color: var(--color-brand-orange);
+    transform: rotate(90deg);
+}
+
+/* ===== MODAL HEADER ===== */
+.modal-header {
+    margin-bottom: var(--space-md);
+}
+
+.modal-header h3 {
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+}
+
+/* ===== MODAL FORMS ===== */
+.modal-form {
+    margin: 0;
+}
+
+.modal-form .form-submit {
+    width: 100%;
+    margin-top: var(--space-sm);
+}
+
+/* ===== RESULT CONTENT ===== */
+.result-content {
+    margin: 0;
+}
+
+.result-summary {
+    background: var(--color-beige);
+    padding: var(--space-sm);
+    border-left: 3px solid var(--color-brand-orange);
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xs);
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.result-label {
+    font-weight: 600;
+}
+
+.result-value,
+.result-price {
+    font-weight: 700;
+}
+
+.result-actions {
+    margin-top: var(--space-md);
+}
+
+.result-actions .btn {
+    margin: 5px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 767px) {
+    .modal-content {
+        width: 95%;
+        padding: var(--space-sm);
+        max-height: 95vh;
+        max-height: 95dvh;
+        margin: var(--space-xs);
+        border-width: 2px;
+    }
+
+    .modal-header h3 {
+        font-size: var(--font-medium);
+        padding-right: var(--space-md);
+    }
+
+    .result-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .result-actions .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+/* ===== CALL REQUEST MODAL - Спеціальні стилі ===== */
+#call-request-modal .modal-content {
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),
+        url('/static/images/mobile_menu.webp') center/cover no-repeat;
+    color: var(--color-white);
+}
+
+#call-request-modal .modal-header p {
+    color: var(--color-white);
+}
+
+#call-request-modal .form-label {
+    color: var(--color-white);
+}
+
+#call-request-modal .form-input {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--color-white);
+}
+
+#call-request-modal .form-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#call-request-modal .form-input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-brand-orange);
+    color: var(--color-white);
+}
+
+#call-request-modal .modal-close {
+    color: var(--color-brand-orange);
+    background: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    text-shadow: none;
+    padding: 0;
+}
+
+#call-request-modal .modal-close:hover {
+    color: var(--color-brand-orange);
+    opacity: 0.8;
+}
+
+#call-request-modal .btn-primary {
+    background: var(--color-brand-orange);
+    color: var(--color-white);
+    border-color: var(--color-brand-orange);
+}
+
+#call-request-modal .btn-primary:hover {
+    background: var(--color-black);
+    color: var(--color-white);
+    border-color: var(--color-black);
+}
+
+/* ===== CALL REQUEST MODAL - DIRECT CONTACT SECTION ===== */
+.modal-direct-contact {
+    margin: 0 0 20px;
+    padding: 20px 0;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.modal-separator-text {
+    color: var(--color-white);
+    font-size: var(--font-small);
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.modal-phone-link {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-brand-orange);
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: all var(--transition-normal) var(--easing-default);
+}
+
+.modal-phone-link:hover {
+    color: var(--color-white);
+    text-shadow: 0 0 8px rgba(220, 20, 60, 0.4);
+}
+
+.modal-social-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+.modal-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+    text-decoration: none;
+    transition: all var(--transition-normal) var(--easing-default);
+}
+
+.modal-social-link svg {
+    width: 24px;
+    height: 24px;
+}
+
+.modal-social-link:hover {
+    background: var(--color-brand-orange);
+    color: var(--color-white);
+    transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVE: Планшет ===== */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .modal-direct-contact {
+        padding: var(--space-md);
+    }
+
+    .modal-phone-link {
+        font-size: 18px;
+    }
+
+    .modal-social-link {
+        width: 40px;
+        height: 40px;
+    }
+
+    .modal-social-link svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* ===== RESPONSIVE: Мобільний ===== */
+@media (max-width: 767px) {
+    .modal-separator-text {
+        font-size: var(--font-small);
+    }
+
+    .modal-phone-link {
+        display: block;
+        font-size: 18px;
+        word-break: break-word;
+        padding: 0 0 7px 0;
+    }
+
+    .modal-social-links {
+        gap: 35px;
+        justify-content: center;
+    }
+
+    .modal-social-link {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .modal-social-link svg {
+        width: 20px;
+        height: 20px;
+    }
+}/* =================================
+   FOOTER COMPONENT - темний дизайн
+   4 стовпчики, форма консультації, акордеон на mobile
+   ================================= */
+
+/* ===== FOOTER BASE ===== */
+.main-footer {
+    background: #1a1a1a;
+    color: #888888;
+    padding: 0px 0 15px;
+    border-top: 3px solid var(--color-brand-orange);
+    position: relative;
+    z-index: var(--z-content-base, 10);
+}
+
+/* Footer не повинен перекривати модальні вікна */
+/* Модальні вікна мають position: fixed + z-index: 10002-10003, тому автоматично вище */
+body.modal-open .main-footer {
+    z-index: var(--z-content-base);
+}
+
+/* ===== FOOTER CONTENT GRID ===== */
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 0.70fr 1fr 1fr 1.7fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+/* ===== FOOTER SECTION ===== */
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-section h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-brand-orange);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-bottom: 5px;
+}
+
+/* ===== FOOTER LINKS ===== */
+.footer-link {
+    display: block;
+    font-size: 16px;
+    color: #aaaaaa;
+    text-decoration: none;
+    transition: all var(--transition-normal) var(--easing-default);
+    position: relative;
+    padding-left: 0;
+    padding-bottom: 5px;
+    line-height: 1.6;
+}
+
+.footer-link:hover {
+    color: var(--color-brand-orange);
+    padding-left: 5px;
+}
+
+.footer-link::before {
+    content: '›';
+    position: absolute;
+    left: -10px;
+    opacity: 0;
+    transition: all var(--transition-normal) var(--easing-default);
+    color: var(--color-brand-orange);
+}
+
+.footer-link:hover::before {
+    opacity: 1;
+    left: -5px;
+}
+
+/* ===== FOOTER SOCIAL MEDIA ===== */
+.footer-social {
+    display: flex;
+    gap: 12px;
+}
+
+.footer-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: #aaaaaa;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    transition: all var(--transition-normal) var(--easing-default);
+    text-decoration: none;
+}
+
+.footer-social-link:hover {
+    color: var(--color-brand-orange);
+    background: rgba(230, 81, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.footer-social-link svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ===== FOOTER CONTACTS ===== */
+.footer-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-contact-link {
+    display: block;
+    font-size: 16px;
+    color: var(--color-white);
+    text-decoration: none;
+    transition: color var(--transition-normal) var(--easing-default);
+    font-weight: 500;
+    padding-bottom: 5px;
+}
+
+.footer-contact-link:hover {
+    color: var(--color-brand-orange);
+}
+
+.footer-contact-text {
+    display: block;
+    font-size: 15px;
+    color: #888888;
+    margin-bottom: 16px;
+}
+
+/* ===== FOOTER FORM ===== */
+.footer-form-section {
+    gap: 8px;
+}
+
+.footer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.footer-form .form-group {
+    margin-bottom: 0;
+}
+
+.footer-form .form-label {
+    display: block;
+    font-size: 14px;
+    color: #aaaaaa;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.footer-input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+    font-size: 15px;
+    font-family: inherit;
+    transition: all var(--transition-normal) var(--easing-default);
+    border-radius: 0;
+}
+
+.footer-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-input:focus {
+    outline: none;
+    border-color: var(--color-brand-orange);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.footer-input.error {
+    border-color: var(--color-brand-orange);
+}
+
+.footer-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 14px;
+    color: #888888;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+.footer-checkbox input[type="checkbox"] {
+    margin-top: 2px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.footer-checkbox span {
+    flex: 1;
+}
+
+.footer-policy-link {
+    color: var(--color-brand-orange);
+    text-decoration: underline;
+    transition: opacity var(--transition-fast) var(--easing-default);
+}
+
+.footer-policy-link:hover {
+    opacity: 0.8;
+}
+
+.footer-submit-btn {
+    width: 100%;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+/* ===== FOOTER BOTTOM ===== */
+.footer-bottom {
+    padding-top: 15px;
+    margin-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 12px;
+    color: #888888;
+    line-height: 1.6;
+}
+
+.footer-bottom p:last-child {
+    margin-bottom: 0;
+}
+
+/* ===== MOBILE ACCORDION (hidden on desktop) ===== */
+.footer-accordion-toggle {
+    display: none;
+}
+
+/* ===== RESPONSIVE - TABLET ===== */
+@media (max-width: 1199px) {
+    .footer-content {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+    
+    .footer-section:nth-child(4),
+    .footer-form-section {
+        grid-column: 1 / -1;
+    }
+}
+
+/* ===== RESPONSIVE - MOBILE ===== */
+@media (max-width: 767px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    /* Форма завжди видима на мобільній версії */
+    .footer-form-section {
+        order: -1;
+        margin-bottom: var(--space-md);
+        padding-bottom: var(--space-md);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Акордеон для інших секцій */
+    .footer-section:not(.footer-form-section) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-section:not(.footer-form-section) h3 {
+        position: relative;
+        padding: 16px 0;
+        margin-bottom: 0;
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .footer-section:not(.footer-form-section) h3::after {
+        content: '+';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        font-weight: 400;
+        color: var(--color-brand-orange);
+        transition: transform var(--transition-normal) var(--easing-default);
+    }
+
+    .footer-section:not(.footer-form-section).footer-accordion-active h3::after {
+        content: '−';
+    }
+
+    /* Контент акордеону */
+    .footer-section:not(.footer-form-section) .footer-accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+    }
+
+    .footer-section:not(.footer-form-section).footer-accordion-active .footer-accordion-content {
+        max-height: 1000px;
+        padding-bottom: 16px;
+    }
+
+    /* Всі посилання та контент всередину обгортки */
+    .footer-section:not(.footer-form-section) .footer-link,
+    .footer-section:not(.footer-form-section) .footer-social,
+    .footer-section:not(.footer-form-section) .footer-contacts {
+        /* Ці елементи обгорнуті в .footer-accordion-content через JS */
+    }
+
+    .footer-section h3 {
+        font-size: 18px;
+    }
+
+    .footer-link {
+        font-size: 16px;
+        padding: 6px 0;
+    }
+
+    .footer-social {
+        margin-top: 12px;
+    }
+
+    .footer-social-link {
+        width: 36px;
+        height: 36px;
+    }
+
+    .footer-contacts {
+        margin-top: 12px;
+        padding-top: 12px;
+    }
+
+    .footer-contact-link,
+    .footer-contact-text {
+        font-size: 13px;
+    }
+
+    .footer-form .form-label {
+        font-size: 15px;
+    }
+
+    .footer-input {
+        font-size: 16px;
+        /* iOS Safari: 16px запобігає zoom */
+        padding: 14px 16px;
+    }
+
+    .footer-checkbox {
+        font-size: 15px;
+    }
+
+    .footer-submit-btn {
+        font-size: 16px;
+        padding: 14px 24px;
+    }
+
+    .footer-bottom {
+        padding-top: 12px;
+        text-align: center;
+    }
+
+    .footer-bottom p {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+}
+
+/* ===== iOS SAFARI OPTIMIZATIONS ===== */
+@supports (-webkit-touch-callout: none) {
+    @media (max-width: 767px) {
+        .footer-input {
+            /* Запобігаємо zoom на iOS */
+            font-size: 16px;
+        }
+    }
+}
+/* =================================
+   HERO-PARALLAX COMPONENT
+   Універсальний паралакс hero з фіксованим відео
+   Підтримує обидва варіанти класів: .hero-parallax та .hero-section
+   ================================= */
+
+/* ===== BASE HERO PARALLAX (всі варіанти класів) ===== */
+.hero-parallax,
+.hero-section,
+.blog-hero,
+.developer-hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* ===== ВІДЕО ФОНИ (всі варіанти класів) ===== */
+.hero-parallax__video,
+.hero-parallax .video-background,
+.hero-section .video-background,
+.blog-hero .video-background,
+.developer-hero .video-background,
+.cta-section .video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: var(--z-background, -1);
+    background-color: #1a1a1a;
+    
+    pointer-events: none;
+    
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* ===== FIXED VIDEO FOR DESKTOP (>=768px) ===== */
+@media (min-width: 768px) {
+    .hero-section .video-background,
+    .cta-section .video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        height: 100svh;
+    }
+    
+    /* CRITICAL: Allow fixed elements to escape overflow */
+    .hero-section,
+    .cta-section {
+        overflow: visible;
+    }
+}
+
+/* Desktop відео */
+.hero-parallax__video--desktop,
+.desktop-video {
+    display: block;
+}
+
+/* Mobile відео */
+.hero-parallax__video--mobile,
+.mobile-video {
+    display: none;
+}
+
+/* Вимкнути will-change під час активного скролу для економії GPU */
+.is-scrolling .video-background {
+    will-change: auto !important;
+}
+
+/* Зафіксувати відео під час scroll - НЕ МІНЯТИ transform */
+.is-scrolling .video-background {
+    transform: translate3d(0, 0, 0) !important;
+}
+
+/* ===== OVERLAY (всі варіанти) ===== */
+.hero-parallax__overlay,
+.hero-parallax .video-overlay,
+.hero-section .video-overlay,
+.blog-hero .video-overlay,
+.developer-hero .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ===== FIXED OVERLAY FOR DESKTOP (>=768px) ===== */
+@media (min-width: 768px) {
+    .hero-section .video-overlay,
+    .cta-section .video-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        height: 100svh;
+    }
+}
+
+/* ===== КОНТЕНТ (обидва варіанти) ===== */
+.hero-parallax__content,
+.hero-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    padding: var(--space-xl) 0;
+    pointer-events: auto;
+}
+
+.hero-text {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+.hero-text h1 {
+    margin-bottom: var(--space-xl);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-text p {
+    margin-bottom: var(--space-xl);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.hero-services {
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--space-xl);
+}
+
+.hero-buttons .btn {
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
+    min-width: 200px;
+}
+
+/* ===== АНІМАЦІЇ HERO КОНТЕНТУ ===== */
+/* За замовчуванням все видиме (важливо для надійності) */
+.hero-text h1,
+.hero-text p,
+.hero-buttons {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Анімації тільки якщо браузер підтримує і користувач не вимкнув */
+@media (prefers-reduced-motion: no-preference) {
+    .hero-text h1 {
+        animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    .hero-text p {
+        animation: fadeInUp 1s ease-out 0.6s both;
+    }
+
+    .hero-buttons {
+        animation: fadeInUp 1s ease-out 0.9s both;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* ===== ПЕРША СЕКЦІЯ ПІСЛЯ HERO ===== */
+/* Має особливий дизайн з rounded top */
+.content-section--first,
+.services-section,
+.blog-header,
+.events-filter {
+    position: relative;
+    background: var(--color-black);
+    z-index: 10;
+    border-radius: 20px 20px 0 0;
+    margin-top: -20px;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+    padding-top: 60px;
+}
+
+/* ===== PORTFOLIO PAGE STICKY HERO ===== */
+/* Спеціальні стилі для hero на сторінці портфоліо */
+/* Використовуємо :has() для перевірки наявності .portfolio-projects */
+.main-content:has(.portfolio-projects) > .hero-section {
+    position: sticky;
+    top: 0;
+    z-index: 0;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablet і Mobile */
+@media (max-width: 1024px) {
+    .hero-parallax {
+        min-height: 100svh;
+        min-height: calc(var(--vh, 1vh) * 100);
+    }
+
+    .content-section--first {
+        padding-top: 50px;
+    }
+}
+
+/* Mobile only */
+@media (max-width: 767px) {
+
+    /* Показати mobile відео */
+    .hero-parallax__video--desktop,
+    .desktop-video {
+        display: none;
+    }
+
+    .hero-parallax__video--mobile,
+    .mobile-video {
+        display: block;
+    }
+
+    /* Забезпечити position absolute на мобільних (скасувати fixed) */
+    .hero-section .video-background,
+    .cta-section .video-background,
+    .hero-section .video-overlay,
+    .cta-section .video-overlay {
+        position: absolute;
+        height: 100%;
+    }
+
+    /* Адаптація spacing */
+    .hero-parallax__content,
+    .hero-content {
+        padding: var(--space-md) 0;
+        margin-top: 60px;
+    }
+
+    .content-section--first,
+    .services-section,
+    .blog-header,
+    .events-filter {
+        border-radius: 16px 16px 0 0;
+        margin-top: -16px;
+        padding-top: 40px;
+    }
+
+    body.is-scrolling .video-background {
+        will-change: auto !important;
+    }
+
+    /* Portfolio sticky hero - мобільна версія з safe areas */
+    .main-content:has(.portfolio-projects) > .hero-section {
+        top: max(0px, env(safe-area-inset-top));
+    }
+}
+
+/* ===== iOS SAFARI ПІДТРИМКА ===== */
+@supports (-webkit-touch-callout: none) {
+    .hero-parallax {
+        min-height: 100vh;
+        min-height: 100svh;
+        min-height: calc(var(--vh, 1vh) * 100);
+    }
+
+    .hero-parallax__video {
+        height: 100vh;
+        height: 100svh;
+        height: calc(var(--vh, 1vh) * 100);
+    }
+
+    /* Portfolio sticky hero - iOS Safari optimization */
+    .main-content:has(.portfolio-projects) > .hero-section {
+        position: sticky;
+        top: max(0px, env(safe-area-inset-top));
+        z-index: 0;
+        /* Запобігання glitches при sticky */
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+}
+
+/* ===== LANDSCAPE MODE (низькі екрани) ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+
+    /* Вимкнути fixed для дуже низьких екранів */
+    .hero-parallax__video {
+        position: absolute;
+    }
+
+    .hero-parallax__overlay {
+        position: absolute;
+    }
+
+    .hero-parallax {
+        min-height: 100vh;
+    }
+}/**
+ * MOBILE-OPTIMIZATIONS.CSS - Централізована система мобільних оптимізацій (2025)
+ * Замінює всі дублювання iOS Safari фіксів у різних файлах
+ */
+
+/* ===== MODERN VIEWPORT SYSTEM (2025) ===== */
+:root {
+    /* Стандартні viewport одиниці */
+    --vw: 1vw;
+    --vh: 1vh;
+    --safe-vh: 1vh;
+
+    /* Dynamic viewport одиниці (сучасні браузери) */
+    --dvh: 1dvh;
+    --svh: 1svh;
+    --lvh: 1lvh;
+
+    /* Fallbacks для старих браузерів */
+    --mobile-vh: 100vh;
+    --mobile-safe-area-top: 0px;
+    --mobile-safe-area-bottom: 0px;
+    --mobile-safe-area-left: 0px;
+    --mobile-safe-area-right: 0px;
+}
+
+/* Сучасна підтримка dynamic viewport */
+@supports (height: 100dvh) {
+    :root {
+        --mobile-vh: 100dvh;
+    }
+}
+
+/* Safe areas для пристроїв з вирізами */
+@supports (padding-top: env(safe-area-inset-top)) {
+    :root {
+        --mobile-safe-area-top: env(safe-area-inset-top);
+        --mobile-safe-area-bottom: env(safe-area-inset-bottom);
+        --mobile-safe-area-left: env(safe-area-inset-left);
+        --mobile-safe-area-right: env(safe-area-inset-right);
+    }
+}
+
+/* Fallback для старих браузерів iOS */
+@supports (padding-top: constant(safe-area-inset-top)) {
+    :root {
+        --mobile-safe-area-top: constant(safe-area-inset-top);
+        --mobile-safe-area-bottom: constant(safe-area-inset-bottom);
+        --mobile-safe-area-left: constant(safe-area-inset-left);
+        --mobile-safe-area-right: constant(safe-area-inset-right);
+    }
+}
+
+/* ===== UNIVERSAL MOBILE CLASSES ===== */
+
+/* Універсальна висота екрану */
+.mobile-full-height {
+    height: var(--mobile-vh);
+    min-height: var(--mobile-vh);
+}
+
+/* Безпечна область */
+.mobile-safe-area {
+    padding-top: var(--mobile-safe-area-top);
+    padding-bottom: var(--mobile-safe-area-bottom);
+    padding-left: var(--mobile-safe-area-left);
+    padding-right: var(--mobile-safe-area-right);
+}
+
+/* Container з урахуванням safe areas */
+.mobile-container {
+    width: 100%;
+    max-width: 100%;
+    margin-left: max(var(--mobile-safe-area-left), 20px);
+    margin-right: max(var(--mobile-safe-area-right), 20px);
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* ===== iOS SAFARI OPTIMIZATIONS ===== */
+
+/* iOS Safari специфічні оптимізації */
+.ios.safari {
+    /* Підтримка -webkit-fill-available */
+    --mobile-vh: -webkit-fill-available;
+}
+
+.ios .mobile-full-height {
+    /* iOS Safari viewport фікси */
+    height: var(--mobile-vh);
+    min-height: var(--mobile-vh);
+
+    /* Запобігання elastic scroll */
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* ===== TOUCH OPTIMIZATIONS ===== */
+
+/* Універсальні touch стилі */
+.mobile-touch-target {
+    min-height: 44px;
+    /* Apple's recommended touch target size */
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Touch feedback */
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+    /* Smooth transitions */
+    transition: transform 0.1s ease-out, background-color 0.1s ease-out;
+}
+
+/* Active touch state */
+.mobile-touch-target:active,
+.mobile-touch-target.touch-active {
+    transform: scale(0.98);
+}
+
+/* Touch feedback для кнопок */
+.btn.mobile-touch-target:active,
+.btn.mobile-touch-target.touch-active {
+    background-color: color-mix(in srgb, var(--color-brand-orange) 90%, black);
+}
+
+/* Touch feedback для посилань */
+.nav-link.mobile-touch-target:active,
+.nav-link.mobile-touch-target.touch-active {
+    background-color: color-mix(in srgb, transparent 90%, var(--color-brand-orange));
+}
+
+/* ===== VIDEO OPTIMIZATIONS ===== */
+
+/* Оптимізовані відео для мобільних */
+.mobile-video {
+    /* Performance оптимізації */
+    will-change: transform;
+    transform: translateZ(0);
+
+    /* iOS Safari специфіка */
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* Відео з fallback зображенням */
+.mobile-video-container {
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.mobile-video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Кнопка відтворення відео */
+.mobile-video-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: none;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all 0.3s ease;
+}
+
+.mobile-video-play-button:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.mobile-video-play-button::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 12px solid var(--color-brand-orange);
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    margin-left: 3px;
+}
+
+/* ===== MODAL OPTIMIZATIONS ===== */
+
+/* Мобільні модалки */
+@media (max-width: 767px) {
+    .modal {
+        align-items: flex-start;
+        padding: 80px 0 40px;
+    }
+
+    .modal-content {
+        width: calc(100% - 32px);
+        max-width: calc(100% - 32px);
+        height: auto;
+        max-height: 75vh;
+        max-height: 75dvh;
+        margin: 0 16px 0;
+        margin-bottom: max(40px, env(safe-area-inset-bottom, 40px));
+        border-radius: 12px;
+        padding: 20px;
+        padding-top: max(var(--mobile-safe-area-top), 20px);
+        padding-bottom: max(var(--mobile-safe-area-bottom), 20px);
+    }
+
+    .modal-close {
+        position: fixed;
+        top: max(var(--mobile-safe-area-top), 16px);
+        right: max(var(--mobile-safe-area-right), 16px);
+        z-index: var(--z-modal-close-mobile, 10005);
+        
+        /* Прозорий фон */
+        background: transparent;
+        border: none;
+        
+        /* Оранжевий колір */
+        color: var(--color-brand-orange);
+        
+        /* Збільшений розмір для touch та видимості */
+        font-size: 36px;
+        width: 44px;
+        height: 44px;
+        line-height: 1;
+        
+        /* Touch оптимізації */
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        cursor: pointer;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform var(--transition-normal) var(--easing-default);
+    }
+    
+    .modal-close:active {
+        transform: scale(0.95);
+    }
+
+    /* ===== CALL-REQUEST MODAL — адаптивний flexbox layout ===== */
+
+    /* Зменшуємо зовнішній padding модалки щоб дати більше простору контенту */
+    #call-request-modal {
+        padding: 20px 0 10px;
+        align-items: center;
+    }
+
+    /* Close-button всередині модалки (absolute замість fixed) — економить простір */
+    #call-request-modal .modal-close {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        z-index: 10;
+        background: none;
+        -webkit-appearance: none;
+        appearance: none;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        outline: none;
+        text-shadow: none;
+        color: var(--color-brand-orange);
+        font-size: 32px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    /* Flexbox-контейнер для автомасштабування вмісту */
+    #call-request-modal .modal-content {
+        display: flex;
+        flex-direction: column;
+        max-height: calc(100dvh - 40px);
+        max-height: calc(var(--mobile-vh, 100vh) - 40px);
+        overflow: hidden;
+        padding: 40px 16px 16px;
+        gap: 10px;
+    }
+
+    /* Header компактніший */
+    #call-request-modal .modal-header {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    #call-request-modal .modal-header h3 {
+        font-size: 18px;
+        margin-bottom: 4px;
+        padding-right: 32px;
+    }
+
+    #call-request-modal .modal-header p {
+        font-size: 13px;
+        margin-bottom: 0;
+        line-height: 1.3;
+    }
+
+    /* Direct-contact секція — компактна, стискається */
+    #call-request-modal .modal-direct-contact {
+        margin: 0;
+        padding: 10px 8px;
+        flex-shrink: 1;
+        min-height: 0;
+    }
+
+    #call-request-modal .modal-separator-text {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    #call-request-modal .modal-phone-link {
+        font-size: 16px;
+        margin-bottom: 6px;
+        padding: 0;
+    }
+
+    #call-request-modal .modal-social-links {
+        gap: 20px;
+    }
+
+    #call-request-modal .modal-social-link {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+    }
+
+    #call-request-modal .modal-social-link svg,
+    #call-request-modal .modal-social-link img {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Форма — flex-grow щоб зайняла залишок, але стискається */
+    #call-request-modal .modal-form {
+        flex-shrink: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #call-request-modal .modal-form .form-group {
+        margin-bottom: 0;
+    }
+
+    #call-request-modal .modal-form .form-label {
+        font-size: 13px;
+        margin-bottom: 3px;
+    }
+
+    #call-request-modal .modal-form .form-input {
+        padding: 8px 10px;
+        font-size: 14px;
+        height: auto;
+        min-height: 38px;
+    }
+
+    #call-request-modal .modal-form .form-submit {
+        margin-top: 4px;
+        padding: 10px 16px;
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+
+    body.modal-open .call-button {
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: var(--z-fixed-buttons);
+    }
+}
+
+/* ===== CALL-REQUEST MODAL — маленькі екрани по висоті ===== */
+@media (max-height: 640px) and (max-width: 767px) {
+    #call-request-modal {
+        padding: 10px 0 5px;
+    }
+
+    #call-request-modal .modal-content {
+        max-height: calc(100dvh - 20px);
+        max-height: calc(var(--mobile-vh, 100vh) - 20px);
+        padding: 32px 12px 12px;
+        gap: 6px;
+    }
+
+    #call-request-modal .modal-close {
+        top: 4px;
+        right: 4px;
+        font-size: 28px;
+        width: 36px;
+        height: 36px;
+    }
+
+    #call-request-modal .modal-header h3 {
+        font-size: 16px;
+        margin-bottom: 2px;
+    }
+
+    #call-request-modal .modal-header p {
+        font-size: 12px;
+        line-height: 1.2;
+    }
+
+    #call-request-modal .modal-direct-contact {
+        padding: 6px;
+    }
+
+    #call-request-modal .modal-separator-text {
+        font-size: 11px;
+        margin-bottom: 4px;
+    }
+
+    #call-request-modal .modal-phone-link {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    #call-request-modal .modal-social-link {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+    }
+
+    #call-request-modal .modal-social-link svg,
+    #call-request-modal .modal-social-link img {
+        width: 16px;
+        height: 16px;
+    }
+
+    #call-request-modal .modal-form .form-label {
+        font-size: 12px;
+        margin-bottom: 2px;
+    }
+
+    #call-request-modal .modal-form .form-input {
+        padding: 6px 8px;
+        font-size: 13px;
+        min-height: 34px;
+    }
+
+    #call-request-modal .modal-form .form-submit {
+        margin-top: 2px;
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
+
+/* ===== iOS SAFARI MODAL OPTIMIZATIONS ===== */
+@supports (-webkit-touch-callout: none) {
+    @media (max-width: 767px) {
+        .modal-close {
+            /* Підтримка safe-area для пристроїв з вирізами */
+            top: max(env(safe-area-inset-top, 16px), 16px);
+            right: max(env(safe-area-inset-right, 16px), 16px);
+        }
+        
+        /* Fallback для старих версій iOS */
+        @supports (top: max(constant(safe-area-inset-top, 16px), 16px)) {
+            .modal-close {
+                top: max(constant(safe-area-inset-top, 16px), 16px);
+                right: max(constant(safe-area-inset-right, 16px), 16px);
+            }
+        }
+
+        /* iOS Safari: call-request-modal — точний розрахунок висоти з safe-area */
+        #call-request-modal .modal-content {
+            max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 40px);
+        }
+
+        /* Close-button всередині модалки з урахуванням safe-area */
+        #call-request-modal .modal-close {
+            position: absolute;
+            top: max(env(safe-area-inset-top, 8px), 8px);
+            right: max(env(safe-area-inset-right, 8px), 8px);
+            background: none;
+            -webkit-appearance: none;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            outline: none;
+        }
+    }
+}
+
+/* iOS Safari: маленькі екрани */
+@supports (-webkit-touch-callout: none) {
+    @media (max-height: 640px) and (max-width: 767px) {
+        #call-request-modal .modal-content {
+            max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 20px);
+        }
+    }
+}
+
+/* ===== FORM OPTIMIZATIONS ===== */
+
+/* Мобільні форми */
+.mobile-form-input {
+    /* Збільшені розміри для touch */
+    min-height: 44px;
+    padding: 12px 16px;
+    font-size: 16px;
+    /* Запобігання zoom в iOS Safari */
+
+    /* Touch оптимізації */
+    -webkit-appearance: none;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+
+    /* Accessibility */
+    outline-offset: 2px;
+}
+
+/* Спеціальні клавіатури для iOS */
+.mobile-form-input[type="tel"] {
+    /* Числова клавіатура */
+    inputmode: numeric;
+}
+
+.mobile-form-input[type="email"] {
+    /* Email клавіатура */
+    inputmode: email;
+}
+
+.mobile-form-input[type="search"] {
+    /* Пошукова клавіатура */
+    inputmode: search;
+}
+
+/* ===== NAVIGATION OPTIMIZATIONS ===== */
+
+/* Мобільна навігація */
+.mobile-navigation {
+    /* Safe area підтримка */
+    padding-top: var(--mobile-safe-area-top);
+    padding-left: var(--mobile-safe-area-left);
+    padding-right: var(--mobile-safe-area-right);
+
+    /* Backdrop blur для сучасного вигляду */
+    background: rgba(245, 241, 237, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* Мобільне меню - базові оптимізації застосовані в navigation.css */
+
+/* ===== PERFORMANCE CLASSES ===== */
+
+
+/* GPU acceleration для критичних елементів */
+.gpu-accelerated {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+/* Приховування елементів на мобільних */
+@media (max-width: 767px) {
+    .mobile-hidden {
+        display: none;
+    }
+}
+
+/* Показ тільки на мобільних */
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .mobile-only {
+        display: block;
+    }
+
+    .mobile-only.flex {
+        display: flex;
+    }
+
+    .mobile-only.grid {
+        display: grid;
+    }
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+
+/* Збільшені touch targets для accessibility */
+@media (max-width: 767px) {
+
+    button,
+    [role="button"],
+    .btn,
+    .nav-link,
+    .card-link {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Focus indicators для touch навігації */
+.mobile-focus-visible:focus-visible {
+    outline: 2px solid var(--color-brand-orange);
+    outline-offset: 2px;
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+
+@media (prefers-color-scheme: dark) {
+    .mobile-video-play-button {
+        background: rgba(0, 0, 0, 0.9);
+        color: var(--color-white);
+    }
+
+    .mobile-navigation {
+        background: rgba(0, 0, 0, 0.95);
+    }
+}
+
+/* ===== HIGH CONTRAST SUPPORT ===== */
+
+@media (prefers-contrast: high) {
+
+    .mobile-touch-target:active,
+    .mobile-touch-target.touch-active {
+        outline: 2px solid currentColor;
+    }
+}
+
+/* ===== ФІКС ELASTIC SCROLLING (Безпечний) ===== */
+@media (max-width: 767px) and (-webkit-touch-callout: none) {
+    html {
+        overscroll-behavior-y: none;
+    }
+    
+    body {
+        -webkit-overflow-scrolling: auto;
+    }
+}
