@@ -1,245 +1,43 @@
 /**
- * ANALYTICS.JS - Централізований tracking system
- * Замінює дублювання analytics коду
- * Версія: 2.0
+ * ANALYTICS.JS — Deferred analytics initialization.
+ * Loaded with `defer` to reduce TBT and improve LCP/FCP.
+ *
+ * Responsibilities:
+ *  1. Activate async CSS links (loaded with media="print" trick)
+ *  2. Initialize Facebook Pixel after DOM is ready
  */
 
-import CONFIG from './config.js';
+// 1. Activate any CSS that was loaded non-blocking (media="print" swap)
+//    This runs synchronously when the deferred script executes (DOM is parsed,
+//    browser is about to fire DOMContentLoaded) → minimal or no visible FOUC.
+document.querySelectorAll('link[data-async-css]').forEach((link) => {
+    link.media = 'all';
+});
 
-/**
- * Analytics Manager
- */
-class AnalyticsManager {
-    constructor() {
-        this.enabled = CONFIG.features.enableAnalytics;
-        this.timeOnPage = 0;
-        this.engagementTracked = false;
-        this.scrollDepths = new Set();
-        
-        if (this.enabled) {
-            this.init();
-        }
-    }
+// 2. Facebook Pixel — deferred init
+const pixelId = document.documentElement.dataset.pixelId;
+if (pixelId) {
+    // Standard FB Pixel snippet (external source only — no inline eval)
+    const fbScript = document.createElement('script');
+    fbScript.async = true;
+    fbScript.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    document.head.appendChild(fbScript);
 
-    /**
-     * Ініціалізація
-     */
-    init() {
-        this.trackPageView();
-        this.trackTimeOnPage();
-        this.setupClickTracking();
-        this.setupScrollTracking();
-        this.setupFormTracking();
-    }
-
-    /**
-     * Відправка події
-     */
-    track(eventName, params = {}) {
-        if (!this.enabled) return;
-
-        if (typeof gtag !== 'undefined') {
-            gtag('event', eventName, params);
-        }
-
-        if (CONFIG.features.enableDebugLog) {
-            console.log('[Analytics]', eventName, params);
-        }
-    }
-
-    /**
-     * Page View
-     */
-    trackPageView() {
-        this.track('page_view', {
-            page_title: document.title,
-            page_location: window.location.href,
-            page_path: window.location.pathname,
-        });
-    }
-
-    /**
-     * Час на сторінці
-     */
-    trackTimeOnPage() {
-        setInterval(() => {
-            this.timeOnPage += 1;
-
-            // Engaged session після 30 секунд
-            if (this.timeOnPage === CONFIG.analytics.engagementTime && !this.engagementTracked) {
-                this.track('engaged_session', {
-                    time_on_page: this.timeOnPage
-                });
-                this.engagementTracked = true;
-            }
-        }, 1000);
-    }
-
-    /**
-     * Click Tracking
-     */
-    setupClickTracking() {
-        document.addEventListener('click', (e) => {
-            // Button clicks
-            const button = e.target.closest('.btn, button[type="submit"]');
-            if (button) {
-                this.track('button_click', {
-                    button_text: button.textContent.trim(),
-                    button_class: button.className,
-                    page_location: window.location.href,
-                });
-            }
-
-            // Link clicks
-            const link = e.target.closest('a');
-            if (link && link.href) {
-                const isExternal = link.hostname !== window.location.hostname;
-                
-                this.track('link_click', {
-                    link_url: link.href,
-                    link_text: link.textContent.trim(),
-                    link_external: isExternal,
-                    page_location: window.location.href,
-                });
-            }
-
-            // Article clicks (blog, events)
-            const articleLink = e.target.closest('.card__title, .article-link, .event-link');
-            if (articleLink) {
-                this.track('article_click', {
-                    article_title: articleLink.textContent.trim(),
-                    page_location: window.location.href,
-                });
-            }
-        });
-    }
-
-    /**
-     * Scroll Tracking
-     */
-    setupScrollTracking() {
-        let ticking = false;
-
-        const trackScroll = () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const scrollPercentage = Math.round(
-                        (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100
-                    );
-
-                    // Track scroll depths: 25%, 50%, 75%, 90%
-                    [25, 50, 75, 90].forEach(depth => {
-                        if (scrollPercentage >= depth && !this.scrollDepths.has(depth)) {
-                            this.scrollDepths.add(depth);
-                            this.track('scroll_depth', {
-                                percent_scrolled: depth,
-                                page_location: window.location.href,
-                            });
-                        }
-                    });
-
-                    ticking = false;
-                });
-                ticking = true;
-            }
+    // fbq stub so calls queue up before fbevents.js is ready
+    if (!window.fbq) {
+        const fbq = function () {
+            fbq.callMethod
+                ? fbq.callMethod.apply(fbq, arguments)
+                : fbq.queue.push(arguments);
         };
-
-        window.addEventListener('scroll', trackScroll, { passive: true });
+        fbq.push = fbq;
+        fbq.loaded = true;
+        fbq.version = '2.0';
+        fbq.queue = [];
+        window.fbq = fbq;
+        window._fbq = fbq;
     }
 
-    /**
-     * Form Tracking
-     */
-    setupFormTracking() {
-        document.addEventListener('submit', (e) => {
-            const form = e.target.closest('form[data-form-type]');
-            if (form) {
-                const formType = form.dataset.formType;
-                
-                this.track('form_submit', {
-                    form_type: formType,
-                    page_location: window.location.href,
-                });
-            }
-        });
-    }
-
-    /**
-     * Video Tracking
-     */
-    trackVideoPlay(videoSrc) {
-        this.track('video_play', {
-            video_src: videoSrc,
-            page_location: window.location.href,
-        });
-    }
-
-    trackVideoComplete(videoSrc) {
-        this.track('video_complete', {
-            video_src: videoSrc,
-            page_location: window.location.href,
-        });
-    }
-
-    /**
-     * Event Registration
-     */
-    trackEventRegistration(eventId, eventTitle) {
-        this.track('event_registration', {
-            event_id: eventId,
-            event_title: eventTitle,
-            page_location: window.location.href,
-        });
-    }
-
-    /**
-     * Search
-     */
-    trackSearch(searchQuery, resultsCount) {
-        this.track('search', {
-            search_term: searchQuery,
-            results_count: resultsCount,
-            page_location: window.location.href,
-        });
-    }
-
-    /**
-     * Filter Usage
-     */
-    trackFilter(filterType, filterValue) {
-        this.track('filter_used', {
-            filter_type: filterType,
-            filter_value: filterValue,
-            page_location: window.location.href,
-        });
-    }
-
-    /**
-     * Custom Event
-     */
-    trackCustom(eventName, params) {
-        this.track(eventName, params);
-    }
+    window.fbq('init', pixelId);
+    window.fbq('track', 'PageView');
 }
-
-// ===== GLOBAL INSTANCE (HYBRID) =====
-const analytics = new AnalyticsManager();
-window.Analytics = analytics;
-window.trackEvent = trackEvent; // Для не-module скриптів
-
-// ===== CONVENIENCE METHODS =====
-export function trackEvent(eventName, params) {
-    return analytics.track(eventName, params);
-}
-
-export function trackClick(element, customParams = {}) {
-    return analytics.track('element_click', {
-        element_text: element.textContent.trim(),
-        element_class: element.className,
-        ...customParams,
-    });
-}
-
-// ===== EXPORT =====
-export default analytics;
-

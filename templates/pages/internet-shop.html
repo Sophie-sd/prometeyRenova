@@ -7,10 +7,18 @@
 {% block og_title %}Інтернет-магазини під ключ — PrometeyLabs{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=7">
-<!-- Preload critical BG images (LCP) -->
+<!-- LCP hero float image — preload must precede CSS to eliminate resource load delay -->
+<link rel="preload" as="image"
+    imagesrcset="{% static 'images/shop_hero_540.webp' %} 540w, {% static 'images/shop_hero.webp' %} 1080w"
+    imagesizes="(max-width: 767px) 320px, (max-width: 1199px) 400px, 540px"
+    fetchpriority="high">
+<!-- BG parallax images -->
 <link rel="preload" as="image" href="{% static 'images/shop_page_hero_desc.webp' %}" media="(min-width: 768px)" fetchpriority="high">
 <link rel="preload" as="image" href="{% static 'images/shop_page_hero_mob.webp' %}" media="(max-width: 767px)" fetchpriority="high">
+<!-- Page CSS — loaded non-blocking to eliminate render-blocking resource -->
+<link rel="preload" href="{% static 'css/internet-shop.css' %}?v=7" as="style">
+<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=7" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=7"></noscript>
 {% endblock %}
 
 {% block extra_js %}
@@ -55,7 +63,7 @@
                             <source
                                 type="image/webp"
                                 srcset="{% static 'images/shop_hero_540.webp' %} 540w, {% static 'images/shop_hero.webp' %} 1080w"
-                                sizes="(max-width: 767px) 320px, 540px">
+                                sizes="(max-width: 767px) 320px, (max-width: 1199px) 400px, 540px">
                             <img
                                 src="{% static 'images/shop_hero.png' %}"
                                 alt="Інтернет-магазин на ноутбуці та смартфоні"
@@ -63,7 +71,7 @@
                                 width="540"
                                 height="540"
                                 loading="eager"
-                                decoding="async"
+                                decoding="sync"
                                 fetchpriority="high"
                             >
                         </picture>

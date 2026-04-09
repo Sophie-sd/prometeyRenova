@@ -293,36 +293,31 @@ class PhoneMask {
     }
 
     handlePaste(e) {
-        e.preventDefault();
-        
-        const pastedText = (e.clipboardData || window.clipboardData).getData('text');
-        
-        // Очищаємо вставлений текст
-        let cleaned = pastedText.replace(/[^\d+]/g, '');
-        
-        // КРИТИЧНО: Переконуємось що ЗАВЖДИ починається з +38
-        if (!cleaned.startsWith('+38')) {
-            if (cleaned.startsWith('38')) {
-                cleaned = '+' + cleaned;
-            } else if (cleaned.startsWith('8')) {
-                cleaned = '+38' + cleaned.substring(1);
-            } else if (cleaned.match(/^\d/)) {
-                cleaned = '+38' + cleaned;
-            } else {
-                cleaned = '+38' + cleaned.replace(/[^\d]/g, '');
-            }
-        }
-        
-        // Обмежуємо довжину
-        const digits = cleaned.replace(/\D/g, '');
-        if (digits.length > 12) {
-            cleaned = '+38' + digits.substring(2, 12); // Беремо тільки цифри після 38
-        }
-        
-        this.formatValue(cleaned);
-        
-        // Встановлюємо курсор після форматування
+        // Do NOT call e.preventDefault() — browsers flag paste-blocking as a UX issue.
+        // Allow the native paste, then reformat in the next microtask.
+        const pastedText = (e.clipboardData ?? window.clipboardData).getData('text');
+
         setTimeout(() => {
+            let cleaned = pastedText.replace(/[^\d+]/g, '');
+
+            if (!cleaned.startsWith('+38')) {
+                if (cleaned.startsWith('38')) {
+                    cleaned = '+' + cleaned;
+                } else if (cleaned.startsWith('8')) {
+                    cleaned = '+38' + cleaned.substring(1);
+                } else if (/^\d/.test(cleaned)) {
+                    cleaned = '+38' + cleaned;
+                } else {
+                    cleaned = '+38' + cleaned.replace(/[^\d]/g, '');
+                }
+            }
+
+            const digits = cleaned.replace(/\D/g, '');
+            if (digits.length > 12) {
+                cleaned = '+38' + digits.substring(2, 12);
+            }
+
+            this.formatValue(cleaned);
             this.setCursorPosition(Math.max(this.prefix.length, this.input.value.length));
         }, 0);
     }

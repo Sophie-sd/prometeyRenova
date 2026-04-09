@@ -1,12 +1,12 @@
 {% load i18n %}
 {% load static %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}">
+<html lang="{{ LANGUAGE_CODE }}"{% if FACEBOOK_PIXEL_ID %} data-pixel-id="{{ FACEBOOK_PIXEL_ID }}"{% endif %}>
 
 <head>
     <meta charset="UTF-8">
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    <script nonce="{{ csp_nonce }}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
@@ -57,6 +57,8 @@
     <!-- Resource hints for performance -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+    <link rel="dns-prefetch" href="https://connect.facebook.net">
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json">
@@ -77,22 +79,6 @@
         ]
     }
     </script>
-
-    <!-- Meta Pixel Code -->
-    {% if FACEBOOK_PIXEL_ID %}
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '{{ FACEBOOK_PIXEL_ID }}');
-    fbq('track', 'PageView');
-    </script>
-    {% endif %}
 
     {% block extra_head %}{% endblock %}
 </head>
@@ -127,7 +113,7 @@
 
     <!-- Modern JavaScript Systems (2025) - чіткий порядок завантаження -->
     <!-- Translations for JavaScript -->
-    <script>
+    <script nonce="{{ csp_nonce }}">
         window.I18N = {
             'errorSubmittingForm': '{% trans "Помилка при відправці форми. Спробуйте ще раз." %}',
             'errorSending': '{% trans "Помилка при відправці. Спробуйте ще раз." %}',
@@ -135,6 +121,7 @@
         };
     </script>
     {% block base_js %}
+    <script src="{% static 'js/core/analytics.js' %}" defer></script>
     <script src="{% static 'js/core/gclid-capture.js' %}" defer></script>
     <script src="{% static 'js/core/utils.js' %}" defer></script>
     <script src="{% static 'js/mobile-core.js' %}" defer></script>
