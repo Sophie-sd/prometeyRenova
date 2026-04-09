@@ -7,7 +7,10 @@
 {% block og_title %}Інтернет-магазини під ключ — PrometeyLabs{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=6">
+<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=7">
+<!-- Preload critical BG images (LCP) -->
+<link rel="preload" as="image" href="{% static 'images/shop_page_hero_desc.webp' %}" media="(min-width: 768px)" fetchpriority="high">
+<link rel="preload" as="image" href="{% static 'images/shop_page_hero_mob.webp' %}" media="(max-width: 767px)" fetchpriority="high">
 {% endblock %}
 
 {% block extra_js %}
@@ -16,7 +19,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="is-page" style="--shop-parallax-bg: url('{% static 'images/shop_page_hero_desc.png' %}'); --shop-parallax-bg-mob: url('{% static 'images/shop_page_hero_mob.png' %}')">
+<div class="is-page" style="--shop-parallax-bg: url('{% static 'images/shop_page_hero_desc.webp' %}'); --shop-parallax-bg-mob: url('{% static 'images/shop_page_hero_mob.webp' %}')">
 
     <div class="is-page-bg" aria-hidden="true"></div>
 
@@ -48,15 +51,19 @@
                 <!-- Grid row 1, col 2 (spans all rows on desktop): image -->
                 <div class="is-hero__right">
                     <div class="is-hero__image-wrap">
-                        <img
-                            src="{% static 'images/shop_hero.png' %}"
-                            alt="Інтернет-магазин на ноутбуці та смартфоні"
-                            class="is-hero__float-img"
-                            width="540"
-                            height="540"
-                            loading="eager"
-                            decoding="async"
-                        >
+                        <picture>
+                            <source srcset="{% static 'images/shop_hero.webp' %}" type="image/webp">
+                            <img
+                                src="{% static 'images/shop_hero.png' %}"
+                                alt="Інтернет-магазин на ноутбуці та смартфоні"
+                                class="is-hero__float-img"
+                                width="540"
+                                height="540"
+                                loading="eager"
+                                decoding="async"
+                                fetchpriority="high"
+                            >
+                        </picture>
                     </div>
                 </div>
 
@@ -471,7 +478,7 @@
                         <input type="text" id="quiz-name" name="name"
                             class="form-input mobile-form-input mobile-touch-target"
                             autocomplete="given-name" inputmode="text"
-                            placeholder="Ваше ім'я">
+                            required placeholder="Ваше ім'я">
                     </div>
                     <div class="form-group">
                         <input type="tel" id="quiz-phone" name="phone"
