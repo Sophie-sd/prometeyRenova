@@ -26,6 +26,8 @@
 
 /* ===== SECTION BASE ===== */
 .is-section {
+    position: relative;
+    z-index: 1;
     padding: 56px 0;
 }
 
@@ -111,62 +113,54 @@
     font-weight: 500;
 }
 
-/* ===== PARALLAX SECTION (фон — шар, рух через JS; без background-attachment: fixed) ===== */
-.is-parallax-section {
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-}
-
-.is-parallax-section__bg {
-    position: absolute;
-    top: -12%;
-    left: 0;
-    width: 100%;
-    height: 124%;
+/* ===== SINGLE FIXED BACKGROUND LAYER ===== */
+.is-page-bg {
+    position: fixed;
+    inset: 0;
     z-index: 0;
-    background-color: var(--color-black);
+    background-image: var(--shop-parallax-bg);
     background-size: cover;
     background-position: center 30%;
     background-repeat: no-repeat;
-    transform: translate3d(0, 0, 0);
-    -webkit-transform: translate3d(0, 0, 0);
+    background-color: var(--color-black);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     will-change: transform;
     pointer-events: none;
 }
 
-.is-parallax-section__bg--hero {
-    background-image: var(--shop-parallax-bg);
-}
-
 @media (max-width: 767px) {
-    .is-parallax-section__bg--hero {
+    .is-page-bg {
         background-image: var(--shop-parallax-bg-mob);
         background-position: center top;
     }
 }
 
-.is-parallax-section__bg--shared {
-    background-image: var(--shop-parallax-bg);
-}
-
-@media (max-width: 767px) {
-    .is-parallax-section__bg--shared {
-        background-image: var(--shop-parallax-bg-mob);
-        background-position: center top;
+@media (prefers-reduced-motion: reduce) {
+    .is-page-bg {
+        will-change: auto;
     }
 }
 
-.is-parallax-section__overlay {
+/* Sections that reveal the fixed bg */
+.is-bg-section {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    isolation: isolate;
+}
+
+/* Overlay gradient per section */
+.is-bg-overlay {
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
 }
 
-.is-parallax-section__overlay--hero {
+.is-bg-overlay--hero {
     background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.65) 0%,
@@ -175,7 +169,7 @@
     );
 }
 
-.is-parallax-section__overlay--section {
+.is-bg-overlay--section {
     background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.78) 0%,
@@ -183,17 +177,9 @@
     );
 }
 
-.is-parallax-section__inner {
+.is-bg-section__inner {
     position: relative;
     z-index: 2;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .is-parallax-section__bg {
-        will-change: auto;
-        top: 0;
-        height: 100%;
-    }
 }
 
 /* ===== HERO ===== */
@@ -346,7 +332,7 @@
 .is-usp {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
     margin-top: 0;
     margin-bottom: 36px;
 }
@@ -381,14 +367,14 @@
 }
 
 .is-usp__title {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--color-white);
     margin-bottom: 6px;
 }
 
 .is-usp__text {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.65);
 }
@@ -409,6 +395,8 @@
 
 /* ===== BLOCK 2 — GUARANTEES STRIP ===== */
 .is-guarantee-strip {
+    position: relative;
+    z-index: 1;
     background: var(--color-black);
     padding: 48px 0;
 }
@@ -557,6 +545,8 @@
 }
 
 .is-cta-strip {
+    position: relative;
+    z-index: 1;
     padding: 40px 0;
     background: var(--color-black);
 }
@@ -803,6 +793,8 @@
 
 /* ===== BLOCK 8 — PORTFOLIO + CTA (об'єднаний) ===== */
 .is-portfolio-cta {
+    position: relative;
+    z-index: 1;
     padding: 64px 0;
     background: var(--color-black);
 }
@@ -1251,6 +1243,11 @@
         padding-top: 0;
     }
 
+    .is-portfolio-cta__col:not(.is-portfolio-cta__col--cta) {
+        align-items: flex-end;
+        text-align: right;
+    }
+
     /* Вертикальний роздільник на десктопі */
     .is-portfolio-cta__sep {
         display: block;
@@ -1315,6 +1312,17 @@
 @media (min-width: 1024px) {
     .is-hero__title {
         font-size: clamp(54px, 7vw, 84px);
+    }
+}
+
+@media (min-width: 768px) {
+    .is-usp {
+        flex-direction: row;
+    }
+
+    .is-usp__item {
+        flex: 1 1 0;
+        min-width: 0;
     }
 }
 

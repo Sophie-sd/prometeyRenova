@@ -1,94 +1,41 @@
 /**
- * Легкий паралакс для фонових зображень (internet-shop).
- * translate3d — сумісність з iOS Safari; без background-attachment: fixed.
- * Вимикається при prefers-reduced-motion.
+ * Single fixed-layer parallax for internet-shop page.
+ * Moves .is-page-bg via translate3d on desktop only.
+ * Touch/mobile: static fixed bg (no JS transform — avoids iOS jank).
+ * Disabled when prefers-reduced-motion is set.
  */
 (function () {
     'use strict';
 
-    const sections = [];
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
+    if (reducedMotion || isTouchDevice) return;
+
+    const bg = document.querySelector('.is-page-bg');
+    if (!bg) return;
+
     let ticking = false;
-    let reducedMotion = false;
-
-    function init() {
-        reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (reducedMotion) {
-            return;
-        }
-
-        document.querySelectorAll('[data-parallax-section]').forEach((section) => {
-            const bg = section.querySelector('.is-parallax-section__bg');
-            if (!bg) {
-                return;
-            }
-            sections.push({ section, bg });
-        });
-
-        if (sections.length === 0) {
-            return;
-        }
-
-        const io = new IntersectionObserver(
-            () => {
-                requestTick();
-            },
-            { root: null, rootMargin: '120px 0px', threshold: 0 }
-        );
-
-        sections.forEach(({ section }) => io.observe(section));
-
-        window.addEventListener(
-            'scroll',
-            () => {
-                requestTick();
-            },
-            { passive: true }
-        );
-
-        window.addEventListener(
-            'resize',
-            () => {
-                requestTick();
-            },
-            { passive: true }
-        );
-
-        requestTick();
-    }
-
-    function requestTick() {
-        if (ticking) {
-            return;
-        }
-        ticking = true;
-        window.requestAnimationFrame(update);
-    }
+    const RATE = 0.08;
+    const CLAMP = 120;
 
     function update() {
         ticking = false;
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        const isNarrow = window.innerWidth < 768;
-        const rate = isNarrow ? 0.05 : 0.1;
-
-        sections.forEach(({ section, bg }) => {
-            const rect = section.getBoundingClientRect();
-            const visible = rect.bottom > -vh && rect.top < vh * 2;
-            if (!visible) {
-                bg.style.transform = '';
-                bg.style.webkitTransform = '';
-                return;
-            }
-            const shift = Math.round((vh / 2 - rect.top) * rate);
-            const clamped = Math.max(-80, Math.min(80, shift));
-            const t = `translate3d(0, ${clamped}px, 0)`;
-            bg.style.transform = t;
-            bg.style.webkitTransform = t;
-        });
+        const shift = Math.round(window.scrollY * RATE);
+        const clamped = Math.max(-CLAMP, Math.min(CLAMP, shift));
+        const t = `translate3d(0, ${clamped}px, 0)`;
+        bg.style.transform = t;
+        bg.style.webkitTransform = t;
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
+    function requestTick() {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+        }
     }
+
+    window.addEventListener('scroll', requestTick, { passive: true });
+    window.addEventListener('resize', requestTick, { passive: true });
+    requestTick();
 })();
