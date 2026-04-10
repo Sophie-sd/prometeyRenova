@@ -1,0 +1,82 @@
+/**
+ * Language Suggest Banner
+ * На RU-сторінках пропонує перемкнутися на українську.
+ * Tracking (gclid/UTM) зберігається через cookies (_prm_*) — не потребує додаткових дій.
+ */
+(function () {
+    'use strict';
+
+    const STORAGE_KEY = 'lang_suggest_dismissed';
+    const SHOW_DELAY_MS = 1500;
+
+    function getCSRFToken() {
+        if (window.PrometeyUtils?.getCSRFToken) {
+            return window.PrometeyUtils.getCSRFToken();
+        }
+        const meta = document.querySelector('meta[name="csrf-token"]');
+        if (meta) return meta.getAttribute('content') || '';
+        const cookie = document.cookie.split(';').find(c => c.trim().startsWith('csrftoken='));
+        return cookie ? cookie.split('=')[1].trim() : '';
+    }
+
+    function switchToUkrainian() {
+        let nextUrl = window.location.pathname + window.location.search;
+        // Прибираємо /ru/ префікс, щоб попасти на Ukrainian-версію
+        nextUrl = nextUrl.replace(/^\/ru\//, '/');
+
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/i18n/set_language/';
+
+        const fields = {
+            csrfmiddlewaretoken: getCSRFToken(),
+            language: 'uk',
+            next: nextUrl,
+        };
+
+        Object.entries(fields).forEach(([name, value]) => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    function dismiss(banner) {
+        try {
+            sessionStorage.setItem(STORAGE_KEY, '1');
+        } catch (_) { /* private browsing may block */ }
+        banner.hidden = true;
+    }
+
+    function init() {
+        const banner = document.getElementById('lang-suggest');
+        if (!banner) return;
+
+        try {
+            if (sessionStorage.getItem(STORAGE_KEY)) return;
+        } catch (_) { /* ignore */ }
+
+        setTimeout(() => {
+            banner.hidden = false;
+        }, SHOW_DELAY_MS);
+
+        document.getElementById('lang-suggest-yes')?.addEventListener('click', () => {
+            switchToUkrainian();
+        });
+
+        document.getElementById('lang-suggest-close')?.addEventListener('click', () => {
+            dismiss(banner);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();

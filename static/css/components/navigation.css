@@ -168,6 +168,7 @@
     display: flex;
     gap: 8px;
     align-items: center;
+    position: relative;
 }
 
 .lang-btn {
@@ -638,5 +639,103 @@
         font-size: clamp(18px, 4vh, 28px);
         padding: 8px 0;
         line-height: 1.2;
+    }
+}
+
+/* ===== LANG SUGGEST BANNER ===== */
+.lang-suggest {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 200;
+    background: var(--color-bg-warm, #FAF7F2);
+    border: 1.5px solid #000;
+    padding: 14px 16px;
+    width: 220px;
+    box-shadow: 3px 3px 0 #000;
+    animation: lang-suggest-in 0.25s ease-out;
+}
+
+.lang-suggest[hidden] {
+    display: none;
+}
+
+@keyframes lang-suggest-in {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.lang-suggest__text {
+    font-size: 13px;
+    font-weight: 600;
+    color: #000;
+    line-height: 1.4;
+    margin: 0 0 10px;
+    letter-spacing: -0.2px;
+}
+
+.lang-suggest__actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.lang-suggest__yes {
+    flex: 1;
+    padding: 7px 12px;
+    background: #000;
+    color: #fff;
+    border: 1.5px solid #000;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    letter-spacing: 0.3px;
+}
+
+.lang-suggest__yes:hover {
+    background: var(--color-accent, #DC143C);
+    border-color: var(--color-accent, #DC143C);
+}
+
+.lang-suggest__close {
+    padding: 7px 10px;
+    background: transparent;
+    color: #000;
+    border: 1.5px solid #000;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    line-height: 1;
+}
+
+.lang-suggest__close:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* Стрілка-покажчик (псевдоелемент) */
+.lang-suggest::before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    right: 18px;
+    width: 12px;
+    height: 12px;
+    background: var(--color-bg-warm, #FAF7F2);
+    border-left: 1.5px solid #000;
+    border-top: 1.5px solid #000;
+    transform: rotate(45deg);
+}
+
+@media (max-width: 767px) {
+    .lang-suggest {
+        display: none;
     }
 }

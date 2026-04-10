@@ -127,6 +127,10 @@
     <script src="{% static 'js/video-system.js' %}" defer></script>
     <script src="{% static 'js/core/phone-mask.js' %}" defer></script>
     <script src="{% static 'js/base.js' %}" defer></script>
+    {% get_current_language as CURRENT_LANG %}
+    {% if CURRENT_LANG == 'ru' %}
+    <script src="{% static 'js/lang-suggest.js' %}" defer></script>
+    {% endif %}
     {% endblock %}
     {% block extra_js %}{% endblock %}
 

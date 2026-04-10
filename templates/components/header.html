@@ -34,6 +34,16 @@
             </a>
             {% endif %}
             {% endfor %}
+
+            {% if LANGUAGE_CODE == 'ru' %}
+            <div class="lang-suggest" id="lang-suggest" hidden aria-live="polite">
+                <p class="lang-suggest__text">Переглядати сайт українською?</p>
+                <div class="lang-suggest__actions">
+                    <button class="lang-suggest__yes" id="lang-suggest-yes" type="button">Так</button>
+                    <button class="lang-suggest__close" id="lang-suggest-close" type="button" aria-label="Закрити">✕</button>
+                </div>
+            </div>
+            {% endif %}
         </div>
 
         <!-- Mobile Burger Button -->
