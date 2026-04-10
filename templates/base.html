@@ -5,12 +5,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- Google Tag Manager -->
-    <script nonce="{{ csp_nonce }}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-K2FVPPTK');</script>
+    <!-- Google Tag Manager — deferred until user interaction or 3.5s to reduce TBT/LCP -->
+    <script nonce="{{ csp_nonce }}">
+    window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    function _loadGTM(){if(window._gtmL)return;window._gtmL=1;var j=document.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id=GTM-K2FVPPTK';document.head.appendChild(j);}
+    ['scroll','click','touchstart','keydown'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
+    setTimeout(_loadGTM,3500);
+    </script>
     <!-- End Google Tag Manager -->
     <!-- iOS Safari оптимізований viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -44,8 +45,12 @@
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:image" content="{% block og_image %}{% static 'images/og-image.jpg' %}{% endblock %}">
 
+    <!-- Resource hints — before CSS for parallel DNS/TCP -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+
     <!-- CSS Base Bundle (core + components in one request) -->
-    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=1">
+    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}">
 
     <!-- Page specific CSS -->
     {% block page_css %}{% endblock %}
@@ -53,12 +58,6 @@
 
     <!-- CSRF Token для JavaScript -->
     <meta name="csrf-token" content="{{ csrf_token }}">
-
-    <!-- Resource hints for performance -->
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
-    <link rel="dns-prefetch" href="https://connect.facebook.net">
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json">

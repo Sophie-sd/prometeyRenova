@@ -9,16 +9,43 @@
 {% block page_css %}
 <!-- LCP hero float image — preload must precede CSS to eliminate resource load delay -->
 <link rel="preload" as="image"
-    imagesrcset="{% static 'images/shop_hero_540.webp' %} 540w, {% static 'images/shop_hero.webp' %} 1080w"
-    imagesizes="(max-width: 767px) 320px, (max-width: 1199px) 400px, 540px"
+    imagesrcset="{% static 'images/shop_hero_540.webp' %} 540w, {% static 'images/shop_hero_720.webp' %} 720w, {% static 'images/shop_hero.webp' %} 1080w"
+    imagesizes="(max-width: 767px) 320px, (max-width: 1023px) 400px, 540px"
     fetchpriority="high">
 <!-- BG parallax images -->
 <link rel="preload" as="image" href="{% static 'images/shop_page_hero_desc.webp' %}" media="(min-width: 768px)" fetchpriority="high">
 <link rel="preload" as="image" href="{% static 'images/shop_page_hero_mob.webp' %}" media="(max-width: 767px)" fetchpriority="high">
-<!-- Page CSS — loaded non-blocking to eliminate render-blocking resource -->
-<link rel="preload" href="{% static 'css/internet-shop.css' %}?v=7" as="style">
-<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=7" media="print" data-async-css>
-<noscript><link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=7"></noscript>
+<!-- Critical above-the-fold CSS inline — prevents CLS and enables LCP image paint before full CSS loads -->
+<style>
+.is-page{background:var(--color-black);color:var(--color-white)}.is-page .btn{border-radius:8px}.is-page .container{margin-top:0}.is-hero .container{margin-top:60px}
+.is-page-bg{position:fixed;inset:0;z-index:0;background-image:var(--shop-parallax-bg);background-size:cover;background-position:center 30%;background-repeat:no-repeat;background-color:var(--color-black);transform:translateZ(0);-webkit-transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform;pointer-events:none}
+@media(max-width:767px){.is-page-bg{background-image:var(--shop-parallax-bg-mob);background-position:center top}}
+@media(prefers-reduced-motion:reduce){.is-page-bg{will-change:auto}}
+@media(pointer:coarse){.is-page-bg{will-change:auto}}
+.is-bg-section{position:relative;z-index:1;background:transparent;isolation:isolate}.is-bg-overlay{position:absolute;inset:0;z-index:1;pointer-events:none}.is-bg-overlay--hero{background:linear-gradient(to bottom,rgba(0,0,0,.65) 0%,rgba(0,0,0,.82) 45%,rgba(0,0,0,.9) 100%)}.is-bg-section__inner{position:relative;z-index:2}
+.is-hero{position:relative;padding:48px 0 0;min-height:100svh;min-height:calc(var(--vh,1vh)*100);display:flex;flex-direction:column;justify-content:flex-start}
+@supports(-webkit-touch-callout:none){.is-hero{min-height:100vh;min-height:100svh;min-height:calc(var(--vh,1vh)*100)}}
+.is-hero__inner{display:flex;flex-direction:column;gap:0}.is-hero__left-title{margin-bottom:5px}.is-hero__left-bottom{display:flex;flex-direction:column;gap:0}
+.is-hero__title{font-size:clamp(38px,9.5vw,84px);font-weight:700;line-height:.97;letter-spacing:-1.5px;color:var(--color-white);margin-bottom:0}
+.is-hero__title-price{display:block;font-size:.48em;font-weight:600;letter-spacing:-.5px;color:rgba(255,255,255,.52);line-height:1.8}
+.is-marquee{position:relative;width:100vw;left:50%;margin-left:-50vw;background:var(--color-black);border-top:1px solid rgba(230,81,0,.5);border-bottom:1px solid rgba(230,81,0,.5);overflow:hidden;padding:14px 0;margin-top:28px;margin-bottom:28px}.is-hero__marquee{grid-column:1/-1}.is-marquee__track{display:flex;width:fit-content;animation:is-marquee-scroll 45s linear infinite;will-change:transform}.is-marquee__content{display:flex;align-items:center;white-space:nowrap}
+@keyframes is-marquee-scroll{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-50%,0,0)}}
+.is-hero__right{order:10}.is-hero__image-wrap{width:100%;display:flex;align-items:center;justify-content:center}
+.is-hero__float-img{display:block;width:100%;max-width:420px;height:auto;background:transparent;filter:drop-shadow(0 24px 48px rgba(0,0,0,.55)) drop-shadow(0 8px 16px rgba(230,81,0,.12));animation:is-float 4s ease-in-out infinite;will-change:transform;transform-origin:center bottom}
+@keyframes is-float{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.is-hero__float-img{animation:none;will-change:auto}.is-marquee__track{animation:none}}
+.is-accent{color:var(--color-brand-orange)}.is-usp{display:flex;flex-direction:column;gap:16px;margin-top:0;margin-bottom:36px}.is-usp__item{position:relative;border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden;background:rgba(0,0,0,.25)}
+.is-hero__cta{display:flex;flex-direction:column;gap:12px;margin-top:0}.is-hero__cta .btn{width:100%;justify-content:center;letter-spacing:.3px}
+.is-breadcrumb{display:flex;align-items:center;flex-wrap:nowrap;gap:4px;list-style:none;padding:0;margin:0 0 20px;font-size:11px;overflow:hidden}.is-breadcrumb li{display:flex;align-items:center}.is-breadcrumb a{color:rgba(255,255,255,.4);text-decoration:none}.is-breadcrumb li:last-child{color:rgba(255,255,255,.85);font-weight:500}
+@media(min-width:768px){
+.is-hero{padding:64px 0 0}.is-hero__inner{display:grid;grid-template-columns:60fr 40fr;grid-template-rows:auto auto auto;column-gap:48px;row-gap:0;align-items:start}.is-hero__left-title{grid-column:1;grid-row:1;margin-bottom:0}.is-hero__right{grid-column:2;grid-row:1/span 3;position:sticky;top:80px;display:flex;align-items:center;justify-content:center;order:0}.is-hero__marquee{grid-column:1/-1;grid-row:2}.is-hero__left-bottom{grid-column:1;grid-row:3}.is-hero__float-img{max-width:100%}.is-hero__cta{flex-direction:row;flex-wrap:wrap}.is-hero__cta .btn{width:auto}.is-breadcrumb{font-size:13px;gap:6px;margin-bottom:32px;flex-wrap:wrap;overflow:visible}.is-usp{flex-direction:row}.is-usp__item{flex:1 1 0;min-width:0}
+}
+@media(min-width:1024px){.is-hero__title{font-size:clamp(54px,7vw,84px)}}
+</style>
+<!-- Page CSS — loaded non-blocking (full styles, after critical CSS above) -->
+<link rel="preload" href="{% static 'css/internet-shop.css' %}?v=8" as="style">
+<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=8" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=8"></noscript>
 {% endblock %}
 
 {% block extra_js %}
@@ -62,8 +89,8 @@
                         <picture>
                             <source
                                 type="image/webp"
-                                srcset="{% static 'images/shop_hero_540.webp' %} 540w, {% static 'images/shop_hero.webp' %} 1080w"
-                                sizes="(max-width: 767px) 320px, (max-width: 1199px) 400px, 540px">
+                                srcset="{% static 'images/shop_hero_540.webp' %} 540w, {% static 'images/shop_hero_720.webp' %} 720w, {% static 'images/shop_hero.webp' %} 1080w"
+                                sizes="(max-width: 767px) 320px, (max-width: 1023px) 400px, 540px">
                             <img
                                 src="{% static 'images/shop_hero.png' %}"
                                 alt="Інтернет-магазин на ноутбуці та смартфоні"
@@ -71,7 +98,7 @@
                                 width="540"
                                 height="540"
                                 loading="eager"
-                                decoding="sync"
+                                decoding="async"
                                 fetchpriority="high"
                             >
                         </picture>
