@@ -109,6 +109,7 @@
 
 /* ===== DESKTOP МЕНЮ ===== */
 .nav-menu {
+    flex: 1;
     display: flex;
     align-items: center;
     gap: clamp(16px, 2vw, 24px);
@@ -642,28 +643,49 @@
     }
 }
 
-/* ===== LANG SUGGEST BANNER ===== */
+/* ===== LANG SUGGEST MODAL ===== */
 .lang-suggest {
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    z-index: 200;
-    background: var(--color-bg-warm, #FAF7F2);
-    border: 1.5px solid #000;
-    padding: 14px 16px;
-    width: 220px;
-    box-shadow: 3px 3px 0 #000;
-    animation: lang-suggest-in 0.25s ease-out;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 20px;
+    animation: lang-suggest-fade-in 0.3s ease-out;
 }
 
 .lang-suggest[hidden] {
     display: none;
 }
 
-@keyframes lang-suggest-in {
+@keyframes lang-suggest-fade-in {
     from {
         opacity: 0;
-        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.lang-suggest__card {
+    background: var(--color-bg-warm, #FAF7F2);
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    padding: 36px 32px 28px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    animation: lang-suggest-slide-in 0.3s ease-out;
+}
+
+@keyframes lang-suggest-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
     }
     to {
         opacity: 1;
@@ -672,31 +694,33 @@
 }
 
 .lang-suggest__text {
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 700;
     color: #000;
     line-height: 1.4;
-    margin: 0 0 10px;
-    letter-spacing: -0.2px;
+    margin: 0 0 24px;
+    letter-spacing: -0.3px;
 }
 
 .lang-suggest__actions {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     align-items: center;
+    justify-content: center;
 }
 
 .lang-suggest__yes {
     flex: 1;
-    padding: 7px 12px;
+    padding: 12px 20px;
     background: #000;
     color: #fff;
-    border: 1.5px solid #000;
-    font-size: 13px;
-    font-weight: 600;
+    border: 2px solid #000;
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .lang-suggest__yes:hover {
@@ -705,14 +729,17 @@
 }
 
 .lang-suggest__close {
-    padding: 7px 10px;
+    flex: 1;
+    padding: 12px 20px;
     background: transparent;
     color: #000;
-    border: 1.5px solid #000;
+    border: 2px solid #000;
     font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
     transition: background 0.2s ease, color 0.2s ease;
-    line-height: 1;
 }
 
 .lang-suggest__close:hover {
@@ -720,22 +747,8 @@
     color: #fff;
 }
 
-/* Стрілка-покажчик (псевдоелемент) */
-.lang-suggest::before {
-    content: '';
-    position: absolute;
-    top: -7px;
-    right: 18px;
-    width: 12px;
-    height: 12px;
-    background: var(--color-bg-warm, #FAF7F2);
-    border-left: 1.5px solid #000;
-    border-top: 1.5px solid #000;
-    transform: rotate(45deg);
-}
-
-@media (max-width: 767px) {
-    .lang-suggest {
-        display: none;
-    }
+/* RU indicator in language-switcher (non-interactive) */
+.lang-btn--current {
+    cursor: default;
+    pointer-events: none;
 }

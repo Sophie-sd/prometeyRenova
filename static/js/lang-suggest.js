@@ -1,12 +1,12 @@
 /**
- * Language Suggest Banner
- * На RU-сторінках пропонує перемкнутися на українську.
- * Tracking (gclid/UTM) зберігається через cookies (_prm_*) — не потребує додаткових дій.
+ * Language Suggest Modal
+ * На RU-сторінках показує центрований overlay з пропозицією перейти на українську.
+ * Показується один раз — зберігає відмову в localStorage.
  */
 (function () {
     'use strict';
 
-    const STORAGE_KEY = 'lang_suggest_dismissed';
+    const STORAGE_KEY = 'lang_suggest_seen';
     const SHOW_DELAY_MS = 1500;
 
     function getCSRFToken() {
@@ -21,7 +21,6 @@
 
     function switchToUkrainian() {
         let nextUrl = window.location.pathname + window.location.search;
-        // Прибираємо /ru/ префікс, щоб попасти на Ukrainian-версію
         nextUrl = nextUrl.replace(/^\/ru\//, '/');
 
         const form = document.createElement('form');
@@ -46,23 +45,23 @@
         form.submit();
     }
 
-    function dismiss(banner) {
+    function dismiss(modal) {
         try {
-            sessionStorage.setItem(STORAGE_KEY, '1');
+            localStorage.setItem(STORAGE_KEY, '1');
         } catch (_) { /* private browsing may block */ }
-        banner.hidden = true;
+        modal.hidden = true;
     }
 
     function init() {
-        const banner = document.getElementById('lang-suggest');
-        if (!banner) return;
+        const modal = document.getElementById('lang-suggest');
+        if (!modal) return;
 
         try {
-            if (sessionStorage.getItem(STORAGE_KEY)) return;
+            if (localStorage.getItem(STORAGE_KEY)) return;
         } catch (_) { /* ignore */ }
 
         setTimeout(() => {
-            banner.hidden = false;
+            modal.hidden = false;
         }, SHOW_DELAY_MS);
 
         document.getElementById('lang-suggest-yes')?.addEventListener('click', () => {
@@ -70,7 +69,11 @@
         });
 
         document.getElementById('lang-suggest-close')?.addEventListener('click', () => {
-            dismiss(banner);
+            dismiss(modal);
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) dismiss(modal);
         });
     }
 

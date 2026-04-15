@@ -36,13 +36,7 @@
             {% endfor %}
 
             {% if LANGUAGE_CODE == 'ru' %}
-            <div class="lang-suggest" id="lang-suggest" hidden aria-live="polite">
-                <p class="lang-suggest__text">Переглядати сайт українською?</p>
-                <div class="lang-suggest__actions">
-                    <button class="lang-suggest__yes" id="lang-suggest-yes" type="button">Так</button>
-                    <button class="lang-suggest__close" id="lang-suggest-close" type="button" aria-label="Закрити">✕</button>
-                </div>
-            </div>
+            <span class="lang-btn active lang-btn--current">RU</span>
             {% endif %}
         </div>
 
@@ -54,4 +48,16 @@
             <span class="burger-line"></span>
         </button>
     </div>
+
+    {% if LANGUAGE_CODE == 'ru' %}
+    <div class="lang-suggest" id="lang-suggest" hidden role="dialog" aria-modal="true" aria-labelledby="lang-suggest-title">
+        <div class="lang-suggest__card">
+            <p class="lang-suggest__text" id="lang-suggest-title">Переглядати сайт українською?</p>
+            <div class="lang-suggest__actions">
+                <button class="lang-suggest__yes" id="lang-suggest-yes" type="button">Так</button>
+                <button class="lang-suggest__close" id="lang-suggest-close" type="button">Ні</button>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </header>

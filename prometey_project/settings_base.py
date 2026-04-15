@@ -86,8 +86,8 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email settings
-DEFAULT_FROM_EMAIL = 'PrometeyLabs <noreply@prometeylabs.com>'
-CONTACT_EMAIL = 'info@prometeylabs.com'
+DEFAULT_FROM_EMAIL = 'PrometeyLabs <prometeylabs@gmail.com>'
+CONTACT_EMAIL = 'prometeylabs@gmail.com'
 
 # Media files
 MEDIA_URL = '/media/'
