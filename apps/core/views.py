@@ -81,10 +81,18 @@ class InternetShopView(BasePageView):
     meta_description = _('Розробка інтернет-магазинів під ключ від PrometeyLabs. Кастомний код, зручна адмінка, інтеграції з платіжними системами та Новою Поштою. Міграція з Prom, Rozetka.')
     og_title = _('Інтернет-магазини під ключ — PrometeyLabs')
 
-    def get_template_names(self):
-        if getattr(self.request, 'LANGUAGE_CODE', 'uk') == 'ru':
-            return ['pages/internet-shop-ru.html']
-        return super().get_template_names()
+
+class InternetShopRuView(BasePageView):
+    template_name = 'pages/internet-shop-ru.html'
+    page_title = 'Разработка интернет-магазинов под ключ | PrometeyLabs'
+    meta_description = 'Разработка интернет-магазина под ключ от PrometeyLabs. Создание интернет-магазина с нуля, заказать интернет-магазин, стоимость от $700. Кастомный код, интеграции с платёжными системами, дропшиппинг-платформы.'
+    og_title = 'Интернет-магазин под ключ — PrometeyLabs'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['lang_suggest_always'] = True
+        context['lang_suggest_uk_url'] = '/internet-shop/'
+        return context
 
 class ThankYouView(BasePageView):
     template_name = 'pages/thank_you.html'

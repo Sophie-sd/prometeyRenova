@@ -1,7 +1,9 @@
 /**
  * Language Suggest Modal
- * На RU-сторінках показує центрований overlay з пропозицією перейти на українську.
- * Показується один раз — зберігає відмову в localStorage.
+ * На RU-сторінках показує overlay з пропозицією перейти на українську.
+ *
+ * data-always="true"  — показувати при кожному візиті (без localStorage-перевірки)
+ * data-uk-url="/..."  — пряме посилання на UA-версію (замість /i18n/set_language/)
  */
 (function () {
     'use strict';
@@ -19,7 +21,12 @@
         return cookie ? cookie.split('=')[1].trim() : '';
     }
 
-    function switchToUkrainian() {
+    function switchToUkrainian(directUrl) {
+        if (directUrl) {
+            window.location.href = directUrl;
+            return;
+        }
+
         let nextUrl = window.location.pathname + window.location.search;
         nextUrl = nextUrl.replace(/^\/ru\//, '/');
 
@@ -46,9 +53,12 @@
     }
 
     function dismiss(modal) {
-        try {
-            localStorage.setItem(STORAGE_KEY, '1');
-        } catch (_) { /* private browsing may block */ }
+        const isAlways = modal.dataset.always === 'true';
+        if (!isAlways) {
+            try {
+                localStorage.setItem(STORAGE_KEY, '1');
+            } catch (_) { /* private browsing may block */ }
+        }
         modal.hidden = true;
     }
 
@@ -56,16 +66,21 @@
         const modal = document.getElementById('lang-suggest');
         if (!modal) return;
 
-        try {
-            if (localStorage.getItem(STORAGE_KEY)) return;
-        } catch (_) { /* ignore */ }
+        const isAlways = modal.dataset.always === 'true';
+        const directUrl = modal.dataset.ukUrl || null;
+
+        if (!isAlways) {
+            try {
+                if (localStorage.getItem(STORAGE_KEY)) return;
+            } catch (_) { /* ignore */ }
+        }
 
         setTimeout(() => {
             modal.hidden = false;
         }, SHOW_DELAY_MS);
 
         document.getElementById('lang-suggest-yes')?.addEventListener('click', () => {
-            switchToUkrainian();
+            switchToUkrainian(directUrl);
         });
 
         document.getElementById('lang-suggest-close')?.addEventListener('click', () => {

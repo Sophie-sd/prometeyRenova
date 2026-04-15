@@ -15,6 +15,7 @@ urlpatterns = [
     path('refund/', views.RefundPolicyView.as_view(), name='refund'),
     path('intellectual-property/', views.IntellectualPropertyView.as_view(), name='intellectual_property'),
     path('internet-shop/', views.InternetShopView.as_view(), name='internet_shop'),
+    path('internet-shop-ru/', views.InternetShopRuView.as_view(), name='internet_shop_ru'),
     path('thank-you/', views.ThankYouView.as_view(), name='thank_you'),
 
     # AJAX обробка форм

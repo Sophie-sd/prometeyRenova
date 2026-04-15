@@ -49,8 +49,11 @@
         </button>
     </div>
 
-    {% if LANGUAGE_CODE == 'ru' %}
-    <div class="lang-suggest" id="lang-suggest" hidden role="dialog" aria-modal="true" aria-labelledby="lang-suggest-title">
+    {% if LANGUAGE_CODE == 'ru' or lang_suggest_always %}
+    <div class="lang-suggest" id="lang-suggest" hidden
+         role="dialog" aria-modal="true" aria-labelledby="lang-suggest-title"
+         {% if lang_suggest_always %}data-always="true"{% endif %}
+         {% if lang_suggest_uk_url %}data-uk-url="{{ lang_suggest_uk_url }}"{% endif %}>
         <div class="lang-suggest__card">
             <p class="lang-suggest__text" id="lang-suggest-title">Переглядати сайт українською?</p>
             <div class="lang-suggest__actions">
