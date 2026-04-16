@@ -70,11 +70,11 @@
 .contact-widget {
     position: fixed;
     bottom: 7%;
-    left: 2%;
+    right: 2%;
     z-index: var(--z-fixed-buttons, 1001);
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
     gap: 10px;
 }
 
@@ -90,7 +90,7 @@
     padding: 8px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
                 0 1px 0 rgba(255, 255, 255, 0.08) inset;
-    transform-origin: bottom left;
+    transform-origin: bottom right;
     transform: scale(0.85) translateY(8px);
     opacity: 0;
     pointer-events: none;
@@ -130,8 +130,8 @@
 }
 
 .contact-widget__toggle {
-    width: 97px;
-    height: 97px;
+    width: 60px;
+    height: 60px;
     flex-shrink: 0;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -164,8 +164,8 @@
 }
 
 .contact-widget__icon {
-    width: 36px;
-    height: 36px;
+    width: 22px;
+    height: 22px;
 }
 
 .contact-widget__icon--close {
@@ -261,10 +261,8 @@
         width: 100%;
     }
 
-    .contact-widget__toggle {
-        width: 97px;
-        height: 97px;
-        flex-shrink: 0;
+    .contact-widget {
+        display: none;
     }
 }
 
@@ -273,6 +271,6 @@
 @supports (-webkit-touch-callout: none) {
     .contact-widget {
         bottom: max(env(safe-area-inset-bottom, 7%), 7%);
-        left: max(env(safe-area-inset-left, 2%), 2%);
+        right: max(env(safe-area-inset-right, 2%), 2%);
     }
 }
