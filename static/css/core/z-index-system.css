@@ -80,7 +80,7 @@
 }
 
 /* ===== КНОПКИ ===== */
-.call-button {
+.contact-widget {
     z-index: var(--z-fixed-buttons);
 }
 

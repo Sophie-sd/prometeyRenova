@@ -387,7 +387,7 @@
         flex-shrink: 0;
     }
 
-    body.modal-open .call-button {
+    body.modal-open .contact-widget {
         pointer-events: none;
         opacity: 0;
         transition: opacity 0.3s ease;
