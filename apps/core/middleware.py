@@ -28,7 +28,7 @@ class CSPMiddleware:
             return response
 
         script_src = (
-            f"'self' 'nonce-{nonce}' "
+            f"'self' 'nonce-{nonce}' 'unsafe-eval' "
             "https://www.googletagmanager.com "
             "https://connect.facebook.net "
             "https://scripts.clixtell.com "
@@ -42,10 +42,9 @@ class CSPMiddleware:
         csp = "; ".join([
             "default-src 'self'",
             f"script-src {script_src}",
-            # unsafe-inline needed for existing inline styles on elements
-            "style-src 'self' 'unsafe-inline'",
+            "style-src 'self' 'unsafe-inline' https://widgets.binotel.com https://fonts.googleapis.com",
             "img-src 'self' data: https: blob:",
-            "font-src 'self' data:",
+            "font-src 'self' data: https://fonts.gstatic.com",
             "frame-src 'self' https://www.googletagmanager.com https://bid.g.doubleclick.net",
             "connect-src 'self' https:",
             "media-src 'self' data: blob:",
