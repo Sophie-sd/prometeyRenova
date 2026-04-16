@@ -37,17 +37,18 @@ class CSPMiddleware:
             "https://www.google-analytics.com "
             "https://googleads.g.doubleclick.net "
             "https://www.googleadservices.com "
-            "https://widgets.binotel.com"
+            "https://*.binotel.com"
         )
         csp = "; ".join([
             "default-src 'self'",
             f"script-src {script_src}",
             # unsafe-inline needed for existing inline styles on elements
-            "style-src 'self' 'unsafe-inline' https://widgets.binotel.com",
+            "style-src 'self' 'unsafe-inline' https://*.binotel.com",
             "img-src 'self' data: https: blob:",
-            "font-src 'self' data: https://widgets.binotel.com",
-            "frame-src 'self' https://www.googletagmanager.com https://bid.g.doubleclick.net https://widgets.binotel.com",
-            "connect-src 'self' https:",
+            "font-src 'self' data: https://*.binotel.com",
+            "frame-src 'self' https://www.googletagmanager.com https://bid.g.doubleclick.net https://*.binotel.com",
+            # wss: needed for Binotel real-time WebSocket connection
+            "connect-src 'self' https: wss://*.binotel.com",
             "media-src 'self' data: blob:",
             "worker-src 'self' blob:",
         ])
