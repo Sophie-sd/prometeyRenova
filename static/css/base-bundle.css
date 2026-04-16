@@ -1787,8 +1787,8 @@ img, video {
 /* ===== CONTACT WIDGET ===== */
 .contact-widget {
     position: fixed;
-    bottom: 20px;
-    left: 20px;
+    bottom: 7%;
+    left: 2%;
     z-index: var(--z-fixed-buttons, 1001);
     display: flex;
     flex-direction: column;
@@ -1848,8 +1848,8 @@ img, video {
 }
 
 .contact-widget__toggle {
-    width: 60px;
-    height: 60px;
+    width: 97px;
+    height: 97px;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.15);
@@ -1878,6 +1878,11 @@ img, video {
 
 .contact-widget__toggle:active {
     transform: scale(0.95);
+}
+
+.contact-widget__icon {
+    width: 36px;
+    height: 36px;
 }
 
 .contact-widget__icon--close {
@@ -1965,16 +1970,6 @@ img, video {
         min-width: 140px;
     }
 
-    .contact-widget {
-        left: auto;
-        right: max(env(safe-area-inset-right, 20px), 20px);
-        bottom: max(env(safe-area-inset-bottom, 90px), 90px);
-    }
-
-    .contact-widget__panel {
-        transform-origin: bottom right;
-    }
-
     .btn-group {
         flex-direction: column;
     }
@@ -1988,16 +1983,8 @@ img, video {
 
 @supports (-webkit-touch-callout: none) {
     .contact-widget {
-        bottom: max(env(safe-area-inset-bottom, 20px), 20px);
-        left: max(env(safe-area-inset-left, 20px), 20px);
-    }
-
-    @media (max-width: 767px) {
-        .contact-widget {
-            left: auto;
-            right: max(env(safe-area-inset-right, 20px), 20px);
-            bottom: max(env(safe-area-inset-bottom, 90px), 90px);
-        }
+        bottom: max(env(safe-area-inset-bottom, 7%), 7%);
+        left: max(env(safe-area-inset-left, 2%), 2%);
     }
 }/* =================================
    FORMS COMPONENT
