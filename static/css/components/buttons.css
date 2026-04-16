@@ -69,7 +69,7 @@
 /* ===== CONTACT WIDGET ===== */
 .contact-widget {
     position: fixed;
-    bottom: 120px;
+    bottom: 80px;
     right: 2%;
     z-index: 10000;
     display: flex;
@@ -130,8 +130,8 @@
 }
 
 .contact-widget__toggle {
-    width: 60px;
-    height: 60px;
+    width: 67px;
+    height: 67px;
     flex-shrink: 0;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -270,7 +270,7 @@
 
 @supports (-webkit-touch-callout: none) {
     .contact-widget {
-        bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+        bottom: calc(80px + env(safe-area-inset-bottom, 0px));
         right: max(env(safe-area-inset-right, 2%), 2%);
     }
 }
