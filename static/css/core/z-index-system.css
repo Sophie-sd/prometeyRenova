@@ -81,7 +81,7 @@
 
 /* ===== КНОПКИ ===== */
 .contact-widget {
-    z-index: var(--z-fixed-buttons);
+    z-index: 10000;
 }
 
 /* ===== МОДАЛЬНІ ВІКНА ===== */

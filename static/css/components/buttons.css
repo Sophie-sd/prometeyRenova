@@ -69,9 +69,9 @@
 /* ===== CONTACT WIDGET ===== */
 .contact-widget {
     position: fixed;
-    bottom: 7%;
+    bottom: 120px;
     right: 2%;
-    z-index: var(--z-fixed-buttons, 1001);
+    z-index: 10000;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -270,7 +270,7 @@
 
 @supports (-webkit-touch-callout: none) {
     .contact-widget {
-        bottom: max(env(safe-area-inset-bottom, 7%), 7%);
+        bottom: calc(120px + env(safe-area-inset-bottom, 0px));
         right: max(env(safe-area-inset-right, 2%), 2%);
     }
 }
