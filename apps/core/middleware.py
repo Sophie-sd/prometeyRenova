@@ -36,7 +36,8 @@ class CSPMiddleware:
             "https://www.google.com "
             "https://www.google-analytics.com "
             "https://googleads.g.doubleclick.net "
-            "https://www.googleadservices.com"
+            "https://www.googleadservices.com "
+            "https://widgets.binotel.com"
         )
         csp = "; ".join([
             "default-src 'self'",
