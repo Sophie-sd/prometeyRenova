@@ -203,8 +203,8 @@ select {
     /* Dropdown меню */
     --z-tooltip: 800;
     /* Підказки */
-    --z-fixed-buttons: 999;
-    /* Фіксовані кнопки */
+    --z-fixed-buttons: 1001;
+    /* Фіксовані кнопки (вище навігації) */
 
     /* Модальні вікна (найвищий рівень) */
     --z-modal-backdrop: 10002;
@@ -1789,7 +1789,7 @@ img, video {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    z-index: var(--z-fixed-buttons, 999);
+    z-index: var(--z-fixed-buttons, 1001);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1800,16 +1800,20 @@ img, video {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    background: #1a1a1a;
-    border-radius: 12px;
+    background: rgba(20, 20, 30, 0.75);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
     padding: 8px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                0 1px 0 rgba(255, 255, 255, 0.08) inset;
     transform-origin: bottom left;
     transform: scale(0.85) translateY(8px);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.25s var(--easing-default, ease-out),
-                transform 0.25s var(--easing-default, ease-out);
+    transition: opacity 0.25s ease-out,
+                transform 0.25s ease-out;
 }
 
 .contact-widget__panel[aria-hidden="false"] {
@@ -1827,41 +1831,49 @@ img, video {
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
-    border-radius: 8px;
+    border-radius: 10px;
     white-space: nowrap;
     transition: background-color 0.2s ease-out;
 }
 
 .contact-widget__item:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
 }
 
 .contact-widget__item-icon {
     flex-shrink: 0;
     color: #ffffff;
-    opacity: 0.85;
+    opacity: 0.9;
 }
 
 .contact-widget__toggle {
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    border: none;
-    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     color: #ffffff;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2),
+                0 1px 0 rgba(255, 255, 255, 0.4) inset;
     transition: background-color 0.2s ease-out,
-                transform 0.2s ease-out;
+                border-color 0.2s ease-out,
+                transform 0.2s ease-out,
+                box-shadow 0.2s ease-out;
 }
 
 .contact-widget__toggle:hover {
-    background: #2d2d2d;
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
     transform: scale(1.06);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.25),
+                0 1px 0 rgba(255, 255, 255, 0.5) inset;
 }
 
 .contact-widget__toggle:active {
@@ -1956,11 +1968,6 @@ img, video {
     .contact-widget {
         bottom: max(env(safe-area-inset-bottom, 20px), 20px);
         left: max(env(safe-area-inset-left, 20px), 20px);
-    }
-
-    .contact-widget__toggle {
-        width: 50px;
-        height: 50px;
     }
 
     .btn-group {
