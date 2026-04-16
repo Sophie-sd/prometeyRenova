@@ -43,10 +43,10 @@ class CSPMiddleware:
             "default-src 'self'",
             f"script-src {script_src}",
             # unsafe-inline needed for existing inline styles on elements
-            "style-src 'self' 'unsafe-inline'",
+            "style-src 'self' 'unsafe-inline' https://widgets.binotel.com",
             "img-src 'self' data: https: blob:",
-            "font-src 'self' data:",
-            "frame-src 'self' https://www.googletagmanager.com https://bid.g.doubleclick.net",
+            "font-src 'self' data: https://widgets.binotel.com",
+            "frame-src 'self' https://www.googletagmanager.com https://bid.g.doubleclick.net https://widgets.binotel.com",
             "connect-src 'self' https:",
             "media-src 'self' data: blob:",
             "worker-src 'self' blob:",
