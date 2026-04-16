@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     # Поточні додатки
     'apps.core',
     'apps.blog', 
-    'apps.events',
     'apps.payment',
 ]
 

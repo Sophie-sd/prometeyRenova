@@ -18,7 +18,6 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('', include('apps.core.urls')),
     path('blog/', include('apps.blog.urls')),
-    path('events/', include('apps.events.urls')),
     path('payment/', include('apps.payment.urls')),
     prefix_default_language=False
 )

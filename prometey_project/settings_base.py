@@ -25,7 +25,6 @@ INSTALLED_APPS = [
     # Custom apps
     'apps.core',
     'apps.blog',
-    'apps.events',
     'apps.payment',
 ]
 

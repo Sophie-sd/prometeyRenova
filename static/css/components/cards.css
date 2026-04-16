@@ -113,11 +113,6 @@
     min-height: 300px;
 }
 
-/* Event Card */
-.event-card {
-    min-height: 350px;
-}
-
 /* Service Card (different structure) */
 .service-card {
     min-height: 500px;

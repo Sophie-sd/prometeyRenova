@@ -17,7 +17,6 @@ class FormSubmission(models.Model):
         ('contact', _('Заявка зі сторінки контактів')),
         ('call-request', _('Замовлення дзвінка')),
         ('footer-consultation', _('Заявка з footer')),
-        ('event_registration', _('Реєстрація на подію')),
         ('test_result', _('Результат тесту калькулятора')),
     ]
     
@@ -201,7 +200,6 @@ class FormSubmission(models.Model):
             'contact': 'Контакт',
             'call-request': 'Дзвінок',
             'footer-consultation': 'Footer',
-            'event_registration': 'Подія',
             'test_result': 'Тест',
         }
         return display_map.get(self.form_type, self.get_form_type_display())

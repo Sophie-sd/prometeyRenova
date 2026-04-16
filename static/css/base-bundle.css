@@ -1036,7 +1036,6 @@ img, video {
 
 /* ===== ОПТИМІЗАЦІЯ REPAINTS ===== */
 .service-card,
-.event-card,
 .blog-card {
     contain: layout;
 }
@@ -3092,8 +3091,7 @@ body.modal-open .main-footer {
 /* Має особливий дизайн з rounded top */
 .content-section--first,
 .services-section,
-.blog-header,
-.events-filter {
+.blog-header {
     position: relative;
     background: var(--color-black);
     z-index: 10;
@@ -3158,8 +3156,7 @@ body.modal-open .main-footer {
 
     .content-section--first,
     .services-section,
-    .blog-header,
-    .events-filter {
+    .blog-header {
         border-radius: 16px 16px 0 0;
         margin-top: -16px;
         padding-top: 40px;

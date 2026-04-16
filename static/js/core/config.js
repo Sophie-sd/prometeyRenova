@@ -10,7 +10,6 @@ export const CONFIG = {
         formSubmit: '/forms/submit/',
         formTest: '/forms/test/',
         languageSet: '/i18n/set_language/',
-        eventsFilter: '/events/ajax/filter/',
         blogSearch: '/blog/search/',
     },
 
@@ -78,7 +77,6 @@ export const CONFIG = {
         developer: 'developer',
         siteRequest: 'site_request',
         callRequest: 'call_request',
-        eventRegistration: 'event_registration',
     },
 
     // ===== MODAL IDS =====
@@ -87,7 +85,6 @@ export const CONFIG = {
         siteRequest: 'site-request-modal',
         testResult: 'test-result-modal',
         callRequest: 'call-request-modal',
-        eventRegistration: 'event-registration-modal',
     },
 
     // ===== SELECTORS (часто використовувані) =====
@@ -97,7 +94,7 @@ export const CONFIG = {
         mobileMenu: '.mobile-menu',
         modal: '.modal',
         form: 'form[data-form-type]',
-        card: '.card, .blog-card, .event-card, .service-card',
+        card: '.card, .blog-card, .service-card',
         video: 'video',
         lazyVideo: '.lazy-video',
     },

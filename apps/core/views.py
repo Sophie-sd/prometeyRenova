@@ -1,5 +1,4 @@
 from django.http import JsonResponse
-from django.db import transaction
 from .mixins import BasePageView
 from .form_handlers import (
     validate_phone, validate_name, create_form_response, get_form_type_from_path,
@@ -134,7 +133,6 @@ def handle_form_submission(request):
             'contact': handle_contact_request,
             'call_request': handle_call_request,
             'footer-consultation': handle_footer_consultation,
-            'event_registration': handle_event_registration
         }
         
         handler = handlers.get(form_type)
@@ -418,94 +416,3 @@ def handle_footer_consultation(request, name, phone):
         redirect='/thank-you/'
     )
 
-@transaction.atomic
-def handle_event_registration(request, name, phone):
-    """Обробка реєстрації на подію через AJAX"""
-    event_id = request.POST.get('event_id')
-    if not event_id:
-        return create_form_response(False, _('Не вказано подію для реєстрації'))
-    
-    try:
-        event_id = int(event_id)
-    except (ValueError, TypeError):
-        return create_form_response(False, _('Невірний ID події'))
-    
-    email = request.POST.get('email', '').strip()
-    company = request.POST.get('company', '').strip()
-    message = request.POST.get('message', '').strip()
-    
-    # Валідація email
-    if not email:
-        return create_form_response(False, _('Введіть email'))
-    
-    from django.core.validators import validate_email
-    from django.core.exceptions import ValidationError
-    try:
-        validate_email(email)
-    except ValidationError:
-        return create_form_response(False, _('Введіть коректний email'))
-    
-    # Імпортуємо необхідні моделі
-    try:
-        from apps.events.models import Event, EventRegistration
-        
-        event = Event.objects.select_related('category').get(id=event_id, is_published=True)
-        
-        # Перевірки події
-        if not event.is_registration_open:
-            return create_form_response(False, _('Реєстрація на цю подію закрита.'))
-        
-        if event.is_full:
-            return create_form_response(False, _('На жаль, всі місця на цю подію вже зайняті.'))
-        
-        # Перевірка чи вже реєструвався
-        if EventRegistration.objects.filter(event=event, email=email).exists():
-            return create_form_response(False, _('Ви вже зареєстровані на цю подію.'))
-        
-        # КРИТИЧНО: Спочатку зберігаємо у FormSubmission
-        form_data = create_form_data(
-            _('Реєстрація на подію'), name, phone, request,
-            email=email,
-            company=company,
-            message=message,
-            event_title=event.title
-        )
-        submission_saved, submission_id, save_error = save_form_submission('event_registration', form_data, email_success=email_success)
-        
-        if not submission_saved:
-            logger.error(f"Failed to save event_registration submission: {save_error}")
-            return create_form_response(False, _('Помилка при реєстрації. Спробуйте ще раз.'))
-        
-        # Потім створюємо EventRegistration (яка автоматично збільшує лічильник)
-        # Це все всередині @transaction.atomic, тому якщо щось пійде не так - все відкатується
-        registration = EventRegistration.objects.create(
-            event=event,
-            name=name,
-            email=email,
-            phone=phone,
-            company=company,
-            message=message
-        )
-        
-        # Відправка email СПОЧАТКУ
-        email_success, email_error = send_form_email(form_data)
-        
-        if not email_success:
-            logger.warning(f"Email not sent for event_registration: {email_error}")
-        
-        # Зберігаємо у БД з інформацією про email успіх
-        submission_saved, submission_id, save_error = save_form_submission('event_registration', form_data, email_success=email_success)
-        
-        return create_form_response(
-            True,
-            _('Ви успішно зареєструвалися на подію "{event_title}"!').format(event_title=event.title),
-            redirect='/thank-you/'
-        )
-        
-    except Event.DoesNotExist:
-        return create_form_response(False, _('Подію не знайдено.'))
-    except Exception as e:
-        logger.error(f"Event registration error: {e}")
-        return create_form_response(False, _('Помилка при реєстрації. Спробуйте ще раз.'))
-
-# Всі допоміжні функції перенесені в form_handlers.py для кращої організації коду

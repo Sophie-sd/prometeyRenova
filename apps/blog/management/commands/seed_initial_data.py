@@ -7,7 +7,6 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 from datetime import timedelta
 from apps.blog.models import BlogPost
-from apps.events.models import Event, EventCategory
 
 
 class Command(BaseCommand):
@@ -19,8 +18,6 @@ class Command(BaseCommand):
         # Лічильники
         created_posts = 0
         created_categories = 0
-        created_events = 0
-        
         # ========== СТВОРЕННЯ СТАТЕЙ БЛОГУ (ТОП-15 НАЙЦІКАВІШИХ) ==========
         blog_posts = [
             # 1. AI У ВЕБ-РОЗРОБЦІ
@@ -2587,95 +2584,6 @@ Edge Computing - обробка максимально близько до ко�
                 created_posts += 1
                 self.stdout.write(f'  ✅ Створено статтю: {post_data["title"]}')
         
-        # ========== СТВОРЕННЯ КАТЕГОРІЙ ПОДІЙ ==========
-        event_categories = [
-            {
-                'name': 'Веб-розробка',
-                'slug': 'web-development',
-                'color': '#E65100',
-                'icon': '💻'
-            },
-            {
-                'name': 'Курси програмування',
-                'slug': 'courses',
-                'color': '#2196F3',
-                'icon': '📚'
-            },
-            {
-                'name': 'Акції та знижки',
-                'slug': 'discounts',
-                'color': '#4CAF50',
-                'icon': '🎁'
-            },
-        ]
-        
-        for cat_data in event_categories:
-            category, created = EventCategory.objects.get_or_create(
-                slug=cat_data['slug'],
-                defaults=cat_data
-            )
-            if created:
-                created_categories += 1
-                self.stdout.write(f'  ✅ Створено категорію: {cat_data["name"]}')
-        
-        # ========== СТВОРЕННЯ ПОДІЙ ==========
-        # Отримуємо категорії
-        try:
-            web_cat = EventCategory.objects.get(slug='web-development')
-            courses_cat = EventCategory.objects.get(slug='courses')
-            discount_cat = EventCategory.objects.get(slug='discounts')
-            
-            now = timezone.now()
-            
-            events = [
-                {
-                    'title': 'Безкоштовний вебінар: Як стати веб-розробником у 2024',
-                    'slug': 'webinar-yak-staty-web-developer-2024',
-                    'excerpt': 'Дізнайтесь як розпочати кар\'єру в IT без досвіду. Розповімо про дорожню карту навчання, курси, практику та працевлаштування.',
-                    'content': '''
-На вебінарі ви дізнаєтесь:
-- З чого почати навчання веб-розробці
-- Які технології вивчати у 2024
-- Як отримати першу роботу
-- Скільки можна заробляти
-
-Спікер: Senior Full-Stack Developer
-
-Тривалість: 1.5 години
-Формат: Онлайн в Zoom
-Мова: Українська
-
-Після вебінару - сесія запитань-відповідей!
-''',
-                    'category': courses_cat,
-                    'event_type': 'webinar',
-                    'status': 'upcoming',
-                    'start_date': now + timedelta(days=7),
-                    'end_date': now + timedelta(days=7, hours=1, minutes=30),
-                    'registration_deadline': now + timedelta(days=6),
-                    'is_online': True,
-                    'meeting_link': 'https://zoom.us/j/example',
-                    'price': None,
-                    'max_participants': 100,
-                    'seo_title': 'Безкоштовний вебінар - Як стати веб-розробником',
-                    'seo_description': 'Реєструйтесь на безкоштовний вебінар про веб-розробку. Дізнайтесь як стати розробником з нуля.',
-                    'keywords': 'вебінар веб розробка, безкоштовний вебінар, як стати розробником',
-                    'is_featured': True,
-                },
-            ]
-            
-            for event_data in events:
-                # Перевіряємо чи подія вже існує
-                if not Event.objects.filter(slug=event_data['slug']).exists():
-                    Event.objects.create(
-                        **event_data,
-                        is_published=True
-                    )
-                    created_events += 1
-                    self.stdout.write(f'  ✅ Створено подію: {event_data["title"]}')
-        except EventCategory.DoesNotExist:
-            self.stdout.write(self.style.WARNING('  ⚠️  Категорії подій не знайдені, пропускаємо створення подій'))
-        
         # ========== ПІДСУМОК ==========
         self.stdout.write('')
         self.stdout.write(self.style.SUCCESS('=' * 60))
@@ -2683,8 +2591,7 @@ Edge Computing - обробка максимально близько до ко�
         self.stdout.write(self.style.SUCCESS('=' * 60))
         self.stdout.write(f'  📚 Створено статей: {created_posts}')
         self.stdout.write(f'  📁 Створено категорій: {created_categories}')
-        self.stdout.write(f'  🎉 Створено подій: {created_events}')
         self.stdout.write(self.style.SUCCESS('=' * 60))
         
-        if created_posts == 0 and created_events == 0:
+        if created_posts == 0:
             self.stdout.write(self.style.WARNING('ℹ️  Всі дані вже існують, нічого не додано'))

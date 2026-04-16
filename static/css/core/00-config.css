@@ -58,18 +58,12 @@
     --decoration-arrow-right: '⟶';
     --decoration-diamond-outline: '◇';
     
-    /* ===== EVENT NAMES (для JS) ===== */
-    --event-initialized: 'app:initialized';
-    --event-viewport-change: 'viewport:change';
-    --event-menu-open: 'menu:opened';
-    --event-menu-close: 'menu:closed';
 }
 
 /* Dark pages override */
 [data-page="calculator"],
 [data-page="contacts"],
 [data-page="blog"],
-[data-page="events"],
 [data-page="developer"] {
     --nav-background: var(--nav-background-scrolled);
 }
