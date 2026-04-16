@@ -1966,8 +1966,13 @@ img, video {
     }
 
     .contact-widget {
-        bottom: max(env(safe-area-inset-bottom, 20px), 20px);
-        left: max(env(safe-area-inset-left, 20px), 20px);
+        left: auto;
+        right: max(env(safe-area-inset-right, 20px), 20px);
+        bottom: max(env(safe-area-inset-bottom, 90px), 90px);
+    }
+
+    .contact-widget__panel {
+        transform-origin: bottom right;
     }
 
     .btn-group {
@@ -1985,6 +1990,14 @@ img, video {
     .contact-widget {
         bottom: max(env(safe-area-inset-bottom, 20px), 20px);
         left: max(env(safe-area-inset-left, 20px), 20px);
+    }
+
+    @media (max-width: 767px) {
+        .contact-widget {
+            left: auto;
+            right: max(env(safe-area-inset-right, 20px), 20px);
+            bottom: max(env(safe-area-inset-bottom, 90px), 90px);
+        }
     }
 }/* =================================
    FORMS COMPONENT
