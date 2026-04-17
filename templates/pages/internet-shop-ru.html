@@ -27,8 +27,8 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/internet-shop-parallax.js' %}" defer></script>
-<script src="{% static 'js/internet-shop-quiz.js' %}" defer></script>
+<script src="{% static 'js/internet-shop-parallax.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-quiz.js' %}" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}
 
 {% block content %}

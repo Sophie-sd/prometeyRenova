@@ -426,5 +426,5 @@
 
 {% block extra_js %}
 <!-- Portfolio animations and interactions -->
-<script src="{% static 'js/portfolio.js' %}" defer></script>
+<script src="{% static 'js/portfolio.js' %}" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

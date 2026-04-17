@@ -39,5 +39,9 @@
 {% endblock %}
 
 {% block base_js %}
-<!-- Inheritance only, no special JS needed -->
+<script nonce="{{ csp_nonce }}">
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'generate_lead', page_type: 'thank_you' });
+    if (typeof window._loadGTM === 'function') { window._loadGTM(); }
+</script>
 {% endblock %}

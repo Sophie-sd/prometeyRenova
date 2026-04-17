@@ -569,9 +569,12 @@
     Він замінює окремі core-скрипти з base.html. Будь-які правки у static/js/base.js
     або static/js/mobile-core.js мають бути синхронізовані з static/js/home-bundle.js,
     інакше фіча (напр. contact-widget) буде працювати всюди, крім головної.
+    gclid-capture.js підключається окремо, щоб заявки з головної отримували gclid/UTM
+    (див. home-bundle.js::submitForm).
 -->
-<script src="{% static 'js/core/phone-mask.js' %}"></script>
-<script src="{% static 'js/home-bundle.js' %}"></script>
+<script src="{% static 'js/core/gclid-capture.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/core/phone-mask.js' %}" nonce="{{ csp_nonce }}"></script>
+<script src="{% static 'js/home-bundle.js' %}" nonce="{{ csp_nonce }}"></script>
 {% endblock %}
 
 {% block extra_js %}

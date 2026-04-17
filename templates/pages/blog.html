@@ -232,5 +232,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/blog.js' %}"></script>
+<script src="{% static 'js/blog.js' %}" nonce="{{ csp_nonce }}"></script>
 {% endblock %}

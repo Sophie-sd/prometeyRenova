@@ -124,5 +124,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/contacts.js' %}"></script>
+<script src="{% static 'js/contacts.js' %}" nonce="{{ csp_nonce }}"></script>
 {% endblock %}

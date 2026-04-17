@@ -1,14 +1,15 @@
 {% load i18n %}
 {% load static %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}"{% if FACEBOOK_PIXEL_ID %} data-pixel-id="{{ FACEBOOK_PIXEL_ID }}"{% endif %}>
+<html lang="{{ LANGUAGE_CODE }}">
 
 <head>
     <meta charset="UTF-8">
     <!-- Google Tag Manager — deferred until user interaction or 3.5s to reduce TBT/LCP -->
     <script nonce="{{ csp_nonce }}">
     window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-    function _loadGTM(){if(window._gtmL)return;window._gtmL=1;var j=document.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id=GTM-K2FVPPTK';document.head.appendChild(j);}
+    function _loadGTM(){if(window._gtmL)return;window._gtmL=1;var j=document.createElement('script');j.async=true;j.setAttribute('nonce','{{ csp_nonce }}');j.nonce='{{ csp_nonce }}';j.src='https://www.googletagmanager.com/gtm.js?id=GTM-K2FVPPTK';document.head.appendChild(j);}
+    window._loadGTM=_loadGTM;
     ['scroll','click','touchstart','keydown'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
     setTimeout(_loadGTM,3500);
     </script>
@@ -148,16 +149,16 @@
         };
     </script>
     {% block base_js %}
-    <script src="{% static 'js/core/analytics.js' %}" defer></script>
-    <script src="{% static 'js/core/gclid-capture.js' %}" defer></script>
-    <script src="{% static 'js/core/utils.js' %}" defer></script>
-    <script src="{% static 'js/mobile-core.js' %}" defer></script>
-    <script src="{% static 'js/video-system.js' %}" defer></script>
-    <script src="{% static 'js/core/phone-mask.js' %}" defer></script>
-    <script src="{% static 'js/base.js' %}" defer></script>
+    <script src="{% static 'js/core/analytics.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/core/gclid-capture.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/core/utils.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/mobile-core.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/video-system.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/core/phone-mask.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/base.js' %}" nonce="{{ csp_nonce }}" defer></script>
     {% get_current_language as CURRENT_LANG %}
     {% if CURRENT_LANG == 'ru' %}
-    <script src="{% static 'js/lang-suggest.js' %}" defer></script>
+    <script src="{% static 'js/lang-suggest.js' %}" nonce="{{ csp_nonce }}" defer></script>
     {% endif %}
     {% endblock %}
     {% block extra_js %}{% endblock %}
