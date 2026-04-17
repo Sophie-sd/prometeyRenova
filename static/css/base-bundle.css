@@ -1590,7 +1590,7 @@ img, video {
 /* Mobile Contacts (phone + telegram) */
 .mobile-menu-contacts {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 10px;
 }
 
@@ -1599,6 +1599,7 @@ img, video {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    min-width: 0;
     min-height: 48px;
     padding: 12px 14px;
     background: rgba(0, 0, 0, 0.3);
