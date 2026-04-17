@@ -1,13 +1,26 @@
 {% load i18n %}
 <!-- Modern Creative Mobile Menu -->
 <nav class="mobile-menu" role="navigation" aria-label="{% trans 'Мобільне меню' %}">
-    <!-- Header з close button та декором -->
+    <!-- Header з close button та перемикачем мов -->
     <div class="mobile-menu-header">
         <button class="mobile-menu-close mobile-touch-target mobile-focus-visible"
             aria-label="{% trans 'Закрити меню' %}">
             <span class="close-icon"></span>
         </button>
-        <span class="mobile-menu-label">MENU</span>
+
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        <div class="mobile-lang-switcher">
+            {% for language_code, language_name in LANGUAGES %}
+            {% if language_code != 'ru' %}
+            <a href="#"
+                class="mobile-lang-btn {% if language_code == LANGUAGE_CODE %}active{% endif %} mobile-touch-target mobile-focus-visible lang-switcher-link"
+                data-language-code="{{ language_code }}">
+                {{ language_code|upper }}
+            </a>
+            {% endif %}
+            {% endfor %}
+        </div>
     </div>
 
     <!-- Navigation Links з великою типографікою -->
@@ -36,11 +49,8 @@
         </a>
     </div>
 
-    <!-- Footer з мовою та інфо -->
+    <!-- Footer з контактами та інфо -->
     <div class="mobile-menu-footer">
-        {% get_current_language as LANGUAGE_CODE %}
-        {% get_available_languages as LANGUAGES %}
-
         <div class="mobile-menu-contacts">
             <a href="tel:+380639520565"
                 class="mobile-contact-btn mobile-touch-target mobile-focus-visible"
@@ -58,18 +68,6 @@
                 </svg>
                 <span class="mobile-contact-btn__label">Telegram</span>
             </a>
-        </div>
-
-        <div class="mobile-lang-switcher">
-            {% for language_code, language_name in LANGUAGES %}
-            {% if language_code != 'ru' %}
-            <a href="#"
-                class="mobile-lang-btn {% if language_code == LANGUAGE_CODE %}active{% endif %} mobile-touch-target mobile-focus-visible lang-switcher-link"
-                data-language-code="{{ language_code }}">
-                {{ language_code|upper }}
-            </a>
-            {% endif %}
-            {% endfor %}
         </div>
 
         <div class="mobile-menu-info">

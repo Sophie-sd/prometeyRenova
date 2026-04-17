@@ -1393,13 +1393,6 @@ img, video {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.mobile-menu-label {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--color-white);
-}
-
 .mobile-menu-close {
     position: relative;
     width: 44px;
