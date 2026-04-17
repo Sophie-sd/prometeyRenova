@@ -2,6 +2,11 @@
  * HOME-BUNDLE.JS - Оптимізований bundle для головної сторінки
  * Включає: Utils, MobileCore, VideoSystem, PrometeyApp, Home
  * Версія: 1.0 - Performance Optimized
+ *
+ * УВАГА: цей файл — копія окремих модулів (static/js/core/utils.js,
+ * static/js/mobile-core.js, static/js/video-system.js, static/js/base.js,
+ * static/js/home.js). Будь-які правки в оригіналах мають бути продубльовані тут,
+ * інакше фіча працюватиме всюди, крім головної сторінки.
  */
 
 // ========================================
@@ -937,6 +942,7 @@ class PrometeyApp {
         this.setupLanguageSwitcher();
         this.setupAccessibility();
         this.setupFooterAccordion();
+        this.setupContactWidget();
         this.setupScrollStateDetection();
 
         if (document.readyState === 'loading') {
@@ -1638,6 +1644,40 @@ class PrometeyApp {
                     section.classList.remove('footer-accordion-active');
                 });
             }
+        });
+    }
+
+    setupContactWidget() {
+        const widget = document.getElementById('contact-widget');
+        const toggle = document.getElementById('contact-widget-toggle');
+        const panel  = document.getElementById('contact-widget-panel');
+
+        if (!widget || !toggle || !panel) return;
+
+        const openWidget = () => {
+            widget.classList.add('contact-widget--open');
+            toggle.setAttribute('aria-expanded', 'true');
+            panel.setAttribute('aria-hidden', 'false');
+        };
+
+        const closeWidget = () => {
+            widget.classList.remove('contact-widget--open');
+            toggle.setAttribute('aria-expanded', 'false');
+            panel.setAttribute('aria-hidden', 'true');
+        };
+
+        const isWidgetOpen = () => widget.classList.contains('contact-widget--open');
+
+        toggle.addEventListener('click', () => {
+            isWidgetOpen() ? closeWidget() : openWidget();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isWidgetOpen()) closeWidget();
+        });
+
+        document.addEventListener('click', (e) => {
+            if (isWidgetOpen() && !widget.contains(e.target)) closeWidget();
         });
     }
 

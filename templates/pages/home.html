@@ -564,9 +564,13 @@
 {% endblock %}
 
 {% block base_js %}
-<!-- Phone mask для валідації телефону -->
+<!--
+    ВАЖЛИВО: home-bundle.js — це агрегат MobileCore + PrometeyApp + VideoSystem + Home.
+    Він замінює окремі core-скрипти з base.html. Будь-які правки у static/js/base.js
+    або static/js/mobile-core.js мають бути синхронізовані з static/js/home-bundle.js,
+    інакше фіча (напр. contact-widget) буде працювати всюди, крім головної.
+-->
 <script src="{% static 'js/core/phone-mask.js' %}"></script>
-<!-- Використовуємо оптимізований bundle замість окремих файлів -->
 <script src="{% static 'js/home-bundle.js' %}"></script>
 {% endblock %}
 

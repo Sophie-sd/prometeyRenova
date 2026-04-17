@@ -79,10 +79,7 @@
     z-index: var(--z-burger-button);
 }
 
-/* ===== КНОПКИ ===== */
-.contact-widget {
-    z-index: 10000;
-}
+/* .contact-widget z-index defined in components/contact-widget.css */
 
 /* ===== МОДАЛЬНІ ВІКНА ===== */
 /* Правила для модальних вікон визначені в components/modals.css */

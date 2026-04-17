@@ -792,8 +792,11 @@ body.is-scrolling * {
 }
 
 body.is-scrolling a,
+body.is-scrolling a *,
 body.is-scrolling button,
-body.is-scrolling [role="button"] {
+body.is-scrolling button *,
+body.is-scrolling [role="button"],
+body.is-scrolling [role="button"] * {
     pointer-events: auto;
 }
 

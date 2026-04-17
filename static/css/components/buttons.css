@@ -66,119 +66,7 @@
     transform: translateY(0);
 }
 
-/* ===== CONTACT WIDGET ===== */
-.contact-widget {
-    position: fixed;
-    bottom: 80px;
-    right: 2%;
-    z-index: 10000;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-}
-
-.contact-widget__panel {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    background: rgba(20, 20, 30, 0.75);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 16px;
-    padding: 8px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
-                0 1px 0 rgba(255, 255, 255, 0.08) inset;
-    transform-origin: bottom right;
-    transform: scale(0.85) translateY(8px);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease-out,
-                transform 0.25s ease-out;
-}
-
-.contact-widget__panel[aria-hidden="false"] {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.contact-widget__item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 10px;
-    white-space: nowrap;
-    transition: background-color 0.2s ease-out;
-}
-
-.contact-widget__item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-}
-
-.contact-widget__item-icon {
-    flex-shrink: 0;
-    color: #ffffff;
-    opacity: 0.9;
-}
-
-.contact-widget__toggle {
-    width: 67px;
-    height: 67px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    color: #ffffff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2),
-                0 1px 0 rgba(255, 255, 255, 0.4) inset;
-    transition: background-color 0.2s ease-out,
-                border-color 0.2s ease-out,
-                transform 0.2s ease-out,
-                box-shadow 0.2s ease-out;
-}
-
-.contact-widget__toggle:hover {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: scale(1.06);
-    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.25),
-                0 1px 0 rgba(255, 255, 255, 0.5) inset;
-}
-
-.contact-widget__toggle:active {
-    transform: scale(0.95);
-}
-
-.contact-widget__icon {
-    width: 22px;
-    height: 22px;
-}
-
-.contact-widget__icon--close {
-    display: none;
-}
-
-.contact-widget--open .contact-widget__icon--open {
-    display: none;
-}
-
-.contact-widget--open .contact-widget__icon--close {
-    display: block;
-}
+/* Contact widget styles moved to components/contact-widget.css */
 
 /* ===== BUTTON SIZES ===== */
 
@@ -259,18 +147,5 @@
 
     .btn-group .btn {
         width: 100%;
-    }
-
-    .contact-widget {
-        display: none;
-    }
-}
-
-/* ===== iOS SAFARI ОПТИМІЗАЦІЇ ===== */
-
-@supports (-webkit-touch-callout: none) {
-    .contact-widget {
-        bottom: calc(80px + env(safe-area-inset-bottom, 0px));
-        right: max(env(safe-area-inset-right, 2%), 2%);
     }
 }
