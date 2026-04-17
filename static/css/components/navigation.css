@@ -518,6 +518,72 @@
     transform: translateY(0);
 }
 
+/* Mobile Contacts (phone + telegram) */
+.mobile-menu-contacts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.mobile-contact-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 12px 14px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 14px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.3s ease,
+                background-color 0.3s ease,
+                border-color 0.3s ease;
+}
+
+.mobile-contact-btn:hover,
+.mobile-contact-btn:active,
+.mobile-contact-btn:focus-visible {
+    background: var(--color-brand-orange);
+    border-color: var(--color-brand-orange);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.mobile-contact-btn__icon {
+    flex-shrink: 0;
+}
+
+.mobile-contact-btn__label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.2px;
+}
+
+@media (max-width: 767px) {
+    .mobile-contact-btn {
+        font-size: 13px;
+        padding: 10px 12px;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 375px) {
+    .mobile-contact-btn {
+        font-size: 12px;
+        padding: 10px 8px;
+    }
+
+    .mobile-contact-btn__icon {
+        width: 16px;
+        height: 16px;
+    }
+}
+
 /* Language Switcher */
 .mobile-lang-switcher {
     display: flex;
