@@ -27,6 +27,15 @@ class CSPMiddleware:
         if 'text/html' not in content_type:
             return response
 
+        # Django admin ships its own JS/CSS bundle and uses inline event
+        # handlers in some widgets. Applying 'strict-dynamic' here breaks the
+        # nav sidebar, inline "Add another" buttons, autocomplete, etc., so we
+        # leave the admin out of the CSP entirely. Admin is an internal,
+        # authenticated tool and is not exposed to anonymous traffic.
+        path = request.path_info or ''
+        if path.startswith('/admin/') or path == '/admin':
+            return response
+
         script_src = (
             f"'self' 'nonce-{nonce}' 'strict-dynamic' 'unsafe-eval' "
             "https://www.googletagmanager.com "
