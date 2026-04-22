@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib import admin
 from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+
 from .models import PaymentLink, PaymentLinkFile, PaymentSettings, RecipientProfile
 
 
@@ -28,7 +30,7 @@ class RecipientProfileAdmin(admin.ModelAdmin):
         (None, {
             'fields': ('name', 'is_active'),
         }),
-        ('Реквізити', {
+        (_('Реквізити'), {
             'fields': ('recipient', 'iban', 'ipn', 'bank', 'mfo', 'bank_edrpou'),
         }),
     )
@@ -38,11 +40,14 @@ class RecipientProfileAdmin(admin.ModelAdmin):
 
 class PaymentLinkAdminForm(forms.ModelForm):
     description = forms.CharField(
-        label='Опис / Призначення платежу',
-        widget=forms.Textarea(attrs={'rows': 3, 'style': 'width:100%; resize:vertical'}),
+        label=_('Опис / Призначення платежу'),
+        widget=forms.Textarea(attrs={'rows': 3, 'class': 'pl-textarea-wide'}),
         required=False,
         max_length=500,
-        help_text='Що саме замовлено. Це поле використовується як призначення платежу — клієнт зможе його скопіювати.',
+        help_text=_(
+            'Що саме замовлено. Це поле використовується як призначення платежу — '
+            'клієнт зможе його скопіювати.'
+        ),
     )
 
     class Meta:
@@ -56,8 +61,8 @@ class PaymentLinkFileInline(admin.TabularInline):
     model = PaymentLinkFile
     extra = 1
     fields = ('file_type', 'name', 'file')
-    verbose_name = 'Файл'
-    verbose_name_plural = 'Файли (договори, рахунки)'
+    verbose_name = _('Файл')
+    verbose_name_plural = _('Файли (договори, рахунки)')
 
 
 # ── PaymentLink admin ──────────────────────────────────────────────────────
@@ -78,36 +83,37 @@ class PaymentLinkAdmin(admin.ModelAdmin):
         'monobank_invoice_id', 'monobank_invoice_url', 'payment_processed_at',
     )
     inlines = [PaymentLinkFileInline]
+    actions = ['mark_deactivated']
 
     fieldsets = (
-        ('Клієнт', {
+        (_('Клієнт'), {
             'fields': ('client_name', 'client_email'),
         }),
-        ('Замовлення / Призначення платежу', {
+        (_('Замовлення / Призначення платежу'), {
             'fields': ('description',),
         }),
-        ('Отримувач платежу', {
+        (_('Отримувач платежу'), {
             'fields': ('recipient', 'company_info'),
-            'description': (
+            'description': _(
                 'Оберіть профіль ФОП — реквізити на сторінці підставляться автоматично. '
                 'Поле «Реквізити» нижче — тільки для перегляду.'
             ),
         }),
-        ('Еквайринг', {
+        (_('Еквайринг'), {
             'fields': ('use_acquiring',),
-            'description': (
+            'description': _(
                 'Якщо увімкнено — клієнт зможе оплатити карткою, Apple Pay або Google Pay '
                 'через Monobank acquiring.'
             ),
         }),
-        ('Сума та курс', {
+        (_('Сума та курс'), {
             'fields': ('amount_usd', 'exchange_rate_usd_to_uah', 'final_amount_uah'),
-            'description': 'Сума USD × курс = UAH. Розраховується автоматично при збереженні.',
+            'description': _('Сума USD × курс = UAH. Розраховується автоматично при збереженні.'),
         }),
-        ('Налаштування посилання', {
+        (_('Налаштування посилання'), {
             'fields': ('status', 'duration_minutes'),
         }),
-        ('Системна інформація', {
+        (_('Системна інформація'), {
             'fields': (
                 'first_opened_at', 'expires_at', 'payment_processed_at',
                 'monobank_invoice_id', 'monobank_invoice_url',
@@ -115,6 +121,10 @@ class PaymentLinkAdmin(admin.ModelAdmin):
             'classes': ('collapse',),
         }),
     )
+
+    class Media:
+        css = {'all': ('payment/css/admin.css',)}
+        js = ('payment/js/copy.js', 'payment/js/admin.js')
 
     def save_model(self, request, obj, form, change):
         if obj.recipient:
@@ -124,32 +134,39 @@ class PaymentLinkAdmin(admin.ModelAdmin):
             )
         super().save_model(request, obj, form, change)
 
-    def get_client_facing_link(self, obj):
+    def get_client_facing_link(self, obj) -> str:
         base = getattr(settings, 'SITE_URL', '').rstrip('/') or 'https://prometeylabs.com'
         return f"{base}/payment/pay/{obj.unique_id}/"
 
+    @admin.display(description=_('Відкрити'))
     def open_link_button(self, obj):
         url = self.get_client_facing_link(obj)
-        return format_html('<a class="button" href="{}" target="_blank">Відкрити</a>', url)
-    open_link_button.short_description = 'Відкрити'
+        return format_html(
+            '<a class="button" href="{}" target="_blank" rel="noopener">{}</a>',
+            url, _('Відкрити'),
+        )
 
+    @admin.display(description=_('Посилання клієнта'))
     def copy_link_button(self, obj):
         url = self.get_client_facing_link(obj)
-        btn_id = f'copy-btn-{obj.pk}'
         return format_html(
-            '<div style="display:flex;gap:6px;align-items:center;min-width:260px">'
-            '<input type="text" value="{url}" readonly '
-            'style="flex:1;min-width:0;padding:4px 6px;border:1px solid #ccc;border-radius:3px"/>'
-            '<button type="button" id="{btn_id}" '
-            'onclick="(function(b,u){{navigator.clipboard.writeText(u).then(function(){{'
-            'var o=b.textContent;b.textContent=\'\u2713\';'
-            'setTimeout(function(){{b.textContent=o;}},1500);}})}})'
-            '(document.getElementById(\'{btn_id}\'),\'{url}\')" '
-            'style="white-space:nowrap;padding:4px 10px;cursor:pointer;'
-            'border:1px solid #ccc;border-radius:3px;background:#f8f8f8">'
-            '\U0001f4cb Копіювати'
+            '<div class="pl-copy-row">'
+            '<input type="text" class="pl-copy-input" value="{url}" readonly '
+            'aria-label="{aria}">'
+            '<button type="button" class="pl-copy-btn" '
+            'data-copy data-copy-value="{url}" '
+            'aria-label="{aria}" aria-pressed="false">'
+            '<span class="pl-copy-btn-icon" data-copy-icon="default" aria-hidden="true">⧉</span>'
+            '<span class="pl-copy-btn-icon" data-copy-icon="done" aria-hidden="true" hidden>✓</span>'
+            '<span data-copy-label>{label}</span>'
             '</button>'
             '</div>',
-            url=url, btn_id=btn_id,
+            url=url, label=_('Копіювати'), aria=_('Скопіювати посилання клієнта'),
         )
-    copy_link_button.short_description = 'Посилання клієнта'
+
+    @admin.action(description=_('Деактивувати вибрані посилання'))
+    def mark_deactivated(self, request, queryset):
+        updated = queryset.exclude(status=PaymentLink.Status.PAID).update(
+            status=PaymentLink.Status.DEACTIVATED
+        )
+        self.message_user(request, _('Деактивовано: %(n)s') % {'n': updated})

@@ -8,6 +8,6 @@
     <div class="pay-status-icon">❌</div>
     <h1 class="pay-status-title">{% trans "Помилка" %}</h1>
     <p class="pay-status-text">{% trans "Не вдалося здійснити оплату. Спробуйте ще раз або оберіть інший спосіб оплати." %}</p>
-    {% if reason %}<p class="pay-status-text" style="font-size:13px;color:var(--gray-400)">{{ reason }}</p>{% endif %}
+    {% if reason %}<p class="pay-status-text pay-status-text--reason">{{ reason }}</p>{% endif %}
 </div>
 {% endblock %}

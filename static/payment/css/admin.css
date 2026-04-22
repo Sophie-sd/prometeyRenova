@@ -1,0 +1,61 @@
+/* Styles for the PaymentLink admin views. Keeps the change-list copy widget
+   tidy and removes the need for any inline-style attributes in admin.py. */
+
+.pl-copy-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 260px;
+}
+
+.pl-copy-input {
+    flex: 1;
+    min-width: 0;
+    padding: 4px 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 12px;
+    background: #fff;
+}
+
+.pl-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    padding: 4px 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #f8f8f8;
+    color: #222;
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 1.2;
+    transition: border-color .15s, background .15s, color .15s;
+}
+
+.pl-copy-btn:hover {
+    border-color: #79aec8;
+    background: #fff;
+    color: #205067;
+}
+
+.pl-copy-btn.copied {
+    border-color: #1d9a52;
+    background: #f0fff5;
+    color: #1d9a52;
+}
+
+.pl-copy-btn-icon {
+    display: inline-block;
+    width: 12px;
+    text-align: center;
+    line-height: 1;
+}
+
+.pl-textarea-wide {
+    width: 100%;
+    resize: vertical;
+}

@@ -549,6 +549,24 @@
     line-height: 1.5;
 }
 
+.pay-status-text--reason {
+    font-size: 13px;
+    color: var(--gray-500);
+}
+
+/* Off-screen helper used by the copy-to-clipboard fallback. */
+.pl-clipboard-fallback {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
 /* ── Footer ── */
 .pay-footer {
     width: 100%;

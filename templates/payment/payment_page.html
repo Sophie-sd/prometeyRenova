@@ -36,7 +36,12 @@
     {% if expires_at_iso %}
     <div class="pay-section" id="countdown-container">
         <p class="section-label">{% trans "Час на оплату" %}</p>
-        <div class="countdown" id="countdown">--:--:--</div>
+        <div class="countdown"
+             data-countdown
+             data-expires-at="{{ expires_at_iso }}"
+             data-disable="#pay-btn"
+             data-expired-text="{% trans 'ЧАС ВИЙШОВ' %}"
+             aria-live="polite">--:--:--</div>
     </div>
     {% endif %}
 
@@ -106,13 +111,24 @@
                     {% if row.label %}<span class="req-label">{{ row.label }}</span>{% endif %}
                     <span class="req-value">{{ row.value }}</span>
                 </div>
-                <button type="button" class="btn-copy-row"
-                    onclick="copyRow(this, '{{ row.value|escapejs }}')"
-                    title="{% trans 'Скопіювати' %}">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2"/>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                    </svg>
+                <button type="button"
+                        class="btn-copy-row"
+                        data-copy
+                        data-copy-value="{{ row.value }}"
+                        title="{% trans 'Скопіювати' %}"
+                        aria-label="{% trans 'Скопіювати' %}: {{ row.value }}"
+                        aria-pressed="false">
+                    <span data-copy-icon="default" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                    </span>
+                    <span data-copy-icon="done" aria-hidden="true" hidden>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </span>
                 </button>
             </div>
             {% endif %}
@@ -125,13 +141,24 @@
                     <span class="req-label">{% trans "Призначення платежу" %}</span>
                     <span class="req-value">{{ payment_link.description }}</span>
                 </div>
-                <button type="button" class="btn-copy-row"
-                    onclick="copyRow(this, '{{ payment_link.description|escapejs }}')"
-                    title="{% trans 'Скопіювати' %}">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2"/>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                    </svg>
+                <button type="button"
+                        class="btn-copy-row"
+                        data-copy
+                        data-copy-value="{{ payment_link.description }}"
+                        title="{% trans 'Скопіювати' %}"
+                        aria-label="{% trans 'Скопіювати призначення платежу' %}"
+                        aria-pressed="false">
+                    <span data-copy-icon="default" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                    </span>
+                    <span data-copy-icon="done" aria-hidden="true" hidden>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </span>
                 </button>
             </div>
             {% endif %}
@@ -142,19 +169,31 @@
                     <span class="req-label">{% trans "Сума до сплати" %}</span>
                     <span class="req-value">{{ payment_link.final_amount_uah }} UAH</span>
                 </div>
-                <button type="button" class="btn-copy-row"
-                    onclick="copyRow(this, '{{ payment_link.final_amount_uah }}')"
-                    title="{% trans 'Скопіювати' %}">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2"/>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                    </svg>
+                <button type="button"
+                        class="btn-copy-row"
+                        data-copy
+                        data-copy-value="{{ payment_link.final_amount_uah }}"
+                        title="{% trans 'Скопіювати' %}"
+                        aria-label="{% trans 'Скопіювати суму' %}"
+                        aria-pressed="false">
+                    <span data-copy-icon="default" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                    </span>
+                    <span data-copy-icon="done" aria-hidden="true" hidden>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </span>
                 </button>
             </div>
 
         </div>
 
         <!-- Банківський блок: без заголовку -->
+        {% if has_bank_rows %}
         <div class="bank-info-block">
             <div class="bank-info-grid">
                 {% for row in requisites_rows %}
@@ -165,9 +204,16 @@
                 {% endfor %}
             </div>
         </div>
+        {% endif %}
 
-        <button type="button" class="btn-copy-all" onclick="copyAllRequisites()">
-            {% trans "Скопіювати реквізити" %}
+        {{ requisites_payload|json_script:"pay-requisites-data" }}
+        <button type="button"
+                class="btn-copy-all"
+                data-copy-all
+                data-copy-source="#pay-requisites-data"
+                data-copy-done="{% trans '✓ Скопійовано' %}"
+                aria-pressed="false">
+            <span data-copy-label>{% trans "Скопіювати реквізити" %}</span>
         </button>
     </div>
     {% endif %}
@@ -197,14 +243,14 @@
         <p class="section-label">{% trans "Як оплатити" %}</p>
         {% if payment_link.use_acquiring %}
         <p class="instructions-text">
-            Оплату можна провести онлайн карткою, <strong>Apple Pay</strong> або <strong>Google Pay</strong>.
+            {% blocktrans %}Оплату можна провести онлайн карткою, <strong>Apple Pay</strong> або <strong>Google Pay</strong>.
             Також доступний банківський переказ за реквізитами вище.
-            Після оплати переказом — надішліть нам фото квитанції:
+            Після оплати переказом — надішліть нам фото квитанції:{% endblocktrans %}
         </p>
         {% else %}
         <p class="instructions-text">
-            До посилання прикріплений рахунок — завантажте його або проведіть оплату вручну за реквізитами вище.
-            Після оплати — надішліть нам фото квитанції:
+            {% blocktrans %}До посилання прикріплений рахунок — завантажте його або проведіть оплату вручну за реквізитами вище.
+            Після оплати — надішліть нам фото квитанції:{% endblocktrans %}
         </p>
         {% endif %}
         <a href="https://t.me/prometeylabs" target="_blank" rel="noopener" class="btn-telegram">
@@ -229,75 +275,4 @@
 </div>
 {% endif %}
 
-{% endblock %}
-
-{% block extra_js %}
-<script>
-var allReqText = [
-    {% for row in requisites_rows %}{% if row.copyable %}"{{ row.label|escapejs }}: {{ row.value|escapejs }}",{% endif %}{% endfor %}
-    {% if payment_link.description %}"{% trans 'Призначення' %}: {{ payment_link.description|escapejs }}",{% endif %}
-    "{% trans 'Сума' %}: {{ payment_link.final_amount_uah }} UAH",
-].join("\n");
-
-function doCopy(text, cb) {
-    if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(text).then(cb).catch(function() { fallbackCopy(text, cb); });
-    } else {
-        fallbackCopy(text, cb);
-    }
-}
-
-function fallbackCopy(text, cb) {
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;width:1px;height:1px';
-    document.body.appendChild(ta);
-    ta.focus();
-    ta.select();
-    try { document.execCommand('copy'); } catch(e) {}
-    document.body.removeChild(ta);
-    if (cb) cb();
-}
-
-function copyRow(btn, text) {
-    doCopy(text, function() {
-        var svg = btn.innerHTML;
-        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
-        btn.classList.add('copied');
-        setTimeout(function() { btn.innerHTML = svg; btn.classList.remove('copied'); }, 1800);
-    });
-}
-
-function copyAllRequisites() {
-    var btn = document.querySelector('.btn-copy-all');
-    doCopy(allReqText, function() {
-        var orig = btn.textContent;
-        btn.textContent = '✓ Скопійовано';
-        btn.classList.add('copied');
-        setTimeout(function() { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
-    });
-}
-
-{% if expires_at_iso %}
-(function() {
-    var expiresAt = new Date("{{ expires_at_iso }}").getTime();
-    var el = document.getElementById('countdown');
-    var payBtn = document.getElementById('pay-btn');
-    function pad(n) { return String(n).padStart(2, '0'); }
-    function tick() {
-        var dist = expiresAt - Date.now();
-        if (dist < 0) {
-            clearInterval(tid);
-            el.textContent = '{% trans "ЧАС ВИЙШОВ" %}';
-            el.classList.add('expired');
-            if (payBtn) payBtn.disabled = true;
-            return;
-        }
-        el.textContent = pad(Math.floor(dist/3600000)) + ':' + pad(Math.floor((dist%3600000)/60000)) + ':' + pad(Math.floor((dist%60000)/1000));
-    }
-    var tid = setInterval(tick, 1000);
-    tick();
-})();
-{% endif %}
-</script>
 {% endblock %}

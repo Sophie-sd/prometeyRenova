@@ -3,6 +3,7 @@ import os
 from decimal import Decimal
 from django.db import models
 from django.utils import timezone
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -17,10 +18,15 @@ class PaymentSettings(models.Model):
         verbose_name_plural = _('Налаштування платіжної системи')
 
     def save(self, *args, **kwargs):
-        # Забороняємо створення другого запису
         if not self.pk and PaymentSettings.objects.exists():
             raise ValidationError('Дозволено лише один запис PaymentSettings')
         super().save(*args, **kwargs)
+        cache.delete('payment_settings')
+
+    def delete(self, *args, **kwargs):
+        result = super().delete(*args, **kwargs)
+        cache.delete('payment_settings')
+        return result
 
     def __str__(self):
         return self.title or f'Payment Settings #{self.pk}'
@@ -133,6 +139,8 @@ class PaymentLink(models.Model):
         self.save(update_fields=['status'])
 
     def mark_paid(self):
+        if self.status == self.Status.PAID:
+            return
         self.status = self.Status.PAID
         self.payment_processed_at = timezone.now()
         self.save(update_fields=['status', 'payment_processed_at'])
