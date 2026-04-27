@@ -3999,3 +3999,139 @@ body #bingc-passive div.bingc-passive-overlay div.bingc-passive-content div.bing
 body #bingc-active div.bingc-active-overlay div.bingc-active-content div.bingc-active-get-phone-form form.bingc-active-get-phone-form a.bingc-active-phone-form-button:active {
     background: color-mix(in srgb, var(--color-brand-orange) 70%, black);
 }
+/* ===== LANG SUGGEST TOAST =====
+   Non-blocking notification anchored to the TOP of the viewport, just below
+   the fixed header. Does NOT dim or block the page — user can scroll freely.
+   Auto-dismisses on scroll; manual dismiss via "Ні"; "Так" switches language.
+
+   IMPORTANT: this element MUST live at <body> level (not inside <header>),
+   because .main-navigation has `transform: translate3d(0,0,0)`, which would
+   turn descendant `position: fixed` into `position: absolute`. See base.html.
+*/
+.lang-suggest {
+    display: none;
+    position: fixed;
+    top: 76px;
+    left: 50%;
+    z-index: 1500;
+    width: calc(100% - 32px);
+    max-width: 480px;
+    transform: translate(-50%, -16px);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+
+.lang-suggest:not([hidden]) {
+    display: block;
+    pointer-events: auto;
+}
+
+.lang-suggest.is-visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.lang-suggest__card {
+    background: rgba(20, 20, 20, 0.96);
+    border: 1px solid rgba(230, 81, 0, 0.45);
+    border-radius: 14px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(230, 81, 0, 0.12);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    padding: 16px 18px;
+    color: #fff;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.lang-suggest__text {
+    flex: 1 1 auto;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.45;
+    margin: 0;
+    letter-spacing: -0.1px;
+}
+
+.lang-suggest__text strong {
+    color: var(--color-brand-orange, #E65100);
+    font-weight: 700;
+}
+
+.lang-suggest__actions {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.lang-suggest__yes,
+.lang-suggest__close {
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    font-family: inherit;
+    line-height: 1.2;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, filter 0.2s ease;
+}
+
+.lang-suggest__yes {
+    background: var(--color-brand-orange, #E65100);
+    color: #fff;
+    border: 1.5px solid var(--color-brand-orange, #E65100);
+}
+
+.lang-suggest__yes:hover,
+.lang-suggest__yes:focus-visible {
+    filter: brightness(1.15);
+    outline: none;
+}
+
+.lang-suggest__close {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    border: 1.5px solid rgba(255, 255, 255, 0.28);
+}
+
+.lang-suggest__close:hover,
+.lang-suggest__close:focus-visible {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.45);
+    outline: none;
+}
+
+@media (max-width: 600px) {
+    .lang-suggest {
+        top: 70px;
+        width: calc(100% - 16px);
+    }
+    .lang-suggest__card {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 14px 16px;
+    }
+    .lang-suggest__text {
+        font-size: 13.5px;
+        text-align: center;
+    }
+    .lang-suggest__actions {
+        justify-content: center;
+    }
+    .lang-suggest__yes,
+    .lang-suggest__close {
+        flex: 1;
+        padding: 10px 14px;
+        font-size: 12.5px;
+    }
+}

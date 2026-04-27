@@ -732,13 +732,15 @@
 }
 
 .lang-suggest__card {
-    background: var(--color-bg-warm, #FAF7F2);
-    border: 2px solid #000;
-    box-shadow: 4px 4px 0 #000;
-    padding: 36px 32px 28px;
-    max-width: 380px;
+    background: #1a1a1a;
+    border: 2px solid var(--color-brand-orange, #E65100);
+    border-radius: 16px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(230, 81, 0, 0.18);
+    padding: 32px 28px 26px;
+    max-width: 420px;
     width: 100%;
     text-align: center;
+    color: #fff;
     animation: lang-suggest-slide-in 0.3s ease-out;
 }
 
@@ -754,57 +756,82 @@
 }
 
 .lang-suggest__text {
-    font-size: 18px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.5;
+    margin: 0 0 22px;
+    letter-spacing: -0.2px;
+}
+
+.lang-suggest__text strong {
+    color: var(--color-brand-orange, #E65100);
     font-weight: 700;
-    color: #000;
-    line-height: 1.4;
-    margin: 0 0 24px;
-    letter-spacing: -0.3px;
 }
 
 .lang-suggest__actions {
     display: flex;
-    gap: 12px;
-    align-items: center;
+    gap: 10px;
+    align-items: stretch;
     justify-content: center;
 }
 
 .lang-suggest__yes {
     flex: 1;
-    padding: 12px 20px;
-    background: #000;
+    padding: 13px 22px;
+    background: var(--color-brand-orange, #E65100);
     color: #fff;
-    border: 2px solid #000;
+    border: 2px solid var(--color-brand-orange, #E65100);
+    border-radius: 10px;
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    transition: background 0.2s ease, border-color 0.2s ease;
+    transition: filter 0.2s ease, transform 0.2s ease;
 }
 
 .lang-suggest__yes:hover {
-    background: var(--color-accent, #DC143C);
-    border-color: var(--color-accent, #DC143C);
+    filter: brightness(1.12);
+    transform: translateY(-1px);
 }
 
 .lang-suggest__close {
     flex: 1;
-    padding: 12px 20px;
+    padding: 13px 22px;
     background: transparent;
-    color: #000;
-    border: 2px solid #000;
+    color: rgba(255, 255, 255, 0.85);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .lang-suggest__close:hover {
-    background: #000;
+    background: rgba(255, 255, 255, 0.06);
     color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 480px) {
+    .lang-suggest__card {
+        padding: 28px 22px 22px;
+        max-width: 360px;
+        border-radius: 14px;
+    }
+    .lang-suggest__text {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    .lang-suggest__yes,
+    .lang-suggest__close {
+        padding: 12px 16px;
+        font-size: 13px;
+    }
 }
 
 /* RU indicator in language-switcher (non-interactive) */

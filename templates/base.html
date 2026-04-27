@@ -51,7 +51,7 @@
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 
     <!-- CSS Base Bundle (core + components in one request) -->
-    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=4">
 
     <!-- Page specific CSS -->
     {% block page_css %}{% endblock %}
@@ -139,6 +139,25 @@
     <!-- Modals -->
     {% include 'components/modals.html' %}
 
+    {# Lang-suggest toast — must live at <body> level (NOT inside <header>) #}
+    {# because `.main-navigation` has `transform: translate3d(0,0,0)`, which #}
+    {# turns any descendant `position: fixed` into `position: absolute`. #}
+    {% get_current_language as CURRENT_LANG %}
+    {% if CURRENT_LANG == 'ru' or lang_suggest_always %}
+    <div class="lang-suggest" id="lang-suggest" hidden
+         role="region" aria-live="polite" aria-label="Пропозиція змінити мову"
+         {% if lang_suggest_always %}data-always="true"{% endif %}
+         {% if lang_suggest_uk_url %}data-uk-url="{{ lang_suggest_uk_url }}"{% endif %}>
+        <div class="lang-suggest__card">
+            <p class="lang-suggest__text">Ви зараз переглядаєте сайт <strong>російською мовою</strong>. Бажаєте перейти на українську?</p>
+            <div class="lang-suggest__actions">
+                <button class="lang-suggest__yes" id="lang-suggest-yes" type="button">Так</button>
+                <button class="lang-suggest__close" id="lang-suggest-close" type="button">Ні</button>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
     <!-- Modern JavaScript Systems (2025) - чіткий порядок завантаження -->
     <!-- Translations for JavaScript -->
     <script nonce="{{ csp_nonce }}">
@@ -158,7 +177,7 @@
     <script src="{% static 'js/base.js' %}" nonce="{{ csp_nonce }}" defer></script>
     {% get_current_language as CURRENT_LANG %}
     {% if CURRENT_LANG == 'ru' %}
-    <script src="{% static 'js/lang-suggest.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/lang-suggest.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
     {% endif %}
     {% endblock %}
     {% block extra_js %}{% endblock %}

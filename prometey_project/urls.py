@@ -1,32 +1,31 @@
 """
 URL configuration for prometey_project project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+Mirrors `config/urls.py` (used in production) so local dev exposes the same
+language-prefixed URLs (e.g. `/ru/internet-shop/`) as production. Without
+i18n_patterns here, RU prefixed URLs would 404 locally.
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.conf.urls.i18n import i18n_patterns
+from django.views.i18n import set_language
+from django.views.static import serve
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('i18n/set_language/', set_language, name='set_language'),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+]
+
+urlpatterns += i18n_patterns(
     path('', include('apps.core.urls')),
     path('blog/', include('apps.blog.urls')),
     path('payment/', include('apps.payment.urls')),
-]
+    prefix_default_language=False,
+)
 
-# Статичні файли для розробки
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
