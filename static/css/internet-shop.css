@@ -357,6 +357,12 @@
     margin-bottom: 36px;
 }
 
+@media (max-width: 767px) {
+    .is-hero .is-usp {
+        display: none;
+    }
+}
+
 .is-usp__item {
     position: relative;
     border: 1px solid rgba(255, 255, 255, 0.08);
