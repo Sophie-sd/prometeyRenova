@@ -1,4 +1,24 @@
-/* internet-shop-quiz.js — multi-step quiz */
+/* internet-shop-quiz.js — multi-step quiz + DKI (dynamic keyword insertion) */
+
+/* ── DKI: read ?kw= from URL and inject into [data-dki] ─────── */
+(function () {
+    'use strict';
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const raw = params.get('kw');
+        if (!raw) return;
+        const cleaned = raw.replace(/[^a-zа-яёіїєґ\s\-]/gi, '').trim().slice(0, 60);
+        if (cleaned.length < 3) return;
+        const capitalized = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+        const targets = document.querySelectorAll('[data-dki]');
+        targets.forEach((el) => {
+            el.textContent = capitalized;
+        });
+    } catch (e) {
+        /* fail-safe: leave fallback text intact */
+    }
+})();
+
 (function () {
     'use strict';
 

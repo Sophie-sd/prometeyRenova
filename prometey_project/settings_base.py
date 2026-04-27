@@ -77,6 +77,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 LANGUAGE_CODE = 'uk'
+LANGUAGES = [
+    ('uk', 'Українська'),
+    ('en', 'English'),
+    ('ru', 'Русский'),
+]
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 TIME_ZONE = 'Europe/Kiev'
 USE_I18N = True
 USE_TZ = True

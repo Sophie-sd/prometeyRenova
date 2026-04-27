@@ -2,13 +2,117 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}Разработка интернет-магазинов под ключ | PrometeyLabs{% endblock %}
-{% block description %}Разработка интернет-магазина под ключ от PrometeyLabs. Создание интернет-магазина с нуля, заказать интернет-магазин, стоимость от $700. Кастомный код, интеграции с платёжными системами, дропшиппинг-платформы.{% endblock %}
-{% block og_title %}Интернет-магазин под ключ — PrometeyLabs{% endblock %}
+{% block title %}Создание и разработка интернет-магазина под ключ — цена и пакеты | PrometeyLabs{% endblock %}
+{% block description %}Создание интернет-магазина под ключ. Разработка с нуля, миграция с Prom/Rozetka, дропшиппинг-платформы. Запуск за 3 недели, 1 год поддержки. Своя CRM, Нова Пошта, онлайн-оплата. Рассчитаем стоимость в брифе.{% endblock %}
+{% block og_title %}Интернет-магазин под ключ — создадим за 3 недели с годовой поддержкой{% endblock %}
 {% block extra_head %}
 <link rel="canonical" href="https://prometeylabs.com/internet-shop-ru/">
 <link rel="alternate" hreflang="ru" href="https://prometeylabs.com/internet-shop-ru/">
 <link rel="alternate" hreflang="uk" href="https://prometeylabs.com/internet-shop/">
+
+<script type="application/ld+json" nonce="{{ csp_nonce }}">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Создание и разработка интернет-магазина под ключ",
+    "serviceType": "Разработка e-commerce сайтов",
+    "provider": {
+        "@type": "Organization",
+        "name": "PrometeyLabs",
+        "url": "https://prometeylabs.com/"
+    },
+    "areaServed": {
+        "@type": "Country",
+        "name": "Ukraine"
+    },
+    "description": "Создание интернет-магазина с нуля, разработка под ключ, миграция с Prom/Rozetka/Horoshop, дропшиппинг-платформы. Своя CRM, Нова Пошта, онлайн-оплата, 1 год поддержки."
+}
+</script>
+
+<script type="application/ld+json" nonce="{{ csp_nonce }}">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Сколько стоит создание интернет-магазина?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Стоимость создания интернет-магазина рассчитывается индивидуально и зависит от выбранного пакета («Старт», «Бизнес», «Премиум»), количества товаров, нужных интеграций и сложности дизайна. Заполните бриф на сайте — рассчитаем детальную смету под ваш проект."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Чем разработка отличается от создания?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Создание — это полный цикл запуска магазина с нуля: дизайн, вёрстка, программирование, наполнение. Разработка — это техническая составляющая: написание кода, интеграции, кастомные модули. Мы делаем и то, и другое в рамках одного проекта."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Что означает «интернет-магазин под ключ»?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Магазин под ключ — это готовый проект: дизайн, программирование, интеграции с платёжными системами и доставкой, наполнение товарами, настройка админки, мобильная версия, базовое SEO. Вы получаете рабочий магазин и сразу начинаете продажи."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Как заказать интернет-магазин?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Оставьте заявку в форме на странице или заполните бриф (5 вопросов). Мы перезвоним в течение 15 минут, обсудим задачу, дадим ориентировочную стоимость и сроки. После подписания договора начинаем работу."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Сколько времени занимает разработка?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Стандартный срок запуска — 3 недели для тарифа «Старт», 4-6 недель для «Бизнес», 6-10 недель для «Премиум» с дропшиппингом. Сроки зависят от количества товаров, интеграций и сложности дизайна."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Делаете ли вы дропшиппинг-платформы?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Да, мы создаём полноценные дропшиппинг-сайты с парсингом поставщиков, авто-синхронизацией остатков и цен, маршрутизацией заказов напрямую к поставщику и собственной CRM с учётом маржи."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Можно ли перенести магазин с Prom или Rozetka?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Да, выполняем миграцию с Prom, Rozetka, Horoshop, OpenCart, WooCommerce, Shopify и других платформ. Переносим товары, категории, заказы, клиентов — без потерь и простоя магазина."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Входит ли SEO и реклама в стоимость?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Базовое SEO (meta-теги, ЧПУ-URL, sitemap, микроразметка) входит во все тарифы. Расширенное SEO с блогом — в тарифе «Бизнес» и выше. Контекстная реклама (Google Ads) настраивается отдельно по договорённости."
+            }
+        }
+    ]
+}
+</script>
+
+<script type="application/ld+json" nonce="{{ csp_nonce }}">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "PrometeyLabs", "item": "https://prometeylabs.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Услуги по разработке", "item": "https://prometeylabs.com/services/"},
+        {"@type": "ListItem", "position": 3, "name": "Интернет-магазины под ключ", "item": "https://prometeylabs.com/internet-shop-ru/"}
+    ]
+}
+</script>
 {% endblock %}
 
 {% block page_css %}
@@ -21,9 +125,9 @@
 <link rel="preload" as="image" href="{% static 'images/shop_page_hero_desc.webp' %}" media="(min-width: 768px)" fetchpriority="high">
 <link rel="preload" as="image" href="{% static 'images/shop_page_hero_mob.webp' %}" media="(max-width: 767px)" fetchpriority="high">
 <!-- Page CSS — loaded non-blocking to eliminate render-blocking resource -->
-<link rel="preload" href="{% static 'css/internet-shop.css' %}?v=7" as="style">
-<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=7" media="print" data-async-css>
-<noscript><link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=7"></noscript>
+<link rel="preload" href="{% static 'css/internet-shop.css' %}?v=14" as="style">
+<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=14" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=14"></noscript>
 {% endblock %}
 
 {% block extra_js %}
@@ -55,10 +159,13 @@
                 <!-- Grid row 1, col 1: title -->
                 <div class="is-hero__left-title">
                     <h1 class="is-hero__title">
-                        Интернет-магазины<br>
-                        от <span class="is-accent">PrometeyLabs</span>
-                        <span class="is-hero__title-price">под ключ от $700</span>
+                        <span class="is-hero__title-kw" data-dki data-dki-fallback="Создание интернет-магазина">Создание интернет-магазина</span><br>
+                        <span class="is-accent">под ключ для вашего бизнеса</span>
+                        <span class="is-hero__title-price">запуск за 3 недели · 1 год поддержки</span>
                     </h1>
+                    <p class="is-hero__subtitle">
+                        Разработка с нуля, доработка существующего, миграция с Prom / Rozetka, дропшиппинг-платформы. Закажите интернет-магазин с годовой поддержкой — без ежемесячных абонплат.
+                    </p>
                 </div>
 
                 <!-- Grid row 1, col 2: image -->
@@ -154,13 +261,31 @@
                         </div>
                     </div>
                     <div class="is-hero__cta">
-                        <button class="btn btn-primary btn-large mobile-touch-target"
-                                data-modal="call-request-modal"
-                                type="button">
-                            Бесплатная консультация ↗
-                        </button>
-                        <a href="#brief" class="btn btn-secondary btn-large mobile-touch-target">
-                            Рассчитать стоимость онлайн ↗
+                        <form class="is-hero__inline-form"
+                              method="post"
+                              action="{% url 'form_submit' %}"
+                              data-form-type="call_request">
+                            {% csrf_token %}
+                            <input type="hidden" name="form_type" value="call_request">
+                            <input type="hidden" name="source_page" value="internet-shop-ru-hero">
+                            <p class="is-hero__inline-form__title">Оставьте заявку — перезвоним за 5 минут</p>
+                            <div class="is-hero__inline-form__row">
+                                <input type="text" name="name"
+                                       class="form-input mobile-form-input mobile-touch-target"
+                                       autocomplete="given-name" inputmode="text"
+                                       placeholder="Ваше имя" required>
+                                <input type="tel" name="phone"
+                                       class="form-input mobile-form-input mobile-touch-target"
+                                       autocomplete="tel" inputmode="tel"
+                                       placeholder="+38(___)__-__-___" required>
+                                <button type="submit" class="btn btn-primary btn-large mobile-touch-target">
+                                    Заказать звонок →
+                                </button>
+                            </div>
+                            <p class="is-hero__inline-form__hint">Бесплатная консультация. Без обязательств.</p>
+                        </form>
+                        <a href="#brief" class="is-hero__cta-secondary">
+                            или рассчитайте стоимость онлайн в брифе ↓
                         </a>
                     </div>
                 </div>
@@ -168,6 +293,20 @@
             </div>
         </div>
     </section>
+
+    <!-- ===== STICKY ANCHOR SUB-NAV ===== -->
+    <nav class="is-anchor-nav" aria-label="Разделы страницы">
+        <div class="container">
+            <ul class="is-anchor-nav__list">
+                <li><a href="#sozdanie">Создание с нуля</a></li>
+                <li><a href="#razrabotka">Разработка</a></li>
+                <li><a href="#pod-klyuch">Под ключ</a></li>
+                <li><a href="#tsena">Цена и пакеты</a></li>
+                <li><a href="#dropshipping">Дропшиппинг</a></li>
+                <li><a href="#brief">Заказать</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <!-- ===== BLOCK 2: GUARANTEE STRIP ===== -->
     <section class="is-guarantee-strip">
@@ -195,16 +334,78 @@
         </div>
     </section>
 
-    <!-- ===== BLOCK 3: WHAT'S INCLUDED ===== -->
-    <section class="is-included is-bg-section is-section">
+    <!-- ===== PRICING (id=tsena) ===== -->
+    <section class="is-pricing is-section is-section--surface" id="tsena">
+        <div class="container">
+            <span class="is-section__label">Цена на создание интернет-магазина — пакеты</span>
+            <h2 class="is-section__title">Сколько стоит интернет-магазин под ключ<br>выберите свой пакет</h2>
+            <p class="is-section__subtitle is-section__subtitle--wide">Тарифы под разный объём работ и автоматизаций. Финальная стоимость зависит от количества товаров и интеграций — уточните в брифе ниже.</p>
+
+            <div class="is-pricing__grid">
+                <article class="is-pricing-card">
+                    <p class="is-pricing-card__name">Старт</p>
+                    <p class="is-pricing-card__desc">Создание интернет-магазина с нуля под небольшой каталог</p>
+                    <ul class="is-pricing-card__list">
+                        <li>До 100 товаров</li>
+                        <li>Базовая административная панель</li>
+                        <li>Интеграция с Новой Почтой</li>
+                        <li>Интеграция платёжных систем</li>
+                        <li>Мобильная версия + базовое SEO</li>
+                        <li>1 год бесплатной поддержки</li>
+                    </ul>
+                    <a href="#brief" class="btn btn-secondary mobile-touch-target">Узнать стоимость</a>
+                </article>
+
+                <article class="is-pricing-card is-pricing-card--featured">
+                    <span class="is-pricing-card__badge">Популярный</span>
+                    <p class="is-pricing-card__name">Бизнес</p>
+                    <p class="is-pricing-card__desc">Разработка магазина под ключ для активных продаж</p>
+                    <ul class="is-pricing-card__list">
+                        <li>До 1 000 товаров</li>
+                        <li>Расширенная административная панель с ролями</li>
+                        <li>CRM, Telegram/Email-уведомления</li>
+                        <li>Личный кабинет покупателя</li>
+                        <li>Акции, промокоды, скидки</li>
+                        <li>Интеграция платёжных систем</li>
+                        <li>Интеграция с Новой Почтой, Укрпочтой</li>
+                        <li>Расширенное SEO + блог</li>
+                        <li>1 год бесплатной поддержки</li>
+                    </ul>
+                    <a href="#brief" class="btn btn-primary mobile-touch-target">Узнать стоимость</a>
+                </article>
+
+                <article class="is-pricing-card">
+                    <p class="is-pricing-card__name">Премиум</p>
+                    <p class="is-pricing-card__desc">Магазин под ключ или дропшиппинг-платформа для масштаба</p>
+                    <ul class="is-pricing-card__list">
+                        <li>10 000+ товаров</li>
+                        <li>Парсинг поставщиков</li>
+                        <li>Авто-синхронизация остатков и цен</li>
+                        <li>Дропшиппинг-модули</li>
+                        <li>Своя CRM с учётом маржи</li>
+                        <li>Миграция с Prom / Rozetka / Horoshop</li>
+                        <li>Автообновление через Google Таблицы</li>
+                        <li>1 год бесплатной поддержки</li>
+                    </ul>
+                    <a href="#brief" class="btn btn-secondary mobile-touch-target">Узнать стоимость</a>
+                </article>
+            </div>
+
+            <p class="is-pricing__note">
+                Точную цену создания интернет-магазина рассчитаем индивидуально под ваш каталог и интеграции — заполните бриф ниже, рассчитаем детальную смету.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 3a: СОЗДАНИЕ С НУЛЯ (id=sozdanie) ===== -->
+    <section class="is-included is-bg-section is-section" id="sozdanie">
         <div class="is-bg-overlay is-bg-overlay--section" aria-hidden="true"></div>
         <div class="container is-bg-section__inner">
-            <span class="is-section__label">Разрабатываем гибкие решения</span>
-            <h2 class="is-section__title">Интернет-магазин под ключ</h2>
+            <span class="is-section__label">Разработка под ваш бренд</span>
+            <h2 class="is-section__title">Создание интернет-магазина с нуля под вашу нишу</h2>
+            <p class="is-section__subtitle">Создадим интернет-магазин с нуля под ваш каталог: дизайн, вёрстка, программирование, наполнение товарами. Создание сайта для онлайн-продажи товаров с полным функционалом под ваш бизнес.</p>
 
             <div class="is-included__grid">
-
-                <!-- Group A: Features -->
                 <div>
                     <p class="is-included__subhead">Функционал магазина</p>
                     <ul class="is-feature-list">
@@ -218,7 +419,6 @@
                     </ul>
                 </div>
 
-                <!-- Group B: Migration -->
                 <div class="is-migration-block">
                     <span class="is-migration-block__badge">Есть товары — перенесём за вас</span>
                     <p class="is-migration-block__title">Миграция и наполнение</p>
@@ -230,9 +430,63 @@
                         <li>Реферальные ссылки и UTM-разметка</li>
                     </ul>
                 </div>
-
             </div>
+        </div>
+    </section>
 
+    <!-- ===== BLOCK 3b: РАЗРАБОТКА (id=razrabotka) ===== -->
+    <section class="is-rozrobka is-section is-section--surface" id="razrabotka">
+        <div class="container">
+            <span class="is-section__label">Кастомный код, без шаблонов</span>
+            <h2 class="is-section__title">Разработка интернет-магазина</h2>
+            <p class="is-section__subtitle">Разработка интернет-магазина с нуля без шаблонов и плагинов — только чистый код и кастомные модули. Это даёт максимальную скорость, гибкость и независимость от чужих обновлений.</p>
+
+            <ul class="is-feature-list is-feature-list--2col">
+                <li>Архитектура под ваш бизнес-процесс</li>
+                <li>Разработка кастомных модулей (бонусная система, программа лояльности, складской учёт)</li>
+                <li>Поддержка высоких нагрузок — десятки тысяч товаров и посетителей</li>
+                <li>Без ежемесячных абонплат — оплата только за разработку, далее магазин ваш навсегда</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===== BLOCK 3c: ПОД КЛЮЧ (id=pod-klyuch) ===== -->
+    <section class="is-pid-klyuch is-bg-section is-section" id="pod-klyuch">
+        <div class="is-bg-overlay is-bg-overlay--section" aria-hidden="true"></div>
+        <div class="container is-bg-section__inner">
+            <span class="is-section__label">Готов к продажам</span>
+            <h2 class="is-section__title">Интернет-магазин под ключ — что входит в стоимость</h2>
+            <p class="is-section__subtitle">Заказать интернет-магазин под ключ — значит получить полностью готовый к продажам проект. Делаем всё: от дизайна до запуска, вы только принимаете заказы.</p>
+
+            <ul class="is-feature-list is-feature-list--2col">
+                <li>Уникальный дизайн под ваш бренд</li>
+                <li>Полноценная админ-панель без ограничений</li>
+                <li>Интеграции с платёжными системами (LiqPay, Monobank, WayForPay, Fondy и другие)</li>
+                <li>Подключение Новой Почты, Укрпочты</li>
+                <li>CRM (KeyCRM / NetHunt / SalesDrive) или собственная CRM</li>
+                <li>Базовое наполнение категорий и первые 50 товаров</li>
+                <li>Базовое SEO — meta-теги, sitemap, микроразметка</li>
+                <li>Запуск, обучение работе с админкой, 1 год поддержки</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===== DROPSHIPPING (id=dropshipping) ===== -->
+    <section class="is-dropshipping is-bg-section is-section" id="dropshipping">
+        <div class="is-bg-overlay is-bg-overlay--section" aria-hidden="true"></div>
+        <div class="container is-bg-section__inner">
+            <span class="is-section__label">Отдельный продукт</span>
+            <h2 class="is-section__title">Создание сайта для дропшиппинга</h2>
+            <p class="is-section__subtitle">
+                Разрабатываем дропшиппинг-платформы с автоматическим парсингом поставщиков, синхронизацией остатков и проброской заказов напрямую к поставщику. Создадим дропшиппинг-сайт под ключ.
+            </p>
+            <ul class="is-dropshipping__list">
+                <li>Парсинг товаров с любого сайта поставщика</li>
+                <li>Автоматическое обновление цен и остатков</li>
+                <li>Маршрутизация заказов поставщикам</li>
+                <li>Своя CRM с учётом маржи</li>
+            </ul>
+            <button data-modal="call-request-modal" class="btn btn-primary mobile-touch-target is-dropshipping__cta" type="button">Заказать дропшиппинг-платформу</button>
         </div>
     </section>
 
@@ -406,6 +660,88 @@
         </div>
     </section>
 
+    <!-- ===== FAQ (id=faq) ===== -->
+    <section class="is-faq is-section is-section--dark" id="faq">
+        <div class="container container-narrow">
+            <span class="is-section__label">Частые вопросы</span>
+            <h2 class="is-section__title">Всё о создании интернет-магазина</h2>
+
+            <details class="is-faq__item">
+                <summary>Сколько стоит создание интернет-магазина?</summary>
+                <p>Стоимость создания интернет-магазина рассчитывается индивидуально и зависит от выбранного пакета («Старт», «Бизнес», «Премиум»), количества товаров, нужных интеграций и сложности дизайна. Тариф «Старт» подходит для каталога до 100 товаров, «Бизнес» — для активных продаж с расширенной CRM, «Премиум» — для дропшиппинг-платформ и масштаба. Заполните бриф на сайте — рассчитаем детальную смету под ваш проект.</p>
+            </details>
+
+            <details class="is-faq__item">
+                <summary>Чем разработка отличается от создания?</summary>
+                <p>Создание — это полный цикл запуска магазина с нуля: дизайн, вёрстка, программирование, наполнение. Разработка — это техническая составляющая: написание кода, интеграции, кастомные модули. Мы делаем и то, и другое в рамках одного проекта под ключ.</p>
+            </details>
+
+            <details class="is-faq__item">
+                <summary>Что означает «интернет-магазин под ключ»?</summary>
+                <p>Магазин под ключ — это готовый проект: дизайн, программирование, интеграции с платёжными системами и доставкой, наполнение товарами, настройка админки, мобильная версия, базовое SEO. Вы получаете рабочий магазин и сразу начинаете продажи.</p>
+            </details>
+
+            <details class="is-faq__item">
+                <summary>Как заказать интернет-магазин?</summary>
+                <p>Оставьте заявку в форме на странице или заполните бриф (5 вопросов). Мы перезвоним в течение 15 минут, обсудим задачу, дадим ориентировочную стоимость и сроки. После подписания договора начинаем работу.</p>
+            </details>
+
+            <details class="is-faq__item">
+                <summary>Сколько времени занимает разработка?</summary>
+                <p>Стандартный срок запуска — 3 недели для тарифа «Старт», 4–6 недель для «Бизнес», 6–10 недель для «Премиум» с дропшиппингом и парсингом. Сроки зависят от количества товаров, интеграций и сложности дизайна.</p>
+            </details>
+
+            <details class="is-faq__item">
+                <summary>Делаете ли вы дропшиппинг-платформы?</summary>
+                <p>Да, мы создаём полноценные дропшиппинг-сайты с парсингом поставщиков, авто-синхронизацией остатков и цен, маршрутизацией заказов напрямую к поставщику и собственной CRM с учётом маржи.</p>
+            </details>
+
+            <details class="is-faq__item">
+                <summary>Можно ли перенести магазин с Prom или Rozetka?</summary>
+                <p>Да, выполняем миграцию с Prom, Rozetka, Horoshop, OpenCart, WooCommerce, Shopify и других платформ. Переносим товары, категории, заказы, клиентов — без потерь и простоя магазина.</p>
+            </details>
+
+            <details class="is-faq__item">
+                <summary>Входит ли SEO и реклама в стоимость?</summary>
+                <p>Базовое SEO (meta-теги, ЧПУ-URL, sitemap, микроразметка) входит во все тарифы. Расширенное SEO с блогом — в тарифе «Бизнес» и выше. Контекстная реклама (Google Ads) настраивается отдельно по договорённости.</p>
+            </details>
+        </div>
+    </section>
+
+    <!-- ===== SEO LONGTEXT (collapsible) ===== -->
+    <section class="is-seo-text" id="seo-detail">
+        <div class="container container-narrow">
+            <details class="is-seo-text__details">
+                <summary>Подробнее об услуге: создание, разработка, цены и сроки</summary>
+                <div class="is-seo-text__body">
+                    <h3>Создание интернет-магазина под ключ</h3>
+                    <p>Создание интернет-магазина под ключ — это наше профильное направление. Мы делаем полный цикл: от первой консультации и анализа ниши до запуска магазина, обучения работе с админкой и годовой бесплатной поддержки. Создадим интернет-магазин любой сложности — от небольшого каталога на 50 товаров до крупных платформ с десятками тысяч позиций и автоматическим парсингом поставщиков.</p>
+
+                    <h3>Разработка интернет-магазина с нуля</h3>
+                    <p>Разработка интернет-магазина с нуля предполагает индивидуальную архитектуру кода, без шаблонов и плагинов. Это даёт максимальную скорость работы сайта, гибкость в добавлении новых функций и полную независимость от чужих обновлений. Разработка интернет-магазинов на собственном коде — это ваша инвестиция в стабильность бизнеса: ваш магазин не «сломается» из-за того, что автор плагина перестал его поддерживать.</p>
+
+                    <h3>Заказать интернет-магазин — как мы работаем</h3>
+                    <p>Заказать интернет-магазин у нас просто: оставьте заявку, мы перезвоним за 15 минут и обсудим задачу. Далее — короткий бриф, фиксация стоимости, договор и старт работ. Первый прототип — за 5–7 дней. Запуск — за 3 недели для тарифа «Старт». Закажите интернет-магазин сегодня, и уже через месяц ваш бизнес получит работающий онлайн-канал продаж.</p>
+
+                    <h3>Цена на разработку интернет-магазинов</h3>
+                    <p>Цена на разработку интернет-магазина зависит от объёма работ, количества товаров, сложности интеграций и необходимых автоматизаций. Тариф «Старт» подходит для небольшого каталога с базовыми интеграциями. Тариф «Бизнес» включает расширенную CRM, все онлайн-оплаты, личный кабинет покупателя и расширенное SEO. Тариф «Премиум» — это создание дропшиппинг-платформы с парсингом поставщиков, собственной CRM с учётом маржи, миграцией с Prom или Rozetka. Цена создания интернет-магазина фиксируется после утверждения ТЗ — без скрытых платежей. Рассчитаем стоимость индивидуально после короткого брифа — детальная смета под ваш проект.</p>
+
+                    <h3>Создать сайт для онлайн-продажи товаров</h3>
+                    <p>Создать сайт для онлайн-продажи товаров — это не просто вёрстка каталога. Это система: каталог с фильтрами, корзина, оформление заказа, личный кабинет покупателя, интеграция с платёжными системами (LiqPay, Monobank, WayForPay, Fondy), подключение служб доставки (Нова Пошта, Укрпошта, Justin), CRM-система для обработки заказов, email- и Telegram-уведомления, аналитика. Мы создадим сайт для онлайн-продажи под вашу нишу — с учётом специфики товаров и поведения ваших клиентов.</p>
+
+                    <h3>Создание сайта для дропшиппинга</h3>
+                    <p>Создание сайта для дропшиппинга — отдельное направление нашей работы. Дропшиппинг-платформа требует особой архитектуры: парсинг товаров с сайтов поставщиков, автоматическое обновление цен и остатков несколько раз в день, маршрутизация заказов напрямую к поставщику, контроль выполнения заказов, учёт маржи по каждому поставщику. Создадим дропшиппинг-сайт с нуля или переделаем существующий магазин в дропшиппинг-платформу.</p>
+
+                    <h3>Магазин под ключ — что это означает</h3>
+                    <p>Магазин под ключ — это полностью готовый к работе проект. Вы получаете: уникальный дизайн под ваш бренд, программирование на собственном коде, полноценную админ-панель, все необходимые интеграции, базовое наполнение товарами, мобильную версию, базовое SEO, обучение работе с админкой и 1 год бесплатной технической поддержки. Закажите интернет-магазин под ключ — и сразу начинайте продажи, без дополнительных затрат на доработки.</p>
+
+                    <h3>Миграция магазина с Prom, Rozetka, Horoshop</h3>
+                    <p>Если у вас уже есть магазин на Prom, Rozetka, Horoshop, OpenCart, WooCommerce или Shopify — мы перенесём его на собственную платформу без потерь. Миграция включает перенос товаров с фотографиями и описаниями, категорий, истории заказов, клиентской базы и SEO-структуры. Магазин продолжает работать во время миграции — без простоя и потери продаж. Это лучший путь освободиться от ограничений платформ и получить полный контроль над магазином.</p>
+                </div>
+            </details>
+        </div>
+    </section>
+
     <!-- ===== BLOCK 9: QUIZ BRIEF ===== -->
     <section class="is-brief is-bg-section" id="brief">
         <div class="is-bg-overlay is-bg-overlay--section" aria-hidden="true"></div>
@@ -513,6 +849,13 @@
             </form>
         </div>
     </section>
+
+    <!-- ===== STICKY MOBILE CTA BAR ===== -->
+    <div class="is-sticky-bar" data-sticky-cta>
+        <button data-modal="call-request-modal" class="is-sticky-bar__cta" type="button">
+            Заказать магазин
+        </button>
+    </div>
 
 </div>
 {% endblock %}
