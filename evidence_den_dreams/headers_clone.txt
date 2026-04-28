@@ -1,0 +1,12 @@
+HTTP/2 200 
+server: nginx
+date: Mon, 27 Apr 2026 21:47:44 GMT
+content-type: text/html
+content-length: 78722
+vary: Accept-Encoding
+x-accel-version: 0.01
+last-modified: Mon, 27 Apr 2026 21:47:32 GMT
+etag: "13382-650780fe17fc2"
+accept-ranges: bytes
+vary: Accept-Encoding,User-Agent
+

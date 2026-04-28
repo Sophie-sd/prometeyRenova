@@ -1,0 +1,64 @@
+inetnum:        65.108.39.53 - 65.108.39.53
+netname:        HOS-45522
+descr:          HOS-45522
+country:        DE
+admin-c:        AK7352-RIPE
+tech-c:         AK7352-RIPE
+status:         ASSIGNED PA
+mnt-by:         HOS-GUN
+created:        2023-03-14T02:30:58Z
+last-modified:  2024-09-19T01:05:40Z
+source:         RIPE # Filtered
+
+person:         Andrey Khvetkevich
+address:        NIC.UA
+address:        23 M Dontsa Apt 46
+address:        03126 Kyiv
+address:        UKRAINE
+phone:          +380503207388
+fax-no:         +380445937569
+nic-hdl:        AK7352-RIPE
+mnt-by:         HOS-GUN
+created:        2011-04-12T00:45:18Z
+last-modified:  2019-02-28T09:06:24Z
+source:         RIPE # Filtered
+
+% Information related to '65.108.0.0/16AS24940'
+
+route:          65.108.0.0/16
+org:            ORG-HOA1-RIPE
+descr:          HETZNER-DC
+origin:         AS24940
+mnt-by:         HOS-GUN
+created:        2021-06-25T09:19:58Z
+last-modified:  2021-06-25T09:19:58Z
+source:         RIPE
+
+organisation:   ORG-HOA1-RIPE
+org-name:       Hetzner Online GmbH
+country:        DE
+org-type:       LIR
+address:        Industriestrasse 25
+address:        D-91710
+address:        Gunzenhausen
+address:        GERMANY
+phone:          +49 9831 5050
+fax-no:         +49 9831 5053
+admin-c:        MF1400-RIPE
+admin-c:        GM834-RIPE
+admin-c:        HOAC1-RIPE
+admin-c:        MH375-RIPE
+admin-c:        SK2374-RIPE
+admin-c:        SK8441-RIPE
+abuse-c:        HOAC1-RIPE
+mnt-ref:        RIPE-NCC-HM-MNT
+mnt-ref:        HOS-GUN
+mnt-by:         RIPE-NCC-HM-MNT
+mnt-by:         HOS-GUN
+created:        2004-04-17T11:07:58Z
+last-modified:  2022-11-22T18:32:44Z
+source:         RIPE # Filtered
+
+% This query was served by the RIPE Database Query Service version 1.121.2 (DEXTER)
+
+

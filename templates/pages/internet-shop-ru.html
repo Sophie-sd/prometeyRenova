@@ -122,9 +122,8 @@
     imagesrcset="{% static 'images/shop_hero_540.webp' %} 540w, {% static 'images/shop_hero.webp' %} 1080w"
     imagesizes="(max-width: 767px) 320px, (max-width: 1199px) 400px, 540px"
     fetchpriority="high">
-<!-- BG parallax images -->
-<link rel="preload" as="image" href="{% static 'images/shop_page_hero_desc.webp' %}" media="(min-width: 768px)" fetchpriority="high">
-<link rel="preload" as="image" href="{% static 'images/shop_page_hero_mob.webp' %}" media="(max-width: 767px)" fetchpriority="high">
+<!-- BG parallax images — only desktop preloaded; mobile bg loads via CSS without competing with hero LCP <img> -->
+<link rel="preload" as="image" href="{% static 'images/shop_page_hero_desc.webp' %}" media="(min-width: 768px)" fetchpriority="low">
 <!-- Page CSS — loaded non-blocking to eliminate render-blocking resource -->
 <link rel="preload" href="{% static 'css/internet-shop.css' %}?v=15" as="style">
 <link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=15" media="print" data-async-css>

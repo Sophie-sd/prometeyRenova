@@ -122,9 +122,8 @@
     imagesrcset="{% static 'images/shop_hero_540.webp' %} 540w, {% static 'images/shop_hero_720.webp' %} 720w, {% static 'images/shop_hero.webp' %} 1080w"
     imagesizes="(max-width: 767px) 320px, (max-width: 1023px) 400px, 540px"
     fetchpriority="high">
-<!-- BG parallax images -->
-<link rel="preload" as="image" href="{% static 'images/shop_page_hero_desc.webp' %}" media="(min-width: 768px)" fetchpriority="high">
-<link rel="preload" as="image" href="{% static 'images/shop_page_hero_mob.webp' %}" media="(max-width: 767px)" fetchpriority="high">
+<!-- BG parallax images — only desktop preloaded; mobile bg loads via CSS without competing with hero LCP <img> -->
+<link rel="preload" as="image" href="{% static 'images/shop_page_hero_desc.webp' %}" media="(min-width: 768px)" fetchpriority="low">
 <!-- Critical above-the-fold CSS inline — prevents CLS and enables LCP image paint before full CSS loads -->
 <style>
 .is-page{background:var(--color-black);color:var(--color-white)}.is-page .btn{border-radius:8px}.is-page .container{margin-top:0}.is-hero .container{margin-top:60px}

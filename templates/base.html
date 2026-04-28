@@ -49,13 +49,57 @@
     <!-- Resource hints — before CSS for parallel DNS/TCP -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="dns-prefetch" href="https://widgets.binotel.com">
 
-    <!-- CSS Base Bundle (core + components in one request) -->
-    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=4">
+    <!-- Critical above-the-fold CSS (header + body) — inline, eliminates render-blocking -->
+    <style>
+:root{--color-brand-orange:#E65100;--color-brand-purple:#7B2CBF;--color-black:#000;--color-white:#FFF;--color-beige:#bab8b7;--color-beige-alt:#FAF7F2;--color-gray:#F8F8F8;--font-medium:clamp(20px,3vw,24px);--font-base:14px;--space-xs:clamp(16px,2vw,20px);--transition-normal:300ms;--easing-default:ease-out;--radius-sm:8px;--z-navigation:1000;--z-burger-button:10001}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-weight:400;line-height:1.5;color:#000;background-color:var(--color-beige);overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none;color:inherit}
+ul,ol{list-style:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+.main-content{position:relative}
+.main-navigation{position:fixed;top:0;left:0;right:0;z-index:var(--z-navigation);padding:var(--space-xs) 0;background:transparent;transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.nav-container{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1400px;margin:0 auto;padding:0 var(--space-xs)}
+.nav-logo-section{flex:0 0 auto}
+.nav-logo{font-size:var(--font-medium);font-weight:700;color:var(--color-white);text-decoration:none;letter-spacing:-.5px}
+.nav-logo-labs{color:var(--color-brand-purple)}
+.nav-menu{display:flex;align-items:center;gap:clamp(16px,2vw,24px);list-style:none;margin:0;padding:0;justify-content:center;flex-wrap:wrap}
+.nav-link{font-size:var(--font-base);font-weight:700;color:var(--color-white);text-decoration:none;text-transform:lowercase;letter-spacing:.5px;white-space:nowrap;padding:8px 4px}
+.language-switcher{display:flex;gap:8px;align-items:center}
+.lang-btn{padding:6px 12px;border-radius:var(--radius-sm);text-decoration:none;font-weight:500;font-size:14px;color:#fff;border:1px solid rgba(255,255,255,.3)}
+.lang-btn.active{background:var(--color-brand-orange);border-color:var(--color-brand-orange)}
+.burger-menu{display:none;width:40px;height:40px;position:relative;cursor:pointer;background:transparent;border:none;padding:0;z-index:var(--z-burger-button)}
+.burger-line{position:absolute;width:26px;height:2px;background:var(--color-white);left:50%;transform:translateX(-50%);transition:all .4s cubic-bezier(.68,-.55,.265,1.55)}
+.burger-line:nth-child(1){top:10px}
+.burger-line:nth-child(2){top:19px}
+.burger-line:nth-child(3){top:28px}
+@media(max-width:767px){.burger-menu{display:flex;align-items:center;justify-content:center}.nav-menu,.language-switcher{display:none}}
+    </style>
+
+    <!-- CSS Base Bundle — non-blocking (preload + media-print swap on load) -->
+    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=4" as="style">
+    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=4" media="print" data-async-css>
+    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=4"></noscript>
 
     <!-- Page specific CSS -->
     {% block page_css %}{% endblock %}
     {% block extra_css %}{% endblock %}
+
+    <!-- Activate non-blocking CSS as soon as it loads (eliminates FOUC, no defer wait) -->
+    <script nonce="{{ csp_nonce }}">
+    (function(){
+        function swap(l){if(l&&l.media!=='all'){l.media='all';}}
+        document.querySelectorAll('link[data-async-css]').forEach(function(l){
+            if(l.sheet){swap(l);return;}
+            l.addEventListener('load',function(){swap(l);},{once:true});
+            l.addEventListener('error',function(){swap(l);},{once:true});
+        });
+    })();
+    </script>
 
     <!-- CSRF Token для JavaScript -->
     <meta name="csrf-token" content="{{ csrf_token }}">
@@ -172,9 +216,26 @@
     <script src="{% static 'js/core/gclid-capture.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/core/utils.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/mobile-core.js' %}" nonce="{{ csp_nonce }}" defer></script>
-    <script src="{% static 'js/video-system.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/core/phone-mask.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/base.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <!-- video-system.js: load only on pages that actually contain <video> (skips landings without media) -->
+    <script nonce="{{ csp_nonce }}">
+    (function(){
+        function load(){
+            if(window._vsL)return;window._vsL=1;
+            var s=document.createElement('script');
+            s.src='{% static "js/video-system.js" %}';
+            s.defer=true;
+            s.setAttribute('nonce','{{ csp_nonce }}');
+            s.nonce='{{ csp_nonce }}';
+            document.head.appendChild(s);
+        }
+        function check(){if(document.querySelector('video'))load();}
+        if(document.readyState==='loading'){
+            document.addEventListener('DOMContentLoaded',check,{once:true});
+        }else{check();}
+    })();
+    </script>
     {% get_current_language as CURRENT_LANG %}
     {% if CURRENT_LANG == 'ru' %}
     <script src="{% static 'js/lang-suggest.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
@@ -194,13 +255,24 @@
     {% endif %}
     {% block analytics %}{% endblock %}
 
-    <!-- Binotel Callback Widget -->
-    <script nonce="{{ csp_nonce }}" type="text/javascript">
-    (function(d, w, s) {
-        var widgetHash = 'l56yaebg15ryumsv6p3x', gcw = d.createElement(s); gcw.type = 'text/javascript'; gcw.async = true;
-        gcw.src = 'https://widgets.binotel.com/getcall/widgets/'+ widgetHash +'.js';
-        var sn = d.getElementsByTagName(s)[0]; sn.parentNode.insertBefore(gcw, sn);
-    })(document, window, 'script');
+    <!-- Binotel Callback Widget — deferred until user interaction or 5s to reduce TBT -->
+    <script nonce="{{ csp_nonce }}">
+    (function(d, w){
+        function _loadBinotel(){
+            if(w._binotelL)return;
+            w._binotelL=1;
+            var s=d.createElement('script');
+            s.type='text/javascript';
+            s.async=true;
+            s.setAttribute('nonce','{{ csp_nonce }}');
+            s.nonce='{{ csp_nonce }}';
+            s.src='https://widgets.binotel.com/getcall/widgets/l56yaebg15ryumsv6p3x.js';
+            (d.head||d.body).appendChild(s);
+        }
+        w._loadBinotel=_loadBinotel;
+        ['scroll','click','touchstart','keydown'].forEach(function(e){w.addEventListener(e,_loadBinotel,{once:true,passive:true});});
+        setTimeout(_loadBinotel,5000);
+    })(document, window);
     </script>
 </body>
 
