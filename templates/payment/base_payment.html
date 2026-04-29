@@ -13,8 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'payment/css/payment.css' %}">
     {% block page_css %}{% endblock %}
-    <script src="{% static 'payment/js/copy.js' %}" defer></script>
-    <script src="{% static 'payment/js/payment.js' %}" defer></script>
+    <script src="{% static 'payment/js/copy.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'payment/js/payment.js' %}" nonce="{{ csp_nonce }}" defer></script>
     {% block page_js %}{% endblock %}
 </head>
 <body class="pay-body">
