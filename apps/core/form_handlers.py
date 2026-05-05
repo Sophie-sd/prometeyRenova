@@ -84,6 +84,9 @@ def create_form_data(form_type, name, phone, request, **extra_fields):
         'utm_term': request.POST.get('utm_term', '').strip(),
         'utm_content': request.POST.get('utm_content', '').strip(),
     }
+    source_page = request.POST.get('source_page', '').strip()
+    if source_page:
+        form_data['source_page'] = source_page
     form_data.update(extra_fields)
     return form_data
 

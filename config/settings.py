@@ -159,10 +159,28 @@ FACEBOOK_PIXEL_ID = os.environ.get('FACEBOOK_PIXEL_ID', '1991082531458369')
 # KEYCRM
 KEYCRM_API_KEY = os.environ.get('KEYCRM_API_KEY', '')
 KEYCRM_PIPELINE_ID = int(os.environ.get('KEYCRM_PIPELINE_ID', '1'))
+# Загальний fallback source_id для заявок без платних UTM і без лендінгових ознак
+# (форми з головної, footer, контактів тощо).
 KEYCRM_SOURCE_ID = os.environ.get('KEYCRM_SOURCE_ID', '')
 KEYCRM_GCLID_FIELD_UUID = os.environ.get('KEYCRM_GCLID_FIELD_UUID', '')
 KEYCRM_WEBHOOK_SECRET = os.environ.get('KEYCRM_WEBHOOK_SECRET', '')
 KEYCRM_SUCCESS_STATUS_ID = os.environ.get('KEYCRM_SUCCESS_STATUS_ID', '')
+
+# KEYCRM — розподіл джерел: платний Google Ads vs органіка з лендінгів.
+# Числові ID джерел з KeyCRM (Налаштування → Джерела). Якщо ID не задано —
+# resolver використає наступний у пріоритеті або загальний KEYCRM_SOURCE_ID.
+KEYCRM_SOURCE_PAID_SHOPS = os.environ.get('KEYCRM_SOURCE_PAID_SHOPS', '')
+KEYCRM_SOURCE_PAID_CORPORATE = os.environ.get('KEYCRM_SOURCE_PAID_CORPORATE', '')
+KEYCRM_SOURCE_PAID_ALL = os.environ.get('KEYCRM_SOURCE_PAID_ALL', '')
+KEYCRM_SOURCE_ORGANIC_SHOPS = os.environ.get('KEYCRM_SOURCE_ORGANIC_SHOPS', '')
+KEYCRM_SOURCE_ORGANIC_CORPORATE = os.environ.get('KEYCRM_SOURCE_ORGANIC_CORPORATE', '')
+
+# Підрядки для зіставлення utm_campaign з потрібним джерелом (через кому, case-insensitive).
+# Перевірка йде в порядку: Corporate → Shops → All (щоб уникнути колізій,
+# наприклад коли utm_campaign містить і "shops" і "corporate" одночасно).
+KEYCRM_UTM_MATCH_PAID_CORPORATE = os.environ.get('KEYCRM_UTM_MATCH_PAID_CORPORATE', '')
+KEYCRM_UTM_MATCH_PAID_SHOPS = os.environ.get('KEYCRM_UTM_MATCH_PAID_SHOPS', '')
+KEYCRM_UTM_MATCH_PAID_ALL = os.environ.get('KEYCRM_UTM_MATCH_PAID_ALL', '')
 
 # GOOGLE ADS API
 GOOGLE_ADS_DEVELOPER_TOKEN = os.environ.get('GOOGLE_ADS_DEVELOPER_TOKEN', '')

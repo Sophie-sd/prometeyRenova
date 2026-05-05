@@ -44,6 +44,22 @@ services:
         generateValue: true
       - key: KEYCRM_SUCCESS_STATUS_ID
         sync: false
+      - key: KEYCRM_SOURCE_PAID_SHOPS
+        sync: false
+      - key: KEYCRM_SOURCE_PAID_CORPORATE
+        sync: false
+      - key: KEYCRM_SOURCE_PAID_ALL
+        sync: false
+      - key: KEYCRM_SOURCE_ORGANIC_SHOPS
+        sync: false
+      - key: KEYCRM_SOURCE_ORGANIC_CORPORATE
+        sync: false
+      - key: KEYCRM_UTM_MATCH_PAID_CORPORATE
+        sync: false
+      - key: KEYCRM_UTM_MATCH_PAID_SHOPS
+        sync: false
+      - key: KEYCRM_UTM_MATCH_PAID_ALL
+        sync: false
       - key: GOOGLE_ADS_DEVELOPER_TOKEN
         sync: false
       - key: GOOGLE_ADS_CLIENT_ID
