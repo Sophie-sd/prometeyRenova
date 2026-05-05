@@ -1,0 +1,784 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Корпоративний сайт під ключ за 7 днів | Розробка сайту компанії — PrometeyLabs{% endblock %}
+{% block description %}Створення корпоративного сайту під ключ. Унікальний дизайн, інтеграція з CRM, SEO + реклама Google/Facebook/TikTok у пакеті. Запуск за 7 днів. Команда досвідчених розробників. Розрахуємо вартість у брифі.{% endblock %}
+{% block og_title %}Корпоративний сайт під ключ — створимо за 7 днів{% endblock %}
+
+{% block extra_head %}
+<link rel="canonical" href="https://prometeylabs.com/corporate-website/">
+<link rel="alternate" hreflang="uk" href="https://prometeylabs.com/corporate-website/">
+<link rel="alternate" hreflang="ru" href="https://prometeylabs.com/ru/corporate-website/">
+<link rel="alternate" hreflang="x-default" href="https://prometeylabs.com/corporate-website/">
+
+<script type="application/ld+json" nonce="{{ csp_nonce }}">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Створення та розробка корпоративного сайту під ключ",
+    "serviceType": "Розробка корпоративних сайтів",
+    "provider": {
+        "@type": "Organization",
+        "name": "PrometeyLabs",
+        "url": "https://prometeylabs.com/"
+    },
+    "areaServed": {
+        "@type": "Country",
+        "name": "Ukraine"
+    },
+    "description": "Створення корпоративного сайту під ключ за 7 днів. Унікальний дизайн, інтеграція з CRM, налаштування Google Ads, реклами Facebook/Instagram/TikTok та SEO-просування в одному пакеті. Команда досвідчених розробників."
+}
+</script>
+
+<script type="application/ld+json" nonce="{{ csp_nonce }}">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Скільки коштує корпоративний сайт?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Вартість корпоративного сайту розраховується індивідуально та залежить від обраного пакету («Стартовий», «Корпоративний», «Бізнес-преміум»), кількості сторінок, потрібних інтеграцій (CRM, 1С, платіжні системи) та маркетингового пакету. Заповніть бриф на сайті — розрахуємо детальний кошторис під ваш проєкт."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Як замовити корпоративний сайт під ключ?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Залиште заявку у формі на сторінці або заповніть бриф (5 запитань). Ми зателефонуємо протягом 15 хвилин, обговоримо задачу, надамо орієнтовну вартість та терміни. Після підписання договору починаємо роботу — запуск за 7 днів."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Чим розробка корпоративного сайту відрізняється від лендингу?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Корпоративний сайт — це повноцінний сайт компанії з кількома сторінками: «Про нас», каталог послуг або продукції, блог, контакти, кейси. Лендинг — це односторінкове рішення під одну послугу або акцію. Корпоративний сайт працює як обличчя бізнесу і канал залучення клієнтів через органічний пошук."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Чи входить реклама та SEO у вартість?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Базове SEO (мета-теги, ЧПУ-URL, sitemap, мікророзмітка, швидкість) входить у всі пакети. Розширене SEO з блогом — у пакеті «Корпоративний» і вище. Налаштування реклами Google Ads, Facebook/Instagram, TikTok та повноцінна стратегія маркетингу — у пакетах «Корпоративний» і «Бізнес-преміум»."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Скільки часу займає створення корпоративного сайту?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Стандартний термін запуску корпоративного сайту під ключ — 7 днів. Складні проєкти з мультимовністю та інтеграціями 1С/Bitrix — до 3 тижнів. Точні терміни залежать від кількості сторінок, інтеграцій і складності дизайну."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Чи робите інтеграцію з CRM, 1С, Bitrix?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Так. Підключаємо KeyCRM, NetHunt, SalesDrive, Bitrix24, AmoCRM, HubSpot. Налаштовуємо двосторонній обмін даними з 1С (товари, ціни, залишки, замовлення). Інтеграція з CRM входить у вартість пакету «Корпоративний» і вище."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Чи можна оновити або переробити існуючий сайт компанії?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Так, виконуємо повну переробку існуючих корпоративних сайтів: редизайн, перенесення контенту, підключення CRM, налаштування реклами та SEO. Зберігаємо позиції в пошуку через грамотну міграцію URL і 301-редиректи."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Чи отримаю я доступ до коду та адмінки після запуску?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Так, після запуску ви отримуєте повний доступ до коду, репозиторію Git, адміністративної панелі, домену і хостингу. Сайт повністю ваш — без щомісячних абонплат і прив'язки до нашої команди. Документуємо кожну інтеграцію для подальшої підтримки."
+            }
+        }
+    ]
+}
+</script>
+
+<script type="application/ld+json" nonce="{{ csp_nonce }}">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "PrometeyLabs", "item": "https://prometeylabs.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Послуги з розробки", "item": "https://prometeylabs.com/services/"},
+        {"@type": "ListItem", "position": 3, "name": "Корпоративні сайти", "item": "https://prometeylabs.com/corporate-website/"}
+    ]
+}
+</script>
+{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/corporate-website-1.css' %}?v=12">
+<link rel="stylesheet" href="{% static 'css/corporate-website-2.css' %}?v=12">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/corporate-website-parallax.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/corporate-website-quiz.js' %}" nonce="{{ csp_nonce }}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="cw-page" style="--cw-parallax-bg: url('{% static 'images/korporate_images/back_desc.png' %}'); --cw-parallax-bg-mob: url('{% static 'images/korporate_images/back_mb.png' %}')">
+
+    <div class="cw-page-bg" aria-hidden="true"></div>
+
+    <!-- ===== HERO ===== -->
+    <section class="cw-hero cw-bg-section">
+        <div class="cw-bg-overlay cw-bg-overlay--hero" aria-hidden="true"></div>
+        <div class="container cw-bg-section__inner">
+
+            <nav aria-label="breadcrumb">
+                <ol class="cw-breadcrumb">
+                    <li><a href="{% url 'home' %}">PrometeyLabs</a></li>
+                    <li><a href="#">Послуги з розробки</a></li>
+                    <li>Корпоративні сайти</li>
+                </ol>
+            </nav>
+
+            <div class="cw-hero__inner">
+
+                <div class="cw-hero__left">
+                    <h1 class="cw-hero__title">
+                        <span class="cw-hero__title-kw" data-dki data-dki-fallback="Корпоративний сайт">Корпоративний сайт</span>
+                        <span class="cw-hero__title-suffix">під ключ за 7 днів</span>
+                    </h1>
+                    <p class="cw-hero__subtitle">
+                        Сайт компанії з унікальним дизайном, інтеграцією з CRM, SEO-просуванням та рекламою Google / Facebook / TikTok в одному пакеті. Запуск за 7 днів.
+                    </p>
+
+                    <ul class="cw-hero__chips">
+                        <li>Команда досвідчених розробників</li>
+                        <li>CRM у вартості</li>
+                        <li>Унікальний дизайн</li>
+                        <li>Запуск за 7 днів</li>
+                    </ul>
+
+                    <form class="cw-hero__inline-form"
+                          method="post"
+                          action="{% url 'form_submit' %}"
+                          data-form-type="call_request">
+                        {% csrf_token %}
+                        <input type="hidden" name="form_type" value="call_request">
+                        <input type="hidden" name="source_page" value="corporate-website-hero">
+                        <p class="cw-hero__inline-form__title">Залиште заявку — зателефонуємо за 5 хвилин</p>
+                        <div class="cw-hero__inline-form__row">
+                            <input type="text" name="name"
+                                   class="form-input mobile-form-input mobile-touch-target"
+                                   autocomplete="given-name" inputmode="text"
+                                   placeholder="Ваше ім'я" required>
+                            <input type="tel" name="phone"
+                                   class="form-input mobile-form-input mobile-touch-target"
+                                   autocomplete="tel" inputmode="tel"
+                                   placeholder="+38(___)__-__-___" required>
+                            <button type="submit" class="btn btn-primary btn-large mobile-touch-target">
+                                Замовити дзвінок →
+                            </button>
+                        </div>
+                        <p class="cw-hero__inline-form__hint">Безкоштовна консультація. Без зобов'язань.</p>
+                    </form>
+
+                    <a href="#brief" class="cw-hero__cta-secondary">або розрахуйте вартість онлайн в брифі ↓</a>
+                </div>
+
+                <div class="cw-hero__right">
+                    <div class="cw-hero__deco">
+                        <span class="cw-hero__deco-num" aria-hidden="true">01</span>
+                        <div class="cw-hero__deco-img" aria-hidden="true">
+                            <img src="{% static 'images/korporate_images/laptop_phone_hero.png' %}"
+                                 alt="" class="cw-hero__deco-img-pic"
+                                 loading="eager" decoding="async">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STICKY ANCHOR NAV ===== -->
+    <nav class="cw-anchor-nav" aria-label="Розділи сторінки">
+        <div class="container">
+            <ul class="cw-anchor-nav__list">
+                <li><a href="#packets">Пакети</a></li>
+                <li><a href="#process">Як ми працюємо</a></li>
+                <li><a href="#marketing">Маркетинг у пакеті</a></li>
+                <li><a href="#business">Сайт для бізнесу</a></li>
+                <li><a href="#brief">Замовити</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== GUARANTEE STRIP ===== -->
+    <section class="cw-guarantee cw-section--dark">
+        <div class="container">
+            <p class="cw-guarantee__intro">
+                Ми впевнені у якості розробки —<br>
+                тому пропонуємо <span class="cw-accent">унікальні умови співпраці</span>
+            </p>
+            <div class="cw-guarantee__items">
+                <div class="cw-guarantee-card">
+                    <div class="cw-guarantee-card__num">24/7</div>
+                    <div>
+                        <p class="cw-guarantee-card__title">Підтримка 24/7 і після запуску</p>
+                        <p class="cw-guarantee-card__text">Ваш менеджер на зв'язку у будь-який час. Виправлення критичних проблем — у пріоритеті.</p>
+                    </div>
+                </div>
+                <div class="cw-guarantee-card">
+                    <div class="cw-guarantee-card__num">∞</div>
+                    <div>
+                        <p class="cw-guarantee-card__title">Пожиттєва гарантія стабільності</p>
+                        <p class="cw-guarantee-card__text">Без плагінів — тільки чистий код. Сайт працюватиме коректно роками без зламів через застарілі залежності.</p>
+                    </div>
+                </div>
+                <div class="cw-guarantee-card">
+                    <div class="cw-guarantee-card__num cw-guarantee-card__num--small">Договір</div>
+                    <div>
+                        <p class="cw-guarantee-card__title">Фіксована вартість і терміни</p>
+                        <p class="cw-guarantee-card__text">Ціна та строки прописані в договорі. Без прихованих платежів — ви точно знаєте, скільки заплатите і коли отримаєте сайт.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRICING (3 пакети, БЕЗ ціни) ===== -->
+    <section class="cw-section cw-bg-section" id="packets">
+        <div class="cw-bg-overlay cw-bg-overlay--section" aria-hidden="true"></div>
+        <div class="container cw-bg-section__inner">
+            <span class="cw-section__label">Пакети розробки корпоративного сайту</span>
+            <h2 class="cw-section__title">Оберіть пакет під свій масштаб бізнесу</h2>
+            <p class="cw-section__subtitle cw-section__subtitle--wide">Тарифи під різний обсяг робіт, інтеграцій та маркетингових налаштувань. Точна вартість залежить від кількості сторінок та підключених сервісів.</p>
+
+            <div class="cw-pricing__grid">
+
+                <article class="cw-pricing-card">
+                    <p class="cw-pricing-card__name">Стартовий</p>
+                    <p class="cw-pricing-card__desc">Лендинг компанії з формою заявки — швидкий запуск першої онлайн-присутності</p>
+                    <ul class="cw-pricing-card__list">
+                        <li>1-сторінковий сайт</li>
+                        <li>Унікальний дизайн під бренд</li>
+                        <li>Адаптивна мобільна версія</li>
+                        <li>Базове SEO-налаштування</li>
+                        <li>Форми заявок зі сповіщеннями</li>
+                        <li>Інтеграція з Telegram-ботом чи CRM</li>
+                        <li>Реєстрація домену та хостинг</li>
+                    </ul>
+                    <a href="#brief" class="btn btn-secondary mobile-touch-target">Дізнатися вартість</a>
+                </article>
+
+                <article class="cw-pricing-card cw-pricing-card--featured">
+                    <span class="cw-pricing-card__badge">Популярний</span>
+                    <p class="cw-pricing-card__name">Корпоративний</p>
+                    <p class="cw-pricing-card__desc">Повноцінний сайт компанії з рекламою та SEO в одному пакеті</p>
+                    <ul class="cw-pricing-card__list">
+                        <li>5–9 сторінок</li>
+                        <li>Унікальний дизайн під бренд</li>
+                        <li>Каталог послуг або продукції</li>
+                        <li>Блог та статті для SEO</li>
+                        <li>Інтеграція з Telegram-ботом чи CRM</li>
+                        <li>Розширене SEO та оптимізація швидкості</li>
+                        <li>Налаштування Google Ads</li>
+                        <li>Реклама Facebook + Instagram</li>
+                    </ul>
+                    <a href="#brief" class="btn btn-primary mobile-touch-target">Дізнатися вартість</a>
+                </article>
+
+                <article class="cw-pricing-card">
+                    <p class="cw-pricing-card__name">Бізнес-преміум</p>
+                    <p class="cw-pricing-card__desc">Масштабне рішення з мультимовою та повним маркетинг-пакетом</p>
+                    <ul class="cw-pricing-card__list">
+                        <li>10+ сторінок, мультимовність</li>
+                        <li>Інтеграція з Telegram-ботом чи CRM</li>
+                        <li>Особистий кабінет клієнта</li>
+                        <li>Кейс-стаді та портфоліо-блок</li>
+                        <li>Складний кастомний функціонал</li>
+                        <li>Стратегія маркетингу під ключ</li>
+                        <li>Реклама Google + Facebook + TikTok</li>
+                        <li>SEO-просування сайту в топ</li>
+                    </ul>
+                    <a href="#brief" class="btn btn-secondary mobile-touch-target">Дізнатися вартість</a>
+                </article>
+            </div>
+
+            <p class="cw-pricing__note">
+                Точну вартість корпоративного сайту розрахуємо індивідуально під ваші задачі та інтеграції — заповніть бриф нижче, надамо детальний кошторис.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== PROCESS — 7 ДНІВ = 7 КРОКІВ ===== -->
+    <section class="cw-section cw-section--dark" id="process">
+        <div class="container">
+            <span class="cw-section__label">Як ми працюємо</span>
+            <h2 class="cw-section__title">Розробка корпоративного сайту за 7 кроків</h2>
+            <p class="cw-section__subtitle">Прозорий процес: ви знаєте, що відбувається з вашим проєктом кожного дня. Створення корпоративного сайту під ключ без затягувань і прихованих етапів — від першого брифу до запуску реклами.</p>
+
+            <ol class="cw-process__list">
+                <li class="cw-process__item">
+                    <p class="cw-process__item-title">Бриф і консультація</p>
+                    <p class="cw-process__item-text">Дзвінок 30 хвилин: задачі бізнесу, цільова аудиторія, конкуренти, референси.</p>
+                </li>
+                <li class="cw-process__item">
+                    <p class="cw-process__item-title">Технічне завдання</p>
+                    <p class="cw-process__item-text">Готуємо ТЗ, структуру сайту, перелік інтеграцій. Фіксуємо вартість і терміни в договорі.</p>
+                </li>
+                <li class="cw-process__item">
+                    <p class="cw-process__item-title">Узгодження дизайну</p>
+                    <p class="cw-process__item-text">Обговорюємо стиль, готуємо прототип головної та внутрішніх сторінок, узгоджуємо рішення під ваш бренд.</p>
+                </li>
+                <li class="cw-process__item">
+                    <p class="cw-process__item-title">Верстка та програмування</p>
+                    <p class="cw-process__item-text">Чистий код без шаблонів і плагінів. Адаптив під смартфон, планшет, десктоп.</p>
+                </li>
+                <li class="cw-process__item">
+                    <p class="cw-process__item-title">Інтеграції</p>
+                    <p class="cw-process__item-text">Підключаємо CRM, форми, аналітику GA4/GTM, Telegram-сповіщення, платіжки.</p>
+                </li>
+                <li class="cw-process__item">
+                    <p class="cw-process__item-title">Наповнення та SEO</p>
+                    <p class="cw-process__item-text">Тексти, фото, мета-теги, sitemap, мікророзмітка, оптимізація швидкості.</p>
+                </li>
+                <li class="cw-process__item">
+                    <p class="cw-process__item-title">Запуск і реклама</p>
+                    <p class="cw-process__item-text">Деплой на хостинг, запуск Google Ads / Facebook / TikTok. Перші клієнти — з першого тижня.</p>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ===== MARKETING У ПАКЕТІ ===== -->
+    <section class="cw-section cw-bg-section" id="marketing">
+        <div class="cw-bg-overlay cw-bg-overlay--section" aria-hidden="true"></div>
+        <div class="container cw-bg-section__inner">
+            <span class="cw-section__label">SEO + реклама в одному пакеті</span>
+            <h2 class="cw-section__title">Сайт + маркетинг — комплексне рішення</h2>
+            <p class="cw-section__subtitle">Ми не просто розробляємо корпоративний сайт — ми запускаємо потік клієнтів. Реклама Google, Facebook, Instagram, TikTok та SEO-просування налаштовуються разом із сайтом.</p>
+
+            <div class="cw-marketing__cards">
+                <div class="cw-marketing-card">
+                    <img src="{% static 'images/korporate_images/googleads.png' %}"
+                         alt="" class="cw-marketing-card__img"
+                         loading="lazy" width="96" height="96">
+                    <p class="cw-marketing-card__title">Google Ads</p>
+                    <p class="cw-marketing-card__text">Контекстна реклама в пошуку Google. Підбір ключових слів, написання оголошень, налаштування конверсій. Ваш сайт у топі від першого дня.</p>
+                </div>
+                <div class="cw-marketing-card">
+                    <img src="{% static 'images/korporate_images/inst_fb.png' %}"
+                         alt="" class="cw-marketing-card__img"
+                         loading="lazy" width="96" height="96">
+                    <p class="cw-marketing-card__title">Facebook + Instagram</p>
+                    <p class="cw-marketing-card__text">Таргетована реклама в стрічці та сторіс. Креативи, аудиторії, ретаргетинг — для прогріву та продажів.</p>
+                </div>
+                <div class="cw-marketing-card">
+                    <img src="{% static 'images/korporate_images/tiktok.png' %}"
+                         alt="" class="cw-marketing-card__img"
+                         loading="lazy" width="96" height="96">
+                    <p class="cw-marketing-card__title">TikTok Ads</p>
+                    <p class="cw-marketing-card__text">Реклама у TikTok для молодої аудиторії. Сценарії відео, налаштування пікселя, оптимізація конверсій.</p>
+                </div>
+                <div class="cw-marketing-card">
+                    <img src="{% static 'images/korporate_images/seo.png' %}"
+                         alt="" class="cw-marketing-card__img"
+                         loading="lazy" width="96" height="96">
+                    <p class="cw-marketing-card__title">SEO-просування в топ</p>
+                    <p class="cw-marketing-card__text">Технічна оптимізація, семантичне ядро, контент-стратегія, посилання. Стабільний органічний трафік без щомісячних витрат на рекламу.</p>
+                </div>
+            </div>
+
+            <div class="cw-marketing__strategy">
+                <div class="cw-marketing__strategy-body">
+                    <p class="cw-marketing__strategy-title">Стратегія маркетингу під ключ</p>
+                    <p class="cw-marketing__strategy-text">Допоможемо вибрати оптимальну комбінацію каналів під ваш бюджет і нішу. Запуск, ведення, щотижневі звіти.</p>
+                </div>
+                <button class="btn btn-primary mobile-touch-target"
+                        data-modal="call-request-modal"
+                        type="button">
+                    Безкоштовна консультація →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== САЙТ ДЛЯ БІЗНЕСУ / САЙТ КОМПАНІЇ ===== -->
+    <section class="cw-section cw-section--dark" id="business">
+        <div class="container">
+            <span class="cw-section__label">Сайти для будь-якого бізнесу</span>
+            <h2 class="cw-section__title">Сайт компанії під вашу нішу</h2>
+            <p class="cw-section__subtitle">Розробка сайту для бізнесу з урахуванням специфіки галузі. Готові сценарії, перевірені структури сторінок, релевантні інтеграції.</p>
+
+            <ul class="cw-business__list">
+                <li class="cw-business__pill">Торгівля та опт</li>
+                <li class="cw-business__pill">Послуги (B2C / B2B)</li>
+                <li class="cw-business__pill">Виробництво</li>
+                <li class="cw-business__pill">Медицина</li>
+                <li class="cw-business__pill">Освіта</li>
+                <li class="cw-business__pill">Нерухомість</li>
+                <li class="cw-business__pill">Юридичні компанії</li>
+                <li class="cw-business__pill">Ресторани та HoReCa</li>
+                <li class="cw-business__pill">Будівництво</li>
+                <li class="cw-business__pill">IT та SaaS</li>
+                <li class="cw-business__pill">Логістика</li>
+                <li class="cw-business__pill">Краса та б'юті</li>
+            </ul>
+
+            <p class="cw-business__note">Вашої ніші немає у списку? Нічого страшного — ми розробляли корпоративні сайти для понад 50 галузей.</p>
+        </div>
+    </section>
+
+    <!-- ===== CTA STRIP ===== -->
+    <section class="cw-cta-strip cw-bg-section">
+        <div class="cw-bg-overlay cw-bg-overlay--section" aria-hidden="true"></div>
+        <div class="container cw-bg-section__inner">
+            <div class="cw-cta-strip__inner">
+                <p class="cw-cta-strip__text">Не визначилися з пакетом? Розкажіть про бізнес — підберемо рішення</p>
+                <button class="btn btn-primary mobile-touch-target"
+                        data-modal="call-request-modal"
+                        type="button">
+                    Безкоштовна консультація →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TECH ADVANTAGE ===== -->
+    <section class="cw-section cw-section--dark">
+        <div class="container">
+            <span class="cw-section__label">Технічна перевага</span>
+            <h2 class="cw-section__title">Швидко. Надійно. Безпечно.</h2>
+            <p class="cw-section__subtitle">Сайт написаний на сучасному стеку — без плагінів, без сторонніх залежностей. Працюватиме коректно та швидко роками.</p>
+
+            <div class="cw-tech__cards">
+                <div class="cw-tech-card">
+                    <div class="cw-tech-card__media" aria-hidden="true">
+                        <img src="{% static 'images/korporate_images/light.png' %}"
+                             alt="" class="cw-tech-card__img" loading="lazy">
+                        <div class="cw-tech-card__overlay"></div>
+                    </div>
+                    <div class="cw-tech-card__body">
+                        <p class="cw-tech-card__title">Швидке завантаження</p>
+                        <p class="cw-tech-card__text">Оптимізація Core Web Vitals: LCP &lt; 2,5 сек, CLS &lt; 0,1. Критичний чинник для SEO та реклами.</p>
+                    </div>
+                </div>
+                <div class="cw-tech-card">
+                    <div class="cw-tech-card__media" aria-hidden="true">
+                        <img src="{% static 'images/korporate_images/search.png' %}"
+                             alt="" class="cw-tech-card__img" loading="lazy">
+                        <div class="cw-tech-card__overlay"></div>
+                    </div>
+                    <div class="cw-tech-card__body">
+                        <p class="cw-tech-card__title">SEO-релевантність під вашу нішу</p>
+                        <p class="cw-tech-card__text">Структура сторінок проєктується разом із маркетологом під популярні запити вашої галузі. Максимальна релевантність органіки та реклами.</p>
+                    </div>
+                </div>
+                <div class="cw-tech-card">
+                    <div class="cw-tech-card__media" aria-hidden="true">
+                        <img src="{% static 'images/korporate_images/security.png' %}"
+                             alt="" class="cw-tech-card__img" loading="lazy">
+                        <div class="cw-tech-card__overlay"></div>
+                    </div>
+                    <div class="cw-tech-card__body">
+                        <p class="cw-tech-card__title">Безпека та SSL</p>
+                        <p class="cw-tech-card__text">SSL-сертифікат, захист від XSS, SQL-ін'єкцій, CSRF. Регулярні бекапи та моніторинг.</p>
+                    </div>
+                </div>
+                <div class="cw-tech-card">
+                    <div class="cw-tech-card__media" aria-hidden="true">
+                        <img src="{% static 'images/korporate_images/analytics.png' %}"
+                             alt="" class="cw-tech-card__img" loading="lazy">
+                        <div class="cw-tech-card__overlay"></div>
+                    </div>
+                    <div class="cw-tech-card__body">
+                        <p class="cw-tech-card__title">Аналітика GA4 у вартості</p>
+                        <p class="cw-tech-card__text">Налаштування Google Analytics 4, Tag Manager, цілей конверсій, Meta Pixel і TikTok Pixel. Ви бачите кожну заявку.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== INTEGRATIONS ===== -->
+    <section class="cw-section cw-bg-section">
+        <div class="cw-bg-overlay cw-bg-overlay--section" aria-hidden="true"></div>
+        <div class="container cw-bg-section__inner">
+            <span class="cw-section__label">Інтеграції для бізнесу</span>
+            <h2 class="cw-section__title">Автоматизуємо все, що можна</h2>
+            <p class="cw-section__subtitle">Сайт інтегрується з вашою CRM, месенджерами і аналітикою — заявки не губляться, ви бачите кожен крок клієнта.</p>
+
+            <div class="cw-integrations__cols">
+
+                <div class="cw-integration-col">
+                    <span class="cw-integration-col__icon" aria-hidden="true">🔗</span>
+                    <p class="cw-integration-col__title">CRM-системи</p>
+                    <ul class="cw-integration-col__list">
+                        <li>KeyCRM, NetHunt, SalesDrive</li>
+                        <li>Bitrix24, AmoCRM, HubSpot</li>
+                        <li>1С (двосторонній обмін)</li>
+                        <li>Власна кастомна CRM</li>
+                    </ul>
+                </div>
+
+                <div class="cw-integration-col">
+                    <span class="cw-integration-col__icon" aria-hidden="true">💬</span>
+                    <p class="cw-integration-col__title">Месенджери та чати</p>
+                    <ul class="cw-integration-col__list">
+                        <li>Telegram-бот для нотифікацій</li>
+                        <li>WhatsApp Business API</li>
+                        <li>Viber-розсилки</li>
+                        <li>Live-chat на сайті</li>
+                    </ul>
+                </div>
+
+                <div class="cw-integration-col">
+                    <span class="cw-integration-col__icon" aria-hidden="true">📈</span>
+                    <p class="cw-integration-col__title">Аналітика та реклама</p>
+                    <ul class="cw-integration-col__list">
+                        <li>Google Analytics 4 + GTM</li>
+                        <li>Meta Pixel (Facebook/Instagram)</li>
+                        <li>TikTok Pixel</li>
+                        <li>Hotjar, Microsoft Clarity</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="cw-integrations__note">
+                <p class="cw-integrations__note-text">Потрібна інша інтеграція? Скоріше за все, ми її вже робили</p>
+                <button class="btn btn-primary mobile-touch-target"
+                        data-modal="call-request-modal"
+                        type="button">
+                    Запитати →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PORTFOLIO + CTA ===== -->
+    <section class="cw-portfolio-cta cw-section--dark">
+        <div class="container">
+            <div class="cw-portfolio-cta__grid">
+
+                <div class="cw-portfolio-cta__col">
+                    <h2 class="cw-portfolio-cta__title">Наші роботи</h2>
+                    <p class="cw-portfolio-cta__desc">Реальні корпоративні сайти, які приносять клієнтів. Подивіться на якість дизайну та функціоналу.</p>
+                    <a href="{% url 'portfolio' %}" class="btn btn-secondary btn-large mobile-touch-target">
+                        Переглянути портфоліо →
+                    </a>
+                </div>
+
+                <div class="cw-portfolio-cta__sep" aria-hidden="true"></div>
+
+                <div class="cw-portfolio-cta__col cw-portfolio-cta__col--cta">
+                    <h2 class="cw-portfolio-cta__title">Готові обговорити проєкт?</h2>
+                    <p class="cw-portfolio-cta__desc">Розкажіть про задачу — отримайте безкоштовну консультацію та орієнтовну вартість.</p>
+                    <a href="#brief" class="btn btn-primary btn-large mobile-touch-target">
+                        Заповнити бриф →
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="cw-section cw-bg-section" id="faq">
+        <div class="cw-bg-overlay cw-bg-overlay--section" aria-hidden="true"></div>
+        <div class="container container-narrow cw-bg-section__inner">
+            <span class="cw-section__label">Часті запитання</span>
+            <h2 class="cw-section__title">Все про створення корпоративного сайту</h2>
+
+            <details class="cw-faq__item">
+                <summary>Скільки коштує корпоративний сайт?</summary>
+                <p>Вартість корпоративного сайту розраховується індивідуально та залежить від обраного пакету («Стартовий», «Корпоративний», «Бізнес-преміум»), кількості сторінок, потрібних інтеграцій (CRM, 1С, платіжні системи) та маркетингового пакету. Заповніть бриф на сайті — розрахуємо детальний кошторис під ваш проєкт.</p>
+            </details>
+
+            <details class="cw-faq__item">
+                <summary>Як замовити корпоративний сайт під ключ?</summary>
+                <p>Залиште заявку у формі на сторінці або заповніть бриф (5 запитань). Ми зателефонуємо протягом 15 хвилин, обговоримо задачу, надамо орієнтовну вартість та терміни. Після підписання договору починаємо роботу — запуск за 7 днів.</p>
+            </details>
+
+            <details class="cw-faq__item">
+                <summary>Чим розробка корпоративного сайту відрізняється від лендингу?</summary>
+                <p>Корпоративний сайт — це повноцінний сайт компанії з кількома сторінками: «Про нас», каталог послуг або продукції, блог, контакти, кейси. Лендинг — це односторінкове рішення під одну послугу або акцію. Корпоративний сайт працює як обличчя бізнесу і канал залучення клієнтів через органічний пошук.</p>
+            </details>
+
+            <details class="cw-faq__item">
+                <summary>Чи входить реклама та SEO у вартість?</summary>
+                <p>Базове SEO (мета-теги, ЧПУ-URL, sitemap, мікророзмітка, швидкість) входить у всі пакети. Розширене SEO з блогом — у пакеті «Корпоративний» і вище. Налаштування реклами Google Ads, Facebook/Instagram, TikTok та повноцінна стратегія маркетингу — у пакетах «Корпоративний» і «Бізнес-преміум».</p>
+            </details>
+
+            <details class="cw-faq__item">
+                <summary>Скільки часу займає створення корпоративного сайту?</summary>
+                <p>Стандартний термін запуску корпоративного сайту під ключ — 7 днів. Складні проєкти з мультимовністю та інтеграціями 1С/Bitrix — до 3 тижнів. Точні терміни залежать від кількості сторінок, інтеграцій і складності дизайну.</p>
+            </details>
+
+            <details class="cw-faq__item">
+                <summary>Чи робите інтеграцію з CRM, 1С, Bitrix?</summary>
+                <p>Так. Підключаємо KeyCRM, NetHunt, SalesDrive, Bitrix24, AmoCRM, HubSpot. Налаштовуємо двосторонній обмін даними з 1С (товари, ціни, залишки, замовлення). Інтеграція з CRM входить у вартість пакету «Корпоративний» і вище.</p>
+            </details>
+
+            <details class="cw-faq__item">
+                <summary>Чи можна оновити або переробити існуючий сайт компанії?</summary>
+                <p>Так, виконуємо повну переробку існуючих корпоративних сайтів: редизайн, перенесення контенту, підключення CRM, налаштування реклами та SEO. Зберігаємо позиції в пошуку через грамотну міграцію URL і 301-редиректи.</p>
+            </details>
+
+            <details class="cw-faq__item">
+                <summary>Чи отримаю я доступ до коду та адмінки після запуску?</summary>
+                <p>Так, після запуску ви отримуєте повний доступ до коду, репозиторію Git, адміністративної панелі, домену і хостингу. Сайт повністю ваш — без щомісячних абонплат і прив'язки до нашої команди. Документуємо кожну інтеграцію для подальшої підтримки.</p>
+            </details>
+        </div>
+    </section>
+
+    <!-- ===== SEO LONG-TEXT ===== -->
+    <section class="cw-seo cw-section--dark" id="seo-detail">
+        <div class="container container-narrow">
+            <details class="cw-seo__details">
+                <summary>Детальніше про послугу: створення, розробка, маркетинг та терміни</summary>
+                <div class="cw-seo__body">
+                    <h3>Створення корпоративного сайту під ключ</h3>
+                    <p>Створення корпоративного сайту під ключ — повний цикл від консультації до запуску: дизайн, верстка, програмування, наповнення, інтеграції, SEO та реклама. Створимо сайт компанії будь-якої складності — від односторінкового лендингу до мультимовного бізнес-сайту з інтеграціями 1С/Bitrix і особистим кабінетом клієнта.</p>
+
+                    <h3>Розробка корпоративного сайту з нуля</h3>
+                    <p>Розробка корпоративного сайту з нуля передбачає індивідуальну архітектуру коду, без шаблонних рішень і плагінів. Це дає максимальну швидкість роботи сайту, гнучкість у додаванні нових функцій і повну незалежність від чужих оновлень. Ваш сайт працюватиме стабільно роками.</p>
+
+                    <h3>Замовити корпоративний сайт</h3>
+                    <p>Замовити корпоративний сайт у нас просто: залиште заявку — ми зателефонуємо за 15 хвилин і обговоримо задачу. Далі — короткий бриф, фіксація вартості, договір та старт робіт. Перший варіант дизайну — за 2 дні. Запуск — за 7 днів. Замовте корпоративний сайт сьогодні, і вже за тиждень бізнес матиме потужний онлайн-канал.</p>
+
+                    <h3>Сайт компанії під ключ</h3>
+                    <p>Сайт компанії під ключ — це готовий до роботи проєкт: унікальний дизайн під ваш бренд, чистий код без плагінів, повноцінна адмін-панель, інтеграція з CRM, базове наповнення, мобільна версія, SEO-оптимізація. Ви отримуєте робочий сайт і одразу починаєте залучати клієнтів.</p>
+
+                    <h3>Сайт для бізнесу — будь-яка ніша</h3>
+                    <p>Сайт для бізнесу — універсальне рішення для торгівлі, послуг, виробництва, медицини, освіти, нерухомості, юридичних компаній і ресторанів. Ми робили сайти для понад 50 галузей і знаємо специфіку кожної: правильна структура, релевантні інтеграції, перевірені сценарії конверсій.</p>
+
+                    <h3>Маркетинг + сайт у пакеті</h3>
+                    <p>SEO-просування сайту в топ, реклама Google Ads, Facebook + Instagram, TikTok — все це налаштовуємо разом із сайтом у пакетах «Корпоративний» і «Бізнес-преміум». Стратегія маркетингу під ключ: одна команда відповідає і за сайт, і за залучення клієнтів. Це дає швидший результат і нижчу ціну заявки.</p>
+
+                    <h3>Ціна на корпоративний сайт</h3>
+                    <p>Ціна на розробку корпоративного сайту залежить від обсягу робіт, кількості сторінок, складності інтеграцій (CRM, 1С, платіжні системи) та необхідних маркетингових налаштувань. Тариф «Стартовий» підходить для невеликого лендингу компанії з базовою формою заявки. Тариф «Корпоративний» включає 5–7 сторінок, інтеграцію CRM, блог, розширене SEO та налаштування Google Ads. Тариф «Бізнес-преміум» — масштабне рішення з мультимовою, інтеграцією 1С/Bitrix та повною стратегією маркетингу. Ціна фіксується після затвердження ТЗ — без прихованих платежів. Розрахуємо вартість індивідуально після короткого брифу — детальний кошторис під ваш проєкт.</p>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <!-- ===== QUIZ BRIEF ===== -->
+    <section class="cw-brief cw-bg-section" id="brief">
+        <div class="cw-bg-overlay cw-bg-overlay--section" aria-hidden="true"></div>
+        <div class="container container-narrow cw-bg-section__inner">
+            <h2 class="cw-section__title">Розрахуйте вартість онлайн</h2>
+            <p class="cw-section__subtitle">5 коротких запитань — і ми підберемо рішення під ваш бізнес.</p>
+
+            <form class="cw-quiz" id="corporate-website-quiz-form" method="post" action="{% url 'form_submit' %}" data-form-type="site_request" data-source-label="Корпоративний сайт">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="site_request">
+                <input type="hidden" name="source_page" value="corporate-website">
+                <input type="hidden" name="details" id="quiz-details">
+
+                <div class="cw-quiz__header">
+                    <div class="cw-quiz__progress">
+                        <div class="cw-quiz__progress-bar" data-quiz-progress></div>
+                    </div>
+                    <p class="cw-quiz__progress-label">Крок <span data-quiz-step-num>1</span> з 5</p>
+                </div>
+
+                <div class="cw-quiz__step" data-step="1">
+                    <p class="cw-quiz__question">Що у вас за бізнес?</p>
+                    <ul class="cw-quiz__options">
+                        <li><label class="cw-quiz__option"><input type="radio" name="q_business_type" value="Послуги (B2C / B2B)"><span>Послуги (B2C / B2B)</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="radio" name="q_business_type" value="Виробництво / опт"><span>Виробництво / опт</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="radio" name="q_business_type" value="Торгівля"><span>Торгівля</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="radio" name="q_business_type" value="Інше / не визначився"><span>Інше / не визначився</span></label></li>
+                    </ul>
+                </div>
+
+                <div class="cw-quiz__step" data-step="2" hidden>
+                    <p class="cw-quiz__question">Скільки сторінок потрібно?</p>
+                    <ul class="cw-quiz__options">
+                        <li><label class="cw-quiz__option"><input type="radio" name="q_pages" value="1 сторінка (лендинг)"><span>1 сторінка (лендинг)</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="radio" name="q_pages" value="5–7 сторінок (корпоративний)"><span>5–7 сторінок (корпоративний)</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="radio" name="q_pages" value="10–20 сторінок"><span>10–20 сторінок</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="radio" name="q_pages" value="20+ сторінок або мультимовність"><span>20+ сторінок або мультимовність</span></label></li>
+                    </ul>
+                </div>
+
+                <div class="cw-quiz__step" data-step="3" data-multi="true" hidden>
+                    <p class="cw-quiz__question">Який маркетинг-пакет потрібен?</p>
+                    <p class="cw-quiz__hint">Можна обрати декілька варіантів</p>
+                    <ul class="cw-quiz__options cw-quiz__options--multi">
+                        <li><label class="cw-quiz__option"><input type="checkbox" name="q_marketing" value="Google Ads"><span>Google Ads</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="checkbox" name="q_marketing" value="Facebook + Instagram"><span>Facebook + Instagram</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="checkbox" name="q_marketing" value="TikTok Ads"><span>TikTok Ads</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="checkbox" name="q_marketing" value="SEO-просування"><span>SEO-просування</span></label></li>
+                        <li><label class="cw-quiz__option cw-quiz__option--all"><input type="checkbox" name="q_marketing" value="Стратегія маркетингу під ключ" data-select-all><span>Стратегія маркетингу під ключ (усе разом)</span></label></li>
+                    </ul>
+                </div>
+
+                <div class="cw-quiz__step" data-step="4" data-multi="true" hidden>
+                    <p class="cw-quiz__question">Які інтеграції потрібні?</p>
+                    <p class="cw-quiz__hint">Можна обрати декілька варіантів</p>
+                    <ul class="cw-quiz__options cw-quiz__options--multi">
+                        <li><label class="cw-quiz__option"><input type="checkbox" name="q_integrations" value="CRM (KeyCRM, SalesDrive, Bitrix24)"><span>CRM (KeyCRM, SalesDrive, Bitrix24)</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="checkbox" name="q_integrations" value="Месенджери (Telegram, WhatsApp)"><span>Месенджери (Telegram, WhatsApp)</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="checkbox" name="q_integrations" value="1С / Bitrix24 (двосторонній обмін)"><span>1С / Bitrix24 (двосторонній обмін)</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="checkbox" name="q_integrations" value="Платіжні системи"><span>Платіжні системи</span></label></li>
+                        <li><label class="cw-quiz__option cw-quiz__option--all"><input type="checkbox" name="q_integrations" value="Усі інтеграції" data-select-all><span>Усі з переліченого</span></label></li>
+                    </ul>
+                </div>
+
+                <div class="cw-quiz__step" data-step="5" hidden>
+                    <p class="cw-quiz__question">Коли потрібен запуск?</p>
+                    <ul class="cw-quiz__options">
+                        <li><label class="cw-quiz__option"><input type="radio" name="q_timeline" value="Якнайшвидше (до 7 днів)"><span>Якнайшвидше (до 7 днів)</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="radio" name="q_timeline" value="Протягом 2 тижнів"><span>Протягом 2 тижнів</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="radio" name="q_timeline" value="Протягом місяця"><span>Протягом місяця</span></label></li>
+                        <li><label class="cw-quiz__option"><input type="radio" name="q_timeline" value="Терміни гнучкі"><span>Терміни гнучкі</span></label></li>
+                    </ul>
+                </div>
+
+                <div class="cw-quiz__step cw-quiz__step--contact" data-step="contact" hidden>
+                    <p class="cw-quiz__question">Майже готово!</p>
+                    <p class="cw-quiz__hint">Залиште контакти — ми зателефонуємо і підберемо рішення відповідно до ваших відповідей.</p>
+                    <div class="form-group">
+                        <input type="text" id="quiz-name" name="name"
+                            class="form-input mobile-form-input mobile-touch-target"
+                            autocomplete="given-name" inputmode="text"
+                            required placeholder="Ваше ім'я">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="quiz-phone" name="phone"
+                            class="form-input mobile-form-input mobile-touch-target"
+                            autocomplete="tel" inputmode="tel"
+                            placeholder="+38(___)__-__-___" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-large mobile-touch-target cw-quiz__submit">
+                        Дізнатися вартість →
+                    </button>
+                </div>
+
+                <div class="cw-quiz__nav">
+                    <button type="button" class="btn btn-secondary mobile-touch-target cw-quiz__prev" hidden>← Назад</button>
+                    <button type="button" class="btn btn-primary mobile-touch-target cw-quiz__next-btn" hidden>Далі →</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== STICKY MOBILE CTA BAR ===== -->
+    <div class="cw-sticky-bar" data-sticky-cta>
+        <button data-modal="call-request-modal" class="cw-sticky-bar__cta" type="button">
+            Замовити сайт за 7 днів
+        </button>
+    </div>
+
+</div>
+{% endblock %}

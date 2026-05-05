@@ -16,6 +16,7 @@ urlpatterns = [
     path('intellectual-property/', views.IntellectualPropertyView.as_view(), name='intellectual_property'),
     path('internet-shop/', views.InternetShopView.as_view(), name='internet_shop'),
     path('internet-shop-ru/', views.InternetShopRuView.as_view(), name='internet_shop_ru'),
+    path('corporate-website/', views.CorporateWebsiteView.as_view(), name='corporate_website'),
     path('thank-you/', views.ThankYouView.as_view(), name='thank_you'),
 
     # AJAX обробка форм
