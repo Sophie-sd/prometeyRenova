@@ -136,7 +136,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     {% block extra_head %}{% endblock %}
 </head>
 
-<body>
+<body{% block body_attrs %}{% endblock %}>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2FVPPTK"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

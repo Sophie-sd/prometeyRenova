@@ -4,8 +4,8 @@ set -o errexit
 echo "📦 Installing dependencies..."
 pip install -r requirements.txt
 
-echo "🌍 Compiling translations..."
-python manage.py compilemessages --locale=en --ignore=prometey_env
+echo "🌍 Compiling translations (uk, ru, en)..."
+python manage.py compilemessages --locale=en --locale=ru --locale=uk --ignore=prometey_env
 
 echo "📁 Collecting static files (з автоматичною compression)..."
 python manage.py collectstatic --no-input

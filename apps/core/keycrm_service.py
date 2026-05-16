@@ -58,13 +58,26 @@ def _source_page(submission):
     return (extra.get('source_page') or '').lower()
 
 
+def _landing_page(submission):
+    extra = submission.extra_data or {}
+    return (extra.get('landing_page') or '').lower()
+
+
+def _page_signals(submission):
+    """Об'єднана підказка про сторінку: де залишена форма + куди вперше зайшов."""
+    return f"{_source_page(submission)}|{_landing_page(submission)}"
+
+
 def resolve_keycrm_source_id(submission):
     """
     Обирає `source_id` для KeyCRM відповідно до правил:
     1) Платний Google Ads (gclid / utm_medium=cpc/ppc / utm_source=google):
        - utm_campaign містить токени Corporate → KEYCRM_SOURCE_PAID_CORPORATE
        - інакше Shops токени → KEYCRM_SOURCE_PAID_SHOPS
-       - інакше All токени або немає збігу → KEYCRM_SOURCE_PAID_ALL
+       - інакше All токени → KEYCRM_SOURCE_PAID_ALL
+       - якщо жоден токен не збігся: підказка з `extra_data.source_page`
+         (`internet-shop` / `corporate-website`) → відповідне платне джерело
+       - інакше paid_all / paid_shops / paid_corporate / fallback
     2) Органіка з лендінгу (за `extra_data.source_page`):
        - містить `internet-shop` → KEYCRM_SOURCE_ORGANIC_SHOPS
        - містить `corporate-website` → KEYCRM_SOURCE_ORGANIC_CORPORATE
@@ -91,10 +104,19 @@ def resolve_keycrm_source_id(submission):
             return paid_shops
         if _campaign_matches(campaign, tokens_all) and paid_all:
             return paid_all
+
+        # Платний трафік без збігу utm_campaign: уточнюємо за сторінкою
+        # (де залишена форма + куди вперше зайшов з реклами).
+        page_hint = _page_signals(submission)
+        if 'internet-shop' in page_hint and paid_shops:
+            return paid_shops
+        if 'corporate-website' in page_hint and paid_corporate:
+            return paid_corporate
+
         # Платний, але без збігу токенів — м'які fallback'и в межах платних.
         return paid_all or paid_shops or paid_corporate or fallback
 
-    page = _source_page(submission)
+    page = _page_signals(submission)
     if 'internet-shop' in page and organic_shops:
         return organic_shops
     if 'corporate-website' in page and organic_corporate:
@@ -168,6 +190,13 @@ class KeyCRMService:
             comment_parts.append(submission.details)
         comment_parts.append(f'Form: {submission.form_type}')
         comment_parts.append(f'Site ID: {submission.id}')
+        extra = submission.extra_data or {}
+        if extra.get('source_page'):
+            comment_parts.append(f'Сторінка заявки: {extra["source_page"]}')
+        if extra.get('landing_page'):
+            comment_parts.append(f'Перша сторінка: {extra["landing_page"]}')
+        if extra.get('landing_referrer'):
+            comment_parts.append(f'Реферер: {extra["landing_referrer"]}')
         if submission.gclid:
             comment_parts.append(f'GCLID: {submission.gclid}')
 

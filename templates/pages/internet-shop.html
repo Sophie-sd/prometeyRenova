@@ -2,6 +2,8 @@
 {% load static %}
 {% load i18n %}
 
+{% block body_attrs %} data-modal-source-page="internet-shop-modal"{% endblock %}
+
 {% block title %}Створення та розробка інтернет-магазину під ключ — ціна та пакети | PrometeyLabs{% endblock %}
 {% block description %}Створення інтернет-магазину під ключ. Розробка з нуля, міграція з Prom/Rozetka, дропшиппінг-платформи. Запуск за 3 тижні, 1 рік підтримки. Власна CRM, Нова Пошта, онлайн-оплати. Розрахуємо вартість у брифі.{% endblock %}
 {% block og_title %}Інтернет-магазин під ключ — створимо за 3 тижні з річною підтримкою{% endblock %}
@@ -20,13 +22,43 @@
     "provider": {
         "@type": "Organization",
         "name": "PrometeyLabs",
-        "url": "https://prometeylabs.com/"
+        "url": "https://prometeylabs.com/",
+        "telephone": "+38-063-952-05-65",
+        "areaServed": "UA"
     },
     "areaServed": {
         "@type": "Country",
         "name": "Ukraine"
     },
-    "description": "Створення інтернет-магазину з нуля, розробка під ключ, міграція з Prom/Rozetka/Хорошоп, дропшиппінг-платформи. Власна CRM, Нова Пошта, онлайн-оплати, 1 рік підтримки."
+    "description": "Створення інтернет-магазину з нуля, розробка під ключ, міграція з Prom/Rozetka/Хорошоп, дропшиппінг-платформи. Власна CRM, Нова Пошта, онлайн-оплати, 1 рік підтримки.",
+    "url": "https://www.prometeylabs.com/internet-shop/",
+    "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Тарифи на створення інтернет-магазину",
+        "itemListElement": [
+            {
+                "@type": "Offer",
+                "name": "Старт",
+                "description": "Створення інтернет-магазину з нуля. До 100 товарів, базова адмін-панель, Нова Пошта, платіжні системи, 1 рік підтримки.",
+                "url": "https://www.prometeylabs.com/internet-shop/#tsina",
+                "availability": "https://schema.org/InStock"
+            },
+            {
+                "@type": "Offer",
+                "name": "Бізнес",
+                "description": "Магазин під ключ для активних продажів. До 1000 товарів, розширена CRM, особистий кабінет покупця, акції, розширене SEO + блог.",
+                "url": "https://www.prometeylabs.com/internet-shop/#tsina",
+                "availability": "https://schema.org/InStock"
+            },
+            {
+                "@type": "Offer",
+                "name": "Преміум",
+                "description": "Магазин або дропшиппінг-платформа для масштабу. 10000+ товарів, парсинг постачальників, авто-синхронізація, міграція з Prom/Rozetka.",
+                "url": "https://www.prometeylabs.com/internet-shop/#tsina",
+                "availability": "https://schema.org/InStock"
+            }
+        ]
+    }
 }
 </script>
 
@@ -152,9 +184,9 @@
 @media(min-width:1024px){.is-hero__title{font-size:clamp(54px,7vw,84px)}}
 </style>
 <!-- Page CSS — loaded non-blocking (full styles, after critical CSS above) -->
-<link rel="preload" href="{% static 'css/internet-shop.css' %}?v=15" as="style">
-<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=15" media="print" data-async-css>
-<noscript><link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=15"></noscript>
+<link rel="preload" href="{% static 'css/internet-shop.css' %}?v=16" as="style">
+<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=16" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=16"></noscript>
 {% endblock %}
 
 {% block extra_js %}
@@ -334,6 +366,40 @@
             </ul>
         </div>
     </nav>
+
+    <!-- ===== KEYWORD-BAND (Google Ads LP-Quality booster) =====
+         Видимий блок з ключовими фразами кампанії — підіймає Ad Rank і
+         Landing Page Quality, бо повторює точні запити користувачів. -->
+    <section class="is-keyword-band" aria-label="Наші послуги зі створення інтернет-магазинів">
+        <div class="container">
+            <ul class="is-keyword-band__list">
+                <li>
+                    <h2 class="is-keyword-band__title">Створення інтернет-магазину</h2>
+                    <p>Повний цикл — від ідеї до запуску за 3 тижні від $700.</p>
+                </li>
+                <li>
+                    <h2 class="is-keyword-band__title">Розробка інтернет-магазину</h2>
+                    <p>Свій код без шаблонів і плагінів — швидко й стабільно.</p>
+                </li>
+                <li>
+                    <h2 class="is-keyword-band__title">Інтернет-магазин під ключ</h2>
+                    <p>Дизайн, програмування, CRM, інтеграції — все в одному пакеті.</p>
+                </li>
+                <li>
+                    <h2 class="is-keyword-band__title">Замовити інтернет-магазин</h2>
+                    <p>Зателефонуємо за 5 хвилин — порахуємо вартість під ваш каталог.</p>
+                </li>
+                <li>
+                    <h2 class="is-keyword-band__title">Створення сайту для дропшиппінгу</h2>
+                    <p>Парсинг постачальників, авто-синхронізація, власна CRM з маржею.</p>
+                </li>
+                <li>
+                    <h2 class="is-keyword-band__title">Вартість інтернет-магазину</h2>
+                    <p>Три пакети під будь-який каталог — розрахуємо кошторис за 5 хвилин.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
 
     <!-- ===== BLOCK 2: GUARANTEE STRIP ===== -->
     <section class="is-guarantee-strip">

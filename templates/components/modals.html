@@ -123,6 +123,7 @@
         <form class="modal-form" id="call-request-form" method="post" data-form-type="call_request">
             {% csrf_token %}
             <input type="hidden" name="form_type" value="call_request">
+            <input type="hidden" name="source_page" id="call-modal-source-page" value="">
 
             <div class="form-group">
                 <label for="call-name" class="form-label">{% trans "Ім'я" %}</label>

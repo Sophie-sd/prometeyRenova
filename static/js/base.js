@@ -290,6 +290,14 @@ class PrometeyApp {
         
         this.prefillModalForm(modal);
 
+        if (modalId === 'call-request-modal') {
+            const pageSrc = document.body.getAttribute('data-modal-source-page') || '';
+            const sourceInput = document.getElementById('call-modal-source-page');
+            if (sourceInput) {
+                sourceInput.value = pageSrc;
+            }
+        }
+
         modal.classList.add('active');
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.top = `-${this.scrollPosition}px`;

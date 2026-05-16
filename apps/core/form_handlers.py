@@ -87,6 +87,12 @@ def create_form_data(form_type, name, phone, request, **extra_fields):
     source_page = request.POST.get('source_page', '').strip()
     if source_page:
         form_data['source_page'] = source_page
+    landing_page = request.POST.get('landing_page', '').strip()
+    if landing_page:
+        form_data['landing_page'] = landing_page
+    landing_referrer = request.POST.get('landing_referrer', '').strip()
+    if landing_referrer:
+        form_data['landing_referrer'] = landing_referrer
     form_data.update(extra_fields)
     return form_data
 
@@ -195,7 +201,8 @@ def save_form_submission(form_type, form_data, email_success=False):
         # Додаткові дані в JSON
         extra_data = {}
         extra_fields = ['course_type', 'experience', 'company', 'answers',
-                       'alt_services_checked', 'event_title', 'source_page']
+                       'alt_services_checked', 'event_title', 'source_page',
+                       'landing_page', 'landing_referrer']
         for field in extra_fields:
             if form_data.get(field):
                 extra_data[field] = form_data[field]

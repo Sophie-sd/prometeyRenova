@@ -427,6 +427,56 @@
     padding: 48px 0;
 }
 
+/* ===== KEYWORD ANCHORS (SEO landing relevance block) ===== */
+.is-keyword-anchors__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 32px;
+}
+
+@media (min-width: 768px) {
+    .is-keyword-anchors__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .is-keyword-anchors__grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+}
+
+.is-keyword-anchors__card {
+    background: var(--color-beige-alt, #FAF7F2);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-md, 12px);
+    padding: 20px 22px;
+    transition: border-color 250ms ease-out, transform 250ms ease-out;
+}
+
+.is-keyword-anchors__card:hover {
+    border-color: var(--color-brand-orange);
+    transform: translateY(-2px);
+}
+
+.is-keyword-anchors__title {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--color-black);
+    margin: 0 0 10px;
+}
+
+.is-keyword-anchors__text {
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(0, 0, 0, 0.78);
+    margin: 0;
+}
+
 
 .is-guarantee-strip__intro {
     font-size: clamp(17px, 4vw, 24px);
@@ -1561,6 +1611,63 @@
     .is-anchor-nav__list a {
         font-size: 14px;
         padding: 9px 16px;
+    }
+}
+
+/* ===== KEYWORD-BAND — SEO/Ads booster (під anchor-nav) ===== */
+.is-keyword-band {
+    background: rgba(255, 255, 255, 0.03);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 28px 0;
+}
+
+.is-keyword-band__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.is-keyword-band__list > li {
+    padding: 0;
+}
+
+.is-keyword-band__title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-white);
+    margin: 0 0 4px;
+    letter-spacing: -0.2px;
+}
+
+.is-keyword-band__list p {
+    font-size: 14px;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.72);
+    margin: 0;
+}
+
+@media (min-width: 640px) {
+    .is-keyword-band__list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 1024px) {
+    .is-keyword-band {
+        padding: 36px 0;
+    }
+
+    .is-keyword-band__list {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 22px 36px;
+    }
+
+    .is-keyword-band__title {
+        font-size: 17px;
     }
 }
 

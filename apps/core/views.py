@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.utils import timezone
 from .mixins import BasePageView
 from .form_handlers import (
     validate_phone, validate_name, create_form_response, get_form_type_from_path,
@@ -7,19 +8,54 @@ from .form_handlers import (
 )
 from .keycrm_service import sync_submission_to_keycrm
 import logging
+import threading
 from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(__name__)
 
 
-def _sync_to_keycrm(submission_id):
-    """Асинхронно синхронізує заявку з KeyCRM (не блокує відповідь користувачу)."""
-    try:
-        from apps.core.models import FormSubmission
-        submission = FormSubmission.objects.get(id=submission_id)
-        sync_submission_to_keycrm(submission)
-    except Exception as e:
-        logger.error(f"KeyCRM sync error for submission {submission_id}: {e}")
+def _dispatch_async(submission_id, form_data, email_sender=None):
+    """
+    У фоновому потоці: надсилає email і синхронізує заявку з KeyCRM.
+
+    Робиться після того, як заявку вже збережено в БД. Це звільняє HTTP-відповідь
+    від блокувань на SMTP (до 10 с) та KeyCRM API (до 15 с) — користувач бачить
+    «Дякуємо» одразу, незалежно від продуктивності зовнішніх сервісів.
+    """
+    sender = email_sender or send_form_email
+
+    def run():
+        from django.db import close_old_connections
+
+        close_old_connections()
+        try:
+            from apps.core.models import FormSubmission
+
+            email_success, email_error = sender(form_data)
+            if not email_success:
+                logger.warning(
+                    f"Email not sent for submission {submission_id}: {email_error}"
+                )
+
+            try:
+                submission = FormSubmission.objects.get(id=submission_id)
+            except FormSubmission.DoesNotExist:
+                logger.error(f"Submission {submission_id} not found in async dispatch")
+                return
+
+            if email_success and not submission.email_sent:
+                submission.email_sent = True
+                submission.email_sent_at = timezone.now()
+                submission.save(update_fields=['email_sent', 'email_sent_at'])
+
+            sync_submission_to_keycrm(submission)
+        except Exception as e:
+            logger.error(f"Async dispatch error for submission {submission_id}: {e}")
+        finally:
+            close_old_connections()
+
+    threading.Thread(target=run, daemon=True, name=f"submission-{submission_id}").start()
+
 
 # ===== БАЗОВІ СТОРІНКИ =====
 
@@ -211,24 +247,19 @@ def handle_site_request(request, name, phone):
         details=details,
         **(({'source_page': source_page}) if source_page else {}),
     )
-    
-    # Відправляємо email СПОЧАТКУ щоб дізнатися успіх
-    email_success, email_error = send_form_email(form_data)
-    
-    if not email_success:
-        logger.warning(f"Email not sent for site-request: {email_error}")
-    
-    # КРИТИЧНО: Спочатку зберігаємо у БД з інформацією про email успіх
-    submission_saved, submission_id, save_error = save_form_submission('site-request', form_data, email_success=email_success)
-    
+
+    submission_saved, submission_id, save_error = save_form_submission(
+        'site-request', form_data, email_success=False
+    )
+
     if not submission_saved:
         logger.error(f"Failed to save site-request submission: {save_error}")
         return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
-    
-    _sync_to_keycrm(submission_id)
-    
+
+    _dispatch_async(submission_id, form_data)
+
     return create_form_response(
-        True, 
+        True,
         _('Дякуємо! Ваша заявка отримана. Ми зв\'яжемося з вами найближчим часом.'),
         redirect='/thank-you/'
     )
@@ -245,22 +276,17 @@ def handle_developer_request(request, name, phone):
         course_type=course_type,
         experience=experience
     )
-    
-    # Відправляємо email СПОЧАТКУ
-    email_success, email_error = send_form_email(form_data)
-    
-    if not email_success:
-        logger.warning(f"Email not sent for developer: {email_error}")
-    
-    # КРИТИЧНО: Зберігаємо у БД з інформацією про email успіх
-    submission_saved, submission_id, save_error = save_form_submission('developer', form_data, email_success=email_success)
-    
+
+    submission_saved, submission_id, save_error = save_form_submission(
+        'developer', form_data, email_success=False
+    )
+
     if not submission_saved:
         logger.error(f"Failed to save developer submission: {save_error}")
         return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
-    
-    _sync_to_keycrm(submission_id)
-    
+
+    _dispatch_async(submission_id, form_data)
+
     return create_form_response(
         True,
         _('Дякуємо! Ваша заявка на курси отримана. Ми надішлемо детальну інформацію.'),
@@ -277,22 +303,17 @@ def handle_consultation_request(request, name, phone):
         email=email,
         topic=topic
     )
-    
-    # Відправляємо email СПОЧАТКУ
-    email_success, email_error = send_form_email(form_data)
-    
-    if not email_success:
-        logger.warning(f"Email not sent for consultation: {email_error}")
-    
-    # КРИТИЧНО: Зберігаємо у БД з інформацією про email успіх
-    submission_saved, submission_id, save_error = save_form_submission('consultation', form_data, email_success=email_success)
-    
+
+    submission_saved, submission_id, save_error = save_form_submission(
+        'consultation', form_data, email_success=False
+    )
+
     if not submission_saved:
         logger.error(f"Failed to save consultation submission: {save_error}")
         return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
-    
-    _sync_to_keycrm(submission_id)
-    
+
+    _dispatch_async(submission_id, form_data)
+
     return create_form_response(
         True,
         _('Дякуємо! Наш спеціаліст зв\'яжеться з вами протягом 15 хвилин.'),
@@ -309,22 +330,17 @@ def handle_contact_request(request, name, phone):
         email=email,
         message=message
     )
-    
-    # Відправляємо email СПОЧАТКУ
-    email_success, email_error = send_form_email(form_data)
-    
-    if not email_success:
-        logger.warning(f"Email not sent for contact: {email_error}")
-    
-    # КРИТИЧНО: Зберігаємо у БД з інформацією про email успіх
-    submission_saved, submission_id, save_error = save_form_submission('contact', form_data, email_success=email_success)
-    
+
+    submission_saved, submission_id, save_error = save_form_submission(
+        'contact', form_data, email_success=False
+    )
+
     if not submission_saved:
         logger.error(f"Failed to save contact submission: {save_error}")
         return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
-    
-    _sync_to_keycrm(submission_id)
-    
+
+    _dispatch_async(submission_id, form_data)
+
     return create_form_response(
         True,
         _('Дякуємо за ваше повідомлення! Ми зв\'яжемося з вами найближчим часом.'),
@@ -385,21 +401,20 @@ def handle_test_submission(request):
             alt_services_checked=alt_services_checked
         )
         
-        # Відправка email СПОЧАТКУ
-        email_success, email_error = send_test_result_email(test_data)
-        
-        if not email_success:
-            logger.warning(f"Email not sent for test_result: {email_error}")
-        
-        # КРИТИЧНО: Спочатку збережемо у БД з інформацією про email успіх
-        submission_saved, submission_id, save_error = save_form_submission('test_result', form_data, email_success=email_success)
-        
+        submission_saved, submission_id, save_error = save_form_submission(
+            'test_result', form_data, email_success=False
+        )
+
         if not submission_saved:
             logger.error(f"Failed to save test_result submission: {save_error}")
             return create_form_response(False, _('Помилка при обробці тесту'))
-        
-        _sync_to_keycrm(submission_id)
-        
+
+        _dispatch_async(
+            submission_id,
+            form_data,
+            email_sender=lambda _fd, _captured=test_data: send_test_result_email(_captured),
+        )
+
         success_message = _('Дякуємо! Ми зв\'яжемося з вами найближчим часом.')
         
         return create_form_response(
@@ -419,24 +434,19 @@ def handle_call_request(request, name, phone):
     form_data = create_form_data(
         _('Замовлення дзвінка'), name, phone, request
     )
-    
-    # Відправляємо email СПОЧАТКУ
-    email_success, email_error = send_form_email(form_data)
-    
-    if not email_success:
-        logger.warning(f"Email not sent for call-request: {email_error}")
-    
-    # КРИТИЧНО: Зберігаємо у БД з інформацією про email успіх
-    submission_saved, submission_id, save_error = save_form_submission('call-request', form_data, email_success=email_success)
-    
+
+    submission_saved, submission_id, save_error = save_form_submission(
+        'call-request', form_data, email_success=False
+    )
+
     if not submission_saved:
         logger.error(f"Failed to save call-request submission: {save_error}")
         return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
-    
-    _sync_to_keycrm(submission_id)
-    
+
+    _dispatch_async(submission_id, form_data)
+
     return create_form_response(
-        True, 
+        True,
         _('Дякуємо! Наш менеджер зателефонує вам протягом 15 хвилин.'),
         redirect='/thank-you/'
     )
@@ -446,22 +456,17 @@ def handle_footer_consultation(request, name, phone):
     form_data = create_form_data(
         _('Заявка з footer - Консультація'), name, phone, request
     )
-    
-    # Відправляємо email СПОЧАТКУ
-    email_success, email_error = send_form_email(form_data)
-    
-    if not email_success:
-        logger.warning(f"Email not sent for footer-consultation: {email_error}")
-    
-    # КРИТИЧНО: Зберігаємо у БД з інформацією про email успіх
-    submission_saved, submission_id, save_error = save_form_submission('footer-consultation', form_data, email_success=email_success)
-    
+
+    submission_saved, submission_id, save_error = save_form_submission(
+        'footer-consultation', form_data, email_success=False
+    )
+
     if not submission_saved:
         logger.error(f"Failed to save footer-consultation submission: {save_error}")
         return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
-    
-    _sync_to_keycrm(submission_id)
-    
+
+    _dispatch_async(submission_id, form_data)
+
     return create_form_response(
         True,
         _('Дякуємо! Ми зв\'яжемося з вами найближчим часом.'),
