@@ -71,7 +71,7 @@ class PaymentLinkFileInline(admin.TabularInline):
 class PaymentLinkAdmin(admin.ModelAdmin):
     form = PaymentLinkAdminForm
     list_display = (
-        'client_name', 'recipient', 'amount_usd', 'final_amount_uah',
+        'client_name', 'recipient', 'amount', 'currency', 'final_amount_uah',
         'status', 'use_acquiring', 'created_at',
         'open_link_button', 'copy_link_button',
     )
@@ -107,8 +107,12 @@ class PaymentLinkAdmin(admin.ModelAdmin):
             ),
         }),
         (_('Сума та курс'), {
-            'fields': ('amount_usd', 'exchange_rate_usd_to_uah', 'final_amount_uah'),
-            'description': _('Сума USD × курс = UAH. Розраховується автоматично при збереженні.'),
+            'fields': ('currency', 'amount', 'exchange_rate', 'final_amount_uah'),
+            'description': _(
+                'Для USD/EUR вкажіть суму та курс до UAH. '
+                'Для UAH — лише сума, курс ігнорується. '
+                'Підсумкова сума UAH розраховується автоматично при збереженні.'
+            ),
         }),
         (_('Налаштування посилання'), {
             'fields': ('status', 'duration_minutes'),

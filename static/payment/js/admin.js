@@ -1,9 +1,21 @@
-/* Admin entry-point: copy.js already wires [data-copy] handlers globally,
-   so this file only needs to ensure copy.js is loaded alongside admin pages
-   and reserves a hook for future admin-specific behavior. */
+/* Admin entry-point: copy.js wires [data-copy] globally.
+   This file adds currency-aware field visibility in the PaymentLink form. */
 (function () {
     'use strict';
-    if (!window.PaymentCopy) {
-        return;
+
+    function syncCurrencyFields() {
+        const currencySelect = document.getElementById('id_currency');
+        if (!currencySelect) return;
+        const rateRow = document.querySelector('.field-exchange_rate');
+        if (!rateRow) return;
+        rateRow.classList.toggle('pl-hidden', currencySelect.value === 'UAH');
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        syncCurrencyFields();
+        const currencySelect = document.getElementById('id_currency');
+        if (currencySelect) {
+            currencySelect.addEventListener('change', syncCurrencyFields);
+        }
+    });
 })();

@@ -59,3 +59,7 @@
     width: 100%;
     resize: vertical;
 }
+
+.pl-hidden {
+    display: none;
+}

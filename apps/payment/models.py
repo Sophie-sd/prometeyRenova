@@ -71,6 +71,11 @@ class PaymentLink(models.Model):
         EXPIRED = 'expired', 'Expired'
         DEACTIVATED = 'deactivated', 'Deactivated'
 
+    class Currency(models.TextChoices):
+        USD = 'USD', 'USD ($)'
+        EUR = 'EUR', 'EUR (€)'
+        UAH = 'UAH', 'UAH (₴)'
+
     unique_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     client_name = models.CharField(max_length=255, verbose_name=_('Ім\'я клієнта'))
     client_email = models.EmailField(blank=True, null=True, verbose_name=_('Email клієнта'))
@@ -90,8 +95,19 @@ class PaymentLink(models.Model):
         verbose_name=_('Увімкнути еквайринг (картка / Apple Pay / Google Pay)'),
     )
 
-    amount_usd = models.DecimalField(max_digits=12, decimal_places=2)
-    exchange_rate_usd_to_uah = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('40.00'))
+    currency = models.CharField(
+        max_length=3,
+        choices=Currency.choices,
+        default=Currency.USD,
+        verbose_name=_('Валюта'),
+    )
+    amount = models.DecimalField(max_digits=12, decimal_places=2, verbose_name=_('Сума'))
+    exchange_rate = models.DecimalField(
+        max_digits=12, decimal_places=2,
+        default=Decimal('40.00'),
+        verbose_name=_('Курс до UAH'),
+        help_text=_('Ігнорується при валюті UAH'),
+    )
     final_amount_uah = models.DecimalField(max_digits=14, decimal_places=2, editable=False)
 
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW)
@@ -112,12 +128,14 @@ class PaymentLink(models.Model):
         verbose_name_plural = _('Платіжні посилання')
 
     def __str__(self):
-        return f'{self.client_name} — {self.amount_usd} USD'
+        return f'{self.client_name} — {self.amount} {self.currency}'
 
     def save(self, *args, **kwargs):
-        # Обчислюємо суму в UAH
-        if self.amount_usd is not None and self.exchange_rate_usd_to_uah:
-            self.final_amount_uah = (self.amount_usd * self.exchange_rate_usd_to_uah).quantize(Decimal('0.01'))
+        if self.amount is not None:
+            if self.currency == self.Currency.UAH:
+                self.final_amount_uah = Decimal(self.amount).quantize(Decimal('0.01'))
+            elif self.exchange_rate:
+                self.final_amount_uah = (self.amount * self.exchange_rate).quantize(Decimal('0.01'))
         super().save(*args, **kwargs)
 
     def mark_first_open(self):

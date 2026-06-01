@@ -25,11 +25,15 @@
         <p class="section-label">{% trans "Сума до сплати" %}</p>
         <div class="amount-row">
             <span class="amount-uah">{{ payment_link.final_amount_uah }} <span class="amount-currency">UAH</span></span>
-            <span class="amount-usd">({{ payment_link.amount_usd }} USD)</span>
+            {% if payment_link.currency != 'UAH' %}
+            <span class="amount-usd">({{ payment_link.amount }} {{ payment_link.currency }})</span>
+            {% endif %}
         </div>
+        {% if payment_link.currency != 'UAH' %}
         <p class="exchange-rate">
-            {% trans "Курс НБУ:" %} <strong>{{ payment_link.exchange_rate_usd_to_uah|floatformat:2 }} грн/USD</strong>
+            {% trans "Курс:" %} <strong>{{ payment_link.exchange_rate|floatformat:2 }} грн/{{ payment_link.currency }}</strong>
         </p>
+        {% endif %}
     </div>
 
     <!-- Таймер -->
