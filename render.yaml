@@ -4,7 +4,11 @@ services:
     name: prometei-web
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn config.asgi:application -k uvicorn.workers.UvicornWorker"
+    startCommand: "./scripts/start.sh"
+    disk:
+      name: prometey-media
+      mountPath: /opt/render/project/src/media
+      sizeGB: 1
     envVars:
       - key: SECRET_KEY
         generateValue: true

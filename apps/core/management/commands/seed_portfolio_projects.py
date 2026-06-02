@@ -6,6 +6,7 @@
 from pathlib import Path
 
 from django.conf import settings
+from django.conf import settings
 from django.core.files import File
 from django.core.management.base import BaseCommand
 
@@ -73,7 +74,9 @@ class Command(BaseCommand):
                 continue
             field = getattr(project, field_name)
             if field and not force_images:
-                continue
+                media_path = Path(settings.MEDIA_ROOT) / field.name
+                if media_path.is_file():
+                    continue
             full_path = static_root / rel_path
             if not full_path.is_file():
                 self.stdout.write(

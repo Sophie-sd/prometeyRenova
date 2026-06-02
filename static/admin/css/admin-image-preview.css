@@ -1,0 +1,8 @@
+.pl-admin-image-preview {
+    display: block;
+    max-height: 7.5rem;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 0.375rem;
+}

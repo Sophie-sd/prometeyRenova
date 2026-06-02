@@ -566,6 +566,77 @@ class PortfolioProject(models.Model):
             return self.home_story_image
         return self.card_image
 
+    def get_home_image_src(self) -> str:
+        """Головна: спочатку static (завжди на collectstatic), потім media."""
+        from .portfolio_images import (
+            resolve_portfolio_image_url,
+            resolve_static_portfolio_url,
+        )
+
+        for field_name in ('home_story_image', 'card_image'):
+            src = resolve_static_portfolio_url(self, field_name)
+            if src:
+                return src
+        return (
+            resolve_portfolio_image_url(self, 'home_story_image')
+            or resolve_portfolio_image_url(self, 'card_image')
+        )
+
+    def get_card_image_src(self) -> str:
+        from .portfolio_images import resolve_portfolio_image_url
+
+        return resolve_portfolio_image_url(self, 'card_image')
+
+    def get_card_image_mobile_src(self) -> str:
+        from .portfolio_images import resolve_portfolio_image_url
+
+        return resolve_portfolio_image_url(self, 'card_image_mobile')
+
+    def get_modal_hero_src(self) -> str:
+        from .portfolio_images import resolve_portfolio_image_url
+
+        return resolve_portfolio_image_url(self, 'modal_hero')
+
+    def get_modal_mobile_src(self) -> str:
+        from .portfolio_images import resolve_portfolio_image_url
+
+        return resolve_portfolio_image_url(self, 'modal_mobile')
+
+    def get_modal_tablet_src(self) -> str:
+        from .portfolio_images import resolve_portfolio_image_url
+
+        return resolve_portfolio_image_url(self, 'modal_tablet')
+
+    def get_modal_laptop_src(self) -> str:
+        from .portfolio_images import resolve_portfolio_image_url
+
+        return resolve_portfolio_image_url(self, 'modal_laptop')
+
+    def has_card_image_mobile(self) -> bool:
+        from .portfolio_images import portfolio_image_available
+
+        return portfolio_image_available(self, 'card_image_mobile')
+
+    def has_modal_hero(self) -> bool:
+        from .portfolio_images import portfolio_image_available
+
+        return portfolio_image_available(self, 'modal_hero')
+
+    def has_modal_mobile(self) -> bool:
+        from .portfolio_images import portfolio_image_available
+
+        return portfolio_image_available(self, 'modal_mobile')
+
+    def has_modal_tablet(self) -> bool:
+        from .portfolio_images import portfolio_image_available
+
+        return portfolio_image_available(self, 'modal_tablet')
+
+    def has_modal_laptop(self) -> bool:
+        from .portfolio_images import portfolio_image_available
+
+        return portfolio_image_available(self, 'modal_laptop')
+
     def get_home_label(self) -> str:
         return (self.home_story_label or self.title).strip()
 

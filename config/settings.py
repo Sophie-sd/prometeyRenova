@@ -47,6 +47,10 @@ UNFOLD = {
     "SITE_TITLE": "Prometey Labs",
     "SITE_HEADER": "Prometey Labs — Адмінпанель",
     "SITE_ICON": lambda request: static("images/favicon-48x48.png"),
+    "SITE_LOGO": {
+        "light": lambda request: static("images/favicon-48x48.png"),
+        "dark": lambda request: static("images/favicon-48x48.png"),
+    },
     "SITE_FAVICONS": [
         {"rel": "icon", "sizes": "16x16", "type": "image/png",
          "href": lambda request: static("images/favicon-16x16.png")},
@@ -73,6 +77,8 @@ UNFOLD = {
     "STYLES": [
         lambda request: static("admin/css/admin-primary-buttons.css"),
         lambda request: static("admin/css/admin-list-filters.css"),
+        lambda request: static("admin/css/admin-sidebar-logo.css"),
+        lambda request: static("admin/css/admin-image-preview.css"),
     ],
     "SCRIPTS": [
         lambda request: static("admin/js/admin-theme.js"),
@@ -194,7 +200,7 @@ USE_TZ = True
 # STATIC & MEDIA
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = Path(os.environ.get('MEDIA_ROOT', BASE_DIR / 'media'))
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 

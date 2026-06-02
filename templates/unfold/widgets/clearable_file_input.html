@@ -1,0 +1,43 @@
+{% load i18n %}
+
+{% if widget.attrs.accept == 'image/*' and widget.is_initial %}
+    <div class="mb-4 max-w-48">
+        {% with preview_url=widget.resolved_preview_url|default:widget.value.url %}
+        <a href="{{ preview_url }}" target="_blank" rel="noopener noreferrer">
+            <img src="{{ preview_url }}" alt="{% trans 'Image preview' %}" class="block rounded-default pl-admin-image-preview" width="192" height="192" decoding="async">
+        </a>
+        {% endwith %}
+    </div>
+{% endif %}
+
+<div class="{{ widget.file_wrapper_class }}">
+    {% if widget.is_initial and not widget.required %}
+        <div class="bg-base-50 border-r border-base-200 flex flex-none items-center self-stretch px-3 dark:bg-white/[.02] dark:border-base-700 dark:text-font-default-dark">
+            <label for="{{ widget.checkbox_id }}" class="flex items-center">
+                <input type="checkbox"{% if widget.class %} class="{{ widget.class }}"{% endif %} name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}" />
+
+                <span class="ml-2">
+                    {{ widget.clear_checkbox_label }}
+                </span>
+            </label>
+        </div>
+    {% endif %}
+
+    <input type="text" aria-label="{% trans 'Choose file to upload' %}" value="{% if widget.value %}{{ widget.resolved_preview_url|default:widget.value.url }}{% else %}{% trans 'Choose file to upload' %}{% endif %}" disabled class="bg-white grow font-medium min-w-0 px-3 py-2 text-ellipsis dark:bg-base-900">
+
+    <div class="bg-white flex flex-none items-center leading-none self-stretch dark:bg-base-900">
+        <div class="opacity-0 overflow-hidden w-[0px]">
+            <input type="{{ widget.type }}" name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %} />
+        </div>
+
+        {% if widget.is_initial %}
+            <a href="{{ widget.resolved_preview_url|default:widget.value.url }}" class="border-r border-base-200 cursor-pointer text-base-400 px-3 hover:text-base-700 dark:border-base-700 dark:text-base-500 dark:hover:text-base-200" target="_blank" rel="noopener noreferrer">
+                <span class="block material-symbols-outlined">download</span>
+            </a>
+        {% endif %}
+
+        <label for="{{ widget.attrs.id }}" class="cursor-pointer text-base-400 px-3 hover:text-base-700 dark:text-base-500 dark:hover:text-base-200">
+            <span class="block material-symbols-outlined">upload</span>
+        </label>
+    </div>
+</div>

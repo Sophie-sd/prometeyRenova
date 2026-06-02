@@ -28,6 +28,17 @@ from .models import (
     PortfolioProject,
 )
 from .portfolio_sanitize import linkify_portfolio_html
+from .admin_widgets import PortfolioImageWidget
+
+PORTFOLIO_IMAGE_WIDGETS = {
+    'card_image': PortfolioImageWidget,
+    'card_image_mobile': PortfolioImageWidget,
+    'home_story_image': PortfolioImageWidget,
+    'modal_hero': PortfolioImageWidget,
+    'modal_mobile': PortfolioImageWidget,
+    'modal_tablet': PortfolioImageWidget,
+    'modal_laptop': PortfolioImageWidget,
+}
 
 PORTFOLIO_MCE_ATTRS = {
     'height': 320,
@@ -540,6 +551,7 @@ class PortfolioProjectAdminForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'modal_content': AdminTinyMCE(mce_attrs=PORTFOLIO_MCE_ATTRS),
+            **PORTFOLIO_IMAGE_WIDGETS,
         }
 
     def clean_modal_content(self):
@@ -616,18 +628,24 @@ class PortfolioProjectAdmin(UnfoldModelAdmin):
 
     @admin.display(description=_('Прев’ю картки'))
     def card_image_preview(self, obj):
-        if obj and obj.card_image:
-            return format_html(
-                '<img src="{}" alt="" style="max-height:120px;border-radius:4px;">',
-                obj.card_image.url,
-            )
-        return '—'
+        if not obj:
+            return '—'
+        src = obj.get_card_image_src()
+        if not src:
+            return '—'
+        return format_html(
+            '<img src="{}" alt="" class="pl-admin-image-preview">',
+            src,
+        )
 
     @admin.display(description=_('Прев’ю модалки'))
     def modal_hero_preview(self, obj):
-        if obj and obj.modal_hero:
-            return format_html(
-                '<img src="{}" alt="" style="max-height:120px;border-radius:4px;">',
-                obj.modal_hero.url,
-            )
-        return '—'
+        if not obj:
+            return '—'
+        src = obj.get_modal_hero_src()
+        if not src:
+            return '—'
+        return format_html(
+            '<img src="{}" alt="" class="pl-admin-image-preview">',
+            src,
+        )
