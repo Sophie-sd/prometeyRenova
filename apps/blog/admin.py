@@ -1,9 +1,10 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin as UnfoldModelAdmin
 from .models import BlogPost
 
 
 @admin.register(BlogPost)
-class BlogPostAdmin(admin.ModelAdmin):
+class BlogPostAdmin(UnfoldModelAdmin):
     list_display = ['title', 'category', 'is_published', 'created_at', 'reading_time']
     list_filter = ['category', 'is_published', 'created_at']
     search_fields = ['title', 'content', 'keywords']

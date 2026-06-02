@@ -1,4 +1,5 @@
 from django.contrib import admin, messages
+from unfold.admin import ModelAdmin as UnfoldModelAdmin
 from django.utils.html import format_html
 from django.utils import timezone
 from django.db import models
@@ -17,7 +18,7 @@ admin.site.unregister(Group)
 
 
 @admin.register(FormSubmission)
-class FormSubmissionAdmin(admin.ModelAdmin):
+class FormSubmissionAdmin(UnfoldModelAdmin):
     """CRM система управління заявками з кольоровим кодуванням та статистикою"""
     
     # ===== ОСНОВНА КОНФІГУРАЦІЯ =====

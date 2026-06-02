@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from unfold.admin import ModelAdmin as UnfoldModelAdmin, TabularInline as UnfoldTabularInline
 
 from .models import PaymentLink, PaymentLinkFile, PaymentSettings, RecipientProfile
 
@@ -10,7 +11,7 @@ from .models import PaymentLink, PaymentLinkFile, PaymentSettings, RecipientProf
 # ── PaymentSettings ────────────────────────────────────────────────────────
 
 @admin.register(PaymentSettings)
-class PaymentSettingsAdmin(admin.ModelAdmin):
+class PaymentSettingsAdmin(UnfoldModelAdmin):
     list_display = ('title',)
 
     def has_add_permission(self, request):
@@ -22,7 +23,7 @@ class PaymentSettingsAdmin(admin.ModelAdmin):
 # ── RecipientProfile ───────────────────────────────────────────────────────
 
 @admin.register(RecipientProfile)
-class RecipientProfileAdmin(admin.ModelAdmin):
+class RecipientProfileAdmin(UnfoldModelAdmin):
     list_display = ('name', 'recipient', 'iban', 'ipn', 'bank', 'is_active')
     list_editable = ('is_active',)
     search_fields = ('name', 'recipient', 'iban')
@@ -57,7 +58,7 @@ class PaymentLinkAdminForm(forms.ModelForm):
 
 # ── PaymentLink inline ─────────────────────────────────────────────────────
 
-class PaymentLinkFileInline(admin.TabularInline):
+class PaymentLinkFileInline(UnfoldTabularInline):
     model = PaymentLinkFile
     extra = 1
     fields = ('file_type', 'name', 'file')
@@ -68,7 +69,7 @@ class PaymentLinkFileInline(admin.TabularInline):
 # ── PaymentLink admin ──────────────────────────────────────────────────────
 
 @admin.register(PaymentLink)
-class PaymentLinkAdmin(admin.ModelAdmin):
+class PaymentLinkAdmin(UnfoldModelAdmin):
     form = PaymentLinkAdminForm
     list_display = (
         'client_name', 'recipient', 'amount', 'currency', 'final_amount_uah',

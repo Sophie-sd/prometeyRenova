@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from django.urls import reverse_lazy
 
 load_dotenv()
 
@@ -20,20 +21,83 @@ if RENDER_EXTERNAL_HOSTNAME:
 if DEBUG:
     ALLOWED_HOSTS.extend(['localhost', '127.0.0.1', '0.0.0.0', '127.0.0.1:8000', 'localhost:8000', 'testserver', '*'])
 
-# APPS - Зберігаємо поточні додатки
+# APPS
 INSTALLED_APPS = [
+    # Unfold — ЗАВЖДИ перед django.contrib.admin
+    "unfold",
+    "unfold.contrib.filters",
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    # Поточні додатки
+
     'apps.core',
-    'apps.blog', 
+    'apps.blog',
     'apps.payment',
 ]
+
+# UNFOLD ADMIN
+UNFOLD = {
+    "SITE_TITLE": "Prometey Labs",
+    "SITE_HEADER": "Prometey Labs — Адмінпанель",
+    "COLORS": {
+        "primary": {
+            "50":  "255 247 237",
+            "100": "255 237 213",
+            "200": "254 215 170",
+            "300": "253 186 116",
+            "400": "251 146 60",
+            "500": "249 115 22",
+            "600": "234 88 12",
+            "700": "194 65 12",
+            "800": "154 52 18",
+            "900": "124 45 18",
+            "950": "67 20 7",
+        },
+    },
+    "SCRIPTS": ["admin/js/admin-theme.js"],
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": False,
+        "navigation": [
+            {
+                "title": "CRM — Заявки",
+                "items": [
+                    {"title": "Нові заявки", "icon": "inbox",        "link": reverse_lazy("admin:core_formsubmission_changelist")},
+                    {"title": "В роботі",    "icon": "engineering",  "link": reverse_lazy("admin:core_inprogressformsubmission_changelist")},
+                    {"title": "Завершено",   "icon": "check_circle", "link": reverse_lazy("admin:core_completedformsubmission_changelist")},
+                    {"title": "Архів",       "icon": "archive",      "link": reverse_lazy("admin:core_archivedformsubmission_changelist")},
+                ],
+            },
+            {
+                "title": "Платежі",
+                "separator": True,
+                "items": [
+                    {"title": "Посилання",     "icon": "link",            "link": reverse_lazy("admin:payment_paymentlink_changelist")},
+                    {"title": "Отримувачі",   "icon": "account_balance", "link": reverse_lazy("admin:payment_recipientprofile_changelist")},
+                    {"title": "Налаштування", "icon": "settings",        "link": reverse_lazy("admin:payment_paymentsettings_changelist")},
+                ],
+            },
+            {
+                "title": "Блог",
+                "separator": True,
+                "items": [
+                    {"title": "Статті", "icon": "article", "link": reverse_lazy("admin:blog_blogpost_changelist")},
+                ],
+            },
+            {
+                "title": "Система",
+                "separator": True,
+                "items": [
+                    {"title": "Користувачі", "icon": "person", "link": reverse_lazy("admin:auth_user_changelist")},
+                ],
+            },
+        ],
+    },
+}
 
 # MIDDLEWARE
 MIDDLEWARE = [

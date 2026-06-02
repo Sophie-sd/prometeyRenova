@@ -256,3 +256,30 @@
         background-color: rgba(105, 105, 105, 0.05) !important;
     }
 }
+
+/* Theme toggle button */
+.admin-theme-toggle {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 9999;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid rgb(249 115 22 / 0.4);
+    background-color: rgb(249 115 22);
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.3);
+}
+
+.admin-theme-toggle:hover {
+    background-color: rgb(234 88 12);
+    transform: scale(1.08);
+}
