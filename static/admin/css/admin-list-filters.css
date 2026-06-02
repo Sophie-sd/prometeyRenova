@@ -1,0 +1,51 @@
+.changelist-toolbar {
+    align-items: stretch;
+}
+
+.admin-top-filters {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.admin-filter-dropdown {
+    flex: 0 1 auto;
+    min-width: 10rem;
+    max-width: 16rem;
+}
+
+.admin-filter-dropdown .group {
+    margin-bottom: 0;
+}
+
+.admin-filter-dropdown label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+}
+
+.admin-filter-dropdown select,
+.admin-filter-dropdown input[type="text"],
+.admin-filter-dropdown input[type="date"] {
+    width: 100%;
+    min-width: 10rem;
+}
+
+.admin-filter-reset {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+    .changelist-toolbar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-end;
+    }
+
+    .changelist-toolbar #toolbar {
+        flex: 1 1 12rem;
+        min-width: 12rem;
+    }
+}

@@ -1,9 +1,16 @@
 from django import forms
 from django.contrib import admin
+from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from unfold.admin import ModelAdmin as UnfoldModelAdmin, TabularInline as UnfoldTabularInline
+from unfold.contrib.filters.admin import (
+    ChoicesDropdownFilter,
+    DropdownFilter,
+    RangeDateFilter,
+    RelatedDropdownFilter,
+)
 
 from .models import PaymentLink, PaymentLinkFile, PaymentSettings, RecipientProfile
 
@@ -13,7 +20,7 @@ from .models import PaymentLink, PaymentLinkFile, PaymentSettings, RecipientProf
 @admin.register(PaymentSettings)
 class PaymentSettingsAdmin(UnfoldModelAdmin):
     list_display = ('title',)
-    list_filter_sheet = True
+    list_filter_sheet = False
 
     def has_add_permission(self, request):
         if PaymentSettings.objects.exists():
@@ -28,7 +35,7 @@ class RecipientProfileAdmin(UnfoldModelAdmin):
     list_display = ('name', 'recipient', 'iban', 'ipn', 'bank', 'is_active')
     list_editable = ('is_active',)
     search_fields = ('name', 'recipient', 'iban')
-    list_filter_sheet = True
+    list_filter_sheet = False
     fieldsets = (
         (None, {
             'fields': ('name', 'is_active'),
@@ -70,7 +77,7 @@ class PaymentLinkFileInline(UnfoldTabularInline):
 
 # ── List filters ───────────────────────────────────────────────────────────
 
-class AcquiringListFilter(admin.SimpleListFilter):
+class AcquiringDropdownFilter(DropdownFilter):
     title = _('Еквайринг')
     parameter_name = 'use_acquiring'
 
@@ -94,13 +101,18 @@ class AcquiringListFilter(admin.SimpleListFilter):
 @admin.register(PaymentLink)
 class PaymentLinkAdmin(UnfoldModelAdmin):
     form = PaymentLinkAdminForm
-    list_filter_sheet = True
+    list_filter_sheet = False
     list_display = (
         'client_name', 'recipient', 'amount', 'currency', 'amount_uah_display',
-        'status', 'acquiring_enabled', 'created_at',
+        'status', 'acquiring_enabled', 'created_at_compact',
         'open_link_button', 'copy_link_button',
     )
-    list_filter = ('status', AcquiringListFilter, 'recipient', 'created_at')
+    list_filter = (
+        ('status', ChoicesDropdownFilter),
+        AcquiringDropdownFilter,
+        ('recipient', RelatedDropdownFilter),
+        ('created_at', RangeDateFilter),
+    )
     search_fields = ('client_name', 'client_email', 'unique_id')
     readonly_fields = (
         'final_amount_uah', 'company_info',
@@ -163,6 +175,13 @@ class PaymentLinkAdmin(UnfoldModelAdmin):
     def acquiring_enabled(self, obj):
         return obj.use_acquiring
 
+    @admin.display(description=_('Створено'), ordering='created_at')
+    def created_at_compact(self, obj):
+        if not obj.created_at:
+            return '—'
+        local_dt = timezone.localtime(obj.created_at)
+        return local_dt.strftime('%d.%m.%Y %H:%M')
+
     def save_model(self, request, obj, form, change):
         if obj.recipient:
             rows = obj.recipient.as_requisites_rows()
@@ -187,15 +206,15 @@ class PaymentLinkAdmin(UnfoldModelAdmin):
     def copy_link_button(self, obj):
         url = self.get_client_facing_link(obj)
         return format_html(
-            '<div class="pl-copy-row">'
+            '<div class="pl-copy-row pl-copy-row--compact">'
             '<input type="text" class="pl-copy-input" value="{url}" readonly '
-            'aria-label="{aria}">'
+            'aria-label="{aria}" title="{url}">'
             '<button type="button" class="pl-copy-btn" '
             'data-copy data-copy-value="{url}" '
-            'aria-label="{aria}" aria-pressed="false">'
+            'aria-label="{aria}" aria-pressed="false" title="{label}">'
             '<span class="pl-copy-btn-icon" data-copy-icon="default" aria-hidden="true">⧉</span>'
             '<span class="pl-copy-btn-icon" data-copy-icon="done" aria-hidden="true" hidden>✓</span>'
-            '<span data-copy-label>{label}</span>'
+            '<span class="pl-copy-btn-text" data-copy-label>{label}</span>'
             '</button>'
             '</div>',
             url=url, label=_('Копіювати'), aria=_('Скопіювати посилання клієнта'),

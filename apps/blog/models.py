@@ -171,5 +171,14 @@ class BlogPost(models.Model):
             formatted_lines.append('</ul>')
         
         content = '\n'.join(formatted_lines)
-        
+
         return content
+
+    def get_safe_content(self):
+        """HTML з TinyMCE (bleach) або legacy markdown."""
+        from .html_sanitize import content_looks_like_html, sanitize_blog_html
+
+        raw = self.content or ''
+        if content_looks_like_html(raw):
+            return sanitize_blog_html(raw)
+        return self.get_clean_content()

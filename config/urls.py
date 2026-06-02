@@ -9,6 +9,7 @@ from django.conf.urls.static import static
 # URL без префіксу мови
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('tinymce/', include('tinymce.urls')),
     path('i18n/set_language/', set_language, name='set_language'),
     # Media файли — завжди (Render Persistent Disk)
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),

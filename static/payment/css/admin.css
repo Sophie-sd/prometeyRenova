@@ -1,5 +1,4 @@
-/* Styles for the PaymentLink admin views. Keeps the change-list copy widget
-   tidy and removes the need for any inline-style attributes in admin.py. */
+/* PaymentLink admin — copy widget and compact changelist */
 
 .pl-copy-row {
     display: flex;
@@ -10,43 +9,62 @@
     width: 100%;
 }
 
+.pl-copy-row--compact {
+    gap: 4px;
+    max-width: 200px;
+}
+
 .pl-copy-input {
     flex: 1;
     min-width: 0;
     padding: 4px 6px;
-    border: 1px solid #ccc;
+    border: 1px solid #d4d4d8;
     border-radius: 3px;
     font-family: inherit;
     font-size: 12px;
-    background: #fff;
+    color: #111827;
+    background-color: #ffffff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pl-copy-row--compact .pl-copy-input {
+    font-size: 11px;
+    padding: 3px 5px;
 }
 
 .pl-copy-btn {
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    flex-shrink: 0;
     white-space: nowrap;
     padding: 4px 10px;
     cursor: pointer;
-    border: 1px solid #ccc;
+    border: 1px solid #d4d4d8;
     border-radius: 3px;
-    background: #f8f8f8;
-    color: #222;
+    background-color: #f4f4f5;
+    color: #111827;
     font-family: inherit;
     font-size: 12px;
     line-height: 1.2;
-    transition: border-color .15s, background .15s, color .15s;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.pl-copy-row--compact .pl-copy-btn {
+    padding: 3px 6px;
+    font-size: 11px;
 }
 
 .pl-copy-btn:hover {
     border-color: #79aec8;
-    background: #fff;
+    background-color: #ffffff;
     color: #205067;
 }
 
 .pl-copy-btn.copied {
     border-color: #1d9a52;
-    background: #f0fff5;
+    background-color: #f0fff5;
     color: #1d9a52;
 }
 
@@ -55,6 +73,10 @@
     width: 12px;
     text-align: center;
     line-height: 1;
+}
+
+.pl-copy-row--compact .pl-copy-btn-text {
+    display: none;
 }
 
 .pl-textarea-wide {
@@ -66,34 +88,58 @@
     display: none;
 }
 
-html.dark .pl-copy-input {
+#changelist .pl-copy-input {
+    color: #111827;
+    background-color: #ffffff;
+    border-color: #d4d4d8;
+}
+
+#changelist .pl-copy-btn {
+    color: #111827;
+    background-color: #f4f4f5;
+    border-color: #d4d4d8;
+}
+
+#changelist .pl-copy-btn:hover {
+    color: #205067;
+    background-color: #ffffff;
+    border-color: #79aec8;
+}
+
+#changelist .pl-copy-btn.copied {
+    color: #1d9a52;
+    background-color: #f0fff5;
+    border-color: #1d9a52;
+}
+
+html.dark #changelist .pl-copy-input {
+    color: #fafafa;
     background-color: rgb(39 39 42);
-    color: rgb(250 250 250);
     border-color: rgb(82 82 91);
 }
 
-html.dark .pl-copy-btn {
+html.dark #changelist .pl-copy-btn {
+    color: #fafafa;
     background-color: rgb(63 63 70);
-    color: rgb(250 250 250);
     border-color: rgb(82 82 91);
 }
 
-html.dark .pl-copy-btn:hover {
+html.dark #changelist .pl-copy-btn:hover {
+    color: #fafafa;
     border-color: rgb(249 115 22);
     background-color: rgb(82 82 91);
-    color: rgb(250 250 250);
 }
 
-html.dark .pl-copy-btn.copied {
+html.dark #changelist .pl-copy-btn.copied {
+    color: rgb(134 239 172);
     border-color: rgb(29 154 82);
     background-color: rgb(20 60 40);
-    color: rgb(134 239 172);
 }
 
 #changelist td.field-copy_link_button,
 #changelist th.column-copy_link_button {
-    max-width: 300px;
-    width: 300px;
+    max-width: 200px;
+    width: 200px;
 }
 
 #changelist td.field-acquiring_enabled,
@@ -101,4 +147,60 @@ html.dark .pl-copy-btn.copied {
     max-width: 5rem;
     width: 5rem;
     text-align: center;
+}
+
+/* Compact PaymentLink changelist */
+body.model-paymentlink #changelist table {
+    font-size: 12px;
+}
+
+body.model-paymentlink #changelist th,
+body.model-paymentlink #changelist td {
+    padding: 6px 8px;
+}
+
+body.model-paymentlink #changelist .column-created_at,
+body.model-paymentlink #changelist .field-created_at_compact,
+body.model-paymentlink #changelist th.column-created_at_compact {
+    max-width: 9rem;
+    white-space: nowrap;
+    font-size: 11px;
+}
+
+body.model-paymentlink #changelist .column-open_link_button,
+body.model-paymentlink #changelist .field-open_link_button {
+    max-width: 5.5rem;
+    white-space: nowrap;
+}
+
+body.model-paymentlink #changelist .field-open_link_button .button,
+body.model-paymentlink #changelist .field-open_link_button a {
+    padding: 3px 8px;
+    font-size: 11px;
+}
+
+body.model-paymentlink #changelist .column-client_name,
+body.model-paymentlink #changelist .field-client_name,
+body.model-paymentlink #changelist .column-recipient,
+body.model-paymentlink #changelist .field-recipient {
+    max-width: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.model-paymentlink #changelist .column-amount,
+body.model-paymentlink #changelist .field-amount,
+body.model-paymentlink #changelist .column-currency,
+body.model-paymentlink #changelist .field-currency,
+body.model-paymentlink #changelist .column-amount_uah_display,
+body.model-paymentlink #changelist .field-amount_uah_display {
+    max-width: 5.5rem;
+    white-space: nowrap;
+}
+
+body.model-paymentlink #changelist .column-status,
+body.model-paymentlink #changelist .field-status {
+    max-width: 6.5rem;
+    white-space: nowrap;
 }

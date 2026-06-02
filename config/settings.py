@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'tinymce',
+
     'apps.core',
     'apps.blog',
     'apps.payment',
@@ -70,8 +72,12 @@ UNFOLD = {
     },
     "STYLES": [
         lambda request: static("admin/css/admin-primary-buttons.css"),
+        lambda request: static("admin/css/admin-list-filters.css"),
     ],
-    "SCRIPTS": ["admin/js/admin-theme.js"],
+    "SCRIPTS": [
+        "admin/js/admin-theme.js",
+        "admin/js/admin-list-filters.js",
+    ],
     "SIDEBAR": {
         "show_search": True,
         "show_all_applications": False,
@@ -92,6 +98,17 @@ UNFOLD = {
                     {"title": "Посилання",     "icon": "link",            "link": reverse_lazy("admin:payment_paymentlink_changelist")},
                     {"title": "Отримувачі",   "icon": "account_balance", "link": reverse_lazy("admin:payment_recipientprofile_changelist")},
                     {"title": "Налаштування", "icon": "settings",        "link": reverse_lazy("admin:payment_paymentsettings_changelist")},
+                ],
+            },
+            {
+                "title": "Сайт",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Контакти та карта",
+                        "icon": "contact_phone",
+                        "link": reverse_lazy("admin:core_sitecontactsettings_changelist"),
+                    },
                 ],
             },
             {
@@ -383,3 +400,29 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# TinyMCE (редактор контенту блогу в адмінці)
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 420,
+    'language': 'uk',
+    'menubar': False,
+    'plugins': 'lists link autoresize',
+    'toolbar': (
+        'undo redo | fontfamily fontsize | '
+        'bold italic underline | forecolor backcolor | '
+        'bullist numlist link | removeformat'
+    ),
+    'font_family_formats': (
+        'Arial=arial,helvetica,sans-serif; '
+        'Helvetica=helvetica neue,helvetica,arial,sans-serif; '
+        'Georgia=georgia,palatino,serif; '
+        'Times New Roman=times new roman,times,serif'
+    ),
+    'fontsize_formats': '12px 14px 16px 18px 20px 24px 32px',
+    'content_style': (
+        'body { font-family: Arial, Helvetica, sans-serif; font-size: 16px; }'
+    ),
+    'branding': False,
+    'promotion': False,
+    'relative_urls': False,
+}

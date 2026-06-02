@@ -1,3 +1,5 @@
+from django.core.cache import cache
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -16,7 +18,7 @@ class FormSubmission(models.Model):
         ('consultation', _('Заявка на консультацію')),
         ('contact', _('Заявка зі сторінки контактів')),
         ('call-request', _('Замовлення дзвінка')),
-        ('footer-consultation', _('Заявка з footer')),
+        ('footer-consultation', _('Заявка з футера')),
         ('test_result', _('Результат тесту калькулятора')),
     ]
     
@@ -319,3 +321,123 @@ class Employee(models.Model):
     def get_full_name(self):
         """Повертає повне ім'я"""
         return str(self)
+
+
+class SiteContactSettings(models.Model):
+    """Singleton: контакти сайту та точка на Google Maps."""
+
+    phone_display = models.CharField(
+        max_length=32,
+        default='+38 (063) 952-05-65',
+        verbose_name=_('Телефон (відображення)'),
+    )
+    phone_e164 = models.CharField(
+        max_length=20,
+        default='380639520565',
+        verbose_name=_('Телефон (цифри для посилань)'),
+        help_text=_('Без +, наприклад 380639520565'),
+    )
+    email = models.EmailField(
+        default='prometeylabs@gmail.com',
+        verbose_name=_('Email'),
+    )
+    instagram_url = models.URLField(
+        default='https://instagram.com/prometeylabs',
+        verbose_name=_('Instagram'),
+    )
+    facebook_url = models.URLField(
+        default='https://facebook.com/prometeylabs',
+        verbose_name=_('Facebook'),
+    )
+    linkedin_url = models.URLField(
+        default='https://linkedin.com/company/prometeylabs',
+        verbose_name=_('LinkedIn'),
+    )
+    telegram_url = models.URLField(
+        default='https://t.me/prometeylabs',
+        verbose_name=_('Telegram'),
+    )
+    whatsapp_url = models.URLField(
+        blank=True,
+        verbose_name=_('WhatsApp (опційно)'),
+        help_text=_('Якщо порожньо — генерується з телефону'),
+    )
+    viber_url = models.URLField(
+        blank=True,
+        verbose_name=_('Viber (опційно)'),
+        help_text=_('Якщо порожньо — генерується з телефону'),
+    )
+    maps_latitude = models.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        null=True,
+        blank=True,
+        verbose_name=_('Широта (Google Maps)'),
+    )
+    maps_longitude = models.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        null=True,
+        blank=True,
+        verbose_name=_('Довгота (Google Maps)'),
+    )
+    maps_zoom = models.PositiveSmallIntegerField(
+        default=15,
+        verbose_name=_('Масштаб карти'),
+    )
+    google_maps_embed_url = models.URLField(
+        max_length=500,
+        blank=True,
+        verbose_name=_('URL вбудованої карти (iframe src)'),
+        help_text=_(
+            'Повний src з Google Maps «Поділитися → Вбудувати». '
+            'Має пріоритет над координатами.'
+        ),
+    )
+
+    class Meta:
+        verbose_name = _('Контакти та карта')
+        verbose_name_plural = _('Контакти та карта')
+
+    def __str__(self):
+        return _('Контакти сайту')
+
+    def save(self, *args, **kwargs):
+        if not self.pk and SiteContactSettings.objects.exists():
+            raise ValidationError(_('Дозволено лише один запис налаштувань контактів'))
+        super().save(*args, **kwargs)
+        cache.delete('site_contact_settings')
+
+    def delete(self, *args, **kwargs):
+        result = super().delete(*args, **kwargs)
+        cache.delete('site_contact_settings')
+        return result
+
+    def get_tel_href(self):
+        digits = (self.phone_e164 or '').strip()
+        return f'tel:+{digits}' if digits else ''
+
+    def get_whatsapp_href(self):
+        if self.whatsapp_url:
+            return self.whatsapp_url
+        digits = (self.phone_e164 or '').strip()
+        return f'https://wa.me/{digits}' if digits else ''
+
+    def get_viber_href(self):
+        if self.viber_url:
+            return self.viber_url
+        digits = (self.phone_e164 or '').strip()
+        return f'viber://add?number={digits}' if digits else ''
+
+    def get_maps_embed_src(self):
+        embed = (self.google_maps_embed_url or '').strip()
+        if embed:
+            return embed
+        if self.maps_latitude is not None and self.maps_longitude is not None:
+            lat = self.maps_latitude
+            lng = self.maps_longitude
+            zoom = self.maps_zoom or 15
+            return (
+                f'https://www.google.com/maps?q={lat},{lng}&hl=uk&z={zoom}&output=embed'
+            )
+        return ''

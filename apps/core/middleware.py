@@ -54,7 +54,9 @@ class CSPMiddleware:
             "style-src 'self' 'unsafe-inline' https://widgets.binotel.com https://fonts.googleapis.com",
             "img-src 'self' data: https: blob:",
             "font-src 'self' data: https://fonts.gstatic.com",
-            "frame-src 'self' https://www.googletagmanager.com https://bid.g.doubleclick.net https://www.facebook.com https://td.doubleclick.net",
+            "frame-src 'self' https://www.google.com https://maps.google.com "
+            "https://www.googletagmanager.com https://bid.g.doubleclick.net "
+            "https://www.facebook.com https://td.doubleclick.net",
             "connect-src 'self' https:",
             "media-src 'self' data: blob:",
             "worker-src 'self' blob:",

@@ -1,15 +1,27 @@
 from django.contrib import admin, messages
 from unfold.admin import ModelAdmin as UnfoldModelAdmin
+from unfold.contrib.filters.admin import (
+    ChoicesDropdownFilter,
+    RangeDateFilter,
+    RelatedDropdownFilter,
+)
 from django.utils.html import format_html
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.admin.actions import delete_selected
 from django.contrib.auth.models import Group
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from datetime import timedelta
 import csv
-from django.http import HttpResponse
-from .models import FormSubmission, ArchivedFormSubmission, InProgressFormSubmission, CompletedFormSubmission
+from .models import (
+    FormSubmission,
+    ArchivedFormSubmission,
+    InProgressFormSubmission,
+    CompletedFormSubmission,
+    SiteContactSettings,
+)
 
 
 # ===== ВИДАЛЕННЯ ГРУП З ADMIN =====
@@ -21,7 +33,7 @@ admin.site.unregister(Group)
 class FormSubmissionAdmin(UnfoldModelAdmin):
     """CRM система управління заявками з кольоровим кодуванням та статистикою"""
 
-    list_filter_sheet = True
+    list_filter_sheet = False
 
     # ===== ОСНОВНА КОНФІГУРАЦІЯ =====
     list_display = [
@@ -31,11 +43,11 @@ class FormSubmissionAdmin(UnfoldModelAdmin):
     ]
     
     list_filter = [
-        'status', 
-        'form_type', 
-        'priority', 
-        ('created_at', admin.DateFieldListFilter),
-        'assigned_to'
+        ('status', ChoicesDropdownFilter),
+        ('form_type', ChoicesDropdownFilter),
+        ('priority', ChoicesDropdownFilter),
+        ('created_at', RangeDateFilter),
+        ('assigned_to', RelatedDropdownFilter),
     ]
     
     search_fields = ['name', 'phone', 'email', 'details', 'manager_comment', 'project']
@@ -440,3 +452,51 @@ class CompletedFormSubmissionAdmin(FormSubmissionAdmin):
         """Показує тільки завершені заявки"""
         qs = admin.ModelAdmin.get_queryset(self, request)
         return qs.filter(status='completed').select_related('assigned_to')
+
+
+@admin.register(SiteContactSettings)
+class SiteContactSettingsAdmin(UnfoldModelAdmin):
+    """Singleton: телефон, email, соцмережі, Google Maps."""
+
+    list_display = ('phone_display', 'email')
+    list_filter_sheet = False
+
+    fieldsets = (
+        (_('Контакти'), {
+            'fields': ('phone_display', 'phone_e164', 'email'),
+        }),
+        (_('Соціальні мережі'), {
+            'fields': ('instagram_url', 'facebook_url', 'linkedin_url'),
+        }),
+        (_('Месенджери'), {
+            'fields': ('telegram_url', 'whatsapp_url', 'viber_url'),
+        }),
+        (_('Google Maps'), {
+            'fields': (
+                'google_maps_embed_url',
+                'maps_latitude',
+                'maps_longitude',
+                'maps_zoom',
+            ),
+            'description': _(
+                'Вкажіть URL вбудованої карти або координати точки. '
+                'Карта з’явиться на сторінці контактів.'
+            ),
+        }),
+    )
+
+    def has_add_permission(self, request):
+        if SiteContactSettings.objects.exists():
+            return False
+        return super().has_add_permission(request)
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def changelist_view(self, request, extra_context=None):
+        obj = SiteContactSettings.objects.first()
+        if obj:
+            return HttpResponseRedirect(
+                reverse('admin:core_sitecontactsettings_change', args=[obj.pk])
+            )
+        return super().changelist_view(request, extra_context)

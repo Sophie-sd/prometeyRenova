@@ -52,15 +52,15 @@
     <!-- Footer з контактами та інфо -->
     <div class="mobile-menu-footer">
         <div class="mobile-menu-contacts">
-            <a href="tel:+380639520565"
+            <a href="{{ site_contact.get_tel_href }}"
                 class="mobile-contact-btn mobile-touch-target mobile-focus-visible"
-                aria-label="{% trans 'Зателефонувати' %} +38 (063) 952-05-65">
+                aria-label="{% trans 'Зателефонувати' %} {{ site_contact.phone_display }}">
                 <svg class="mobile-contact-btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M6.6 10.8C7.8 13.2 9.8 15.2 12.2 16.4L14.1 14.5C14.3 14.3 14.7 14.2 14.9 14.4C15.7 14.7 16.5 14.8 17.4 14.8C17.8 14.8 18.1 15.1 18.1 15.5V17.4C18.1 17.8 17.8 18.1 17.4 18.1C9.6 18.1 3.4 11.9 3.4 4.1C3.4 3.7 3.7 3.4 4.1 3.4H6C6.4 3.4 6.7 3.7 6.7 4.1C6.7 5 6.8 5.8 7.1 6.6C7.2 6.9 7.1 7.2 6.9 7.4L6.6 10.8Z"/>
                 </svg>
-                <span class="mobile-contact-btn__label">+38 (063) 952-05-65</span>
+                <span class="mobile-contact-btn__label">{{ site_contact.phone_display }}</span>
             </a>
-            <a href="https://t.me/prometeylabs" target="_blank" rel="noopener noreferrer"
+            <a href="{{ site_contact.telegram_url }}" target="_blank" rel="noopener noreferrer"
                 class="mobile-contact-btn mobile-touch-target mobile-focus-visible"
                 aria-label="{% trans 'Написати в Telegram' %}">
                 <svg class="mobile-contact-btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

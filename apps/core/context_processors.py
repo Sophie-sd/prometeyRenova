@@ -3,6 +3,8 @@ Context processors для глобальних змінних шаблонів
 """
 from django.conf import settings
 
+from apps.core.utils import get_site_contact_settings
+
 
 def global_settings(request):
     """
@@ -13,5 +15,6 @@ def global_settings(request):
         'FACEBOOK_PIXEL_ID': getattr(settings, 'FACEBOOK_PIXEL_ID', None),
         'DEBUG': settings.DEBUG,
         'csp_nonce': getattr(request, 'csp_nonce', ''),
+        'site_contact': get_site_contact_settings(),
     }
 

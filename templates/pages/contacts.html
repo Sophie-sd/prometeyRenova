@@ -34,29 +34,29 @@
                             <div class="contact-column">
                                 <div class="contact-item">
                                     <h3>{% trans "Телефон" %}</h3>
-                                    <a href="tel:+380639520565" class="contact-link">+38 (063) 952-05-65</a>
+                                    <a href="{{ site_contact.get_tel_href }}" class="contact-link">{{ site_contact.phone_display }}</a>
                                 </div>
                             </div>
 
                             <div class="contact-column">
                                 <div class="contact-item">
                                     <h3>Email</h3>
-                                    <a href="mailto:prometeylabs@gmail.com" class="contact-link">prometeylabs@gmail.com</a>
+                                    <a href="mailto:{{ site_contact.email }}" class="contact-link">{{ site_contact.email }}</a>
                                 </div>
 
                                 <div class="contact-item">
                                     <h3>{% trans "Соціальні мережі" %}</h3>
                                     <div class="social-links">
-                                        <a href="https://instagram.com/prometeylabs" class="social-link" target="_blank"
-                                            rel="noopener">
+                                        <a href="{{ site_contact.instagram_url }}" class="social-link" target="_blank"
+                                            rel="noopener noreferrer">
                                             Instagram
                                         </a>
-                                        <a href="https://facebook.com/prometeylabs" class="social-link" target="_blank"
-                                            rel="noopener">
+                                        <a href="{{ site_contact.facebook_url }}" class="social-link" target="_blank"
+                                            rel="noopener noreferrer">
                                             Facebook
                                         </a>
-                                        <a href="https://linkedin.com/company/prometeylabs" class="social-link" target="_blank"
-                                            rel="noopener">
+                                        <a href="{{ site_contact.linkedin_url }}" class="social-link" target="_blank"
+                                            rel="noopener noreferrer">
                                             LinkedIn
                                         </a>
                                     </div>
@@ -65,16 +65,16 @@
                                 <div class="contact-item">
                                     <h3>{% trans "Месенджери" %}</h3>
                                     <div class="messengers">
-                                        <a href="https://t.me/prometeylabs" class="messenger-link" target="_blank"
-                                            rel="noopener">
+                                        <a href="{{ site_contact.telegram_url }}" class="messenger-link" target="_blank"
+                                            rel="noopener noreferrer">
                                             Telegram
                                         </a>
-                                        <a href="https://wa.me/380639520565" class="messenger-link" target="_blank"
-                                            rel="noopener">
+                                        <a href="{{ site_contact.get_whatsapp_href }}" class="messenger-link" target="_blank"
+                                            rel="noopener noreferrer">
                                             WhatsApp
                                         </a>
-                                        <a href="viber://add?number=380639520565" class="messenger-link" target="_blank"
-                                            rel="noopener">
+                                        <a href="{{ site_contact.get_viber_href }}" class="messenger-link" target="_blank"
+                                            rel="noopener noreferrer">
                                             Viber
                                         </a>
                                     </div>
@@ -120,6 +120,24 @@
             </div>
         </div>
     </section>
+
+    {% if site_contact.get_maps_embed_src %}
+    <section class="contacts-map" aria-label="{% trans 'Карта' %}">
+        <div class="container">
+            <h2 class="medium-title contacts-map__title">{% trans "Ми на карті" %}</h2>
+            <div class="contacts-map__frame-wrap">
+                <iframe
+                    class="contacts-map__iframe"
+                    src="{{ site_contact.get_maps_embed_src }}"
+                    title="{% trans 'Google Maps' %}"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+    {% endif %}
 </div>
 {% endblock %}
 

@@ -417,6 +417,31 @@ body {
     color: var(--color-white);
 }
 
+.article-text em {
+    font-style: italic;
+}
+
+.article-text u {
+    text-decoration: underline;
+}
+
+.article-text h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-brand-orange);
+    margin: var(--space-md) 0 var(--space-sm);
+    line-height: 1.2;
+}
+
+.article-text a {
+    color: var(--color-brand-orange);
+    text-decoration: underline;
+}
+
+.article-text a:hover {
+    opacity: 0.85;
+}
+
 .article-text ul,
 .article-text ol {
     margin: var(--space-sm) 0;
