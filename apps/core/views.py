@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.utils import timezone
-from .mixins import BasePageView
+from .mixins import BasePageView, homepage_portfolio_stories, portfolio_page_projects
 from .form_handlers import (
     validate_phone, validate_name, create_form_response, get_form_type_from_path,
     create_form_data, send_form_email, save_form_submission,
@@ -65,10 +65,21 @@ class HomeView(BasePageView):
     meta_description = _('PrometeyLabs - професійна розробка сайтів під ключ, створення Telegram ботів, налаштування реклами Google Ads, навчання веб-розробки. Сучасні технології, конкурентні ціни.')
     og_title = _('PrometeyLabs - Розробка сайтів під ключ')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['home_portfolio_stories'] = homepage_portfolio_stories()
+        return context
+
+
 class PortfolioView(BasePageView):
     template_name = 'pages/portfolio.html'
     page_title = _('Портфоліо | Створені нами сайти під ключ - PrometeyLabs')
     meta_description = _('Портфоліо PrometeyLabs - приклади створених сайтів під ключ, Telegram ботів, налаштованої реклами. Подивіться на наші роботи та оцініть якість.')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['portfolio_projects'] = portfolio_page_projects()
+        return context
 
 class CalculatorView(BasePageView):
     template_name = 'pages/calculator.html'

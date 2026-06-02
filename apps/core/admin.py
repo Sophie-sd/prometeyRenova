@@ -1,4 +1,6 @@
+from django import forms
 from django.contrib import admin, messages
+from tinymce.widgets import AdminTinyMCE
 from unfold.admin import ModelAdmin as UnfoldModelAdmin
 from unfold.contrib.filters.admin import (
     ChoicesDropdownFilter,
@@ -23,7 +25,19 @@ from .models import (
     InProgressFormSubmission,
     CompletedFormSubmission,
     SiteContactSettings,
+    PortfolioProject,
 )
+from .portfolio_sanitize import linkify_portfolio_html
+
+PORTFOLIO_MCE_ATTRS = {
+    'height': 320,
+    'min_height': 200,
+    'plugins': 'lists link autoresize code',
+    'toolbar': (
+        'undo redo | bold italic underline | bullist numlist link | '
+        'removeformat | code'
+    ),
+}
 
 
 # ===== ВИДАЛЕННЯ ГРУП З ADMIN =====
@@ -518,3 +532,102 @@ class SiteContactSettingsAdmin(UnfoldModelAdmin):
                 reverse('admin:core_sitecontactsettings_change', args=[obj.pk])
             )
         return super().changelist_view(request, extra_context)
+
+
+class PortfolioProjectAdminForm(forms.ModelForm):
+    class Meta:
+        model = PortfolioProject
+        fields = '__all__'
+        widgets = {
+            'modal_content': AdminTinyMCE(mce_attrs=PORTFOLIO_MCE_ATTRS),
+        }
+
+    def clean_modal_content(self):
+        raw = self.cleaned_data.get('modal_content', '')
+        return linkify_portfolio_html(raw)
+
+
+@admin.register(PortfolioProject)
+class PortfolioProjectAdmin(UnfoldModelAdmin):
+    form = PortfolioProjectAdminForm
+    list_filter_sheet = False
+    list_display = (
+        'title',
+        'order',
+        'is_published',
+        'show_on_portfolio',
+        'show_on_homepage',
+        'updated_at',
+    )
+    list_filter = (
+        ('is_published', ChoicesDropdownFilter),
+        ('show_on_portfolio', BooleanDropdownFilter),
+        ('show_on_homepage', BooleanDropdownFilter),
+    )
+    search_fields = ('title', 'subtitle', 'card_description', 'slug')
+    prepopulated_fields = {'slug': ('title',)}
+    readonly_fields = (
+        'created_at',
+        'updated_at',
+        'card_image_preview',
+        'modal_hero_preview',
+    )
+    ordering = ('order', 'title')
+
+    fieldsets = (
+        (_('Основне'), {
+            'fields': ('title', 'subtitle', 'slug', 'order', 'home_order'),
+        }),
+        (_('Картка (/portfolio/)'), {
+            'fields': (
+                'card_description',
+                'integrations',
+                'card_image',
+                'card_image_preview',
+                'card_image_mobile',
+                'card_image_alt',
+            ),
+        }),
+        (_('Модальне вікно'), {
+            'fields': (
+                'modal_content',
+                'modal_hero',
+                'modal_hero_preview',
+                'modal_mobile',
+                'modal_tablet',
+                'modal_laptop',
+            ),
+        }),
+        (_('Головна сторінка'), {
+            'fields': ('home_story_image', 'home_story_label'),
+        }),
+        (_('Відображення'), {
+            'fields': (
+                'is_published',
+                'show_on_portfolio',
+                'show_on_homepage',
+            ),
+        }),
+        (_('Службове'), {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',),
+        }),
+    )
+
+    @admin.display(description=_('Прев’ю картки'))
+    def card_image_preview(self, obj):
+        if obj and obj.card_image:
+            return format_html(
+                '<img src="{}" alt="" style="max-height:120px;border-radius:4px;">',
+                obj.card_image.url,
+            )
+        return '—'
+
+    @admin.display(description=_('Прев’ю модалки'))
+    def modal_hero_preview(self, obj):
+        if obj and obj.modal_hero:
+            return format_html(
+                '<img src="{}" alt="" style="max-height:120px;border-radius:4px;">',
+                obj.modal_hero.url,
+            )
+        return '—'

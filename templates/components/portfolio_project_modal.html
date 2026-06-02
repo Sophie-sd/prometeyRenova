@@ -1,0 +1,26 @@
+{% load i18n %}
+<div class="modal" id="{{ project.get_modal_id }}" role="dialog" aria-labelledby="{{ project.slug }}-modal-title" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content portfolio-modal-content">
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}" data-modal-id="{{ project.get_modal_id }}">&times;</button>
+
+        <h2 class="portfolio-modal-title" id="{{ project.slug }}-modal-title">{{ project.get_modal_title }}</h2>
+
+        {% if project.modal_hero %}
+        <img class="portfolio-modal-image-full" src="{{ project.modal_hero.url }}" alt="{{ project.get_card_alt }}" loading="lazy" decoding="async">
+        {% endif %}
+
+        {{ project.get_safe_modal_content|safe }}
+
+        {% if project.modal_mobile and project.modal_tablet %}
+        <div class="portfolio-modal-images-grid">
+            <img src="{{ project.modal_mobile.url }}" alt="{{ project.get_card_alt }}" loading="lazy" decoding="async">
+            <img src="{{ project.modal_tablet.url }}" alt="{{ project.get_card_alt }}" loading="lazy" decoding="async">
+        </div>
+        {% endif %}
+
+        {% if project.modal_laptop %}
+        <img class="portfolio-modal-image-full" src="{{ project.modal_laptop.url }}" alt="{{ project.get_card_alt }}" loading="lazy" decoding="async">
+        {% endif %}
+    </div>
+</div>

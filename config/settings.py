@@ -109,6 +109,11 @@ UNFOLD = {
                         "icon": "contact_phone",
                         "link": reverse_lazy("admin:core_sitecontactsettings_changelist"),
                     },
+                    {
+                        "title": "Портфоліо",
+                        "icon": "work",
+                        "link": reverse_lazy("admin:core_portfolioproject_changelist"),
+                    },
                 ],
             },
             {

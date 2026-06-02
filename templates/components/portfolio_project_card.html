@@ -1,0 +1,36 @@
+{% load i18n %}
+<article class="project-card {{ project.get_layout_modifier }}">
+    <div class="project-card__container">
+        <div class="project-card__image-wrapper">
+            <picture>
+                {% if project.card_image_mobile %}
+                <source media="(max-width: 767px)" srcset="{{ project.card_image_mobile.url }}">
+                {% endif %}
+                <img src="{{ project.card_image.url }}" alt="{{ project.get_card_alt }}" class="project-card__image" loading="lazy" decoding="async">
+            </picture>
+        </div>
+        <div class="project-card__content">
+            <h2 class="project-card__title">{{ project.title }}
+                {% if project.subtitle %}
+                <span class="project-card__subtitle">{{ project.subtitle }}</span>
+                {% endif %}
+            </h2>
+            <p class="project-card__description">{{ project.card_description }}</p>
+
+            {% if project.get_integration_tags %}
+            <div class="project-card__integrations">
+                {% for tag in project.get_integration_tags %}
+                <span class="integration-tag"><span class="integration-hash">#</span>{{ tag }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if project.modal_content or project.modal_hero %}
+            <button class="btn btn-secondary project-card__more-btn" data-modal="{{ project.get_modal_id }}" type="button">
+                <span>{% trans "Більше інформації" %}</span>
+                <span class="detail-arrow" aria-hidden="true">↗</span>
+            </button>
+            {% endif %}
+        </div>
+    </div>
+</article>

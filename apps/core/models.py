@@ -441,3 +441,138 @@ class SiteContactSettings(models.Model):
                 f'https://www.google.com/maps?q={lat},{lng}&hl=uk&z={zoom}&output=embed'
             )
         return ''
+
+
+def portfolio_upload_to(instance, filename: str) -> str:
+    """Шлях завантаження зображень портфоліо."""
+    return f'portfolio/{instance.slug}/{filename}'
+
+
+class PortfolioProject(models.Model):
+    """Проєкт портфоліо для сторінки /portfolio/ та блоку на головній."""
+
+    slug = models.SlugField(max_length=120, unique=True, verbose_name=_('Slug'))
+    title = models.CharField(max_length=200, verbose_name=_('Заголовок'))
+    subtitle = models.CharField(max_length=200, blank=True, verbose_name=_('Підзаголовок'))
+    card_description = models.TextField(verbose_name=_('Короткий опис (картка)'))
+    integrations = models.TextField(
+        blank=True,
+        verbose_name=_('Теги інтеграцій'),
+        help_text=_('Один тег на рядок (без #)'),
+    )
+    card_image = models.ImageField(
+        upload_to=portfolio_upload_to,
+        verbose_name=_('Зображення картки (desktop)'),
+    )
+    card_image_mobile = models.ImageField(
+        upload_to=portfolio_upload_to,
+        blank=True,
+        verbose_name=_('Зображення картки (mobile)'),
+    )
+    card_image_alt = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Alt текст картки'),
+    )
+    home_story_image = models.ImageField(
+        upload_to=portfolio_upload_to,
+        blank=True,
+        verbose_name=_('Зображення для головної (stories)'),
+    )
+    home_story_label = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name=_('Назва на головній'),
+        help_text=_('Якщо порожньо — використовується заголовок'),
+    )
+    modal_content = models.TextField(
+        blank=True,
+        verbose_name=_('Контент модального вікна (HTML)'),
+    )
+    modal_hero = models.ImageField(
+        upload_to=portfolio_upload_to,
+        blank=True,
+        verbose_name=_('Модалка: головне зображення'),
+    )
+    modal_mobile = models.ImageField(
+        upload_to=portfolio_upload_to,
+        blank=True,
+        verbose_name=_('Модалка: мобільна версія'),
+    )
+    modal_tablet = models.ImageField(
+        upload_to=portfolio_upload_to,
+        blank=True,
+        verbose_name=_('Модалка: планшетна версія'),
+    )
+    modal_laptop = models.ImageField(
+        upload_to=portfolio_upload_to,
+        blank=True,
+        verbose_name=_('Модалка: десктопна версія'),
+    )
+    is_published = models.BooleanField(default=True, verbose_name=_('Опубліковано'))
+    show_on_portfolio = models.BooleanField(
+        default=False,
+        verbose_name=_('Показувати на /portfolio/'),
+    )
+    show_on_homepage = models.BooleanField(
+        default=False,
+        verbose_name=_('Показувати на головній'),
+    )
+    order = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_('Порядок на /portfolio/'),
+    )
+    home_order = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_('Порядок на головній'),
+    )
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Створено'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Оновлено'))
+
+    class Meta:
+        db_table = 'core_portfolio_project'
+        ordering = ['order', 'title']
+        verbose_name = _('Проєкт портфоліо')
+        verbose_name_plural = _('Проєкти портфоліо')
+        indexes = [
+            models.Index(fields=['is_published', 'order']),
+            models.Index(fields=['show_on_portfolio', 'is_published']),
+            models.Index(fields=['show_on_homepage', 'is_published']),
+        ]
+
+    def __str__(self) -> str:
+        return self.title
+
+    def get_modal_id(self) -> str:
+        return f'project-{self.slug}-modal'
+
+    def get_layout_modifier(self) -> str:
+        if self.order % 2 == 0:
+            return 'project-card--image-left'
+        return 'project-card--image-right'
+
+    def get_integration_tags(self) -> list[str]:
+        if not self.integrations:
+            return []
+        return [line.strip() for line in self.integrations.splitlines() if line.strip()]
+
+    def get_safe_modal_content(self) -> str:
+        from .portfolio_sanitize import linkify_portfolio_html
+
+        return linkify_portfolio_html(self.modal_content or '')
+
+    def get_home_image(self):
+        if self.home_story_image:
+            return self.home_story_image
+        return self.card_image
+
+    def get_home_label(self) -> str:
+        return (self.home_story_label or self.title).strip()
+
+    def get_card_alt(self) -> str:
+        return (self.card_image_alt or self.title).strip()
+
+    def get_modal_title(self) -> str:
+        if self.subtitle:
+            return f'{self.title} — {self.subtitle}'
+        return self.title

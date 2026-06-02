@@ -7,6 +7,7 @@
     min-width: 0;
     max-width: 280px;
     width: 100%;
+    color-scheme: light;
 }
 
 .pl-copy-row--compact {
@@ -35,33 +36,40 @@
     padding: 3px 5px;
 }
 
-.pl-copy-btn {
+.pl-icon-btn {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    justify-content: center;
     flex-shrink: 0;
-    white-space: nowrap;
-    padding: 4px 10px;
+    box-sizing: border-box;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    margin: 0;
     cursor: pointer;
     border: 1px solid #d4d4d8;
     border-radius: 3px;
     background-color: #f4f4f5;
     color: #111827;
     font-family: inherit;
-    font-size: 12px;
-    line-height: 1.2;
+    font-size: 14px;
+    line-height: 1;
+    text-decoration: none;
     transition: border-color 0.15s, background 0.15s, color 0.15s;
 }
 
-.pl-copy-row--compact .pl-copy-btn {
-    padding: 3px 6px;
-    font-size: 11px;
+.pl-icon-btn--open {
+    font-weight: 700;
 }
 
-.pl-copy-btn:hover {
+.pl-icon-btn:hover {
     border-color: #79aec8;
     background-color: #ffffff;
     color: #205067;
+}
+
+.pl-copy-btn {
+    gap: 0;
 }
 
 .pl-copy-btn.copied {
@@ -72,13 +80,9 @@
 
 .pl-copy-btn-icon {
     display: inline-block;
-    width: 12px;
+    width: 14px;
     text-align: center;
     line-height: 1;
-}
-
-.pl-copy-row--compact .pl-copy-btn-text {
-    display: none;
 }
 
 .pl-textarea-wide {
@@ -90,6 +94,8 @@
     display: none;
 }
 
+body.model-paymentlink #changelist-form .pl-copy-input,
+body.model-paymentlink #result_list .pl-copy-input,
 body.model-paymentlink #changelist input.pl-copy-input,
 body.model-paymentlink #changelist .pl-copy-input {
     color: #111827;
@@ -99,25 +105,32 @@ body.model-paymentlink #changelist .pl-copy-input {
     border-color: #d4d4d8;
 }
 
-body.model-paymentlink #changelist .pl-copy-btn {
+body.model-paymentlink #changelist-form .pl-icon-btn,
+body.model-paymentlink #result_list .pl-icon-btn,
+body.model-paymentlink #changelist .pl-icon-btn {
     color: #111827;
     background-color: #f4f4f5;
     border-color: #d4d4d8;
 }
 
-body.model-paymentlink #changelist .pl-copy-btn:hover {
+body.model-paymentlink #changelist-form .pl-icon-btn:hover,
+body.model-paymentlink #result_list .pl-icon-btn:hover,
+body.model-paymentlink #changelist .pl-icon-btn:hover {
     color: #205067;
     background-color: #ffffff;
     border-color: #79aec8;
 }
 
+body.model-paymentlink #changelist-form .pl-copy-btn.copied,
+body.model-paymentlink #result_list .pl-copy-btn.copied,
 body.model-paymentlink #changelist .pl-copy-btn.copied {
     color: #1d9a52;
     background-color: #f0fff5;
     border-color: #1d9a52;
 }
 
-/* Темна тема адмінки: поле посилання лишається світлим з темним текстом */
+html.dark body.model-paymentlink #changelist-form .pl-copy-input,
+html.dark body.model-paymentlink #result_list .pl-copy-input,
 html.dark body.model-paymentlink #changelist input.pl-copy-input,
 html.dark body.model-paymentlink #changelist .pl-copy-input {
     color: #111827;
@@ -127,26 +140,32 @@ html.dark body.model-paymentlink #changelist .pl-copy-input {
     border-color: #d4d4d8;
 }
 
-html.dark body.model-paymentlink #changelist .pl-copy-btn {
+html.dark body.model-paymentlink #changelist-form .pl-icon-btn,
+html.dark body.model-paymentlink #result_list .pl-icon-btn,
+html.dark body.model-paymentlink #changelist .pl-icon-btn {
     color: #111827;
     background-color: #f4f4f5;
     border-color: #d4d4d8;
 }
 
-html.dark body.model-paymentlink #changelist .pl-copy-btn:hover {
+html.dark body.model-paymentlink #changelist-form .pl-icon-btn:hover,
+html.dark body.model-paymentlink #result_list .pl-icon-btn:hover,
+html.dark body.model-paymentlink #changelist .pl-icon-btn:hover {
     color: #205067;
     background-color: #ffffff;
     border-color: rgb(249 115 22);
 }
 
+html.dark body.model-paymentlink #changelist-form .pl-copy-btn.copied,
+html.dark body.model-paymentlink #result_list .pl-copy-btn.copied,
 html.dark body.model-paymentlink #changelist .pl-copy-btn.copied {
     color: #1d9a52;
     background-color: #f0fff5;
     border-color: #1d9a52;
 }
 
-#changelist td.field-copy_link_button,
-#changelist th.column-copy_link_button {
+#changelist td.field-client_link_cell,
+#changelist th.column-client_link_cell {
     max-width: 200px;
     width: 200px;
 }
@@ -173,18 +192,6 @@ body.model-paymentlink #changelist .field-created_at_compact,
 body.model-paymentlink #changelist th.column-created_at_compact {
     max-width: 9rem;
     white-space: nowrap;
-    font-size: 11px;
-}
-
-body.model-paymentlink #changelist .column-open_link_button,
-body.model-paymentlink #changelist .field-open_link_button {
-    max-width: 5.5rem;
-    white-space: nowrap;
-}
-
-body.model-paymentlink #changelist .field-open_link_button .button,
-body.model-paymentlink #changelist .field-open_link_button a {
-    padding: 3px 8px;
     font-size: 11px;
 }
 

@@ -1,0 +1,8 @@
+<a href="{% url 'portfolio' %}" class="project-story{% if is_clone %} story-clone{% endif %}"{% if is_clone %} data-clone="true" aria-hidden="true" tabindex="-1"{% else %} role="listitem" aria-label="{{ project.get_home_label }}"{% endif %}>
+    <div class="project-story-ring">
+        <div class="project-story-image">
+            <img src="{{ project.get_home_image.url }}" alt="{{ project.get_home_label }}" loading="lazy" decoding="async">
+        </div>
+    </div>
+    <span class="project-story-name">{{ project.get_home_label }}</span>
+</a>

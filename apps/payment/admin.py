@@ -105,7 +105,7 @@ class PaymentLinkAdmin(UnfoldModelAdmin):
     list_display = (
         'client_name', 'recipient', 'amount', 'currency', 'amount_uah_display',
         'status', 'acquiring_enabled', 'created_at_compact',
-        'open_link_button', 'copy_link_button',
+        'client_link_cell',
     )
     list_filter = (
         ('status', ChoicesDropdownFilter),
@@ -194,30 +194,29 @@ class PaymentLinkAdmin(UnfoldModelAdmin):
         base = getattr(settings, 'SITE_URL', '').rstrip('/') or 'https://prometeylabs.com'
         return f"{base}/payment/pay/{obj.unique_id}/"
 
-    @admin.display(description=_('Відкрити'))
-    def open_link_button(self, obj):
-        url = self.get_client_facing_link(obj)
-        return format_html(
-            '<a class="button" href="{}" target="_blank" rel="noopener">{}</a>',
-            url, _('Відкрити'),
-        )
-
     @admin.display(description=_('Посилання клієнта'))
-    def copy_link_button(self, obj):
+    def client_link_cell(self, obj):
         url = self.get_client_facing_link(obj)
+        open_label = _('Відкрити посилання')
+        copy_label = _('Скопіювати посилання клієнта')
         return format_html(
             '<div class="pl-copy-row pl-copy-row--compact">'
+            '<a class="pl-icon-btn pl-icon-btn--open" href="{url}" target="_blank" '
+            'rel="noopener noreferrer" aria-label="{open_aria}" title="{open_title}">↗</a>'
             '<input type="text" class="pl-copy-input" value="{url}" readonly '
-            'aria-label="{aria}" title="{url}">'
-            '<button type="button" class="pl-copy-btn" '
+            'aria-label="{copy_aria}" title="{url}">'
+            '<button type="button" class="pl-icon-btn pl-copy-btn" '
             'data-copy data-copy-value="{url}" '
-            'aria-label="{aria}" aria-pressed="false" title="{label}">'
+            'aria-label="{copy_aria}" aria-pressed="false" title="{copy_title}">'
             '<span class="pl-copy-btn-icon" data-copy-icon="default" aria-hidden="true">⧉</span>'
             '<span class="pl-copy-btn-icon" data-copy-icon="done" aria-hidden="true" hidden>✓</span>'
-            '<span class="pl-copy-btn-text" data-copy-label>{label}</span>'
             '</button>'
             '</div>',
-            url=url, label=_('Копіювати'), aria=_('Скопіювати посилання клієнта'),
+            url=url,
+            open_aria=open_label,
+            open_title=_('Відкрити'),
+            copy_aria=copy_label,
+            copy_title=_('Копіювати'),
         )
 
     @admin.action(description=_('Деактивувати вибрані посилання'))
