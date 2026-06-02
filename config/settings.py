@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from django.urls import reverse_lazy
+from django.templatetags.static import static
 
 load_dotenv()
 
@@ -43,6 +44,15 @@ INSTALLED_APPS = [
 UNFOLD = {
     "SITE_TITLE": "Prometey Labs",
     "SITE_HEADER": "Prometey Labs — Адмінпанель",
+    "SITE_ICON": lambda request: static("images/favicon-48x48.png"),
+    "SITE_FAVICONS": [
+        {"rel": "icon", "sizes": "16x16", "type": "image/png",
+         "href": lambda request: static("images/favicon-16x16.png")},
+        {"rel": "icon", "sizes": "32x32", "type": "image/png",
+         "href": lambda request: static("images/favicon-32x32.png")},
+        {"rel": "icon", "sizes": "48x48", "type": "image/png",
+         "href": lambda request: static("images/favicon-48x48.png")},
+    ],
     "COLORS": {
         "primary": {
             "50":  "255 247 237",
