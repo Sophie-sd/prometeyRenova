@@ -1,0 +1,23 @@
+/*
+ * Помаранчеві акценти для кнопок адмінки (primary palette з UNFOLD).
+ * Дублює стилі Unfold там, де bg-primary-600 не застосовується за замовчуванням.
+ */
+
+button[type="submit"].bg-primary-600,
+input[type="submit"].default,
+.submit-row input[type="submit"] {
+    background-color: var(--color-primary-600);
+    border-color: var(--color-primary-600);
+    color: #fff;
+}
+
+button[type="submit"].bg-primary-600:hover,
+input[type="submit"].default:hover,
+.submit-row input[type="submit"]:hover {
+    background-color: var(--color-primary-700);
+    border-color: var(--color-primary-700);
+}
+
+a.addlink.bg-primary-600:hover {
+    background-color: var(--color-primary-700);
+}

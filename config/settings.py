@@ -68,6 +68,9 @@ UNFOLD = {
             "950": "67 20 7",
         },
     },
+    "STYLES": [
+        lambda request: static("admin/css/admin-primary-buttons.css"),
+    ],
     "SCRIPTS": ["admin/js/admin-theme.js"],
     "SIDEBAR": {
         "show_search": True,
