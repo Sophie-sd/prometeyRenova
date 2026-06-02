@@ -47,4 +47,7 @@ python manage.py create_superuser
 echo "🌱 Seeding initial data (blog posts & events)..."
 python manage.py seed_initial_data
 
+echo "🖼️  Seeding portfolio projects (from static assets)..."
+python manage.py seed_portfolio_projects
+
 echo "✅ Build complete!"
