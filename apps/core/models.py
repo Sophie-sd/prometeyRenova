@@ -199,7 +199,7 @@ class FormSubmission(models.Model):
             'consultation': 'Консультація',
             'contact': 'Контакт',
             'call-request': 'Дзвінок',
-            'footer-consultation': 'Footer',
+            'footer-consultation': 'Футер',
             'test_result': 'Тест',
         }
         return display_map.get(self.form_type, self.get_form_type_display())

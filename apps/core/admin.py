@@ -20,7 +20,9 @@ admin.site.unregister(Group)
 @admin.register(FormSubmission)
 class FormSubmissionAdmin(UnfoldModelAdmin):
     """CRM система управління заявками з кольоровим кодуванням та статистикою"""
-    
+
+    list_filter_sheet = True
+
     # ===== ОСНОВНА КОНФІГУРАЦІЯ =====
     list_display = [
         'id_badge', 'project_display', 'name_display', 'phone_display', 
@@ -135,9 +137,8 @@ class FormSubmissionAdmin(UnfoldModelAdmin):
     def id_badge(self, obj):
         """ID з малюнком"""
         return format_html(
-            '<span style="background-color: #e8e8e8; padding: 4px 8px; '
-            'border-radius: 4px; font-family: monospace; font-weight: bold;">#{}</span>',
-            obj.id
+            '<span class="admin-badge admin-badge--id">#{}</span>',
+            obj.id,
         )
     id_badge.short_description = 'ID'
     
@@ -163,56 +164,30 @@ class FormSubmissionAdmin(UnfoldModelAdmin):
     
     def form_type_badge(self, obj):
         """Тип форми з малюнком"""
-        # Обробка порожнього form_type для старих записів
         form_type = obj.form_type or 'manual'
-        
-        colors = {
-            'manual': '#9E9E9E',
-            'site-request': '#FF6B6B',
-            'developer': '#4ECDC4',
-            'consultation': '#45B7D1',
-            'contact': '#FFA07A',
-            'call-request': '#98D8C8',
-            'footer-consultation': '#F7DC6F',
-            'event_registration': '#BB8FCE',
-            'test_result': '#85C1E2',
-        }
-        color = colors.get(form_type, '#999999')
-        
-        # Отримуємо текст відображення, якщо не знаходимо — розглядаємо як manual
         display_text = obj.get_form_type_display_uk() if obj.form_type else 'Ручна'
-        
         return format_html(
-            '<span style="background-color: {}; color: white; padding: 4px 10px; '
-            'border-radius: 12px; font-size: 12px; font-weight: bold;">{}</span>',
-            color, display_text
+            '<span class="admin-badge admin-badge--form-type admin-badge--form-type-{}">{}</span>',
+            form_type,
+            display_text,
         )
     form_type_badge.short_description = _('Тип форми')
     
     def status_badge(self, obj):
         """Статус з кольором та текстом"""
-        color = obj.get_status_color()
-        
         return format_html(
-            '<span style="background-color: {}; color: white; padding: 6px 12px; '
-            'border-radius: 12px; font-weight: bold; display: inline-block;">{}</span>',
-            color, obj.get_status_display()
+            '<span class="admin-badge admin-badge--status admin-badge--status-{}">{}</span>',
+            obj.status,
+            obj.get_status_display(),
         )
     status_badge.short_description = _('Статус')
-    
+
     def priority_badge(self, obj):
         """Пріоритет з відповідним кольором"""
-        colors = {
-            'high': '#DC3545',      # Червоний
-            'normal': '#FFC107',    # Жовтий
-            'low': '#28A745'        # Зелений
-        }
-        color = colors.get(obj.priority, '#999999')
-        
         return format_html(
-            '<span style="background-color: {}; color: white; padding: 4px 10px; '
-            'border-radius: 12px; font-size: 12px; font-weight: bold;">{}</span>',
-            color, obj.get_priority_display()
+            '<span class="admin-badge admin-badge--priority admin-badge--priority-{}">{}</span>',
+            obj.priority,
+            obj.get_priority_display(),
         )
     priority_badge.short_description = _('Пріоритет')
     

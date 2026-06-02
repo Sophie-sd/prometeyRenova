@@ -65,11 +65,11 @@ class RecipientProfile(models.Model):
 
 class PaymentLink(models.Model):
     class Status(models.TextChoices):
-        NEW = 'new', 'New'
-        PENDING = 'pending', 'Pending'
-        PAID = 'paid', 'Paid'
-        EXPIRED = 'expired', 'Expired'
-        DEACTIVATED = 'deactivated', 'Deactivated'
+        NEW = 'new', _('Новий')
+        PENDING = 'pending', _('Очікує')
+        PAID = 'paid', _('Оплачено')
+        EXPIRED = 'expired', _('Прострочено')
+        DEACTIVATED = 'deactivated', _('Деактивовано')
 
     class Currency(models.TextChoices):
         USD = 'USD', 'USD ($)'
@@ -108,9 +108,19 @@ class PaymentLink(models.Model):
         verbose_name=_('Курс до UAH'),
         help_text=_('Ігнорується при валюті UAH'),
     )
-    final_amount_uah = models.DecimalField(max_digits=14, decimal_places=2, editable=False)
+    final_amount_uah = models.DecimalField(
+        max_digits=14,
+        decimal_places=2,
+        editable=False,
+        verbose_name=_('Сума в UAH'),
+    )
 
-    status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW)
+    status = models.CharField(
+        max_length=20,
+        choices=Status.choices,
+        default=Status.NEW,
+        verbose_name=_('Статус'),
+    )
     duration_minutes = models.PositiveIntegerField(default=0, help_text='0 — безстроково')
     first_opened_at = models.DateTimeField(blank=True, null=True)
     expires_at = models.DateTimeField(blank=True, null=True)
@@ -119,8 +129,8 @@ class PaymentLink(models.Model):
     monobank_invoice_url = models.URLField(blank=True, default='')
     payment_processed_at = models.DateTimeField(blank=True, null=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Створено'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Оновлено'))
 
     class Meta:
         ordering = ['-created_at']

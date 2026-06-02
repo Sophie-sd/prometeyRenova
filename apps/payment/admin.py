@@ -13,6 +13,7 @@ from .models import PaymentLink, PaymentLinkFile, PaymentSettings, RecipientProf
 @admin.register(PaymentSettings)
 class PaymentSettingsAdmin(UnfoldModelAdmin):
     list_display = ('title',)
+    list_filter_sheet = True
 
     def has_add_permission(self, request):
         if PaymentSettings.objects.exists():
@@ -27,6 +28,7 @@ class RecipientProfileAdmin(UnfoldModelAdmin):
     list_display = ('name', 'recipient', 'iban', 'ipn', 'bank', 'is_active')
     list_editable = ('is_active',)
     search_fields = ('name', 'recipient', 'iban')
+    list_filter_sheet = True
     fieldsets = (
         (None, {
             'fields': ('name', 'is_active'),
@@ -66,17 +68,39 @@ class PaymentLinkFileInline(UnfoldTabularInline):
     verbose_name_plural = _('Файли (договори, рахунки)')
 
 
+# ── List filters ───────────────────────────────────────────────────────────
+
+class AcquiringListFilter(admin.SimpleListFilter):
+    title = _('Еквайринг')
+    parameter_name = 'use_acquiring'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('1', _('Так')),
+            ('0', _('Ні')),
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value == '1':
+            return queryset.filter(use_acquiring=True)
+        if value == '0':
+            return queryset.filter(use_acquiring=False)
+        return queryset
+
+
 # ── PaymentLink admin ──────────────────────────────────────────────────────
 
 @admin.register(PaymentLink)
 class PaymentLinkAdmin(UnfoldModelAdmin):
     form = PaymentLinkAdminForm
+    list_filter_sheet = True
     list_display = (
-        'client_name', 'recipient', 'amount', 'currency', 'final_amount_uah',
-        'status', 'use_acquiring', 'created_at',
+        'client_name', 'recipient', 'amount', 'currency', 'amount_uah_display',
+        'status', 'acquiring_enabled', 'created_at',
         'open_link_button', 'copy_link_button',
     )
-    list_filter = ('status', 'use_acquiring', 'recipient', 'created_at')
+    list_filter = ('status', AcquiringListFilter, 'recipient', 'created_at')
     search_fields = ('client_name', 'client_email', 'unique_id')
     readonly_fields = (
         'final_amount_uah', 'company_info',
@@ -130,6 +154,14 @@ class PaymentLinkAdmin(UnfoldModelAdmin):
     class Media:
         css = {'all': ('payment/css/admin.css',)}
         js = ('payment/js/copy.js', 'payment/js/admin.js')
+
+    @admin.display(description=_('Сума UAH'), ordering='final_amount_uah')
+    def amount_uah_display(self, obj):
+        return obj.final_amount_uah
+
+    @admin.display(description=_('Еквайринг'), boolean=True)
+    def acquiring_enabled(self, obj):
+        return obj.use_acquiring
 
     def save_model(self, request, obj, form, change):
         if obj.recipient:
