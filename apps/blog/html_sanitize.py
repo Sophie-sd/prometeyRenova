@@ -7,6 +7,8 @@ ALLOWED_TAGS = [
     'a', 'br', 'blockquote',
 ]
 
+TITLE_ALLOWED_TAGS = ['strong', 'em', 'u', 'span', 'br']
+
 ALLOWED_ATTRIBUTES = {
     'a': ['href', 'title', 'rel', 'target'],
     'span': ['style'],
@@ -35,6 +37,19 @@ def sanitize_blog_html(content: str) -> str:
         content,
         tags=ALLOWED_TAGS,
         attributes=ALLOWED_ATTRIBUTES,
+        css_sanitizer=_CSS_SANITIZER,
+        strip=True,
+    )
+
+
+def sanitize_blog_title(content: str) -> str:
+    """Інлайн-розмітка для заголовка (без блоків)."""
+    if not content:
+        return ''
+    return bleach.clean(
+        content,
+        tags=TITLE_ALLOWED_TAGS,
+        attributes={'span': ['style']},
         css_sanitizer=_CSS_SANITIZER,
         strip=True,
     )

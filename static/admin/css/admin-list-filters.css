@@ -26,10 +26,52 @@
 }
 
 .admin-filter-dropdown select,
-.admin-filter-dropdown input[type="text"],
-.admin-filter-dropdown input[type="date"] {
+.admin-filter-dropdown input[type="text"] {
     width: 100%;
     min-width: 10rem;
+}
+
+/* Фільтр діапазону дат (From / To) */
+.admin-filter-date-range {
+    flex: 0 1 auto;
+    max-width: 10.5rem;
+    min-width: 9rem;
+}
+
+.admin-filter-date-range__title {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.375rem;
+    white-space: nowrap;
+    color: inherit;
+}
+
+.admin-filter-date-range__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.admin-filter-date-range__field {
+    margin: 0;
+    padding: 0;
+}
+
+.admin-filter-date-range__field input[type="date"],
+.admin-filter-date-range__field input[type="text"].vCustomDateField,
+.admin-filter-date-range__field input.vCustomDateField {
+    width: 100%;
+    max-width: 10.5rem;
+    min-width: 0;
+    box-sizing: border-box;
+    font-size: 0.8125rem;
+    padding: 0.375rem 0.5rem;
+}
+
+.admin-filter-dropdown .admin-filter-date-range {
+    max-width: 10.5rem;
+    min-width: 9rem;
 }
 
 .admin-filter-reset {

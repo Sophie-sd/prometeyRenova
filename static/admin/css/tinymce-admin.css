@@ -1,0 +1,19 @@
+/* TinyMCE у темній адмінці Unfold */
+.tox-tinymce {
+    border-color: rgb(55 65 81);
+    border-radius: 0.375rem;
+}
+
+.tox .tox-edit-area__iframe {
+    background-color: #222f3e;
+}
+
+.tox .tox-dialog-wrap__backdrop {
+    background-color: rgba(15, 23, 42, 0.75);
+}
+
+.tox .tox-dialog textarea.tox-textarea {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}

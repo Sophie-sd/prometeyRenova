@@ -1,6 +1,10 @@
 from django.test import SimpleTestCase
 
-from apps.blog.html_sanitize import content_looks_like_html, sanitize_blog_html
+from apps.blog.html_sanitize import (
+    content_looks_like_html,
+    sanitize_blog_html,
+    sanitize_blog_title,
+)
 from apps.blog.models import BlogPost
 
 
@@ -19,6 +23,13 @@ class BlogHtmlSanitizeTests(SimpleTestCase):
         clean = sanitize_blog_html(html)
         self.assertIn('<strong>Bold</strong>', clean)
         self.assertIn('<em>italic</em>', clean)
+
+    def test_sanitize_title_inline_only(self):
+        dirty = '<p>Title</p><strong>Bold</strong><script>x</script>'
+        clean = sanitize_blog_title(dirty)
+        self.assertIn('<strong>Bold</strong>', clean)
+        self.assertNotIn('<p>', clean)
+        self.assertNotIn('script', clean)
 
     def test_content_looks_like_html(self):
         self.assertFalse(content_looks_like_html('Plain text **bold**'))

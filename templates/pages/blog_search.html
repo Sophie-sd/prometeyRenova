@@ -59,9 +59,9 @@
 
                 <div class="card-content">
                     <h2 class="text-medium mb-xs">
-                        <a href="{{ post.get_absolute_url }}" class="article-link">{{ post.title }}</a>
+                        <a href="{{ post.get_absolute_url }}" class="article-link">{{ post.get_safe_title|safe }}</a>
                     </h2>
-                    <p class="text-base mb-sm article-excerpt">{{ post.excerpt }}</p>
+                    <p class="text-base mb-sm article-excerpt">{{ post.get_safe_excerpt|safe }}</p>
 
                     <div class="article-keywords">
                         {% for keyword in post.get_keywords_list %}

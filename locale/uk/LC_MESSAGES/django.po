@@ -3022,7 +3022,7 @@ msgid "Reset filters"
 msgstr "Скинути фільтри"
 
 msgid " By %(filter_title)s "
-msgstr "За %(filter_title)s"
+msgstr "%(filter_title)s"
 
 msgid "All"
 msgstr "Всі"
@@ -3032,4 +3032,4 @@ msgid "Add %(name)s"
 msgstr "Додати %(name)s"
 
 msgid "By %(filter_title)s"
-msgstr "За %(filter_title)s"
+msgstr "%(filter_title)s"

@@ -10,7 +10,9 @@ from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.admin.actions import delete_selected
-from django.contrib.auth.models import Group
+from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+from django.contrib.auth.models import Group, User
+from .admin_filters import BooleanDropdownFilter
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from datetime import timedelta
@@ -26,6 +28,22 @@ from .models import (
 
 # ===== ВИДАЛЕННЯ ГРУП З ADMIN =====
 admin.site.unregister(Group)
+
+try:
+    admin.site.unregister(User)
+except admin.sites.NotRegistered:
+    pass
+
+
+@admin.register(User)
+class UserAdmin(DjangoUserAdmin, UnfoldModelAdmin):
+    list_filter_sheet = False
+    list_filter = (
+        ('is_staff', BooleanDropdownFilter),
+        ('is_superuser', BooleanDropdownFilter),
+        ('is_active', BooleanDropdownFilter),
+        ('groups', RelatedDropdownFilter),
+    )
 
 
 

@@ -405,12 +405,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TINYMCE_DEFAULT_CONFIG = {
     'height': 420,
     'language': 'uk',
+    'skin': 'oxide-dark',
+    'content_css': 'dark',
     'menubar': False,
-    'plugins': 'lists link autoresize',
+    'statusbar': True,
+    'plugins': 'lists link autoresize code',
     'toolbar': (
         'undo redo | fontfamily fontsize | '
         'bold italic underline | forecolor backcolor | '
-        'bullist numlist link | removeformat'
+        'bullist numlist link | removeformat | code'
     ),
     'font_family_formats': (
         'Arial=arial,helvetica,sans-serif; '
@@ -420,9 +423,16 @@ TINYMCE_DEFAULT_CONFIG = {
     ),
     'fontsize_formats': '12px 14px 16px 18px 20px 24px 32px',
     'content_style': (
-        'body { font-family: Arial, Helvetica, sans-serif; font-size: 16px; }'
+        'body { font-family: Arial, Helvetica, sans-serif; font-size: 16px; '
+        'color: #f9fafb; background-color: #222f3e; }'
     ),
     'branding': False,
     'promotion': False,
     'relative_urls': False,
+}
+
+TINYMCE_EXTRA_MEDIA = {
+    'css': {
+        'all': ['admin/css/tinymce-admin.css'],
+    },
 }

@@ -1,0 +1,16 @@
+{% load i18n %}
+
+{% with choices.0 as choice %}
+    <div class="admin-filter-date-range">
+        <h3 class="admin-filter-date-range__title">{{ title }}</h3>
+
+        <div class="admin-filter-date-range__fields">
+            {% for field in choice.form %}
+                <div class="admin-filter-date-range__field{% if field.errors %} admin-filter-date-range__field--error{% endif %}">
+                    {{ field }}
+                    {% include "unfold/helpers/form_errors.html" with errors=field.errors %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endwith %}

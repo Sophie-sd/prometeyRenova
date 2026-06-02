@@ -158,9 +158,9 @@
                     </div>
 
                     <h2 class="text-medium mb-xs">
-                        <a href="{{ post.get_absolute_url }}" class="article-link">{{ post.title }}</a>
+                        <a href="{{ post.get_absolute_url }}" class="article-link">{{ post.get_safe_title|safe }}</a>
                     </h2>
-                    <p class="text-base mb-sm article-excerpt">{{ post.excerpt }}</p>
+                    <p class="text-base mb-sm article-excerpt">{{ post.get_safe_excerpt|safe }}</p>
 
                     <div class="article-keywords">
                         {% for keyword in post.get_keywords_list %}
@@ -215,10 +215,10 @@
                 <div class="popular-card-content">
                     <h3 class="text-medium mb-xs">
                         <a href="{{ post.get_absolute_url }}" class="article-link">
-                            {{ post.title }}
+                            {{ post.get_safe_title|safe }}
                         </a>
                     </h3>
-                    <p class="text-base mb-sm">{{ post.excerpt|truncatechars:120 }}</p>
+                    <p class="text-base mb-sm">{{ post.get_safe_excerpt|striptags|truncatechars:120 }}</p>
                     <div class="popular-card-meta">
                         <span class="category-tag">{{ post.get_category_display }}</span>
                         <span class="reading-time">⏱ {{ post.get_reading_time_text }}</span>

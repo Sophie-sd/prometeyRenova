@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.html import strip_tags
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
@@ -46,18 +47,20 @@ class BlogPost(models.Model):
         return self.title
     
     def save(self, *args, **kwargs):
+        plain_title = strip_tags(self.title or '')
+        plain_excerpt = strip_tags(self.excerpt or '')
+
         if not self.slug:
-            self.slug = slugify(self.title)
-        
-        # Автоматично заповнюємо meta поля якщо вони порожні
+            self.slug = slugify(plain_title)
+
         if not self.meta_title:
-            self.meta_title = self.title[:60]
+            self.meta_title = plain_title[:60]
         if not self.meta_description:
-            self.meta_description = self.excerpt[:160]
+            self.meta_description = plain_excerpt[:160]
         if not self.og_title:
-            self.og_title = self.title[:60]
+            self.og_title = plain_title[:60]
         if not self.og_description:
-            self.og_description = self.excerpt[:160]
+            self.og_description = plain_excerpt[:160]
             
         super().save(*args, **kwargs)
     
@@ -182,3 +185,19 @@ class BlogPost(models.Model):
         if content_looks_like_html(raw):
             return sanitize_blog_html(raw)
         return self.get_clean_content()
+
+    def get_safe_title(self):
+        from .html_sanitize import content_looks_like_html, sanitize_blog_title
+
+        raw = self.title or ''
+        if content_looks_like_html(raw):
+            return sanitize_blog_title(raw)
+        return raw
+
+    def get_safe_excerpt(self):
+        from .html_sanitize import content_looks_like_html, sanitize_blog_html
+
+        raw = self.excerpt or ''
+        if content_looks_like_html(raw):
+            return sanitize_blog_html(raw)
+        return raw
