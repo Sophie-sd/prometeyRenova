@@ -75,8 +75,8 @@ UNFOLD = {
         lambda request: static("admin/css/admin-list-filters.css"),
     ],
     "SCRIPTS": [
-        "admin/js/admin-theme.js",
-        "admin/js/admin-list-filters.js",
+        lambda request: static("admin/js/admin-theme.js"),
+        lambda request: static("admin/js/admin-list-filters.js"),
     ],
     "SIDEBAR": {
         "show_search": True,

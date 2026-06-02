@@ -400,7 +400,7 @@ class SiteContactSettings(models.Model):
         verbose_name_plural = _('Контакти та карта')
 
     def __str__(self):
-        return _('Контакти сайту')
+        return str(_('Контакти сайту'))
 
     def save(self, *args, **kwargs):
         if not self.pk and SiteContactSettings.objects.exists():
