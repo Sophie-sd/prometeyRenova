@@ -391,13 +391,6 @@
         padding-top: clamp(40px, 12vh, 80px);
         padding-bottom: clamp(16px, 4vh, 32px);
     }
-
-    .mobile-menu-footer {
-        margin-top: auto;
-        padding-top: clamp(8px, 2vh, 12px);
-        padding-bottom: clamp(8px, 2vh, 16px);
-        gap: clamp(52px, 10vh, 72px);
-    }
 }
 
 .mobile-nav-link {
@@ -542,8 +535,6 @@
 .mobile-menu-footer {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 
     opacity: 0;
@@ -664,6 +655,15 @@
     font-weight: 500;
     color: rgba(255, 255, 255, 0.7);
     letter-spacing: 0.5px;
+}
+
+@media (max-width: 767px) {
+    .mobile-menu-footer {
+        margin-top: auto;
+        padding-top: clamp(6px, 1.5vh, 10px);
+        padding-bottom: clamp(8px, 2vh, 16px);
+        gap: clamp(56px, 12vh, 80px);
+    }
 }
 
 /* ===== ДЕКОРАТИВНИЙ ЕЛЕМЕНТ ===== */
