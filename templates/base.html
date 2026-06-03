@@ -84,15 +84,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .modal{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:var(--z-modal-backdrop);display:none}
 .modal.active{display:flex}
 .contact-widget{position:fixed;bottom:80px;right:2%;z-index:10000}
+@media(max-width:767px){.contact-widget{display:none}}
 .lang-suggest{position:fixed;top:76px;left:50%;transform:translate(-50%,-16px);z-index:1500;display:none;pointer-events:none}
 .lang-suggest:not([hidden]){display:block}
 .is-sticky-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9000}
     </style>
 
     <!-- CSS Base Bundle — non-blocking (preload + media-print swap on load) -->
-    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=5" as="style">
-    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=5" media="print" data-async-css>
-    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=5"></noscript>
+    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=6" as="style">
+    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=6" media="print" data-async-css>
+    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=6"></noscript>
 
     <!-- Page specific CSS -->
     {% block page_css %}{% endblock %}

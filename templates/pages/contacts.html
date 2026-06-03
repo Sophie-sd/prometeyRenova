@@ -39,6 +39,21 @@
                                 <ul class="contact-channels" role="list">
                                     {% include "components/contact_channel_icons.html" %}
                                 </ul>
+                                {% if site_contact.get_maps_embed_src %}
+                                <div class="contact-map">
+                                    <h3 class="contact-map__label">{% trans "Ми на карті" %}</h3>
+                                    <div class="contact-map__frame-wrap">
+                                        <iframe
+                                            class="contact-map__iframe"
+                                            src="{{ site_contact.get_maps_embed_src }}"
+                                            title="{% trans 'Google Maps' %}"
+                                            loading="lazy"
+                                            referrerpolicy="no-referrer-when-downgrade"
+                                            allowfullscreen>
+                                        </iframe>
+                                    </div>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -78,24 +93,6 @@
             </div>
         </div>
     </section>
-
-    {% if site_contact.get_maps_embed_src %}
-    <section class="contacts-map" aria-label="{% trans 'Карта' %}">
-        <div class="container">
-            <h2 class="medium-title contacts-map__title">{% trans "Ми на карті" %}</h2>
-            <div class="contacts-map__frame-wrap">
-                <iframe
-                    class="contacts-map__iframe"
-                    src="{{ site_contact.get_maps_embed_src }}"
-                    title="{% trans 'Google Maps' %}"
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </div>
-    </section>
-    {% endif %}
 </div>
 {% endblock %}
 

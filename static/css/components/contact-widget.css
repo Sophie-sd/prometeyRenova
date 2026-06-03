@@ -137,3 +137,11 @@ body.modal-open .contact-widget {
     transition: opacity 0.3s ease;
     z-index: var(--z-fixed-buttons);
 }
+
+body.menu-open .contact-widget,
+body.menu-open #bingc-phone-button {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}

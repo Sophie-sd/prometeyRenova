@@ -1449,19 +1449,22 @@ img, video {
     .mobile-menu {
         display: flex;
         flex-direction: column;
+        padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
     }
 
     .mobile-menu-content {
         flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        padding-top: clamp(32px, 10vh, 72px);
+        justify-content: flex-start;
+        padding-top: clamp(40px, 12vh, 80px);
+        padding-bottom: clamp(16px, 4vh, 32px);
     }
 
     .mobile-menu-footer {
         margin-top: auto;
-        padding-top: clamp(20px, 5vh, 40px);
+        padding-top: clamp(16px, 4vh, 28px);
+        padding-bottom: clamp(8px, 2vh, 16px);
     }
 }
 
@@ -1796,14 +1799,17 @@ img, video {
     }
 }
 
-/* Landscape orientation на мобільних - однакові розміри */
+/* Landscape orientation на мобільних */
 @media (max-width: 767px) and (orientation: landscape) {
     .mobile-menu {
         gap: 20px;
+        padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
     }
 
     .mobile-menu-content {
         gap: 8px;
+        padding-top: clamp(24px, 8vh, 48px);
+        padding-bottom: clamp(8px, 2vh, 16px);
     }
 
     .mobile-nav-link {
@@ -1991,6 +1997,14 @@ img, video {
 
 .contact-widget--open .contact-widget__icon--close {
     display: block;
+}
+
+body.menu-open .contact-widget,
+body.menu-open #bingc-phone-button {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
 /* ===== BUTTON SIZES ===== */
