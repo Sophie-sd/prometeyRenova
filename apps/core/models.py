@@ -367,6 +367,16 @@ class SiteContactSettings(models.Model):
         verbose_name=_('Viber (опційно)'),
         help_text=_('Якщо порожньо — генерується з телефону'),
     )
+    tiktok_url = models.URLField(
+        blank=True,
+        default='https://tiktok.com/@prometeylabs',
+        verbose_name=_('TikTok'),
+    )
+    address = models.CharField(
+        max_length=255,
+        default='Київ, бульвар Тараса Шевченка 46а',
+        verbose_name=_('Адреса'),
+    )
     maps_latitude = models.DecimalField(
         max_digits=9,
         decimal_places=6,

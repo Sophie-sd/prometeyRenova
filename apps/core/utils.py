@@ -10,10 +10,12 @@ SITE_CONTACT_DEFAULTS = {
     'phone_display': '+38 (063) 952-05-65',
     'phone_e164': '380639520565',
     'email': 'prometeylabs@gmail.com',
+    'address': 'Київ, бульвар Тараса Шевченка 46а',
     'instagram_url': 'https://instagram.com/prometeylabs',
     'facebook_url': 'https://facebook.com/prometeylabs',
     'linkedin_url': 'https://linkedin.com/company/prometeylabs',
     'telegram_url': 'https://t.me/prometeylabs',
+    'tiktok_url': 'https://tiktok.com/@prometeylabs',
 }
 
 

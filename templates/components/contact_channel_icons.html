@@ -54,12 +54,14 @@
         <span class="contact-channel-icon__label">WhatsApp</span>
     </a>
 </li>
+{% if site_contact.tiktok_url %}
 <li>
-    <a href="{{ site_contact.get_viber_href }}" class="contact-channel-icon" target="_blank" rel="noopener noreferrer"
-        aria-label="Viber">
+    <a href="{{ site_contact.tiktok_url }}" class="contact-channel-icon" target="_blank" rel="noopener noreferrer"
+        aria-label="TikTok">
         <svg class="contact-channel-icon__svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M11.398 0.002C9.957 0.054 6.43 0.354 4.493 2.368 3.04 3.877 2.57 6.033 2.403 8.87 2.369 9.42 2.005 9.677 1.554 9.677H1.5V9.7C1.5 14.2 4.89 18.09 9.5 18.09H10.1L10.35 20.35C10.42 20.95 10.95 21.4 11.55 21.4C11.8 21.4 12.05 21.33 12.27 21.2L16.5 18.5H18.5C20.43 18.5 22 16.93 22 15V9.7C22 4.58 17.2 0 11.4 0H11.398ZM11.65 2.002C16.55 2.002 20.5 5.58 20.5 9.7V15C20.5 16.1 19.6 17 18.5 17H16.2L12.4 19.5L12.2 17.5H9.5C5.64 17.5 2.5 14.36 2.5 10.5V10.2C2.5 10.2 3.5 10 4.2 8.5C4.35 5.9 5.5 4.2 6.7 3C8.3 1.35 11.2 1.05 11.65 1.002V2.002ZM7.5 4.5C7.2 4.5 6.9 4.6 6.7 4.8C6.2 5.3 5.5 6.5 5.5 8.5C5.5 10.5 6.2 11.7 6.7 12.2C7 12.5 7.5 12.6 7.9 12.4L9.5 11.5C10 11.2 10.2 10.6 10 10.1L9.5 8.5C9.3 8 8.7 7.8 8.2 8.1L7.5 8.5C7.4 8.3 7.2 7.8 7.2 7C7.2 6.2 7.4 5.7 7.5 5.5L8.2 5.9C8.7 6.2 9.3 6 9.5 5.5L10 3.9C10.2 3.4 10 2.8 9.5 2.5L7.9 1.6C7.5 1.4 7 1.5 6.7 1.8C6.2 2.3 5.5 3.5 5.5 5.5C5.5 5.7 5.5 5.9 5.5 6.1C5.2 5.5 4.5 4.5 3.5 4.5H3.5Z" fill="currentColor"/>
+            <path d="M19.59 6.69C18.38 5.53 17.64 3.96 17.64 2.21H13.59V15.47C13.59 17.38 12.03 18.94 10.12 18.94C8.21 18.94 6.65 17.38 6.65 15.47C6.65 13.62 8.13 12.1 9.94 12.01V7.93C5.94 8.05 2.65 11.4 2.65 15.47C2.65 19.6 6.01 22.96 10.12 22.96C14.29 22.96 17.65 19.6 17.65 15.47V8.81C19.21 9.99 21.13 10.7 23.24 10.72V6.69C21.75 6.68 20.39 6.27 19.59 6.69Z" fill="currentColor"/>
         </svg>
-        <span class="contact-channel-icon__label">Viber</span>
+        <span class="contact-channel-icon__label">TikTok</span>
     </a>
 </li>
+{% endif %}

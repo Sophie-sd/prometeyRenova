@@ -432,10 +432,10 @@ class SiteContactSettingsAdmin(UnfoldModelAdmin):
 
     fieldsets = (
         (_('Контакти'), {
-            'fields': ('phone_display', 'phone_e164', 'email'),
+            'fields': ('phone_display', 'phone_e164', 'email', 'address'),
         }),
         (_('Соціальні мережі'), {
-            'fields': ('instagram_url', 'facebook_url', 'linkedin_url'),
+            'fields': ('instagram_url', 'facebook_url', 'linkedin_url', 'tiktok_url'),
         }),
         (_('Месенджери'), {
             'fields': ('telegram_url', 'whatsapp_url', 'viber_url'),

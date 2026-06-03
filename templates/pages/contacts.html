@@ -29,9 +29,17 @@
                         <p class="contact-text">{% trans "Потрібна консультація? Маєте питання про наші послуги? Зв'яжіться з нами будь-яким зручним способом:" %}</p>
 
                         <div class="contact-primary">
-                            <div class="contact-item">
-                                <h3>{% trans "Телефон" %}</h3>
-                                <a href="{{ site_contact.get_tel_href }}" class="contact-link">{{ site_contact.phone_display }}</a>
+                            <div class="contact-primary-row">
+                                <div class="contact-item">
+                                    <h3>{% trans "Телефон" %}</h3>
+                                    <a href="{{ site_contact.get_tel_href }}" class="contact-link">{{ site_contact.phone_display }}</a>
+                                </div>
+                                {% if site_contact.address %}
+                                <div class="contact-item">
+                                    <h3>{% trans "Адреса" %}</h3>
+                                    <p class="contact-address">{{ site_contact.address }}</p>
+                                </div>
+                                {% endif %}
                             </div>
 
                             <div class="contact-item contact-item--channels">

@@ -396,6 +396,7 @@
         margin-top: auto;
         padding-top: clamp(16px, 4vh, 28px);
         padding-bottom: clamp(8px, 2vh, 16px);
+        gap: clamp(32px, 6vh, 44px);
     }
 }
 

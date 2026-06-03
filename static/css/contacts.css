@@ -133,8 +133,22 @@
     gap: 28px;
 }
 
+.contact-primary-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+}
+
 .contact-item {
     margin-bottom: 0;
+}
+
+.contact-address {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--color-brand-orange);
 }
 
 .contact-item h3 {
@@ -405,6 +419,11 @@
         display: flex;
         flex-direction: column;
         min-height: 0;
+    }
+
+    .contact-primary-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
     }
 
     .contact-channels {
