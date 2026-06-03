@@ -1373,7 +1373,7 @@ img, video {
 
     /* Hardware acceleration + анімація (комбінований transform) */
     transform: translate3d(100%, 0, 0);
-    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -1445,6 +1445,25 @@ img, video {
 }
 
 /* ===== MOBILE MENU CONTENT ===== */
+@media (max-width: 767px) {
+    .mobile-menu {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mobile-menu-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: clamp(32px, 10vh, 72px);
+    }
+
+    .mobile-menu-footer {
+        margin-top: auto;
+        padding-top: clamp(20px, 5vh, 40px);
+    }
+}
 
 .mobile-nav-link {
     position: relative;
@@ -1464,11 +1483,11 @@ img, video {
     word-wrap: break-word;
     text-align: center;
 
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: color 0.3s ease-out, transform 0.3s ease-out;
 
     /* Початковий стан для анімації */
     opacity: 0;
-    transform: translateY(30px) rotate(-2deg);
+    transform: translateY(20px);
 }
 
 /* Індекси для посилань - абсолютно позиціоновані */
@@ -1506,7 +1525,7 @@ img, video {
 
 .mobile-nav-link:hover {
     color: var(--color-brand-orange);
-    transform: translateY(0) rotate(0deg) translateX(10px);
+    transform: translateY(0) translateX(6px);
 }
 
 .mobile-nav-link:hover::after {
@@ -1514,51 +1533,73 @@ img, video {
 }
 
 .mobile-nav-link:active {
-    transform: scale(0.98) translateX(10px);
+    transform: scale(0.98) translateX(6px);
 }
 
 /* Каскадна анімація появи */
 .mobile-menu.active .mobile-nav-link {
-    animation: menuLinkReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation: menuLinkReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .mobile-menu.active .mobile-nav-link:nth-child(1) {
-    animation-delay: 0.05s;
+    animation-delay: 0.04s;
 }
 
 .mobile-menu.active .mobile-nav-link:nth-child(2) {
-    animation-delay: 0.1s;
+    animation-delay: 0.08s;
 }
 
 .mobile-menu.active .mobile-nav-link:nth-child(3) {
-    animation-delay: 0.15s;
+    animation-delay: 0.12s;
 }
 
 .mobile-menu.active .mobile-nav-link:nth-child(4) {
-    animation-delay: 0.2s;
+    animation-delay: 0.16s;
 }
 
 .mobile-menu.active .mobile-nav-link:nth-child(5) {
-    animation-delay: 0.25s;
+    animation-delay: 0.2s;
 }
 
 .mobile-menu.active .mobile-nav-link:nth-child(6) {
-    animation-delay: 0.3s;
+    animation-delay: 0.24s;
 }
 
 .mobile-menu.active .mobile-nav-link:nth-child(7) {
-    animation-delay: 0.35s;
+    animation-delay: 0.28s;
 }
 
 @keyframes menuLinkReveal {
     0% {
         opacity: 0;
-        transform: translateY(30px) rotate(-2deg);
+        transform: translateY(20px);
     }
 
     100% {
         opacity: 1;
-        transform: translateY(0) rotate(0deg);
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mobile-menu {
+        transition: none;
+    }
+
+    .mobile-nav-link,
+    .mobile-menu-footer {
+        transition: none;
+    }
+
+    .mobile-menu.active .mobile-nav-link {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .mobile-menu.active .mobile-menu-footer {
+        opacity: 1;
+        transform: none;
     }
 }
 

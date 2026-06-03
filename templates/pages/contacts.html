@@ -20,72 +20,30 @@
 
 {% block content %}
 <div class="contacts-page">
-    <!-- Основна інформація -->
     <section class="contacts-main">
         <div class="container">
             <div class="contacts-grid">
-                <!-- Інформація про контакти -->
                 <div class="contacts-info">
                     <div class="contact-block">
                         <h2 class="medium-title">{% trans "Зв'язок з нами" %}</h2>
                         <p class="contact-text">{% trans "Потрібна консультація? Маєте питання про наші послуги? Зв'яжіться з нами будь-яким зручним способом:" %}</p>
 
-                        <div class="contact-items-grid">
-                            <div class="contact-column">
-                                <div class="contact-item">
-                                    <h3>{% trans "Телефон" %}</h3>
-                                    <a href="{{ site_contact.get_tel_href }}" class="contact-link">{{ site_contact.phone_display }}</a>
-                                </div>
+                        <div class="contact-primary">
+                            <div class="contact-item">
+                                <h3>{% trans "Телефон" %}</h3>
+                                <a href="{{ site_contact.get_tel_href }}" class="contact-link">{{ site_contact.phone_display }}</a>
                             </div>
 
-                            <div class="contact-column">
-                                <div class="contact-item">
-                                    <h3>Email</h3>
-                                    <a href="mailto:{{ site_contact.email }}" class="contact-link">{{ site_contact.email }}</a>
-                                </div>
-
-                                <div class="contact-item">
-                                    <h3>{% trans "Соціальні мережі" %}</h3>
-                                    <div class="social-links">
-                                        <a href="{{ site_contact.instagram_url }}" class="social-link" target="_blank"
-                                            rel="noopener noreferrer">
-                                            Instagram
-                                        </a>
-                                        <a href="{{ site_contact.facebook_url }}" class="social-link" target="_blank"
-                                            rel="noopener noreferrer">
-                                            Facebook
-                                        </a>
-                                        <a href="{{ site_contact.linkedin_url }}" class="social-link" target="_blank"
-                                            rel="noopener noreferrer">
-                                            LinkedIn
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="contact-item">
-                                    <h3>{% trans "Месенджери" %}</h3>
-                                    <div class="messengers">
-                                        <a href="{{ site_contact.telegram_url }}" class="messenger-link" target="_blank"
-                                            rel="noopener noreferrer">
-                                            Telegram
-                                        </a>
-                                        <a href="{{ site_contact.get_whatsapp_href }}" class="messenger-link" target="_blank"
-                                            rel="noopener noreferrer">
-                                            WhatsApp
-                                        </a>
-                                        <a href="{{ site_contact.get_viber_href }}" class="messenger-link" target="_blank"
-                                            rel="noopener noreferrer">
-                                            Viber
-                                        </a>
-                                    </div>
-                                </div>
+                            <div class="contact-item contact-item--channels">
+                                <h3>{% trans "Зв'язок" %}</h3>
+                                <ul class="contact-channels" role="list">
+                                    {% include "components/contact_channel_icons.html" %}
+                                </ul>
                             </div>
                         </div>
-                        <img src="{% static 'images/contacts_photo.png' %}" alt="{% trans 'PrometeyLabs команда' %}" class="contact-photo">
                     </div>
                 </div>
 
-                <!-- Форма зворотного зв'язку -->
                 <div class="contact-form-container">
                     <div class="contact-form-wrapper">
                         <h2 class="medium-title">{% trans "Напишіть нам" %}</h2>

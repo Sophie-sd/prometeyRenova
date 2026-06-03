@@ -214,6 +214,7 @@ class PrometeyApp {
 
         this.saveScrollPosition();
         burgerBtn.classList.add('active');
+        burgerBtn.setAttribute('aria-expanded', 'true');
         mobileMenu.classList.add('active');
         document.body.style.top = `-${this.scrollPosition}px`;
         document.body.style.overflow = 'hidden';
@@ -228,6 +229,7 @@ class PrometeyApp {
         const { burgerBtn, mobileMenu } = this.elements;
 
         burgerBtn.classList.remove('active');
+        burgerBtn.setAttribute('aria-expanded', 'false');
         mobileMenu.classList.remove('active');
         document.body.style.overflow = '';
         document.body.style.top = '';
