@@ -394,9 +394,9 @@
 
     .mobile-menu-footer {
         margin-top: auto;
-        padding-top: clamp(16px, 4vh, 28px);
+        padding-top: clamp(8px, 2vh, 12px);
         padding-bottom: clamp(8px, 2vh, 16px);
-        gap: clamp(32px, 6vh, 44px);
+        gap: clamp(52px, 10vh, 72px);
     }
 }
 
