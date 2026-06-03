@@ -25,10 +25,10 @@
     --contacts-bg-warm: #3d2a1c;
     --contacts-bg-graphite: #1f1814;
     --contacts-accent-glow: rgba(72, 48, 32, 0.45);
-    --contacts-glass-bg: rgba(26, 22, 18, 0.55);
+    --contacts-glass-bg: rgba(38, 40, 44, 0.58);
     --contacts-glass-border: rgba(255, 255, 255, 0.12);
     --contacts-glass-highlight: rgba(255, 255, 255, 0.06);
-    --contacts-input-bg: rgba(0, 0, 0, 0.35);
+    --contacts-input-bg: rgba(28, 30, 34, 0.5);
 
     position: relative;
     background-color: var(--contacts-bg-deep);
@@ -114,7 +114,7 @@
 
 /* === КОНТАКТНА ІНФОРМАЦІЯ === */
 .contacts-info {
-    padding: 0;
+    padding: 0 0 0 16px;
 }
 
 .contact-block {
@@ -262,7 +262,7 @@
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .contacts-page .contact-form-wrapper {
-        background: #1e1a17;
+        background: #2a2d32;
     }
 }
 
@@ -377,10 +377,34 @@
     .contacts-grid {
         grid-template-columns: 1fr 1fr;
         gap: 60px;
+        align-items: stretch;
     }
 
     .contacts-info {
+        padding-left: 24px;
         padding-right: 20px;
+    }
+
+    .contacts-info,
+    .contact-form-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contact-block,
+    .contacts-page .contact-form-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    .contact-primary,
+    .contact-item--channels {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
     }
 
     .contact-channels {
@@ -390,7 +414,18 @@
     }
 
     .contact-map {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
         width: 100%;
+        min-height: 0;
+    }
+
+    .contact-map__frame-wrap {
+        flex: 1;
+        max-height: none;
+        aspect-ratio: unset;
+        min-height: 160px;
     }
 }
 
