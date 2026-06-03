@@ -21,9 +21,6 @@ from datetime import timedelta
 import csv
 from .models import (
     FormSubmission,
-    ArchivedFormSubmission,
-    InProgressFormSubmission,
-    CompletedFormSubmission,
     SiteContactSettings,
     PortfolioProject,
 )
@@ -125,45 +122,6 @@ class FormSubmissionAdmin(UnfoldModelAdmin):
             'classes': ('collapse',)
         })
     )
-    
-    # ===== ОБМЕЖЕННЯ ВИБОРУ СТАТУСІВ ПО БЛОКАХ =====
-    
-    def formfield_for_choice_field(self, db_field, request, **kwargs):
-        """Обмежує статуси залежно від типу блоку (admin class)"""
-        if db_field.name == 'status':
-            if self.model == FormSubmission:
-                # Заявки: new, thinking, no_contact, back_to_applications, in_progress, rejected
-                kwargs['choices'] = [
-                    ('new', _('Новий')),
-                    ('thinking', _('Думає / Очікує')),
-                    ('no_contact', _("Не на зв'язку")),
-                    ('back_to_applications', _('Назад в заявки')),
-                    ('in_progress', _('В роботі')),
-                    ('rejected', _('Архів заявок')),
-                ]
-            elif self.model == InProgressFormSubmission:
-                # В роботі: in_progress, pause, completed, back_to_applications
-                kwargs['choices'] = [
-                    ('in_progress', _('В роботі')),
-                    ('pause', _('Пауза')),
-                    ('completed', _('Завершено')),
-                    ('back_to_applications', _('Назад в заявки')),
-                ]
-            elif self.model == CompletedFormSubmission:
-                # Завершено: completed, in_progress, back_to_applications
-                kwargs['choices'] = [
-                    ('completed', _('Завершено')),
-                    ('in_progress', _('В роботі')),
-                    ('back_to_applications', _('Назад в заявки')),
-                ]
-            elif self.model == ArchivedFormSubmission:
-                # Архів: rejected, back_to_applications, in_progress
-                kwargs['choices'] = [
-                    ('rejected', _('Архів заявок')),
-                    ('back_to_applications', _('Назад в заявки')),
-                    ('in_progress', _('В роботі')),
-                ]
-        return super().formfield_for_choice_field(db_field, request, **kwargs)
     
     # ===== ДІЇ (ACTIONS) =====
     actions = [
@@ -454,47 +412,15 @@ class FormSubmissionAdmin(UnfoldModelAdmin):
     # ===== QUERYSET ОПТИМІЗАЦІЯ =====
     
     def get_queryset(self, request):
-        """Оптимізація для змешування з assign_to та уникнення N+1. Виключає архівовані, завершені заявки, ті що в роботі та на паузі."""
+        """Оптимізація select_related для assigned_to."""
         qs = super().get_queryset(request)
-        return qs.exclude(status__in=['rejected', 'in_progress', 'completed', 'pause']).select_related('assigned_to')
+        return qs.select_related('assigned_to')
     
     def get_changeform_initial_data(self, request):
         """Встановлює замовчування для нових заявок при додаванні через адмінку"""
         initial = super().get_changeform_initial_data(request)
         initial['form_type'] = 'manual'
         return initial
-
-
-@admin.register(ArchivedFormSubmission)
-class ArchivedFormSubmissionAdmin(FormSubmissionAdmin):
-    """Admin для архівованих заявок (status=rejected)"""
-    
-    def get_queryset(self, request):
-        """Показує тільки архівовані заявки (status=rejected)"""
-        # Викликаємо super().get_queryset() від admin.ModelAdmin, щоб обійти фільтр exclude(status='rejected')
-        # з FormSubmissionAdmin.get_queryset()
-        qs = admin.ModelAdmin.get_queryset(self, request)
-        return qs.filter(status='rejected').select_related('assigned_to')
-
-
-@admin.register(InProgressFormSubmission)
-class InProgressFormSubmissionAdmin(FormSubmissionAdmin):
-    """Admin для заявок у статусі «В роботі»"""
-    
-    def get_queryset(self, request):
-        """Показує тільки заявки у статусі «В роботі» та «Пауза»"""
-        qs = admin.ModelAdmin.get_queryset(self, request)
-        return qs.filter(status__in=['in_progress', 'pause']).select_related('assigned_to')
-
-
-@admin.register(CompletedFormSubmission)
-class CompletedFormSubmissionAdmin(FormSubmissionAdmin):
-    """Admin для завершених заявок"""
-    
-    def get_queryset(self, request):
-        """Показує тільки завершені заявки"""
-        qs = admin.ModelAdmin.get_queryset(self, request)
-        return qs.filter(status='completed').select_related('assigned_to')
 
 
 @admin.register(SiteContactSettings)

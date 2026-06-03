@@ -200,11 +200,9 @@ class PaymentLinkAdmin(UnfoldModelAdmin):
         open_label = _('Відкрити посилання')
         copy_label = _('Скопіювати посилання клієнта')
         return format_html(
-            '<div class="pl-copy-row pl-copy-row--compact">'
+            '<div class="pl-copy-row pl-copy-row--compact pl-copy-row--icons-only">'
             '<a class="pl-icon-btn pl-icon-btn--open" href="{url}" target="_blank" '
             'rel="noopener noreferrer" aria-label="{open_aria}" title="{open_title}">↗</a>'
-            '<input type="text" class="pl-copy-input" value="{url}" readonly '
-            'aria-label="{copy_aria}" title="{url}">'
             '<button type="button" class="pl-icon-btn pl-copy-btn" '
             'data-copy data-copy-value="{url}" '
             'aria-label="{copy_aria}" aria-pressed="false" title="{copy_title}">'

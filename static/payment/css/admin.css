@@ -15,6 +15,11 @@
     max-width: 200px;
 }
 
+.pl-copy-row--icons-only {
+    max-width: none;
+    width: auto;
+}
+
 .pl-copy-input {
     flex: 1;
     min-width: 0;
@@ -166,8 +171,8 @@ html.dark body.model-paymentlink #changelist .pl-copy-btn.copied {
 
 #changelist td.field-client_link_cell,
 #changelist th.column-client_link_cell {
-    max-width: 200px;
-    width: 200px;
+    max-width: 4.5rem;
+    width: 4.5rem;
 }
 
 #changelist td.field-acquiring_enabled,

@@ -44,6 +44,9 @@ python manage.py migrate
 echo "👤 Creating superuser..."
 python manage.py create_superuser
 
+echo "🔐 Granting staff admin access..."
+python manage.py grant_staff_admin_access
+
 echo "🌱 Seeding initial data (blog posts & events)..."
 python manage.py seed_initial_data
 

@@ -44,8 +44,8 @@ INSTALLED_APPS = [
 
 # UNFOLD ADMIN
 UNFOLD = {
-    "SITE_TITLE": "Prometey Labs",
-    "SITE_HEADER": "Prometey Labs — Адмінпанель",
+    "SITE_TITLE": "PrometeyLabs",
+    "SITE_HEADER": "PrometeyLabs — Адмінпанель",
     "SITE_ICON": lambda request: static("images/favicon-48x48.png"),
     "SITE_LOGO": {
         "light": lambda request: static("images/favicon-48x48.png"),
@@ -91,10 +91,7 @@ UNFOLD = {
             {
                 "title": "CRM — Заявки",
                 "items": [
-                    {"title": "Нові заявки", "icon": "inbox",        "link": reverse_lazy("admin:core_formsubmission_changelist")},
-                    {"title": "В роботі",    "icon": "engineering",  "link": reverse_lazy("admin:core_inprogressformsubmission_changelist")},
-                    {"title": "Завершено",   "icon": "check_circle", "link": reverse_lazy("admin:core_completedformsubmission_changelist")},
-                    {"title": "Архів",       "icon": "archive",      "link": reverse_lazy("admin:core_archivedformsubmission_changelist")},
+                    {"title": "Заявки", "icon": "inbox", "link": reverse_lazy("admin:core_formsubmission_changelist")},
                 ],
             },
             {
@@ -133,7 +130,12 @@ UNFOLD = {
                 "title": "Система",
                 "separator": True,
                 "items": [
-                    {"title": "Користувачі", "icon": "person", "link": reverse_lazy("admin:auth_user_changelist")},
+                    {
+                        "title": "Користувачі",
+                        "icon": "person",
+                        "link": reverse_lazy("admin:auth_user_changelist"),
+                        "permission": "apps.core.admin_permissions.can_manage_admin_users",
+                    },
                 ],
             },
         ],
