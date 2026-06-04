@@ -80,7 +80,7 @@
     #service-web-modal .modal-content,
     #service-mobile-modal .modal-content,
     #service-smm-modal .modal-content,
-    #service-education-modal .modal-content {
+    #service-ai-modal .modal-content {
         display: flex;
         flex-direction: column;
         overflow: hidden;

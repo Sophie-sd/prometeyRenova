@@ -55,10 +55,11 @@
 
 
 .home-redesign .v2-intro{
+  width: 100%;
+  max-width: none;
   font-size: 16px;
   line-height: 1.55;
   color: var(--v2-mute);
-  max-width: 760px;
   margin: 0 0 56px;
 }
 

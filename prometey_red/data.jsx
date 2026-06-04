@@ -9,7 +9,7 @@ const PROMETEY_DATA = {
     {
       icon: "assets/icons/calendar.svg",
       titleAccent: "Прозорі строки,",
-      titleRest: "які ми дотримуємося",
+      titleRest: "яких ми дотримуємося",
       subtitle: "Базові терміни виконання:",
       list: [
         ["Лендінги:", "3–7 днів"],

@@ -1861,8 +1861,8 @@ msgstr ""
 msgid "Прозорі строки,"
 msgstr ""
 
-#: templates/pages/home.html:126
-msgid "які ми дотримуємося"
+#: templates/components/home/redesign_why.html:23
+msgid "яких ми дотримуємося"
 msgstr ""
 
 #: templates/pages/home.html:129

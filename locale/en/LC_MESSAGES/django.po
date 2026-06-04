@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PrometeyLabs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-05 12:29+0300\n"
+"POT-Creation-Date: 2026-06-04 16:20+0300\n"
 "PO-Revision-Date: 2025-09-29 12:00+0000\n"
 "Last-Translator: PrometeyLabs <info@prometeylabs.com>\n"
 "Language-Team: English\n"
@@ -16,503 +16,791 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: apps/blog/models.py:8
+#: apps/blog/models.py:9 apps/core/models.py:465
 msgid "Заголовок"
 msgstr "Title"
 
-#: apps/blog/models.py:9
+#: apps/blog/models.py:10
 msgid "URL"
 msgstr "URL"
 
-#: apps/blog/models.py:10
+#: apps/blog/models.py:11
 msgid "Короткий опис"
 msgstr "Short description"
 
-#: apps/blog/models.py:11
+#: apps/blog/models.py:12
 msgid "Контент"
 msgstr "Content"
 
-#: apps/blog/models.py:12
+#: apps/blog/models.py:13
 msgid "SEO заголовок"
 msgstr "SEO Title"
 
-#: apps/blog/models.py:13
+#: apps/blog/models.py:14
 msgid "SEO опис"
 msgstr "SEO description"
 
-#: apps/blog/models.py:14 templates/pages/blog_detail.html:46
+#: apps/blog/models.py:15 templates/pages/blog_detail.html:46
 msgid "Ключові слова"
 msgstr "Keywords"
 
-#: apps/blog/models.py:17
+#: apps/blog/models.py:18
 msgid "Meta Title"
 msgstr "Meta Title"
 
-#: apps/blog/models.py:18
+#: apps/blog/models.py:19
 msgid "Meta Description"
 msgstr "Meta Description"
 
-#: apps/blog/models.py:19
+#: apps/blog/models.py:20
 msgid "OG Title"
 msgstr "OG Title"
 
-#: apps/blog/models.py:20
+#: apps/blog/models.py:21
 msgid "OG Description"
 msgstr "OG Description"
 
-#: apps/blog/models.py:23
+#: apps/blog/models.py:24
 msgid "Час читання (хв)"
 msgstr "Reading time (min)"
 
-#: apps/blog/models.py:24
+#: apps/blog/models.py:25
 msgid "Головне зображення"
 msgstr "Featured Image"
 
-#: apps/blog/models.py:26 templates/pages/blog.html:123
+#: apps/blog/models.py:27 templates/pages/blog.html:123
 msgid "Веб-розробка"
 msgstr "Web Development"
 
-#: apps/blog/models.py:27 templates/components/footer.html:13
+#: apps/blog/models.py:28 templates/components/footer.html:13
 #: templates/pages/blog.html:126
 msgid "Курси програмування"
 msgstr "Programming Courses"
 
-#: apps/blog/models.py:28 templates/pages/blog.html:130
+#: apps/blog/models.py:29 templates/pages/blog.html:130
 msgid "Telegram боти"
 msgstr "telegram bots"
 
-#: apps/blog/models.py:29
+#: apps/blog/models.py:30
 msgid "Бізнес"
 msgstr "Business"
 
-#: apps/blog/models.py:30 templates/pages/blog.html:134
+#: apps/blog/models.py:31 templates/pages/blog.html:134
 msgid "Технології"
 msgstr "Technologies"
 
-#: apps/blog/models.py:31
+#: apps/blog/models.py:32
 msgid "AI розробка"
 msgstr "AI Development"
 
-#: apps/blog/models.py:32
+#: apps/blog/models.py:33
 msgid "AI агенти"
 msgstr "AI Agents"
 
-#: apps/blog/models.py:33
+#: apps/blog/models.py:34
 msgid "AI автоматизація"
 msgstr "AI Automation"
 
-#: apps/blog/models.py:34
+#: apps/blog/models.py:35
 msgid "Категорія"
 msgstr "Category"
 
-#: apps/blog/models.py:36 apps/core/models.py:95 apps/core/models.py:293
+#: apps/blog/models.py:37 apps/core/models.py:97 apps/core/models.py:295
+#: apps/core/models.py:539 apps/payment/admin.py:178 apps/payment/models.py:132
 msgid "Створено"
 msgstr "Created"
 
-#: apps/blog/models.py:37 apps/core/models.py:98 apps/core/models.py:297
+#: apps/blog/models.py:38 apps/core/models.py:100 apps/core/models.py:299
+#: apps/core/models.py:540 apps/payment/models.py:133
 msgid "Оновлено"
 msgstr "Updated"
 
-#: apps/blog/models.py:38
+#: apps/blog/models.py:39 apps/core/models.py:522
 msgid "Опубліковано"
 msgstr "Published"
 
-#: apps/blog/models.py:42
+#: apps/blog/models.py:43
 msgid "Стаття блогу"
 msgstr "Blog Post"
 
-#: apps/blog/models.py:43
+#: apps/blog/models.py:44
 msgid "Статті блогу"
 msgstr "Blog Posts"
 
-#: apps/core/admin.py:50
+#: apps/core/admin.py:105
 #, fuzzy
 #| msgid "Додаткова інформація"
 msgid "Контактна інформація"
 msgstr "Useful Information"
 
-#: apps/core/admin.py:53
+#: apps/core/admin.py:108
 #, fuzzy
 #| msgid "Реєстрація"
 msgid "Класифікація"
 msgstr "Registration"
 
-#: apps/core/admin.py:57
+#: apps/core/admin.py:112
 #, fuzzy
 #| msgid "Детальніше"
 msgid "Деталі заявки"
 msgstr "Details"
 
-#: apps/core/admin.py:61
+#: apps/core/admin.py:116
 #, fuzzy
 #| msgid "e-mail менеджерам"
 msgid "Робота менеджера"
 msgstr "e-mail to managers"
 
-#: apps/core/admin.py:65 apps/payment/admin.py:116
+#: apps/core/admin.py:120 apps/payment/admin.py:157
 #, fuzzy
 #| msgid "Додаткова інформація"
 msgid "Системна інформація"
 msgstr "Useful Information"
 
-#: apps/core/admin.py:79 apps/core/models.py:25
-msgid "Новий"
-msgstr ""
-
-#: apps/core/admin.py:80 apps/core/models.py:27
-msgid "Думає / Очікує"
-msgstr ""
-
-#: apps/core/admin.py:81 apps/core/models.py:28
-msgid "Не на зв'язку"
-msgstr ""
-
-#: apps/core/admin.py:82 apps/core/admin.py:92 apps/core/admin.py:99
-#: apps/core/admin.py:105 apps/core/models.py:29
-msgid "Назад в заявки"
-msgstr ""
-
-#: apps/core/admin.py:83 apps/core/admin.py:89 apps/core/admin.py:98
-#: apps/core/admin.py:106 apps/core/models.py:26 apps/core/models.py:221
-msgid "В роботі"
-msgstr ""
-
-#: apps/core/admin.py:84 apps/core/admin.py:104 apps/core/models.py:32
-#: apps/core/models.py:213
-msgid "Архів заявок"
-msgstr ""
-
-#: apps/core/admin.py:90 apps/core/models.py:31
-msgid "Пауза"
-msgstr ""
-
-#: apps/core/admin.py:91 apps/core/admin.py:97 apps/core/models.py:30
-#: apps/core/models.py:229
-msgid "Завершено"
-msgstr ""
-
-#: apps/core/admin.py:146 apps/core/models.py:43 apps/core/models.py:242
-#: templates/components/footer.html:74 templates/components/modals.html:25
-#: templates/components/modals.html:128
+#: apps/core/admin.py:161 apps/core/models.py:45 apps/core/models.py:244
+#: templates/components/footer.html:76 templates/components/modals.html:25
+#: templates/components/modals.html:129
 msgid "Ім'я"
 msgstr "Name"
 
-#: apps/core/admin.py:154 apps/core/models.py:44 apps/core/models.py:269
-#: templates/pages/calculator.html:227 templates/pages/contacts.html:36
-#: templates/pages/contacts.html:101
+#: apps/core/admin.py:169 apps/core/models.py:46 apps/core/models.py:271
+#: templates/pages/calculator.html:227 templates/pages/contacts.html:34
+#: templates/pages/contacts.html:82
 msgid "Телефон"
 msgstr "Phone"
 
-#: apps/core/admin.py:161 apps/core/models.py:50
+#: apps/core/admin.py:176 apps/core/models.py:52
 msgid "Проект"
 msgstr ""
 
-#: apps/core/admin.py:189 apps/core/models.py:59
+#: apps/core/admin.py:187 apps/core/models.py:61
 #, fuzzy
 #| msgid "Тип проєкту:"
 msgid "Тип форми"
 msgstr "Project type:"
 
-#: apps/core/admin.py:200 apps/core/models.py:66
+#: apps/core/admin.py:196 apps/core/models.py:68 apps/payment/models.py:122
 msgid "Статус"
 msgstr "Status"
 
-#: apps/core/admin.py:216 apps/core/models.py:73
+#: apps/core/admin.py:205 apps/core/models.py:75
 msgid "Пріоритет"
 msgstr ""
 
-#: apps/core/admin.py:221
+#: apps/core/admin.py:210
 msgid "Дата"
 msgstr ""
 
-#: apps/core/admin.py:226
+#: apps/core/admin.py:215
 msgid "Минуло"
 msgstr ""
 
-#: apps/core/admin.py:237
+#: apps/core/admin.py:226
 #, fuzzy
 #| msgid "Закрити"
 msgid "Критично"
 msgstr "Close"
 
-#: apps/core/admin.py:250 apps/core/models.py:137
+#: apps/core/admin.py:239 apps/core/models.py:139
 msgid "Призначено"
 msgstr ""
 
-#: apps/core/admin.py:263 apps/core/models.py:78
+#: apps/core/admin.py:252 apps/core/models.py:80
 #, fuzzy
 #| msgid "Додаткова інформація"
 msgid "Додаткові дані"
 msgstr "Useful Information"
 
-#: apps/core/admin.py:410
+#: apps/core/admin.py:399
 #, python-format
 msgid "Видалено %(count)d заявок."
 msgstr ""
 
-#: apps/core/admin.py:419
+#: apps/core/admin.py:408
 msgid "Заявку видалено."
 msgstr ""
 
-#: apps/core/models.py:13
+#: apps/core/admin.py:434 templates/components/burger_menu.html:48
+#: templates/components/footer.html:23
+msgid "Контакти"
+msgstr "Contacts"
+
+#: apps/core/admin.py:437
+msgid "Соціальні мережі"
+msgstr "Social Media"
+
+#: apps/core/admin.py:440
+msgid "Месенджери"
+msgstr "Messengers"
+
+#: apps/core/admin.py:443 templates/pages/contacts.html:57
+msgid "Google Maps"
+msgstr ""
+
+#: apps/core/admin.py:451
+msgid ""
+"Вкажіть URL вбудованої карти або координати точки. Карта з’явиться на "
+"сторінці контактів."
+msgstr ""
+
+#: apps/core/admin.py:516
+#, fuzzy
+#| msgid "Основне меню"
+msgid "Основне"
+msgstr "Mobile Menu"
+
+#: apps/core/admin.py:519
+msgid "Картка (/portfolio/)"
+msgstr ""
+
+#: apps/core/admin.py:529
+#, fuzzy
+#| msgid "Закрити модальне вікно"
+msgid "Модальне вікно"
+msgstr "Close Menu"
+
+#: apps/core/admin.py:539
+#, fuzzy
+#| msgid "PrometeyLabs - Головна сторінка"
+msgid "Головна сторінка"
+msgstr "PrometeyLabs team"
+
+#: apps/core/admin.py:542
+#, fuzzy
+#| msgid "Головне зображення"
+msgid "Відображення"
+msgstr "Featured Image"
+
+#: apps/core/admin.py:549
+msgid "Службове"
+msgstr ""
+
+#: apps/core/admin.py:555
+msgid "Прев’ю картки"
+msgstr ""
+
+#: apps/core/admin.py:567
+msgid "Прев’ю модалки"
+msgstr ""
+
+#: apps/core/admin_filters.py:22 apps/core/admin_filters.py:28
+msgid "Yes"
+msgstr ""
+
+#: apps/core/admin_filters.py:23 apps/core/admin_filters.py:29
+msgid "No"
+msgstr ""
+
+#: apps/core/admin_filters.py:34
+#, python-format
+msgid " By %(filter_title)s "
+msgstr ""
+
+#: apps/core/models.py:15
 #, fuzzy
 #| msgid "Дякуємо за заявку!"
 msgid "Ручна заявка"
 msgstr "Thank you for your request!"
 
-#: apps/core/models.py:14 apps/core/views.py:209
+#: apps/core/models.py:16 apps/core/views.py:256
 msgid "Заявка на розробку сайту"
 msgstr "Website Development Request"
 
-#: apps/core/models.py:15
+#: apps/core/models.py:17
 #, fuzzy
 #| msgid "Заявка на консультацію"
 msgid "Заявка на курси"
 msgstr "Consultation Request"
 
-#: apps/core/models.py:16 apps/core/views.py:276
+#: apps/core/models.py:18 apps/core/views.py:313
 msgid "Заявка на консультацію"
 msgstr "Consultation Request"
 
-#: apps/core/models.py:17 apps/core/views.py:308
+#: apps/core/models.py:19 apps/core/views.py:340
 msgid "Заявка зі сторінки контактів"
 msgstr "Contact Page Request"
 
-#: apps/core/models.py:18 apps/core/views.py:420
+#: apps/core/models.py:20 apps/core/views.py:446
 msgid "Замовлення дзвінка"
 msgstr "Request a Call"
 
-#: apps/core/models.py:19
+#: apps/core/models.py:21
 #, fuzzy
-#| msgid "Заявка з footer - Консультація"
-msgid "Заявка з footer"
-msgstr "Telegram Consultation"
+#| msgid "Заявка на консультацію"
+msgid "Заявка з футера"
+msgstr "Consultation Request"
 
-#: apps/core/models.py:20 apps/core/views.py:383
+#: apps/core/models.py:22 apps/core/views.py:410
 msgid "Результат тесту калькулятора"
 msgstr "Calculator Test Result"
 
-#: apps/core/models.py:37
+#: apps/core/models.py:27 apps/payment/models.py:68
+msgid "Новий"
+msgstr ""
+
+#: apps/core/models.py:28 apps/core/models.py:223
+msgid "В роботі"
+msgstr ""
+
+#: apps/core/models.py:29
+msgid "Думає / Очікує"
+msgstr ""
+
+#: apps/core/models.py:30
+msgid "Не на зв'язку"
+msgstr ""
+
+#: apps/core/models.py:31
+msgid "Назад в заявки"
+msgstr ""
+
+#: apps/core/models.py:32 apps/core/models.py:231
+msgid "Завершено"
+msgstr ""
+
+#: apps/core/models.py:33
+msgid "Пауза"
+msgstr ""
+
+#: apps/core/models.py:34 apps/core/models.py:215
+msgid "Архів заявок"
+msgstr ""
+
+#: apps/core/models.py:39
 msgid "Низький"
 msgstr ""
 
-#: apps/core/models.py:38
+#: apps/core/models.py:40
 #, fuzzy
 #| msgid "Формат:"
 msgid "Нормальний"
 msgstr "Format:"
 
-#: apps/core/models.py:39
+#: apps/core/models.py:41
 msgid "Високий"
 msgstr ""
 
-#: apps/core/models.py:45 apps/core/models.py:264
+#: apps/core/models.py:47 apps/core/models.py:266 apps/core/models.py:342
 msgid "Email"
 msgstr "Email"
 
-#: apps/core/models.py:46
+#: apps/core/models.py:48
 #, fuzzy
 #| msgid "Посилання недоступне"
 msgid "Посилання на месенджер"
 msgstr "Link Unavailable"
 
-#: apps/core/models.py:51
+#: apps/core/models.py:53
 msgid "Короткий опис проекту для швидкого огляду в списку"
 msgstr ""
 
-#: apps/core/models.py:77
+#: apps/core/models.py:79
 #, fuzzy
 #| msgid "Повідомлення"
 msgid "Деталі / Повідомлення"
 msgstr "Message"
 
-#: apps/core/models.py:84
+#: apps/core/models.py:86
 #, fuzzy
 #| msgid "Відправити"
 msgid "Email відправлено"
 msgstr "Send"
 
-#: apps/core/models.py:89
+#: apps/core/models.py:91
 #, fuzzy
 #| msgid "Відправити"
 msgid "Час відправки email"
 msgstr "Send"
 
-#: apps/core/models.py:102
+#: apps/core/models.py:104
 msgid "IP адреса"
 msgstr ""
 
-#: apps/core/models.py:104
+#: apps/core/models.py:106
 msgid "User Agent"
 msgstr ""
 
-#: apps/core/models.py:109
+#: apps/core/models.py:111
 msgid "Google Click ID"
 msgstr ""
 
-#: apps/core/models.py:111
+#: apps/core/models.py:113
 msgid "UTM Source"
 msgstr ""
 
-#: apps/core/models.py:112
+#: apps/core/models.py:114
 msgid "UTM Medium"
 msgstr ""
 
-#: apps/core/models.py:113
+#: apps/core/models.py:115
 msgid "UTM Campaign"
 msgstr ""
 
-#: apps/core/models.py:114
+#: apps/core/models.py:116
 msgid "UTM Term"
 msgstr ""
 
-#: apps/core/models.py:115
+#: apps/core/models.py:117
 msgid "UTM Content"
 msgstr ""
 
-#: apps/core/models.py:120
+#: apps/core/models.py:122
 msgid "KeyCRM Card ID"
 msgstr ""
 
-#: apps/core/models.py:124
+#: apps/core/models.py:126
 msgid "Синхронізовано з KeyCRM"
 msgstr ""
 
-#: apps/core/models.py:130
+#: apps/core/models.py:132
 #, fuzzy
 #| msgid "Месенджери"
 msgid "Коментар менеджера"
 msgstr "Messengers"
 
-#: apps/core/models.py:141
+#: apps/core/models.py:143
 msgid "Заявка"
 msgstr ""
 
-#: apps/core/models.py:142
+#: apps/core/models.py:144
 msgid "Заявки"
 msgstr ""
 
-#: apps/core/models.py:173
+#: apps/core/models.py:175
 #, fuzzy, python-format
 #| msgid "днів"
 msgid "%(days)d днів"
 msgstr "days"
 
-#: apps/core/models.py:177
+#: apps/core/models.py:179
 #, python-format
 msgid "%(hours)d годин"
 msgstr ""
 
-#: apps/core/models.py:181
+#: apps/core/models.py:183
 #, python-format
 msgid "%(minutes)d хвилин"
 msgstr ""
 
-#: apps/core/models.py:183
+#: apps/core/models.py:185
 msgid "щойно"
 msgstr ""
 
-#: apps/core/models.py:212
+#: apps/core/models.py:214
 #, fuzzy
 #| msgid "Дякуємо за заявку!"
 msgid "Архівна заявка"
 msgstr "Thank you for your request!"
 
-#: apps/core/models.py:220
+#: apps/core/models.py:222
 #, fuzzy
 #| msgid "заявки на пропозицію"
 msgid "Заявка в роботі"
 msgstr "proposal requests"
 
-#: apps/core/models.py:228
+#: apps/core/models.py:230
 msgid "Завершена заявка"
 msgstr ""
 
-#: apps/core/models.py:238
+#: apps/core/models.py:240
 msgid "Прізвище"
 msgstr ""
 
-#: apps/core/models.py:247
+#: apps/core/models.py:249
 msgid "По батькові"
 msgstr ""
 
-#: apps/core/models.py:253
+#: apps/core/models.py:255
 msgid "Посада"
 msgstr ""
 
-#: apps/core/models.py:258
+#: apps/core/models.py:260
 #, fuzzy
 #| msgid "Git та командна робота"
 msgid "Дата прийому на роботу"
 msgstr "Git and teamwork"
 
-#: apps/core/models.py:275
+#: apps/core/models.py:277
 #, fuzzy
 #| msgid "Короткий опис"
 msgid "Короткий опис / Біо"
 msgstr "Short description"
 
-#: apps/core/models.py:281 apps/payment/models.py:44
+#: apps/core/models.py:283 apps/payment/models.py:44
 #, fuzzy
 #| msgid "Адаптивний дизайн"
 msgid "Активний"
 msgstr "Responsive design"
 
-#: apps/core/models.py:286
+#: apps/core/models.py:288
 #, fuzzy
 #| msgid "Головне зображення"
 msgid "Порядок відображення"
 msgstr "Featured Image"
 
-#: apps/core/models.py:304
+#: apps/core/models.py:306
 msgid "Співробітник"
 msgstr ""
 
-#: apps/core/models.py:305
+#: apps/core/models.py:307
 msgid "Співробітники"
 msgstr ""
 
-#: apps/core/views.py:28 templates/base.html:31
+#: apps/core/models.py:332
+#, fuzzy
+#| msgid "Головне зображення"
+msgid "Телефон (відображення)"
+msgstr "Featured Image"
+
+#: apps/core/models.py:337
+#, fuzzy
+#| msgid "Немає даних для платежу"
+msgid "Телефон (цифри для посилань)"
+msgstr "No payment data available"
+
+#: apps/core/models.py:338
+msgid "Без +, наприклад 380639520565"
+msgstr ""
+
+#: apps/core/models.py:346
+msgid "Instagram"
+msgstr ""
+
+#: apps/core/models.py:350
+msgid "Facebook"
+msgstr ""
+
+#: apps/core/models.py:354
+msgid "LinkedIn"
+msgstr ""
+
+#: apps/core/models.py:358
+#, fuzzy
+#| msgid "Telegram боти"
+msgid "Telegram"
+msgstr "telegram bots"
+
+#: apps/core/models.py:362
+msgid "WhatsApp (опційно)"
+msgstr ""
+
+#: apps/core/models.py:363 apps/core/models.py:368
+msgid "Якщо порожньо — генерується з телефону"
+msgstr ""
+
+#: apps/core/models.py:367
+msgid "Viber (опційно)"
+msgstr ""
+
+#: apps/core/models.py:373
+msgid "TikTok"
+msgstr ""
+
+#: apps/core/models.py:378 templates/pages/contacts.html:39
+msgid "Адреса"
+msgstr ""
+
+#: apps/core/models.py:385
+msgid "Широта (Google Maps)"
+msgstr ""
+
+#: apps/core/models.py:392
+msgid "Довгота (Google Maps)"
+msgstr ""
+
+#: apps/core/models.py:396
+#, fuzzy
+#| msgid "Оплатити карткою"
+msgid "Масштаб карти"
+msgstr "Pay by Card"
+
+#: apps/core/models.py:401
+msgid "URL вбудованої карти (iframe src)"
+msgstr ""
+
+#: apps/core/models.py:403
+msgid ""
+"Повний src з Google Maps «Поділитися → Вбудувати». Має пріоритет над "
+"координатами."
+msgstr ""
+
+#: apps/core/models.py:409 apps/core/models.py:410
+#, fuzzy
+#| msgid "Оплатити карткою"
+msgid "Контакти та карта"
+msgstr "Pay by Card"
+
+#: apps/core/models.py:413
+#, fuzzy
+#| msgid "Контакти"
+msgid "Контакти сайту"
+msgstr "Contacts"
+
+#: apps/core/models.py:417
+msgid "Дозволено лише один запис налаштувань контактів"
+msgstr ""
+
+#: apps/core/models.py:464
+msgid "Slug"
+msgstr ""
+
+#: apps/core/models.py:466
+#, fuzzy
+#| msgid "Заголовок"
+msgid "Підзаголовок"
+msgstr "Title"
+
+#: apps/core/models.py:467
+#, fuzzy
+#| msgid "Короткий опис"
+msgid "Короткий опис (картка)"
+msgstr "Short description"
+
+#: apps/core/models.py:470
+#, fuzzy
+#| msgid "Інтеграції:"
+msgid "Теги інтеграцій"
+msgstr "Integrations:"
+
+#: apps/core/models.py:471
+msgid "Один тег на рядок (без #)"
+msgstr ""
+
+#: apps/core/models.py:475
+#, fuzzy
+#| msgid "Зображення події"
+msgid "Зображення картки (desktop)"
+msgstr "online events"
+
+#: apps/core/models.py:480
+#, fuzzy
+#| msgid "Зображення події"
+msgid "Зображення картки (mobile)"
+msgstr "online events"
+
+#: apps/core/models.py:485
+msgid "Alt текст картки"
+msgstr ""
+
+#: apps/core/models.py:490
+#, fuzzy
+#| msgid "Зображення події"
+msgid "Зображення для головної (stories)"
+msgstr "online events"
+
+#: apps/core/models.py:495
+#, fuzzy
+#| msgid "заявки на пропозицію"
+msgid "Назва на головній"
+msgstr "proposal requests"
+
+#: apps/core/models.py:496
+msgid "Якщо порожньо — використовується заголовок"
+msgstr ""
+
+#: apps/core/models.py:500
+#, fuzzy
+#| msgid "Закрити модальне вікно"
+msgid "Контент модального вікна (HTML)"
+msgstr "Close Menu"
+
+#: apps/core/models.py:505
+#, fuzzy
+#| msgid "Головне зображення"
+msgid "Модалка: головне зображення"
+msgstr "Featured Image"
+
+#: apps/core/models.py:510
+#, fuzzy
+#| msgid "BeautyShop - мобільна версія"
+msgid "Модалка: мобільна версія"
+msgstr "BeautyShop - Mobile Version"
+
+#: apps/core/models.py:515
+#, fuzzy
+#| msgid "BeautyShop - планшетна версія"
+msgid "Модалка: планшетна версія"
+msgstr "BeautyShop - Tablet Version"
+
+#: apps/core/models.py:520
+#, fuzzy
+#| msgid "BeautyShop - десктопна версія"
+msgid "Модалка: десктопна версія"
+msgstr "BeautyShop - Desktop Version"
+
+#: apps/core/models.py:525
+msgid "Показувати на /portfolio/"
+msgstr ""
+
+#: apps/core/models.py:529
+#, fuzzy
+#| msgid "заявки на пропозицію"
+msgid "Показувати на головній"
+msgstr "proposal requests"
+
+#: apps/core/models.py:533
+msgid "Порядок на /portfolio/"
+msgstr ""
+
+#: apps/core/models.py:537
+#, fuzzy
+#| msgid "заявки на пропозицію"
+msgid "Порядок на головній"
+msgstr "proposal requests"
+
+#: apps/core/models.py:545
+#, fuzzy
+#| msgid "Переглянути портфоліо"
+msgid "Проєкт портфоліо"
+msgstr "Portfolio"
+
+#: apps/core/models.py:546
+#, fuzzy
+#| msgid "Переглянути портфоліо"
+msgid "Проєкти портфоліо"
+msgstr "Portfolio"
+
+#: apps/core/views.py:64 templates/base.html:31
 msgid "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама"
 msgstr ""
 "PrometeyLabs - Turnkey Website Development | Telegram Bots | Advertising"
 
-#: apps/core/views.py:29
+#: apps/core/views.py:65
 msgid ""
 "PrometeyLabs - професійна розробка сайтів під ключ, створення Telegram "
 "ботів, налаштування реклами Google Ads, навчання веб-розробки. Сучасні "
 "технології, конкурентні ціни."
 msgstr ""
 
-#: apps/core/views.py:30
+#: apps/core/views.py:66
 msgid "PrometeyLabs - Розробка сайтів під ключ"
 msgstr "Turnkey Website Development"
 
-#: apps/core/views.py:34
+#: apps/core/views.py:76
 msgid "Портфоліо | Створені нами сайти під ключ - PrometeyLabs"
 msgstr "Portfolio | Turnkey Websites Created by Us - PrometeyLabs"
 
-#: apps/core/views.py:35
+#: apps/core/views.py:77
 msgid ""
 "Портфоліо PrometeyLabs - приклади створених сайтів під ключ, Telegram ботів, "
 "налаштованої реклами. Подивіться на наші роботи та оцініть якість."
 msgstr ""
 
-#: apps/core/views.py:39
+#: apps/core/views.py:86
 msgid "Розрахувати вартість сайту | Калькулятор ціни - PrometeyLabs"
 msgstr "Calculate Cost Online"
 
-#: apps/core/views.py:40
+#: apps/core/views.py:87
 msgid ""
 "Розрахуйте вартість створення сайту онлайн. Сучасні технології знижують ціну "
 "розробки. Тест для точного розрахунку вартості проекту."
 msgstr ""
 
-#: apps/core/views.py:44
+#: apps/core/views.py:91
 msgid "PrometeyLabs — Навчання web-розробці та AI"
 msgstr "PrometeyLabs — Web Development and AI Training"
 
-#: apps/core/views.py:45
+#: apps/core/views.py:92
 msgid ""
 "Навчання веб-розробці та AI у PrometeyLabs. Програми для новачків та "
 "розробників з досвідом. Практичне навчання, комунікація з експертами, "
@@ -522,11 +810,11 @@ msgstr ""
 "experienced developers. Practical training, communication with experts, "
 "career opportunity in our company."
 
-#: apps/core/views.py:49
+#: apps/core/views.py:96
 msgid "Контакти | PrometeyLabs - Зв'яжіться з нами"
 msgstr "Contacts | PrometeyLabs - Contact Us"
 
-#: apps/core/views.py:50
+#: apps/core/views.py:97
 msgid ""
 "Зв'яжіться з командою PrometeyLabs для розробки сайтів, Telegram ботів, "
 "реклами чи навчання. Київ, Україна."
@@ -534,41 +822,41 @@ msgstr ""
 "Contact the PrometeyLabs team for website development, Telegram bots, "
 "advertising or training. Kyiv, Ukraine."
 
-#: apps/core/views.py:54 templates/pages/offer.html:5
+#: apps/core/views.py:101 templates/pages/offer.html:5
 msgid "Публічна оферта на надання послуг | PrometeyLabs"
 msgstr "Public Service Agreement | PrometeyLabs"
 
-#: apps/core/views.py:55 templates/pages/offer.html:6
+#: apps/core/views.py:102 templates/pages/offer.html:6
 msgid ""
 "Публічна оферта на надання послуг від PrometeyLabs. Офіційні умови надання "
 "послуг веб-розробки, мобільних застосунків та маркетингу."
 msgstr ""
 
-#: apps/core/views.py:59 templates/pages/privacy.html:5
+#: apps/core/views.py:106 templates/pages/privacy.html:5
 msgid "Політика конфіденційності | PrometeyLabs"
 msgstr "Privacy Policy | PrometeyLabs"
 
-#: apps/core/views.py:60 templates/pages/privacy.html:6
+#: apps/core/views.py:107 templates/pages/privacy.html:6
 msgid ""
 "Політика конфіденційності PrometeyLabs. Дізнайтеся, як ми захищаємо ваші "
 "персональні дані відповідно до законодавства України та GDPR."
 msgstr ""
 
-#: apps/core/views.py:64 templates/pages/cookies.html:5
+#: apps/core/views.py:111 templates/pages/cookies.html:5
 msgid "Політика щодо файлів cookie | PrometeyLabs"
 msgstr "Cookie Policy | PrometeyLabs"
 
-#: apps/core/views.py:65
+#: apps/core/views.py:112
 msgid ""
 "Політика щодо файлів cookie від PrometeyLabs. Дізнайтеся, які файли cookie "
 "ми використовуємо та як керувати налаштуваннями."
 msgstr ""
 
-#: apps/core/views.py:69 templates/pages/refund.html:5
+#: apps/core/views.py:116 templates/pages/refund.html:5
 msgid "Політика повернення коштів | PrometeyLabs"
 msgstr "Refund Policy | PrometeyLabs"
 
-#: apps/core/views.py:70 templates/pages/refund.html:6
+#: apps/core/views.py:117 templates/pages/refund.html:6
 msgid ""
 "Політика повернення коштів від PrometeyLabs. Дізнайтеся про умови і порядок "
 "повернення коштів за наші послуги."
@@ -576,11 +864,11 @@ msgstr ""
 "Refund policy from PrometeyLabs. Learn about the terms and procedure for "
 "refunding our services."
 
-#: apps/core/views.py:74 templates/pages/intellectual-property.html:5
+#: apps/core/views.py:121 templates/pages/intellectual-property.html:5
 msgid "Політика щодо інтелектуальної власності | PrometeyLabs"
 msgstr "Intellectual Property Policy | PrometeyLabs"
 
-#: apps/core/views.py:75 templates/pages/intellectual-property.html:6
+#: apps/core/views.py:122 templates/pages/intellectual-property.html:6
 msgid ""
 "Політика щодо інтелектуальної власності від PrometeyLabs. Дізнайтеся про "
 "права на контент та захист авторських прав."
@@ -588,235 +876,259 @@ msgstr ""
 "Intellectual property policy from PrometeyLabs. Learn about content rights "
 "and copyright protection."
 
-#: apps/core/views.py:85
+#: apps/core/views.py:132
 #, fuzzy
 #| msgid "Портфоліо | Створені нами сайти під ключ - PrometeyLabs"
 msgid "Розробка інтернет-магазинів під ключ | PrometeyLabs"
 msgstr "Portfolio | Turnkey Websites Created by Us - PrometeyLabs"
 
-#: apps/core/views.py:86
+#: apps/core/views.py:133
 msgid ""
 "Розробка інтернет-магазинів під ключ від PrometeyLabs. Кастомний код, зручна "
 "адмінка, інтеграції з платіжними системами та Новою Поштою. Міграція з Prom, "
 "Rozetka."
 msgstr ""
 
-#: apps/core/views.py:87
+#: apps/core/views.py:134
 #, fuzzy
 #| msgid "Інтернет-магазини"
 msgid "Інтернет-магазини під ключ — PrometeyLabs"
 msgstr "E-commerce stores"
 
-#: apps/core/views.py:126
+#: apps/core/views.py:173
 msgid ""
 "Корпоративний сайт під ключ за 7 днів | Розробка сайту компанії — "
 "PrometeyLabs"
 msgstr ""
 
-#: apps/core/views.py:127
+#: apps/core/views.py:174
 msgid ""
 "Створення корпоративного сайту під ключ. Унікальний дизайн, інтеграція з "
 "CRM, SEO + реклама Google/Facebook/TikTok у пакеті. Запуск за 7 днів. "
 "Команда досвідчених розробників. Розрахуємо вартість у брифі."
 msgstr ""
 
-#: apps/core/views.py:128
+#: apps/core/views.py:175
 #, fuzzy
 #| msgid "Корпоративний сайт або сайт послуг"
 msgid "Корпоративний сайт під ключ — створимо за 7 днів | PrometeyLabs"
 msgstr "Corporate website or service website"
 
-#: apps/core/views.py:150
+#: apps/core/views.py:197
 #, fuzzy
 #| msgid "Дякуємо за заявку!"
 msgid "Дякуємо за вашу заявку | PrometeyLabs"
 msgstr "Thank you for your request!"
 
-#: apps/core/views.py:151 templates/pages/thank_you.html:6
+#: apps/core/views.py:198 templates/pages/thank_you.html:6
 #, fuzzy
 #| msgid ""
 #| "Дякуємо! Ваша заявка отримана. Ми зв'яжемося з вами найближчим часом."
 msgid "Ваша заявка успішно отримана. Ми з вами скоро зв'яжемось."
 msgstr "Our manager will contact you soon"
 
-#: apps/core/views.py:159 apps/core/views.py:339
+#: apps/core/views.py:206 apps/core/views.py:366
 msgid "Метод не дозволений"
 msgstr "Method not allowed"
 
-#: apps/core/views.py:169
+#: apps/core/views.py:216
 msgid "Заповніть обов'язкові поля: ім'я та телефон"
 msgstr "Fill in required fields: name and phone"
 
-#: apps/core/views.py:173 apps/core/views.py:349
+#: apps/core/views.py:220 apps/core/views.py:376
 msgid "Введіть коректне ім'я (мінімум 2 символи, хоча б одна літера)"
 msgstr "Enter a valid name (minimum 2 characters, at least one letter)"
 
-#: apps/core/views.py:177
+#: apps/core/views.py:224
 msgid "Введіть коректний номер телефону"
 msgstr "Enter a valid phone number"
 
-#: apps/core/views.py:194
+#: apps/core/views.py:241
 #, python-brace-format
 msgid "Невідомий тип форми: {form_type}"
 msgstr "Unknown form type: {form_type}"
 
-#: apps/core/views.py:198
+#: apps/core/views.py:245
 msgid "Сталася помилка при обробці заявки. Спробуйте ще раз."
 msgstr "An error occurred while processing the request. Please try again."
 
-#: apps/core/views.py:226 apps/core/views.py:260 apps/core/views.py:292
-#: apps/core/views.py:324 apps/core/views.py:434 apps/core/views.py:461
+#: apps/core/views.py:268 apps/core/views.py:297 apps/core/views.py:324
+#: apps/core/views.py:351 apps/core/views.py:455 apps/core/views.py:477
 #, fuzzy
 #| msgid "Сталася помилка при обробці заявки. Спробуйте ще раз."
 msgid "Помилка при збереженні заявки. Спробуйте ще раз."
 msgstr "An error occurred while processing the request. Please try again."
 
-#: apps/core/views.py:232
+#: apps/core/views.py:274
 msgid "Дякуємо! Ваша заявка отримана. Ми зв'яжемося з вами найближчим часом."
 msgstr "Our manager will contact you soon"
 
-#: apps/core/views.py:243
+#: apps/core/views.py:285
 msgid "Заявка на курси програмування"
 msgstr "Programming Courses"
 
-#: apps/core/views.py:266
+#: apps/core/views.py:303
 msgid ""
 "Дякуємо! Ваша заявка на курси отримана. Ми надішлемо детальну інформацію."
 msgstr ""
 
-#: apps/core/views.py:298
+#: apps/core/views.py:330
 msgid "Дякуємо! Наш спеціаліст зв'яжеться з вами протягом 15 хвилин."
 msgstr "Fill out the form and we will contact you within 15 minutes"
 
-#: apps/core/views.py:330
+#: apps/core/views.py:357
 msgid "Дякуємо за ваше повідомлення! Ми зв'яжемося з вами найближчим часом."
 msgstr "Thank you for your message! We will contact you soon."
 
-#: apps/core/views.py:352
+#: apps/core/views.py:379
 msgid "Введіть коректний номер телефону (мінімум 10 цифр)"
 msgstr "Enter a valid phone number (minimum 10 digits)"
 
-#: apps/core/views.py:399 apps/core/views.py:415
+#: apps/core/views.py:421 apps/core/views.py:441
 msgid "Помилка при обробці тесту"
 msgstr "Error processing test"
 
-#: apps/core/views.py:403 apps/core/views.py:467
+#: apps/core/views.py:429 apps/core/views.py:483
 msgid "Дякуємо! Ми зв'яжемося з вами найближчим часом."
 msgstr "Thank you! We will contact you soon."
 
-#: apps/core/views.py:440
+#: apps/core/views.py:461
 msgid "Дякуємо! Наш менеджер зателефонує вам протягом 15 хвилин."
 msgstr "Leave your contacts and our manager will call you within 15 minutes"
 
-#: apps/core/views.py:447
+#: apps/core/views.py:468
 msgid "Заявка з footer - Консультація"
 msgstr "Telegram Consultation"
 
-#: apps/payment/admin.py:33
+#: apps/payment/admin.py:43
 msgid "Реквізити"
 msgstr ""
 
-#: apps/payment/admin.py:43
+#: apps/payment/admin.py:53
 #, fuzzy
 #| msgid "Немає даних для платежу"
 msgid "Опис / Призначення платежу"
 msgstr "No payment data available"
 
-#: apps/payment/admin.py:48
+#: apps/payment/admin.py:58
 msgid ""
 "Що саме замовлено. Це поле використовується як призначення платежу — клієнт "
 "зможе його скопіювати."
 msgstr ""
 
-#: apps/payment/admin.py:64 apps/payment/models.py:161
+#: apps/payment/admin.py:74 apps/payment/models.py:189
 msgid "Файл"
 msgstr ""
 
-#: apps/payment/admin.py:65
+#: apps/payment/admin.py:75
 #, fuzzy
 #| msgid "онлайн-оплати та рахунки"
 msgid "Файли (договори, рахунки)"
 msgstr "online payments and invoices"
 
-#: apps/payment/admin.py:89
+#: apps/payment/admin.py:81 apps/payment/admin.py:139 apps/payment/admin.py:174
+msgid "Еквайринг"
+msgstr ""
+
+#: apps/payment/admin.py:86
+msgid "Так"
+msgstr ""
+
+#: apps/payment/admin.py:87
+#, fuzzy
+#| msgid "Всі"
+msgid "Ні"
+msgstr "All"
+
+#: apps/payment/admin.py:126
 #, fuzzy
 #| msgid "Клієнт:"
 msgid "Клієнт"
 msgstr "Client:"
 
-#: apps/payment/admin.py:92
+#: apps/payment/admin.py:129
 #, fuzzy
 #| msgid "Замовлення дзвінка"
 msgid "Замовлення / Призначення платежу"
 msgstr "Request a Call"
 
-#: apps/payment/admin.py:95
+#: apps/payment/admin.py:132
 #, fuzzy
 #| msgid "Отримувач:"
 msgid "Отримувач платежу"
 msgstr "Recipient:"
 
-#: apps/payment/admin.py:98
+#: apps/payment/admin.py:135
 msgid ""
 "Оберіть профіль ФОП — реквізити на сторінці підставляться автоматично. Поле "
 "«Реквізити» нижче — тільки для перегляду."
 msgstr ""
 
-#: apps/payment/admin.py:102
-msgid "Еквайринг"
-msgstr ""
-
-#: apps/payment/admin.py:105
+#: apps/payment/admin.py:142
 msgid ""
 "Якщо увімкнено — клієнт зможе оплатити карткою, Apple Pay або Google Pay "
 "через Monobank acquiring."
 msgstr ""
 
-#: apps/payment/admin.py:109
+#: apps/payment/admin.py:146
 #, fuzzy
 #| msgid "Модулі курсу:"
 msgid "Сума та курс"
 msgstr "Course modules:"
 
-#: apps/payment/admin.py:111
-msgid "Сума USD × курс = UAH. Розраховується автоматично при збереженні."
+#: apps/payment/admin.py:149
+msgid ""
+"Для USD/EUR вкажіть суму та курс до UAH. Для UAH — лише сума, курс "
+"ігнорується. Підсумкова сума UAH розраховується автоматично при збереженні."
 msgstr ""
 
-#: apps/payment/admin.py:113
+#: apps/payment/admin.py:154
 #, fuzzy
 #| msgid "Платіжне посилання"
 msgid "Налаштування посилання"
 msgstr "Advertising & Promotion"
 
-#: apps/payment/admin.py:141 apps/payment/admin.py:146
+#: apps/payment/admin.py:170
 #, fuzzy
-#| msgid "Закрити"
-msgid "Відкрити"
-msgstr "Close"
+#| msgid "Сума:"
+msgid "Сума UAH"
+msgstr "Amount:"
 
-#: apps/payment/admin.py:149
+#: apps/payment/admin.py:197
 #, fuzzy
 #| msgid "Посилання недоступне"
 msgid "Посилання клієнта"
 msgstr "Link Unavailable"
 
-#: apps/payment/admin.py:164
-msgid "Копіювати"
-msgstr ""
+#: apps/payment/admin.py:200
+#, fuzzy
+#| msgid "Платіжне посилання"
+msgid "Відкрити посилання"
+msgstr "Advertising & Promotion"
 
-#: apps/payment/admin.py:164
+#: apps/payment/admin.py:201
 #, fuzzy
 #| msgid "Це платіжне посилання недоступне."
 msgid "Скопіювати посилання клієнта"
 msgstr "This payment link is unavailable."
 
-#: apps/payment/admin.py:167
+#: apps/payment/admin.py:215
+#, fuzzy
+#| msgid "Закрити"
+msgid "Відкрити"
+msgstr "Close"
+
+#: apps/payment/admin.py:217
+msgid "Копіювати"
+msgstr ""
+
+#: apps/payment/admin.py:220
 #, fuzzy
 #| msgid "Платіжні посилання"
 msgid "Деактивувати вибрані посилання"
 msgstr "Advertising & Promotion"
 
-#: apps/payment/admin.py:172
+#: apps/payment/admin.py:225
 #, python-format
 msgid "Деактивовано: %(n)s"
 msgstr ""
@@ -865,83 +1177,131 @@ msgstr ""
 msgid "Профілі отримувачів (ФОП)"
 msgstr ""
 
-#: apps/payment/models.py:75
+#: apps/payment/models.py:69
+msgid "Очікує"
+msgstr ""
+
+#: apps/payment/models.py:70
+#, fuzzy
+#| msgid "Оплата"
+msgid "Оплачено"
+msgstr "Payment"
+
+#: apps/payment/models.py:71
+#, fuzzy
+#| msgid "Прозорі строки,"
+msgid "Прострочено"
+msgstr "Transparent timelines"
+
+#: apps/payment/models.py:72
+#, fuzzy
+#| msgid "Опубліковано"
+msgid "Деактивовано"
+msgstr "Published"
+
+#: apps/payment/models.py:80
 #, fuzzy
 #| msgid "Наші клієнти"
 msgid "Ім'я клієнта"
 msgstr "Our Clients"
 
-#: apps/payment/models.py:76
+#: apps/payment/models.py:81
 #, fuzzy
 #| msgid "Клієнт:"
 msgid "Email клієнта"
 msgstr "Client:"
 
-#: apps/payment/models.py:77
+#: apps/payment/models.py:82
 #, fuzzy
 #| msgid "Оновлення"
 msgid "Опис замовлення"
 msgstr "Updates"
 
-#: apps/payment/models.py:82
+#: apps/payment/models.py:87
 #, fuzzy
 #| msgid "Отримувач:"
 msgid "Отримувач (ФОП)"
 msgstr "Recipient:"
 
-#: apps/payment/models.py:85
+#: apps/payment/models.py:90
 msgid "Реквізити (авто з профілю)"
 msgstr ""
 
-#: apps/payment/models.py:86
+#: apps/payment/models.py:91
 msgid "Інструкції"
 msgstr ""
 
-#: apps/payment/models.py:90
+#: apps/payment/models.py:95
 msgid "Увімкнути еквайринг (картка / Apple Pay / Google Pay)"
 msgstr ""
 
-#: apps/payment/models.py:111 apps/payment/models.py:159
+#: apps/payment/models.py:102
+msgid "Валюта"
+msgstr ""
+
+#: apps/payment/models.py:104 apps/payment/views.py:64
+#, fuzzy
+#| msgid "Сума:"
+msgid "Сума"
+msgstr "Amount:"
+
+#: apps/payment/models.py:108
+#, fuzzy
+#| msgid "Курси"
+msgid "Курс до UAH"
+msgstr "Courses"
+
+#: apps/payment/models.py:109
+msgid "Ігнорується при валюті UAH"
+msgstr ""
+
+#: apps/payment/models.py:115
+#, fuzzy
+#| msgid "Сума:"
+msgid "Сума в UAH"
+msgstr "Amount:"
+
+#: apps/payment/models.py:137 apps/payment/models.py:187
 msgid "Платіжне посилання"
 msgstr "Advertising & Promotion"
 
-#: apps/payment/models.py:112
+#: apps/payment/models.py:138
 msgid "Платіжні посилання"
 msgstr "Advertising & Promotion"
 
-#: apps/payment/models.py:151 templates/payment/payment_page.html:74
+#: apps/payment/models.py:179 templates/payment/payment_page.html:78
 msgid "Договір"
 msgstr ""
 
-#: apps/payment/models.py:152
+#: apps/payment/models.py:180
 msgid "Рахунок"
 msgstr ""
 
-#: apps/payment/models.py:153
+#: apps/payment/models.py:181
 msgid "Інший документ"
 msgstr ""
 
-#: apps/payment/models.py:166
+#: apps/payment/models.py:194
 msgid "Тип"
 msgstr ""
 
-#: apps/payment/models.py:172
+#: apps/payment/models.py:200
 #, fuzzy
 #| msgid "Компанія (необов'язково)"
 msgid "Назва (необов'язково)"
 msgstr "Company (optional)"
 
-#: apps/payment/models.py:173
+#: apps/payment/models.py:201
 msgid "Якщо не заповнено — показується тип файлу"
 msgstr ""
 
-#: apps/payment/models.py:179
+#: apps/payment/models.py:207
 #, fuzzy
 #| msgid "Платіжне посилання"
 msgid "Файл посилання"
 msgstr "Advertising & Promotion"
 
-#: apps/payment/models.py:180
+#: apps/payment/models.py:208
 #, fuzzy
 #| msgid "Платіжне посилання"
 msgid "Файли посилання"
@@ -953,37 +1313,28 @@ msgstr "Advertising & Promotion"
 msgid "Призначення"
 msgstr "Message"
 
-#: apps/payment/views.py:64
-#, fuzzy
-#| msgid "Сума:"
-msgid "Сума"
-msgstr "Amount:"
-
-#: templates/admin/base_site.html:4
-msgid "Django site admin"
+#: templates/admin/change_list.html:78
+#: templates/unfold/helpers/empty_results.html:29
+msgid "Reset filters"
 msgstr ""
 
-#: templates/admin/base_site.html:7
-msgid "Django administration"
-msgstr ""
-
-#: templates/base.html:182
+#: templates/base.html:183
 #, fuzzy
 #| msgid "Відкрити мобільне меню"
 msgid "Відкрити контакти"
 msgstr "Close Menu"
 
-#: templates/base.html:218
+#: templates/base.html:219
 msgid "Помилка при відправці форми. Спробуйте ще раз."
 msgstr "Error submitting form. Please try again."
 
-#: templates/base.html:219
+#: templates/base.html:220
 msgid "Помилка при відправці. Спробуйте ще раз."
 msgstr "Error sending. Please try again."
 
-#: templates/base.html:220 templates/components/modals.html:76
-#: templates/pages/home.html:469 templates/pages/home.html:492
-#: templates/pages/home.html:515 templates/pages/home.html:537
+#: templates/base.html:221 templates/components/modals.html:76
+#: templates/pages/home.html:132 templates/pages/home.html:155
+#: templates/pages/home.html:178 templates/pages/home.html:200
 msgid "Закрити"
 msgstr "Close"
 
@@ -1015,38 +1366,41 @@ msgstr "Become a Developer"
 msgid "Блог"
 msgstr "Blog"
 
-#: templates/components/burger_menu.html:48 templates/components/footer.html:23
-msgid "Контакти"
-msgstr "Contacts"
-
 #: templates/components/burger_menu.html:57
 #, fuzzy
 #| msgid "Номер телефону"
 msgid "Зателефонувати"
 msgstr "Phone number"
 
-#: templates/components/burger_menu.html:65 templates/pages/home.html:48
-#: templates/payment/payment_page.html:260
+#: templates/components/burger_menu.html:65 templates/pages/home.html:55
+#: templates/payment/payment_page.html:264
 msgid "Написати в Telegram"
+msgstr "Write in Telegram"
+
+#: templates/components/contact_channel_icons.html:4
+#, fuzzy
+#| msgid "Написати в Telegram"
+msgid "Написати на email"
 msgstr "Write in Telegram"
 
 #: templates/components/footer.html:8
 msgid "Розробка сайтів під ключ"
 msgstr "Turnkey Website Development"
 
-#: templates/components/footer.html:9 templates/pages/home.html:71
-#: templates/pages/home.html:93 templates/pages/home.html:252
-#: templates/pages/home.html:494
+#: templates/components/footer.html:9
+#: templates/components/home/redesign_services.html:28
+#: templates/pages/home.html:78 templates/pages/home.html:100
+#: templates/pages/home.html:157
 msgid "Мобільні застосунки"
 msgstr "Mobile Apps"
 
-#: templates/components/footer.html:10 templates/pages/home.html:73
-#: templates/pages/home.html:95 templates/pages/home.html:478
+#: templates/components/footer.html:10 templates/pages/home.html:80
+#: templates/pages/home.html:102 templates/pages/home.html:141
 msgid "Telegram-боти"
 msgstr "Telegram Bots"
 
-#: templates/components/footer.html:11 templates/pages/home.html:79
-#: templates/pages/home.html:101
+#: templates/components/footer.html:11 templates/pages/home.html:86
+#: templates/pages/home.html:108
 msgid "Реклама та просування"
 msgstr "Advertising & Promotion"
 
@@ -1090,52 +1444,51 @@ msgstr "CONTACTS"
 msgid "Графік роботи: Цілодобово"
 msgstr "Working Hours: 24/7"
 
-#: templates/components/footer.html:70
+#: templates/components/footer.html:72
 msgid "ОТРИМАТИ КОНСУЛЬТАЦІЮ"
 msgstr "GET CONSULTATION"
 
-#: templates/components/footer.html:75 templates/components/modals.html:27
-#: templates/components/modals.html:130 templates/pages/calculator.html:222
+#: templates/components/footer.html:77 templates/components/modals.html:27
+#: templates/components/modals.html:131 templates/pages/calculator.html:222
 #, fuzzy
 #| msgid "Введіть ваше ім'я"
 msgid "Введіть ваше ім\\"
 msgstr "Enter your name"
 
-#: templates/components/footer.html:78 templates/components/modals.html:31
-#: templates/components/modals.html:134
+#: templates/components/footer.html:80 templates/components/modals.html:31
+#: templates/components/modals.html:135
 msgid "Номер телефону"
 msgstr "Phone number"
 
-#: templates/components/footer.html:84
+#: templates/components/footer.html:86
 msgid "Даю згоду на обробку персональних даних згідно з"
 msgstr "I agree to the processing of personal data according to"
 
-#: templates/components/footer.html:84
+#: templates/components/footer.html:86
 msgid "політики конфіденційності"
 msgstr "privacy policy"
 
-#: templates/components/footer.html:87
+#: templates/components/footer.html:89
 msgid "Відправити"
 msgstr "Send"
 
-#: templates/components/footer.html:93
+#: templates/components/footer.html:95
 msgid "Усі права захищені."
 msgstr "All rights reserved."
 
-#: templates/components/footer.html:94
+#: templates/components/footer.html:96
 msgid "Комплексні веб-рішення"
 msgstr "Comprehensive Web Solutions"
 
-#: templates/components/footer.html:94
+#: templates/components/footer.html:96
 msgid "Розробка"
 msgstr "Development"
 
-#: templates/components/footer.html:94
+#: templates/components/footer.html:96
 msgid "просування"
 msgstr "promotion"
 
-#: templates/components/footer.html:94 templates/pages/home.html:280
-#: templates/pages/home.html:539
+#: templates/components/footer.html:96
 msgid "Навчання"
 msgstr "Training"
 
@@ -1175,15 +1528,325 @@ msgstr "Contacts"
 msgid "Відкрити мобільне меню"
 msgstr "Close Menu"
 
+#: templates/components/home/redesign_clients.html:4
+#, fuzzy
+#| msgid "Клієнт:"
+msgid "Клієнти"
+msgstr "Client:"
+
+#: templates/components/home/redesign_clients.html:6
+msgid "Наші"
+msgstr ""
+
+#: templates/components/home/redesign_clients.html:6
+#, fuzzy
+#| msgid "Клієнт:"
+msgid "клієнти"
+msgstr "Client:"
+
+#: templates/components/home/redesign_clients.html:23
+msgid "Переглянути всі проєкти у портфоліо"
+msgstr "View all projects in portfolio"
+
+#: templates/components/home/redesign_clients.html:24
+msgid "Переглянути портфоліо"
+msgstr "Portfolio"
+
+#: templates/components/home/redesign_cta.html:5
+#, fuzzy
+#| msgid "КОНТАКТИ"
+msgid "КОНТАКТ"
+msgstr "CONTACTS"
+
+#: templates/components/home/redesign_cta.html:9
+msgid "ГОТОВІ"
+msgstr ""
+
+#: templates/components/home/redesign_cta.html:10
+msgid "ПОЧАТИ?"
+msgstr ""
+
+#: templates/components/home/redesign_cta.html:13
+msgid ""
+"Зв'яжіться з нами для безкоштовної консультації та розрахунку вартості "
+"проєкту"
+msgstr "Contact us for a free consultation and project cost estimate"
+
+#: templates/components/home/redesign_cta.html:17
+msgid "Розрахувати вартість"
+msgstr "Calculate Cost"
+
+#: templates/components/home/redesign_cta.html:21
+msgid "telegram-консультація"
+msgstr "Telegram consultation"
+
+#: templates/components/home/redesign_services.html:4
+#: templates/components/home/redesign_services.html:6
+#, fuzzy
+#| msgid "Наші послуги"
+msgid "Послуги"
+msgstr "Our Services"
+
+#: templates/components/home/redesign_services.html:14
+#: templates/pages/home.html:134
+msgid "Web-розробка"
+msgstr "Web Development"
+
+#: templates/components/home/redesign_services.html:15
+msgid "Сайти під ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-боти"
+msgstr ""
+"Turnkey websites, landing pages, e-commerce stores, web applications, "
+"telegram bots"
+
+#: templates/components/home/redesign_services.html:16
+msgid "Детальніше про Web-розробку"
+msgstr "More about Web Development"
+
+#: templates/components/home/redesign_services.html:17
+#: templates/components/home/redesign_services.html:31
+#: templates/components/home/redesign_services.html:45
+#: templates/components/home/redesign_services.html:59
+msgid "Детальніше"
+msgstr "Details"
+
+#: templates/components/home/redesign_services.html:29
+msgid "iOS та Android додатки з сучасним дизайном"
+msgstr "iOS and Android apps with modern design"
+
+#: templates/components/home/redesign_services.html:30
+msgid "Детальніше про Мобільні застосунки"
+msgstr "Mobile Apps"
+
+#: templates/components/home/redesign_services.html:42
+#: templates/pages/home.html:180
+msgid "Реклама та ведення соціальних мереж"
+msgstr "Content production"
+
+#: templates/components/home/redesign_services.html:43
+msgid "Google Ads, Meta Ads, TikTok Ads, SMM, контент"
+msgstr "Google Ads, Meta Ads, TikTok Ads, SMM, content"
+
+#: templates/components/home/redesign_services.html:44
+msgid "Детальніше про Реклама та ведення соціальних мереж"
+msgstr "Content production"
+
+#: templates/components/home/redesign_services.html:56
+#: templates/pages/home.html:202
+msgid "Автоматизація AI"
+msgstr "AI Automation"
+
+#: templates/components/home/redesign_services.html:57
+msgid ""
+"Інтегруємо ШІ у сайт, CRM та процеси — від AI-консультантів до автоматизації "
+"рутини."
+msgstr ""
+"We integrate AI into your site, CRM and workflows — from AI consultants to "
+"routine automation."
+
+#: templates/components/home/redesign_services.html:58
+msgid "Детальніше про Автоматизацію AI"
+msgstr "More about AI Automation"
+
+#: templates/components/home/redesign_why.html:5
+msgid "ЧОМУ МИ"
+msgstr ""
+
+#: templates/components/home/redesign_why.html:9
+msgid "ЧОМУ ВАРТО ОБРАТИ"
+msgstr ""
+
+#: templates/components/home/redesign_why.html:13
+msgid ""
+"Ми розробляємо сайти, якими справді легко керувати. Жодних обмежень "
+"шаблонних рішень — тільки чистий, оптимізований код та індивідуальна "
+"архітектура. Завдяки детальній розробці адміністративної частини, ви можете "
+"самостійно оновлювати весь контент сайту в кілька кліків, не залучаючи "
+"програмістів. Ми створюємо фундамент, який готовий до будь-яких інтеграцій "
+"та росту разом із вашим бізнесом."
+msgstr ""
+"We build websites that are truly easy to manage. No template restrictions — "
+"only clean, optimized code and custom architecture. Thanks to a thoroughly "
+"crafted admin panel, you can update all site content yourself in just a few "
+"clicks, without involving developers. We create a foundation ready for any "
+"integrations and growth alongside your business."
+
+#: templates/components/home/redesign_why.html:23
+msgid "Прозорі строки,"
+msgstr "Transparent timelines"
+
+#: templates/components/home/redesign_why.html:23
+msgid "яких ми дотримуємося"
+msgstr "which we adhere to"
+
+#: templates/components/home/redesign_why.html:26
+msgid "Базові терміни виконання:"
+msgstr "Timeline:"
+
+#: templates/components/home/redesign_why.html:28
+#: templates/components/home/redesign_why.html:49
+msgid "Лендінги:"
+msgstr "Landings:"
+
+#: templates/components/home/redesign_why.html:28
+#: templates/components/home/redesign_why.html:29
+#: templates/components/home/redesign_why.html:30
+#: templates/components/home/redesign_why.html:31
+msgid "днів"
+msgstr "days"
+
+#: templates/components/home/redesign_why.html:29
+#: templates/components/home/redesign_why.html:50
+msgid "Корпоративні сайти:"
+msgstr "Corporate website or service website:"
+
+#: templates/components/home/redesign_why.html:30
+msgid "Інтернет-магазини:"
+msgstr "E-commerce stores:"
+
+#: templates/components/home/redesign_why.html:31
+msgid "Веб-додатки / SaaS:"
+msgstr "Web application / SaaS:"
+
+#: templates/components/home/redesign_why.html:34
+msgid ""
+"Точний час розробки залежить від складності дизайну, інтеграцій та "
+"функціоналу — визначаємо на консультації."
+msgstr ""
+"The exact development time depends on the complexity of the design, "
+"integrations and functionality — we determine this during consultation."
+
+#: templates/components/home/redesign_why.html:44
+msgid "Справедлива вартість"
+msgstr "Fair pricing"
+
+#: templates/components/home/redesign_why.html:44
+msgid "та гнучкі умови оплати"
+msgstr "and flexible payment terms"
+
+#: templates/components/home/redesign_why.html:47
+msgid "Середні діапазони цін:"
+msgstr "Average price ranges:"
+
+#: templates/components/home/redesign_why.html:49
+msgid "250–400 €"
+msgstr "250–400 €"
+
+#: templates/components/home/redesign_why.html:50
+msgid "500–700 €"
+msgstr "500–700 €"
+
+#: templates/components/home/redesign_why.html:51
+msgid "E-commerce:"
+msgstr "E-commerce:"
+
+#: templates/components/home/redesign_why.html:51
+msgid "800–1400 €"
+msgstr "800–1400 €"
+
+#: templates/components/home/redesign_why.html:52
+msgid "Веб-додатки:"
+msgstr "Web application / SaaS:"
+
+#: templates/components/home/redesign_why.html:52
+msgid "від 1500–5000 €"
+msgstr "from 1500–5000 €"
+
+#: templates/components/home/redesign_why.html:55
+msgid "Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов."
+msgstr ""
+"We offer payment in installments — without overpayments or hidden terms."
+
+#: templates/components/home/redesign_why.html:65
+msgid "5-річна"
+msgstr "5-year"
+
+#: templates/components/home/redesign_why.html:65
+msgid "гарантія"
+msgstr "warranty"
+
+#: templates/components/home/redesign_why.html:65
+msgid "на наші продукти"
+msgstr "on our products"
+
+#: templates/components/home/redesign_why.html:68
+msgid "Гарантія включає:"
+msgstr "Warranty includes:"
+
+#: templates/components/home/redesign_why.html:70
+msgid "Виправлення технічних помилок"
+msgstr "Technical bug fixes"
+
+#: templates/components/home/redesign_why.html:71
+msgid "Підтримку працездатності коду"
+msgstr "Code functionality support"
+
+#: templates/components/home/redesign_why.html:72
+msgid "Реакцію на критичні технічні збої"
+msgstr "Response to critical technical failures"
+
+#: templates/components/home/redesign_why.html:73
+msgid "Відповідність функціоналу ТЗ"
+msgstr "Compliance with technical specifications"
+
+#: templates/components/home/redesign_why.html:76
+msgid ""
+"Не включає: нові функції, оновлення дизайну, інтеграції з новими сервісами."
+msgstr ""
+"Does not include: new features, design updates, integrations with new "
+"services."
+
+#: templates/components/home/redesign_why.html:86
+msgid "Впровадження ШІ"
+msgstr "AI Integration"
+
+#: templates/components/home/redesign_why.html:86
+msgid "у ваші бізнес-задачі"
+msgstr "into your business operations"
+
+#: templates/components/home/redesign_why.html:90
+msgid ""
+"Інтегруємо штучний інтелект у структуру вашого сайту для автоматизації "
+"щоденної рутини. Ми створюємо рішення, де ШІ самостійно обробляє запити, "
+"консультує клієнтів та керує складними бізнес-процесами «під ключ»."
+msgstr ""
+"We integrate artificial intelligence into your website's structure to "
+"automate daily routine. We build solutions where AI independently handles "
+"requests, advises clients and manages complex business processes turnkey."
+
+#: templates/components/home/redesign_why.html:93
+msgid ""
+"Ваш сайт стає розумним помічником, який самостійно виконує завдання, на які "
+"раніше витрачалися години робочого часу."
+msgstr ""
+"Your website becomes a smart assistant that independently performs tasks "
+"that used to take hours of working time."
+
+#: templates/components/home/redesign_why.html:96
+msgid ""
+"Результат: повна автоматизація взаємодії з клієнтами, оптимізація витрат та "
+"вихід на новий рівень цифрового сервісу."
+msgstr ""
+"Result: complete automation of client interactions, cost optimization and "
+"reaching a new level of digital service."
+
+#: templates/components/home/redesign_why.html:104
+msgid ""
+"Спеціалісти PrometeyLabs мають роки практики у веб-розробці, дизайні, "
+"інтеграціях, мобільних додатках та інтернет-маркетингу. Це гарантує, що ваш "
+"проект буде реалізований системно, технологічно та з розумінням бізнес-задач."
+msgstr ""
+"PrometeyLabs specialists have years of practice in web development, design, "
+"integrations, mobile applications and internet marketing. This guarantees "
+"that your project will be implemented systematically, technologically and "
+"with understanding of business tasks."
+
 #: templates/components/modals.html:9 templates/components/modals.html:47
-#: templates/components/modals.html:88 templates/pages/portfolio.html:228
-#: templates/pages/portfolio.html:261 templates/pages/portfolio.html:295
-#: templates/pages/portfolio.html:328 templates/pages/portfolio.html:361
-#: templates/pages/portfolio.html:395
+#: templates/components/modals.html:88
+#: templates/components/portfolio_project_modal.html:5
 msgid "Закрити модальне вікно"
 msgstr "Close Menu"
 
-#: templates/components/modals.html:13 templates/pages/home.html:51
+#: templates/components/modals.html:13 templates/pages/home.html:58
 msgid "Хочу стати розробником"
 msgstr "I Want to Become a Developer"
 
@@ -1217,7 +1880,7 @@ msgstr "Timeline:"
 msgid "Обговорити деталі в Telegram"
 msgstr "Write in Telegram"
 
-#: templates/components/modals.html:92 templates/components/modals.html:140
+#: templates/components/modals.html:92 templates/components/modals.html:141
 msgid "Замовити дзвінок"
 msgstr "Request a Call"
 
@@ -1228,6 +1891,10 @@ msgstr "Leave your contacts and our manager will call you within 15 minutes"
 #: templates/components/modals.html:100
 msgid "Або зв'яжіться зараз:"
 msgstr ""
+
+#: templates/components/portfolio_project_card.html:30
+msgid "Більше інформації"
+msgstr "Useful Information"
 
 #: templates/pages/blog.html:32
 msgid "БЛОГ"
@@ -1241,7 +1908,7 @@ msgstr ""
 "Read expert advice, practical guides and up-to-date information about "
 "website creation, programming training and business automation"
 
-#: templates/pages/blog.html:42 templates/pages/home.html:62
+#: templates/pages/blog.html:42 templates/pages/home.html:69
 msgid "Наші послуги"
 msgstr "Our Services"
 
@@ -1510,7 +2177,7 @@ msgstr "Have logo and branding"
 msgid "Є соціальні мережи та контент"
 msgstr "Have social media and content"
 
-#: templates/pages/calculator.html:221 templates/pages/contacts.html:96
+#: templates/pages/calculator.html:221 templates/pages/contacts.html:77
 msgid "Ваше ім'я"
 msgstr "Your name"
 
@@ -1530,11 +2197,11 @@ msgstr ""
 "Contact the PrometeyLabs team. We are always available to discuss your "
 "project, consultation or training. Kyiv, Ukraine."
 
-#: templates/pages/contacts.html:30
+#: templates/pages/contacts.html:28
 msgid "Зв'язок з нами"
 msgstr "Contact Us"
 
-#: templates/pages/contacts.html:31
+#: templates/pages/contacts.html:29
 msgid ""
 "Потрібна консультація? Маєте питання про наші послуги? Зв'яжіться з нами "
 "будь-яким зручним способом:"
@@ -1542,39 +2209,39 @@ msgstr ""
 "Need consultation? Have questions about our services? Contact us in any "
 "convenient way:"
 
-#: templates/pages/contacts.html:48
-msgid "Соціальні мережі"
-msgstr "Social Media"
+#: templates/pages/contacts.html:46
+#, fuzzy
+#| msgid "Зв'язок з нами"
+msgid "Зв'язок"
+msgstr "Contact Us"
 
-#: templates/pages/contacts.html:66
-msgid "Месенджери"
-msgstr "Messengers"
+#: templates/pages/contacts.html:52
+#, fuzzy
+#| msgid "Помилка оплати"
+msgid "Ми на карті"
+msgstr "Payment Error"
 
-#: templates/pages/contacts.html:84
-msgid "PrometeyLabs команда"
-msgstr "PrometeyLabs team"
-
-#: templates/pages/contacts.html:91
+#: templates/pages/contacts.html:72
 msgid "Напишіть нам"
 msgstr "Write to us"
 
-#: templates/pages/contacts.html:92
+#: templates/pages/contacts.html:73
 msgid "Заповніть форму, і ми зв'яжемося з вами протягом 15 хвилин"
 msgstr "Fill out the form and we will contact you within 15 minutes"
 
-#: templates/pages/contacts.html:97
+#: templates/pages/contacts.html:78
 msgid "Ім\\"
 msgstr "Name"
 
-#: templates/pages/contacts.html:107
+#: templates/pages/contacts.html:88
 msgid "Повідомлення"
 msgstr "Message"
 
-#: templates/pages/contacts.html:109
+#: templates/pages/contacts.html:90
 msgid "Опишіть ваш проект або задайте питання"
 msgstr "Describe your project or ask a question"
 
-#: templates/pages/contacts.html:113
+#: templates/pages/contacts.html:94
 msgid "Надіслати повідомлення"
 msgstr "Send Message"
 
@@ -1701,7 +2368,7 @@ msgstr "HTML and CSS basics"
 msgid "JavaScript та взаємодія"
 msgstr "JavaScript and interaction"
 
-#: templates/pages/developer.html:111 templates/pages/home.html:547
+#: templates/pages/developer.html:111
 msgid "Git та командна робота"
 msgstr "Git and teamwork"
 
@@ -1846,7 +2513,7 @@ msgstr "Communication with PrometeyLabs developers"
 msgid "Прямий контакт з досвідченими фахівцями команди"
 msgstr "Direct contact with experienced team specialists"
 
-#: templates/pages/developer.html:222 templates/pages/home.html:559
+#: templates/pages/developer.html:222
 msgid "Кар'єра в PrometeyLabs"
 msgstr "Career at PrometeyLabs"
 
@@ -1896,338 +2563,92 @@ msgstr ""
 msgid "Зв'язатися з адміністратором"
 msgstr "Contact administrator"
 
-#: templates/pages/home.html:36
+#: templates/pages/home.html:43
 msgid "сайти"
 msgstr "websites"
 
-#: templates/pages/home.html:37
+#: templates/pages/home.html:44
 msgid "мобільні застосунки"
 msgstr "mobile apps"
 
-#: templates/pages/home.html:38
+#: templates/pages/home.html:45
 msgid "telegram боти"
 msgstr "telegram bots"
 
-#: templates/pages/home.html:39
+#: templates/pages/home.html:46
 msgid "реклама"
 msgstr "advertising"
 
-#: templates/pages/home.html:40
+#: templates/pages/home.html:47
 msgid "ведення соціальних мереж"
 msgstr "social media management"
 
-#: templates/pages/home.html:41
+#: templates/pages/home.html:48
 msgid "навчання"
 msgstr "training"
 
-#: templates/pages/home.html:54
+#: templates/pages/home.html:61
 msgid "Розрахувати вартість онлайн"
 msgstr "Calculate Cost Online"
 
-#: templates/pages/home.html:65 templates/pages/home.html:87
-#: templates/pages/home.html:475
+#: templates/pages/home.html:72 templates/pages/home.html:94
+#: templates/pages/home.html:138
 msgid "Сайти під ключ"
 msgstr "Turnkey Website Development"
 
-#: templates/pages/home.html:67 templates/pages/home.html:89
+#: templates/pages/home.html:74 templates/pages/home.html:96
 msgid "Корпоративні сайти"
 msgstr "Corporate website or service website"
 
-#: templates/pages/home.html:69 templates/pages/home.html:91
+#: templates/pages/home.html:76 templates/pages/home.html:98
 msgid "Інтернет-магазини"
 msgstr "E-commerce stores"
 
-#: templates/pages/home.html:75 templates/pages/home.html:97
+#: templates/pages/home.html:82 templates/pages/home.html:104
 msgid "Веб-додатки"
 msgstr "Web application / PWA"
 
-#: templates/pages/home.html:81 templates/pages/home.html:103
+#: templates/pages/home.html:88 templates/pages/home.html:110
 msgid "UX/UI дизайн"
 msgstr "UX/UI Design"
 
-#: templates/pages/home.html:83 templates/pages/home.html:105
+#: templates/pages/home.html:90 templates/pages/home.html:112
 msgid "Навчання IT та AI"
 msgstr "Training"
 
-#: templates/pages/home.html:113
-msgid "Чому варто обрати PrometeyLabs"
-msgstr "Why choose PrometeyLabs"
-
-#: templates/pages/home.html:117
-msgid ""
-"Ми розробляємо сайти, якими справді легко керувати. Жодних обмежень "
-"шаблонних рішень — тільки чистий, оптимізований код та індивідуальна "
-"архітектура. Завдяки детальній розробці адміністративної частини, ви можете "
-"самостійно оновлювати весь контент сайту в кілька кліків, не залучаючи "
-"програмістів. Ми створюємо фундамент, який готовий до будь-яких інтеграцій "
-"та росту разом із вашим бізнесом."
-msgstr ""
-"We build websites that are truly easy to manage. No template restrictions — "
-"only clean, optimized code and custom architecture. Thanks to a thoroughly "
-"crafted admin panel, you can update all site content yourself in just a few "
-"clicks, without involving developers. We create a foundation ready for any "
-"integrations and growth alongside your business."
-
-#: templates/pages/home.html:126
-msgid "Прозорі строки,"
-msgstr "Transparent timelines"
-
-#: templates/pages/home.html:126
-msgid "які ми дотримуємося"
-msgstr "we adhere to"
-
-#: templates/pages/home.html:129
-msgid "Базові терміни виконання:"
-msgstr "Timeline:"
-
-#: templates/pages/home.html:131 templates/pages/home.html:152
-msgid "Лендінги:"
-msgstr "Landings:"
-
-#: templates/pages/home.html:131 templates/pages/home.html:132
-#: templates/pages/home.html:133 templates/pages/home.html:134
-msgid "днів"
-msgstr "days"
-
-#: templates/pages/home.html:132 templates/pages/home.html:153
-msgid "Корпоративні сайти:"
-msgstr "Corporate website or service website:"
-
-#: templates/pages/home.html:133
-msgid "Інтернет-магазини:"
-msgstr "E-commerce stores:"
-
-#: templates/pages/home.html:134
-msgid "Веб-додатки / SaaS:"
-msgstr "Web application / SaaS:"
-
-#: templates/pages/home.html:137
-msgid ""
-"Точний час розробки залежить від складності дизайну, інтеграцій та "
-"функціоналу — визначаємо на консультації."
-msgstr ""
-"The exact development time depends on the complexity of the design, "
-"integrations and functionality — we determine this during consultation."
-
-#: templates/pages/home.html:147
-msgid "Справедлива вартість"
-msgstr "Fair pricing"
-
-#: templates/pages/home.html:147
-msgid "та гнучкі умови оплати"
-msgstr "and flexible payment terms"
-
-#: templates/pages/home.html:150
-msgid "Середні діапазони цін:"
-msgstr "Average price ranges:"
-
-#: templates/pages/home.html:155
-msgid "Веб-додатки:"
-msgstr "Web application / SaaS:"
-
-#: templates/pages/home.html:158
-msgid "Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов."
-msgstr ""
-"We offer payment in installments — without overpayments or hidden terms."
-
-#: templates/pages/home.html:168
-msgid "5-річна"
-msgstr "5-year"
-
-#: templates/pages/home.html:169
-msgid "гарантія"
-msgstr "warranty"
-
-#: templates/pages/home.html:169
-msgid "на наші продукти"
-msgstr "on our products"
-
-#: templates/pages/home.html:172
-msgid "Гарантія включає:"
-msgstr "Warranty includes:"
-
-#: templates/pages/home.html:174
-msgid "Виправлення технічних помилок"
-msgstr "Technical bug fixes"
-
-#: templates/pages/home.html:175
-msgid "Підтримку працездатності коду"
-msgstr "Code functionality support"
-
-#: templates/pages/home.html:176
-msgid "Реакцію на критичні технічні збої"
-msgstr "Response to critical technical failures"
-
-#: templates/pages/home.html:177
-msgid "Відповідність функціоналу ТЗ"
-msgstr "Compliance with technical specifications"
-
-#: templates/pages/home.html:180
-msgid ""
-"Не включає: нові функції, оновлення дизайну, інтеграції з новими сервісами."
-msgstr ""
-"Does not include: new features, design updates, integrations with new "
-"services."
-
-#: templates/pages/home.html:190
-msgid "Впровадження ШІ"
-msgstr "AI Integration"
-
-#: templates/pages/home.html:190
-msgid "у ваші бізнес-задачі"
-msgstr "into your business operations"
-
-#: templates/pages/home.html:194
-msgid ""
-"Інтегруємо штучний інтелект у структуру вашого сайту для автоматизації "
-"щоденної рутини. Ми створюємо рішення, де ШІ самостійно обробляє запити, "
-"консультує клієнтів та керує складними бізнес-процесами «під ключ»."
-msgstr ""
-"We integrate artificial intelligence into your website's structure to "
-"automate daily routine. We build solutions where AI independently handles "
-"requests, advises clients and manages complex business processes turnkey."
-
-#: templates/pages/home.html:197
-msgid ""
-"Ваш сайт стає розумним помічником, який самостійно виконує завдання, на які "
-"раніше витрачалися години робочого часу."
-msgstr ""
-"Your website becomes a smart assistant that independently performs tasks "
-"that used to take hours of working time."
-
-#: templates/pages/home.html:200
-msgid ""
-"Результат: повна автоматизація взаємодії з клієнтами, оптимізація витрат та "
-"вихід на новий рівень цифрового сервісу."
-msgstr ""
-"Result: complete automation of client interactions, cost optimization and "
-"reaching a new level of digital service."
-
-#: templates/pages/home.html:211
-msgid ""
-"Спеціалісти PrometeyLabs мають роки практики у веб-розробці, дизайні, "
-"інтеграціях, мобільних додатках та інтернет-маркетингу. Це гарантує, що ваш "
-"проект буде реалізований системно, технологічно та з розумінням бізнес-задач."
-msgstr ""
-"PrometeyLabs specialists have years of practice in web development, design, "
-"integrations, mobile applications and internet marketing. This guarantees "
-"that your project will be implemented systematically, technologically and "
-"with understanding of business tasks."
-
-#: templates/pages/home.html:225
-msgid "Послуги PrometeyLabs"
-msgstr "PrometeyLabs Services"
-
-#: templates/pages/home.html:234
-msgid "Детальніше про Web-розробку"
-msgstr "More about Web Development"
-
-#: templates/pages/home.html:235 templates/pages/home.html:249
-#: templates/pages/home.html:263 templates/pages/home.html:277
-msgid "Детальніше"
-msgstr "Details"
-
-#: templates/pages/home.html:238 templates/pages/home.html:471
-msgid "Web-розробка"
-msgstr "Web Development"
-
-#: templates/pages/home.html:239
-msgid "Сайти під ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-боти"
-msgstr ""
-"Turnkey websites, landing pages, e-commerce stores, web applications, "
-"telegram bots"
-
-#: templates/pages/home.html:248
-msgid "Детальніше про Мобільні застосунки"
-msgstr "Mobile Apps"
-
-#: templates/pages/home.html:253
-msgid "iOS та Android додатки з сучасним дизайном"
-msgstr "iOS and Android apps with modern design"
-
-#: templates/pages/home.html:262
-msgid "Детальніше про Реклама та ведення соціальних мереж"
-msgstr "Content production"
-
-#: templates/pages/home.html:266 templates/pages/home.html:517
-msgid "Реклама та ведення соціальних мереж"
-msgstr "Content production"
-
-#: templates/pages/home.html:267
-msgid "Google Ads, Meta Ads, TikTok Ads, SMM, контент"
-msgstr "Google Ads, Meta Ads, TikTok Ads, SMM, content"
-
-#: templates/pages/home.html:276
-msgid "Детальніше про Навчання"
-msgstr "Details"
-
-#: templates/pages/home.html:281
-msgid "Програмування та AI від нуля до працевлаштування"
-msgstr "Programming & AI from zero to employment"
-
-#: templates/pages/home.html:291
-msgid "Наші клієнти"
-msgstr "Our Clients"
-
-#: templates/pages/home.html:428
-msgid "Переглянути всі проєкти у портфоліо"
-msgstr "View all projects in portfolio"
-
-#: templates/pages/home.html:429
-msgid "Переглянути портфоліо"
-msgstr "Portfolio"
-
-#: templates/pages/home.html:450
-msgid "Готові почати?"
-msgstr "Ready to Start?"
-
-#: templates/pages/home.html:452
-msgid ""
-"Зв'яжіться з нами для безкоштовної консультації та розрахунку вартості "
-"проєкту"
-msgstr "Contact us for a free consultation and project cost estimate"
-
-#: templates/pages/home.html:456
-msgid "Розрахувати вартість"
-msgstr "Calculate Cost"
-
-#: templates/pages/home.html:459
-msgid "telegram-консультація"
-msgstr "Telegram consultation"
-
-#: templates/pages/home.html:475
+#: templates/pages/home.html:138
 msgid "Landing, корпоративні, багатосторінкові з SEO"
 msgstr "Landing pages, corporate, multi-page with SEO"
 
-#: templates/pages/home.html:476
+#: templates/pages/home.html:139
 msgid "Каталог, оплати, доставки, інтеграції з маркетплейсами"
 msgstr "Catalog, payments, delivery, marketplace integrations"
 
-#: templates/pages/home.html:477
+#: templates/pages/home.html:140
 msgid "Веб-додатки / SaaS"
 msgstr "Web application / PWA"
 
-#: templates/pages/home.html:477
+#: templates/pages/home.html:140
 msgid "Особисті кабінети, підписки, аналітика, білінг"
 msgstr "Personal accounts, subscriptions, analytics, billing"
 
-#: templates/pages/home.html:478
+#: templates/pages/home.html:141
 msgid "Автоматизація, продажі, інтеграції з CRM та платіжними системами"
 msgstr "Automation, sales, integrations with CRM and payment systems"
 
-#: templates/pages/home.html:479
+#: templates/pages/home.html:142
 msgid "Оновлення проєктів"
 msgstr "Project Updates"
 
-#: templates/pages/home.html:479
+#: templates/pages/home.html:142
 msgid "Редизайн, прискорення, безпека, перенесення"
 msgstr "Redesign, acceleration, security, migration"
 
-#: templates/pages/home.html:481 templates/pages/home.html:504
+#: templates/pages/home.html:144 templates/pages/home.html:167
 msgid "Робота включає:"
 msgstr "Work includes:"
 
-#: templates/pages/home.html:482
+#: templates/pages/home.html:145
 msgid ""
 "Прототипування → UI/UX → верстка → бекенд → інтеграції → адмін-панель → "
 "деплой → SEO → аналітика → тестування → запуск"
@@ -2235,51 +2656,51 @@ msgstr ""
 "Prototyping → UI/UX → layout → backend → integrations → admin panel → "
 "deployment → SEO → analytics → testing → launch"
 
-#: templates/pages/home.html:483 templates/pages/home.html:506
+#: templates/pages/home.html:146 templates/pages/home.html:169
 msgid "Технології:"
 msgstr "Technologies"
 
-#: templates/pages/home.html:498
+#: templates/pages/home.html:161
 msgid "Розробка з нуля"
 msgstr "Development from scratch"
 
-#: templates/pages/home.html:498
+#: templates/pages/home.html:161
 msgid "iOS/Android додатки для e-commerce, CRM, фінанси, освіта"
 msgstr "iOS/Android apps for e-commerce, CRM, finance, education"
 
-#: templates/pages/home.html:499
+#: templates/pages/home.html:162
 msgid "Оплати та підписки"
 msgstr "Payments and subscriptions"
 
-#: templates/pages/home.html:499
+#: templates/pages/home.html:162
 msgid "Apple Pay, Google Pay, in-app покупки, регулярні підписки"
 msgstr "Apple Pay, Google Pay, in-app purchases, recurring subscriptions"
 
-#: templates/pages/home.html:500
+#: templates/pages/home.html:163
 msgid "Push та аналітика"
 msgstr "Push and analytics"
 
-#: templates/pages/home.html:500
+#: templates/pages/home.html:163
 msgid "Персоналізовані повідомлення, трекінг, метрики утримання"
 msgstr "Personalized notifications, tracking, retention metrics"
 
-#: templates/pages/home.html:501
+#: templates/pages/home.html:164
 msgid "Адмін-панель"
 msgstr "Admin panel"
 
-#: templates/pages/home.html:501
+#: templates/pages/home.html:164
 msgid "Керування контентом, користувачами, інтеграції з API"
 msgstr "Content management, users, API integrations"
 
-#: templates/pages/home.html:502
+#: templates/pages/home.html:165
 msgid "Оновлення"
 msgstr "Updates"
 
-#: templates/pages/home.html:502
+#: templates/pages/home.html:165
 msgid "Редизайн, прискорення, адаптація під нові версії iOS/Android"
 msgstr "Redesign, acceleration, adaptation for new iOS/Android versions"
 
-#: templates/pages/home.html:505
+#: templates/pages/home.html:168
 msgid ""
 "UX-прототип → дизайн → кросплатформенна розробка → інтеграції → push та "
 "аналітика → тестування → публікація App Store/Google Play → підтримка"
@@ -2287,11 +2708,11 @@ msgstr ""
 "UX prototype → design → cross-platform development → integrations → push and "
 "analytics → testing → App Store/Google Play publication → support"
 
-#: templates/pages/home.html:520
+#: templates/pages/home.html:183
 msgid "Реклама:"
 msgstr "Advertising:"
 
-#: templates/pages/home.html:521
+#: templates/pages/home.html:184
 msgid ""
 "Google Ads (пошук, торгові, YouTube) • Meta Ads (трафік, ліди, Direct) • "
 "TikTok Ads (нативні інтеграції, Spark Ads) • SEO (аудит, оптимізація, "
@@ -2301,7 +2722,7 @@ msgstr ""
 "TikTok Ads (native integrations, Spark Ads) • SEO (audit, optimization, "
 "content)"
 
-#: templates/pages/home.html:522
+#: templates/pages/home.html:185
 msgid ""
 "Налаштування кабінетів, аналіз конкурентів, формування бюджету, запуск "
 "кампаній, прозора звітність, регулярна оптимізація."
@@ -2309,11 +2730,11 @@ msgstr ""
 "Account setup, competitor analysis, budget planning, campaign launch, "
 "transparent reporting, regular optimization."
 
-#: templates/pages/home.html:523
+#: templates/pages/home.html:186
 msgid "SMM: Instagram / TikTok / Facebook"
 msgstr "SMM: Instagram / TikTok / Facebook"
 
-#: templates/pages/home.html:524
+#: templates/pages/home.html:187
 msgid ""
 "Контент-стратегія • Контент-план • Продакшн (рілси, сторіз, UGC) • Модерація "
 "• Інтеграції та колаборації • Конкурси • Запуск реклами • Щомісячна аналітика"
@@ -2322,86 +2743,92 @@ msgstr ""
 "Moderation • Integrations and collaborations • Contests • Ad launch • "
 "Monthly analytics"
 
-#: templates/pages/home.html:525
+#: templates/pages/home.html:188
 msgid "Контент:"
 msgstr "Content:"
 
-#: templates/pages/home.html:527
+#: templates/pages/home.html:190
 msgid "Брендинг"
 msgstr "Branding"
 
-#: templates/pages/home.html:527
+#: templates/pages/home.html:190
 msgid "Логотипи, гайдлайни, візитки, шаблони, презентації, банери"
 msgstr "Logos, guidelines, business cards, templates, presentations, banners"
 
-#: templates/pages/home.html:528
+#: templates/pages/home.html:191
 msgid "Фото/Відео/AI"
 msgstr "Photo/Video/AI"
 
-#: templates/pages/home.html:528
+#: templates/pages/home.html:191
 msgid "Пости, каруселі, сторіз, Reels/Shorts, AI-відео, AI-аватари, субтитри"
 msgstr ""
 "Posts, carousels, stories, Reels/Shorts, AI video, AI avatars, subtitles"
 
-#: templates/pages/home.html:542
+#: templates/pages/home.html:205
 msgid ""
-"Програмування та AI від нуля до реальних проєктів. Практика на сучасних "
-"технологіях, портфоліо та можливість працевлаштування в PrometeyLabs."
+"Вбудовуємо штучний інтелект у ваш сайт і бізнес-процеси: автоматизація "
+"запитів, інтелектуальні асистенти та інтеграції з CRM і месенджерами — під "
+"ключ."
 msgstr ""
-"Programming and AI from zero to real projects. Practice on modern "
-"technologies, portfolio and employment opportunity at PrometeyLabs."
+"We embed artificial intelligence into your website and business processes: "
+"request automation, intelligent assistants and integrations with CRM and "
+"messengers — turnkey."
 
-#: templates/pages/home.html:543
-msgid "Для новачків:"
-msgstr "For beginners:"
+#: templates/pages/home.html:206
+msgid "Що входить:"
+msgstr "What's included:"
 
-#: templates/pages/home.html:546
-msgid "Бази даних та деплой проєктів"
-msgstr "Databases and project deployment"
+#: templates/pages/home.html:208
+msgid "AI-консультант на сайті"
+msgstr "AI consultant on the website"
 
-#: templates/pages/home.html:548
-msgid "Завершальні проєкти для портфоліо"
-msgstr "Final projects for portfolio"
+#: templates/pages/home.html:208
+msgid "Відповіді клієнтам 24/7, збір заявок, FAQ"
+msgstr "24/7 customer replies, lead capture, FAQ"
 
-#: templates/pages/home.html:550
-msgid "AI для розробників:"
-msgstr "AI for Developers:"
+#: templates/pages/home.html:209
+msgid "Обробка заявок"
+msgstr "Lead processing"
 
-#: templates/pages/home.html:552
-msgid "Основи та види AI, принципи роботи"
-msgstr "AI basics and types, working principles"
+#: templates/pages/home.html:209
+msgid "Класифікація, маршрутизація, сповіщення менеджерам"
+msgstr "Classification, routing, manager notifications"
 
-#: templates/pages/home.html:553
-msgid "Платформи для щоденного використання"
-msgstr "Platforms for daily use"
+#: templates/pages/home.html:210
+msgid "Інтеграції"
+msgstr "Integrations"
 
-#: templates/pages/home.html:554
-msgid "Генерація та оптимізація коду через AI"
-msgstr "Code generation and optimization through AI"
+#: templates/pages/home.html:210
+msgid "CRM, Telegram, email, платіжні та зовнішні API"
+msgstr "CRM, Telegram, email, payment and external APIs"
 
-#: templates/pages/home.html:555
-msgid "LLM, промпт-інженерія, практичні кейси"
-msgstr "LLM, prompt engineering, practical cases"
+#: templates/pages/home.html:211
+msgid "Автоматизація рутини"
+msgstr "Routine automation"
 
-#: templates/pages/home.html:557
-msgid "Підтримка:"
-msgstr "Support:"
+#: templates/pages/home.html:211
+msgid "Звіти, нагадування, оновлення даних без ручної роботи"
+msgstr "Reports, reminders, data updates without manual work"
 
-#: templates/pages/home.html:558
+#: templates/pages/home.html:212
+msgid "Налаштування під ТЗ"
+msgstr "Configuration per spec"
+
+#: templates/pages/home.html:212
+msgid "Промпти, сценарії та обмеження під ваш бізнес"
+msgstr "Prompts, scenarios and guardrails for your business"
+
+#: templates/pages/home.html:214
+msgid "Результат:"
+msgstr "Result:"
+
+#: templates/pages/home.html:215
 msgid ""
-"Індивідуальні та групові заняття • Зворотний зв'язок • Код-рев'ю • Реальні "
-"бізнес-задачі • Підготовка CV/GitHub/LinkedIn"
+"Менше рутини для команди, швидша реакція на клієнтів і масштабування support "
+"без пропорційного зростання витрат."
 msgstr ""
-"Individual and group classes • Feedback • Code review • Real business tasks "
-"• CV/GitHub/LinkedIn preparation"
-
-#: templates/pages/home.html:560
-msgid ""
-"Найсильніші випускники після екзамену зможуть отримати офіційне "
-"працевлаштування як розробники чи дизайнери в PrometeyLabs."
-msgstr ""
-"The strongest graduates after the exam will be able to get official "
-"employment as developers or designers at PrometeyLabs."
+"Less routine work for your team, faster customer response and scalable "
+"support without proportional cost growth."
 
 #: templates/pages/portfolio.html:5
 msgid "Портфоліо - PrometeyLabs"
@@ -2415,585 +2842,9 @@ msgstr "CREATED BY US"
 msgid "САЙТИ ПІД КЛЮЧ"
 msgstr "TURNKEY WEBSITES"
 
-#: templates/pages/portfolio.html:46
-msgid "Speak Up - Educational Platform"
+#: templates/pages/portfolio.html:43
+msgid "Проєкти портфоліо скоро з’являться."
 msgstr ""
-
-#: templates/pages/portfolio.html:51
-msgid "EDUCATIONAL PLATFORM"
-msgstr ""
-
-#: templates/pages/portfolio.html:53
-msgid ""
-"Корпоративний сайт, інтерактивна онлайн-платформа для вивчення англійської "
-"мови, що об'єднує студентів та викладачів в єдину екосистему. Автоматизація "
-"навчального процесу, від тестування рівня знань до отримання сертифікату."
-msgstr ""
-
-#: templates/pages/portfolio.html:56
-#, fuzzy
-#| msgid "Налаштування платіжної системи"
-msgid "інтеграція платіжних систем"
-msgstr "Google Ads Setup"
-
-#: templates/pages/portfolio.html:57
-msgid "мультимовність"
-msgstr ""
-
-#: templates/pages/portfolio.html:58
-msgid "LMS-система"
-msgstr ""
-
-#: templates/pages/portfolio.html:59
-msgid "особистий кабінет студента"
-msgstr ""
-
-#: templates/pages/portfolio.html:63 templates/pages/portfolio.html:93
-#: templates/pages/portfolio.html:123 templates/pages/portfolio.html:153
-#: templates/pages/portfolio.html:183 templates/pages/portfolio.html:213
-msgid "Більше інформації"
-msgstr "Useful Information"
-
-#: templates/pages/portfolio.html:76
-msgid "CoreSync - AI Spa & Wellness Platform"
-msgstr "CoreSync - AI Spa & Wellness Platform"
-
-#: templates/pages/portfolio.html:83
-msgid ""
-"Корпоративний сайт і мобільний застосунок із повністю ШІ-керованим сервісом: "
-"онлайн-бронювання, iOS/Android застосунок і планшетна панель для персоналу."
-msgstr ""
-"Corporate website and mobile app with fully AI-driven service: online "
-"booking, iOS/Android app and staff tablet panel."
-
-#: templates/pages/portfolio.html:86 templates/pages/portfolio.html:271
-msgid "центральний AI-агент"
-msgstr "central AI agent"
-
-#: templates/pages/portfolio.html:87
-msgid "AI-кол-центр"
-msgstr "AI call center"
-
-#: templates/pages/portfolio.html:88
-msgid "AI-бронювання"
-msgstr "AI booking"
-
-#: templates/pages/portfolio.html:89 templates/pages/portfolio.html:275
-msgid "внутрішня CRM"
-msgstr "internal CRM"
-
-#: templates/pages/portfolio.html:106
-msgid "PlayVision - футбольна освітня платформа"
-msgstr "PlayVision - Football Education Platform"
-
-#: templates/pages/portfolio.html:113
-msgid ""
-"Футбольна освітня платформа з PWA-додатком і особистими кабінетами для "
-"гравців, тренерів та батьків, включно із системою курсів та івентів."
-msgstr ""
-"Football education platform with PWA app and personal accounts for players, "
-"coaches and parents, including course and event system."
-
-#: templates/pages/portfolio.html:116 templates/pages/portfolio.html:305
-msgid "персональний AI-помічник"
-msgstr "personal AI assistant"
-
-#: templates/pages/portfolio.html:117
-msgid "CRM оплат і підписок"
-msgstr "payment and subscription CRM"
-
-#: templates/pages/portfolio.html:118
-msgid "аналітика"
-msgstr "analytics"
-
-#: templates/pages/portfolio.html:119 templates/pages/portfolio.html:308
-msgid "e-mail/SMS-сповіщення"
-msgstr "e-mail/SMS notifications"
-
-#: templates/pages/portfolio.html:136
-msgid "BeautyShop - онлайн-магазин косметики"
-msgstr "BeautyShop - Online Cosmetics Store"
-
-#: templates/pages/portfolio.html:141
-msgid "ОНЛАЙН-МАГАЗИН КОСМЕТИКИ"
-msgstr "ONLINE COSMETICS STORE"
-
-#: templates/pages/portfolio.html:143
-msgid ""
-"Онлайн-магазин косметики з власною CRM, особистим кабінетом клієнта та "
-"гнучкою системою цін, промокодів і акцій."
-msgstr ""
-"Online cosmetics store with own CRM, customer personal account and flexible "
-"pricing, promo codes and promotions system."
-
-#: templates/pages/portfolio.html:146 templates/pages/portfolio.html:207
-#: templates/pages/portfolio.html:338
-msgid "онлайн-оплати"
-msgstr "online payments"
-
-#: templates/pages/portfolio.html:147
-msgid "промокоди та акції"
-msgstr "promo codes and promotions"
-
-#: templates/pages/portfolio.html:148
-msgid "аналітика замовлень"
-msgstr "order analytics"
-
-#: templates/pages/portfolio.html:149 templates/pages/portfolio.html:341
-msgid "e-mail/SMS-нотифікації"
-msgstr "e-mail/SMS notifications"
-
-#: templates/pages/portfolio.html:166
-msgid "RedRabbit - e-commerce 18+"
-msgstr "RedRabbit - e-commerce 18+"
-
-#: templates/pages/portfolio.html:171
-msgid "E-COMMERCE 18+"
-msgstr "E-COMMERCE 18+"
-
-#: templates/pages/portfolio.html:173
-msgid ""
-"Інтернет-магазин із 18+ age-gate, розширеною адмін-панеллю та CRM-аналітикою."
-msgstr ""
-"E-commerce store with 18+ age-gate, extended admin panel and CRM analytics."
-
-#: templates/pages/portfolio.html:176 templates/pages/portfolio.html:371
-msgid "платіжна система"
-msgstr "payment system"
-
-#: templates/pages/portfolio.html:177
-msgid "промокоди"
-msgstr "promo codes"
-
-#: templates/pages/portfolio.html:178 templates/pages/portfolio.html:373
-msgid "CRM-аналітика"
-msgstr "CRM analytics"
-
-#: templates/pages/portfolio.html:179
-msgid "нотифікації клієнтам"
-msgstr "client notifications"
-
-#: templates/pages/portfolio.html:196
-msgid "SunPannel - сонячні панелі та енергорішення"
-msgstr "SunPannel - Solar Panels and Energy Solutions"
-
-#: templates/pages/portfolio.html:201
-msgid "СОНЯЧНІ ПАНЕЛІ ТА ЕНЕРГОРІШЕННЯ"
-msgstr "SOLAR PANELS AND ENERGY SOLUTIONS"
-
-#: templates/pages/portfolio.html:203
-msgid ""
-"Корпоративний сайт і інтернет-магазин із технічним каталогом, що автоматично "
-"оновлюється."
-msgstr ""
-"Corporate website and e-commerce store with technical catalog that "
-"automatically updates."
-
-#: templates/pages/portfolio.html:206 templates/pages/portfolio.html:405
-msgid "автооновлення каталогу"
-msgstr "automatic catalog update"
-
-#: templates/pages/portfolio.html:208
-msgid "заявки на пропозицію"
-msgstr "proposal requests"
-
-#: templates/pages/portfolio.html:209 templates/pages/portfolio.html:408
-msgid "e-mail менеджерам"
-msgstr "e-mail to managers"
-
-#: templates/pages/portfolio.html:230
-msgid "Educational Platform"
-msgstr ""
-
-#: templates/pages/portfolio.html:232
-#, fuzzy
-#| msgid "BeautyShop - опис проекту"
-msgid "Speak Up - опис проекту"
-msgstr "BeautyShop - Project Description"
-
-#: templates/pages/portfolio.html:234
-msgid ""
-"Масштабна освітня платформа (LMS) з адаптивним інтерфейсом та особистими "
-"кабінетами для різних ролей: студент, викладач, адміністратор. Рішення "
-"забезпечує повний цикл навчання: онлайн-уроки, інтерактивні домашні "
-"завдання, трекінг успішності та автоматизовану систему оцінювання."
-msgstr ""
-
-#: templates/pages/portfolio.html:236
-msgid "ІНТЕГРАЦІЇ:"
-msgstr ""
-
-#: templates/pages/portfolio.html:238
-msgid "безпечні онлайн-платежі та рекурентні списання (підписки)"
-msgstr ""
-
-#: templates/pages/portfolio.html:239
-msgid "інтерактивний календар та букінг занять"
-msgstr ""
-
-#: templates/pages/portfolio.html:240
-msgid "система сповіщень (e-mail/push) про уроки"
-msgstr ""
-
-#: templates/pages/portfolio.html:241
-msgid "модуль відеозв'язку для проведення занять"
-msgstr ""
-
-#: templates/pages/portfolio.html:244
-#, fuzzy
-#| msgid ""
-#| "Платформа включає веб-додаток і мобільну версію, реалізована як "
-#| "універсальний конструктор для управління контентом, структурою сторінок, "
-#| "курсами та івентами без участі розробників."
-msgid ""
-"Платформа включає потужну адміністративну панель, реалізовану як "
-"універсальний інструмент для керування розкладом, базою студентів, "
-"фінансовою звітністю та контентом курсів без необхідності залучення "
-"розробників."
-msgstr ""
-"The platform includes web app and mobile version, implemented as a universal "
-"constructor for managing content, page structure, courses and events without "
-"developer involvement."
-
-#: templates/pages/portfolio.html:247
-#, fuzzy
-#| msgid "BeautyShop - мобільна версія"
-msgid "Speak Up - мобільна версія"
-msgstr "BeautyShop - Mobile Version"
-
-#: templates/pages/portfolio.html:248
-#, fuzzy
-#| msgid "BeautyShop - планшетна версія"
-msgid "Speak Up - планшетна версія"
-msgstr "BeautyShop - Tablet Version"
-
-#: templates/pages/portfolio.html:251
-msgid ""
-"Підтримує мультимовність інтерфейсу та автоматичну конвертацію валют, що "
-"дозволяє працювати на міжнародних ринках. Система побудована на модульній "
-"архітектурі, що гарантує високу швидкість роботи при великих навантаженнях "
-"та можливість легкого додавання нових навчальних інструментів або мовних "
-"курсів без зміни ядра."
-msgstr ""
-
-#: templates/pages/portfolio.html:253
-#, fuzzy
-#| msgid "BeautyShop - десктопна версія"
-msgid "Speak Up - десктопна версія"
-msgstr "BeautyShop - Desktop Version"
-
-#: templates/pages/portfolio.html:265
-msgid "CoreSync - опис проекту"
-msgstr "CoreSync - Project Description"
-
-#: templates/pages/portfolio.html:267
-msgid ""
-"Корпоративний сайт та мобільний застосунок із повністю ШІ-керованим "
-"сервісом: онлайн-бронюванням, застосунками для iOS/Android і планшетною "
-"панеллю персоналу. Платформа автоматизує роботу салону та забезпечує "
-"клієнтську підтримку 24/7."
-msgstr ""
-"Corporate website and mobile app with fully AI-driven service: online "
-"booking, iOS/Android apps and staff tablet panel. The platform automates "
-"salon operations and provides 24/7 customer support."
-
-#: templates/pages/portfolio.html:269 templates/pages/portfolio.html:303
-#: templates/pages/portfolio.html:336 templates/pages/portfolio.html:369
-#: templates/pages/portfolio.html:403
-msgid "Інтеграції:"
-msgstr "Integrations:"
-
-#: templates/pages/portfolio.html:272
-msgid "AI-кол-центр (голос/текст)"
-msgstr "AI call center (voice/text)"
-
-#: templates/pages/portfolio.html:273
-msgid "AI-бронювання за типами послуг"
-msgstr "AI booking by service types"
-
-#: templates/pages/portfolio.html:274
-msgid "AI-контроль атмосфери (світло, температура, музика)"
-msgstr "AI atmosphere control (light, temperature, music)"
-
-#: templates/pages/portfolio.html:278
-msgid ""
-"Рішення об'єднує сайт, мобільні застосунки та робочу систему персоналу в "
-"єдину екосистему."
-msgstr ""
-"The solution combines website, mobile apps and staff work system into a "
-"unified ecosystem."
-
-#: templates/pages/portfolio.html:281
-msgid "CoreSync - мобільна версія"
-msgstr "CoreSync - Mobile Version"
-
-#: templates/pages/portfolio.html:282
-msgid "CoreSync - планшетна версія"
-msgstr "CoreSync - Tablet Version"
-
-#: templates/pages/portfolio.html:285
-msgid ""
-"AI-агенти забезпечують швидке обслуговування, точну комунікацію та "
-"автоматизацію всіх операцій — від дзвінків до push-сповіщень. Платформа "
-"адаптована під мобільні, планшетні й десктопні пристрої та містить аналітику "
-"для управління завантаженістю й оптимізацією процесів. Система легко "
-"масштабується новими модулями: від wellness-програм до фінансового й "
-"маркетингового управління."
-msgstr ""
-"AI agents provide fast service, accurate communication and automation of all "
-"operations — from calls to push notifications. The platform is adapted for "
-"mobile, tablet and desktop devices and includes analytics for managing "
-"workload and optimizing processes. The system easily scales with new "
-"modules: from wellness programs to financial and marketing management."
-
-#: templates/pages/portfolio.html:287
-msgid "CoreSync - десктопна версія"
-msgstr "CoreSync - Desktop Version"
-
-#: templates/pages/portfolio.html:299
-msgid "PlayVision - опис проекту"
-msgstr "PlayVision - Project Description"
-
-#: templates/pages/portfolio.html:301
-msgid ""
-"Футбольна освітня платформа з PWA-додатком і особистими кабінетами для "
-"гравців, тренерів та батьків. Рішення охоплює курси, івенти, контент та "
-"інструменти для комплексного розвитку у футбольній індустрії."
-msgstr ""
-"Football education platform with PWA app and personal accounts for players, "
-"coaches and parents. The solution covers courses, events, content and tools "
-"for comprehensive development in the football industry."
-
-#: templates/pages/portfolio.html:306
-msgid "CRM оплати та підписок"
-msgstr "payment and subscription CRM"
-
-#: templates/pages/portfolio.html:307
-msgid "аналітика прогресу"
-msgstr "progress analytics"
-
-#: templates/pages/portfolio.html:311
-msgid ""
-"Платформа включає веб-додаток і мобільну версію, реалізована як "
-"універсальний конструктор для управління контентом, структурою сторінок, "
-"курсами та івентами без участі розробників."
-msgstr ""
-"The platform includes web app and mobile version, implemented as a universal "
-"constructor for managing content, page structure, courses and events without "
-"developer involvement."
-
-#: templates/pages/portfolio.html:314
-msgid "PlayVision - мобільна версія"
-msgstr "PlayVision - Mobile Version"
-
-#: templates/pages/portfolio.html:315
-msgid "PlayVision - планшетна версія"
-msgstr "PlayVision - Tablet Version"
-
-#: templates/pages/portfolio.html:318
-msgid ""
-"Підтримує темну/світлу теми, адаптивну навігацію та ролі з тарифами, що "
-"формують гнучкий доступ для різних категорій користувачів. Система створена "
-"як масштабована екосистема з можливістю інтеграції нових модулів та сервісів "
-"без зміни ядра."
-msgstr ""
-"Supports dark/light themes, adaptive navigation and roles with tariffs that "
-"form flexible access for different user categories. The system is created as "
-"a scalable ecosystem with the ability to integrate new modules and services "
-"without changing the core."
-
-#: templates/pages/portfolio.html:320
-msgid "PlayVision - десктопна версія"
-msgstr "PlayVision - Desktop Version"
-
-#: templates/pages/portfolio.html:330
-msgid "Онлайн-магазин косметики"
-msgstr "Online Cosmetics Store"
-
-#: templates/pages/portfolio.html:332
-msgid "BeautyShop - опис проекту"
-msgstr "BeautyShop - Project Description"
-
-#: templates/pages/portfolio.html:334
-msgid ""
-"E-commerce платформа з CRM, особистим кабінетом та гнучкими механіками цін, "
-"промокодів та акцій. Рішення створене для персоналізованого досвіду покупки "
-"та автоматизації роботи адміністратора."
-msgstr ""
-"E-commerce platform with CRM, personal account and flexible pricing, promo "
-"codes and promotions mechanics. The solution is created for personalized "
-"shopping experience and administrator work automation."
-
-#: templates/pages/portfolio.html:339
-msgid "промокоди та акційні правила"
-msgstr "promo codes and promotion rules"
-
-#: templates/pages/portfolio.html:340
-msgid "аналітика замовлень і поведінки"
-msgstr "order and behavior analytics"
-
-#: templates/pages/portfolio.html:344
-msgid ""
-"Система поєднує магазин і CRM-адмінку для керування товарами, категоріями, "
-"залишками й замовленнями."
-msgstr ""
-"The system combines store and CRM admin panel for managing products, "
-"categories, inventory and orders."
-
-#: templates/pages/portfolio.html:347
-msgid "BeautyShop - мобільна версія"
-msgstr "BeautyShop - Mobile Version"
-
-#: templates/pages/portfolio.html:348
-msgid "BeautyShop - планшетна версія"
-msgstr "BeautyShop - Tablet Version"
-
-#: templates/pages/portfolio.html:351
-msgid ""
-"Платформа підтримує сегментацію користувачів, персональні рекомендації та "
-"різні цінові групи, що підвищує конверсію. Інтерфейс повністю адаптивний, "
-"оптимізований для мобільних та десктопів. Адмін-панель дозволяє швидко "
-"оновлювати товари, запускати акції та відстежувати ефективність "
-"маркетингових дій у реальному часі. Система масштабована й готова до "
-"підключення AI-рекомендацій та омніканальних продажів."
-msgstr ""
-"The platform supports user segmentation, personal recommendations and "
-"different price groups, which increases conversion. The interface is fully "
-"adaptive, optimized for mobile and desktop. The admin panel allows quick "
-"product updates, launching promotions and tracking marketing effectiveness "
-"in real time. The system is scalable and ready for AI recommendations and "
-"omnichannel sales integration."
-
-#: templates/pages/portfolio.html:353
-msgid "BeautyShop - десктопна версія"
-msgstr "BeautyShop - Desktop Version"
-
-#: templates/pages/portfolio.html:365
-msgid "RedRabbit - опис проекту"
-msgstr "RedRabbit - Project Description"
-
-#: templates/pages/portfolio.html:367
-msgid ""
-"Інтернет-магазин із 18+ age-gate, розширеною адмін-панеллю та CRM-"
-"аналітикою. Платформа розроблена для великих товарних обсягів, категорій і "
-"різних акційних моделей."
-msgstr ""
-"E-commerce store with 18+ age-gate, extended admin panel and CRM analytics. "
-"The platform is designed for large product volumes, categories and various "
-"promotion models."
-
-#: templates/pages/portfolio.html:372
-msgid "промокоди та акційні сценарії"
-msgstr "promo codes and promotion scenarios"
-
-#: templates/pages/portfolio.html:374
-msgid "автоматичні нотифікації"
-msgstr "automatic notifications"
-
-#: templates/pages/portfolio.html:375
-msgid "автооновлюваний каталог товарів (синхронізація кожні 2 години)"
-msgstr "auto-updating product catalog (sync every 2 hours)"
-
-#: templates/pages/portfolio.html:378
-msgid ""
-"Платформа включає сайт із захищеним доступом, рольову систему та інструменти "
-"управління товарами, замовленнями й маркетингом."
-msgstr ""
-"The platform includes a website with protected access, role system and tools "
-"for managing products, orders and marketing."
-
-#: templates/pages/portfolio.html:381
-msgid "RedRabbit - мобільна версія"
-msgstr "RedRabbit - Mobile Version"
-
-#: templates/pages/portfolio.html:382
-msgid "RedRabbit - планшетна версія"
-msgstr "RedRabbit - Tablet Version"
-
-#: templates/pages/portfolio.html:385
-msgid ""
-"Age-gate забезпечує відповідність 18+ та захист контенту. Система надає "
-"деталізовану статистику акцій, конверсій та поведінки користувачів. "
-"Автооновлення каталогу гарантує актуальні залишки, ціни й пропозиції без "
-"ручного втручання. Інтерфейс адаптивний і оптимізований під мобільні "
-"пристрої. Платформа масштабована під нових постачальників та розширення "
-"функціоналу."
-msgstr ""
-"Age-gate ensures 18+ compliance and content protection. The system provides "
-"detailed statistics on promotions, conversions and user behavior. Automatic "
-"catalog updates guarantee current inventory, prices and offers without "
-"manual intervention. The interface is adaptive and optimized for mobile "
-"devices. The platform is scalable for new suppliers and functionality "
-"expansion."
-
-#: templates/pages/portfolio.html:387
-msgid "RedRabbit - десктопна версія"
-msgstr "RedRabbit - Desktop Version"
-
-#: templates/pages/portfolio.html:397
-msgid "Сонячні панелі та енергорішення"
-msgstr "Solar Panels and Energy Solutions"
-
-#: templates/pages/portfolio.html:399
-msgid "SunPannel - опис проекту"
-msgstr "SunPannel - Project Description"
-
-#: templates/pages/portfolio.html:401
-msgid ""
-"Корпоративний сайт і інтернет-магазин з технічним каталогом, що автоматично "
-"оновлюється. Рішення призначене для продажу сонячних комплектів, панелей, "
-"інверторів та енергосистем."
-msgstr ""
-"Corporate website and e-commerce store with technical catalog that "
-"automatically updates. The solution is designed for selling solar kits, "
-"panels, inverters and energy systems."
-
-#: templates/pages/portfolio.html:406
-msgid "онлайн-оплати та рахунки"
-msgstr "online payments and invoices"
-
-#: templates/pages/portfolio.html:407
-msgid "заявка на комерційну пропозицію"
-msgstr "commercial proposal request"
-
-#: templates/pages/portfolio.html:409
-msgid "керування контентом, товарами та маркетинговими сторінками"
-msgstr "content, products and marketing pages management"
-
-#: templates/pages/portfolio.html:412
-msgid ""
-"Платформа поєднує маркетингові сторінки, каталог, фільтри й кошик у єдину "
-"систему."
-msgstr ""
-"The platform combines marketing pages, catalog, filters and shopping cart "
-"into a unified system."
-
-#: templates/pages/portfolio.html:415
-msgid "SunPannel - мобільна версія"
-msgstr "SunPannel - Mobile Version"
-
-#: templates/pages/portfolio.html:416
-msgid "SunPannel - планшетна версія"
-msgstr "SunPannel - Tablet Version"
-
-#: templates/pages/portfolio.html:419
-msgid ""
-"Технічні фільтри дозволяють зібрати комплект за параметрами (потужність, "
-"інвертор, кількість панелей). Інтерфейс адаптивний і зручний навіть у "
-"складних технічних розділах. Автоматичне оновлення забезпечує актуальність "
-"характеристик, залишків і цін у швидкозмінному енергетичному сегменті. "
-"Платформа створена для масштабування й інтеграції з будь-якими "
-"постачальниками та новими модулями."
-msgstr ""
-"Technical filters allow assembling a kit by parameters (power, inverter, "
-"number of panels). The interface is adaptive and convenient even in complex "
-"technical sections. Automatic updates ensure current specifications, "
-"inventory and prices in the fast-changing energy segment. The platform is "
-"created for scaling and integration with any suppliers and new modules."
-
-#: templates/pages/portfolio.html:421
-msgid "SunPannel - десктопна версія"
-msgstr "SunPannel - Desktop Version"
 
 #: templates/pages/thank_you.html:5
 #, fuzzy
@@ -3098,104 +2949,104 @@ msgid "Оплата за послуги"
 msgstr "Service Payment"
 
 #: templates/payment/payment_page.html:25
-#: templates/payment/payment_page.html:169
+#: templates/payment/payment_page.html:173
 #, fuzzy
 #| msgid "Помилка оплати"
 msgid "Сума до сплати"
 msgstr "Payment Error"
 
-#: templates/payment/payment_page.html:31
+#: templates/payment/payment_page.html:34
 #, fuzzy
-#| msgid "Курси"
-msgid "Курс НБУ:"
+#| msgid "Курс"
+msgid "Курс:"
 msgstr "Courses"
 
-#: templates/payment/payment_page.html:38
+#: templates/payment/payment_page.html:42
 #, fuzzy
 #| msgid "Помилка оплати"
 msgid "Час на оплату"
 msgstr "Payment Error"
 
-#: templates/payment/payment_page.html:43
+#: templates/payment/payment_page.html:47
 msgid "ЧАС ВИЙШОВ"
 msgstr ""
 
-#: templates/payment/payment_page.html:52
+#: templates/payment/payment_page.html:56
 #, fuzzy
 #| msgid "AI агенти"
 msgid "Документи"
 msgstr "AI Agents"
 
-#: templates/payment/payment_page.html:87
+#: templates/payment/payment_page.html:91
 msgid "Типовий договір"
 msgstr ""
 
-#: templates/payment/payment_page.html:103
+#: templates/payment/payment_page.html:107
 #, fuzzy
 #| msgid "Немає даних для платежу"
 msgid "Реквізити для оплати"
 msgstr "No payment data available"
 
-#: templates/payment/payment_page.html:118
-#: templates/payment/payment_page.html:119
-#: templates/payment/payment_page.html:148
-#: templates/payment/payment_page.html:176
+#: templates/payment/payment_page.html:122
+#: templates/payment/payment_page.html:123
+#: templates/payment/payment_page.html:152
+#: templates/payment/payment_page.html:180
 msgid "Скопіювати"
 msgstr ""
 
-#: templates/payment/payment_page.html:141
+#: templates/payment/payment_page.html:145
 #, fuzzy
 #| msgid "Немає даних для платежу"
 msgid "Призначення платежу"
 msgstr "No payment data available"
 
-#: templates/payment/payment_page.html:149
+#: templates/payment/payment_page.html:153
 #, fuzzy
 #| msgid "Немає даних для платежу"
 msgid "Скопіювати призначення платежу"
 msgstr "No payment data available"
 
-#: templates/payment/payment_page.html:177
+#: templates/payment/payment_page.html:181
 #, fuzzy
 #| msgid "Результати пошуку:"
 msgid "Скопіювати суму"
 msgstr "Search results:"
 
-#: templates/payment/payment_page.html:214
+#: templates/payment/payment_page.html:218
 #, fuzzy
 #| msgid "Опубліковано"
 msgid "✓ Скопійовано"
 msgstr "Published"
 
-#: templates/payment/payment_page.html:216
+#: templates/payment/payment_page.html:220
 #, fuzzy
 #| msgid "Розрахувати пропозицію"
 msgid "Скопіювати реквізити"
 msgstr "Calculate Proposal"
 
-#: templates/payment/payment_page.html:224
+#: templates/payment/payment_page.html:228
 #, fuzzy
 #| msgid "Так, оплата карткою онлайн"
 msgid "Або оплатіть онлайн"
 msgstr "Yes, online card payment"
 
-#: templates/payment/payment_page.html:225
+#: templates/payment/payment_page.html:229
 msgid "Картка · Apple Pay · Google Pay · Monobank"
 msgstr ""
 
-#: templates/payment/payment_page.html:229
+#: templates/payment/payment_page.html:233
 #, fuzzy
 #| msgid "Помилка оплати"
 msgid "Перейти до оплати"
 msgstr "Payment Error"
 
-#: templates/payment/payment_page.html:243
+#: templates/payment/payment_page.html:247
 #, fuzzy
 #| msgid "Помилка оплати"
 msgid "Як оплатити"
 msgstr "Payment Error"
 
-#: templates/payment/payment_page.html:246
+#: templates/payment/payment_page.html:250
 msgid ""
 "Оплату можна провести онлайн карткою, <strong>Apple Pay</strong> або "
 "<strong>Google Pay</strong>.\n"
@@ -3203,18 +3054,18 @@ msgid ""
 "            Після оплати переказом — надішліть нам фото квитанції:"
 msgstr ""
 
-#: templates/payment/payment_page.html:252
+#: templates/payment/payment_page.html:256
 msgid ""
 "До посилання прикріплений рахунок — завантажте його або проведіть оплату "
 "вручну за реквізитами вище.\n"
 "            Після оплати — надішліть нам фото квитанції:"
 msgstr ""
 
-#: templates/payment/payment_page.html:269
+#: templates/payment/payment_page.html:273
 msgid "Тестовий режим"
 msgstr ""
 
-#: templates/payment/payment_page.html:272
+#: templates/payment/payment_page.html:276
 msgid "Створити тестовий інвойс"
 msgstr "Create Test Invoice"
 
@@ -3227,6 +3078,544 @@ msgstr "Payment Successful"
 #| msgid "Оплата пройшла успішно."
 msgid "Оплата пройшла успішно. Ми вже отримали підтвердження."
 msgstr "Payment completed successfully."
+
+#: templates/unfold/helpers/app_list_default.html:9
+#, python-format
+msgid "Models in the %(name)s application"
+msgstr ""
+
+#: templates/unfold/helpers/app_list_default.html:31
+msgid "Add"
+msgstr ""
+
+#: templates/unfold/helpers/app_list_default.html:38
+msgid "View"
+msgstr ""
+
+#: templates/unfold/helpers/app_list_default.html:42
+msgid "Change"
+msgstr ""
+
+#: templates/unfold/helpers/app_list_default.html:59
+msgid "You don’t have permission to view or edit anything."
+msgstr ""
+
+#: templates/unfold/helpers/empty_results.html:4
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: templates/unfold/helpers/empty_results.html:12
+msgid "No results found"
+msgstr ""
+
+#: templates/unfold/helpers/empty_results.html:16
+msgid ""
+"This page yielded into no results. Create a new item or reset your filters."
+msgstr ""
+
+#: templates/unfold/helpers/popup_header.html:14
+#, python-format
+msgid "%(counter)s result"
+msgid_plural "%(counter)s results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/unfold/helpers/popup_header.html:14
+#, python-format
+msgid "%(full_result_count)s total"
+msgstr ""
+
+#: templates/unfold/helpers/popup_header.html:14
+msgid "Show all"
+msgstr ""
+
+#: templates/unfold/helpers/site_logo.html:5
+#: templates/unfold/helpers/site_logo.html:6
+#: templates/unfold/helpers/site_logo.html:8
+#, fuzzy
+#| msgid "Головне зображення"
+msgid "Головна адмінпанелі"
+msgstr "Featured Image"
+
+#: templates/unfold/widgets/clearable_file_input.html:7
+msgid "Image preview"
+msgstr ""
+
+#: templates/unfold/widgets/clearable_file_input.html:26
+msgid "Choose file to upload"
+msgstr ""
+
+#, fuzzy
+#~| msgid "Заявка з footer - Консультація"
+#~ msgid "Заявка з footer"
+#~ msgstr "Telegram Consultation"
+
+#~ msgid "PrometeyLabs команда"
+#~ msgstr "PrometeyLabs team"
+
+#~ msgid "Чому варто обрати PrometeyLabs"
+#~ msgstr "Why choose PrometeyLabs"
+
+#~ msgid "Послуги PrometeyLabs"
+#~ msgstr "PrometeyLabs Services"
+
+#~ msgid "Програмування та AI від нуля до працевлаштування"
+#~ msgstr "Programming & AI from zero to employment"
+
+#~ msgid "Наші клієнти"
+#~ msgstr "Our Clients"
+
+#~ msgid "Готові почати?"
+#~ msgstr "Ready to Start?"
+
+#~ msgid ""
+#~ "Програмування та AI від нуля до реальних проєктів. Практика на сучасних "
+#~ "технологіях, портфоліо та можливість працевлаштування в PrometeyLabs."
+#~ msgstr ""
+#~ "Programming and AI from zero to real projects. Practice on modern "
+#~ "technologies, portfolio and employment opportunity at PrometeyLabs."
+
+#~ msgid "Для новачків:"
+#~ msgstr "For beginners:"
+
+#~ msgid "Бази даних та деплой проєктів"
+#~ msgstr "Databases and project deployment"
+
+#~ msgid "Завершальні проєкти для портфоліо"
+#~ msgstr "Final projects for portfolio"
+
+#~ msgid "AI для розробників:"
+#~ msgstr "AI for Developers:"
+
+#~ msgid "Основи та види AI, принципи роботи"
+#~ msgstr "AI basics and types, working principles"
+
+#~ msgid "Платформи для щоденного використання"
+#~ msgstr "Platforms for daily use"
+
+#~ msgid "Генерація та оптимізація коду через AI"
+#~ msgstr "Code generation and optimization through AI"
+
+#~ msgid "LLM, промпт-інженерія, практичні кейси"
+#~ msgstr "LLM, prompt engineering, practical cases"
+
+#~ msgid "Підтримка:"
+#~ msgstr "Support:"
+
+#~ msgid ""
+#~ "Індивідуальні та групові заняття • Зворотний зв'язок • Код-рев'ю • "
+#~ "Реальні бізнес-задачі • Підготовка CV/GitHub/LinkedIn"
+#~ msgstr ""
+#~ "Individual and group classes • Feedback • Code review • Real business "
+#~ "tasks • CV/GitHub/LinkedIn preparation"
+
+#~ msgid ""
+#~ "Найсильніші випускники після екзамену зможуть отримати офіційне "
+#~ "працевлаштування як розробники чи дизайнери в PrometeyLabs."
+#~ msgstr ""
+#~ "The strongest graduates after the exam will be able to get official "
+#~ "employment as developers or designers at PrometeyLabs."
+
+#, fuzzy
+#~| msgid "Налаштування платіжної системи"
+#~ msgid "інтеграція платіжних систем"
+#~ msgstr "Google Ads Setup"
+
+#~ msgid "CoreSync - AI Spa & Wellness Platform"
+#~ msgstr "CoreSync - AI Spa & Wellness Platform"
+
+#~ msgid ""
+#~ "Корпоративний сайт і мобільний застосунок із повністю ШІ-керованим "
+#~ "сервісом: онлайн-бронювання, iOS/Android застосунок і планшетна панель "
+#~ "для персоналу."
+#~ msgstr ""
+#~ "Corporate website and mobile app with fully AI-driven service: online "
+#~ "booking, iOS/Android app and staff tablet panel."
+
+#~ msgid "центральний AI-агент"
+#~ msgstr "central AI agent"
+
+#~ msgid "AI-кол-центр"
+#~ msgstr "AI call center"
+
+#~ msgid "AI-бронювання"
+#~ msgstr "AI booking"
+
+#~ msgid "внутрішня CRM"
+#~ msgstr "internal CRM"
+
+#~ msgid "PlayVision - футбольна освітня платформа"
+#~ msgstr "PlayVision - Football Education Platform"
+
+#~ msgid ""
+#~ "Футбольна освітня платформа з PWA-додатком і особистими кабінетами для "
+#~ "гравців, тренерів та батьків, включно із системою курсів та івентів."
+#~ msgstr ""
+#~ "Football education platform with PWA app and personal accounts for "
+#~ "players, coaches and parents, including course and event system."
+
+#~ msgid "персональний AI-помічник"
+#~ msgstr "personal AI assistant"
+
+#~ msgid "CRM оплат і підписок"
+#~ msgstr "payment and subscription CRM"
+
+#~ msgid "аналітика"
+#~ msgstr "analytics"
+
+#~ msgid "e-mail/SMS-сповіщення"
+#~ msgstr "e-mail/SMS notifications"
+
+#~ msgid "BeautyShop - онлайн-магазин косметики"
+#~ msgstr "BeautyShop - Online Cosmetics Store"
+
+#~ msgid "ОНЛАЙН-МАГАЗИН КОСМЕТИКИ"
+#~ msgstr "ONLINE COSMETICS STORE"
+
+#~ msgid ""
+#~ "Онлайн-магазин косметики з власною CRM, особистим кабінетом клієнта та "
+#~ "гнучкою системою цін, промокодів і акцій."
+#~ msgstr ""
+#~ "Online cosmetics store with own CRM, customer personal account and "
+#~ "flexible pricing, promo codes and promotions system."
+
+#~ msgid "онлайн-оплати"
+#~ msgstr "online payments"
+
+#~ msgid "промокоди та акції"
+#~ msgstr "promo codes and promotions"
+
+#~ msgid "аналітика замовлень"
+#~ msgstr "order analytics"
+
+#~ msgid "e-mail/SMS-нотифікації"
+#~ msgstr "e-mail/SMS notifications"
+
+#~ msgid "RedRabbit - e-commerce 18+"
+#~ msgstr "RedRabbit - e-commerce 18+"
+
+#~ msgid "E-COMMERCE 18+"
+#~ msgstr "E-COMMERCE 18+"
+
+#~ msgid ""
+#~ "Інтернет-магазин із 18+ age-gate, розширеною адмін-панеллю та CRM-"
+#~ "аналітикою."
+#~ msgstr ""
+#~ "E-commerce store with 18+ age-gate, extended admin panel and CRM "
+#~ "analytics."
+
+#~ msgid "платіжна система"
+#~ msgstr "payment system"
+
+#~ msgid "промокоди"
+#~ msgstr "promo codes"
+
+#~ msgid "CRM-аналітика"
+#~ msgstr "CRM analytics"
+
+#~ msgid "нотифікації клієнтам"
+#~ msgstr "client notifications"
+
+#~ msgid "SunPannel - сонячні панелі та енергорішення"
+#~ msgstr "SunPannel - Solar Panels and Energy Solutions"
+
+#~ msgid "СОНЯЧНІ ПАНЕЛІ ТА ЕНЕРГОРІШЕННЯ"
+#~ msgstr "SOLAR PANELS AND ENERGY SOLUTIONS"
+
+#~ msgid ""
+#~ "Корпоративний сайт і інтернет-магазин із технічним каталогом, що "
+#~ "автоматично оновлюється."
+#~ msgstr ""
+#~ "Corporate website and e-commerce store with technical catalog that "
+#~ "automatically updates."
+
+#~ msgid "автооновлення каталогу"
+#~ msgstr "automatic catalog update"
+
+#~ msgid "заявки на пропозицію"
+#~ msgstr "proposal requests"
+
+#~ msgid "e-mail менеджерам"
+#~ msgstr "e-mail to managers"
+
+#, fuzzy
+#~| msgid "BeautyShop - опис проекту"
+#~ msgid "Speak Up - опис проекту"
+#~ msgstr "BeautyShop - Project Description"
+
+#, fuzzy
+#~| msgid ""
+#~| "Платформа включає веб-додаток і мобільну версію, реалізована як "
+#~| "універсальний конструктор для управління контентом, структурою сторінок, "
+#~| "курсами та івентами без участі розробників."
+#~ msgid ""
+#~ "Платформа включає потужну адміністративну панель, реалізовану як "
+#~ "універсальний інструмент для керування розкладом, базою студентів, "
+#~ "фінансовою звітністю та контентом курсів без необхідності залучення "
+#~ "розробників."
+#~ msgstr ""
+#~ "The platform includes web app and mobile version, implemented as a "
+#~ "universal constructor for managing content, page structure, courses and "
+#~ "events without developer involvement."
+
+#~ msgid "CoreSync - опис проекту"
+#~ msgstr "CoreSync - Project Description"
+
+#~ msgid ""
+#~ "Корпоративний сайт та мобільний застосунок із повністю ШІ-керованим "
+#~ "сервісом: онлайн-бронюванням, застосунками для iOS/Android і планшетною "
+#~ "панеллю персоналу. Платформа автоматизує роботу салону та забезпечує "
+#~ "клієнтську підтримку 24/7."
+#~ msgstr ""
+#~ "Corporate website and mobile app with fully AI-driven service: online "
+#~ "booking, iOS/Android apps and staff tablet panel. The platform automates "
+#~ "salon operations and provides 24/7 customer support."
+
+#~ msgid "AI-кол-центр (голос/текст)"
+#~ msgstr "AI call center (voice/text)"
+
+#~ msgid "AI-бронювання за типами послуг"
+#~ msgstr "AI booking by service types"
+
+#~ msgid "AI-контроль атмосфери (світло, температура, музика)"
+#~ msgstr "AI atmosphere control (light, temperature, music)"
+
+#~ msgid ""
+#~ "Рішення об'єднує сайт, мобільні застосунки та робочу систему персоналу в "
+#~ "єдину екосистему."
+#~ msgstr ""
+#~ "The solution combines website, mobile apps and staff work system into a "
+#~ "unified ecosystem."
+
+#~ msgid "CoreSync - мобільна версія"
+#~ msgstr "CoreSync - Mobile Version"
+
+#~ msgid "CoreSync - планшетна версія"
+#~ msgstr "CoreSync - Tablet Version"
+
+#~ msgid ""
+#~ "AI-агенти забезпечують швидке обслуговування, точну комунікацію та "
+#~ "автоматизацію всіх операцій — від дзвінків до push-сповіщень. Платформа "
+#~ "адаптована під мобільні, планшетні й десктопні пристрої та містить "
+#~ "аналітику для управління завантаженістю й оптимізацією процесів. Система "
+#~ "легко масштабується новими модулями: від wellness-програм до фінансового "
+#~ "й маркетингового управління."
+#~ msgstr ""
+#~ "AI agents provide fast service, accurate communication and automation of "
+#~ "all operations — from calls to push notifications. The platform is "
+#~ "adapted for mobile, tablet and desktop devices and includes analytics for "
+#~ "managing workload and optimizing processes. The system easily scales with "
+#~ "new modules: from wellness programs to financial and marketing management."
+
+#~ msgid "CoreSync - десктопна версія"
+#~ msgstr "CoreSync - Desktop Version"
+
+#~ msgid "PlayVision - опис проекту"
+#~ msgstr "PlayVision - Project Description"
+
+#~ msgid ""
+#~ "Футбольна освітня платформа з PWA-додатком і особистими кабінетами для "
+#~ "гравців, тренерів та батьків. Рішення охоплює курси, івенти, контент та "
+#~ "інструменти для комплексного розвитку у футбольній індустрії."
+#~ msgstr ""
+#~ "Football education platform with PWA app and personal accounts for "
+#~ "players, coaches and parents. The solution covers courses, events, "
+#~ "content and tools for comprehensive development in the football industry."
+
+#~ msgid "CRM оплати та підписок"
+#~ msgstr "payment and subscription CRM"
+
+#~ msgid "аналітика прогресу"
+#~ msgstr "progress analytics"
+
+#~ msgid ""
+#~ "Платформа включає веб-додаток і мобільну версію, реалізована як "
+#~ "універсальний конструктор для управління контентом, структурою сторінок, "
+#~ "курсами та івентами без участі розробників."
+#~ msgstr ""
+#~ "The platform includes web app and mobile version, implemented as a "
+#~ "universal constructor for managing content, page structure, courses and "
+#~ "events without developer involvement."
+
+#~ msgid "PlayVision - мобільна версія"
+#~ msgstr "PlayVision - Mobile Version"
+
+#~ msgid "PlayVision - планшетна версія"
+#~ msgstr "PlayVision - Tablet Version"
+
+#~ msgid ""
+#~ "Підтримує темну/світлу теми, адаптивну навігацію та ролі з тарифами, що "
+#~ "формують гнучкий доступ для різних категорій користувачів. Система "
+#~ "створена як масштабована екосистема з можливістю інтеграції нових модулів "
+#~ "та сервісів без зміни ядра."
+#~ msgstr ""
+#~ "Supports dark/light themes, adaptive navigation and roles with tariffs "
+#~ "that form flexible access for different user categories. The system is "
+#~ "created as a scalable ecosystem with the ability to integrate new modules "
+#~ "and services without changing the core."
+
+#~ msgid "PlayVision - десктопна версія"
+#~ msgstr "PlayVision - Desktop Version"
+
+#~ msgid "Онлайн-магазин косметики"
+#~ msgstr "Online Cosmetics Store"
+
+#~ msgid "BeautyShop - опис проекту"
+#~ msgstr "BeautyShop - Project Description"
+
+#~ msgid ""
+#~ "E-commerce платформа з CRM, особистим кабінетом та гнучкими механіками "
+#~ "цін, промокодів та акцій. Рішення створене для персоналізованого досвіду "
+#~ "покупки та автоматизації роботи адміністратора."
+#~ msgstr ""
+#~ "E-commerce platform with CRM, personal account and flexible pricing, "
+#~ "promo codes and promotions mechanics. The solution is created for "
+#~ "personalized shopping experience and administrator work automation."
+
+#~ msgid "промокоди та акційні правила"
+#~ msgstr "promo codes and promotion rules"
+
+#~ msgid "аналітика замовлень і поведінки"
+#~ msgstr "order and behavior analytics"
+
+#~ msgid ""
+#~ "Система поєднує магазин і CRM-адмінку для керування товарами, "
+#~ "категоріями, залишками й замовленнями."
+#~ msgstr ""
+#~ "The system combines store and CRM admin panel for managing products, "
+#~ "categories, inventory and orders."
+
+#~ msgid "BeautyShop - мобільна версія"
+#~ msgstr "BeautyShop - Mobile Version"
+
+#~ msgid "BeautyShop - планшетна версія"
+#~ msgstr "BeautyShop - Tablet Version"
+
+#~ msgid ""
+#~ "Платформа підтримує сегментацію користувачів, персональні рекомендації та "
+#~ "різні цінові групи, що підвищує конверсію. Інтерфейс повністю адаптивний, "
+#~ "оптимізований для мобільних та десктопів. Адмін-панель дозволяє швидко "
+#~ "оновлювати товари, запускати акції та відстежувати ефективність "
+#~ "маркетингових дій у реальному часі. Система масштабована й готова до "
+#~ "підключення AI-рекомендацій та омніканальних продажів."
+#~ msgstr ""
+#~ "The platform supports user segmentation, personal recommendations and "
+#~ "different price groups, which increases conversion. The interface is "
+#~ "fully adaptive, optimized for mobile and desktop. The admin panel allows "
+#~ "quick product updates, launching promotions and tracking marketing "
+#~ "effectiveness in real time. The system is scalable and ready for AI "
+#~ "recommendations and omnichannel sales integration."
+
+#~ msgid "BeautyShop - десктопна версія"
+#~ msgstr "BeautyShop - Desktop Version"
+
+#~ msgid "RedRabbit - опис проекту"
+#~ msgstr "RedRabbit - Project Description"
+
+#~ msgid ""
+#~ "Інтернет-магазин із 18+ age-gate, розширеною адмін-панеллю та CRM-"
+#~ "аналітикою. Платформа розроблена для великих товарних обсягів, категорій "
+#~ "і різних акційних моделей."
+#~ msgstr ""
+#~ "E-commerce store with 18+ age-gate, extended admin panel and CRM "
+#~ "analytics. The platform is designed for large product volumes, categories "
+#~ "and various promotion models."
+
+#~ msgid "промокоди та акційні сценарії"
+#~ msgstr "promo codes and promotion scenarios"
+
+#~ msgid "автоматичні нотифікації"
+#~ msgstr "automatic notifications"
+
+#~ msgid "автооновлюваний каталог товарів (синхронізація кожні 2 години)"
+#~ msgstr "auto-updating product catalog (sync every 2 hours)"
+
+#~ msgid ""
+#~ "Платформа включає сайт із захищеним доступом, рольову систему та "
+#~ "інструменти управління товарами, замовленнями й маркетингом."
+#~ msgstr ""
+#~ "The platform includes a website with protected access, role system and "
+#~ "tools for managing products, orders and marketing."
+
+#~ msgid "RedRabbit - мобільна версія"
+#~ msgstr "RedRabbit - Mobile Version"
+
+#~ msgid "RedRabbit - планшетна версія"
+#~ msgstr "RedRabbit - Tablet Version"
+
+#~ msgid ""
+#~ "Age-gate забезпечує відповідність 18+ та захист контенту. Система надає "
+#~ "деталізовану статистику акцій, конверсій та поведінки користувачів. "
+#~ "Автооновлення каталогу гарантує актуальні залишки, ціни й пропозиції без "
+#~ "ручного втручання. Інтерфейс адаптивний і оптимізований під мобільні "
+#~ "пристрої. Платформа масштабована під нових постачальників та розширення "
+#~ "функціоналу."
+#~ msgstr ""
+#~ "Age-gate ensures 18+ compliance and content protection. The system "
+#~ "provides detailed statistics on promotions, conversions and user "
+#~ "behavior. Automatic catalog updates guarantee current inventory, prices "
+#~ "and offers without manual intervention. The interface is adaptive and "
+#~ "optimized for mobile devices. The platform is scalable for new suppliers "
+#~ "and functionality expansion."
+
+#~ msgid "RedRabbit - десктопна версія"
+#~ msgstr "RedRabbit - Desktop Version"
+
+#~ msgid "Сонячні панелі та енергорішення"
+#~ msgstr "Solar Panels and Energy Solutions"
+
+#~ msgid "SunPannel - опис проекту"
+#~ msgstr "SunPannel - Project Description"
+
+#~ msgid ""
+#~ "Корпоративний сайт і інтернет-магазин з технічним каталогом, що "
+#~ "автоматично оновлюється. Рішення призначене для продажу сонячних "
+#~ "комплектів, панелей, інверторів та енергосистем."
+#~ msgstr ""
+#~ "Corporate website and e-commerce store with technical catalog that "
+#~ "automatically updates. The solution is designed for selling solar kits, "
+#~ "panels, inverters and energy systems."
+
+#~ msgid "онлайн-оплати та рахунки"
+#~ msgstr "online payments and invoices"
+
+#~ msgid "заявка на комерційну пропозицію"
+#~ msgstr "commercial proposal request"
+
+#~ msgid "керування контентом, товарами та маркетинговими сторінками"
+#~ msgstr "content, products and marketing pages management"
+
+#~ msgid ""
+#~ "Платформа поєднує маркетингові сторінки, каталог, фільтри й кошик у єдину "
+#~ "систему."
+#~ msgstr ""
+#~ "The platform combines marketing pages, catalog, filters and shopping cart "
+#~ "into a unified system."
+
+#~ msgid "SunPannel - мобільна версія"
+#~ msgstr "SunPannel - Mobile Version"
+
+#~ msgid "SunPannel - планшетна версія"
+#~ msgstr "SunPannel - Tablet Version"
+
+#~ msgid ""
+#~ "Технічні фільтри дозволяють зібрати комплект за параметрами (потужність, "
+#~ "інвертор, кількість панелей). Інтерфейс адаптивний і зручний навіть у "
+#~ "складних технічних розділах. Автоматичне оновлення забезпечує "
+#~ "актуальність характеристик, залишків і цін у швидкозмінному енергетичному "
+#~ "сегменті. Платформа створена для масштабування й інтеграції з будь-якими "
+#~ "постачальниками та новими модулями."
+#~ msgstr ""
+#~ "Technical filters allow assembling a kit by parameters (power, inverter, "
+#~ "number of panels). The interface is adaptive and convenient even in "
+#~ "complex technical sections. Automatic updates ensure current "
+#~ "specifications, inventory and prices in the fast-changing energy segment. "
+#~ "The platform is created for scaling and integration with any suppliers "
+#~ "and new modules."
+
+#~ msgid "SunPannel - десктопна версія"
+#~ msgstr "SunPannel - Desktop Version"
 
 #~ msgid ""
 #~ "PrometeyLabs — компанія, яка поєднує класичний досвід створення цифрових "
@@ -3262,9 +3651,6 @@ msgstr "Payment completed successfully."
 #~ msgid "Знижка"
 #~ msgstr "Discounts"
 
-#~ msgid "Курс"
-#~ msgstr "Courses"
-
 #~ msgid "Майстер-клас"
 #~ msgstr "Workshops"
 
@@ -3292,9 +3678,6 @@ msgstr "Payment completed successfully."
 #~ msgid "Онлайн подія"
 #~ msgstr "online events"
 
-#~ msgid "Посилання на зустріч"
-#~ msgstr "Meeting link"
-
 #~ msgid "Ціна"
 #~ msgstr "Price:"
 
@@ -3309,9 +3692,6 @@ msgstr "Payment completed successfully."
 
 #~ msgid "Поточна кількість учасників"
 #~ msgstr "What is the current project readiness?"
-
-#~ msgid "Зображення події"
-#~ msgstr "online events"
 
 #~ msgid "Рекомендована"
 #~ msgstr "Featured"
@@ -3394,9 +3774,6 @@ msgstr "Payment completed successfully."
 #~ msgid "знижки"
 #~ msgstr "discounts"
 
-#~ msgid "Всі"
-#~ msgstr "All"
-
 #~ msgid "Вебінари"
 #~ msgstr "Webinars"
 
@@ -3469,9 +3846,6 @@ msgstr "Payment completed successfully."
 
 #~ msgid "Не вдалося створити інвойс або здійснити платіж."
 #~ msgstr "Failed to create invoice or process payment."
-
-#~ msgid "Оплатити карткою"
-#~ msgstr "Pay by Card"
 
 #~ msgid "Банківський переказ"
 #~ msgstr "Bank Transfer"
