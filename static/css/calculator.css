@@ -122,12 +122,21 @@
     display: flex;
     flex-direction: column;
     gap: clamp(32px, 5vw, 48px);
-    max-width: 900px;
-    margin: 0 auto;
 }
 
 .calc-hero__content {
     max-width: 640px;
+}
+
+.calc-hero__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+
+.calc-hero__sidebar:has(#test-section:not(.hidden)) .calc-hero__cta {
+    display: none;
 }
 
 .calc-hero__label {
@@ -190,7 +199,6 @@
 
 .calc-hero__cta {
     width: 100%;
-    max-width: 480px;
 }
 
 .calc-cta-box {
@@ -254,13 +262,13 @@
 
 /* ===== TEST SECTION ===== */
 .calc-test {
-    padding: 0 0 40px;
+    padding: 0;
     background: transparent;
 }
 
 .calc-test__wrapper {
-    max-width: 880px;
-    margin: 0 auto;
+    max-width: none;
+    margin: 0;
 }
 
 .calc-test__header {
@@ -582,6 +590,32 @@
 @keyframes calc-loading-spin {
     to {
         transform: rotate(360deg);
+    }
+}
+
+/* ===== DESKTOP: контент зліва, тест/CTA справа ===== */
+@media (min-width: 768px) {
+    .calc-hero__wrapper {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(300px, 400px);
+        gap: 40px 48px;
+        align-items: start;
+    }
+
+    .calc-hero__sidebar {
+        position: sticky;
+        top: clamp(88px, 12vh, 120px);
+        gap: 0;
+    }
+
+    .calc-hero {
+        padding-bottom: clamp(64px, 8vw, 96px);
+    }
+
+    .calc-test__wrapper {
+        max-height: calc(100vh - 140px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
     }
 }
 

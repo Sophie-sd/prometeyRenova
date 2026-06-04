@@ -1,6 +1,7 @@
 /* Final variant orchestration — .home-redesign.vf */
 
 .home-redesign.vf {
+  --v2-orange: #E65100;
   background: #050505;
   position: relative;
   overflow: hidden;

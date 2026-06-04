@@ -40,24 +40,23 @@
                         </div>
                     </div>
 
-                    <div class="calc-hero__cta">
-                        <div class="calculator-panel__glass">
-                            <div class="calc-cta-box">
-                                <p class="calc-cta-box__subtitle">{% trans "5 простих питань" %}</p>
-                                <button type="button" class="calc-cta-btn start-test-btn">
-                                    <span class="calc-cta-btn__text">{% trans "ПРОЙТИ ТЕСТ" %}</span>
-                                    <span class="calc-cta-btn__arrow" aria-hidden="true">→</span>
-                                </button>
-                                <p class="calc-cta-box__note">
-                                    {% trans "Отримайте точну оцінку вартості за 2 хвилини" %}
-                                </p>
+                    <aside class="calc-hero__sidebar">
+                        <div class="calc-hero__cta">
+                            <div class="calculator-panel__glass">
+                                <div class="calc-cta-box">
+                                    <p class="calc-cta-box__subtitle">{% trans "5 простих питань" %}</p>
+                                    <button type="button" class="calc-cta-btn start-test-btn">
+                                        <span class="calc-cta-btn__text">{% trans "ПРОЙТИ ТЕСТ" %}</span>
+                                        <span class="calc-cta-btn__arrow" aria-hidden="true">→</span>
+                                    </button>
+                                    <p class="calc-cta-box__note">
+                                        {% trans "Отримайте точну оцінку вартості за 2 хвилини" %}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
 
-            <section class="calc-test hidden" id="test-section" aria-labelledby="calc-test-title">
+                        <section class="calc-test hidden" id="test-section" aria-labelledby="calc-test-title">
                 <div class="calc-test__wrapper calculator-panel__glass">
                     <div class="calc-test__header">
                         <span class="calc-test__label">{% trans "Розрахунок вартості" %}</span>
@@ -232,6 +231,9 @@
                             </button>
                         </div>
                     </form>
+                </div>
+                        </section>
+                    </aside>
                 </div>
             </section>
         </div>

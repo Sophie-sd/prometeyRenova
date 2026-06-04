@@ -482,6 +482,11 @@
 
 .home-redesign .v3-svc-card{ aspect-ratio: 4/5; }
 
+.home-redesign .v3-services .v2-h2 .v2-orange,
+.home-redesign .v3-clients .v2-h2 .v2-orange{
+  color: var(--v3-orange, #FF6B1A);
+}
+
 @media (max-width: 767px) {
   .home-redesign .v3-services .v2-h2,
   .home-redesign .v3-clients .v2-h2{
