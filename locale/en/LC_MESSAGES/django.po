@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PrometeyLabs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-04 16:20+0300\n"
+"POT-Creation-Date: 2026-06-04 16:38+0300\n"
 "PO-Revision-Date: 2025-09-29 12:00+0000\n"
 "Last-Translator: PrometeyLabs <info@prometeylabs.com>\n"
 "Language-Team: English\n"
@@ -1372,7 +1372,7 @@ msgstr "Blog"
 msgid "Зателефонувати"
 msgstr "Phone number"
 
-#: templates/components/burger_menu.html:65 templates/pages/home.html:55
+#: templates/components/burger_menu.html:65
 #: templates/payment/payment_page.html:264
 msgid "Написати в Telegram"
 msgstr "Write in Telegram"
@@ -1846,7 +1846,7 @@ msgstr ""
 msgid "Закрити модальне вікно"
 msgstr "Close Menu"
 
-#: templates/components/modals.html:13 templates/pages/home.html:58
+#: templates/components/modals.html:13
 msgid "Хочу стати розробником"
 msgstr "I Want to Become a Developer"
 
@@ -2587,9 +2587,17 @@ msgstr "social media management"
 msgid "навчання"
 msgstr "training"
 
-#: templates/pages/home.html:61
+#: templates/pages/home.html:55
+msgid "Написати в телеграм"
+msgstr "Message us on Telegram"
+
+#: templates/pages/home.html:58
 msgid "Розрахувати вартість онлайн"
 msgstr "Calculate Cost Online"
+
+#: templates/pages/home.html:61
+msgid "Залишити заявку"
+msgstr "Leave a request"
 
 #: templates/pages/home.html:72 templates/pages/home.html:94
 #: templates/pages/home.html:138
@@ -3737,9 +3745,6 @@ msgstr ""
 
 #~ msgid "Наш менеджер зв'яжеться з вами найближчим часом"
 #~ msgstr "Our manager will contact you soon"
-
-#~ msgid "Написати в Telegram зараз"
-#~ msgstr "Write in Telegram"
 
 #~ msgid "Заповніть форму для реєстрації на подію"
 #~ msgstr "Fill out the form to register for the event"

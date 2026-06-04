@@ -1729,7 +1729,7 @@ img, video {
 @media (max-width: 767px) {
     .mobile-menu-footer {
         margin-top: auto;
-        padding-top: clamp(6px, 1.5vh, 10px);
+        padding-top: clamp(14px, 3vh, 22px);
         padding-bottom: clamp(8px, 2vh, 16px);
         gap: clamp(56px, 12vh, 80px);
     }
@@ -3278,6 +3278,20 @@ body.modal-open .main-footer {
     /* Portfolio sticky hero - мобільна версія з safe areas */
     .main-content:has(.portfolio-projects) > .hero-section {
         top: max(0px, env(safe-area-inset-top));
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        max-width: 340px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        min-width: 0;
     }
 }
 

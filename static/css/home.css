@@ -1,5 +1,10 @@
 /* HOME.CSS — hero/video: hero-parallax.css; main content: home-redesign/*.css */
 
+/* Квадратні кути CTA як у hero (див. 3-й референс) */
+.hero-buttons .btn {
+    border-radius: 0;
+}
+
 /* Service modals (home page only) */
 .service-modal-content {
     max-width: 600px;

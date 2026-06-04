@@ -280,6 +280,20 @@
     .main-content:has(.portfolio-projects) > .hero-section {
         top: max(0px, env(safe-area-inset-top));
     }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        max-width: 340px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        min-width: 0;
+    }
 }
 
 /* ===== iOS SAFARI ПІДТРИМКА ===== */

@@ -660,7 +660,7 @@
 @media (max-width: 767px) {
     .mobile-menu-footer {
         margin-top: auto;
-        padding-top: clamp(6px, 1.5vh, 10px);
+        padding-top: clamp(14px, 3vh, 22px);
         padding-bottom: clamp(8px, 2vh, 16px);
         gap: clamp(56px, 12vh, 80px);
     }
