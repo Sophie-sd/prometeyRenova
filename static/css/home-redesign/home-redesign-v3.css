@@ -483,8 +483,9 @@
 .home-redesign .v3-svc-card{ aspect-ratio: 4/5; }
 
 @media (max-width: 767px) {
-  .home-redesign .v3-services .v3-h2{
-    margin-bottom: 16px;
+  .home-redesign .v3-services .v2-h2,
+  .home-redesign .v3-clients .v2-h2{
+    margin-bottom: 20px;
   }
 
   .home-redesign .v3-svc-grid{
