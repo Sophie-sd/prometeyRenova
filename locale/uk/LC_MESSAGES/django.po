@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-04 16:38+0300\n"
+"POT-Creation-Date: 2026-06-04 17:02+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -159,7 +159,7 @@ msgid "Ім'я"
 msgstr ""
 
 #: apps/core/admin.py:169 apps/core/models.py:46 apps/core/models.py:271
-#: templates/pages/calculator.html:227 templates/pages/contacts.html:34
+#: templates/pages/calculator.html:224 templates/pages/contacts.html:34
 #: templates/pages/contacts.html:82
 msgid "Телефон"
 msgstr ""
@@ -1266,7 +1266,7 @@ msgid "ОТРИМАТИ КОНСУЛЬТАЦІЮ"
 msgstr ""
 
 #: templates/components/footer.html:77 templates/components/modals.html:27
-#: templates/components/modals.html:131 templates/pages/calculator.html:222
+#: templates/components/modals.html:131 templates/pages/calculator.html:219
 msgid "Введіть ваше ім\\"
 msgstr ""
 
@@ -1544,8 +1544,8 @@ msgid "Веб-додатки:"
 msgstr ""
 
 #: templates/components/home/redesign_why.html:52
-msgid "від 1500–5000 €"
-msgstr ""
+msgid "1500–5000 €"
+msgstr "1500–5000 €"
 
 #: templates/components/home/redesign_why.html:55
 msgid "Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов."
@@ -1721,7 +1721,7 @@ msgstr ""
 msgid "Сторінка"
 msgstr ""
 
-#: templates/pages/blog.html:194 templates/pages/calculator.html:78
+#: templates/pages/blog.html:194 templates/pages/calculator.html:75
 msgid "з"
 msgstr ""
 
@@ -1786,176 +1786,179 @@ msgid "Калькулятор"
 msgstr ""
 
 #: templates/pages/calculator.html:20
-msgid ""
-"Розрахувати\n"
-"вартість\n"
-"проекту"
-msgstr ""
+#, fuzzy
+#| msgid "Розрахувати вартість онлайн"
+msgid "Розрахувати вартість проекту"
+msgstr "Розрахувати вартість онлайн"
 
-#: templates/pages/calculator.html:27
+#: templates/pages/calculator.html:21
+msgid "Отримайте орієнтовну оцінку вартості розробки сайту за кілька хвилин."
+msgstr "Отримайте орієнтовну оцінку вартості розробки сайту за кілька хвилин."
+
+#: templates/pages/calculator.html:26
 msgid "AI агенти для швидкої розробки"
 msgstr ""
 
-#: templates/pages/calculator.html:31
+#: templates/pages/calculator.html:30
 msgid "Продумана архітектура та логіка продукту"
 msgstr ""
 
-#: templates/pages/calculator.html:35
+#: templates/pages/calculator.html:34
 msgid "Власна LLM модель Prometey"
 msgstr ""
 
-#: templates/pages/calculator.html:39
+#: templates/pages/calculator.html:38
 msgid "Автоматизоване тестування"
 msgstr ""
 
-#: templates/pages/calculator.html:47
+#: templates/pages/calculator.html:46
 msgid "5 простих питань"
 msgstr ""
 
-#: templates/pages/calculator.html:49
+#: templates/pages/calculator.html:48
 msgid "ПРОЙТИ ТЕСТ"
 msgstr ""
 
-#: templates/pages/calculator.html:53
+#: templates/pages/calculator.html:52
 msgid "Отримайте точну оцінку вартості за 2 хвилини"
 msgstr ""
 
-#: templates/pages/calculator.html:66
+#: templates/pages/calculator.html:63
 msgid "Розрахунок вартості"
 msgstr ""
 
-#: templates/pages/calculator.html:67
+#: templates/pages/calculator.html:64
 msgid "Розробки веб-сайту"
 msgstr ""
 
-#: templates/pages/calculator.html:71
+#: templates/pages/calculator.html:68
 msgid ""
 "Якщо вам потрібен мобільний застосунок, Telegram-бот або реклама — поставте "
 "галочку та залиште дані зворотнього зв'язку у формі під тестом (тест "
 "заповнювати не потрібно якщо додатково вам не потрібен сайт)"
 msgstr ""
 
-#: templates/pages/calculator.html:77
+#: templates/pages/calculator.html:74
 msgid "Питання"
 msgstr ""
 
-#: templates/pages/calculator.html:84
+#: templates/pages/calculator.html:81
 msgid "Який сайт необхідно розробити?"
 msgstr ""
 
-#: templates/pages/calculator.html:89
+#: templates/pages/calculator.html:86
 msgid "Лендінг (одна сторінка)"
 msgstr ""
 
-#: templates/pages/calculator.html:93
+#: templates/pages/calculator.html:90
 msgid "Розширений лендінг / промо-сайт (багатосторінковий)"
 msgstr ""
 
-#: templates/pages/calculator.html:97
+#: templates/pages/calculator.html:94
 msgid "Корпоративний сайт або сайт послуг"
 msgstr ""
 
-#: templates/pages/calculator.html:101
+#: templates/pages/calculator.html:98
 msgid "Інтернет-магазин"
 msgstr ""
 
-#: templates/pages/calculator.html:105
+#: templates/pages/calculator.html:102
 msgid "Веб-додаток / PWA"
 msgstr ""
 
-#: templates/pages/calculator.html:113
+#: templates/pages/calculator.html:110
 msgid "Як мають надходити та оброблятися заявки з сайту?"
 msgstr ""
 
-#: templates/pages/calculator.html:118
+#: templates/pages/calculator.html:115
 msgid "На email"
 msgstr ""
 
-#: templates/pages/calculator.html:122
+#: templates/pages/calculator.html:119
 msgid "У месенджер (Telegram / WhatsApp / Viber)"
 msgstr ""
 
-#: templates/pages/calculator.html:126
+#: templates/pages/calculator.html:123
 msgid "В адмін-панель сайту (простий кабінет / CRM)"
 msgstr ""
 
-#: templates/pages/calculator.html:130
+#: templates/pages/calculator.html:127
 msgid "В існуючу CRM"
 msgstr ""
 
-#: templates/pages/calculator.html:134
+#: templates/pages/calculator.html:131
 msgid "Відправка заявок не потрібна"
 msgstr ""
 
-#: templates/pages/calculator.html:142
+#: templates/pages/calculator.html:139
 msgid "За скільки днів потрібно запустити сайт?"
 msgstr ""
 
-#: templates/pages/calculator.html:147
+#: templates/pages/calculator.html:144
 msgid "Терміново (3–14 днів)"
 msgstr ""
 
-#: templates/pages/calculator.html:151
+#: templates/pages/calculator.html:148
 msgid "Стандартно (7–21 день)"
 msgstr ""
 
-#: templates/pages/calculator.html:155
+#: templates/pages/calculator.html:152
 msgid "Не поспішаю (14–28 днів)"
 msgstr ""
 
-#: templates/pages/calculator.html:159
+#: templates/pages/calculator.html:156
 msgid "Гнучкий графік, можна підлаштуватися"
 msgstr ""
 
-#: templates/pages/calculator.html:167
+#: templates/pages/calculator.html:164
 msgid "Чи потрібні онлайн-оплати на сайті?"
 msgstr ""
 
-#: templates/pages/calculator.html:172
+#: templates/pages/calculator.html:169
 msgid "Ні, оплата на сайті не потрібна"
 msgstr ""
 
-#: templates/pages/calculator.html:176
+#: templates/pages/calculator.html:173
 msgid "Так, оплата карткою онлайн"
 msgstr ""
 
-#: templates/pages/calculator.html:180
+#: templates/pages/calculator.html:177
 msgid "Так, оплата за рахунком / інвойсом"
 msgstr ""
 
-#: templates/pages/calculator.html:184
+#: templates/pages/calculator.html:181
 msgid "Так, кілька способів оплати (картка + рахунок тощо)"
 msgstr ""
 
-#: templates/pages/calculator.html:192
+#: templates/pages/calculator.html:189
 msgid "Яка поточна готовність проєкту?"
 msgstr ""
 
-#: templates/pages/calculator.html:197
+#: templates/pages/calculator.html:194
 msgid "Є тільки ідея, потрібна консультація"
 msgstr ""
 
-#: templates/pages/calculator.html:201
+#: templates/pages/calculator.html:198
 msgid "Є повне, чітко сформульоване технічне завдання"
 msgstr ""
 
-#: templates/pages/calculator.html:205
+#: templates/pages/calculator.html:202
 msgid "Є макети/дизайн"
 msgstr ""
 
-#: templates/pages/calculator.html:209
+#: templates/pages/calculator.html:206
 msgid "Є логотип та брендинг"
 msgstr ""
 
-#: templates/pages/calculator.html:213
+#: templates/pages/calculator.html:210
 msgid "Є соціальні мережи та контент"
 msgstr ""
 
-#: templates/pages/calculator.html:221 templates/pages/contacts.html:77
+#: templates/pages/calculator.html:218 templates/pages/contacts.html:77
 msgid "Ваше ім'я"
 msgstr ""
 
-#: templates/pages/calculator.html:234
+#: templates/pages/calculator.html:231
 msgid "ОТРИМАТИ РОЗРАХУНОК"
 msgstr ""
 
