@@ -1,0 +1,66 @@
+{% load i18n static %}
+<div class="v3 vf-host vf-host-bare">
+    <section class="v3-section v3-services">
+        <div class="v3-chip">— {% trans "Послуги" %}</div>
+        <h2 class="v3-h2">
+            {% trans "Послуги" %} <span class="v3-orange v3-glow-text">PrometeyLabs</span>
+        </h2>
+        <div class="v3-svc-grid">
+            <article class="v3-svc-card service-card lazy-bg" data-service="web" data-bg-desktop="{% static 'images/services/web.png' %}" data-bg-mobile="{% static 'images/services/web_mob.png' %}">
+                <div class="v3-svc-edge" aria-hidden="true"></div>
+                <span class="v3-svc-num">01</span>
+                <div class="v3-svc-shade"></div>
+                <div class="v3-svc-body">
+                    <h3 class="v3-svc-title">{% trans "Web-розробка" %}</h3>
+                    <p class="v3-svc-desc">{% trans "Сайти під ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-боти" %}</p>
+                    <button class="v3-btn service-detail-btn" type="button" aria-label="{% trans 'Детальніше про Web-розробку' %}">
+                        <span>{% trans "Детальніше" %}</span>
+                        <span class="v3-arrow" aria-hidden="true">↗</span>
+                    </button>
+                </div>
+            </article>
+
+            <article class="v3-svc-card service-card lazy-bg" data-service="mobile" data-bg-desktop="{% static 'images/services/mob.png' %}" data-bg-mobile="{% static 'images/services/mob_mob.png' %}">
+                <div class="v3-svc-edge" aria-hidden="true"></div>
+                <span class="v3-svc-num">02</span>
+                <div class="v3-svc-shade"></div>
+                <div class="v3-svc-body">
+                    <h3 class="v3-svc-title">{% trans "Мобільні застосунки" %}</h3>
+                    <p class="v3-svc-desc">{% trans "iOS та Android додатки з сучасним дизайном" %}</p>
+                    <button class="v3-btn service-detail-btn" type="button" aria-label="{% trans 'Детальніше про Мобільні застосунки' %}">
+                        <span>{% trans "Детальніше" %}</span>
+                        <span class="v3-arrow" aria-hidden="true">↗</span>
+                    </button>
+                </div>
+            </article>
+
+            <article class="v3-svc-card service-card lazy-bg" data-service="smm" data-bg-desktop="{% static 'images/services/media.png' %}" data-bg-mobile="{% static 'images/services/media_mob.png' %}">
+                <div class="v3-svc-edge" aria-hidden="true"></div>
+                <span class="v3-svc-num">03</span>
+                <div class="v3-svc-shade"></div>
+                <div class="v3-svc-body">
+                    <h3 class="v3-svc-title">{% trans "Реклама та ведення соціальних мереж" %}</h3>
+                    <p class="v3-svc-desc">{% trans "Google Ads, Meta Ads, TikTok Ads, SMM, контент" %}</p>
+                    <button class="v3-btn service-detail-btn" type="button" aria-label="{% trans 'Детальніше про Реклама та ведення соціальних мереж' %}">
+                        <span>{% trans "Детальніше" %}</span>
+                        <span class="v3-arrow" aria-hidden="true">↗</span>
+                    </button>
+                </div>
+            </article>
+
+            <article class="v3-svc-card service-card lazy-bg" data-service="education" data-bg-desktop="{% static 'images/services/edu.png' %}" data-bg-mobile="{% static 'images/services/edu_mob.png' %}">
+                <div class="v3-svc-edge" aria-hidden="true"></div>
+                <span class="v3-svc-num">04</span>
+                <div class="v3-svc-shade"></div>
+                <div class="v3-svc-body">
+                    <h3 class="v3-svc-title">{% trans "Навчання" %}</h3>
+                    <p class="v3-svc-desc">{% trans "Програмування та AI від нуля до працевлаштування" %}</p>
+                    <button class="v3-btn service-detail-btn" type="button" aria-label="{% trans 'Детальніше про Навчання' %}">
+                        <span>{% trans "Детальніше" %}</span>
+                        <span class="v3-arrow" aria-hidden="true">↗</span>
+                    </button>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

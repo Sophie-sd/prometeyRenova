@@ -9,6 +9,13 @@
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 <link rel="stylesheet" href="{% static 'css/components/marquee-why-choose.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Unbounded:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v2.css' %}">
+<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v3.css' %}">
+<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-final.css' %}">
+<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-bridge.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -108,239 +115,16 @@
     </div>
 </section>
 
-<section class="why-choose-section">
-    <div class="container">
-        <h2 class="text-large color-brand-orange mb-lg text-center">{% trans "Чому варто обрати PrometeyLabs" %}</h2>
-        
-        <div class="why-choose-intro">
-            <p class="text-base color-white">
-                {% trans "Ми розробляємо сайти, якими справді легко керувати. Жодних обмежень шаблонних рішень — тільки чистий, оптимізований код та індивідуальна архітектура. Завдяки детальній розробці адміністративної частини, ви можете самостійно оновлювати весь контент сайту в кілька кліків, не залучаючи програмістів. Ми створюємо фундамент, який готовий до будь-яких інтеграцій та росту разом із вашим бізнесом." %}
-            </p>
-        </div>
+<div class="home-redesign vf" id="home-redesign">
+    <div class="v3-bg-glow v3-glow-a" aria-hidden="true"></div>
+    <div class="v3-bg-glow v3-glow-b" aria-hidden="true"></div>
+    <div class="v3-bg-grid" aria-hidden="true"></div>
 
-        <div class="why-choose-grid">
-            <div class="why-card" data-delay="0">
-                <img src="{% static 'images/calendar.svg' %}" alt="" loading="lazy" class="why-card-icon">
-                <div class="why-card-content">
-                    <h3 class="why-card-title">
-                        <span class="color-brand-orange">{% trans "Прозорі строки," %}</span> {% trans "які ми дотримуємося" %}
-                    </h3>
-                    <div class="why-card-body">
-                        <p class="why-card-subtitle">{% trans "Базові терміни виконання:" %}</p>
-                        <ul class="why-list">
-                            <li><strong>{% trans "Лендінги:" %}</strong> 3–7 {% trans "днів" %}</li>
-                            <li><strong>{% trans "Корпоративні сайти:" %}</strong> 7–14 {% trans "днів" %}</li>
-                            <li><strong>{% trans "Інтернет-магазини:" %}</strong> 14–21 {% trans "днів" %}</li>
-                            <li><strong>{% trans "Веб-додатки / SaaS:" %}</strong> 14–30 {% trans "днів" %}</li>
-                        </ul>
-                        <p class="why-card-note">
-                            {% trans "Точний час розробки залежить від складності дизайну, інтеграцій та функціоналу — визначаємо на консультації." %}
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="why-card" data-delay="100">
-                <img src="{% static 'images/dollar.svg' %}" alt="" loading="lazy" class="why-card-icon">
-                <div class="why-card-content">
-                    <h3 class="why-card-title">
-                        <span class="color-brand-orange">{% trans "Справедлива вартість" %}</span> {% trans "та гнучкі умови оплати" %}
-                    </h3>
-                    <div class="why-card-body">
-                        <p class="why-card-subtitle">{% trans "Середні діапазони цін:" %}</p>
-                        <ul class="why-list">
-                            <li><strong>{% trans "Лендінги:" %}</strong> $150–350</li>
-                            <li><strong>{% trans "Корпоративні сайти:" %}</strong> $350–500</li>
-                            <li><strong>E-commerce:</strong> $500–800</li>
-                            <li><strong>{% trans "Веб-додатки:" %}</strong> $700–1000+</li>
-                        </ul>
-                        <p class="why-card-note">
-                            {% trans "Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов." %}
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="why-card" data-delay="200">
-                <img src="{% static 'images/shield.svg' %}" alt="" loading="lazy" class="why-card-icon">
-                <div class="why-card-content">
-                    <h3 class="why-card-title">
-                        <span class="why-card-highlight">{% trans "5-річна" %}</span> 
-                        <span class="color-brand-orange">{% trans "гарантія" %}</span> {% trans "на наші продукти" %}
-                    </h3>
-                    <div class="why-card-body">
-                        <p class="why-card-subtitle">{% trans "Гарантія включає:" %}</p>
-                        <ul class="why-list">
-                            <li>{% trans "Виправлення технічних помилок" %}</li>
-                            <li>{% trans "Підтримку працездатності коду" %}</li>
-                            <li>{% trans "Реакцію на критичні технічні збої" %}</li>
-                            <li>{% trans "Відповідність функціоналу ТЗ" %}</li>
-                        </ul>
-                        <p class="why-card-note">
-                            {% trans "Не включає: нові функції, оновлення дизайну, інтеграції з новими сервісами." %}
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="why-card" data-delay="300">
-                <img src="{% static 'images/ai.svg' %}" alt="" loading="lazy" class="why-card-icon">
-                <div class="why-card-content">
-                    <h3 class="why-card-title">
-                        <span class="color-brand-orange">{% trans "Впровадження ШІ" %}</span> {% trans "у ваші бізнес-задачі" %}
-                    </h3>
-                    <div class="why-card-body">
-                        <p class="why-card-text">
-                            {% trans "Інтегруємо штучний інтелект у структуру вашого сайту для автоматизації щоденної рутини. Ми створюємо рішення, де ШІ самостійно обробляє запити, консультує клієнтів та керує складними бізнес-процесами «під ключ»." %}
-                        </p>
-                        <p class="why-card-highlight-text">
-                            {% trans "Ваш сайт стає розумним помічником, який самостійно виконує завдання, на які раніше витрачалися години робочого часу." %}
-                        </p>
-                        <p class="why-card-note">
-                            {% trans "Результат: повна автоматизація взаємодії з клієнтами, оптимізація витрат та вихід на новий рівень цифрового сервісу." %}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="why-experience-footer">
-            <div class="experience-content">
-                <div class="experience-text">
-                    <p class="text-base color-white">
-                        {% trans "Спеціалісти PrometeyLabs мають роки практики у веб-розробці, дизайні, інтеграціях, мобільних додатках та інтернет-маркетингу. Це гарантує, що ваш проект буде реалізований системно, технологічно та з розумінням бізнес-задач." %}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Services & Projects Unified Section з SVG фоном -->
-<section class="services-projects-wrapper full-width">
-    <div class="container">
-        <!-- Services Subsection -->
-        <div class="services-subsection">
-            <div class="services-content">
-                <h2 class="text-large color-brand-orange mb-xl text-center">{% trans "Послуги PrometeyLabs" %}</h2>
-
-                <!-- Сітка послуг з фоновими зображеннями -->
-                <div class="services-grid">
-                    <!-- Картка 1 - Web розробка -->
-                    <div class="service-card lazy-bg" data-service="web" data-bg-desktop="{% static 'images/services/web.png' %}" data-bg-mobile="{% static 'images/services/web_mob.png' %}">
-                        <div class="service-card-overlay"></div>
-                        <div class="service-card-content">
-                            <span class="service-number">01</span>
-                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="{% trans 'Детальніше про Web-розробку' %}">
-                                <span>{% trans "Детальніше" %}</span>
-                                <span class="detail-arrow" aria-hidden="true">↗</span>
-                            </button>
-                            <h3 class="service-title">{% trans "Web-розробка" %}</h3>
-                            <p class="service-description">{% trans "Сайти під ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-боти" %}</p>
-                        </div>
-                    </div>
-
-                    <!-- Картка 2 - Мобільні додатки -->
-                    <div class="service-card lazy-bg" data-service="mobile" data-bg-desktop="{% static 'images/services/mob.png' %}" data-bg-mobile="{% static 'images/services/mob_mob.png' %}">
-                        <div class="service-card-overlay"></div>
-                        <div class="service-card-content">
-                            <span class="service-number">02</span>
-                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="{% trans 'Детальніше про Мобільні застосунки' %}">
-                                <span>{% trans "Детальніше" %}</span>
-                                <span class="detail-arrow" aria-hidden="true">↗</span>
-                            </button>
-                            <h3 class="service-title">{% trans "Мобільні застосунки" %}</h3>
-                            <p class="service-description">{% trans "iOS та Android додатки з сучасним дизайном" %}</p>
-                        </div>
-                    </div>
-
-                    <!-- Картка 3 - Реклама та SMM -->
-                    <div class="service-card lazy-bg" data-service="smm" data-bg-desktop="{% static 'images/services/media.png' %}" data-bg-mobile="{% static 'images/services/media_mob.png' %}">
-                        <div class="service-card-overlay"></div>
-                        <div class="service-card-content">
-                            <span class="service-number">03</span>
-                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="{% trans 'Детальніше про Реклама та ведення соціальних мереж' %}">
-                                <span>{% trans "Детальніше" %}</span>
-                                <span class="detail-arrow" aria-hidden="true">↗</span>
-                            </button>
-                            <h3 class="service-title">{% trans "Реклама та ведення соціальних мереж" %}</h3>
-                            <p class="service-description">{% trans "Google Ads, Meta Ads, TikTok Ads, SMM, контент" %}</p>
-                        </div>
-                    </div>
-
-                    <!-- Картка 4 - Навчання -->
-                    <div class="service-card lazy-bg" data-service="education" data-bg-desktop="{% static 'images/services/edu.png' %}" data-bg-mobile="{% static 'images/services/edu_mob.png' %}">
-                        <div class="service-card-overlay"></div>
-                        <div class="service-card-content">
-                            <span class="service-number">04</span>
-                            <button class="detail-btn-base service-detail-btn" type="button" aria-label="{% trans 'Детальніше про Навчання' %}">
-                                <span>{% trans "Детальніше" %}</span>
-                                <span class="detail-arrow" aria-hidden="true">↗</span>
-                            </button>
-                            <h3 class="service-title">{% trans "Навчання" %}</h3>
-                            <p class="service-description">{% trans "Програмування та AI від нуля до працевлаштування" %}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Projects Subsection -->
-        <div class="projects-subsection">
-            <div class="projects-content">
-                <h2 class="text-large color-brand-orange mb-lg text-center">{% trans "Наші клієнти" %}</h2>
-                
-                <!-- Instagram Stories Style Horizontal Scroll -->
-                <div class="projects-stories-wrapper">
-                    <div class="projects-stories-container" role="list">
-                        {% for project in home_portfolio_stories %}
-                        {% include 'components/portfolio_home_story.html' with project=project is_clone=False %}
-                        {% endfor %}
-                        {% for project in home_portfolio_stories %}
-                        {% include 'components/portfolio_home_story.html' with project=project is_clone=True %}
-                        {% endfor %}
-
-                    </div>
-                </div>
-
-                <div class="projects-cta">
-                    <a href="{% url 'portfolio' %}" class="detail-btn-base" aria-label="{% trans 'Переглянути всі проєкти у портфоліо' %}">
-                        <span>{% trans "Переглянути портфоліо" %}</span>
-                        <span class="detail-arrow" aria-hidden="true">↗</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- CTA секція з відео фоном -->
-<section class="cta-section">
-    <video class="video-background desktop-video" autoplay muted loop playsinline preload="metadata">
-        <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
-    </video>
-    <video class="video-background mobile-video" autoplay muted loop playsinline preload="metadata">
-        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
-    </video>
-    <div class="video-overlay"></div>
-
-    <div class="container">
-        <div class="cta-content text-center">
-            <h2 class="text-large color-white mb-md">{% trans "Готові почати?" %}</h2>
-            <p class="text-base color-white mb-lg">
-                {% trans "Зв'яжіться з нами для безкоштовної консультації та розрахунку вартості проєкту" %}
-            </p>
-            <div class="cta-buttons">
-                <a href="{% url 'calculator' %}" class="btn btn-primary">
-                    {% trans "Розрахувати вартість" %}
-                </a>
-                <a href="https://t.me/prometeylabs" class="btn btn-secondary" target="_blank">
-                    {% trans "telegram-консультація" %}
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
+    {% include 'components/home/redesign_why.html' %}
+    {% include 'components/home/redesign_services.html' %}
+    {% include 'components/home/redesign_clients.html' %}
+    {% include 'components/home/redesign_cta.html' %}
+</div>
 <!-- Модальні вікна послуг -->
 <div class="modal" id="service-web-modal" role="dialog" aria-labelledby="service-web-title" aria-hidden="true">
     <div class="modal-backdrop"></div>

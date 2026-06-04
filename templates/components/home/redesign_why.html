@@ -1,0 +1,108 @@
+{% load i18n static %}
+<div class="v2 vf-host">
+    <section class="v2-section v2-why">
+        <div class="v2-rule">
+            <span>[ {% trans "ЧОМУ МИ" %} / 01 ]</span>
+            <span>PROMETEYLABS — KYIV/UKRAINE</span>
+        </div>
+        <h2 class="v2-h2">
+            {% trans "ЧОМУ ВАРТО ОБРАТИ" %}<br>
+            <span class="v2-orange">PROMETEYLABS</span>
+        </h2>
+        <p class="v2-intro">
+            {% trans "Ми розробляємо сайти, якими справді легко керувати. Жодних обмежень шаблонних рішень — тільки чистий, оптимізований код та індивідуальна архітектура. Завдяки детальній розробці адміністративної частини, ви можете самостійно оновлювати весь контент сайту в кілька кліків, не залучаючи програмістів. Ми створюємо фундамент, який готовий до будь-яких інтеграцій та росту разом із вашим бізнесом." %}
+        </p>
+
+        <div class="v2-why-grid">
+            <article class="v2-why-card">
+                <div class="v2-why-head">
+                    <span class="v2-tag">PROOF/01</span>
+                    <img src="{% static 'images/calendar.svg' %}" alt="" class="v2-why-icon" width="56" height="56" loading="lazy">
+                </div>
+                <h3 class="v2-why-title">
+                    <span class="v2-orange">{% trans "Прозорі строки," %}</span> {% trans "які ми дотримуємося" %}
+                </h3>
+                <div class="v2-hr"></div>
+                <p class="v2-why-sub">{% trans "Базові терміни виконання:" %}</p>
+                <ul class="v2-why-list">
+                    <li><span class="v2-li-key">{% trans "Лендінги:" %}</span><span class="v2-li-val">3–7 {% trans "днів" %}</span></li>
+                    <li><span class="v2-li-key">{% trans "Корпоративні сайти:" %}</span><span class="v2-li-val">7–14 {% trans "днів" %}</span></li>
+                    <li><span class="v2-li-key">{% trans "Інтернет-магазини:" %}</span><span class="v2-li-val">14–21 {% trans "днів" %}</span></li>
+                    <li><span class="v2-li-key">{% trans "Веб-додатки / SaaS:" %}</span><span class="v2-li-val">14–30 {% trans "днів" %}</span></li>
+                </ul>
+                <p class="v2-why-note">
+                    {% trans "Точний час розробки залежить від складності дизайну, інтеграцій та функціоналу — визначаємо на консультації." %}
+                </p>
+            </article>
+
+            <article class="v2-why-card">
+                <div class="v2-why-head">
+                    <span class="v2-tag">PROOF/02</span>
+                    <img src="{% static 'images/dollar.svg' %}" alt="" class="v2-why-icon" width="56" height="56" loading="lazy">
+                </div>
+                <h3 class="v2-why-title">
+                    <span class="v2-orange">{% trans "Справедлива вартість" %}</span> {% trans "та гнучкі умови оплати" %}
+                </h3>
+                <div class="v2-hr"></div>
+                <p class="v2-why-sub">{% trans "Середні діапазони цін:" %}</p>
+                <ul class="v2-why-list">
+                    <li><span class="v2-li-key">{% trans "Лендінги:" %}</span><span class="v2-li-val">$150–350</span></li>
+                    <li><span class="v2-li-key">{% trans "Корпоративні сайти:" %}</span><span class="v2-li-val">$350–500</span></li>
+                    <li><span class="v2-li-key">E-commerce:</span><span class="v2-li-val">$500–800</span></li>
+                    <li><span class="v2-li-key">{% trans "Веб-додатки:" %}</span><span class="v2-li-val">$700–1000+</span></li>
+                </ul>
+                <p class="v2-why-note">
+                    {% trans "Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов." %}
+                </p>
+            </article>
+
+            <article class="v2-why-card v2-why-card--plain-list">
+                <div class="v2-why-head">
+                    <span class="v2-tag">PROOF/03</span>
+                    <img src="{% static 'images/shield.svg' %}" alt="" class="v2-why-icon" width="56" height="56" loading="lazy">
+                </div>
+                <h3 class="v2-why-title">
+                    <span class="v2-orange">{% trans "5-річна" %}</span> {% trans "гарантія" %} {% trans "на наші продукти" %}
+                </h3>
+                <div class="v2-hr"></div>
+                <p class="v2-why-sub">{% trans "Гарантія включає:" %}</p>
+                <ul class="v2-why-list">
+                    <li><span class="v2-li-key"></span><span class="v2-li-val">{% trans "Виправлення технічних помилок" %}</span></li>
+                    <li><span class="v2-li-key"></span><span class="v2-li-val">{% trans "Підтримку працездатності коду" %}</span></li>
+                    <li><span class="v2-li-key"></span><span class="v2-li-val">{% trans "Реакцію на критичні технічні збої" %}</span></li>
+                    <li><span class="v2-li-key"></span><span class="v2-li-val">{% trans "Відповідність функціоналу ТЗ" %}</span></li>
+                </ul>
+                <p class="v2-why-note">
+                    {% trans "Не включає: нові функції, оновлення дизайну, інтеграції з новими сервісами." %}
+                </p>
+            </article>
+
+            <article class="v2-why-card v2-why-card--prose">
+                <div class="v2-why-head">
+                    <span class="v2-tag">PROOF/04</span>
+                    <img src="{% static 'images/ai.svg' %}" alt="" class="v2-why-icon" width="56" height="56" loading="lazy">
+                </div>
+                <h3 class="v2-why-title">
+                    <span class="v2-orange">{% trans "Впровадження ШІ" %}</span> {% trans "у ваші бізнес-задачі" %}
+                </h3>
+                <div class="v2-hr"></div>
+                <p class="v2-why-prose">
+                    {% trans "Інтегруємо штучний інтелект у структуру вашого сайту для автоматизації щоденної рутини. Ми створюємо рішення, де ШІ самостійно обробляє запити, консультує клієнтів та керує складними бізнес-процесами «під ключ»." %}
+                </p>
+                <p class="v2-why-prose v2-why-prose--accent">
+                    {% trans "Ваш сайт стає розумним помічником, який самостійно виконує завдання, на які раніше витрачалися години робочого часу." %}
+                </p>
+                <p class="v2-why-note">
+                    {% trans "Результат: повна автоматизація взаємодії з клієнтами, оптимізація витрат та вихід на новий рівень цифрового сервісу." %}
+                </p>
+            </article>
+        </div>
+
+        <div class="v2-why-foot">
+            <span class="v2-tag v2-tag-solid">EXPERIENCE</span>
+            <p>
+                {% trans "Спеціалісти PrometeyLabs мають роки практики у веб-розробці, дизайні, інтеграціях, мобільних додатках та інтернет-маркетингу. Це гарантує, що ваш проект буде реалізований системно, технологічно та з розумінням бізнес-задач." %}
+            </p>
+        </div>
+    </section>
+</div>

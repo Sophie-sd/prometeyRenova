@@ -1,4 +1,4 @@
-/* Біжуча строчка та блок переваг */
+/* Біжуча строчка (головна + блог) */
 
 .services-marquee {
     position: relative;
@@ -20,8 +20,6 @@
     will-change: transform;
     animation: services-marquee-scroll 30s linear infinite;
 }
-
-/* Анімація працює постійно - НЕ зупиняється при скролі */
 
 @keyframes services-marquee-scroll {
     0% { transform: translate3d(0, 0, 0); }
@@ -48,227 +46,14 @@
     font-weight: 700;
 }
 
-.why-choose-section {
-    position: relative;
-    width: 100%;
-    background: var(--color-black);
-    padding-top: var(--space-xl);
-    z-index: var(--z-content-base);
-}
-
-.why-choose-section .container {
-    margin-top: 0;
-}
-
-.why-choose-intro {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-    margin-bottom: 100px;
-}
-
-.why-choose-intro p {
-    font-size: 18px;
-    line-height: 1.6;
-    opacity: 0.9;
-}
-
-.why-choose-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-md);
-}
-
-.why-card {
-    position: relative;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(230, 81, 0, 0.2);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md);
-    overflow: visible;
-    transition: all var(--transition-normal) var(--easing-default);
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.why-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.why-card::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50%;
-    height: 30%;
-    background: linear-gradient(45deg, rgba(230, 81, 0, 0.05) 0%, transparent 70%);
-    border-radius: 0 0 0 var(--radius-lg);
-    pointer-events: none;
-    z-index: 1;
-}
-
-.why-card:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(230, 81, 0, 0.5);
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(230, 81, 0, 0.2);
-}
-
-.why-card-icon {
-    position: absolute;
-    top: -20px;
-    right: -15px;
-    width: 100px;
-    height: 100px;
-    z-index: 0;
-    pointer-events: none;
-    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
-    transform: translate3d(0, 0, 0);
-}
-
-.why-card:hover .why-card-icon {
-    transform: translate3d(0, 0, 0) scale(1.05);
-}
-
-.why-card-content {
-    position: relative;
-    z-index: 2;
-}
-
-.why-card-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--color-white);
-    margin-bottom: var(--space-sm);
-    line-height: 1.2;
-}
-
-.why-card-highlight {
-    font-size: 36px;
-    color: var(--color-brand-orange);
-    font-weight: 900;
-    display: inline-block;
-}
-
-.why-card-body {
-    color: var(--color-white);
-}
-
-.why-card-subtitle {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--color-brand-orange);
-    margin-bottom: var(--space-xs);
-}
-
-.why-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-sm) 0;
-}
-
-.why-list li {
-    padding: 8px 0 8px 20px;
-    position: relative;
-    font-size: 15px;
-    line-height: 1.5;
-    color: var(--color-white);
-    opacity: 0.9;
-}
-
-.why-list li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--color-brand-orange);
-    font-weight: 700;
-}
-
-.why-list li strong {
-    color: var(--color-white);
-    font-weight: 600;
-}
-
-.why-card-note {
-    font-size: 14px;
-    color: var(--color-white);
-    opacity: 0.7;
-    font-style: italic;
-    margin-top: var(--space-xs);
-}
-
-.why-card-text {
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--color-white);
-    opacity: 0.9;
-    margin-bottom: var(--space-xs);
-}
-
-.why-card-highlight-text {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--color-brand-orange);
-    line-height: 1.5;
-    margin-bottom: var(--space-xs);
-}
-
-.why-experience-footer {
-    background: transparent;
-    border: none;
-    padding: var(--space-md);
-    text-align: center;
-}
-
-.experience-content {
-    display: block;
-    text-align: center;
-}
-
-.experience-icon,
-.experience-number {
-    display: none;
-}
-
-.experience-text p {
-    font-size: 16px;
-    line-height: 1.6;
-    opacity: 0.9;
-}
-
 @media (max-width: 1024px) {
     .marquee-item {
         font-size: 16px;
         padding: 0 15px;
     }
-    
+
     .marquee-separator {
         font-size: 20px;
-    }
-    
-    .why-choose-grid {
-        gap: var(--space-sm);
-    }
-    
-    .why-card {
-        padding: var(--space-sm);
-    }
-    
-    .why-card-icon {
-        width: 70px;
-        height: 70px;
-        top: -15px;
-        right: -10px;
-    }
-    
-    .why-card-title {
-        font-size: 20px;
-    }
-    
-    .why-card-highlight {
-        font-size: 28px;
     }
 }
 
@@ -278,84 +63,18 @@
         border-radius: 16px 16px 0 0;
         margin-top: -16px;
     }
-    
+
     .marquee-track {
         animation-duration: 25s;
     }
-    
+
     .marquee-item {
         font-size: 14px;
         padding: 0 12px;
     }
-    
+
     .marquee-separator {
         font-size: 18px;
-    }
-    
-    .why-choose-intro {
-        margin-bottom: 50px;
-    }
-    
-    .why-choose-intro p {
-        font-size: 16px;
-    }
-    
-    .why-choose-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-md);
-    }
-    
-    .why-card {
-        padding: var(--space-sm);
-    }
-    
-    .why-card-icon {
-        width: 60px;
-        height: 60px;
-        top: -30px;
-        right: -8px;
-    }
-    
-    .why-card-title {
-        font-size: 18px;
-        margin-bottom: var(--space-xs);
-    }
-    
-    .why-card-highlight {
-        font-size: 24px;
-    }
-    
-    .why-card-subtitle {
-        font-size: 15px;
-    }
-    
-    .why-list li {
-        font-size: 14px;
-        padding: 6px 0 6px 18px;
-    }
-    
-    .why-card-note,
-    .why-card-text {
-        font-size: 13px;
-    }
-    
-    .why-experience-footer {
-        padding: 0;
-    }
-    
-    .experience-content {
-        text-align: center;
-    }
-    
-    .experience-text {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-    
-    .experience-text p {
-        font-size: 15px;
-        padding-top: 40px;
-        padding-bottom: 40px;
     }
 }
 
@@ -363,15 +82,9 @@
     .marquee-track {
         animation: none;
     }
-    
+
     .services-marquee {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
-    
-    .why-card {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
-

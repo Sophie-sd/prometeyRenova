@@ -1,0 +1,26 @@
+{% load i18n %}
+<div class="v2 vf-host vf-cta-host">
+    <section class="v2-section v2-cta vf-cta-center">
+        <div class="v2-rule">
+            <span>[ {% trans "КОНТАКТ" %} / 04 ]</span>
+            <span>START PROJECT</span>
+        </div>
+        <h2 class="v2-h2 v2-cta-h2">
+            {% trans "ГОТОВІ" %}<br>
+            <span class="v2-orange">{% trans "ПОЧАТИ?" %}</span>
+        </h2>
+        <p class="v2-cta-text">
+            {% trans "Зв'яжіться з нами для безкоштовної консультації та розрахунку вартості проєкту" %}
+        </p>
+        <div class="v2-cta-btns">
+            <a href="{% url 'calculator' %}" class="v2-btn v2-btn-primary v2-btn-lg">
+                <span>{% trans "Розрахувати вартість" %}</span>
+                <span class="v2-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="https://t.me/prometeylabs" class="v2-btn v2-btn-lg" target="_blank" rel="noopener">
+                <span>{% trans "telegram-консультація" %}</span>
+                <span class="v2-arrow" aria-hidden="true">→</span>
+            </a>
+        </div>
+    </section>
+</div>

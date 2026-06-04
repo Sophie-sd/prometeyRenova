@@ -1,0 +1,150 @@
+/* ============================================
+   FINAL VARIANT — composes V2 + V3 sections.
+   Scoped to .vf. The .v2 / .v3 hosts inside each
+   section already provide their own typography
+   and styling; this file just orchestrates them.
+   ============================================ */
+
+.vf {
+  background: #050505;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+.vf *, .vf *::before, .vf *::after { box-sizing: border-box; }
+
+/* The page-wide ambient glows + grid (rendered by VFinal at root) */
+.vf > .v3-bg-glow,
+.vf > .v3-bg-grid { position: absolute; }
+
+/* ---- Per-mode root padding ---- */
+.vf-desktop { padding: 100px 0 84px; }
+.vf-mobile  { padding: 56px 0 56px; }
+
+/* ---- Section hosts: strip the host's own outer padding so the
+       composed page flows as a single piece. Each host keeps its
+       inner type system & color treatment. ---- */
+.vf-host {
+  position: relative;
+  z-index: 2;
+  background: transparent !important;
+  padding: 0 64px !important;
+  margin-bottom: 120px;
+}
+.vf-mobile .vf-host { padding: 0 20px !important; margin-bottom: 72px; }
+.vf-host:last-child { margin-bottom: 0; }
+
+.vf-host > section { margin-bottom: 0 !important; }
+
+/* The host wrappers usually paint their own black background — kill it
+   so the page-level glows / grid show through and the canvas reads as one. */
+.vf .v2,
+.vf .v3 { background: transparent !important; overflow: visible !important; }
+
+/* The V3 glows inside .vf-host (already rendered) — hide duplicates */
+.vf-host .v3-bg-glow,
+.vf-host .v3-bg-grid { display: none; }
+
+/* ============================================
+   CLIENTS — animated marquee track
+   ============================================ */
+
+.vf-clients-section .vf-clients-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 24px 0 30px;
+  /* fade in/out on edges so cards slide gracefully */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+}
+.vf-mobile .vf-clients-section .vf-clients-wrap {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
+}
+
+.vf-clients-section .vf-clients-track {
+  display: flex;
+  gap: 28px;
+  width: max-content;
+  align-items: flex-start;
+  animation: vf-marquee 36s linear infinite;
+  will-change: transform;
+}
+.vf-mobile .vf-clients-section .vf-clients-track {
+  gap: 18px;
+  animation-duration: 28s;
+}
+
+@keyframes vf-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Each client retains its halo + ring from .v3, but we lock width so the
+   marquee track has a deterministic period. */
+.vf-clients-section .vf-client {
+  flex: 0 0 auto;
+  width: 140px;
+}
+.vf-mobile .vf-clients-section .vf-client {
+  width: 96px;
+}
+.vf-clients-section .vf-client .v3-client-ring {
+  width: 120px; height: 120px;
+}
+.vf-mobile .vf-clients-section .vf-client .v3-client-ring {
+  width: 84px; height: 84px;
+}
+.vf-clients-section .vf-client .v3-client-halo {
+  width: 150px; height: 150px;
+}
+.vf-mobile .vf-clients-section .vf-client .v3-client-halo {
+  width: 110px; height: 110px;
+}
+
+/* Pause animation on hover so a user can read labels */
+.vf-clients-section .vf-clients-wrap:hover .vf-clients-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vf-clients-section .vf-clients-track {
+    animation: none;
+  }
+}
+
+/* ============================================
+   CTA — centered (override V2 left-aligned layout)
+   ============================================ */
+
+.vf-cta-host { padding-bottom: 0 !important; }
+
+.vf-cta-center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vf-cta-center .v2-rule {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.vf-cta-center .v2-h2 { width: 100%; }
+
+.vf-cta-center .v2-cta-text {
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vf-cta-center .v2-cta-btns {
+  justify-content: center;
+}
+
+.vf-mobile .vf-cta-center .v2-cta-btns {
+  width: 100%;
+}
