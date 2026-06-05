@@ -1,10 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import Client as DjangoTestClient, TestCase
+from django.test import Client as DjangoTestClient, SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
 
 from apps.core.mixins import homepage_clients
 from apps.core.models import Client
+from apps.core.portfolio_images import resolve_client_logo_url
 
 MINIMAL_PNG = (
     b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01'
@@ -22,6 +23,21 @@ def make_client(name, order=0, is_active=True):
         order=order,
         is_active=is_active,
     )
+
+
+class ClientLogoFallbackTests(SimpleTestCase):
+    @override_settings(MEDIA_ROOT='/tmp/prometey-empty-media-test')
+    def test_static_fallback_when_media_missing(self):
+        client = Client(name='Play Vision')
+        client.logo.name = 'clients/playvision_missing.png'
+        src = resolve_client_logo_url(client)
+        self.assertIn('/static/images/portfolio/playvision.png', src)
+        self.assertNotIn('/media/', src)
+
+    def test_homepage_renders_static_logo_src(self):
+        client = Client(name='BeautyShop')
+        client.logo.name = 'clients/beautyshop.png'
+        self.assertIn('/static/images/portfolio/beautyshop.png', client.get_logo_url())
 
 
 class HomepageClientsTests(TestCase):

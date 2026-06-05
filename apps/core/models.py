@@ -682,6 +682,6 @@ class Client(models.Model):
         return self.name
 
     def get_logo_url(self) -> str:
-        if self.logo:
-            return self.logo.url
-        return ''
+        from .portfolio_images import resolve_client_logo_url
+
+        return resolve_client_logo_url(self)

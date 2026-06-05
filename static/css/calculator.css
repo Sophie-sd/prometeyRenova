@@ -667,10 +667,10 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: stretch;
         min-height: calc(100svh - var(--nav-height));
-        padding-top: clamp(72px, 10vh, 96px);
+        padding-top: clamp(100px, 14vh, 150px);
         padding-bottom: clamp(40px, 6vh, 72px);
         box-sizing: border-box;
     }
@@ -696,14 +696,13 @@
         flex: 0 1 520px;
         max-width: 520px;
         width: 100%;
+        align-self: flex-start;
     }
 
     .calc-hero__sidebar {
         flex: 0 0 360px;
         max-width: 380px;
         width: 100%;
-        position: sticky;
-        top: clamp(72px, 10vh, 100px);
         gap: 0;
     }
 
@@ -711,8 +710,41 @@
         padding-bottom: 0;
     }
 
-    .calculator-main:has(#test-section:not(.hidden)) {
-        justify-content: flex-start;
+    .calc-hero__label {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    .calculator-page .medium-title.calc-hero__title {
+        font-size: clamp(36px, 3.5vw, 44px);
+        line-height: 1.2;
+        margin-bottom: 24px;
+    }
+
+    .calc-hero__intro {
+        font-size: 18px;
+        line-height: 1.7;
+        margin-bottom: 32px;
+    }
+
+    .calc-hero__benefits {
+        gap: 22px;
+    }
+
+    .calc-benefit {
+        gap: 16px;
+    }
+
+    .calc-benefit__number {
+        width: 36px;
+        height: 36px;
+        font-size: 13px;
+    }
+
+    .calc-benefit__text {
+        font-size: 17px;
+        line-height: 1.65;
+        padding-top: 6px;
     }
 }
 
@@ -748,25 +780,28 @@
         min-height: calc(100dvh - clamp(64px, 9vh, 88px));
         display: flex;
         flex-direction: column;
-        gap: 0;
+        gap: 32px;
     }
 
     .calc-hero__wrapper:not(:has(#test-section:not(.hidden))) .calc-hero__content {
-        flex: 1;
+        flex: 0 0 auto;
+        flex-shrink: 0;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        min-height: 0;
         max-width: none;
-        padding-top: clamp(8px, 2vh, 16px);
+        padding-top: clamp(20px, 4vh, 36px);
+        padding-bottom: 8px;
     }
 
     .calc-hero__sidebar {
+        flex-shrink: 0;
         padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
     }
 
     .calc-hero__wrapper:not(:has(#test-section:not(.hidden))) .calc-hero__sidebar {
         margin-top: auto;
+        padding-top: 8px;
         padding-bottom: calc(140px + env(safe-area-inset-bottom, 0px));
     }
 
@@ -776,19 +811,19 @@
     }
 
     .calculator-page .medium-title.calc-hero__title {
-        font-size: clamp(30px, 8vw, 36px);
+        font-size: clamp(32px, 8.5vw, 38px);
         line-height: 1.2;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
     }
 
     .calc-hero__intro {
         font-size: 17px;
         line-height: 1.65;
-        margin-bottom: 32px;
+        margin-bottom: 36px;
     }
 
     .calc-hero__benefits {
-        gap: 22px;
+        gap: 26px;
     }
 
     .calc-benefit {
@@ -803,7 +838,7 @@
 
     .calc-benefit__text {
         font-size: 16px;
-        line-height: 1.65;
+        line-height: 1.7;
         padding-top: 6px;
     }
 

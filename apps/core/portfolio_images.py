@@ -38,3 +38,28 @@ def resolve_portfolio_image_url(project, field_name: str) -> str:
 
 def portfolio_image_available(project, field_name: str) -> bool:
     return bool(resolve_portfolio_image_url(project, field_name))
+
+
+def _static_home_for_client_name(name: str) -> str:
+    normalized = name.strip()
+    for item in PORTFOLIO_PROJECTS:
+        if not item.get('show_on_homepage'):
+            continue
+        label = (item.get('home_story_label') or item['title']).strip()
+        if label == normalized:
+            return item.get('static_home') or ''
+    return ''
+
+
+def resolve_client_logo_url(client) -> str:
+    """Головна: спочатку static (collectstatic), потім media якщо файл є на диску."""
+    static_rel = _static_home_for_client_name(client.name)
+    if static_rel:
+        return static_url(static_rel)
+
+    field = getattr(client, 'logo', None)
+    if field and getattr(field, 'name', None):
+        media_path = Path(settings.MEDIA_ROOT) / field.name
+        if media_path.is_file():
+            return field.url
+    return ''
