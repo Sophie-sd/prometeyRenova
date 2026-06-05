@@ -250,6 +250,45 @@
   }
 }
 
+@media (max-width: 767px) {
+  .home-redesign.vf .v2-intro {
+    font-weight: 600;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .home-redesign.vf .v2-why-note {
+    font-weight: 600;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.58);
+  }
+
+  .home-redesign.vf .v2-why-prose {
+    font-weight: 600;
+  }
+
+  .home-redesign.vf .v2-why-foot p {
+    font-weight: 600;
+  }
+
+  .home-redesign.vf .v2-li-key,
+  .home-redesign.vf .v2-why-list li,
+  .home-redesign.vf .v2-why-card--plain-list .v2-li-val {
+    font-weight: 600;
+  }
+
+  .home-redesign.vf .v3-svc-desc {
+    font-weight: 600;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .home-redesign.vf .v2-cta-text {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.78);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .home-redesign .projects-stories-container.marquee-active {
     animation: none;
