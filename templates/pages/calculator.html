@@ -6,7 +6,7 @@
 {% block description %}{{ meta_description }}{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/calculator.css' %}">
+<link rel="stylesheet" href="{% static 'css/calculator.css' %}?v=13">
 {% endblock %}
 
 {% block content %}
@@ -247,5 +247,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/calculator.js' %}" nonce="{{ csp_nonce }}"></script>
+<script src="{% static 'js/calculator.js' %}?v=12" nonce="{{ csp_nonce }}"></script>
 {% endblock %}
