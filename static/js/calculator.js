@@ -108,7 +108,11 @@ class ProjectCalculator {
 
     isStepAnswered(step) {
         if (!step) return false;
-        if (this.isContactStep(step)) return true;
+        if (this.isContactStep(step)) {
+            const name = step.querySelector('[name="name"]')?.value?.trim();
+            const phone = step.querySelector('[name="phone"]')?.value?.trim();
+            return Boolean(name && phone);
+        }
 
         const options = step.querySelector('.calc-options');
         if (!options) return false;
@@ -204,12 +208,17 @@ class ProjectCalculator {
     }
 
     getFirstIncompleteStepIndex() {
-        for (let i = 0; i < this.steps.length; i++) {
+        const lastQuestion = this.contactStepIndex >= 0
+            ? this.contactStepIndex
+            : this.steps.length;
+
+        for (let i = 0; i < lastQuestion; i++) {
             if (!this.isStepAnswered(this.steps[i])) {
                 return i;
             }
         }
-        return this.steps.length - 1;
+
+        return this.contactStepIndex >= 0 ? this.contactStepIndex : lastQuestion - 1;
     }
 
     loadSavedData() {
@@ -314,7 +323,7 @@ class ProjectCalculator {
         if (!testSection) return;
 
         testSection.classList.remove('hidden');
-        this.showStep(this.getFirstIncompleteStepIndex());
+        this.showStep(0);
 
         const isMobile = window.matchMedia('(max-width: 767px)').matches;
         if (isMobile) {

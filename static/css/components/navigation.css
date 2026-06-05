@@ -422,7 +422,7 @@
 .mobile-nav-link {
     position: relative;
     font-size: clamp(32px, 7vw, 56px);
-    font-weight: 800;
+    font-weight: 600;
     color: var(--color-white);
     text-decoration: none;
     text-transform: uppercase;
