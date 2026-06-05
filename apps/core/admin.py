@@ -20,6 +20,7 @@ from django.urls import reverse
 from datetime import timedelta
 import csv
 from .models import (
+    Client,
     FormSubmission,
     SiteContactSettings,
     PortfolioProject,
@@ -569,6 +570,45 @@ class PortfolioProjectAdmin(UnfoldModelAdmin):
         if not obj:
             return '—'
         src = obj.get_modal_hero_src()
+        if not src:
+            return '—'
+        return format_html(
+            '<img src="{}" alt="" class="pl-admin-image-preview">',
+            src,
+        )
+
+
+@admin.register(Client)
+class ClientAdmin(UnfoldModelAdmin):
+    list_filter_sheet = False
+    list_display = (
+        'name',
+        'order',
+        'is_active',
+        'logo_preview',
+        'updated_at',
+    )
+    list_editable = ('order', 'is_active')
+    list_filter = (('is_active', BooleanDropdownFilter),)
+    search_fields = ('name',)
+    readonly_fields = ('created_at', 'updated_at', 'logo_preview')
+    ordering = ('order', 'name')
+
+    fieldsets = (
+        (_('Основне'), {
+            'fields': ('name', 'logo', 'logo_preview', 'order', 'is_active'),
+        }),
+        (_('Службове'), {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',),
+        }),
+    )
+
+    @admin.display(description=_('Прев’ю логотипу'))
+    def logo_preview(self, obj):
+        if not obj:
+            return '—'
+        src = obj.get_logo_url()
         if not src:
             return '—'
         return format_html(

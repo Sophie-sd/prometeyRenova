@@ -9,11 +9,11 @@
         <div class="vf-clients-wrap">
             <div class="projects-stories-wrapper">
                 <div class="projects-stories-container" role="list">
-                    {% for project in home_portfolio_stories %}
-                    {% include 'components/portfolio_home_story.html' with project=project is_clone=False %}
+                    {% for client in home_clients %}
+                    {% include 'components/client_home_story.html' with client=client is_clone=False %}
                     {% endfor %}
-                    {% for project in home_portfolio_stories %}
-                    {% include 'components/portfolio_home_story.html' with project=project is_clone=True %}
+                    {% for client in home_clients %}
+                    {% include 'components/client_home_story.html' with client=client is_clone=True %}
                     {% endfor %}
                 </div>
             </div>

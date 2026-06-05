@@ -113,6 +113,11 @@ UNFOLD = {
                         "link": reverse_lazy("admin:core_sitecontactsettings_changelist"),
                     },
                     {
+                        "title": "Клієнти",
+                        "icon": "groups",
+                        "link": reverse_lazy("admin:core_client_changelist"),
+                    },
+                    {
                         "title": "Портфоліо",
                         "icon": "work",
                         "link": reverse_lazy("admin:core_portfolioproject_changelist"),

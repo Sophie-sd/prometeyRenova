@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.utils import timezone
-from .mixins import BasePageView, homepage_portfolio_stories, portfolio_page_projects
+from .mixins import BasePageView, homepage_clients, portfolio_page_projects
 from .form_handlers import (
     validate_phone, validate_name, create_form_response, get_form_type_from_path,
     create_form_data, send_form_email, save_form_submission,
@@ -67,7 +67,7 @@ class HomeView(BasePageView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['home_portfolio_stories'] = homepage_portfolio_stories()
+        context['home_clients'] = homepage_clients()
         return context
 
 

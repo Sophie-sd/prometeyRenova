@@ -316,11 +316,9 @@ class ProjectCalculator {
         testSection.classList.remove('hidden');
         this.showStep(this.getFirstIncompleteStepIndex());
 
-        const header = testSection.querySelector('.calc-test__header');
-        if (header) {
-            header.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-            testSection.scrollIntoView({ behavior: 'smooth' });
+        const isMobile = window.matchMedia('(max-width: 767px)').matches;
+        if (isMobile) {
+            testSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     }
 

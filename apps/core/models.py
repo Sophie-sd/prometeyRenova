@@ -657,3 +657,31 @@ class PortfolioProject(models.Model):
         if self.subtitle:
             return f'{self.title} — {self.subtitle}'
         return self.title
+
+
+class Client(models.Model):
+    """Клієнт для секції «Наші клієнти» на головній сторінці."""
+
+    name = models.CharField(max_length=100, verbose_name=_('Назва'))
+    logo = models.ImageField(upload_to='clients/', verbose_name=_('Логотип'))
+    order = models.PositiveIntegerField(default=0, verbose_name=_('Порядок'))
+    is_active = models.BooleanField(default=True, verbose_name=_('Показувати на головній'))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Створено'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Оновлено'))
+
+    class Meta:
+        db_table = 'core_client'
+        ordering = ['order', 'name']
+        verbose_name = _('Клієнт')
+        verbose_name_plural = _('Клієнти')
+        indexes = [
+            models.Index(fields=['is_active', 'order']),
+        ]
+
+    def __str__(self) -> str:
+        return self.name
+
+    def get_logo_url(self) -> str:
+        if self.logo:
+            return self.logo.url
+        return ''
