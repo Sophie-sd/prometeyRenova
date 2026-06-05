@@ -81,30 +81,42 @@
   margin-bottom: 0;
 }
 
-.home-redesign.vf,
-.home-redesign.vf .v2,
-.home-redesign.vf .v3 {
-  font-family: 'Unbounded', system-ui, sans-serif;
-}
-
 .home-redesign.vf .v2,
 .home-redesign.vf .v3 {
   background: transparent;
   overflow: visible;
 }
 
+/* Space Grotesk base; JetBrains Mono for tags & rule rows (marquee → footer only) */
+.home-redesign.vf {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+
+.home-redesign.vf .v3 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+
+.home-redesign.vf .v2-h2,
+.home-redesign.vf .v2-why-title,
+.home-redesign.vf .v2-intro,
+.home-redesign.vf .v2-why-foot p,
+.home-redesign.vf .v2-why-prose,
+.home-redesign.vf .v2-cta-text,
+.home-redesign.vf .v3-svc-num,
+.home-redesign.vf .v3-svc-title,
+.home-redesign.vf .v3-svc-desc,
+.home-redesign.vf .v3-btn,
+.home-redesign.vf .v2-btn,
+.home-redesign.vf .project-story-name {
+  font-family: inherit;
+}
+
 .home-redesign.vf .v2-rule,
 .home-redesign.vf .v2-tag,
 .home-redesign.vf .v2-why-sub,
 .home-redesign.vf .v2-why-note,
-.home-redesign.vf .v2-li-val,
-.home-redesign.vf .v2-h2,
-.home-redesign.vf .v2-why-title,
-.home-redesign.vf .v3-svc-title,
-.home-redesign.vf .v3-svc-desc,
-.home-redesign.vf .v3-btn,
-.home-redesign.vf .project-story-name {
-  font-family: inherit;
+.home-redesign.vf .v2-li-val {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
 }
 
 .home-redesign.vf .vf-host .v3-bg-glow,
