@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.test import RequestFactory, TestCase
+from django.utils import translation
 
 from apps.core.context_processors import global_settings
 from apps.core.models import SiteContactSettings
@@ -59,3 +60,21 @@ class SiteContactSettingsTests(TestCase):
         second = get_site_contact_settings()
         self.assertEqual(first.pk, second.pk)
         self.assertEqual(first.pk, 1)
+
+    def test_localized_address_english(self):
+        self.settings_obj.address = 'Київ, бульвар Тараса Шевченка 46а'
+        self.settings_obj.save()
+        with translation.override('en'):
+            self.assertEqual(
+                self.settings_obj.get_localized_address(),
+                'Kyiv, Taras Shevchenko Boulevard 46a',
+            )
+
+    def test_localized_address_ukrainian(self):
+        self.settings_obj.address = 'Київ, бульвар Тараса Шевченка 46а'
+        self.settings_obj.save()
+        with translation.override('uk'):
+            self.assertEqual(
+                self.settings_obj.get_localized_address(),
+                'Київ, бульвар Тараса Шевченка 46а',
+            )

@@ -37,7 +37,7 @@
                                 {% if site_contact.address %}
                                 <div class="contact-item">
                                     <h3>{% trans "Адреса" %}</h3>
-                                    <p class="contact-address">{{ site_contact.address }}</p>
+                                    <p class="contact-address">{{ site_contact.get_localized_address }}</p>
                                 </div>
                                 {% endif %}
                             </div>

@@ -605,6 +605,10 @@ msgstr ""
 msgid "Адреса"
 msgstr "Address"
 
+#: apps/core/models.py
+msgid "Київ, бульвар Тараса Шевченка 46а"
+msgstr "Kyiv, Taras Shevchenko Boulevard 46a"
+
 #: apps/core/models.py:385
 msgid "Широта (Google Maps)"
 msgstr ""

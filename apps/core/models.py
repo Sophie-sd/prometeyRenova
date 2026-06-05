@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from datetime import timedelta
 
@@ -422,6 +423,11 @@ class SiteContactSettings(models.Model):
         result = super().delete(*args, **kwargs)
         cache.delete('site_contact_settings')
         return result
+
+    def get_localized_address(self):
+        if not self.address:
+            return ''
+        return gettext(self.address)
 
     def get_tel_href(self):
         digits = (self.phone_e164 or '').strip()
