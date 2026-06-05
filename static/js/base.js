@@ -243,6 +243,8 @@ class PrometeyApp {
 
     // ===== MODAL SYSTEM =====
     setupModals() {
+        const isServiceModal = (el) => /^service-.+-modal$/.test(el?.id ?? '');
+
         const modalTriggers = document.querySelectorAll('[data-modal]');
         const closeButtons = document.querySelectorAll('.modal-close, .modal-close-specific');
 
@@ -257,6 +259,8 @@ class PrometeyApp {
 
         // Закриття модалок
         closeButtons.forEach(button => {
+            if (isServiceModal(button.closest('.modal'))) return;
+
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 const modalId = button.getAttribute('data-modal-id');
@@ -266,6 +270,8 @@ class PrometeyApp {
 
         // Закриття при кліку на backdrop
         document.querySelectorAll('.modal').forEach(modal => {
+            if (isServiceModal(modal)) return;
+
             modal.addEventListener('click', (e) => {
                 if (e.target === modal || e.target.classList.contains('modal-backdrop')) {
                     this.closeModal(modal.id);

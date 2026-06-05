@@ -67,6 +67,8 @@
 /* Service cards: keep modal / lazy-bg JS */
 .home-redesign .v3-svc-card.service-card {
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .home-redesign .v3-svc-card .service-detail-btn {

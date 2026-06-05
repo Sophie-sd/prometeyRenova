@@ -80,13 +80,8 @@ function initServiceModals() {
         if (!modal) return;
 
         lockScroll();
-
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                modal.classList.add('active');
-                modal.setAttribute('aria-hidden', 'false');
-            });
-        });
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
 
         const closeModal = () => {
             modal.classList.remove('active');

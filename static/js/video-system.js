@@ -202,8 +202,13 @@ class VideoSystem {
         await this.loadVideo(videoData);
     }
 
+    isHeroBackgroundVideo(element) {
+        return element.classList.contains('video-background') && !element.classList.contains('lazy-video');
+    }
+
     async loadVideo(videoData) {
         const { element, container } = videoData;
+        const isHeroBackground = this.isHeroBackgroundVideo(element);
 
         try {
             // Якщо є data-src, переносимо в src
@@ -223,20 +228,21 @@ class VideoSystem {
                 element.classList.remove('lazy-video');
             }
 
-            // Завантаження
-            element.load();
+            const hasSource = Boolean(element.src || element.querySelector('source[src]'));
+            const alreadyReady = element.readyState >= 2;
 
-            // Очікування готовності
+            if (!(isHeroBackground && hasSource && alreadyReady)) {
+                element.load();
+            }
+
             await this.waitForVideoReady(element);
 
             videoData.loaded = true;
 
-            // Автоплей якщо підтримується
-            if (this.autoplaySupported) {
+            if (isHeroBackground || this.autoplaySupported) {
                 await this.attemptAutoplay(videoData);
             }
 
-            // Event
             this.emit('video:loaded', { element, container });
 
         } catch (error) {
@@ -253,7 +259,11 @@ class VideoSystem {
         video.setAttribute('playsinline', '');
         video.setAttribute('webkit-playsinline', '');
 
-        // Preload strategy
+        if (this.isHeroBackgroundVideo(video)) {
+            video.preload = 'auto';
+            return;
+        }
+
         const isMobile = window.innerWidth <= 767;
         if (isMobile) {
             video.preload = this.loadingStrategy === 'minimal' ? 'none' : 'metadata';

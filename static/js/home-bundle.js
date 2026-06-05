@@ -690,8 +690,13 @@ class VideoSystem {
         await this.loadVideo(videoData);
     }
 
+    isHeroBackgroundVideo(element) {
+        return element.classList.contains('video-background') && !element.classList.contains('lazy-video');
+    }
+
     async loadVideo(videoData) {
         const { element, container } = videoData;
+        const isHeroBackground = this.isHeroBackgroundVideo(element);
 
         try {
             if (element.hasAttribute('data-src')) {
@@ -709,12 +714,18 @@ class VideoSystem {
                 element.classList.remove('lazy-video');
             }
 
-            element.load();
+            const hasSource = Boolean(element.src || element.querySelector('source[src]'));
+            const alreadyReady = element.readyState >= 2;
+
+            if (!(isHeroBackground && hasSource && alreadyReady)) {
+                element.load();
+            }
+
             await this.waitForVideoReady(element);
 
             videoData.loaded = true;
 
-            if (this.autoplaySupported) {
+            if (isHeroBackground || this.autoplaySupported) {
                 await this.attemptAutoplay(videoData);
             }
 
@@ -733,6 +744,11 @@ class VideoSystem {
 
         video.setAttribute('playsinline', '');
         video.setAttribute('webkit-playsinline', '');
+
+        if (this.isHeroBackgroundVideo(video)) {
+            video.preload = 'auto';
+            return;
+        }
 
         const isMobile = window.innerWidth <= 767;
         if (isMobile) {
@@ -1136,6 +1152,8 @@ class PrometeyApp {
     }
 
     setupModals() {
+        const isServiceModal = (el) => /^service-.+-modal$/.test(el?.id ?? '');
+
         const modalTriggers = document.querySelectorAll('[data-modal]');
         const closeButtons = document.querySelectorAll('.modal-close, .modal-close-specific');
 
@@ -1148,6 +1166,8 @@ class PrometeyApp {
         });
 
         closeButtons.forEach(button => {
+            if (isServiceModal(button.closest('.modal'))) return;
+
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 const modalId = button.getAttribute('data-modal-id');
@@ -1156,6 +1176,8 @@ class PrometeyApp {
         });
 
         document.querySelectorAll('.modal').forEach(modal => {
+            if (isServiceModal(modal)) return;
+
             modal.addEventListener('click', (e) => {
                 if (e.target === modal || e.target.classList.contains('modal-backdrop')) {
                     this.closeModal(modal.id);
@@ -1932,13 +1954,8 @@ function initServiceModals() {
         if (!modal) return;
 
         lockScroll();
-
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                modal.classList.add('active');
-                modal.setAttribute('aria-hidden', 'false');
-            });
-        });
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
 
         const closeModal = () => {
             modal.classList.remove('active');
