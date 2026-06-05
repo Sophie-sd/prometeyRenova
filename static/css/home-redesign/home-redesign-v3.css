@@ -500,6 +500,7 @@
   .home-redesign .v3-svc-card{
     aspect-ratio: 3/2;
     border-radius: 16px;
+    background-position: center top;
   }
 
   .home-redesign .v3-svc-edge{
