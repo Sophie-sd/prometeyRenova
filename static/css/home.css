@@ -7,79 +7,79 @@
 
 /* Service modals (home page only) */
 .service-modal-content {
-    max-width: 600px;
-    max-height: 80vh;
+    background: var(--color-black);
+    color: var(--color-white);
+    max-width: 640px;
     margin: 60px auto;
+    padding: 24px 28px;
     overflow: hidden;
 }
 
+.service-modal-content .modal-close {
+    color: var(--color-white);
+}
+
+.service-modal-content .modal-close:hover {
+    color: var(--color-brand-orange);
+}
+
 .service-modal-body {
-    max-height: calc(80vh - 140px);
-    overflow-y: auto;
-    padding-right: 2px;
-}
-
-.service-modal-body::-webkit-scrollbar {
-    width: 5px;
-}
-
-.service-modal-body::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    margin: 10px 0;
-}
-
-.service-modal-body::-webkit-scrollbar-thumb {
-    background: var(--color-brand-orange);
-    border-radius: 3px;
+    max-height: none;
+    overflow: hidden;
 }
 
 .service-modal-content .modal-header {
-    margin-bottom: 16px;
+    margin-bottom: 10px;
 }
 
 .service-modal-content .modal-header h3 {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     padding-right: 30px;
 }
 
 .service-list {
     list-style: none;
     padding: 0;
-    margin: 0 0 12px 0;
+    margin: 0 0 8px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 16px;
 }
 
 .service-list li {
-    padding: 6px 0;
+    padding: 4px 0 4px 10px;
     border-left: 3px solid var(--color-brand-orange);
-    padding-left: 12px;
-    margin-bottom: 8px;
-    font-size: 15px;
-    line-height: 1.4;
+    margin-bottom: 4px;
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--color-white);
 }
 
 .service-list li strong {
     display: block;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
+    color: var(--color-white);
 }
 
 .service-subtitle {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 700;
     color: var(--color-brand-orange);
-    margin: 16px 0 8px 0;
+    margin: 10px 0 4px 0;
 }
 
 .service-text {
-    font-size: 15px;
-    line-height: 1.4;
-    margin-bottom: 10px;
+    font-size: 13px;
+    line-height: 1.35;
+    margin-bottom: 6px;
+    color: var(--color-white);
 }
 
 @media (max-width: 767px) {
     .service-modal-content {
         max-width: 100%;
-        max-height: none;
         margin: 0;
+        padding: 20px;
     }
 
     #service-web-modal .modal-content,
@@ -89,7 +89,10 @@
         display: flex;
         flex-direction: column;
         overflow: hidden;
-        padding: 20px;
+    }
+
+    .service-list {
+        grid-template-columns: 1fr;
     }
 
     .service-modal-body {
@@ -126,8 +129,7 @@
 
     .service-list li {
         font-size: 14px;
-        padding: 5px 0;
-        padding-left: 10px;
+        padding: 5px 0 5px 10px;
         margin-bottom: 6px;
     }
 
