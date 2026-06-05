@@ -53,4 +53,7 @@ python manage.py seed_initial_data
 echo "🖼️  Seeding portfolio projects (from static assets)..."
 python manage.py seed_portfolio_projects
 
+echo "👥 Seeding homepage clients (from static assets)..."
+python manage.py seed_clients
+
 echo "✅ Build complete!"

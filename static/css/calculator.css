@@ -659,12 +659,16 @@
 @media (min-width: 768px) {
     .calculator-main {
         min-height: calc(100svh - var(--nav-height));
-        padding-top: calc(var(--nav-height) + clamp(24px, 5vh, 56px));
+        padding-top: var(--nav-height);
         padding-bottom: clamp(32px, 5vh, 64px);
+        display: flex;
+        flex-direction: column;
     }
 
     .calculator-page .container {
-        margin-top: 0;
+        margin-top: auto;
+        margin-bottom: auto;
+        flex: 0 0 auto;
         width: 100%;
         max-width: 1100px;
     }
@@ -695,7 +699,12 @@
     }
 
     .calc-hero {
-        padding-bottom: clamp(32px, 4vh, 48px);
+        padding-bottom: 0;
+    }
+
+    .calculator-main:has(#test-section:not(.hidden)) .container {
+        margin-top: clamp(24px, 4vh, 48px);
+        margin-bottom: auto;
     }
 }
 
@@ -723,10 +732,6 @@
         min-height: calc(100dvh - clamp(64px, 9vh, 88px));
     }
 
-    .calculator-page .medium-title {
-        font-size: 24px;
-    }
-
     .calculator-page .calculator-panel__glass {
         padding: 25px;
     }
@@ -742,37 +747,56 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         min-height: 0;
         max-width: none;
+        padding-top: clamp(8px, 2vh, 16px);
     }
 
     .calc-hero__wrapper:not(:has(#test-section:not(.hidden))) .calc-hero__sidebar {
         margin-top: auto;
-        padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+        padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .calc-hero__label {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    .calculator-page .medium-title.calc-hero__title {
+        font-size: clamp(30px, 8vw, 36px);
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+
+    .calc-hero__intro {
+        font-size: 17px;
+        line-height: 1.65;
+        margin-bottom: 32px;
+    }
+
+    .calc-hero__benefits {
+        gap: 22px;
+    }
+
+    .calc-benefit {
+        gap: 16px;
+    }
+
+    .calc-benefit__number {
+        width: 36px;
+        height: 36px;
+        font-size: 13px;
+    }
+
+    .calc-benefit__text {
+        font-size: 16px;
+        line-height: 1.65;
+        padding-top: 6px;
     }
 
     .calc-hero__wrapper:has(#test-section:not(.hidden)) {
         gap: 36px;
-    }
-
-    .calc-hero__intro {
-        font-size: 15px;
-        margin-bottom: 24px;
-    }
-
-    .calc-hero__benefits {
-        gap: 12px;
-    }
-
-    .calc-benefit__number {
-        width: 28px;
-        height: 28px;
-        font-size: 11px;
-    }
-
-    .calc-benefit__text {
-        font-size: 14px;
     }
 
     .calc-hero__cta {
