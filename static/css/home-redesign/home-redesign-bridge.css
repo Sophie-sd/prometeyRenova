@@ -18,10 +18,15 @@
   outline-offset: 2px;
 }
 
+/* Single-span v2-rule (Послуги / Клієнти) — orange label, no right column */
+.home-redesign .v2-rule:has(> span:only-child) span {
+  color: var(--v2-orange, #E65100);
+}
+
 /* Block page grid bleed-through on PROOF cards (removes double-grid artefact) */
 .home-redesign.vf .v2-why-card,
 .home-redesign.vf .v2-why-foot {
-  background-color: #0a0a0a;
+  background-color: #000;
 }
 
 /* AI / guarantee cards: list items without key column */

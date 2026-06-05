@@ -6,6 +6,15 @@
 }
 
 /* Service modals (home page only) */
+[id^="service-"][id$="-modal"] .modal-backdrop {
+    opacity: 0;
+    transition: opacity var(--transition-normal) var(--easing-default);
+}
+
+[id^="service-"][id$="-modal"].active .modal-backdrop {
+    opacity: 1;
+}
+
 .service-modal-content {
     background: var(--color-black);
     color: var(--color-white);

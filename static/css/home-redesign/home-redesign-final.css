@@ -2,7 +2,7 @@
 
 .home-redesign.vf {
   --v2-orange: #E65100;
-  background: #050505;
+  background: #000;
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -14,6 +14,11 @@
 .home-redesign.vf *::before,
 .home-redesign.vf *::after {
   box-sizing: border-box;
+}
+
+.home-redesign.vf > .v3-bg-glow,
+.home-redesign.vf > .v3-bg-grid {
+  display: none;
 }
 
 .home-redesign.vf > .v3-bg-glow {
@@ -76,10 +81,30 @@
   margin-bottom: 0;
 }
 
+.home-redesign.vf,
+.home-redesign.vf .v2,
+.home-redesign.vf .v3 {
+  font-family: 'Unbounded', system-ui, sans-serif;
+}
+
 .home-redesign.vf .v2,
 .home-redesign.vf .v3 {
   background: transparent;
   overflow: visible;
+}
+
+.home-redesign.vf .v2-rule,
+.home-redesign.vf .v2-tag,
+.home-redesign.vf .v2-why-sub,
+.home-redesign.vf .v2-why-note,
+.home-redesign.vf .v2-li-val,
+.home-redesign.vf .v2-h2,
+.home-redesign.vf .v2-why-title,
+.home-redesign.vf .v3-svc-title,
+.home-redesign.vf .v3-svc-desc,
+.home-redesign.vf .v3-btn,
+.home-redesign.vf .project-story-name {
+  font-family: inherit;
 }
 
 .home-redesign.vf .vf-host .v3-bg-glow,
