@@ -290,15 +290,10 @@
     height: 100vh;
     height: 100svh;
     height: calc(var(--vh, 1vh) * 100);
-    
-    /* Фонова картинка з легким затемненням для видимості */
-    background: 
-        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),
-        url('/static/images/mobile_menu.webp') center/cover no-repeat;
-    
-    /* Fallback фон якщо картинка не завантажиться */
-    background-color: #1a1a1a;
-    
+
+    background-color: #120e0a;
+    isolation: isolate;
+
     z-index: var(--z-mobile-menu, 10000);
     padding: max(env(safe-area-inset-top), 30px) max(env(safe-area-inset-right), 30px) max(env(safe-area-inset-bottom), 30px) max(env(safe-area-inset-left), 30px);
 
@@ -309,6 +304,37 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
+}
+
+.mobile-menu::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 65% 55% at 20% 25%, rgba(72, 48, 32, 0.45), transparent 68%),
+        radial-gradient(ellipse 50% 45% at 80% 70%, rgba(61, 42, 28, 0.5), transparent 62%),
+        radial-gradient(ellipse 45% 40% at 50% 0%, rgba(61, 42, 28, 0.35), transparent 55%),
+        linear-gradient(180deg, #2a1c14 0%, #120e0a 55%, #1a120c 100%);
+}
+
+.mobile-menu::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 90% 70% at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.35) 100%);
+    opacity: 0.08;
+}
+
+.mobile-menu-header,
+.mobile-menu-content,
+.mobile-menu-footer,
+.mobile-menu-decoration {
+    position: relative;
+    z-index: 1;
 }
 
 .mobile-menu.active {
@@ -380,16 +406,16 @@
     .mobile-menu {
         display: flex;
         flex-direction: column;
-        padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+        padding-bottom: max(env(safe-area-inset-bottom, 0px), 16px);
     }
 
     .mobile-menu-content {
-        flex: 1;
+        flex: 0 1 auto;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        padding-top: clamp(40px, 12vh, 80px);
-        padding-bottom: clamp(16px, 4vh, 32px);
+        padding-top: clamp(16px, 4vh, 32px);
+        padding-bottom: clamp(8px, 2vh, 16px);
     }
 }
 
@@ -404,7 +430,7 @@
     line-height: 1.2;
 
     display: block;
-    padding: 12px 0;
+    padding: 8px 0;
 
     /* Дозволяємо перенос для довгих слів */
     white-space: normal;
@@ -659,10 +685,11 @@
 
 @media (max-width: 767px) {
     .mobile-menu-footer {
+        flex-shrink: 0;
         margin-top: auto;
-        padding-top: clamp(14px, 3vh, 22px);
-        padding-bottom: clamp(8px, 2vh, 16px);
-        gap: clamp(56px, 12vh, 80px);
+        padding-top: clamp(10px, 2vh, 16px);
+        padding-bottom: clamp(4px, 1vh, 8px);
+        gap: clamp(12px, 2vh, 20px);
     }
 }
 
@@ -735,7 +762,7 @@
 @media (max-width: 767px) and (orientation: landscape) {
     .mobile-menu {
         gap: 20px;
-        padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+        padding-bottom: max(env(safe-area-inset-bottom, 0px), 12px);
     }
 
     .mobile-menu-content {
