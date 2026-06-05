@@ -56,36 +56,53 @@ function initServiceAnimations() {
 function initServiceModals() {
     let savedScrollPosition = 0;
 
+    const lockScroll = () => {
+        savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        document.body.style.top = `-${savedScrollPosition}px`;
+        document.body.classList.add('modal-open', 'service-modal-open');
+        document.documentElement.style.backgroundColor = '#000';
+    };
+
+    const unlockScroll = () => {
+        document.body.style.top = '';
+        document.body.classList.remove('modal-open', 'service-modal-open');
+        document.documentElement.style.backgroundColor = '';
+        window.scrollTo({
+            top: savedScrollPosition,
+            behavior: 'auto'
+        });
+    };
+
     const openModal = (serviceType) => {
         const modalId = `service-${serviceType}-modal`;
         const modal = document.getElementById(modalId);
-        
+
         if (!modal) return;
-        
-        savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-        modal.classList.add('active');
-        document.body.style.top = `-${savedScrollPosition}px`;
-        document.body.classList.add('modal-open');
-        
+
+        lockScroll();
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+            });
+        });
+
         const closeModal = () => {
             modal.classList.remove('active');
-            document.body.style.top = '';
-            document.body.classList.remove('modal-open');
-            window.scrollTo({
-                top: savedScrollPosition,
-                behavior: 'auto'
-            });
+            modal.setAttribute('aria-hidden', 'true');
+            unlockScroll();
         };
-        
+
         const closeBtn = modal.querySelector('.modal-close');
         const backdrop = modal.querySelector('.modal-backdrop');
-        
+
         closeBtn.removeEventListener('click', closeModal);
         backdrop.removeEventListener('click', closeModal);
-        
+
         closeBtn.addEventListener('click', closeModal);
         backdrop.addEventListener('click', closeModal);
-        
+
         document.addEventListener('keydown', function escHandler(e) {
             if (e.key === 'Escape') {
                 closeModal();

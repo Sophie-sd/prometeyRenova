@@ -1908,45 +1908,72 @@ function initServiceCardsOptimized() {
 function initServiceModals() {
     let savedScrollPosition = 0;
 
-    document.querySelectorAll('.service-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const serviceType = card.dataset.service;
-            const modalId = `service-${serviceType}-modal`;
-            const modal = document.getElementById(modalId);
-            
-            if (modal) {
-                savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    const lockScroll = () => {
+        savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        document.body.style.top = `-${savedScrollPosition}px`;
+        document.body.classList.add('modal-open', 'service-modal-open');
+        document.documentElement.style.backgroundColor = '#000';
+    };
 
+    const unlockScroll = () => {
+        document.body.style.top = '';
+        document.body.classList.remove('modal-open', 'service-modal-open');
+        document.documentElement.style.backgroundColor = '';
+        window.scrollTo({
+            top: savedScrollPosition,
+            behavior: 'auto'
+        });
+    };
+
+    const openModal = (serviceType) => {
+        const modalId = `service-${serviceType}-modal`;
+        const modal = document.getElementById(modalId);
+
+        if (!modal) return;
+
+        lockScroll();
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
                 modal.classList.add('active');
-                document.body.style.top = `-${savedScrollPosition}px`;
-                document.body.classList.add('modal-open');
-                
-                const closeModal = () => {
-                    modal.classList.remove('active');
-                    document.body.style.top = '';
-                    document.body.classList.remove('modal-open');
-                    window.scrollTo({
-                        top: savedScrollPosition,
-                        behavior: 'auto'
-                    });
-                };
-                
-                const closeBtn = modal.querySelector('.modal-close');
-                const backdrop = modal.querySelector('.modal-backdrop');
-                
-                closeBtn.removeEventListener('click', closeModal);
-                backdrop.removeEventListener('click', closeModal);
-                
-                closeBtn.addEventListener('click', closeModal);
-                backdrop.addEventListener('click', closeModal);
-                
-                document.addEventListener('keydown', function escHandler(e) {
-                    if (e.key === 'Escape') {
-                        closeModal();
-                        document.removeEventListener('keydown', escHandler);
-                    }
-                });
+                modal.setAttribute('aria-hidden', 'false');
+            });
+        });
+
+        const closeModal = () => {
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+            unlockScroll();
+        };
+
+        const closeBtn = modal.querySelector('.modal-close');
+        const backdrop = modal.querySelector('.modal-backdrop');
+
+        closeBtn.removeEventListener('click', closeModal);
+        backdrop.removeEventListener('click', closeModal);
+
+        closeBtn.addEventListener('click', closeModal);
+        backdrop.addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', function escHandler(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', escHandler);
             }
+        });
+    };
+
+    document.querySelectorAll('.service-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('.service-detail-btn')) return;
+            openModal(card.dataset.service);
+        });
+    });
+
+    document.querySelectorAll('.service-detail-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openModal(btn.closest('.service-card').dataset.service);
         });
     });
 }

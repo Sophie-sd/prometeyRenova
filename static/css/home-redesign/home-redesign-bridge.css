@@ -79,6 +79,8 @@
   min-height: 0;
   font: inherit;
   color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 @media (max-width: 767px) {
@@ -278,9 +280,9 @@
   }
 
   .home-redesign.vf .v3-svc-desc {
-    font-weight: 600;
+    font-weight: 400;
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.78);
   }
 
   .home-redesign.vf .v2-cta-text {
