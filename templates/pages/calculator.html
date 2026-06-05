@@ -74,6 +74,11 @@
                           data-of-label="{% trans 'з' %}">
                         {% csrf_token %}
 
+                        <div class="calc-step-nav" id="calc-step-nav" hidden>
+                            <button type="button" class="calc-step-nav__prev">{% trans "Назад" %}</button>
+                            <button type="button" class="calc-step-nav__next">{% trans "Далі" %}</button>
+                        </div>
+
                         <div class="calc-question">
                             <div class="calc-question__header">
                                 <span class="calc-question__number">01</span>
