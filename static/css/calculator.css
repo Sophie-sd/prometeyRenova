@@ -748,6 +748,80 @@
     }
 }
 
+/* ===== DESKTOP (wide) ===== */
+@media (min-width: 1025px) {
+    .calculator-main {
+        padding-top: clamp(140px, 20vh, 200px);
+    }
+
+    .calc-hero {
+        padding-top: clamp(16px, 2vh, 32px);
+    }
+
+    .calculator-page .container {
+        max-width: 1240px;
+        padding-left: clamp(20px, 3vw, 40px);
+    }
+
+    .calc-hero__wrapper {
+        justify-content: flex-start;
+        gap: clamp(32px, 4vw, 48px);
+    }
+
+    .calc-hero__content {
+        flex: 0 1 580px;
+        max-width: 580px;
+    }
+
+    .calc-hero__sidebar {
+        flex: 0 0 460px;
+        max-width: 480px;
+    }
+
+    .calc-hero__label {
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+
+    .calculator-page .medium-title.calc-hero__title {
+        font-size: clamp(44px, 4.5vw, 58px);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+    }
+
+    .calc-hero__intro {
+        font-size: 19px;
+    }
+
+    .calc-hero__sidebar .calculator-panel__glass {
+        padding: clamp(44px, 4vw, 52px);
+    }
+
+    .calc-cta-box__subtitle {
+        font-size: 18px;
+        letter-spacing: 1.5px;
+        margin-bottom: 28px;
+    }
+
+    .calc-cta-btn {
+        min-height: 64px;
+        padding: 0 28px;
+    }
+
+    .calc-cta-btn__text {
+        font-size: 20px;
+    }
+
+    .calc-cta-btn__arrow {
+        font-size: 28px;
+    }
+
+    .calc-cta-box__note {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+}
+
 /* ===== TABLET ===== */
 @media (min-width: 768px) and (max-width: 1024px) {
     .calculator-page .container {
