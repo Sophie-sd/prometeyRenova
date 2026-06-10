@@ -1,5 +1,6 @@
 import json
 import logging
+from datetime import date
 from decimal import Decimal, InvalidOperation
 from typing import List
 
@@ -14,10 +15,12 @@ from django.http import (
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
+from django.utils import timezone
 from django.utils.translation import gettext as _
 
-from .models import PaymentLink, PaymentSettings
+from .models import PaymentLink, PaymentSettings, SubscriptionCharge
 from .monobank_service import MonobankAcquiringService
+from .subscription_service import MonobankSubscriptionService
 
 logger = logging.getLogger('payment')
 
@@ -63,6 +66,62 @@ def _build_requisites_payload(requisites_rows: list, payment_link: PaymentLink) 
         payload.append(f"{_('Призначення')}: {payment_link.description}")
     payload.append(f"{_('Сума')}: {payment_link.final_amount_uah} UAH")
     return payload
+
+
+def _next_month_first(from_date: date) -> date:
+    """Returns the 1st day of the month following from_date."""
+    if from_date.month == 12:
+        return from_date.replace(year=from_date.year + 1, month=1, day=1)
+    return from_date.replace(month=from_date.month + 1, day=1)
+
+
+def _activate_subscription(payment_link: PaymentLink, payload: dict) -> None:
+    """Called from webhook after first subscription payment succeeds."""
+    wallet_data = payload.get('walletData') or {}
+    card_token = wallet_data.get('cardToken', '')
+    if not card_token:
+        logger.warning(
+            'Subscription payment %s paid but no cardToken in webhook payload',
+            payment_link.unique_id,
+        )
+        return
+    today = timezone.now().date()
+    payment_link.card_token = card_token
+    payment_link.subscription_status = PaymentLink.SubscriptionStatus.ACTIVE
+    payment_link.next_charge_date = _next_month_first(today)
+    payment_link.save(update_fields=['card_token', 'subscription_status', 'next_charge_date'])
+    logger.info('Subscription activated: payment %s', payment_link.unique_id)
+
+
+def _handle_subscription_charge_webhook(
+    reference: str, invoice_id: str, status: str, payload: dict
+) -> HttpResponse:
+    """Handles webhook callbacks for recurring SubscriptionCharge payments."""
+    try:
+        charge_id = int(reference.split('sub-charge-', 1)[1])
+        charge = SubscriptionCharge.objects.select_related('source_payment').get(id=charge_id)
+    except (IndexError, ValueError, SubscriptionCharge.DoesNotExist):
+        return HttpResponseBadRequest('Unknown subscription charge reference')
+
+    if status in ('success', 'paid'):
+        now = timezone.now()
+        charge.status = SubscriptionCharge.Status.SUCCESS
+        charge.monobank_invoice_id = invoice_id or ''
+        charge.charged_at = now
+        charge.save(update_fields=['status', 'monobank_invoice_id', 'charged_at'])
+        pl = charge.source_payment
+        pl.last_charged_at = now
+        pl.next_charge_date = _next_month_first(pl.next_charge_date or now.date())
+        pl.save(update_fields=['last_charged_at', 'next_charge_date'])
+        logger.info('Subscription charge %s succeeded', charge_id)
+    elif status in ('failure', 'expired', 'reversed'):
+        err = payload.get('errText', '') or status
+        charge.status = SubscriptionCharge.Status.FAILED
+        charge.error_message = err
+        charge.save(update_fields=['status', 'error_message'])
+        logger.warning('Subscription charge %s failed: %s', charge_id, err)
+
+    return JsonResponse({'ok': True})
 
 
 def payment_page(request: HttpRequest, unique_id):
@@ -121,14 +180,27 @@ def create_invoice(request: HttpRequest, unique_id):
     if not payment_link.use_acquiring:
         return HttpResponseBadRequest('Acquiring disabled for this payment link')
 
-    svc = MonobankAcquiringService()
-    invoice_id, page_url = svc.create_invoice(
-        reference=str(payment_link.unique_id),
-        amount_uah=payment_link.final_amount_uah,
-        destination=payment_link.description or 'Оплата послуг',
-        comment=f'Платіж від {payment_link.client_name}',
-        validity_seconds=payment_link.duration_minutes * 60 if payment_link.duration_minutes else 3600,
-    )
+    validity = payment_link.duration_minutes * 60 if payment_link.duration_minutes else 3600
+
+    if payment_link.is_subscription:
+        svc = MonobankSubscriptionService()
+        invoice_id, page_url = svc.create_invoice_with_save_card(
+            reference=str(payment_link.unique_id),
+            wallet_id=str(payment_link.unique_id),
+            amount_uah=payment_link.final_amount_uah,
+            destination=payment_link.description or 'Щомісячна підписка',
+            comment=f'Підписка: {payment_link.client_name}',
+            validity_seconds=validity,
+        )
+    else:
+        svc = MonobankAcquiringService()
+        invoice_id, page_url = svc.create_invoice(
+            reference=str(payment_link.unique_id),
+            amount_uah=payment_link.final_amount_uah,
+            destination=payment_link.description or 'Оплата послуг',
+            comment=f'Платіж від {payment_link.client_name}',
+            validity_seconds=validity,
+        )
 
     if not invoice_id or not page_url:
         return render(request, 'payment/payment_failure.html', {
@@ -169,6 +241,11 @@ def monobank_webhook(request: HttpRequest):
     if not reference:
         return HttpResponseBadRequest('No reference')
 
+    # ── Subscription charge webhook ───────────────────────────────────────────
+    if reference.startswith('sub-charge-'):
+        return _handle_subscription_charge_webhook(reference, invoice_id or '', status or '', payload)
+
+    # ── Regular payment link webhook ─────────────────────────────────────────
     try:
         payment_link = PaymentLink.objects.get(unique_id=reference)
     except (PaymentLink.DoesNotExist, ValueError):
@@ -195,6 +272,8 @@ def monobank_webhook(request: HttpRequest):
 
     if status in ('success', 'paid'):
         payment_link.mark_paid()
+        if payment_link.is_subscription:
+            _activate_subscription(payment_link, payload)
     elif status in ('expired', 'reversed', 'failure'):
         if payment_link.status not in (PaymentLink.Status.PAID, PaymentLink.Status.DEACTIVATED):
             payment_link.status = PaymentLink.Status.EXPIRED

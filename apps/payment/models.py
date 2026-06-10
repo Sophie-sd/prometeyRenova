@@ -76,6 +76,12 @@ class PaymentLink(models.Model):
         EUR = 'EUR', 'EUR (€)'
         UAH = 'UAH', 'UAH (₴)'
 
+    class SubscriptionStatus(models.TextChoices):
+        PENDING_CARD = 'pending_card', _('Очікує прив\'язки картки')
+        ACTIVE = 'active', _('Активна')
+        PAUSED = 'paused', _('Призупинена')
+        CANCELLED = 'cancelled', _('Скасована')
+
     unique_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     client_name = models.CharField(max_length=255, verbose_name=_('Ім\'я клієнта'))
     client_email = models.EmailField(blank=True, null=True, verbose_name=_('Email клієнта'))
@@ -132,6 +138,36 @@ class PaymentLink(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Створено'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Оновлено'))
 
+    # ── Підписка ─────────────────────────────────────────────────────────────
+    is_subscription = models.BooleanField(
+        default=False,
+        verbose_name=_('Активувати підписку'),
+        help_text=_('Якщо увімкнено — перший платіж збереже картку клієнта для щомісячного списання.'),
+    )
+    subscription_status = models.CharField(
+        max_length=20,
+        choices=SubscriptionStatus.choices,
+        blank=True,
+        default='',
+        verbose_name=_('Статус підписки'),
+    )
+    card_token = models.CharField(
+        max_length=255,
+        blank=True,
+        default='',
+        verbose_name=_('Токен картки'),
+    )
+    next_charge_date = models.DateField(
+        null=True,
+        blank=True,
+        verbose_name=_('Наступне списання'),
+    )
+    last_charged_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name=_('Останнє списання'),
+    )
+
     class Meta:
         ordering = ['-created_at']
         verbose_name = _('Платіжне посилання')
@@ -146,6 +182,8 @@ class PaymentLink(models.Model):
                 self.final_amount_uah = Decimal(self.amount).quantize(Decimal('0.01'))
             elif self.exchange_rate:
                 self.final_amount_uah = (self.amount * self.exchange_rate).quantize(Decimal('0.01'))
+        if self.is_subscription and not self.subscription_status:
+            self.subscription_status = self.SubscriptionStatus.PENDING_CARD
         super().save(*args, **kwargs)
 
     def mark_first_open(self):
@@ -215,4 +253,54 @@ class PaymentLinkFile(models.Model):
 
     def __str__(self):
         return f'{self.display_name()} — {self.filename()}'
+
+
+class SubscriptionCharge(models.Model):
+    class Status(models.TextChoices):
+        PENDING = 'pending', _('Виконується')
+        SUCCESS = 'success', _('Успішно')
+        FAILED = 'failed', _('Помилка')
+
+    source_payment = models.ForeignKey(
+        PaymentLink,
+        on_delete=models.CASCADE,
+        related_name='subscription_charges',
+        verbose_name=_('Підписка'),
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=Status.choices,
+        default=Status.PENDING,
+        verbose_name=_('Статус'),
+    )
+    amount_uah = models.DecimalField(
+        max_digits=14,
+        decimal_places=2,
+        verbose_name=_('Сума UAH'),
+    )
+    monobank_invoice_id = models.CharField(
+        max_length=128,
+        blank=True,
+        default='',
+        verbose_name=_('Invoice ID Monobank'),
+    )
+    error_message = models.TextField(
+        blank=True,
+        default='',
+        verbose_name=_('Помилка'),
+    )
+    charged_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name=_('Дата списання'),
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = _('Списання по підписці')
+        verbose_name_plural = _('Списання по підписках')
+
+    def __str__(self):
+        return f'{self.source_payment.client_name} — {self.amount_uah} UAH — {self.get_status_display()}'
 

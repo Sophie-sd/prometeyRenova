@@ -99,6 +99,7 @@ UNFOLD = {
                 "separator": True,
                 "items": [
                     {"title": "Посилання",     "icon": "link",            "link": reverse_lazy("admin:payment_paymentlink_changelist")},
+                    {"title": "Підписки",      "icon": "autorenew",       "link": "/admin/payment/paymentlink/?is_subscription=1"},
                     {"title": "Отримувачі",   "icon": "account_balance", "link": reverse_lazy("admin:payment_recipientprofile_changelist")},
                     {"title": "Налаштування", "icon": "settings",        "link": reverse_lazy("admin:payment_paymentsettings_changelist")},
                 ],
@@ -261,6 +262,7 @@ CONTACT_EMAIL = os.environ.get('CONTACT_EMAIL', 'prometeylabs@gmail.com')
 
 # MONOBANK - Зберігаємо поточні налаштування
 MONOBANK_TOKEN = os.environ.get('MONOBANK_TOKEN', '')
+MONOBANK_SUBSCRIPTION_TOKEN = os.environ.get('MONOBANK_SUBSCRIPTION_TOKEN', MONOBANK_TOKEN)
 SITE_URL = os.environ.get('SITE_URL', 'https://www.prometeylabs.com')
 if DEBUG:
     SITE_URL = os.environ.get('SITE_URL', 'http://localhost:8000')
