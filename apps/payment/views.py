@@ -75,16 +75,37 @@ def _next_month_first(from_date: date) -> date:
     return from_date.replace(month=from_date.month + 1, day=1)
 
 
+def _card_token_from_wallet_cards(cards: list) -> str:
+    """Picks cardToken from Monobank wallet cards list (active card preferred)."""
+    if not cards:
+        return ''
+    active = next((c for c in cards if c.get('status') == 'active'), None)
+    return (active or {}).get('cardToken', '') or ''
+
+
 def _activate_subscription(payment_link: PaymentLink, payload: dict) -> None:
     """Called from webhook after first subscription payment succeeds."""
-    wallet_data = payload.get('walletData') or {}
+    invoice_sub = payload.get('invoice') if isinstance(payload.get('invoice'), dict) else {}
+    wallet_data = payload.get('walletData') or invoice_sub.get('walletData') or {}
     card_token = wallet_data.get('cardToken', '')
+
     if not card_token:
         logger.warning(
-            'Subscription payment %s paid but no cardToken in webhook payload',
+            'No cardToken in webhook payload for %s. Payload: %s',
+            payment_link.unique_id,
+            payload,
+        )
+        svc = MonobankSubscriptionService()
+        cards = svc.get_wallet_cards(str(payment_link.unique_id)) or []
+        card_token = _card_token_from_wallet_cards(cards)
+
+    if not card_token:
+        logger.error(
+            'Cannot activate subscription %s: no cardToken',
             payment_link.unique_id,
         )
         return
+
     today = timezone.now().date()
     payment_link.card_token = card_token
     payment_link.subscription_status = PaymentLink.SubscriptionStatus.ACTIVE

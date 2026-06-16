@@ -170,7 +170,13 @@ class PaymentLinkAdmin(UnfoldModelAdmin):
         'subscription_status', 'card_token', 'next_charge_date', 'last_charged_at',
     )
     inlines = [PaymentLinkFileInline, SubscriptionChargeInline]
-    actions = ['mark_deactivated', 'charge_subscriptions_now', 'pause_subscriptions', 'resume_subscriptions']
+    actions = [
+        'mark_deactivated',
+        'activate_pending_subscriptions',
+        'charge_subscriptions_now',
+        'pause_subscriptions',
+        'resume_subscriptions',
+    ]
 
     fieldsets = (
         (_('Клієнт'), {
@@ -300,6 +306,56 @@ class PaymentLinkAdmin(UnfoldModelAdmin):
             status=PaymentLink.Status.DEACTIVATED
         )
         self.message_user(request, _('Деактивовано: %(n)s') % {'n': updated})
+
+    @admin.action(description=_('Отримати картку і активувати підписку'))
+    def activate_pending_subscriptions(self, request, queryset):
+        eligible = queryset.filter(
+            is_subscription=True,
+            subscription_status=PaymentLink.SubscriptionStatus.PENDING_CARD,
+            status=PaymentLink.Status.PAID,
+        )
+
+        if not eligible.exists():
+            self.message_user(
+                request,
+                _(
+                    'Серед вибраних немає оплачених підписок, що очікують прив\'язки картки.'
+                ),
+                level='warning',
+            )
+            return
+
+        svc = MonobankSubscriptionService()
+        activated_count = failed_count = 0
+
+        for pl in eligible:
+            cards = svc.get_wallet_cards(str(pl.unique_id)) or []
+            active = next((c for c in cards if c.get('status') == 'active'), None)
+            card_token = (active or {}).get('cardToken', '')
+
+            if not card_token:
+                failed_count += 1
+                continue
+
+            today = timezone.now().date()
+            if today.month == 12:
+                next_charge = today.replace(year=today.year + 1, month=1, day=1)
+            else:
+                next_charge = today.replace(month=today.month + 1, day=1)
+
+            pl.card_token = card_token
+            pl.subscription_status = PaymentLink.SubscriptionStatus.ACTIVE
+            pl.next_charge_date = next_charge
+            pl.save(update_fields=['card_token', 'subscription_status', 'next_charge_date'])
+            activated_count += 1
+
+        parts = []
+        if activated_count:
+            parts.append(_('Активовано: %(n)s') % {'n': activated_count})
+        if failed_count:
+            parts.append(_('Не вдалося: %(n)s') % {'n': failed_count})
+        level = 'error' if failed_count and not activated_count else 'success'
+        self.message_user(request, ' | '.join(parts), level=level)
 
     @admin.action(description=_('Зарядити вибрані підписки зараз'))
     def charge_subscriptions_now(self, request, queryset):
