@@ -286,14 +286,16 @@ KEYCRM_SUCCESS_STATUS_ID = os.environ.get('KEYCRM_SUCCESS_STATUS_ID', '')
 KEYCRM_SOURCE_PAID_SHOPS = os.environ.get('KEYCRM_SOURCE_PAID_SHOPS', '')
 KEYCRM_SOURCE_PAID_CORPORATE = os.environ.get('KEYCRM_SOURCE_PAID_CORPORATE', '')
 KEYCRM_SOURCE_PAID_ALL = os.environ.get('KEYCRM_SOURCE_PAID_ALL', '')
+KEYCRM_SOURCE_PAID_DE = os.environ.get('KEYCRM_SOURCE_PAID_DE', '')
 KEYCRM_SOURCE_ORGANIC_SHOPS = os.environ.get('KEYCRM_SOURCE_ORGANIC_SHOPS', '')
 KEYCRM_SOURCE_ORGANIC_CORPORATE = os.environ.get('KEYCRM_SOURCE_ORGANIC_CORPORATE', '')
 
 # Підрядки для зіставлення utm_campaign з потрібним джерелом (через кому, case-insensitive).
-# Перевірка йде в порядку: Corporate → Shops → All (щоб уникнути колізій,
+# Перевірка йде в порядку: Corporate → Shops → DE → All (щоб уникнути колізій,
 # наприклад коли utm_campaign містить і "shops" і "corporate" одночасно).
 KEYCRM_UTM_MATCH_PAID_CORPORATE = os.environ.get('KEYCRM_UTM_MATCH_PAID_CORPORATE', '')
 KEYCRM_UTM_MATCH_PAID_SHOPS = os.environ.get('KEYCRM_UTM_MATCH_PAID_SHOPS', '')
+KEYCRM_UTM_MATCH_PAID_DE = os.environ.get('KEYCRM_UTM_MATCH_PAID_DE', '')
 KEYCRM_UTM_MATCH_PAID_ALL = os.environ.get('KEYCRM_UTM_MATCH_PAID_ALL', '')
 
 # GOOGLE ADS API

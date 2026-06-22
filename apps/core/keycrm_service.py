@@ -74,6 +74,7 @@ def resolve_keycrm_source_id(submission):
     1) Платний Google Ads (gclid / utm_medium=cpc/ppc / utm_source=google):
        - utm_campaign містить токени Corporate → KEYCRM_SOURCE_PAID_CORPORATE
        - інакше Shops токени → KEYCRM_SOURCE_PAID_SHOPS
+       - інакше DE токени → KEYCRM_SOURCE_PAID_DE
        - інакше All токени → KEYCRM_SOURCE_PAID_ALL
        - якщо жоден токен не збігся: підказка з `extra_data.source_page`
          (`internet-shop` / `corporate-website`) → відповідне платне джерело
@@ -88,6 +89,7 @@ def resolve_keycrm_source_id(submission):
     paid_shops = _to_int(getattr(settings, 'KEYCRM_SOURCE_PAID_SHOPS', ''))
     paid_corporate = _to_int(getattr(settings, 'KEYCRM_SOURCE_PAID_CORPORATE', ''))
     paid_all = _to_int(getattr(settings, 'KEYCRM_SOURCE_PAID_ALL', ''))
+    paid_de = _to_int(getattr(settings, 'KEYCRM_SOURCE_PAID_DE', ''))
     organic_shops = _to_int(getattr(settings, 'KEYCRM_SOURCE_ORGANIC_SHOPS', ''))
     organic_corporate = _to_int(getattr(settings, 'KEYCRM_SOURCE_ORGANIC_CORPORATE', ''))
     fallback = _to_int(getattr(settings, 'KEYCRM_SOURCE_ID', ''))
@@ -96,12 +98,15 @@ def resolve_keycrm_source_id(submission):
         campaign = submission.utm_campaign or ''
         tokens_corporate = _split_tokens(getattr(settings, 'KEYCRM_UTM_MATCH_PAID_CORPORATE', ''))
         tokens_shops = _split_tokens(getattr(settings, 'KEYCRM_UTM_MATCH_PAID_SHOPS', ''))
+        tokens_de = _split_tokens(getattr(settings, 'KEYCRM_UTM_MATCH_PAID_DE', ''))
         tokens_all = _split_tokens(getattr(settings, 'KEYCRM_UTM_MATCH_PAID_ALL', ''))
 
         if _campaign_matches(campaign, tokens_corporate) and paid_corporate:
             return paid_corporate
         if _campaign_matches(campaign, tokens_shops) and paid_shops:
             return paid_shops
+        if _campaign_matches(campaign, tokens_de) and paid_de:
+            return paid_de
         if _campaign_matches(campaign, tokens_all) and paid_all:
             return paid_all
 
@@ -114,7 +119,7 @@ def resolve_keycrm_source_id(submission):
             return paid_corporate
 
         # Платний, але без збігу токенів — м'які fallback'и в межах платних.
-        return paid_all or paid_shops or paid_corporate or fallback
+        return paid_de or paid_all or paid_shops or paid_corporate or fallback
 
     page = _page_signals(submission)
     if 'internet-shop' in page and organic_shops:
