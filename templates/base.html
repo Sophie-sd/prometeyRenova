@@ -30,14 +30,14 @@
     <!-- SEO Meta Tags -->
     <title>{% block title %}{% trans "PrometeyLabs - Розробка сайтів під ключ | Telegram боти | Реклама" %}{% endblock %}</title>
     <meta name="description"
-        content="{% block description %}PrometeyLabs - розробка сайтів під ключ, Telegram боти, налаштування реклами Google Ads, ведення соцмереж, навчання веб-розробки. Конкурентні ціни, сучасні технології.{% endblock %}">
+        content="{% block description %}{% trans "PrometeyLabs - розробка сайтів під ключ, Telegram боти, налаштування реклами Google Ads, ведення соцмереж, навчання веб-розробки. Конкурентні ціни, сучасні технології." %}{% endblock %}">
     <meta name="keywords"
-        content="{% block keywords %}розробка сайтів, сайт під ключ, telegram бот, реклама google ads, веб розробка, навчання програмування{% endblock %}">
+        content="{% block keywords %}{% trans "розробка сайтів, сайт під ключ, telegram бот, реклама google ads, веб розробка, навчання програмування" %}{% endblock %}">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="{% block og_title %}PrometeyLabs - Розробка сайтів під ключ{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{% trans "PrometeyLabs - Розробка сайтів під ключ" %}{% endblock %}">
     <meta property="og:description"
-        content="{% block og_description %}Створюємо сайти під ключ, Telegram боти, налаштовуємо рекламу. Сучасні технології, конкурентні ціни.{% endblock %}">
+        content="{% block og_description %}{% trans "Створюємо сайти під ключ, Telegram боти, налаштовуємо рекламу. Сучасні технології, конкурентні ціни." %}{% endblock %}">
     <meta property="og:type" content="website">
 
     <!-- Favicon -->
@@ -92,9 +92,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </style>
 
     <!-- CSS Base Bundle — non-blocking (preload + media-print swap on load) -->
-    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=10" as="style">
-    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=10" media="print" data-async-css>
-    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=10"></noscript>
+    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=17" as="style">
+    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=17" media="print" data-async-css>
+    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=17"></noscript>
 
     <!-- Page specific CSS -->
     {% block page_css %}{% endblock %}
@@ -121,7 +121,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "PrometeyLabs",
-        "description": "Розробка сайтів під ключ, Telegram боти, реклама",
+        "description": "{% filter escapejs %}{% trans "Розробка сайтів під ключ, Telegram боти, реклама" %}{% endfilter %}",
         "url": "{{ request.build_absolute_uri }}",
         "contactPoint": {
             "@type": "ContactPoint",
@@ -200,14 +200,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     {% get_current_language as CURRENT_LANG %}
     {% if CURRENT_LANG == 'ru' or lang_suggest_always %}
     <div class="lang-suggest" id="lang-suggest" hidden
-         role="region" aria-live="polite" aria-label="Пропозиція змінити мову"
+         role="region" aria-live="polite" aria-label="{% trans 'Пропозиція змінити мову' %}"
          {% if lang_suggest_always %}data-always="true"{% endif %}
          {% if lang_suggest_uk_url %}data-uk-url="{{ lang_suggest_uk_url }}"{% endif %}>
         <div class="lang-suggest__card">
-            <p class="lang-suggest__text">Ви зараз переглядаєте сайт <strong>російською мовою</strong>. Бажаєте перейти на українську?</p>
+            <p class="lang-suggest__text">
+                {% blocktrans %}Ви зараз переглядаєте сайт <strong>російською мовою</strong>. Бажаєте перейти на українську?{% endblocktrans %}
+            </p>
             <div class="lang-suggest__actions">
-                <button class="lang-suggest__yes" id="lang-suggest-yes" type="button">Так</button>
-                <button class="lang-suggest__close" id="lang-suggest-close" type="button">Ні</button>
+                <button class="lang-suggest__yes" id="lang-suggest-yes" type="button">{% trans "Так" %}</button>
+                <button class="lang-suggest__close" id="lang-suggest-close" type="button">{% trans "Ні" %}</button>
             </div>
         </div>
     </div>
@@ -217,9 +219,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <!-- Translations for JavaScript -->
     <script nonce="{{ csp_nonce }}">
         window.I18N = {
-            'errorSubmittingForm': '{% trans "Помилка при відправці форми. Спробуйте ще раз." %}',
-            'errorSending': '{% trans "Помилка при відправці. Спробуйте ще раз." %}',
-            'close': '{% trans "Закрити" %}'
+            errorSubmittingForm: "{% filter escapejs %}{% trans 'Помилка при відправці форми. Спробуйте ще раз.' %}{% endfilter %}",
+            errorSending: "{% filter escapejs %}{% trans 'Помилка при відправці. Спробуйте ще раз.' %}{% endfilter %}",
+            close: "{% filter escapejs %}{% trans 'Закрити' %}{% endfilter %}",
+            fieldRequired: "{% filter escapejs %}{% trans "Це поле обов'язкове" %}{% endfilter %}",
+            nameMinLength: "{% filter escapejs %}{% trans "Введіть коректне ім'я (мінімум 2 символи)" %}{% endfilter %}",
+            nameDigitsOnly: "{% filter escapejs %}{% trans "Ім'я не може складатися тільки з цифр" %}{% endfilter %}",
+            nameNeedsLetter: "{% filter escapejs %}{% trans "Введіть коректне ім'я (хоча б одна літера)" %}{% endfilter %}",
+            phoneRequired: "{% filter escapejs %}{% trans 'Введіть номер телефону' %}{% endfilter %}",
+            phoneInvalid: "{% filter escapejs %}{% trans 'Введіть коректний номер телефону' %}{% endfilter %}",
+            phoneStartsWithZero: "{% filter escapejs %}{% trans 'Номер має починатися з 0' %}{% endfilter %}"
         };
     </script>
     {% block base_js %}

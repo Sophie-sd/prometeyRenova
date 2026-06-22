@@ -679,7 +679,7 @@
             <h2 class="cw-section__title">Рассчитайте стоимость онлайн</h2>
             <p class="cw-section__subtitle">5 коротких вопросов — и мы подберём решение под ваш бизнес.</p>
 
-            <form class="cw-quiz" id="corporate-website-quiz-form" method="post" action="{% url 'form_submit' %}" data-form-type="site_request" data-source-label="Корпоративный сайт">
+            <form class="cw-quiz" id="corporate-website-quiz-form" method="post" action="{% url 'form_submit' %}" data-form-type="site_request" data-source-label="Корпоративный сайт" data-page-prefix="Страница" data-quiz-labels='{"q_business_type":"Тип бизнеса","q_pages":"Количество страниц","q_marketing":"Маркетинг-пакет","q_integrations":"Интеграции","q_timeline":"Сроки"}'>
                 {% csrf_token %}
                 <input type="hidden" name="form_type" value="site_request">
                 <input type="hidden" name="source_page" value="corporate-website-ru">

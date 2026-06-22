@@ -781,7 +781,7 @@
             <h2 class="is-section__title">Рассчитайте стоимость онлайн</h2>
             <p class="is-section__subtitle">5 коротких вопросов — и мы подберём решение под ваш проект.</p>
 
-            <form class="is-quiz" id="internet-shop-quiz-form" method="post" action="{% url 'form_submit' %}" data-form-type="site_request">
+            <form class="is-quiz" id="internet-shop-quiz-form" method="post" action="{% url 'form_submit' %}" data-form-type="site_request" data-source-label="Интернет-магазин" data-page-prefix="Страница" data-quiz-labels='{"q_need":"Что нужно","q_products":"Количество товаров","q_automation":"Автоматизация","q_accounts":"Личные кабинеты","q_timeline":"Сроки"}'>
                 {% csrf_token %}
                 <input type="hidden" name="form_type" value="site_request">
                 <input type="hidden" name="source_page" value="internet-shop-ru">

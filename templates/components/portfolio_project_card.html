@@ -10,12 +10,12 @@
             </picture>
         </div>
         <div class="project-card__content">
-            <h2 class="project-card__title">{{ project.title }}
-                {% if project.subtitle %}
-                <span class="project-card__subtitle">{{ project.subtitle }}</span>
+            <h2 class="project-card__title">{{ project.get_localized_title }}
+                {% if project.get_localized_subtitle %}
+                <span class="project-card__subtitle">{{ project.get_localized_subtitle }}</span>
                 {% endif %}
             </h2>
-            <p class="project-card__description">{{ project.card_description }}</p>
+            <p class="project-card__description">{{ project.get_localized_card_description }}</p>
 
             {% if project.get_integration_tags %}
             <div class="project-card__integrations">

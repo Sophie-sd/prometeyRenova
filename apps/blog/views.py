@@ -58,11 +58,11 @@ class BlogDetailView(DetailView):
         post = self.get_object()
         
         # SEO мета-дані
-        context['page_title'] = post.meta_title or post.title
-        context['meta_description'] = post.meta_description or post.excerpt
-        context['og_title'] = post.og_title or post.title
-        context['og_description'] = post.og_description or post.excerpt
-        context['keywords'] = post.keywords
+        context['page_title'] = post.meta_title or post.get_localized_title()
+        context['meta_description'] = post.meta_description or post.get_localized_excerpt()
+        context['og_title'] = post.og_title or post.get_localized_title()
+        context['og_description'] = post.og_description or post.get_localized_excerpt()
+        context['keywords'] = post.get_localized_keywords()
         
         # Пов'язані статті
         related_posts = BlogPost.objects.filter(

@@ -515,21 +515,24 @@ class PortfolioProjectAdmin(UnfoldModelAdmin):
 
     fieldsets = (
         (_('Основне'), {
-            'fields': ('title', 'subtitle', 'slug', 'order', 'home_order'),
+            'fields': ('title', 'title_ru', 'subtitle', 'subtitle_ru', 'slug', 'order', 'home_order'),
         }),
         (_('Картка (/portfolio/)'), {
             'fields': (
                 'card_description',
+                'card_description_ru',
                 'integrations',
                 'card_image',
                 'card_image_preview',
                 'card_image_mobile',
                 'card_image_alt',
+                'card_image_alt_ru',
             ),
         }),
         (_('Модальне вікно'), {
             'fields': (
                 'modal_content',
+                'modal_content_ru',
                 'modal_hero',
                 'modal_hero_preview',
                 'modal_mobile',
@@ -538,7 +541,7 @@ class PortfolioProjectAdmin(UnfoldModelAdmin):
             ),
         }),
         (_('Головна сторінка'), {
-            'fields': ('home_story_image', 'home_story_label'),
+            'fields': ('home_story_image', 'home_story_label', 'home_story_label_ru'),
         }),
         (_('Відображення'), {
             'fields': (

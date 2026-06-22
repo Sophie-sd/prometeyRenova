@@ -505,6 +505,20 @@ class PortfolioProject(models.Model):
         blank=True,
         verbose_name=_('Контент модального вікна (HTML)'),
     )
+    title_ru = models.CharField(max_length=200, blank=True, verbose_name=_('Заголовок (RU)'))
+    subtitle_ru = models.CharField(max_length=200, blank=True, verbose_name=_('Підзаголовок (RU)'))
+    card_description_ru = models.TextField(blank=True, verbose_name=_('Короткий опис (картка) (RU)'))
+    modal_content_ru = models.TextField(blank=True, verbose_name=_('Контент модального вікна (HTML) (RU)'))
+    home_story_label_ru = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name=_('Назва на головній (RU)'),
+    )
+    card_image_alt_ru = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Alt текст картки (RU)'),
+    )
     modal_hero = models.ImageField(
         upload_to=portfolio_upload_to,
         blank=True,
@@ -575,7 +589,27 @@ class PortfolioProject(models.Model):
     def get_safe_modal_content(self) -> str:
         from .portfolio_sanitize import linkify_portfolio_html
 
-        return linkify_portfolio_html(self.modal_content or '')
+        return linkify_portfolio_html(self.get_localized_modal_content())
+
+    def get_localized_title(self) -> str:
+        from .i18n_content import localized_text
+
+        return localized_text(self.title, self.title_ru)
+
+    def get_localized_subtitle(self) -> str:
+        from .i18n_content import localized_text
+
+        return localized_text(self.subtitle, self.subtitle_ru)
+
+    def get_localized_card_description(self) -> str:
+        from .i18n_content import localized_text
+
+        return localized_text(self.card_description, self.card_description_ru)
+
+    def get_localized_modal_content(self) -> str:
+        from .i18n_content import localized_text
+
+        return localized_text(self.modal_content, self.modal_content_ru)
 
     def get_home_image(self):
         if self.home_story_image:
@@ -654,15 +688,25 @@ class PortfolioProject(models.Model):
         return portfolio_image_available(self, 'modal_laptop')
 
     def get_home_label(self) -> str:
-        return (self.home_story_label or self.title).strip()
+        from .i18n_content import localized_text
+
+        ua = (self.home_story_label or self.title).strip()
+        ru = (self.home_story_label_ru or self.title_ru).strip()
+        return localized_text(ua, ru)
 
     def get_card_alt(self) -> str:
-        return (self.card_image_alt or self.title).strip()
+        from .i18n_content import localized_text
+
+        ua = (self.card_image_alt or self.title).strip()
+        ru = (self.card_image_alt_ru or self.title_ru).strip()
+        return localized_text(ua, ru)
 
     def get_modal_title(self) -> str:
-        if self.subtitle:
-            return f'{self.title} — {self.subtitle}'
-        return self.title
+        title = self.get_localized_title()
+        subtitle = self.get_localized_subtitle()
+        if subtitle:
+            return f'{title} — {subtitle}'
+        return title
 
 
 class Client(models.Model):

@@ -1078,3 +1078,14 @@
         padding: 6px;
     }
 }
+
+/* ===== ДЕСКТОП: Hero заголовок ===== */
+@media (min-width: 1025px) {
+    .hero-section .hero-content {
+        padding-top: clamp(100px, 14vw, 160px);
+    }
+
+    .hero-section .text-mega {
+        font-size: clamp(50px, 9vw, 90px);
+    }
+}

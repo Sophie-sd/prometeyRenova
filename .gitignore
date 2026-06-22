@@ -174,6 +174,9 @@ yarn-error.log*
 *.tmp
 *.temp
 
+# One-off dev scripts (local use only)
+scripts/translate_po_v2.py
+
 # Render remote access scripts (contain API keys)
 .render-exec.sh
 render-cmd.sh

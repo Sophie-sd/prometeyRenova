@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.shortcuts import redirect
 from django.utils import timezone
 from .mixins import BasePageView, homepage_clients, portfolio_page_projects
 from .form_handlers import (
@@ -81,15 +82,17 @@ class PortfolioView(BasePageView):
         context['portfolio_projects'] = portfolio_page_projects()
         return context
 
+
 class CalculatorView(BasePageView):
     template_name = 'pages/calculator.html'
     page_title = _('Розрахувати вартість сайту | Калькулятор ціни - PrometeyLabs')
     meta_description = _('Розрахуйте вартість створення сайту онлайн. Сучасні технології знижують ціну розробки. Тест для точного розрахунку вартості проекту.')
 
 class DeveloperView(BasePageView):
-    template_name = 'pages/developer.html'
-    page_title = _('PrometeyLabs — Навчання web-розробці та AI')
-    meta_description = _('Навчання веб-розробці та AI у PrometeyLabs. Програми для новачків та розробників з досвідом. Практичне навчання, комунікація з експертами, можливість кар\'єри у нашій компанії.')
+    """Landing курсів тимчасово прихований — заявки через developer-modal на інших сторінках."""
+
+    def dispatch(self, request, *args, **kwargs):
+        return redirect('home')
 
 class ContactsView(BasePageView):
     template_name = 'pages/contacts.html'
@@ -97,29 +100,54 @@ class ContactsView(BasePageView):
     meta_description = _('Зв\'яжіться з командою PrometeyLabs для розробки сайтів, Telegram ботів, реклами чи навчання. Київ, Україна.')
 
 class OfferView(BasePageView):
-    template_name = 'pages/offer.html'
     page_title = _('Публічна оферта на надання послуг | PrometeyLabs')
     meta_description = _('Публічна оферта на надання послуг від PrometeyLabs. Офіційні умови надання послуг веб-розробки, мобільних застосунків та маркетингу.')
 
+    def get_template_names(self):
+        from django.utils import translation
+        if translation.get_language() == 'ru':
+            return ['pages/offer-ru.html']
+        return ['pages/offer.html']
+
 class PrivacyView(BasePageView):
-    template_name = 'pages/privacy.html'
     page_title = _('Політика конфіденційності | PrometeyLabs')
     meta_description = _('Політика конфіденційності PrometeyLabs. Дізнайтеся, як ми захищаємо ваші персональні дані відповідно до законодавства України та GDPR.')
 
+    def get_template_names(self):
+        from django.utils import translation
+        if translation.get_language() == 'ru':
+            return ['pages/privacy-ru.html']
+        return ['pages/privacy.html']
+
 class CookiesView(BasePageView):
-    template_name = 'pages/cookies.html'
     page_title = _('Політика щодо файлів cookie | PrometeyLabs')
     meta_description = _('Політика щодо файлів cookie від PrometeyLabs. Дізнайтеся, які файли cookie ми використовуємо та як керувати налаштуваннями.')
 
+    def get_template_names(self):
+        from django.utils import translation
+        if translation.get_language() == 'ru':
+            return ['pages/cookies-ru.html']
+        return ['pages/cookies.html']
+
 class RefundPolicyView(BasePageView):
-    template_name = 'pages/refund.html'
     page_title = _('Політика повернення коштів | PrometeyLabs')
     meta_description = _('Політика повернення коштів від PrometeyLabs. Дізнайтеся про умови і порядок повернення коштів за наші послуги.')
 
+    def get_template_names(self):
+        from django.utils import translation
+        if translation.get_language() == 'ru':
+            return ['pages/refund-ru.html']
+        return ['pages/refund.html']
+
 class IntellectualPropertyView(BasePageView):
-    template_name = 'pages/intellectual-property.html'
     page_title = _('Політика щодо інтелектуальної власності | PrometeyLabs')
     meta_description = _('Політика щодо інтелектуальної власності від PrometeyLabs. Дізнайтеся про права на контент та захист авторських прав.')
+
+    def get_template_names(self):
+        from django.utils import translation
+        if translation.get_language() == 'ru':
+            return ['pages/intellectual-property-ru.html']
+        return ['pages/intellectual-property.html']
 
 class InternetShopView(BasePageView):
     """

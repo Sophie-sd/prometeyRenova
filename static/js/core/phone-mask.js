@@ -429,7 +429,7 @@ class PhoneMask {
         if (!value || value.trim() === '' || value === this.prefix) {
             return {
                 valid: false,
-                message: 'Введіть номер телефону'
+                message: window.I18N?.phoneRequired || 'Введіть номер телефону'
             };
         }
         
@@ -440,7 +440,7 @@ class PhoneMask {
         if (!cleaned.startsWith('+380')) {
             return {
                 valid: false,
-                message: 'Номер має починатися з 0'
+                message: window.I18N?.phoneStartsWithZero || 'Номер має починатися з 0'
             };
         }
         
@@ -448,7 +448,7 @@ class PhoneMask {
         if (cleaned.length !== 13) {
             return {
                 valid: false,
-                message: 'Введіть коректний номер телефону'
+                message: window.I18N?.phoneInvalid || 'Введіть коректний номер телефону'
             };
         }
         
@@ -456,7 +456,7 @@ class PhoneMask {
         if (!/^\+380\d{9}$/.test(cleaned)) {
             return {
                 valid: false,
-                message: 'Введіть коректний номер телефону'
+                message: window.I18N?.phoneInvalid || 'Введіть коректний номер телефону'
             };
         }
         

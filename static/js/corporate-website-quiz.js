@@ -132,16 +132,26 @@
     nextBtn?.addEventListener('click', goNext);
     prevBtn?.addEventListener('click', goPrev);
 
+    function parseQuizLabels() {
+        try {
+            return JSON.parse(form.dataset.quizLabels || '{}');
+        } catch (e) {
+            return {};
+        }
+    }
+
     function compileDetails() {
         if (!detailsInput) return;
+        const customLabels = parseQuizLabels();
+        const pagePrefix = form.dataset.pagePrefix || 'Сторінка';
         const fields = [
-            { name: 'q_business_type', label: 'Тип бізнесу' },
-            { name: 'q_pages',         label: 'Кількість сторінок' },
-            { name: 'q_marketing',     label: 'Маркетинг-пакет', multi: true },
-            { name: 'q_integrations',  label: 'Інтеграції',      multi: true },
-            { name: 'q_timeline',      label: 'Терміни' },
+            { name: 'q_business_type', label: customLabels.q_business_type || 'Тип бізнесу' },
+            { name: 'q_pages',         label: customLabels.q_pages || 'Кількість сторінок' },
+            { name: 'q_marketing',     label: customLabels.q_marketing || 'Маркетинг-пакет', multi: true },
+            { name: 'q_integrations',  label: customLabels.q_integrations || 'Інтеграції',      multi: true },
+            { name: 'q_timeline',      label: customLabels.q_timeline || 'Терміни' },
         ];
-        const parts = [`Сторінка: ${sourcePage}`];
+        const parts = [`${pagePrefix}: ${sourcePage}`];
         fields.forEach(({ name, label, multi }) => {
             if (multi) {
                 const vals = Array.from(form.querySelectorAll(`input[name="${name}"]:checked`))

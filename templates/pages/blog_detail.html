@@ -26,7 +26,7 @@
 
             {% if post.featured_image %}
             <div class="article-featured-image">
-                <img src="{{ post.featured_image.url }}" alt="{{ post.title|striptags }}" loading="lazy">
+                <img src="{{ post.featured_image.url }}" alt="{{ post.get_localized_title|striptags }}" loading="lazy">
             </div>
             {% endif %}
         </div>

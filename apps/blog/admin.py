@@ -60,12 +60,15 @@ class BlogPostAdmin(UnfoldModelAdmin):
 
     fieldsets = (
         ('Основна інформація', {
-            'fields': ('title', 'slug', 'excerpt', 'content', 'category', 'featured_image')
+            'fields': (
+                'title', 'title_ru', 'slug', 'excerpt', 'excerpt_ru',
+                'content', 'content_ru', 'category', 'featured_image',
+            )
         }),
         ('SEO налаштування', {
             'fields': (
-                'seo_title', 'seo_description', 'keywords', 'meta_title',
-                'meta_description', 'og_title', 'og_description',
+                'seo_title', 'seo_description', 'keywords', 'keywords_ru',
+                'meta_title', 'meta_description', 'og_title', 'og_description',
             )
         }),
         ('Додаткові налаштування', {

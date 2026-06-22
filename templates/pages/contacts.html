@@ -8,11 +8,9 @@
 {% trans "Зв'яжіться з командою PrometeyLabs. Ми завжди на зв'язку для обговорення вашого проекту, консультації чи навчання. Київ, Україна." %}
 {% endblock %}
 
-{% block og_title %}Контакти | PrometeyLabs{% endblock %}
+{% block og_title %}{% trans "Контакти | PrometeyLabs" %}{% endblock %}
 
-{% block og_description %}
-Зв'яжіться з командою PrometeyLabs для розробки сайтів, Telegram ботів, реклами чи навчання. Швидка відповідь.
-{% endblock %}
+{% block og_description %}{% trans "Зв'яжіться з командою PrometeyLabs для розробки сайтів, Telegram ботів, реклами чи навчання. Швидка відповідь." %}{% endblock %}
 
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/contacts.css' %}">
@@ -75,7 +73,7 @@
                         <form id="contactForm" class="contact-form" data-form-type="contact">
                             <div class="form-group">
                                 <label for="name" class="form-label">{% trans "Ваше ім'я" %} <span class="required">*</span></label>
-                                <input type="text" id="name" name="name" class="form-input" required placeholder="{% trans 'Ім\'я' %}">
+                                <input type="text" id="name" name="name" class="form-input" required placeholder="{% trans "Ім'я" %}">
                             </div>
 
                             <div class="form-group">

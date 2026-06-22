@@ -539,7 +539,7 @@ class PrometeyApp {
         requiredFields.forEach(field => {
             if (!field.value.trim()) {
                 field.classList.add('error');
-                this.showFieldError(field, 'Це поле обов\'язкове');
+                this.showFieldError(field, window.I18N?.fieldRequired || 'Це поле обов\'язкове');
                 isValid = false;
             } else {
                 field.classList.remove('error');
@@ -556,11 +556,11 @@ class PrometeyApp {
             let nameError = null;
 
             if (name.length < 2) {
-                nameError = 'Введіть коректне ім\'я (мінімум 2 символи)';
+                nameError = window.I18N?.nameMinLength || 'Введіть коректне ім\'я (мінімум 2 символи)';
             } else if (/^\d+$/.test(name)) {
-                nameError = 'Ім\'я не може складатися тільки з цифр';
+                nameError = window.I18N?.nameDigitsOnly || 'Ім\'я не може складатися тільки з цифр';
             } else if (!/\p{L}/u.test(name)) {
-                nameError = 'Введіть коректне ім\'я (хоча б одна літера)';
+                nameError = window.I18N?.nameNeedsLetter || 'Введіть коректне ім\'я (хоча б одна літера)';
             }
 
             if (nameError) {
@@ -591,11 +591,11 @@ class PrometeyApp {
                 
                 // Перевірка формату +380XXXXXXXXX
                 if (!clean.startsWith('+380')) {
-                    phoneError = 'Номер має починатися з 0';
+                    phoneError = window.I18N?.phoneStartsWithZero || 'Номер має починатися з 0';
                 } else if (clean.length !== 13) {
-                    phoneError = 'Введіть коректний номер телефону';
+                    phoneError = window.I18N?.phoneInvalid || 'Введіть коректний номер телефону';
                 } else if (!/^\+380\d{9}$/.test(clean)) {
-                    phoneError = 'Введіть коректний номер телефону';
+                    phoneError = window.I18N?.phoneInvalid || 'Введіть коректний номер телефону';
                 }
             }
 

@@ -10,9 +10,13 @@ class BlogPost(models.Model):
     slug = models.SlugField(max_length=200, unique=True, verbose_name=_("URL"))
     excerpt = models.TextField(max_length=300, verbose_name=_("Короткий опис"))
     content = models.TextField(verbose_name=_("Контент"))
+    title_ru = models.CharField(max_length=200, blank=True, verbose_name=_("Заголовок (RU)"))
+    excerpt_ru = models.TextField(max_length=300, blank=True, verbose_name=_("Короткий опис (RU)"))
+    content_ru = models.TextField(blank=True, verbose_name=_("Контент (RU)"))
     seo_title = models.CharField(max_length=70, verbose_name=_("SEO заголовок"))
     seo_description = models.CharField(max_length=160, verbose_name=_("SEO опис"))
     keywords = models.CharField(max_length=255, verbose_name=_("Ключові слова"))
+    keywords_ru = models.CharField(max_length=255, blank=True, verbose_name=_("Ключові слова (RU)"))
     
     # Нові поля для SEO
     meta_title = models.CharField(max_length=60, verbose_name=_("Meta Title"), blank=True)
@@ -69,9 +73,30 @@ class BlogPost(models.Model):
     
     def get_keywords_list(self):
         """Повертає список ключових слів"""
-        if self.keywords:
-            return [keyword.strip() for keyword in self.keywords.split(',')]
+        keywords = self.get_localized_keywords()
+        if keywords:
+            return [keyword.strip() for keyword in keywords.split(',')]
         return []
+
+    def get_localized_title(self) -> str:
+        from apps.core.i18n_content import localized_text
+
+        return localized_text(self.title, self.title_ru)
+
+    def get_localized_excerpt(self) -> str:
+        from apps.core.i18n_content import localized_text
+
+        return localized_text(self.excerpt, self.excerpt_ru)
+
+    def get_localized_content(self) -> str:
+        from apps.core.i18n_content import localized_text
+
+        return localized_text(self.content, self.content_ru)
+
+    def get_localized_keywords(self) -> str:
+        from apps.core.i18n_content import localized_text
+
+        return localized_text(self.keywords, self.keywords_ru)
     
     def get_reading_time_text(self):
         """Повертає текст часу читання"""
@@ -85,7 +110,7 @@ class BlogPost(models.Model):
     def get_clean_content(self):
         """Повертає контент без зірочок та форматований для журнального стилю"""
         import re
-        content = self.content
+        content = self.get_localized_content()
         
         # Прибираємо подвійні зірочки (жирний текст в markdown)
         content = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', content)
@@ -181,7 +206,7 @@ class BlogPost(models.Model):
         """HTML з TinyMCE (bleach) або legacy markdown."""
         from .html_sanitize import content_looks_like_html, sanitize_blog_html
 
-        raw = self.content or ''
+        raw = self.get_localized_content() or ''
         if content_looks_like_html(raw):
             return sanitize_blog_html(raw)
         return self.get_clean_content()
@@ -189,7 +214,7 @@ class BlogPost(models.Model):
     def get_safe_title(self):
         from .html_sanitize import content_looks_like_html, sanitize_blog_title
 
-        raw = self.title or ''
+        raw = self.get_localized_title() or ''
         if content_looks_like_html(raw):
             return sanitize_blog_title(raw)
         return raw
@@ -197,7 +222,7 @@ class BlogPost(models.Model):
     def get_safe_excerpt(self):
         from .html_sanitize import content_looks_like_html, sanitize_blog_html
 
-        raw = self.excerpt or ''
+        raw = self.get_localized_excerpt() or ''
         if content_looks_like_html(raw):
             return sanitize_blog_html(raw)
         return raw
