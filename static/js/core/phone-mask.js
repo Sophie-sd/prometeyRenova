@@ -9,7 +9,6 @@ class PhoneMask {
     constructor(input) {
         this.input = input;
         this.prefix = '+38';
-        this.pattern = /^\+380\d{9}$/;
         
         this.init();
     }
@@ -425,45 +424,26 @@ class PhoneMask {
      */
     validate() {
         const value = this.input.value;
-        
+
         if (!value || value.trim() === '' || value === this.prefix) {
             return {
                 valid: false,
                 message: window.I18N?.phoneRequired || 'Введіть номер телефону'
             };
         }
-        
-        // Очищаємо значення для перевірки
-        const cleaned = value.replace(/[^\d+]/g, '');
-        
-        // Перевірка формату +380XXXXXXXXX
-        if (!cleaned.startsWith('+380')) {
-            return {
-                valid: false,
-                message: window.I18N?.phoneStartsWithZero || 'Номер має починатися з 0'
-            };
-        }
-        
-        // Перевірка довжини (має бути +380 + 9 цифр = 13 символів)
-        if (cleaned.length !== 13) {
+
+        const digits = value.replace(/\D/g, '');
+        if (digits.length < 7) {
             return {
                 valid: false,
                 message: window.I18N?.phoneInvalid || 'Введіть коректний номер телефону'
             };
         }
-        
-        // Перевірка що після +380 є тільки цифри
-        if (!/^\+380\d{9}$/.test(cleaned)) {
-            return {
-                valid: false,
-                message: window.I18N?.phoneInvalid || 'Введіть коректний номер телефону'
-            };
-        }
-        
+
         return {
             valid: true,
             message: '',
-            cleaned: cleaned
+            cleaned: value.replace(/[^\d+]/g, '')
         };
     }
 

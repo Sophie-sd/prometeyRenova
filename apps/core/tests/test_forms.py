@@ -81,13 +81,37 @@ class FormValidationTests(TestCase):
         data = {
             'form_type': 'footer-consultation',
             'name': 'Іван Петренко',
-            'phone': '123456'
+            'phone': '123'
         }
         response = self.client.post(self.submit_url, data)
         self.assertEqual(response.status_code, 200)
         json_data = json.loads(response.content)
         self.assertFalse(json_data['success'])
         self.assertIn('номер телефону', json_data['message'].lower())
+
+    def test_form_with_international_phone(self):
+        """Тест форми з міжнародним номером телефону"""
+        data = {
+            'form_type': 'footer-consultation',
+            'name': 'Іван Петренко',
+            'phone': '+44 20 7946 0958'
+        }
+        response = self.client.post(self.submit_url, data)
+        self.assertEqual(response.status_code, 200)
+        json_data = json.loads(response.content)
+        self.assertTrue(json_data['success'])
+
+    def test_form_with_local_phone_seven_digits(self):
+        """Тест форми з локальним номером (7 цифр)"""
+        data = {
+            'form_type': 'footer-consultation',
+            'name': 'Іван Петренко',
+            'phone': '555-1234'
+        }
+        response = self.client.post(self.submit_url, data)
+        self.assertEqual(response.status_code, 200)
+        json_data = json.loads(response.content)
+        self.assertTrue(json_data['success'])
 
     def test_form_missing_required_fields(self):
         """Тест форми без обов'язкових полів"""

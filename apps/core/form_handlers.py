@@ -17,24 +17,11 @@ EMAIL_TIMEOUT = 10
 
 
 def validate_phone(phone):
-    """
-    Валідація номера телефону українського формату
-    Формат: +380XXXXXXXXX (12 цифр після +38, починається з 0)
-    """
+    """Валідація номера телефону — мінімум 7 цифр, будь-який формат."""
     if not phone:
         return False
-    
-    # Очищаємо від усіх символів крім цифр та +
-    clean_phone = re.sub(r'[^\d+]', '', phone)
-    
-    # Перевірка формату +380XXXXXXXXX
-    # Має починатися з +380 і містити ще 9 цифр (всього 13 символів)
-    pattern = r'^\+380\d{9}$'
-    
-    if not re.match(pattern, clean_phone):
-        return False
-    
-    return True
+    digits = re.sub(r'\D', '', phone)
+    return len(digits) >= 7
 
 
 def validate_name(name):

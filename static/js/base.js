@@ -585,16 +585,8 @@ class PrometeyApp {
                     phoneError = validation.message;
                 }
             } else {
-                // Fallback валідація якщо PhoneMask не доступний
-                const phone = phoneField.value;
-                const clean = phone.replace(/[^\d+]/g, '');
-                
-                // Перевірка формату +380XXXXXXXXX
-                if (!clean.startsWith('+380')) {
-                    phoneError = window.I18N?.phoneStartsWithZero || 'Номер має починатися з 0';
-                } else if (clean.length !== 13) {
-                    phoneError = window.I18N?.phoneInvalid || 'Введіть коректний номер телефону';
-                } else if (!/^\+380\d{9}$/.test(clean)) {
+                const digits = phoneField.value.replace(/\D/g, '');
+                if (digits.length < 7) {
                     phoneError = window.I18N?.phoneInvalid || 'Введіть коректний номер телефону';
                 }
             }
