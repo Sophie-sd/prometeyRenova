@@ -90,7 +90,8 @@
 .hero-parallax .video-overlay,
 .hero-section .video-overlay,
 .blog-hero .video-overlay,
-.developer-hero .video-overlay {
+.developer-hero .video-overlay,
+.cta-section .video-overlay {
     position: absolute;
     top: 0;
     left: 0;

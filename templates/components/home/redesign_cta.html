@@ -1,10 +1,20 @@
-{% load i18n %}
-<div class="v2 vf-host vf-cta-host">
-    <section class="v2-section v2-cta vf-cta-center">
+{% load i18n static %}
+<section class="cta-section home-redesign home-cta-section" aria-label="{% trans 'Готові почати?' %}">
+    <video class="video-background desktop-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
+        <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
+    </video>
+    <video class="video-background mobile-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
+        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <div class="home-cta-section__inner">
         <div class="v2-rule">
             <span>[ {% trans "КОНТАКТ" %} ]</span>
             <span>START PROJECT</span>
         </div>
+
+        <div class="home-cta-section__body vf-cta-center">
         <h2 class="v2-h2 v2-cta-h2">
             {% trans "ГОТОВІ" %}<br>
             <span class="v2-orange">{% trans "ПОЧАТИ?" %}</span>
@@ -22,5 +32,6 @@
                 <span class="v2-arrow" aria-hidden="true">→</span>
             </a>
         </div>
-    </section>
-</div>
+        </div>
+    </div>
+</section>

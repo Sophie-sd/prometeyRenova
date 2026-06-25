@@ -1,0 +1,36 @@
+{% load i18n %}
+<div class="pb-step__heading">
+    <h3 class="pb-step__title">{{ title }}</h3>
+    <div class="pb-step__detail">
+        <button
+            type="button"
+            class="pb-step__detail-btn"
+            aria-expanded="false"
+            aria-controls="pb-step-{{ step_id }}-popover"
+            aria-haspopup="dialog"
+            aria-label="{% trans 'Детальніше' %}"
+        >
+            <svg class="pb-step__detail-icon" width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                <path d="M3 7h7M7.5 4.5L10 7l-2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <div
+            id="pb-step-{{ step_id }}-popover"
+            class="pb-step__popover"
+            role="dialog"
+            aria-labelledby="pb-step-{{ step_id }}-popover-title"
+            aria-hidden="true"
+            hidden
+        >
+            <p class="pb-step__popover-title" id="pb-step-{{ step_id }}-popover-title">
+                {% trans "Що входить" %}
+            </p>
+            <ul class="pb-step__popover-list">
+                <li>{{ item1 }}</li>
+                <li>{{ item2 }}</li>
+                <li>{{ item3 }}</li>
+                {% if item4 %}<li>{{ item4 }}</li>{% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

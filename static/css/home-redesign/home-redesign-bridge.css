@@ -303,3 +303,24 @@
     -webkit-overflow-scrolling: touch;
   }
 }
+
+.home-redesign.vf > .home-process-intro {
+  margin-bottom: clamp(16px, 3vw, 32px);
+}
+
+.home-redesign.vf > .home-process-intro .v2-h2 {
+  margin-bottom: clamp(24px, 4vw, 40px);
+}
+
+.home-redesign.vf > #pb-process {
+  position: relative;
+  z-index: 2;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  padding-bottom: clamp(32px, 5vw, 48px);
+}
+
+@media (min-width: 768px) {
+  .home-redesign.vf > #pb-process {
+    margin-bottom: clamp(28px, 3.5vw, 48px);
+  }
+}

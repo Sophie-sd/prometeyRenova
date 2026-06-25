@@ -16,6 +16,11 @@
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v3.css' %}">
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-final.css' %}">
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-bridge.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/process_block.css' %}?v=43">
+<link rel="stylesheet" href="{% static 'css/services_piano_block.css' %}?v=40">
+<link rel="stylesheet" href="{% static 'css/services_piano_block_mob.css' %}?v=5">
+<link rel="stylesheet" href="{% static 'css/services_piano_video.css' %}?v=28">
 {% endblock %}
 
 {% block content %}
@@ -120,11 +125,17 @@
     <div class="v3-bg-glow v3-glow-b" aria-hidden="true"></div>
     <div class="v3-bg-grid" aria-hidden="true"></div>
 
-    {% include 'components/home/redesign_why.html' %}
-    {% include 'components/home/redesign_services.html' %}
-    {% include 'components/home/redesign_clients.html' %}
-    {% include 'components/home/redesign_cta.html' %}
+    {% include 'components/home/home_process_intro.html' %}
+    {% include 'components/process_block.html' %}
 </div>
+
+{% include 'components/home/redesign_services_piano.html' %}
+
+<div class="home-redesign vf home-redesign--tail">
+    {% include 'components/home/redesign_clients.html' %}
+</div>
+
+{% include 'components/home/redesign_cta.html' %}
 <!-- Модальні вікна послуг -->
 <div class="modal" id="service-web-modal" role="dialog" aria-labelledby="service-web-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
@@ -233,5 +244,8 @@
 {% endblock %}
 
 {% block extra_js %}
-<!-- Home JS вже включено в bundle -->
+<script src="{% static 'js/process_block_anim.js' %}?v=43" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/process_block_popover.js' %}?v=43" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/process_block.js' %}?v=41" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/services_piano_block.js' %}?v=8" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

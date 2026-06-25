@@ -3121,7 +3121,8 @@ body.modal-open .main-footer {
 .hero-parallax .video-overlay,
 .hero-section .video-overlay,
 .blog-hero .video-overlay,
-.developer-hero .video-overlay {
+.developer-hero .video-overlay,
+.cta-section .video-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -4031,6 +4032,35 @@ body.modal-open .main-footer {
     body {
         -webkit-overflow-scrolling: auto;
     }
+}
+
+/* ===== BINOTEL WIDGET LAYOUT GUARD ===== */
+/* Keeps callback overlay out of document flow if third-party theme CSS is blocked. */
+
+#bingc-passive,
+#bingc-active {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999999;
+    pointer-events: none;
+}
+
+#bingc-passive.bingc-passive-closed,
+#bingc-active.bingc-active-closed {
+    display: none;
+}
+
+#bingc-passive .bingc-passive-overlay,
+#bingc-active .bingc-active-overlay {
+    pointer-events: auto;
+}
+
+#bingc-passive div.bingc-passive-background,
+#bingc-active div.bingc-active-background {
+    position: fixed;
+    inset: 0;
 }
 
 /* ===== BINOTEL WIDGET COLOR OVERRIDES ===== */

@@ -1,0 +1,171 @@
+{% load i18n static %}
+<section id="pb-process" aria-label="{% trans 'Процес створення сайту' %}">
+    <div class="pb-inner">
+
+        <div class="pb-grid-wrap" id="pb-grid-wrap">
+            <svg id="pb-arrows" aria-hidden="true">
+                <defs>
+                    <linearGradient id="pb-grad" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#ff6a00"></stop>
+                        <stop offset="1" stop-color="#ff9544"></stop>
+                    </linearGradient>
+                </defs>
+            </svg>
+
+            <div class="pb-grid" id="pb-grid">
+
+                <article class="pb-step pb-step--float" data-step="1">
+                    <div class="pb-step__float-scene">
+                        <div class="pb-step__float-stage">
+                            <span class="pb-step__num">01</span>
+                            <div class="pb-step__float-frame">
+                                <img
+                                    class="pb-step__float-img"
+                                    src="{% static 'images/process_flow/info-safe-3d.png' %}"
+                                    width="500"
+                                    height="500"
+                                    alt=""
+                                    decoding="async"
+                                    loading="lazy"
+                                >
+                            </div>
+                        </div>
+                        {% trans "Збір інформації" as pb_step1_title %}
+                        {% trans "Бриф" as pb_step1_item1 %}
+                        {% trans "Цілі бізнесу" as pb_step1_item2 %}
+                        {% trans "Аудиторія" as pb_step1_item3 %}
+                        {% trans "Технічні вимоги" as pb_step1_item4 %}
+                        {% include 'components/pb_step_heading.html' with step_id=1 title=pb_step1_title item1=pb_step1_item1 item2=pb_step1_item2 item3=pb_step1_item3 item4=pb_step1_item4 %}
+                    </div>
+                </article>
+
+                <article class="pb-step pb-step--float" data-step="2">
+                    <div class="pb-step__float-scene">
+                        <div class="pb-step__float-stage">
+                            <span class="pb-step__num">02</span>
+                            <div class="pb-step__float-frame">
+                                <img
+                                    class="pb-step__float-img"
+                                    src="{% static 'images/process_flow/sitemap-3d.png' %}"
+                                    width="500"
+                                    height="500"
+                                    alt=""
+                                    decoding="async"
+                                    loading="lazy"
+                                >
+                            </div>
+                        </div>
+                        {% trans "Карта сайту" as pb_step2_title %}
+                        {% trans "Структура сторінок" as pb_step2_item1 %}
+                        {% trans "Логіка навігації" as pb_step2_item2 %}
+                        {% trans "Сценарії користувача" as pb_step2_item3 %}
+                        {% trans "Ієрархія контенту" as pb_step2_item4 %}
+                        {% include 'components/pb_step_heading.html' with step_id=2 title=pb_step2_title item1=pb_step2_item1 item2=pb_step2_item2 item3=pb_step2_item3 item4=pb_step2_item4 %}
+                    </div>
+                </article>
+
+                <article class="pb-step pb-step--float" data-step="3">
+                    <div class="pb-step__float-scene">
+                        <div class="pb-step__float-stage">
+                            <span class="pb-step__num">03</span>
+                            <div class="pb-step__float-frame">
+                                <img
+                                    class="pb-step__float-img"
+                                    src="{% static 'images/process_flow/design-3d.png' %}"
+                                    width="500"
+                                    height="500"
+                                    alt=""
+                                    decoding="async"
+                                    loading="lazy"
+                                >
+                            </div>
+                        </div>
+                        {% trans "Приклад дизайну" as pb_step3_title %}
+                        {% trans "UI/UX макети" as pb_step3_item1 %}
+                        {% trans "Фірмовий стиль" as pb_step3_item2 %}
+                        {% trans "Адаптивні прототипи" as pb_step3_item3 %}
+                        {% trans "Візуальна концепція" as pb_step3_item4 %}
+                        {% include 'components/pb_step_heading.html' with step_id=3 title=pb_step3_title item1=pb_step3_item1 item2=pb_step3_item2 item3=pb_step3_item3 item4=pb_step3_item4 %}
+                    </div>
+                </article>
+
+                <article class="pb-step pb-step--float" data-step="4">
+                    <div class="pb-step__float-scene">
+                        <div class="pb-step__float-stage">
+                            <span class="pb-step__num">04</span>
+                            <div class="pb-step__float-frame">
+                                <img
+                                    class="pb-step__float-img"
+                                    src="{% static 'images/process_flow/prototype-3d.png' %}"
+                                    width="500"
+                                    height="500"
+                                    alt=""
+                                    decoding="async"
+                                    loading="lazy"
+                                >
+                            </div>
+                        </div>
+                        {% trans "Функціональна модель" as pb_step4_title %}
+                        {% trans "Інтерактивний прототип" as pb_step4_item1 %}
+                        {% trans "Логіка форм і сценаріїв" as pb_step4_item2 %}
+                        {% trans "Звʼязок між сторінками" as pb_step4_item3 %}
+                        {% trans "Тестування UX" as pb_step4_item4 %}
+                        {% include 'components/pb_step_heading.html' with step_id=4 title=pb_step4_title item1=pb_step4_item1 item2=pb_step4_item2 item3=pb_step4_item3 item4=pb_step4_item4 %}
+                    </div>
+                </article>
+
+                <article class="pb-step pb-step--float" data-step="5">
+                    <div class="pb-step__float-scene">
+                        <div class="pb-step__float-stage">
+                            <span class="pb-step__num">05</span>
+                            <div class="pb-step__float-frame">
+                                <img
+                                    class="pb-step__float-img"
+                                    src="{% static 'images/process_flow/approved-3d.png' %}"
+                                    width="500"
+                                    height="500"
+                                    alt=""
+                                    decoding="async"
+                                    loading="lazy"
+                                >
+                            </div>
+                        </div>
+                        {% trans "Фінальне виконання правок" as pb_step5_title %}
+                        {% trans "Збір фідбеку" as pb_step5_item1 %}
+                        {% trans "Тестування на пристроях" as pb_step5_item2 %}
+                        {% trans "Доробка деталей" as pb_step5_item3 %}
+                        {% trans "Фінальне погодження" as pb_step5_item4 %}
+                        {% include 'components/pb_step_heading.html' with step_id=5 title=pb_step5_title item1=pb_step5_item1 item2=pb_step5_item2 item3=pb_step5_item3 item4=pb_step5_item4 %}
+                    </div>
+                </article>
+
+                <article class="pb-step pb-step--float" data-step="6">
+                    <div class="pb-step__float-scene">
+                        <div class="pb-step__float-stage">
+                            <span class="pb-step__num">06</span>
+                            <div class="pb-step__float-frame">
+                                <img
+                                    class="pb-step__float-img"
+                                    src="{% static 'images/process_flow/deploy-3d.png' %}"
+                                    width="500"
+                                    height="500"
+                                    alt=""
+                                    decoding="async"
+                                    loading="lazy"
+                                >
+                            </div>
+                        </div>
+                        {% trans "Деплой і передача прав" as pb_step6_title %}
+                        {% trans "Запуск на сервер" as pb_step6_item1 %}
+                        {% trans "Домен і SSL" as pb_step6_item2 %}
+                        {% trans "Передача доступів" as pb_step6_item3 %}
+                        {% trans "Інструкції для клієнта" as pb_step6_item4 %}
+                        {% include 'components/pb_step_heading.html' with step_id=6 title=pb_step6_title item1=pb_step6_item1 item2=pb_step6_item2 item3=pb_step6_item3 item4=pb_step6_item4 %}
+                    </div>
+                </article>
+
+            </div>
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,133 @@
+{% load i18n static %}
+<section id="svc-piano" class="svc-piano cta-section home-redesign" aria-label="{% trans 'Послуги PrometeyLabs' %}">
+    <video class="video-background desktop-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
+        <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
+    </video>
+    <video class="video-background mobile-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
+        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <div class="svc-piano__wrap">
+        <div class="v2-rule">
+            <span>— {% trans "Послуги" %}</span>
+        </div>
+
+        <h2 class="v2-h2 svc-piano__heading">
+            {% trans "Послуги" %}<br>
+            <span class="v2-orange">PrometeyLabs</span>
+        </h2>
+
+        <div class="svc-piano__stage">
+            <div class="svc-piano__keys" role="list">
+                <div class="svc-piano__unit" data-service="web" role="listitem">
+                    <div class="svc-piano__rise" id="svc-piano-rise-web" aria-hidden="true">
+                        <picture class="svc-piano__rise-media">
+                            <source media="(max-width: 767px)" srcset="{% static 'images/services/piano/web_mob.png' %}?v=29">
+                            <img
+                                src="{% static 'images/services/piano/web.png' %}?v=29"
+                                width="421"
+                                height="346"
+                                alt="{% trans 'Web-розробка' %}"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </picture>
+                    </div>
+                    <div class="svc-piano__key-shell">
+                        <button
+                            type="button"
+                            class="svc-piano__key"
+                            aria-expanded="false"
+                            aria-controls="svc-piano-rise-web"
+                        >
+                            <span class="svc-piano__key-desc" aria-hidden="true">{% trans "Сайти під ключ, лендінги, інтернет-магазини, веб-додатки, телеграм-боти" %}</span>
+                            <span class="svc-piano__key-title">{% trans "Web-розробка" %}</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="svc-piano__unit" data-service="mobile" role="listitem">
+                    <div class="svc-piano__rise" id="svc-piano-rise-mobile" aria-hidden="true">
+                        <picture class="svc-piano__rise-media">
+                            <source media="(max-width: 767px)" srcset="{% static 'images/services/piano/mob_mob.png' %}?v=29">
+                            <img
+                                src="{% static 'images/services/piano/mob.png' %}?v=29"
+                                width="500"
+                                height="500"
+                                alt="{% trans 'Мобільні застосунки' %}"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </picture>
+                    </div>
+                    <div class="svc-piano__key-shell">
+                        <button
+                            type="button"
+                            class="svc-piano__key"
+                            aria-expanded="false"
+                            aria-controls="svc-piano-rise-mobile"
+                        >
+                            <span class="svc-piano__key-desc" aria-hidden="true">{% trans "iOS та Android додатки з сучасним дизайном" %}</span>
+                            <span class="svc-piano__key-title">{% trans "Мобільні застосунки" %}</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="svc-piano__unit" data-service="smm" role="listitem">
+                    <div class="svc-piano__rise" id="svc-piano-rise-smm" aria-hidden="true">
+                        <picture class="svc-piano__rise-media">
+                            <source media="(max-width: 767px)" srcset="{% static 'images/services/piano/media_mob.png' %}?v=29">
+                            <img
+                                src="{% static 'images/services/piano/media.png' %}?v=29"
+                                width="762"
+                                height="616"
+                                alt="{% trans 'Реклама та ведення соціальних мереж' %}"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </picture>
+                    </div>
+                    <div class="svc-piano__key-shell">
+                        <button
+                            type="button"
+                            class="svc-piano__key"
+                            aria-expanded="false"
+                            aria-controls="svc-piano-rise-smm"
+                        >
+                            <span class="svc-piano__key-desc" aria-hidden="true">{% trans "Google Ads, Meta Ads, TikTok Ads, SMM, контент" %}</span>
+                            <span class="svc-piano__key-title">{% trans "Реклама та ведення соціальних мереж" %}</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="svc-piano__unit" data-service="ai" role="listitem">
+                    <div class="svc-piano__rise" id="svc-piano-rise-ai" aria-hidden="true">
+                        <picture class="svc-piano__rise-media">
+                            <source media="(max-width: 767px)" srcset="{% static 'images/services/piano/ai_mob.png' %}?v=29">
+                            <img
+                                src="{% static 'images/services/piano/ai.png' %}?v=29"
+                                width="500"
+                                height="500"
+                                alt="{% trans 'Автоматизація AI' %}"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </picture>
+                    </div>
+                    <div class="svc-piano__key-shell">
+                        <button
+                            type="button"
+                            class="svc-piano__key"
+                            aria-expanded="false"
+                            aria-controls="svc-piano-rise-ai"
+                        >
+                            <span class="svc-piano__key-desc" aria-hidden="true">{% trans "Інтегруємо ШІ у сайт, CRM та процеси — від AI-консультантів до автоматизації рутини." %}</span>
+                            <span class="svc-piano__key-title">{% trans "Автоматизація AI" %}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

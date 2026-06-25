@@ -1,0 +1,118 @@
+/* Piano block — cta-section pattern. Fixed video from hero-parallax.css. */
+
+/* Process block + first .vf are opaque → hide fixed video behind them */
+#home-redesign > .vf-host:has(.home-process-intro),
+#home-redesign > #pb-process {
+    position: relative;
+    z-index: 3;
+    background-color: #000000;
+}
+
+/* Tail container covers fixed video when scrolling past piano */
+.home-redesign--tail {
+    position: relative;
+    z-index: 2;
+    padding-top: 0;
+    background: #000;
+}
+
+/* ===== PIANO SECTION LAYOUT ===== */
+#svc-piano.cta-section {
+    --v2-orange: #E65100;
+    --svc-piano-pad-x: max(clamp(16px, 4vw, 20px), env(safe-area-inset-left));
+    --svc-piano-pad-r: max(clamp(16px, 4vw, 20px), env(safe-area-inset-right));
+    min-height: clamp(520px, 70vh, 840px);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding-top: clamp(48px, 6vw, 88px);
+    padding-bottom: 0;
+    padding-left: var(--svc-piano-pad-x);
+    padding-right: var(--svc-piano-pad-r);
+    box-sizing: border-box;
+}
+
+/* ===== CONTENT WRAPPER ===== */
+#svc-piano .svc-piano__wrap {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+/* v2-rule: inherit .home-redesign .v2-rule borders/spacing; only raise z-index */
+#svc-piano .v2-rule {
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== HEADING ===== */
+#svc-piano .svc-piano__heading {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+    margin-bottom: var(--svc-piano-head-rise-clearance);
+}
+
+/* ===== STAGE ===== */
+#svc-piano .svc-piano__stage {
+    position: relative;
+    z-index: 2;
+    margin-top: 0;
+    width: 100%;
+    padding-top: clamp(16px, 3vw, 32px);
+    padding-bottom: max(clamp(12px, 2vw, 20px), env(safe-area-inset-bottom));
+    overflow: visible;
+}
+
+#svc-piano .svc-piano__stage::after {
+    display: none;
+}
+
+/* ===== DESKTOP ===== */
+@media (min-width: 768px) {
+    #svc-piano.cta-section {
+        --svc-piano-pad-x: max(64px, env(safe-area-inset-left));
+        --svc-piano-pad-r: max(64px, env(safe-area-inset-right));
+    }
+}
+
+/* ===== MOBILE / iOS Safari ===== */
+@media (max-width: 767px) {
+    #svc-piano.cta-section {
+        position: relative;
+        overflow: hidden;
+        padding-top: clamp(32px, 8vw, 56px);
+        min-height: clamp(360px, 65svh, 600px);
+    }
+
+    #svc-piano.cta-section .video-background,
+    #svc-piano.cta-section .video-overlay {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        height: 100svh;
+        height: calc(var(--vh, 1vh) * 100);
+        min-height: 100svh;
+    }
+
+    #svc-piano .svc-piano__stage {
+        padding-top: clamp(12px, 4vw, 24px);
+        padding-bottom: max(clamp(12px, 3vw, 20px), env(safe-area-inset-bottom));
+    }
+}
+
+@supports (-webkit-touch-callout: none) {
+    @media (max-width: 767px) {
+        #svc-piano.cta-section .video-background,
+        #svc-piano.cta-section .video-overlay {
+            height: 100vh;
+            height: 100svh;
+            height: calc(var(--vh, 1vh) * 100);
+            min-height: 100svh;
+        }
+    }
+}
