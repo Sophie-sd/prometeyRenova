@@ -3075,6 +3075,11 @@ body.modal-open .main-footer {
     will-change: transform;
 }
 
+/* Anchor cta overlays to section bounds (prevents viewport-wide dimming on hero) */
+.cta-section {
+    position: relative;
+}
+
 /* ===== FIXED VIDEO FOR DESKTOP (>=768px) ===== */
 @media (min-width: 768px) {
     .hero-section .video-background,
@@ -3135,8 +3140,7 @@ body.modal-open .main-footer {
 
 /* ===== FIXED OVERLAY FOR DESKTOP (>=768px) ===== */
 @media (min-width: 768px) {
-    .hero-section .video-overlay,
-    .cta-section .video-overlay {
+    .hero-section .video-overlay {
         position: fixed;
         top: 0;
         left: 0;
