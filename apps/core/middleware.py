@@ -36,6 +36,8 @@ class CSPMiddleware:
         if path.startswith('/admin/') or path == '/admin':
             return response
 
+        # Binotel and Google Fonts load via protocol-relative URLs (//…).
+        # On http://localhost that becomes http://, so both schemes must be allowed.
         script_src = (
             f"'self' 'nonce-{nonce}' 'strict-dynamic' 'unsafe-eval' "
             "https://www.googletagmanager.com "
@@ -46,14 +48,22 @@ class CSPMiddleware:
             "https://www.google-analytics.com "
             "https://googleads.g.doubleclick.net "
             "https://www.googleadservices.com "
-            "https://widgets.binotel.com"
+            "https://widgets.binotel.com "
+            "http://widgets.binotel.com"
         )
         csp = "; ".join([
             "default-src 'self'",
             f"script-src {script_src}",
-            "style-src 'self' 'unsafe-inline' https://widgets.binotel.com https://fonts.googleapis.com",
+            (
+                "style-src 'self' 'unsafe-inline' "
+                "https://widgets.binotel.com http://widgets.binotel.com "
+                "https://fonts.googleapis.com http://fonts.googleapis.com"
+            ),
             "img-src 'self' data: https: blob:",
-            "font-src 'self' data: https://fonts.gstatic.com",
+            (
+                "font-src 'self' data: "
+                "https://fonts.gstatic.com http://fonts.gstatic.com"
+            ),
             "frame-src 'self' https://www.google.com https://maps.google.com "
             "https://www.googletagmanager.com https://bid.g.doubleclick.net "
             "https://www.facebook.com https://td.doubleclick.net",

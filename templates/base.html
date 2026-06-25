@@ -294,6 +294,34 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         setTimeout(_loadBinotel,7000);
     })(document, window);
     </script>
+
+    <!-- Binotel: force passive callback bar to bottom of viewport.
+         Binotel CSS sets top:0 !important, so only JS setProperty can override it. -->
+    <script nonce="{{ csp_nonce }}">
+    (function () {
+        function fixBinotelBar() {
+            var el = document.getElementById('bingc-passive');
+            if (!el) return;
+            el.style.setProperty('top', 'auto', 'important');
+            el.style.setProperty('bottom', '0', 'important');
+        }
+        if ('MutationObserver' in window) {
+            new MutationObserver(function (mutations, obs) {
+                for (var i = 0; i < mutations.length; i++) {
+                    var nodes = mutations[i].addedNodes;
+                    for (var j = 0; j < nodes.length; j++) {
+                        if (nodes[j].id === 'bingc-passive') {
+                            fixBinotelBar();
+                            obs.disconnect();
+                            return;
+                        }
+                    }
+                }
+            }).observe(document.body, { childList: true });
+        }
+        window.addEventListener('load', fixBinotelBar);
+    }());
+    </script>
 </body>
 
 </html>
