@@ -240,7 +240,7 @@
 -->
 <script src="{% static 'js/core/gclid-capture.js' %}" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/core/phone-mask.js' %}" nonce="{{ csp_nonce }}"></script>
-<script src="{% static 'js/home-bundle.js' %}" nonce="{{ csp_nonce }}"></script>
+<script src="{% static 'js/home-bundle.js' %}?v=2" nonce="{{ csp_nonce }}"></script>
 {% endblock %}
 
 {% block extra_js %}

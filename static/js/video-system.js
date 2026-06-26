@@ -19,6 +19,8 @@ class VideoSystem {
             lazyLoadThreshold: 0.2,
             loadTimeout: 10000
         };
+
+        this.sharedKeepaliveTimer = null;
     }
 
     // ===== INITIALIZATION =====
@@ -35,8 +37,99 @@ class VideoSystem {
         // Обробка відео на сторінці
         await this.processPageVideos();
 
+        this.setupSharedVideoGroups();
+
         // Event listeners
         this.setupEventListeners();
+    }
+
+    getSharedVideoLeader(element) {
+        const key = element.getAttribute('data-shared-video');
+        if (!key) {
+            return null;
+        }
+
+        const siblings = document.querySelectorAll(`video[data-shared-video="${key}"]`);
+        for (const sibling of siblings) {
+            const siblingData = this.videos.get(sibling);
+            if (siblingData?.loaded && sibling.readyState >= 2) {
+                return sibling;
+            }
+        }
+
+        return null;
+    }
+
+    setupSharedVideoGroups() {
+        const sharedVideos = document.querySelectorAll('video[data-shared-video]');
+        if (!sharedVideos.length) {
+            return;
+        }
+
+        const groups = new Map();
+        sharedVideos.forEach((video) => {
+            const key = video.getAttribute('data-shared-video');
+            if (!groups.has(key)) {
+                groups.set(key, []);
+            }
+            groups.get(key).push(video);
+        });
+
+        const keepGroupPlaying = (videos) => {
+            if (document.hidden) {
+                return;
+            }
+
+            videos.forEach((video) => {
+                if (video.paused && video.readyState >= 2) {
+                    video.play().catch(() => { });
+                }
+            });
+        };
+
+        groups.forEach((videos) => {
+            if (videos.length < 2) {
+                return;
+            }
+
+            const leader = videos[0];
+
+            leader.addEventListener('timeupdate', () => {
+                const time = leader.currentTime;
+                videos.forEach((video) => {
+                    if (video === leader) {
+                        return;
+                    }
+                    if (Math.abs(video.currentTime - time) > 0.35) {
+                        try {
+                            video.currentTime = time;
+                        } catch (error) {
+                            /* ignore seek errors on iOS */
+                        }
+                    }
+                });
+            });
+
+            videos.forEach((video) => {
+                video.addEventListener('pause', () => {
+                    if (!document.hidden) {
+                        window.setTimeout(() => keepGroupPlaying(videos), 50);
+                    }
+                });
+                video.addEventListener('stalled', () => keepGroupPlaying(videos));
+                video.addEventListener('waiting', () => keepGroupPlaying(videos));
+            });
+
+            keepGroupPlaying(videos);
+        });
+
+        if (this.sharedKeepaliveTimer) {
+            window.clearInterval(this.sharedKeepaliveTimer);
+        }
+
+        this.sharedKeepaliveTimer = window.setInterval(() => {
+            groups.forEach((videos) => keepGroupPlaying(videos));
+        }, 2500);
     }
 
     // ===== AUTOPLAY DETECTION =====
@@ -209,8 +302,31 @@ class VideoSystem {
     async loadVideo(videoData) {
         const { element, container } = videoData;
         const isHeroBackground = this.isHeroBackgroundVideo(element);
+        const sharedLeader = this.getSharedVideoLeader(element);
 
         try {
+            if (sharedLeader && sharedLeader !== element) {
+                if (element.readyState < 2) {
+                    element.load();
+                    await this.waitForVideoReady(element);
+                }
+
+                try {
+                    element.currentTime = sharedLeader.currentTime;
+                } catch (error) {
+                    /* ignore seek errors */
+                }
+
+                videoData.loaded = true;
+
+                if (isHeroBackground || this.autoplaySupported) {
+                    await this.attemptAutoplay(videoData);
+                }
+
+                this.emit('video:loaded', { element, container });
+                return;
+            }
+
             // Якщо є data-src, переносимо в src
             if (element.hasAttribute('data-src')) {
                 const dataSrc = element.getAttribute('data-src');
@@ -353,16 +469,21 @@ class VideoSystem {
     // ===== CONTROL METHODS =====
     pauseAll() {
         this.videos.forEach((videoData) => {
-            if (videoData.playing && !videoData.element.paused) {
-                videoData.element.pause();
+            const { element } = videoData;
+            if (!element.paused) {
+                element.pause();
             }
+            videoData.playing = false;
         });
     }
 
     resumeAll() {
         this.videos.forEach((videoData) => {
-            if (videoData.loaded && !videoData.playing && this.autoplaySupported) {
-                videoData.element.play().catch(() => { });
+            const { element } = videoData;
+            if (videoData.loaded && element.paused) {
+                element.play().then(() => {
+                    videoData.playing = true;
+                }).catch(() => { });
             }
         });
     }
