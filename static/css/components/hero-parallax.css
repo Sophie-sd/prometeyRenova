@@ -117,6 +117,10 @@
         height: 100vh;
         height: 100svh;
     }
+
+    .cta-section .video-overlay {
+        background: transparent;
+    }
 }
 
 /* ===== КОНТЕНТ (обидва варіанти) ===== */

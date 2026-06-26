@@ -51,8 +51,6 @@
     <!-- Resource hints — before CSS for parallel DNS/TCP -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    <link rel="dns-prefetch" href="https://widgets.binotel.com">
-
     <!-- Critical above-the-fold CSS (header + body + fixed widgets) — inline, eliminates render-blocking AND CLS -->
     <style>
 :root{--color-brand-orange:#E65100;--color-brand-purple:#7B2CBF;--color-black:#000;--color-white:#FFF;--color-beige:#bab8b7;--color-beige-alt:#FAF7F2;--color-gray:#F8F8F8;--font-medium:clamp(20px,3vw,24px);--font-base:14px;--space-xs:clamp(16px,2vw,20px);--transition-normal:300ms;--easing-default:ease-out;--radius-sm:8px;--z-navigation:1000;--z-burger-button:10001;--z-mobile-menu:10000;--z-modal-backdrop:10002}
@@ -92,9 +90,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </style>
 
     <!-- CSS Base Bundle — non-blocking (preload + media-print swap on load) -->
-    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=20" as="style">
-    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=20" media="print" data-async-css>
-    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=20"></noscript>
+    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=21" as="style">
+    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=21" media="print" data-async-css>
+    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=21"></noscript>
 
     <!-- Page specific CSS -->
     {% block page_css %}{% endblock %}
@@ -275,53 +273,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     {% endif %}
     {% block analytics %}{% endblock %}
 
-    <!-- Binotel Callback Widget — deferred until user interaction or 7s to reduce TBT -->
-    <script nonce="{{ csp_nonce }}">
-    (function(d, w){
-        function _loadBinotel(){
-            if(w._binotelL)return;
-            w._binotelL=1;
-            var s=d.createElement('script');
-            s.type='text/javascript';
-            s.async=true;
-            s.setAttribute('nonce','{{ csp_nonce }}');
-            s.nonce='{{ csp_nonce }}';
-            s.src='https://widgets.binotel.com/getcall/widgets/l56yaebg15ryumsv6p3x.js';
-            (d.head||d.body).appendChild(s);
-        }
-        w._loadBinotel=_loadBinotel;
-        ['scroll','click','touchstart','keydown','mousemove'].forEach(function(e){w.addEventListener(e,_loadBinotel,{once:true,passive:true});});
-        setTimeout(_loadBinotel,7000);
-    })(document, window);
-    </script>
-
-    <!-- Binotel: force passive callback bar to bottom of viewport.
-         Binotel CSS sets top:0 !important, so only JS setProperty can override it. -->
-    <script nonce="{{ csp_nonce }}">
-    (function () {
-        function fixBinotelBar() {
-            var el = document.getElementById('bingc-passive');
-            if (!el) return;
-            el.style.setProperty('top', 'auto', 'important');
-            el.style.setProperty('bottom', '0', 'important');
-        }
-        if ('MutationObserver' in window) {
-            new MutationObserver(function (mutations, obs) {
-                for (var i = 0; i < mutations.length; i++) {
-                    var nodes = mutations[i].addedNodes;
-                    for (var j = 0; j < nodes.length; j++) {
-                        if (nodes[j].id === 'bingc-passive') {
-                            fixBinotelBar();
-                            obs.disconnect();
-                            return;
-                        }
-                    }
-                }
-            }).observe(document.body, { childList: true });
-        }
-        window.addEventListener('load', fixBinotelBar);
-    }());
-    </script>
 </body>
 
 </html>

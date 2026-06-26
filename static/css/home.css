@@ -43,8 +43,10 @@
     box-sizing: border-box;
 }
 
-.home-cta-section .video-overlay {
-    background: rgba(0, 0, 0, 0.55);
+@media (max-width: 767px) {
+    .home-cta-section .video-overlay {
+        background: rgba(0, 0, 0, 0.55);
+    }
 }
 
 .home-cta-section .v2-rule {
