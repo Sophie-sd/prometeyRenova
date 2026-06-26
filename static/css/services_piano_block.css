@@ -498,6 +498,19 @@
     }
 }
 
+@media (min-width: 768px) {
+    #svc-piano .svc-piano__mob-flip,
+    #svc-piano .svc-piano__mob-flip-inner,
+    #svc-piano .svc-piano__mob-face--front {
+        display: contents;
+    }
+
+    #svc-piano .svc-piano__mob-face--back,
+    #svc-piano .svc-piano__tap-hint {
+        display: none;
+    }
+}
+
 @media (min-width: 768px) and (max-width: 1024px) {
     #svc-piano .svc-piano__keys {
         gap: 10px;

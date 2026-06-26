@@ -22,6 +22,101 @@
         return root.querySelector('#svc-piano');
     }
 
+    function setUnitFlipped(unit, flipped) {
+        var key = unit.querySelector('.svc-piano__key:not(.svc-piano__key--back)');
+        var backFace = unit.querySelector('.svc-piano__mob-face--back');
+        var backKey = unit.querySelector('.svc-piano__key--back');
+
+        unit.classList.toggle('is-flipped', flipped);
+
+        if (key) {
+            key.setAttribute('aria-expanded', flipped ? 'true' : 'false');
+        }
+        if (backFace) {
+            backFace.setAttribute('aria-hidden', flipped ? 'false' : 'true');
+        }
+        if (backKey) {
+            backKey.setAttribute('tabindex', flipped ? '0' : '-1');
+        }
+    }
+
+    function closeAllFlipped(units, except) {
+        units.forEach(function (unit) {
+            if (unit !== except) {
+                setUnitFlipped(unit, false);
+            }
+        });
+    }
+
+    function initMobileFlip(section) {
+        var units = section.querySelectorAll('.svc-piano__unit');
+        if (!units.length) {
+            return null;
+        }
+
+        function bindFlipHandlers() {
+            if (!isMobilePianoLayout()) {
+                return;
+            }
+
+            units.forEach(function (unit) {
+                var frontKey = unit.querySelector('.svc-piano__key:not(.svc-piano__key--back)');
+                var backKey = unit.querySelector('.svc-piano__key--back');
+
+                if (!frontKey || frontKey.dataset.mobFlipBound === '1') {
+                    return;
+                }
+
+                frontKey.dataset.mobFlipBound = '1';
+
+                function toggleFlip(event) {
+                    if (!isMobilePianoLayout()) {
+                        return;
+                    }
+
+                    event.preventDefault();
+                    section.classList.add('has-mob-interacted');
+
+                    var willFlip = !unit.classList.contains('is-flipped');
+                    closeAllFlipped(units, willFlip ? unit : null);
+                    setUnitFlipped(unit, willFlip);
+                }
+
+                frontKey.addEventListener('click', toggleFlip);
+
+                if (backKey) {
+                    backKey.addEventListener('click', toggleFlip);
+                }
+            });
+        }
+
+        function onDocumentPointerDown(event) {
+            if (!isMobilePianoLayout()) {
+                return;
+            }
+            if (event.target.closest('.svc-piano__unit')) {
+                return;
+            }
+            closeAllFlipped(units, null);
+        }
+
+        function onResize() {
+            if (!isMobilePianoLayout()) {
+                closeAllFlipped(units, null);
+            }
+        }
+
+        bindFlipHandlers();
+        document.addEventListener('pointerdown', onDocumentPointerDown);
+        window.addEventListener('resize', onResize);
+
+        return function destroy() {
+            document.removeEventListener('pointerdown', onDocumentPointerDown);
+            window.removeEventListener('resize', onResize);
+            closeAllFlipped(units, null);
+        };
+    }
+
     function setUnitOpen(unit, open) {
         var key = unit.querySelector('.svc-piano__key');
         var rise = unit.querySelector('.svc-piano__rise');
@@ -252,11 +347,15 @@
         initScrollReveal(section);
         initHoverA11y(section);
         var destroyTouch = initTouchToggle(section);
+        var destroyMobileFlip = initMobileFlip(section);
         initServiceModals(section);
 
         section._svcPianoDestroy = function () {
             if (destroyTouch) {
                 destroyTouch();
+            }
+            if (destroyMobileFlip) {
+                destroyMobileFlip();
             }
             section.dataset.svcPianoInit = '';
         };

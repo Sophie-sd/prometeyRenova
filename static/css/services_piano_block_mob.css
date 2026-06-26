@@ -1,7 +1,9 @@
-/* Services piano — mobile card layout (≤767px), no animations */
+/* Services piano — mobile flip cards (≤767px) */
 
 @media (max-width: 767px) {
     #svc-piano {
+        --svc-piano-mob-flip-ms: 0.48s;
+        --svc-piano-mob-card-min-h: clamp(220px, 58vw, 280px);
         --svc-piano-head-keys-gap: clamp(136px, 28vw, 192px);
         min-height: auto;
     }
@@ -19,6 +21,7 @@
         line-height: 0.84;
     }
 
+    #svc-piano:has(.svc-piano__unit.is-flipped) .svc-piano__subheading,
     #svc-piano:has(.svc-piano__unit.is-active) .svc-piano__subheading,
     #svc-piano:has(.svc-piano__unit:hover) .svc-piano__subheading,
     #svc-piano:has(.svc-piano__unit:focus-within) .svc-piano__subheading {
@@ -39,34 +42,11 @@
         display: none;
     }
 
-    #svc-piano:has(.svc-piano__unit.is-active) .svc-piano__stage,
-    #svc-piano:has(.svc-piano__unit:hover) .svc-piano__stage,
-    #svc-piano:has(.svc-piano__unit:focus-within) .svc-piano__stage {
-        z-index: 1;
-        min-height: 0;
-    }
-
     #svc-piano .svc-piano__keys {
         flex-direction: column;
         align-items: stretch;
         gap: clamp(12px, 3vw, 16px);
         min-height: 0;
-    }
-
-    #svc-piano:has(.svc-piano__unit.is-active) .svc-piano__keys,
-    #svc-piano:has(.svc-piano__unit:hover) .svc-piano__keys,
-    #svc-piano:has(.svc-piano__unit:focus-within) .svc-piano__keys {
-        min-height: 0;
-    }
-
-    #svc-piano .svc-piano__unit,
-    #svc-piano .svc-piano__rise,
-    #svc-piano .svc-piano__key-shell,
-    #svc-piano .svc-piano__key-title,
-    #svc-piano .svc-piano__key-desc,
-    #svc-piano .svc-piano__key-foot,
-    #svc-piano .svc-piano__subheading {
-        transition: none;
     }
 
     #svc-piano .svc-piano__unit {
@@ -77,20 +57,61 @@
         min-height: 0;
         opacity: 1;
         transform: none;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        overflow: visible;
+    }
+
+    #svc-piano .svc-piano__unit.is-flipped {
+        z-index: 2;
+    }
+
+    #svc-piano .svc-piano__mob-flip {
+        perspective: 1200px;
+        -webkit-perspective: 1200px;
+    }
+
+    #svc-piano .svc-piano__mob-flip-inner {
+        position: relative;
+        display: grid;
+        min-height: var(--svc-piano-mob-card-min-h);
+        transform-style: preserve-3d;
+        -webkit-transform-style: preserve-3d;
+        transition: transform var(--svc-piano-mob-flip-ms) cubic-bezier(0.33, 1, 0.68, 1);
+        will-change: transform;
+    }
+
+    #svc-piano .svc-piano__unit.is-flipped .svc-piano__mob-flip-inner {
+        transform: rotateY(180deg);
+    }
+
+    #svc-piano .svc-piano__mob-face {
+        grid-area: 1 / 1;
+        position: relative;
         display: flex;
         flex-direction: column;
+        min-height: var(--svc-piano-mob-card-min-h);
         border: 1px solid var(--svc-piano-line);
         border-radius: var(--svc-piano-radius);
         background: linear-gradient(165deg, var(--svc-piano-glass-hi), var(--svc-piano-glass));
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         overflow: hidden;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
     }
 
-    #svc-piano .svc-piano__unit.is-active,
-    #svc-piano .svc-piano__unit:hover,
-    #svc-piano .svc-piano__unit:focus-within {
-        z-index: 1;
+    #svc-piano .svc-piano__mob-face--back {
+        transform: rotateY(180deg) translateZ(1px);
+        border-color: rgba(230, 81, 0, 0.45);
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.12),
+            0 10px 28px rgba(230, 81, 0, 0.12);
     }
 
     #svc-piano .svc-piano__rise {
@@ -102,19 +123,11 @@
         visibility: visible;
         transform: none;
         width: 100%;
+        flex: 1 1 auto;
         padding:
             clamp(14px, 3.5vw, 20px)
             clamp(14px, 3.5vw, 18px)
             clamp(4px, 1.5vw, 8px);
-    }
-
-    #svc-piano .svc-piano__unit.is-active .svc-piano__rise,
-    #svc-piano .svc-piano__unit:hover .svc-piano__rise,
-    #svc-piano .svc-piano__unit:focus-within .svc-piano__rise {
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        bottom: auto;
     }
 
     #svc-piano .svc-piano__rise-media {
@@ -135,6 +148,15 @@
         object-position: center center;
     }
 
+    #svc-piano .svc-piano__mob-face--front .svc-piano__key-shell {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
     #svc-piano .svc-piano__key-shell {
         height: auto;
         min-height: 0;
@@ -147,40 +169,148 @@
         -webkit-backdrop-filter: none;
     }
 
-    #svc-piano .svc-piano__unit.is-active .svc-piano__key-shell,
-    #svc-piano .svc-piano__unit:hover .svc-piano__key-shell,
-    #svc-piano .svc-piano__unit:focus-within .svc-piano__key-shell {
-        height: auto;
-        border-color: transparent;
-        box-shadow: none;
+    #svc-piano .svc-piano__mob-face--front .svc-piano__key {
+        flex: 0 0 auto;
+        min-height: clamp(52px, 14vw, 64px);
     }
 
     #svc-piano .svc-piano__key {
-        display: block;
+        display: grid;
+        grid-template-rows: 1fr auto;
+        align-items: center;
+        justify-items: center;
+        width: 100%;
+        min-height: 0;
         padding: 0 clamp(14px, 3.5vw, 18px) clamp(12px, 3vw, 16px);
-        cursor: default;
-        pointer-events: none;
+        cursor: pointer;
+        pointer-events: auto;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
     }
 
-    #svc-piano .svc-piano__key-desc {
+    #svc-piano .svc-piano__key--back {
+        flex: 1 1 auto;
+        height: 100%;
+        min-height: var(--svc-piano-mob-card-min-h);
+        padding:
+            clamp(18px, 4vw, 24px)
+            clamp(16px, 4vw, 22px);
+        grid-template-rows: 1fr auto;
+    }
+
+    #svc-piano .svc-piano__mob-face--front .svc-piano__key-desc,
+    #svc-piano .svc-piano__mob-face--front .svc-piano__key-more {
         display: none;
     }
 
-    #svc-piano .svc-piano__key-title {
-        grid-row: auto;
+    #svc-piano .svc-piano__mob-face--back .svc-piano__key-desc {
+        display: block;
+        grid-row: 1;
+        align-self: center;
+        opacity: 1;
+        visibility: visible;
+        margin: 0;
+        padding: 0 clamp(4px, 1vw, 8px);
+        font-family: 'Inter', sans-serif;
+        font-size: clamp(14px, 3.8vw, 16px);
+        line-height: 1.55;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.92);
+    }
+
+    #svc-piano .svc-piano__mob-face--back .svc-piano__key-title {
+        grid-row: 2;
+        align-self: end;
+        font-size: clamp(15px, 4vw, 17px);
+        line-height: 1.25;
+        color: var(--svc-piano-orange-soft);
+    }
+
+    #svc-piano .svc-piano__mob-face--front .svc-piano__key-title {
+        grid-row: 1;
         align-self: center;
         font-size: clamp(16px, 4.4vw, 18px);
         line-height: 1.25;
     }
 
-    #svc-piano .svc-piano__unit.is-active .svc-piano__key-title,
-    #svc-piano .svc-piano__unit:hover .svc-piano__key-title,
-    #svc-piano .svc-piano__unit:focus-within .svc-piano__key-title {
-        grid-row: auto;
-        align-self: center;
+    #svc-piano .svc-piano__tap-hint {
+        position: absolute;
+        top: clamp(10px, 2.5vw, 14px);
+        right: clamp(10px, 2.5vw, 14px);
+        z-index: 3;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 10px;
+        border: 1px solid rgba(255, 107, 26, 0.45);
+        border-radius: 999px;
+        background: rgba(255, 107, 26, 0.12);
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: clamp(9px, 2.4vw, 10px);
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: lowercase;
+        line-height: 1;
+        color: var(--svc-piano-orange-soft);
+        pointer-events: none;
+        animation: svc-piano-tap-pulse 2s ease-in-out infinite;
+    }
+
+    #svc-piano.has-mob-interacted .svc-piano__tap-hint,
+    #svc-piano .svc-piano__unit.is-flipped .svc-piano__tap-hint {
+        opacity: 0;
+        visibility: hidden;
+        animation: none;
+    }
+
+    @keyframes svc-piano-tap-pulse {
+        0%, 100% {
+            opacity: 0.72;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 1;
+            transform: scale(1.04);
+        }
     }
 
     #svc-piano .svc-piano__key-foot {
         display: none;
+    }
+}
+
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+    #svc-piano .svc-piano__mob-flip-inner {
+        transition-duration: 0.01ms;
+        transform: none;
+    }
+
+    #svc-piano .svc-piano__unit.is-flipped .svc-piano__mob-flip-inner {
+        transform: none;
+    }
+
+    #svc-piano .svc-piano__mob-face--front {
+        display: none;
+    }
+
+    #svc-piano .svc-piano__mob-face--back {
+        position: relative;
+        transform: none;
+        display: none;
+    }
+
+    #svc-piano .svc-piano__unit.is-flipped .svc-piano__mob-face--front {
+        display: none;
+    }
+
+    #svc-piano .svc-piano__unit.is-flipped .svc-piano__mob-face--back {
+        display: flex;
+    }
+
+    #svc-piano .svc-piano__tap-hint {
+        animation: none;
+        opacity: 1;
+        visibility: visible;
     }
 }
