@@ -285,6 +285,22 @@
         }
     }
 
+    #svc-piano .svc-piano__unit:nth-child(1) .svc-piano__mob-flip-inner {
+        transition-delay: 0ms;
+    }
+
+    #svc-piano .svc-piano__unit:nth-child(2) .svc-piano__mob-flip-inner {
+        transition-delay: 30ms;
+    }
+
+    #svc-piano .svc-piano__unit:nth-child(3) .svc-piano__mob-flip-inner {
+        transition-delay: 60ms;
+    }
+
+    #svc-piano .svc-piano__unit:nth-child(4) .svc-piano__mob-flip-inner {
+        transition-delay: 90ms;
+    }
+
     #svc-piano .svc-piano__key-foot {
         display: none;
     }
@@ -293,6 +309,7 @@
 @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
     #svc-piano .svc-piano__mob-flip-inner {
         transition-duration: 0.01ms;
+        transition-delay: 0ms;
         transform: none;
     }
 

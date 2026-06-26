@@ -40,15 +40,24 @@
         }
     }
 
-    function closeAllFlipped(units, except) {
+    function resetAllFlipped(units) {
         units.forEach(function (unit) {
-            if (unit !== except) {
-                setUnitFlipped(unit, false);
-            }
+            setUnitFlipped(unit, false);
         });
     }
 
-    function initMobileFlip(section) {
+    function createFlipApi(section) {
+        return {
+            setUnitFlipped: setUnitFlipped,
+            isMobilePianoLayout: isMobilePianoLayout,
+            prefersReducedMotion: prefersReducedMotion,
+            getUnits: function () {
+                return section.querySelectorAll('.svc-piano__unit');
+            }
+        };
+    }
+
+    function initMobileFlip(section, scrollCtrl) {
         var units = section.querySelectorAll('.svc-piano__unit');
         if (!units.length) {
             return null;
@@ -74,8 +83,11 @@
                     event.stopPropagation();
 
                     var willFlip = !unit.classList.contains('is-flipped');
-                    closeAllFlipped(units, willFlip ? unit : null);
                     setUnitFlipped(unit, willFlip);
+
+                    if (scrollCtrl && scrollCtrl.lockManualFlip) {
+                        scrollCtrl.lockManualFlip(unit);
+                    }
                 }
 
                 frontFace.addEventListener('click', toggleFlip);
@@ -86,30 +98,18 @@
             });
         }
 
-        function onDocumentPointerDown(event) {
-            if (!isMobilePianoLayout()) {
-                return;
-            }
-            if (event.target.closest('.svc-piano__unit')) {
-                return;
-            }
-            closeAllFlipped(units, null);
-        }
-
         function onResize() {
-            if (!isMobilePianoLayout()) {
-                closeAllFlipped(units, null);
+            if (!isMobilePianoLayout() && scrollCtrl && scrollCtrl.resetAllFlips) {
+                scrollCtrl.resetAllFlips();
             }
         }
 
         bindFlipHandlers();
-        document.addEventListener('pointerdown', onDocumentPointerDown);
         window.addEventListener('resize', onResize);
 
         return function destroy() {
-            document.removeEventListener('pointerdown', onDocumentPointerDown);
             window.removeEventListener('resize', onResize);
-            closeAllFlipped(units, null);
+            resetAllFlipped(units);
         };
     }
 
@@ -340,10 +340,15 @@
 
         section.dataset.svcPianoInit = '1';
 
+        var flipApi = createFlipApi(section);
+        var scrollCtrl = typeof window.initServicesPianoMobScroll === 'function'
+            ? window.initServicesPianoMobScroll(section, flipApi)
+            : null;
+
         initScrollReveal(section);
         initHoverA11y(section);
         var destroyTouch = initTouchToggle(section);
-        var destroyMobileFlip = initMobileFlip(section);
+        var destroyMobileFlip = initMobileFlip(section, scrollCtrl);
         initServiceModals(section);
 
         section._svcPianoDestroy = function () {
@@ -352,6 +357,9 @@
             }
             if (destroyMobileFlip) {
                 destroyMobileFlip();
+            }
+            if (scrollCtrl && scrollCtrl.destroy) {
+                scrollCtrl.destroy();
             }
             section.dataset.svcPianoInit = '';
         };
@@ -363,10 +371,10 @@
         initServicesPianoBlock(document);
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', boot);
-    } else {
+    if (document.readyState === 'complete') {
         boot();
+    } else {
+        document.addEventListener('DOMContentLoaded', boot);
     }
 
     window.initServicesPianoBlock = initServicesPianoBlock;
