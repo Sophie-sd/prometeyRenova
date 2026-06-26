@@ -32,7 +32,7 @@
         padding:
             0
             0
-            max(clamp(24px, 4vw, 32px), env(safe-area-inset-bottom));
+            max(clamp(56px, 10vw, 80px), calc(env(safe-area-inset-bottom) + 24px));
     }
 
     #svc-piano .svc-piano__stage::after {
@@ -49,7 +49,7 @@
     #svc-piano .svc-piano__keys {
         flex-direction: column;
         align-items: stretch;
-        gap: clamp(16px, 4vw, 20px);
+        gap: clamp(12px, 3vw, 16px);
         min-height: 0;
     }
 
@@ -103,9 +103,9 @@
         transform: none;
         width: 100%;
         padding:
-            clamp(20px, 5vw, 28px)
-            clamp(16px, 4vw, 20px)
-            clamp(8px, 2vw, 12px);
+            clamp(14px, 3.5vw, 20px)
+            clamp(14px, 3.5vw, 18px)
+            clamp(4px, 1.5vw, 8px);
     }
 
     #svc-piano .svc-piano__unit.is-active .svc-piano__rise,
@@ -118,7 +118,7 @@
     }
 
     #svc-piano .svc-piano__rise-media {
-        height: clamp(148px, 40vw, 210px);
+        height: clamp(108px, 30vw, 156px);
         justify-content: center;
         align-items: center;
     }
@@ -157,7 +157,7 @@
 
     #svc-piano .svc-piano__key {
         display: block;
-        padding: 0 clamp(16px, 4vw, 20px) clamp(18px, 4.5vw, 24px);
+        padding: 0 clamp(14px, 3.5vw, 18px) clamp(12px, 3vw, 16px);
         cursor: default;
         pointer-events: none;
     }
