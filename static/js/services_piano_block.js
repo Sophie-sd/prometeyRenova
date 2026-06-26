@@ -55,19 +55,15 @@
         }
 
         function bindFlipHandlers() {
-            if (!isMobilePianoLayout()) {
-                return;
-            }
-
             units.forEach(function (unit) {
-                var frontKey = unit.querySelector('.svc-piano__key:not(.svc-piano__key--back)');
+                var frontFace = unit.querySelector('.svc-piano__mob-face--front');
                 var backKey = unit.querySelector('.svc-piano__key--back');
 
-                if (!frontKey || frontKey.dataset.mobFlipBound === '1') {
+                if (!frontFace || frontFace.dataset.mobFlipBound === '1') {
                     return;
                 }
 
-                frontKey.dataset.mobFlipBound = '1';
+                frontFace.dataset.mobFlipBound = '1';
 
                 function toggleFlip(event) {
                     if (!isMobilePianoLayout()) {
@@ -75,14 +71,14 @@
                     }
 
                     event.preventDefault();
-                    section.classList.add('has-mob-interacted');
+                    event.stopPropagation();
 
                     var willFlip = !unit.classList.contains('is-flipped');
                     closeAllFlipped(units, willFlip ? unit : null);
                     setUnitFlipped(unit, willFlip);
                 }
 
-                frontKey.addEventListener('click', toggleFlip);
+                frontFace.addEventListener('click', toggleFlip);
 
                 if (backKey) {
                     backKey.addEventListener('click', toggleFlip);
