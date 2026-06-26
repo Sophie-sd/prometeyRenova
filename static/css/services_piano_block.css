@@ -9,7 +9,7 @@
     --svc-piano-text: #ffffff;
     --svc-piano-muted: rgba(255, 255, 255, 0.78);
     --svc-piano-radius: clamp(20px, 2.8vw, 28px);
-    --svc-piano-key-h: clamp(88px, 10vw, 108px);
+    --svc-piano-key-h: clamp(140px, 16vw, 172px);
     --svc-piano-key-h-open: clamp(196px, 22vw, 232px);
     --svc-piano-rise-gap: clamp(10px, 1.4vw, 16px);
     --svc-piano-rise-h: clamp(128px, 15vw, 216px);
@@ -46,6 +46,7 @@
 
 #svc-piano .v2-rule,
 #svc-piano .svc-piano__heading,
+#svc-piano .svc-piano__hover-hint,
 #svc-piano .svc-piano__subheading {
     position: relative;
     z-index: 4;
@@ -53,6 +54,40 @@
 
 #svc-piano .svc-piano__heading {
     margin-bottom: clamp(40px, 5.5vw, 72px);
+}
+
+#svc-piano .svc-piano__hover-hint {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin: clamp(-28px, -3vw, -16px) 0 clamp(20px, 2.8vw, 32px);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: clamp(11px, 1.1vw, 12px);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.62);
+    transition: opacity 0.35s ease;
+}
+
+#svc-piano .svc-piano__hover-hint-icon {
+    flex-shrink: 0;
+    color: var(--svc-piano-orange-soft);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    #svc-piano .svc-piano__hover-hint {
+        display: inline-flex;
+    }
+
+    #svc-piano:has(.svc-piano__unit.is-active) .svc-piano__hover-hint,
+    #svc-piano:has(.svc-piano__unit:hover) .svc-piano__hover-hint,
+    #svc-piano:has(.svc-piano__unit:focus-within) .svc-piano__hover-hint {
+        opacity: 0;
+        visibility: hidden;
+    }
 }
 
 #svc-piano:not(:has(.svc-piano__subheading)) .svc-piano__heading {
@@ -252,9 +287,9 @@
     width: 100%;
     min-height: 0;
     padding:
-        clamp(10px, 1.4vw, 14px)
+        clamp(16px, 2vw, 20px)
         clamp(14px, 2vw, 20px)
-        clamp(6px, 1vw, 8px);
+        clamp(12px, 1.6vw, 14px);
     border: none;
     border-radius: inherit;
     background: transparent;
@@ -279,6 +314,33 @@
     transition:
         grid-row 0s linear var(--svc-piano-slide-ms),
         align-self var(--svc-piano-slide-ms) cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+#svc-piano .svc-piano__key-more {
+    display: none;
+    position: absolute;
+    right: clamp(10px, 1.4vw, 14px);
+    bottom: clamp(8px, 1vw, 10px);
+    z-index: 2;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: clamp(11px, 1.1vw, 13px);
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.42);
+    pointer-events: none;
+    transition: color 0.25s ease, opacity 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    #svc-piano .svc-piano__key-more {
+        display: block;
+    }
+
+    #svc-piano .svc-piano__unit:hover .svc-piano__key-more,
+    #svc-piano .svc-piano__unit:focus-within .svc-piano__key-more,
+    #svc-piano .svc-piano__unit.is-active .svc-piano__key-more {
+        color: var(--svc-piano-orange-soft);
+        opacity: 1;
+    }
 }
 
 #svc-piano .svc-piano__key-desc {
