@@ -39,6 +39,7 @@
     align-items: center;
     width: 100%;
     margin-top: auto;
+    margin-bottom: clamp(96px, 16vh, 180px);
     padding-bottom: max(clamp(40px, 6vw, 72px), env(safe-area-inset-bottom));
     box-sizing: border-box;
 }
@@ -79,7 +80,7 @@
     align-items: center;
 }
 
-.home-cta-section .v2-cta-h2 {
+.home-cta-section.home-redesign .v2-cta-h2 {
     width: 100%;
     font-family: 'Space Grotesk', system-ui, sans-serif;
     font-size: clamp(64px, 8vw, 140px);
@@ -87,7 +88,7 @@
     line-height: 0.95;
     letter-spacing: -0.02em;
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: clamp(36px, 5vw, 52px);
     color: #fff;
 }
 
@@ -95,14 +96,14 @@
     color: var(--v2-orange);
 }
 
-.home-cta-section .v2-cta-text {
+.home-cta-section.home-redesign .v2-cta-text {
     max-width: 640px;
     margin-left: auto;
     margin-right: auto;
     font-size: 16px;
     line-height: 1.55;
     color: var(--v2-mute);
-    margin-bottom: 36px;
+    margin-bottom: clamp(52px, 6vw, 76px);
 }
 
 .home-cta-section .v2-cta-btns {
@@ -131,11 +132,17 @@
     }
 
     .home-cta-section__body {
+        margin-bottom: clamp(72px, 18vh, 120px);
         padding-bottom: max(clamp(32px, 8vw, 56px), env(safe-area-inset-bottom));
     }
 
-    .home-cta-section .v2-cta-h2 {
+    .home-cta-section.home-redesign .v2-cta-h2 {
         font-size: clamp(40px, 12vw, 64px);
+        margin-bottom: clamp(28px, 6vw, 40px);
+    }
+
+    .home-cta-section.home-redesign .v2-cta-text {
+        margin-bottom: clamp(44px, 9vw, 56px);
     }
 
     .home-cta-section .v2-cta-btns {
