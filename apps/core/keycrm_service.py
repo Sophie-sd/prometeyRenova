@@ -113,18 +113,18 @@ def resolve_keycrm_source_id(submission):
         # Платний трафік без збігу utm_campaign: уточнюємо за сторінкою
         # (де залишена форма + куди вперше зайшов з реклами).
         page_hint = _page_signals(submission)
-        if 'internet-shop' in page_hint and paid_shops:
+        if ('internet-shop' in page_hint or 'internet-shop-v2' in page_hint) and paid_shops:
             return paid_shops
-        if 'corporate-website' in page_hint and paid_corporate:
+        if ('corporate-website' in page_hint or 'corporate-website-v2' in page_hint) and paid_corporate:
             return paid_corporate
 
         # Платний, але без збігу токенів — м'які fallback'и в межах платних.
         return paid_de or paid_all or paid_shops or paid_corporate or fallback
 
     page = _page_signals(submission)
-    if 'internet-shop' in page and organic_shops:
+    if ('internet-shop' in page or 'internet-shop-v2' in page) and organic_shops:
         return organic_shops
-    if 'corporate-website' in page and organic_corporate:
+    if ('corporate-website' in page or 'corporate-website-v2' in page) and organic_corporate:
         return organic_corporate
 
     return fallback

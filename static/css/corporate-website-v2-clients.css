@@ -1,0 +1,186 @@
+/* corporate-website-v2-clients.css — same as internet-shop-v2 clients panel */
+
+.pl-corp__clients-block {
+    padding: clamp(28px, 4vw, 44px) 0;
+    border-bottom: 1px solid #161616;
+}
+
+.pl-corp__clients-label {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #6a6a6a;
+    margin: 0 0 18px;
+}
+
+.pl-corp__clients-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 16px 0 20px;
+    -webkit-mask-image: linear-gradient(
+        90deg,
+        transparent 0,
+        #000 clamp(12px, 1.2vw, 28px),
+        #000 calc(100% - clamp(12px, 1.2vw, 28px)),
+        transparent 100%
+    );
+    mask-image: linear-gradient(
+        90deg,
+        transparent 0,
+        #000 clamp(12px, 1.2vw, 28px),
+        #000 calc(100% - clamp(12px, 1.2vw, 28px)),
+        transparent 100%
+    );
+}
+
+.pl-corp__clients-stories-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+    padding: 0;
+}
+
+.pl-corp__clients-stories-container {
+    display: flex;
+    gap: 24px;
+    padding: 20px 0;
+    overflow: visible;
+    pointer-events: none;
+    user-select: none;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    contain: layout style;
+}
+
+.pl-corp__clients-stories-container.marquee-active {
+    animation: pl-corp-partner-marquee 30s linear infinite;
+    will-change: transform;
+}
+
+@keyframes pl-corp-partner-marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(calc(-1 * var(--marquee-distance)), 0, 0); }
+}
+
+.pl-corp-page .project-story {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+    width: 96px;
+    max-width: 96px;
+    min-width: 96px;
+    text-decoration: none;
+    pointer-events: none;
+    user-select: none;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.pl-corp-page .project-story .v3-client-halo {
+    display: none;
+}
+
+.pl-corp-page .project-story .v3-client-ring {
+    position: relative;
+    z-index: 1;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    padding: 2px;
+    background: linear-gradient(135deg, #FF6B1A 0%, #FFB74D 50%, #E65100 100%);
+    box-shadow: 0 0 0 1px rgba(255, 107, 26, 0.5), 0 16px 40px rgba(255, 107, 26, 0.35);
+}
+
+.pl-corp-page .project-story .v3-client-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #000;
+    overflow: hidden;
+}
+
+.pl-corp-page .project-story .v3-client-inner img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.pl-corp-page .project-story-name,
+.pl-corp-page .v3-client-name {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
+}
+
+.pl-corp-page .project-story-ring,
+.pl-corp-page .project-story-image {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .pl-corp-page .project-story {
+        width: 140px;
+        max-width: 140px;
+        min-width: 140px;
+    }
+
+    .pl-corp-page .project-story .v3-client-halo {
+        display: none;
+    }
+
+    .pl-corp-page .project-story .v3-client-ring {
+        width: 120px;
+        height: 120px;
+        padding: 3px;
+    }
+
+    .pl-corp-page .project-story-name,
+    .pl-corp-page .v3-client-name {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .pl-corp__clients-stories-container.marquee-active {
+        animation-duration: 25s;
+    }
+}
+
+@media (max-width: 767px) {
+    .pl-corp__clients-stories-container {
+        gap: 18px;
+    }
+
+    .pl-corp__clients-stories-container.marquee-active {
+        animation-duration: 25s;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pl-corp__clients-stories-container.marquee-active {
+        animation: none;
+    }
+
+    .pl-corp__clients-stories-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}

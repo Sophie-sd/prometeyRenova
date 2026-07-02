@@ -1,0 +1,196 @@
+/* Internet Shop v2 — animations */
+@keyframes pl-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+}
+
+@keyframes pl-prog {
+    0% { width: 6%; }
+    100% { width: 100%; }
+}
+
+@keyframes pl-pulse {
+    0%, 100% { opacity: 0.45; }
+    50% { opacity: 0.85; }
+}
+
+@keyframes pl-bar {
+    0% { transform: scaleY(0.25); }
+    100% { transform: scaleY(1); }
+}
+
+@keyframes pl-svoboda-glow {
+    0%, 100% {
+        opacity: 0.72;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.14);
+    }
+}
+
+@keyframes pl-svoboda-accent-pop {
+    0% {
+        box-shadow: 0 0 0 0 rgba(230, 81, 0, 0.55);
+    }
+    45% {
+        box-shadow:
+            0 0 0 8px rgba(230, 81, 0, 0.12),
+            0 18px 48px rgba(230, 81, 0, 0.18);
+    }
+    100% {
+        box-shadow: 0 10px 36px rgba(0, 0, 0, 0.32);
+    }
+}
+
+@keyframes pl-svoboda-stat-flash {
+    0% {
+        color: #fff;
+        text-shadow: none;
+    }
+    35% {
+        color: var(--pl-acc);
+        text-shadow: 0 0 18px rgba(230, 81, 0, 0.45);
+    }
+    100% {
+        color: var(--pl-acc);
+        text-shadow: none;
+    }
+}
+
+@keyframes pl-pkg-extra-in {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 8px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes pl-admin-panel-in {
+    from {
+        opacity: 0;
+        transform: translate3d(12px, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes pl-admin-row-in {
+    from {
+        opacity: 0;
+        transform: translate3d(8px, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes pl-admin-status-pulse {
+    0% {
+        transform: scale(1);
+    }
+    40% {
+        transform: scale(0.94);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pl-garant-num-pulse {
+    0%, 100% {
+        transform: scale(1);
+        text-shadow: none;
+    }
+    50% {
+        transform: scale(1.07);
+        text-shadow: 0 0 18px rgba(230, 81, 0, 0.42);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pl-shop *,
+    .pl-shop *::before,
+    .pl-shop *::after {
+        animation-duration: 0.001ms;
+        animation-iteration-count: 1;
+        transition-duration: 0.001ms;
+    }
+
+    .pl-shop [data-reveal] {
+        opacity: 1;
+        transform: none;
+    }
+
+    .pl-shop__pkg-grid[data-pkg-stagger] .pl-shop__pkg-card,
+    .pl-shop__pkg-grid[data-pkg-stagger] .pl-shop__pkg-list li,
+    .pl-shop__svoboda-body[data-svoboda-reveal] .pl-shop__card,
+    .pl-shop__svoboda-body[data-svoboda-reveal] .pl-shop__list-item,
+    .pl-shop__svoboda-body[data-svoboda-reveal] .pl-shop__list-icon,
+    .pl-shop__svoboda-body[data-svoboda-reveal] .pl-shop__migration,
+    .pl-shop__svoboda-body[data-svoboda-reveal] .pl-shop__migration-title,
+    .pl-shop__svoboda-body[data-svoboda-reveal] .pl-shop__stat {
+        opacity: 1;
+        transform: none;
+    }
+
+    .pl-shop__svoboda-body.is-revealed .pl-shop__card--accent,
+    .pl-shop__svoboda-body.is-revealed .pl-shop__card--accent .pl-shop__card-glow,
+    .pl-shop__svoboda-body.is-revealed .pl-shop__stat-num {
+        animation: none;
+    }
+
+    .pl-shop__pkg-extra:not([hidden]) {
+        animation: none;
+    }
+
+    .pl-shop__admin-panel--enter,
+    .pl-shop__admin-panel--exit,
+    .pl-shop__admin-panel--enter .pl-shop__admin-table-row,
+    .pl-shop__admin-panel--enter .pl-shop__admin-table-row--clickable,
+    .pl-shop__admin-panel--enter .pl-shop__admin-detail-item,
+    .pl-shop__admin-panel--enter .pl-shop__admin-detail-spec,
+    .pl-shop__status--changing {
+        animation: none;
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .pl-shop__garant-box:hover,
+    .pl-shop__garant-box:hover .pl-shop__garant-num {
+        animation: none;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .pl-shop__admin-metric:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .pl-shop__admin-metric:hover .pl-shop__admin-metric-val--acc,
+    .pl-shop__admin-metric:hover .pl-shop__admin-bars .pl-shop__admin-bar-col--acc {
+        animation: none;
+    }
+
+    .pl-shop__svoboda-body.is-revealed .pl-shop__card:hover,
+    .pl-shop__svoboda-body.is-revealed .pl-shop__card--accent:hover,
+    .pl-shop__svoboda-body.is-revealed .pl-shop__migration:hover,
+    .pl-shop__svoboda-body.is-revealed .pl-shop__migration:hover .pl-shop__stat-num,
+    .pl-shop__pkg-grid.is-revealed .pl-shop__pkg-card:hover,
+    .pl-shop__hero-chip:hover,
+    .pl-shop__hero-chip:hover .pl-shop__chip-value,
+    .pl-shop__hero-chip:hover .pl-shop__chip-sales-val {
+        animation: none;
+        transform: none;
+        box-shadow: none;
+    }
+}

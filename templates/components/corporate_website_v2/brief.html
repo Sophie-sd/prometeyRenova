@@ -1,0 +1,245 @@
+<section id="calculator" class="pl-corp__calc pl-corp__section" aria-labelledby="pl-corp-calc-title">
+    <div class="pl-corp__calc-inner pl-corp__inner pl-corp__inner--narrow">
+        <div class="pl-corp__calc-head" data-reveal>
+            <h2 id="pl-corp-calc-title" class="pl-corp__title pl-corp__title--brief">
+                Готові до корпоративного сайту,<br>який працює як годинник?
+            </h2>
+            <p class="pl-corp__calc-subtitle">
+                Прорахуємо вартість розробки та покажемо, скільки ви зекономите на рекламі завдяки нашій швидкості.
+            </p>
+        </div>
+
+        <form
+            id="pl-corp-quiz-form"
+            class="pl-corp__quiz"
+            method="post"
+            action="{% url 'form_submit' %}"
+            data-form-type="site_request"
+            data-source-label="Корпоративний сайт v2"
+            data-reveal
+        >
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="site_request">
+            <input type="hidden" name="source_page" value="corporate-website-v2">
+            <input type="hidden" name="details" id="pl-corp-quiz-details">
+
+            <div class="pl-corp__quiz-header">
+                <div class="pl-corp__quiz-progress" aria-hidden="true">
+                    <div class="pl-corp__quiz-progress-bar" data-quiz-progress></div>
+                </div>
+                <p class="pl-corp__quiz-progress-label">Крок <span data-quiz-step-num>1</span> з 4</p>
+            </div>
+
+            <div class="pl-corp__quiz-stage">
+            <div class="pl-corp__quiz-step pl-corp__quiz-step--active" data-step="1">
+                <p class="pl-corp__quiz-question">Що у вас за бізнес?</p>
+                <ul class="pl-corp__quiz-options">
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_business" value="Послуги (B2C / B2B)">
+                            <span class="pl-corp__quiz-option-text">Послуги (B2C / B2B)</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_business" value="Виробництво / опт">
+                            <span class="pl-corp__quiz-option-text">Виробництво / опт</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_business" value="Торгівля">
+                            <span class="pl-corp__quiz-option-text">Торгівля</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_business" value="Інше / не визначився">
+                            <span class="pl-corp__quiz-option-text">Інше / не визначився</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-corp__quiz-step" data-step="2">
+                <p class="pl-corp__quiz-question">Скільки сторінок потрібно?</p>
+                <ul class="pl-corp__quiz-options">
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_pages" value="1 сторінка (лендинг)">
+                            <span class="pl-corp__quiz-option-text">1 сторінка (лендинг)</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_pages" value="5–7 сторінок (корпоративний)">
+                            <span class="pl-corp__quiz-option-text">5–7 сторінок (корпоративний)</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_pages" value="10–20 сторінок">
+                            <span class="pl-corp__quiz-option-text">10–20 сторінок</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_pages" value="20+ сторінок або мультимовність">
+                            <span class="pl-corp__quiz-option-text">20+ сторінок або мультимовність</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-corp__quiz-step" data-step="3" data-multi="true">
+                <p class="pl-corp__quiz-question">Що потрібно додатково?</p>
+                <p class="pl-corp__quiz-hint">Можна обрати декілька варіантів</p>
+                <ul class="pl-corp__quiz-options pl-corp__quiz-options--multi">
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="checkbox" name="q_options" value="Google Ads">
+                            <span class="pl-corp__quiz-option-text">Google Ads</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="checkbox" name="q_options" value="Facebook + Instagram">
+                            <span class="pl-corp__quiz-option-text">Facebook + Instagram</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="checkbox" name="q_options" value="SEO-просування">
+                            <span class="pl-corp__quiz-option-text">SEO-просування</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="checkbox" name="q_options" value="CRM + Telegram">
+                            <span class="pl-corp__quiz-option-text">CRM + Telegram</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="checkbox" name="q_options" value="1С / Bitrix24">
+                            <span class="pl-corp__quiz-option-text">1С / Bitrix24</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="checkbox" name="q_options" value="Мультимовність">
+                            <span class="pl-corp__quiz-option-text">Мультимовність</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-corp__quiz-step" data-step="4">
+                <p class="pl-corp__quiz-question">Коли потрібен запуск?</p>
+                <ul class="pl-corp__quiz-options">
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_timeline" value="Якнайшвидше (до 7 днів)">
+                            <span class="pl-corp__quiz-option-text">Якнайшвидше (до 7 днів)</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_timeline" value="Протягом 2 тижнів">
+                            <span class="pl-corp__quiz-option-text">Протягом 2 тижнів</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_timeline" value="Протягом місяця">
+                            <span class="pl-corp__quiz-option-text">Протягом місяця</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_timeline" value="Терміни гнучкі">
+                            <span class="pl-corp__quiz-option-text">Терміни гнучкі</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-corp__quiz-step pl-corp__quiz-step--contact" data-step="contact">
+                <p class="pl-corp__quiz-question">Майже готово!</p>
+                <p class="pl-corp__quiz-hint">Залишіть контакти — і ми покажемо рекомендований пакет за вашими відповідями.</p>
+
+                <div class="pl-corp__quiz-fields pl-corp__quiz-fields--contact">
+                    <div class="pl-corp__quiz-field">
+                        <label class="pl-corp__quiz-field-label" for="pl-corp-quiz-name">Ваше імʼя</label>
+                        <input
+                            type="text"
+                            id="pl-corp-quiz-name"
+                            name="name"
+                            class="pl-corp__quiz-input mobile-touch-target"
+                            autocomplete="given-name"
+                            inputmode="text"
+                            required
+                            placeholder="Імʼя"
+                        >
+                    </div>
+                    <div class="pl-corp__quiz-field">
+                        <label class="pl-corp__quiz-field-label" for="pl-corp-quiz-phone">Telegram або телефон <span class="pl-corp__quiz-required" aria-hidden="true">*</span></label>
+                        <input
+                            type="text"
+                            id="pl-corp-quiz-phone"
+                            name="phone"
+                            class="pl-corp__quiz-input mobile-touch-target"
+                            autocomplete="tel"
+                            inputmode="tel"
+                            required
+                            placeholder="@username  або  +38 (0__) ___-__-__"
+                        >
+                    </div>
+                    <button
+                        type="button"
+                        class="pl-corp__btn pl-corp__btn--primary pl-corp__quiz-reveal mobile-touch-target"
+                        data-quiz-reveal
+                    >
+                        Отримати розрахунок →
+                    </button>
+                </div>
+            </div>
+
+            <div class="pl-corp__quiz-step pl-corp__quiz-step--result" data-step="result">
+                <p class="pl-corp__quiz-question">Ваш орієнтовний розрахунок</p>
+                <p class="pl-corp__quiz-hint">Ось пакет, який найкраще підходить під ваші відповіді. Підтвердіть — і ми зателефонуємо.</p>
+
+                <div class="pl-corp__quiz-result" data-quiz-result aria-live="polite">
+                    <p class="pl-corp__quiz-result-label">Рекомендований пакет</p>
+                    <p class="pl-corp__quiz-result-pkg" data-quiz-result-pkg>КОРПОРАТИВНИЙ</p>
+                    <p class="pl-corp__quiz-result-term">
+                        <span>Термін запуску:</span>
+                        <span data-quiz-result-term>2–3 тижні</span>
+                    </p>
+                    <ul class="pl-corp__quiz-result-features" data-quiz-result-features></ul>
+                </div>
+
+                <p class="pl-corp__quiz-note pl-corp__quiz-note--result">
+                    Точний кошторис фіксується після короткого брифу. Це орієнтир, не фінальний договір.
+                </p>
+
+                <div class="pl-corp__quiz-result-actions">
+                    <button type="button" class="pl-corp__btn pl-corp__btn--ghost pl-corp__quiz-prev-result mobile-touch-target">← Назад</button>
+                    <button type="submit" class="pl-corp__btn pl-corp__btn--primary pl-corp__quiz-submit mobile-touch-target">
+                        Підтвердити заявку →
+                    </button>
+                    <a href="{{ site_contact.get_tel_href }}" class="pl-corp__btn pl-corp__btn--ghost pl-corp__quiz-call mobile-touch-target">
+                        Звʼязатись з нами
+                    </a>
+                </div>
+            </div>
+            </div>
+
+            <div class="pl-corp__quiz-nav">
+                <button type="button" class="pl-corp__btn pl-corp__btn--ghost pl-corp__quiz-prev pl-corp__quiz-nav-slot--hidden mobile-touch-target" aria-hidden="true" tabindex="-1">← Назад</button>
+                <button type="button" class="pl-corp__btn pl-corp__btn--ghost pl-corp__quiz-skip mobile-touch-target">Пропустити</button>
+                <button type="button" class="pl-corp__btn pl-corp__btn--primary pl-corp__quiz-next mobile-touch-target" disabled>Далі →</button>
+            </div>
+        </form>
+    </div>
+</section>

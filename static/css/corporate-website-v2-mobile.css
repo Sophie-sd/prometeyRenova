@@ -1,0 +1,65 @@
+/* corporate-website-v2-mobile.css — compact section rhythm on small screens */
+
+@media (max-width: 767px) {
+    .pl-corp__hero {
+        padding-bottom: 24px;
+    }
+
+    .pl-corp__clients-block {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .pl-corp__clients-label {
+        margin-bottom: 12px;
+    }
+
+    .pl-corp__economy,
+    .pl-corp__tech,
+    .pl-corp__admin,
+    .pl-corp__scale,
+    .pl-corp__calc {
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+
+    .pl-corp__hero-row {
+        gap: 20px;
+    }
+
+    .pl-corp__hero-actions {
+        margin-bottom: 20px;
+    }
+
+    .pl-corp__hero-badges {
+        padding-top: 6px;
+    }
+
+    .pl-corp__economy-head {
+        margin-bottom: 28px;
+    }
+
+    .pl-corp__tech-head {
+        margin-bottom: 24px;
+    }
+
+    .pl-corp__calc-head {
+        margin-bottom: 20px;
+    }
+
+    .pl-corp__admin-row {
+        gap: 24px;
+    }
+
+    .pl-corp__scale-row {
+        gap: 22px;
+    }
+
+    .pl-corp__scale-guarantees {
+        margin-top: 24px;
+    }
+
+    .pl-corp__tech-explorer {
+        gap: 16px;
+    }
+}

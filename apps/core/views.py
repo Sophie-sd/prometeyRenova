@@ -180,6 +180,38 @@ class InternetShopView(BasePageView):
         return context
 
 
+class InternetShopV2View(BasePageView):
+    """Нова landing-сторінка інтернет-магазинів (v2) — паралельно до /internet-shop/."""
+    template_name = 'pages/internet-shop-v2.html'
+    page_title = _('Інтернет-магазини під ключ — швидка розробка e-commerce | PrometeyLabs')
+    meta_description = _(
+        'Розробка інтернет-магазинів з нативною архітектурою без конструкторів. '
+        'Міграція з Prom та OLX, SEO, пожиттєва гарантія на код.'
+    )
+    og_title = _('Інтернет-магазини, що завантажуються швидше — PrometeyLabs')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['home_clients'] = homepage_clients()
+        return context
+
+
+class CorporateWebsiteV2View(BasePageView):
+    """Нова landing-сторінка корпоративних сайтів (v2) — паралельно до /corporate-website/."""
+    template_name = 'pages/corporate-website-v2.html'
+    page_title = _('Корпоративні сайти та лендінги під ключ — швидка розробка | PrometeyLabs')
+    meta_description = _(
+        'Розробка корпоративних сайтів та лендінгів з нативною архітектурою. '
+        '100/100 Core Web Vitals, технічне SEO, пожиттєва гарантія на код.'
+    )
+    og_title = _('Корпоративні сайти, що домінують у пошуку — PrometeyLabs')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['home_clients'] = homepage_clients()
+        return context
+
+
 class InternetShopRuView(BasePageView):
     """
     Legacy URL `/internet-shop-ru/` — kept for backward compatibility but 301-redirects

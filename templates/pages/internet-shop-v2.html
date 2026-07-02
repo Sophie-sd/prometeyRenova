@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block body_attrs %} class="pl-shop-body" data-modal-source-page="internet-shop-v2-modal"{% endblock %}
+
+{% block title %}Інтернет-магазини під ключ — швидка розробка e-commerce | PrometeyLabs{% endblock %}
+{% block description %}Розробка інтернет-магазинів з нативною архітектурою без конструкторів. Міграція з Prom та OLX, SEO, пожиттєва гарантія на код. PrometeyLabs — e-commerce під ключ.{% endblock %}
+{% block og_title %}Інтернет-магазини, що завантажуються швидше — PrometeyLabs{% endblock %}
+
+{% block extra_head %}
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://prometeylabs.com/internet-shop-v2/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image"
+    imagesrcset="{% static 'images/shop_hero_720.webp' %} 720w, {% static 'images/shop_hero.webp' %} 1080w"
+    imagesizes="(max-width: 767px) 100vw, 410px"
+    fetchpriority="high">
+{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/internet-shop-v2-anim.css' %}?v=8">
+<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=106">
+{% endblock %}
+
+{% block content %}
+<div id="plShopRoot" class="pl-shop pl-shop-page">
+    {% include 'components/internet_shop_v2/hero.html' %}
+    {% include 'components/internet_shop_v2/clients.html' %}
+    {% include 'components/internet_shop_v2/svoboda.html' %}
+    {% include 'components/internet_shop_v2/packages.html' %}
+    {% include 'components/internet_shop_v2/admin.html' %}
+    {% include 'components/internet_shop_v2/garantiya.html' %}
+    {% include 'components/internet_shop_v2/brief.html' %}
+</div>
+{% include 'components/internet_shop_v2/pkg_compare_modal.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/internet-shop-v2-admin-mock.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-v2-quiz.js' %}?v=7" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-v2.js' %}?v=22" nonce="{{ csp_nonce }}" defer></script>
+{% endblock %}

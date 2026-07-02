@@ -13,7 +13,27 @@
         <nav class="nav-menu" role="navigation" aria-label="{% trans 'Основне меню' %}">
             <a href="{% url 'home' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "головна" %}</a>
             <a href="{% url 'portfolio' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "портфоліо" %}</a>
-            <a href="{% url 'calculator' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "розрахувати пропозицію" %}</a>
+            <div class="nav-dropdown{% if request.resolver_match.url_name == 'internet_shop_v2' or request.resolver_match.url_name == 'corporate_website_v2' %} is-active{% endif %}">
+                <button type="button"
+                    class="nav-link nav-dropdown__toggle mobile-touch-target mobile-focus-visible"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    aria-controls="nav-services-menu">
+                    {% trans "послуги" %}
+                    <svg class="nav-dropdown__icon" width="10" height="10" viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="M2.5 4.5 6 8 9.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="nav-dropdown__menu" id="nav-services-menu" role="menu">
+                    <a href="{% url 'internet_shop_v2' %}"
+                        class="nav-dropdown__link mobile-touch-target mobile-focus-visible"
+                        role="menuitem">{% trans "інтернет-магазини" %}</a>
+                    <a href="{% url 'corporate_website_v2' %}"
+                        class="nav-dropdown__link mobile-touch-target mobile-focus-visible"
+                        role="menuitem">{% trans "корпоративні сайти та лендінги" %}</a>
+                </div>
+            </div>
+            <a href="{% if request.resolver_match.url_name == 'corporate_website_v2' %}#calculator{% elif request.resolver_match.url_name == 'internet_shop_v2' %}#calculator{% else %}{% url 'internet_shop_v2' %}#calculator{% endif %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "розрахувати пропозицію" %}</a>
             <a href="{% url 'blog:blog_list' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "блог" %}</a>
             <a href="{% url 'contacts' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "контакти" %}</a>
         </nav>

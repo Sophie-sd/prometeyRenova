@@ -32,15 +32,23 @@
             data-index="02">
             {% trans "Портфоліо" %}
         </a>
-        <a href="{% url 'calculator' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible"
+        <a href="{% url 'internet_shop_v2' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible"
             data-index="03">
+            {% trans "Інтернет-магазини" %}
+        </a>
+        <a href="{% url 'corporate_website_v2' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible"
+            data-index="04">
+            {% trans "Корпоративні сайти та лендінги" %}
+        </a>
+        <a href="{% if request.resolver_match.url_name == 'corporate_website_v2' %}#calculator{% elif request.resolver_match.url_name == 'internet_shop_v2' %}#calculator{% else %}{% url 'internet_shop_v2' %}#calculator{% endif %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible"
+            data-index="05">
             {% trans "Розрахувати пропозицію" %}
         </a>
         <a href="{% url 'blog:blog_list' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible"
-            data-index="04">
+            data-index="06">
             {% trans "Блог" %}
         </a>
-        <a href="{% url 'contacts' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible" data-index="05">
+        <a href="{% url 'contacts' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible" data-index="07">
             {% trans "Контакти" %}
         </a>
     </div>

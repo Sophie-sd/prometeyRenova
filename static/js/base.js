@@ -41,6 +41,7 @@ class PrometeyApp {
 
         // Ініціалізація систем
         this.setupNavigation();
+        this.setupNavDropdown();
         this.setupMobileMenu();
         this.setupModals();
         this.setupPhoneMasks();
@@ -106,6 +107,65 @@ class PrometeyApp {
         window.addEventListener('scroll', handleScroll, { passive: true });
 
         this.setupSmoothScroll();
+    }
+
+    setupNavDropdown() {
+        const dropdowns = document.querySelectorAll('.nav-dropdown');
+        if (!dropdowns.length) return;
+
+        const isDesktop = () => window.matchMedia('(min-width: 768px)').matches;
+        let leaveTimer = null;
+
+        dropdowns.forEach((dropdown) => {
+            const toggle = dropdown.querySelector('.nav-dropdown__toggle');
+            if (!toggle) return;
+
+            dropdown.addEventListener('mouseenter', () => {
+                if (!isDesktop()) return;
+                clearTimeout(leaveTimer);
+                dropdown.classList.add('is-open');
+                toggle.setAttribute('aria-expanded', 'true');
+            });
+
+            dropdown.addEventListener('mouseleave', () => {
+                if (!isDesktop()) return;
+                leaveTimer = setTimeout(() => {
+                    dropdown.classList.remove('is-open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }, 100);
+            });
+
+            toggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const isOpen = dropdown.classList.contains('is-open');
+                this.closeAllNavDropdowns();
+                if (!isOpen) {
+                    dropdown.classList.add('is-open');
+                    toggle.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-dropdown')) {
+                this.closeAllNavDropdowns();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeAllNavDropdowns();
+            }
+        });
+    }
+
+    closeAllNavDropdowns() {
+        document.querySelectorAll('.nav-dropdown.is-open').forEach((dropdown) => {
+            dropdown.classList.remove('is-open');
+            const toggle = dropdown.querySelector('.nav-dropdown__toggle');
+            if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        });
     }
 
     setupSmoothScroll() {

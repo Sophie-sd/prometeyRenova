@@ -1,0 +1,15 @@
+<div class="modal" id="pl-shop-pkg-compare-modal" role="dialog" aria-labelledby="pl-shop-pkg-compare-title" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content pl-shop__pkg-matrix-modal">
+        <button class="modal-close" type="button" aria-label="Закрити модальне вікно">&times;</button>
+        <h3 class="pl-shop__pkg-matrix-title" id="pl-shop-pkg-compare-title">Зведена матриця можливостей</h3>
+        <div class="pl-shop__pkg-matrix-tabs" role="tablist" aria-label="Оберіть пакет для порівняння">
+            <button type="button" role="tab" class="pl-shop__pkg-matrix-tab mobile-touch-target" data-pkg-tab-btn="base" aria-selected="false">BASE</button>
+            <button type="button" role="tab" class="pl-shop__pkg-matrix-tab pl-shop__pkg-matrix-tab--active mobile-touch-target" data-pkg-tab-btn="premium" aria-selected="true">PREMIUM</button>
+            <button type="button" role="tab" class="pl-shop__pkg-matrix-tab mobile-touch-target" data-pkg-tab-btn="platinum" aria-selected="false">PLATINUM</button>
+        </div>
+        <div class="pl-shop__pkg-matrix-wrap" data-pkg-tab="premium">
+            {% include 'components/internet_shop_v2/pkg_matrix_table.html' %}
+        </div>
+    </div>
+</div>

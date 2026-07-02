@@ -1226,6 +1226,107 @@ img, video {
     width: 100%;
 }
 
+/* ===== DESKTOP DROPDOWN (послуги) ===== */
+.nav-dropdown {
+    position: relative;
+}
+
+/* Невидимий міст між кнопкою та меню — щоб hover не обривався */
+.nav-dropdown::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    width: max(100%, 288px);
+    height: 12px;
+}
+
+.nav-dropdown__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.nav-dropdown__toggle::after {
+    display: none;
+}
+
+.nav-dropdown__icon {
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+
+.nav-dropdown.is-open .nav-dropdown__icon,
+.nav-dropdown:hover .nav-dropdown__icon,
+.nav-dropdown:focus-within .nav-dropdown__icon {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown.is-active > .nav-dropdown__toggle,
+.nav-dropdown.is-open > .nav-dropdown__toggle {
+    color: var(--color-brand-orange);
+}
+
+.nav-dropdown__menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    min-width: 272px;
+    padding: 8px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    z-index: var(--z-dropdown, 500);
+}
+
+.nav-dropdown.is-open .nav-dropdown__menu,
+.nav-dropdown:hover .nav-dropdown__menu,
+.nav-dropdown:focus-within .nav-dropdown__menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown__link {
+    display: block;
+    padding: 11px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: lowercase;
+    letter-spacing: 0.4px;
+    border-radius: 8px;
+    line-height: 1.35;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-dropdown__link:hover,
+.nav-dropdown__link.is-active,
+.nav-dropdown__link:focus-visible {
+    background: rgba(230, 81, 0, 0.14);
+    color: var(--color-brand-orange);
+}
+
+@media (max-width: 767px) {
+    .nav-dropdown {
+        display: none;
+    }
+}
+
 /* ===== PAGE NUMBER ===== */
 .nav-page-number {
     font-size: var(--font-page);
@@ -1564,31 +1665,31 @@ img, video {
     animation: menuLinkReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.mobile-menu.active .mobile-nav-link:nth-child(1) {
+.mobile-menu.active .mobile-menu-content > .mobile-nav-link:nth-child(1) {
     animation-delay: 0.04s;
 }
 
-.mobile-menu.active .mobile-nav-link:nth-child(2) {
+.mobile-menu.active .mobile-menu-content > .mobile-nav-link:nth-child(2) {
     animation-delay: 0.08s;
 }
 
-.mobile-menu.active .mobile-nav-link:nth-child(3) {
+.mobile-menu.active .mobile-menu-content > .mobile-nav-link:nth-child(3) {
     animation-delay: 0.12s;
 }
 
-.mobile-menu.active .mobile-nav-link:nth-child(4) {
+.mobile-menu.active .mobile-menu-content > .mobile-nav-link:nth-child(4) {
     animation-delay: 0.16s;
 }
 
-.mobile-menu.active .mobile-nav-link:nth-child(5) {
+.mobile-menu.active .mobile-menu-content > .mobile-nav-link:nth-child(5) {
     animation-delay: 0.2s;
 }
 
-.mobile-menu.active .mobile-nav-link:nth-child(6) {
+.mobile-menu.active .mobile-menu-content > .mobile-nav-link:nth-child(6) {
     animation-delay: 0.24s;
 }
 
-.mobile-menu.active .mobile-nav-link:nth-child(7) {
+.mobile-menu.active .mobile-menu-content > .mobile-nav-link:nth-child(7) {
     animation-delay: 0.28s;
 }
 
@@ -2463,36 +2564,74 @@ body.modal-open {
     }
 }
 
-/* ===== CALL REQUEST MODAL - Спеціальні стилі ===== */
+/* ===== CALL REQUEST MODAL - Glass dark theme ===== */
+#call-request-modal .modal-backdrop {
+    background: rgba(4, 4, 4, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
 #call-request-modal .modal-content {
-    background: 
-        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),
-        url('/static/images/mobile_menu.webp') center/cover no-repeat;
-    color: var(--color-white);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: rgba(16, 16, 16, 0.76);
+    backdrop-filter: blur(32px) saturate(1.12);
+    -webkit-backdrop-filter: blur(32px) saturate(1.12);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow:
+        0 28px 72px rgba(0, 0, 0, 0.52),
+        0 0 40px rgba(230, 81, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    color: #fff;
+    padding: clamp(26px, 4vw, 34px);
+}
+
+#call-request-modal .modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, transparent, rgba(230, 81, 0, 0.85), transparent);
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+#call-request-modal .modal-header h3 {
+    color: var(--color-brand-orange);
 }
 
 #call-request-modal .modal-header p {
-    color: var(--color-white);
+    color: #c8c8c8;
 }
 
 #call-request-modal .form-label {
-    color: var(--color-white);
+    color: #9a9a9a;
+    font-size: 13px;
+    font-weight: 500;
 }
 
 #call-request-modal .form-input {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
-    color: var(--color-white);
+    background: rgba(10, 10, 10, 0.55);
+    border: 1px solid #2a2a2a;
+    border-radius: 11px;
+    color: #fff;
+    transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 #call-request-modal .form-input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: #6a6a6a;
 }
 
 #call-request-modal .form-input:focus {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(10, 10, 10, 0.72);
     border-color: var(--color-brand-orange);
-    color: var(--color-white);
+    color: #fff;
+    outline: none;
 }
 
 #call-request-modal .modal-close {
@@ -2506,6 +2645,7 @@ body.modal-open {
     outline: none;
     text-shadow: none;
     padding: 0;
+    z-index: 2;
 }
 
 #call-request-modal .modal-close:hover {
@@ -2515,95 +2655,103 @@ body.modal-open {
 
 #call-request-modal .btn-primary {
     background: var(--color-brand-orange);
-    color: var(--color-white);
+    color: #0a0a0a;
     border-color: var(--color-brand-orange);
+    border-radius: 11px;
+    font-weight: 700;
+    box-shadow: 0 10px 34px rgba(230, 81, 0, 0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 #call-request-modal .btn-primary:hover {
-    background: var(--color-black);
-    color: var(--color-white);
-    border-color: var(--color-black);
+    background: var(--color-brand-orange);
+    color: #0a0a0a;
+    border-color: var(--color-brand-orange);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px rgba(230, 81, 0, 0.38);
 }
 
 /* ===== CALL REQUEST MODAL - DIRECT CONTACT SECTION ===== */
-.modal-direct-contact {
+#call-request-modal .modal-direct-contact {
     margin: 0 0 20px;
-    padding: 20px 0;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
+    padding: 18px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
     text-align: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-.modal-separator-text {
-    color: var(--color-white);
+#call-request-modal .modal-separator-text {
+    color: #bdbdbd;
     font-size: var(--font-small);
     margin-bottom: 10px;
-    opacity: 0.9;
 }
 
-.modal-phone-link {
+#call-request-modal .modal-phone-link {
     display: inline-block;
     font-size: 18px;
     font-weight: 700;
     color: var(--color-brand-orange);
     text-decoration: none;
     margin-bottom: 10px;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: color 0.2s ease;
 }
 
-.modal-phone-link:hover {
-    color: var(--color-white);
-    text-shadow: 0 0 8px rgba(220, 20, 60, 0.4);
+#call-request-modal .modal-phone-link:hover {
+    color: #fff;
 }
 
-.modal-social-links {
+#call-request-modal .modal-social-links {
     display: flex;
     justify-content: center;
     gap: var(--space-sm);
     align-items: center;
 }
 
-.modal-social-link {
+#call-request-modal .modal-social-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--color-white);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
     text-decoration: none;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
-.modal-social-link svg {
+#call-request-modal .modal-social-link svg {
     width: 24px;
     height: 24px;
 }
 
-.modal-social-link:hover {
-    background: var(--color-brand-orange);
-    color: var(--color-white);
+#call-request-modal .modal-social-link:hover {
+    background: rgba(230, 81, 0, 0.18);
+    border-color: rgba(230, 81, 0, 0.45);
+    color: #fff;
     transform: translateY(-2px);
 }
 
 /* ===== RESPONSIVE: Планшет ===== */
 @media (max-width: 1024px) and (min-width: 768px) {
-    .modal-direct-contact {
+    #call-request-modal .modal-direct-contact {
         padding: var(--space-md);
     }
 
-    .modal-phone-link {
+    #call-request-modal .modal-phone-link {
         font-size: 18px;
     }
 
-    .modal-social-link {
+    #call-request-modal .modal-social-link {
         width: 40px;
         height: 40px;
     }
 
-    .modal-social-link svg {
+    #call-request-modal .modal-social-link svg {
         width: 22px;
         height: 22px;
     }
@@ -2611,28 +2759,28 @@ body.modal-open {
 
 /* ===== RESPONSIVE: Мобільний ===== */
 @media (max-width: 767px) {
-    .modal-separator-text {
+    #call-request-modal .modal-separator-text {
         font-size: var(--font-small);
     }
 
-    .modal-phone-link {
+    #call-request-modal .modal-phone-link {
         display: block;
         font-size: 18px;
         word-break: break-word;
         padding: 0 0 7px 0;
     }
 
-    .modal-social-links {
+    #call-request-modal .modal-social-links {
         gap: 35px;
         justify-content: center;
     }
 
-    .modal-social-link {
+    #call-request-modal .modal-social-link {
         min-width: 44px;
         min-height: 44px;
     }
 
-    .modal-social-link svg {
+    #call-request-modal .modal-social-link svg {
         width: 20px;
         height: 20px;
     }

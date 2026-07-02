@@ -1,0 +1,188 @@
+{% load static %}
+<section id="top" class="pl-corp__hero pl-corp__section" aria-labelledby="pl-corp-hero-title">
+    <div class="pl-corp__hero-grid" aria-hidden="true"></div>
+
+    <div class="pl-corp__inner">
+        <div class="pl-corp__hero-row">
+            <div class="pl-corp__hero-copy">
+                <h1 id="pl-corp-hero-title" class="pl-corp__title pl-corp__title--hero">
+                    Корпоративні сайти та лендінги, що <span class="pl-corp__accent">домінують у пошуку.</span>
+                </h1>
+                <p class="pl-corp__lead">
+                    Створюємо цифрові активи з оцінкою <strong>100/100 від Google</strong>. Чистий код, який знижує вартість залучення клієнта <strong>у 2 рази</strong> та забезпечує пожиттєву масштабованість.
+                </p>
+                <div class="pl-corp__hero-actions">
+                    <a href="#calculator" class="pl-corp__btn pl-corp__btn--primary mobile-touch-target">Розрахувати вартість</a>
+                    <button type="button" class="pl-corp__btn pl-corp__btn--ghost mobile-touch-target" data-modal="call-request-modal">Замовити консультацію</button>
+                </div>
+            </div>
+
+            <div class="pl-corp__hero-stage" data-hero-stage>
+                <div class="pl-corp__hero-stage-inner">
+                    <div class="pl-corp__hero-chips-row">
+                        <div class="pl-corp__hero-chip pl-corp__hero-chip--lighthouse" data-hero-chip data-hero-tab-trigger="tech" role="button" tabindex="0" aria-label="Google Lighthouse — показати Core Web Vitals">
+                            <div class="pl-corp__hero-chip-title">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9a9a9a" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>
+                                Google Lighthouse
+                            </div>
+                            <div class="pl-corp__hero-rings">
+                                <div class="pl-corp__hero-ring-wrap">
+                                    <div class="pl-corp__hero-ring-svg">
+                                        <svg width="36" height="36" viewBox="0 0 44 44" aria-hidden="true">
+                                            <circle cx="22" cy="22" r="19" fill="none" stroke="#1f2a22" stroke-width="4"/>
+                                            <circle class="pl-corp__hero-ring" data-hero-ring cx="22" cy="22" r="19" fill="none" stroke="#2ecc71" stroke-width="4" stroke-linecap="round" stroke-dasharray="119.4" stroke-dashoffset="119.4" transform="rotate(-90 22 22)"/>
+                                        </svg>
+                                        <span class="pl-corp__hero-ring-val">100</span>
+                                    </div>
+                                    <span class="pl-corp__hero-ring-label">Perf</span>
+                                </div>
+                                <div class="pl-corp__hero-ring-wrap">
+                                    <div class="pl-corp__hero-ring-svg">
+                                        <svg width="36" height="36" viewBox="0 0 44 44" aria-hidden="true">
+                                            <circle cx="22" cy="22" r="19" fill="none" stroke="#1f2a22" stroke-width="4"/>
+                                            <circle class="pl-corp__hero-ring" data-hero-ring cx="22" cy="22" r="19" fill="none" stroke="#2ecc71" stroke-width="4" stroke-linecap="round" stroke-dasharray="119.4" stroke-dashoffset="119.4" transform="rotate(-90 22 22)"/>
+                                        </svg>
+                                        <span class="pl-corp__hero-ring-val">100</span>
+                                    </div>
+                                    <span class="pl-corp__hero-ring-label">A11y</span>
+                                </div>
+                                <div class="pl-corp__hero-ring-wrap">
+                                    <div class="pl-corp__hero-ring-svg">
+                                        <svg width="36" height="36" viewBox="0 0 44 44" aria-hidden="true">
+                                            <circle cx="22" cy="22" r="19" fill="none" stroke="#1f2a22" stroke-width="4"/>
+                                            <circle class="pl-corp__hero-ring" data-hero-ring cx="22" cy="22" r="19" fill="none" stroke="#2ecc71" stroke-width="4" stroke-linecap="round" stroke-dasharray="119.4" stroke-dashoffset="119.4" transform="rotate(-90 22 22)"/>
+                                        </svg>
+                                        <span class="pl-corp__hero-ring-val">100</span>
+                                    </div>
+                                    <span class="pl-corp__hero-ring-label">BP</span>
+                                </div>
+                                <div class="pl-corp__hero-ring-wrap">
+                                    <div class="pl-corp__hero-ring-svg">
+                                        <svg width="36" height="36" viewBox="0 0 44 44" aria-hidden="true">
+                                            <circle cx="22" cy="22" r="19" fill="none" stroke="#1f2a22" stroke-width="4"/>
+                                            <circle class="pl-corp__hero-ring" data-hero-ring cx="22" cy="22" r="19" fill="none" stroke="#2ecc71" stroke-width="4" stroke-linecap="round" stroke-dasharray="119.4" stroke-dashoffset="119.4" transform="rotate(-90 22 22)"/>
+                                        </svg>
+                                        <span class="pl-corp__hero-ring-val">100</span>
+                                    </div>
+                                    <span class="pl-corp__hero-ring-label">SEO</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pl-corp__hero-chip pl-corp__hero-chip--timer" data-hero-chip data-hero-tab-trigger="speed" role="button" tabindex="0" aria-label="Час завантаження — показати тест швидкості">
+                            <div class="pl-corp__hero-chip-title">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
+                                Час завантаження
+                            </div>
+                            <div class="pl-corp__hero-timer-val">0.1<span> сек</span></div>
+                            <div class="pl-corp__hero-prog" aria-hidden="true">
+                                <div class="pl-corp__hero-prog-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pl-corp__hero-win-wrap">
+                        <div class="pl-corp__hero-win" data-hero-win>
+                            <div class="pl-corp__hero-win-bar">
+                                <span class="pl-corp__hero-win-dot" aria-hidden="true"></span>
+                                <span class="pl-corp__hero-win-dot" aria-hidden="true"></span>
+                                <span class="pl-corp__hero-win-dot" aria-hidden="true"></span>
+                                <span class="pl-corp__hero-win-url">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                                    your-brand.com
+                                </span>
+                            </div>
+                            <div class="pl-corp__hero-win-body" data-hero-mockup>
+                                <div class="pl-corp__hero-win-panels" data-hero-panels>
+                                    <div class="pl-corp__hero-win-panel is-active" data-hero-panel="main" aria-hidden="false">
+                                        <div class="pl-corp__hero-win-label" data-hero-win-line>
+                                            <span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>Corporate
+                                        </div>
+                                        <h3 class="pl-corp__hero-win-title" data-hero-win-line>Ваш корпоративний сайт</h3>
+                                        <p class="pl-corp__hero-win-sub" data-hero-win-line>100/100 у Google Lighthouse</p>
+                                        <p class="pl-corp__hero-win-desc" data-hero-win-line>Швидкий, безпечний і готовий до масштабування без переплат за рекламу</p>
+                                    </div>
+
+                                    <div class="pl-corp__hero-win-panel" data-hero-panel="economy" aria-hidden="true">
+                                        <button type="button" class="pl-corp__hero-win-back mobile-touch-target" data-hero-back>← Головна</button>
+                                        <div class="pl-corp__hero-win-label"><span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>Економія</div>
+                                        <h3 class="pl-corp__hero-win-title">−38% вартість кліку</h3>
+                                        <p class="pl-corp__hero-win-sub">Google Ads винагороджує швидкість</p>
+                                        <p class="pl-corp__hero-win-desc">Чистий код знижує CPC і підвищує Quality Score — ви платите менше за той самий трафік.</p>
+                                        <ul class="pl-corp__hero-win-stats">
+                                            <li><span>CPC конкурентів</span><strong>₴42</strong></li>
+                                            <li><span>Ваш CPC</span><strong class="pl-corp__accent">₴26</strong></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="pl-corp__hero-win-panel" data-hero-panel="tech" aria-hidden="true">
+                                        <button type="button" class="pl-corp__hero-win-back mobile-touch-target" data-hero-back>← Головна</button>
+                                        <div class="pl-corp__hero-win-label"><span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>Core Web Vitals</div>
+                                        <h3 class="pl-corp__hero-win-title">Усі метрики в зеленій зоні</h3>
+                                        <p class="pl-corp__hero-win-desc">LCP, INP і CLS оптимізовані нативно — без плагінів і сторонніх скриптів.</p>
+                                        <ul class="pl-corp__hero-win-metrics">
+                                            <li><span>LCP</span><div class="pl-corp__hero-win-metric-bar"><span style="width:98%"></span></div><strong>0.8с</strong></li>
+                                            <li><span>INP</span><div class="pl-corp__hero-win-metric-bar"><span style="width:96%"></span></div><strong>48мс</strong></li>
+                                            <li><span>CLS</span><div class="pl-corp__hero-win-metric-bar"><span style="width:100%"></span></div><strong>0.00</strong></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="pl-corp__hero-win-panel" data-hero-panel="scale" aria-hidden="true">
+                                        <button type="button" class="pl-corp__hero-win-back mobile-touch-target" data-hero-back>← Головна</button>
+                                        <div class="pl-corp__hero-win-label"><span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>Масштаб</div>
+                                        <h3 class="pl-corp__hero-win-title">Клонування за 5 хвилин</h3>
+                                        <p class="pl-corp__hero-win-desc">Snapshot архітектури — копіюєте папку, змінюєте контент, публікуєте новий лендінг безкоштовно.</p>
+                                        <div class="pl-corp__hero-win-folders" aria-hidden="true">
+                                            <div class="pl-corp__hero-win-folder">site-original/</div>
+                                            <div class="pl-corp__hero-win-folder pl-corp__hero-win-folder--clone">site-clone-02/</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="pl-corp__hero-win-panel" data-hero-panel="speed" aria-hidden="true">
+                                        <button type="button" class="pl-corp__hero-win-back mobile-touch-target" data-hero-back>← Головна</button>
+                                        <div class="pl-corp__hero-win-label"><span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>Тест</div>
+                                        <h3 class="pl-corp__hero-win-title">Завантаження: 0.1 сек</h3>
+                                        <p class="pl-corp__hero-win-desc">Сторінка готова до взаємодії раніше, ніж користувач встигає клікнути.</p>
+                                        <div class="pl-corp__hero-win-speed" aria-hidden="true">
+                                            <div class="pl-corp__hero-win-speed-bar" data-hero-speed-bar></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pl-corp__hero-win-cards" data-hero-win-cards role="tablist" aria-label="Розділи демо-сайту">
+                                    <button type="button" class="pl-corp__hero-win-card mobile-touch-target" data-hero-win-line data-hero-tab="economy" role="tab" aria-selected="false">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                                        <span>Економія на рекламі</span>
+                                    </button>
+                                    <button type="button" class="pl-corp__hero-win-card mobile-touch-target" data-hero-win-line data-hero-tab="tech" role="tab" aria-selected="false">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
+                                        <span>Core Web Vitals</span>
+                                    </button>
+                                    <button type="button" class="pl-corp__hero-win-card mobile-touch-target" data-hero-win-line data-hero-tab="scale" role="tab" aria-selected="false">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                                        <span>Клонування сайтів</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pl-corp__hero-badges">
+                <span class="pl-corp__hero-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
+                    Найвища оцінка Core Web Vitals
+                </span>
+                <span class="pl-corp__hero-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg>
+                    Пожиттєва гарантія на код
+                </span>
+                <span class="pl-corp__hero-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                    Безлімітне масштабування
+                </span>
+            </div>
+        </div>
+    </div>
+</section>

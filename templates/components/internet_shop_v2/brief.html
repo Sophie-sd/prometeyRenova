@@ -1,0 +1,231 @@
+<section id="calculator" class="pl-shop__section pl-shop__calc" aria-labelledby="pl-shop-calc-title">
+    <div class="pl-shop__calc-inner pl-shop__inner">
+        <div class="pl-shop__calc-head" data-reveal>
+            <h2 id="pl-shop-calc-title" class="pl-shop__title pl-shop__title--section">
+                Розрахуйте вартість<br>інтернет-магазину
+            </h2>
+            <p class="pl-shop__calc-subtitle">
+                4 коротких питання — отримаєте рекомендацію пакета та дзвінок менеджера з орієнтовною вартістю.
+            </p>
+        </div>
+
+        <form
+            id="pl-shop-quiz-form"
+            class="pl-shop__quiz"
+            method="post"
+            action="{% url 'form_submit' %}"
+            data-form-type="site_request"
+            data-source-label="Інтернет-магазин v2"
+            data-reveal
+        >
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="site_request">
+            <input type="hidden" name="source_page" value="internet-shop-v2">
+            <input type="hidden" name="details" id="pl-shop-quiz-details">
+
+            <div class="pl-shop__quiz-header">
+                <div class="pl-shop__quiz-progress" aria-hidden="true">
+                    <div class="pl-shop__quiz-progress-bar" data-quiz-progress></div>
+                </div>
+                <p class="pl-shop__quiz-progress-label">Крок <span data-quiz-step-num>1</span> з 4</p>
+            </div>
+
+            <div class="pl-shop__quiz-step" data-step="1">
+                <p class="pl-shop__quiz-question">Звідки стартуєте?</p>
+                <ul class="pl-shop__quiz-options">
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="radio" name="q_start" value="Старт з нуля">
+                            <span class="pl-shop__quiz-option-text">Старт з нуля</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="radio" name="q_start" value="Міграція з Prom / OLX">
+                            <span class="pl-shop__quiz-option-text">Міграція з Prom / OLX</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="radio" name="q_start" value="Масштабування + маркетинг під ключ">
+                            <span class="pl-shop__quiz-option-text">Масштабування + маркетинг під ключ</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="radio" name="q_start" value="Ще не визначився">
+                            <span class="pl-shop__quiz-option-text">Ще не визначився — потрібна консультація</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-shop__quiz-step" data-step="2" hidden>
+                <p class="pl-shop__quiz-question">Скільки товарів у каталозі?</p>
+                <ul class="pl-shop__quiz-options">
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="radio" name="q_products" value="До 100 товарів">
+                            <span class="pl-shop__quiz-option-text">До 100 товарів</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="radio" name="q_products" value="100–1000 товарів">
+                            <span class="pl-shop__quiz-option-text">100–1000 товарів</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="radio" name="q_products" value="1000–10 000 товарів">
+                            <span class="pl-shop__quiz-option-text">1000–10 000 товарів</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="radio" name="q_products" value="Більше 10 000 товарів">
+                            <span class="pl-shop__quiz-option-text">Більше 10 000 товарів</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-shop__quiz-step" data-step="3" data-multi="true" hidden>
+                <p class="pl-shop__quiz-question">Які додаткові опції потрібні?</p>
+                <p class="pl-shop__quiz-hint">Можна обрати декілька варіантів</p>
+                <ul class="pl-shop__quiz-options pl-shop__quiz-options--multi">
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="checkbox" name="q_features" value="CRM + Telegram">
+                            <span class="pl-shop__quiz-option-text">CRM + Telegram</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="checkbox" name="q_features" value="SEO + статті">
+                            <span class="pl-shop__quiz-option-text">SEO + статті</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="checkbox" name="q_features" value="AI-адмінка + бот">
+                            <span class="pl-shop__quiz-option-text">AI-адмінка + бот</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="checkbox" name="q_features" value="Реклама та просування">
+                            <span class="pl-shop__quiz-option-text">Реклама та просування</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-shop__quiz-step" data-step="4" hidden>
+                <p class="pl-shop__quiz-question">Коли потрібен запуск?</p>
+                <ul class="pl-shop__quiz-options">
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="radio" name="q_timeline" value="Якнайшвидше (до 2 тижнів)">
+                            <span class="pl-shop__quiz-option-text">Якнайшвидше (до 2 тижнів)</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="radio" name="q_timeline" value="Протягом місяця">
+                            <span class="pl-shop__quiz-option-text">Протягом місяця</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="radio" name="q_timeline" value="1–3 місяці">
+                            <span class="pl-shop__quiz-option-text">1–3 місяці</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-shop__quiz-option">
+                            <input type="radio" name="q_timeline" value="Терміни гнучкі">
+                            <span class="pl-shop__quiz-option-text">Терміни гнучкі</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-shop__quiz-step pl-shop__quiz-step--contact" data-step="contact" hidden>
+                <p class="pl-shop__quiz-question">Майже готово!</p>
+                <p class="pl-shop__quiz-hint">Залишіть контакти — і ми покажемо орієнтовну вартість за вашими відповідями.</p>
+
+                <div class="pl-shop__quiz-fields pl-shop__quiz-fields--contact">
+                    <div class="pl-shop__quiz-field">
+                        <label class="pl-shop__quiz-field-label" for="pl-shop-quiz-name">Ваше імʼя</label>
+                        <input
+                            type="text"
+                            id="pl-shop-quiz-name"
+                            name="name"
+                            class="pl-shop__quiz-input mobile-touch-target"
+                            autocomplete="given-name"
+                            inputmode="text"
+                            required
+                            placeholder="Імʼя"
+                        >
+                    </div>
+                    <div class="pl-shop__quiz-field">
+                        <label class="pl-shop__quiz-field-label" for="pl-shop-quiz-phone">Телефон</label>
+                        <input
+                            type="tel"
+                            id="pl-shop-quiz-phone"
+                            name="phone"
+                            class="pl-shop__quiz-input mobile-touch-target"
+                            autocomplete="tel"
+                            inputmode="tel"
+                            required
+                            placeholder="+38(___)__-__-___"
+                        >
+                    </div>
+                    <button
+                        type="button"
+                        class="pl-shop__btn pl-shop__btn--primary pl-shop__quiz-reveal mobile-touch-target"
+                        data-quiz-reveal
+                    >
+                        Отримати розрахунок →
+                    </button>
+                </div>
+            </div>
+
+            <div class="pl-shop__quiz-step pl-shop__quiz-step--result" data-step="result" hidden>
+                <p class="pl-shop__quiz-question">Ваш орієнтовний розрахунок</p>
+                <p class="pl-shop__quiz-hint">Ось пакет, який найкраще підходить під ваші відповіді. Підтвердіть — і ми зателефонуємо.</p>
+
+                <div class="pl-shop__quiz-result" data-quiz-result aria-live="polite">
+                    <p class="pl-shop__quiz-result-label">Рекомендований пакет</p>
+                    <p class="pl-shop__quiz-result-pkg" data-quiz-result-pkg>PREMIUM</p>
+                    <p class="pl-shop__quiz-result-price" data-quiz-result-price>від 1&nbsp;500&nbsp;€</p>
+                    <p class="pl-shop__quiz-result-term">
+                        <span>Термін запуску:</span>
+                        <span data-quiz-result-term>5–8 тижнів</span>
+                    </p>
+                    <ul class="pl-shop__quiz-result-features" data-quiz-result-features></ul>
+                </div>
+
+                <p class="pl-shop__quiz-note pl-shop__quiz-note--result">
+                    Точна сума фіксується після короткого брифу. Це орієнтир, не фінальний договір.
+                </p>
+
+                <div class="pl-shop__quiz-result-actions">
+                    <button type="submit" class="pl-shop__btn pl-shop__btn--primary pl-shop__quiz-submit mobile-touch-target">
+                        Підтвердити заявку →
+                    </button>
+                    <a href="{{ site_contact.get_tel_href }}" class="pl-shop__btn pl-shop__btn--ghost pl-shop__quiz-call mobile-touch-target">
+                        Звʼязатись з нами
+                    </a>
+                </div>
+            </div>
+
+            <div class="pl-shop__quiz-nav">
+                <button type="button" class="pl-shop__btn pl-shop__btn--ghost pl-shop__quiz-prev mobile-touch-target" hidden>← Назад</button>
+                <button type="button" class="pl-shop__btn pl-shop__btn--ghost pl-shop__quiz-skip mobile-touch-target" hidden>Пропустити</button>
+                <button type="button" class="pl-shop__btn pl-shop__btn--primary pl-shop__quiz-next mobile-touch-target" hidden disabled>Далі →</button>
+            </div>
+        </form>
+    </div>
+</section>
