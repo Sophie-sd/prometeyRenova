@@ -283,19 +283,18 @@ KEYCRM_SUCCESS_STATUS_ID = os.environ.get('KEYCRM_SUCCESS_STATUS_ID', '')
 # KEYCRM — розподіл джерел: платний Google Ads vs органіка з лендінгів.
 # Числові ID джерел з KeyCRM (Налаштування → Джерела). Якщо ID не задано —
 # resolver використає наступний у пріоритеті або загальний KEYCRM_SOURCE_ID.
+KEYCRM_SOURCE_INSTAGRAM = os.environ.get('KEYCRM_SOURCE_INSTAGRAM', '')
 KEYCRM_SOURCE_PAID_SHOPS = os.environ.get('KEYCRM_SOURCE_PAID_SHOPS', '')
 KEYCRM_SOURCE_PAID_CORPORATE = os.environ.get('KEYCRM_SOURCE_PAID_CORPORATE', '')
 KEYCRM_SOURCE_PAID_ALL = os.environ.get('KEYCRM_SOURCE_PAID_ALL', '')
-KEYCRM_SOURCE_PAID_DE = os.environ.get('KEYCRM_SOURCE_PAID_DE', '')
 KEYCRM_SOURCE_ORGANIC_SHOPS = os.environ.get('KEYCRM_SOURCE_ORGANIC_SHOPS', '')
 KEYCRM_SOURCE_ORGANIC_CORPORATE = os.environ.get('KEYCRM_SOURCE_ORGANIC_CORPORATE', '')
 
-# Підрядки для зіставлення utm_campaign з потрібним джерелом (через кому, case-insensitive).
-# Перевірка йде в порядку: Corporate → Shops → DE → All (щоб уникнути колізій,
-# наприклад коли utm_campaign містить і "shops" і "corporate" одночасно).
-KEYCRM_UTM_MATCH_PAID_CORPORATE = os.environ.get('KEYCRM_UTM_MATCH_PAID_CORPORATE', '')
+# Підрядки для зіставлення utm_source / utm_campaign (через кому, case-insensitive).
+# Пріоритет: Instagram (utm_source) → Shops → Corporate → All (utm_campaign).
+KEYCRM_UTM_MATCH_INSTAGRAM = os.environ.get('KEYCRM_UTM_MATCH_INSTAGRAM', '')
 KEYCRM_UTM_MATCH_PAID_SHOPS = os.environ.get('KEYCRM_UTM_MATCH_PAID_SHOPS', '')
-KEYCRM_UTM_MATCH_PAID_DE = os.environ.get('KEYCRM_UTM_MATCH_PAID_DE', '')
+KEYCRM_UTM_MATCH_PAID_CORPORATE = os.environ.get('KEYCRM_UTM_MATCH_PAID_CORPORATE', '')
 KEYCRM_UTM_MATCH_PAID_ALL = os.environ.get('KEYCRM_UTM_MATCH_PAID_ALL', '')
 
 # GOOGLE ADS API

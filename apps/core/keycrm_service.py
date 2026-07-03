@@ -13,9 +13,6 @@ KEYCRM_BASE_URL = 'https://openapi.keycrm.app/v1'
 REQUEST_TIMEOUT = 15
 
 
-PAID_UTM_MEDIUMS = {'cpc', 'ppc', 'paidsearch', 'paid-search', 'paid_search'}
-
-
 def _to_int(value):
     """Безпечно конвертує env-значення у int. Порожній рядок або None → None."""
     if value in (None, ''):
@@ -31,19 +28,6 @@ def _split_tokens(raw):
     if not raw:
         return []
     return [t.strip().lower() for t in str(raw).split(',') if t.strip()]
-
-
-def _is_paid_google_ads(submission):
-    """Чи заявка прийшла з платного Google Ads (gclid або характерні UTM)."""
-    if submission.gclid:
-        return True
-    medium = (submission.utm_medium or '').strip().lower()
-    if medium in PAID_UTM_MEDIUMS:
-        return True
-    source = (submission.utm_source or '').strip().lower()
-    if 'google' in source and medium in {'cpc', 'ppc', 'paid', 'paidsearch'}:
-        return True
-    return False
 
 
 def _campaign_matches(campaign, tokens):
@@ -68,64 +52,62 @@ def _page_signals(submission):
     return f"{_source_page(submission)}|{_landing_page(submission)}"
 
 
+def _has_any_utm(submission):
+    """Чи є хоч один трекінг-параметр. gclid включено — Google Ads auto-tagging."""
+    return any([
+        submission.gclid,
+        submission.utm_source,
+        submission.utm_medium,
+        submission.utm_campaign,
+        submission.utm_term,
+        submission.utm_content,
+    ])
+
+
 def resolve_keycrm_source_id(submission):
     """
-    Обирає `source_id` для KeyCRM відповідно до правил:
-    1) Платний Google Ads (gclid / utm_medium=cpc/ppc / utm_source=google):
-       - utm_campaign містить токени Corporate → KEYCRM_SOURCE_PAID_CORPORATE
-       - інакше Shops токени → KEYCRM_SOURCE_PAID_SHOPS
-       - інакше DE токени → KEYCRM_SOURCE_PAID_DE
-       - інакше All токени → KEYCRM_SOURCE_PAID_ALL
-       - якщо жоден токен не збігся: підказка з `extra_data.source_page`
-         (`internet-shop` / `corporate-website`) → відповідне платне джерело
-       - інакше paid_all / paid_shops / paid_corporate / fallback
-    2) Органіка з лендінгу (за `extra_data.source_page`):
-       - містить `internet-shop` → KEYCRM_SOURCE_ORGANIC_SHOPS
-       - містить `corporate-website` → KEYCRM_SOURCE_ORGANIC_CORPORATE
-    3) Інакше → загальний fallback `KEYCRM_SOURCE_ID`.
+    Обирає `source_id` для KeyCRM за пріоритетом:
+    1. utm_source збігається з KEYCRM_UTM_MATCH_INSTAGRAM → KEYCRM_SOURCE_INSTAGRAM
+    2. utm_campaign містить токени Shops               → KEYCRM_SOURCE_PAID_SHOPS
+    3. utm_campaign містить токени Corporate            → KEYCRM_SOURCE_PAID_CORPORATE
+    4. utm_campaign містить токени All                  → KEYCRM_SOURCE_PAID_ALL
+    5. Немає жодного трекінг-параметра + корпоративна сторінка → KEYCRM_SOURCE_ORGANIC_CORPORATE
+    6. Немає жодного трекінг-параметра + магазин               → KEYCRM_SOURCE_ORGANIC_SHOPS
+    7. Fallback → KEYCRM_SOURCE_ID
 
     Повертає int або None, якщо нічого не сконфігуровано.
     """
+    instagram = _to_int(getattr(settings, 'KEYCRM_SOURCE_INSTAGRAM', ''))
     paid_shops = _to_int(getattr(settings, 'KEYCRM_SOURCE_PAID_SHOPS', ''))
     paid_corporate = _to_int(getattr(settings, 'KEYCRM_SOURCE_PAID_CORPORATE', ''))
     paid_all = _to_int(getattr(settings, 'KEYCRM_SOURCE_PAID_ALL', ''))
-    paid_de = _to_int(getattr(settings, 'KEYCRM_SOURCE_PAID_DE', ''))
     organic_shops = _to_int(getattr(settings, 'KEYCRM_SOURCE_ORGANIC_SHOPS', ''))
     organic_corporate = _to_int(getattr(settings, 'KEYCRM_SOURCE_ORGANIC_CORPORATE', ''))
     fallback = _to_int(getattr(settings, 'KEYCRM_SOURCE_ID', ''))
 
-    if _is_paid_google_ads(submission):
-        campaign = submission.utm_campaign or ''
-        tokens_corporate = _split_tokens(getattr(settings, 'KEYCRM_UTM_MATCH_PAID_CORPORATE', ''))
-        tokens_shops = _split_tokens(getattr(settings, 'KEYCRM_UTM_MATCH_PAID_SHOPS', ''))
-        tokens_de = _split_tokens(getattr(settings, 'KEYCRM_UTM_MATCH_PAID_DE', ''))
-        tokens_all = _split_tokens(getattr(settings, 'KEYCRM_UTM_MATCH_PAID_ALL', ''))
+    utm_source = (submission.utm_source or '').strip().lower()
+    campaign = (submission.utm_campaign or '').strip()
 
-        if _campaign_matches(campaign, tokens_corporate) and paid_corporate:
-            return paid_corporate
-        if _campaign_matches(campaign, tokens_shops) and paid_shops:
-            return paid_shops
-        if _campaign_matches(campaign, tokens_de) and paid_de:
-            return paid_de
-        if _campaign_matches(campaign, tokens_all) and paid_all:
-            return paid_all
+    # 1. Instagram
+    ig_tokens = _split_tokens(getattr(settings, 'KEYCRM_UTM_MATCH_INSTAGRAM', ''))
+    if utm_source and ig_tokens and utm_source in ig_tokens:
+        return instagram or fallback
 
-        # Платний трафік без збігу utm_campaign: уточнюємо за сторінкою
-        # (де залишена форма + куди вперше зайшов з реклами).
-        page_hint = _page_signals(submission)
-        if ('internet-shop' in page_hint or 'internet-shop-v2' in page_hint) and paid_shops:
-            return paid_shops
-        if ('corporate-website' in page_hint or 'corporate-website-v2' in page_hint) and paid_corporate:
-            return paid_corporate
+    # 2–4. utm_campaign токени
+    if _campaign_matches(campaign, _split_tokens(getattr(settings, 'KEYCRM_UTM_MATCH_PAID_SHOPS', ''))) and paid_shops:
+        return paid_shops
+    if _campaign_matches(campaign, _split_tokens(getattr(settings, 'KEYCRM_UTM_MATCH_PAID_CORPORATE', ''))) and paid_corporate:
+        return paid_corporate
+    if _campaign_matches(campaign, _split_tokens(getattr(settings, 'KEYCRM_UTM_MATCH_PAID_ALL', ''))) and paid_all:
+        return paid_all
 
-        # Платний, але без збігу токенів — м'які fallback'и в межах платних.
-        return paid_de or paid_all or paid_shops or paid_corporate or fallback
-
-    page = _page_signals(submission)
-    if ('internet-shop' in page or 'internet-shop-v2' in page) and organic_shops:
-        return organic_shops
-    if ('corporate-website' in page or 'corporate-website-v2' in page) and organic_corporate:
-        return organic_corporate
+    # 5–6. Немає жодного трекінг-параметра → органіка за сторінкою
+    if not _has_any_utm(submission):
+        page = _page_signals(submission)
+        if 'corporate-website' in page and organic_corporate:
+            return organic_corporate
+        if 'internet-shop' in page and organic_shops:
+            return organic_shops
 
     return fallback
 

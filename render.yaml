@@ -48,23 +48,23 @@ services:
         generateValue: true
       - key: KEYCRM_SUCCESS_STATUS_ID
         sync: false
+      - key: KEYCRM_SOURCE_INSTAGRAM
+        sync: false
       - key: KEYCRM_SOURCE_PAID_SHOPS
         sync: false
       - key: KEYCRM_SOURCE_PAID_CORPORATE
         sync: false
       - key: KEYCRM_SOURCE_PAID_ALL
         sync: false
-      - key: KEYCRM_SOURCE_PAID_DE
-        sync: false
       - key: KEYCRM_SOURCE_ORGANIC_SHOPS
         sync: false
       - key: KEYCRM_SOURCE_ORGANIC_CORPORATE
         sync: false
-      - key: KEYCRM_UTM_MATCH_PAID_CORPORATE
+      - key: KEYCRM_UTM_MATCH_INSTAGRAM
         sync: false
       - key: KEYCRM_UTM_MATCH_PAID_SHOPS
         sync: false
-      - key: KEYCRM_UTM_MATCH_PAID_DE
+      - key: KEYCRM_UTM_MATCH_PAID_CORPORATE
         sync: false
       - key: KEYCRM_UTM_MATCH_PAID_ALL
         sync: false
