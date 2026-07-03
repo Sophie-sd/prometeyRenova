@@ -40,7 +40,7 @@
             data-index="04">
             {% trans "Корпоративні сайти та лендінги" %}
         </a>
-        <a href="{% if request.resolver_match.url_name == 'corporate_website_v2' %}#calculator{% elif request.resolver_match.url_name == 'internet_shop_v2' %}#calculator{% else %}{% url 'internet_shop_v2' %}#calculator{% endif %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible"
+        <a href="{% url 'calculator' %}" class="mobile-nav-link mobile-touch-target mobile-focus-visible"
             data-index="05">
             {% trans "Розрахувати пропозицію" %}
         </a>
