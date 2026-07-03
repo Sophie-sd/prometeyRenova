@@ -41,6 +41,20 @@
     max-width: 100%;
 }
 
+/* Контакт-віджет невидимий на білому фоні — цей файл завантажується тільки на legal-сторінках */
+.contact-widget__toggle {
+    background: rgba(0, 0, 0, 0.09);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #1a1a1a;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1),
+                0 1px 0 rgba(255, 255, 255, 0.5) inset;
+}
+
+.contact-widget__toggle:hover {
+    background: rgba(0, 0, 0, 0.15);
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
 .legal-article .legal-title {
     font-size: clamp(28px, 5vw, 48px);
     font-weight: 700;

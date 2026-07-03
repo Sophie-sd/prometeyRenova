@@ -149,6 +149,12 @@ class IntellectualPropertyView(BasePageView):
             return ['pages/intellectual-property-ru.html']
         return ['pages/intellectual-property.html']
 
+class MonobankChastView(BasePageView):
+    page_title = 'Покупка частинами monobank | Universal Bank | PrometeyLabs'
+    meta_description = 'Юридична інформація щодо послуги Покупка частинами від monobank | Universal Bank.'
+    template_name = 'pages/monobank-chastynamy.html'
+
+
 class InternetShopView(BasePageView):
     """
     Serves the internet-shop landing page.
