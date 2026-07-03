@@ -259,16 +259,9 @@
         currentIdx = idx;
     }
 
-    function goToResult() {
-        if (!validateContactFields()) return;
-
-        updateResultPreview(recommendPackage());
+    function prepareSubmit() {
         compileDetails();
         clearPkgHint();
-
-        if (resultStepIdx >= 0) {
-            showStep(resultStepIdx);
-        }
     }
 
     function goNext() {
@@ -320,7 +313,7 @@
         if (nextBtn) nextBtn.disabled = false;
     });
 
-    if (revealBtn) revealBtn.addEventListener('click', goToResult);
+    if (revealBtn) revealBtn.addEventListener('click', prepareSubmit);
     if (skipBtn) skipBtn.addEventListener('click', goSkip);
     if (nextBtn) nextBtn.addEventListener('click', goNext);
     if (prevBtn) prevBtn.addEventListener('click', goPrev);

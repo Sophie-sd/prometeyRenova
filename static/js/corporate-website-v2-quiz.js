@@ -352,15 +352,8 @@
         currentIdx = idx;
     }
 
-    function goToResult() {
-        if (!validateContactFields()) return;
-
-        updateResultPreview(recommendPackage());
+    function prepareSubmit() {
         compileDetails();
-
-        if (resultStepIdx >= 0) {
-            showStep(resultStepIdx);
-        }
     }
 
     function goNext() {
@@ -420,7 +413,7 @@
         phoneInput.addEventListener('input', clearPhoneError);
     }
 
-    if (revealBtn) revealBtn.addEventListener('click', goToResult);
+    if (revealBtn) revealBtn.addEventListener('click', prepareSubmit);
     if (prevResultBtn) prevResultBtn.addEventListener('click', goPrev);
     if (skipBtn) skipBtn.addEventListener('click', goSkip);
     if (nextBtn) nextBtn.addEventListener('click', goNext);
