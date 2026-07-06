@@ -30,6 +30,13 @@
 
 body.pl-shop-body {
     background: var(--pl-bg);
+    overflow-x: clip;
+}
+
+@supports not (overflow: clip) {
+    body.pl-shop-body {
+        overflow-x: hidden;
+    }
 }
 
 .pl-shop-page .container {

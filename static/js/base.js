@@ -105,6 +105,7 @@ class PrometeyApp {
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
 
         this.setupSmoothScroll();
     }
