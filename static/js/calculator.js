@@ -15,6 +15,7 @@ class ProjectCalculator {
         this.stepNav = null;
         this.prevBtn = null;
         this.nextBtn = null;
+        this.skipBtn = null;
         this.contactStepIndex = -1;
 
         this.init();
@@ -45,11 +46,7 @@ class ProjectCalculator {
 
         const checkboxes = this.testForm.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', (e) => {
-                if (e.target.id !== 'alt-services') {
-                    this.handleAnswerChange(e);
-                }
-            });
+            checkbox.addEventListener('change', (e) => this.handleAnswerChange(e));
         });
 
         const userFields = this.testForm.querySelectorAll('[name="name"], [name="phone"]');
@@ -61,17 +58,16 @@ class ProjectCalculator {
 
         const startBtn = document.querySelector('.start-test-btn');
         startBtn?.addEventListener('click', () => this.showTestForm());
-
-        const altServicesCheckbox = document.getElementById('alt-services');
-        altServicesCheckbox?.addEventListener('change', () => this.toggleTestRequired());
     }
 
     initStepWizard() {
         this.stepNav = document.getElementById('calc-step-nav');
         this.prevBtn = this.stepNav?.querySelector('.calc-step-nav__prev') ?? null;
+        this.skipBtn = this.stepNav?.querySelector('.calc-step-nav__skip') ?? null;
         this.nextBtn = this.stepNav?.querySelector('.calc-step-nav__next') ?? null;
 
         this.prevBtn?.addEventListener('click', () => this.goPrev());
+        this.skipBtn?.addEventListener('click', () => this.goSkip());
         this.nextBtn?.addEventListener('click', () => this.goNext());
 
         if (this.steps.length) {
@@ -141,12 +137,16 @@ class ProjectCalculator {
             this.stepNav.hidden = isContact;
         }
 
-        if (!isContact && this.prevBtn) {
-            this.prevBtn.hidden = safeIdx === 0;
+        if (this.prevBtn) {
+            this.prevBtn.hidden = isContact || safeIdx === 0;
         }
 
-        if (!isContact && this.nextBtn) {
-            this.nextBtn.hidden = false;
+        if (this.skipBtn) {
+            this.skipBtn.hidden = isContact;
+        }
+
+        if (this.nextBtn) {
+            this.nextBtn.hidden = isContact;
             this.nextBtn.disabled = !this.isStepAnswered(currentStep);
         }
 
@@ -154,6 +154,13 @@ class ProjectCalculator {
     }
 
     goNext() {
+        if (this.currentStepIndex < this.steps.length - 1) {
+            this.showStep(this.currentStepIndex + 1);
+        }
+    }
+
+    goSkip() {
+        if (this.isContactStep(this.steps[this.currentStepIndex])) return;
         if (this.currentStepIndex < this.steps.length - 1) {
             this.showStep(this.currentStepIndex + 1);
         }
@@ -384,15 +391,6 @@ class ProjectCalculator {
         });
 
         this.showStep(0);
-    }
-
-    toggleTestRequired() {
-        const altServicesCheckbox = document.getElementById('alt-services');
-        const radioInputs = this.testForm.querySelectorAll('input[type="radio"]');
-
-        radioInputs.forEach(input => {
-            input.required = !altServicesCheckbox.checked;
-        });
     }
 }
 

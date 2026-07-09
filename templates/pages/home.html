@@ -7,17 +7,17 @@
 {% block og_title %}{{ og_title }}{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/home.css' %}?v=7">
+<link rel="stylesheet" href="{% static 'css/home.css' %}?v=8">
 <link rel="stylesheet" href="{% static 'css/components/marquee-why-choose.css' %}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Unbounded:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v2.css' %}">
+<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v2.css' %}?v=2">
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v3.css' %}">
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-final.css' %}">
-<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-bridge.css' %}">
+<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-bridge.css' %}?v=6">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/process_block.css' %}?v=44">
+<link rel="stylesheet" href="{% static 'css/process_block.css' %}?v=45">
 <link rel="stylesheet" href="{% static 'css/services_piano_block.css' %}?v=45">
 <link rel="stylesheet" href="{% static 'css/services_piano_block_mob.css' %}?v=12">
 <link rel="stylesheet" href="{% static 'css/services_piano_video.css' %}?v=33">
@@ -119,6 +119,10 @@
         </div>
     </div>
 </section>
+
+<div class="home-redesign vf" id="home-redesign-why">
+    {% include 'components/home/redesign_why.html' %}
+</div>
 
 <div class="home-redesign vf" id="home-redesign">
     <div class="v3-bg-glow v3-glow-a" aria-hidden="true"></div>
@@ -244,9 +248,9 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/process_block_anim.js' %}?v=44" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/process_block_anim.js' %}?v=45" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/process_block_popover.js' %}?v=43" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/process_block.js' %}?v=42" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/process_block.js' %}?v=43" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/services_piano_mob_scroll.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/services_piano_block.js' %}?v=12" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

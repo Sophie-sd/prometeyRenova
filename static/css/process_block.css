@@ -97,8 +97,8 @@
     opacity: 0;
     transform: translateY(24px) scale(0.97);
     transition:
-        opacity 0.34s ease,
-        transform 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.17s ease,
+        transform 0.17s cubic-bezier(0.22, 1, 0.36, 1),
         border-color 0.3s ease,
         background 0.3s ease;
     will-change: opacity, transform;
@@ -107,7 +107,7 @@
 .pb-step.is-visible {
     opacity: 1;
     transform: translateY(0) scale(1);
-    animation: pbPop 0.45s ease both;
+    animation: pbPop 0.22s ease both;
 }
 
 @keyframes pbPop {
@@ -153,9 +153,9 @@
     transform: scale(1.08);
     transform-origin: 100% 0%;
     transition:
-        opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-        filter 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+        opacity 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.12s cubic-bezier(0.16, 1, 0.3, 1);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
@@ -356,9 +356,9 @@
     transform: translate3d(-50%, 6px, 0) scale(0.96);
     transform-origin: bottom center;
     transition:
-        opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-        visibility 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        opacity 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+        visibility 0.14s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pb-step__popover.is-open {
@@ -493,8 +493,8 @@
     opacity: 0;
     transform: translate3d(0, 18px, 0);
     transition:
-        opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        opacity 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.14s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pb-step__float-scene {

@@ -251,31 +251,34 @@
 
 .pl-corp__quiz-nav {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 48px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
     gap: 12px;
-    margin-top: 16px;
-    padding-top: 0;
+    margin-top: clamp(20px, 3vw, 28px);
+    padding-top: 4px;
     flex-shrink: 0;
-    min-height: 48px;
-    height: 48px;
+    min-height: auto;
+    height: auto;
     align-items: stretch;
 }
 
-.pl-corp__quiz-nav .pl-corp__quiz-prev {
-    grid-column: 1;
-}
-
 .pl-corp__quiz-nav .pl-corp__quiz-skip {
-    grid-column: 2;
-}
-
-.pl-corp__quiz-nav:has(.pl-corp__quiz-nav-slot--hidden.pl-corp__quiz-prev) .pl-corp__quiz-skip:not(.pl-corp__quiz-nav-slot--hidden) {
+    grid-row: 1;
     grid-column: 1;
 }
 
 .pl-corp__quiz-nav .pl-corp__quiz-next {
-    grid-column: 3;
+    grid-row: 1;
+    grid-column: 2;
+}
+
+.pl-corp__quiz-nav .pl-corp__quiz-prev {
+    grid-row: 2;
+    grid-column: 1 / -1;
+}
+
+.pl-corp__quiz-nav:has(.pl-corp__quiz-prev.pl-corp__quiz-nav-slot--hidden) {
+    grid-template-rows: auto;
 }
 
 .pl-corp__quiz-nav-slot--hidden {

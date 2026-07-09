@@ -5,12 +5,12 @@
     var GAP = 12;
     var AH = 6;
     var GLOW_PAD = 4;
-    var STEP_IMG_DELAY = 260;
-    var STEP_STAGGER = 540;
-    var ARROW_DRAW_MS = 280;
-    var NUM_TO_TITLE_GAP = 18;
-    var TITLE_PHASE_DURATION = 240;
-    var LETTER_GAP = 20;
+    var STEP_IMG_DELAY = 130;
+    var STEP_STAGGER = 270;
+    var ARROW_DRAW_MS = 140;
+    var NUM_TO_TITLE_GAP = 9;
+    var TITLE_PHASE_DURATION = 120;
+    var LETTER_GAP = 10;
 
     var anim = window.PbProcessAnim;
 

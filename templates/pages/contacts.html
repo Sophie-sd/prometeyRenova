@@ -13,7 +13,7 @@
 {% block og_description %}{% trans "Зв'яжіться з командою PrometeyLabs для розробки сайтів, Telegram ботів, реклами чи навчання. Швидка відповідь." %}{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/contacts.css' %}">
+<link rel="stylesheet" href="{% static 'css/contacts.css' %}?v=2">
 {% endblock %}
 
 {% block content %}
@@ -29,8 +29,9 @@
                         <div class="contact-primary">
                             <div class="contact-primary-row">
                                 <div class="contact-item">
-                                    <h3>{% trans "Телефон" %}</h3>
+                                    <h3>{% trans "Звʼязок" %}</h3>
                                     <a href="{{ site_contact.get_tel_href }}" class="contact-link">{{ site_contact.phone_display }}</a>
+                                    <a href="mailto:info@prometeylabs.com" class="contact-link contact-link--email">info@prometeylabs.com</a>
                                 </div>
                                 {% if site_contact.address %}
                                 <div class="contact-item">
@@ -41,9 +42,9 @@
                             </div>
 
                             <div class="contact-item contact-item--channels">
-                                <h3>{% trans "Зв'язок" %}</h3>
+                                <h3>{% trans "Соцмережі" %}</h3>
                                 <ul class="contact-channels" role="list">
-                                    {% include "components/contact_channel_icons.html" %}
+                                    {% include "components/contact_social_icons.html" %}
                                 </ul>
                                 {% if site_contact.get_maps_embed_src %}
                                 <div class="contact-map">

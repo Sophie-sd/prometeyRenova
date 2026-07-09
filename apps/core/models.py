@@ -347,11 +347,11 @@ class SiteContactSettings(models.Model):
         verbose_name=_('Instagram'),
     )
     facebook_url = models.URLField(
-        default='https://facebook.com/prometeylabs',
+        default='https://www.facebook.com/profile.php?id=61577585882254',
         verbose_name=_('Facebook'),
     )
     linkedin_url = models.URLField(
-        default='https://linkedin.com/company/prometeylabs',
+        default='https://www.linkedin.com/in/sofia-dmitrenko',
         verbose_name=_('LinkedIn'),
     )
     telegram_url = models.URLField(

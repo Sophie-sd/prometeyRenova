@@ -369,6 +369,7 @@ class PrometeyApp {
 
         modal.classList.add('active');
         modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
         document.body.style.top = `-${this.scrollPosition}px`;
         document.body.style.overflow = 'hidden';
 
@@ -391,6 +392,7 @@ class PrometeyApp {
 
         modal.classList.remove('active');
         modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
         document.body.style.top = '';
 

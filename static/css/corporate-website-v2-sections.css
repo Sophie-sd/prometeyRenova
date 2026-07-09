@@ -2,7 +2,7 @@
 
 /* ===== ECONOMY ===== */
 .pl-corp__economy {
-    padding: clamp(72px, 9vw, 128px) 0;
+    padding: clamp(72px, 9vw, 128px) 0 clamp(20px, 3vw, 36px);
 }
 
 .pl-corp__economy-head {
@@ -196,6 +196,216 @@
     color: #8c8c8c;
     margin-top: 8px;
     font-weight: 500;
+}
+
+@media (max-width: 767px) {
+    .pl-corp__economy-card--accent {
+        overflow: visible;
+    }
+
+    .pl-corp__economy-card--accent .pl-corp__economy-card-inner {
+        padding-bottom: 4px;
+    }
+
+    .pl-corp__economy-list li {
+        font-size: 14px;
+        line-height: 1.55;
+    }
+}
+
+/* ===== FREE ANALYSIS ===== */
+.pl-corp__free-analysis {
+    padding: clamp(16px, 2.5vw, 28px) 0 clamp(32px, 5vw, 56px);
+}
+
+.pl-corp__free-analysis-card {
+    background: #101010;
+    border: 1px solid #262626;
+    border-radius: 20px;
+    padding: clamp(20px, 3vw, 28px);
+    text-align: center;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
+}
+
+.pl-corp__free-analysis-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 10px;
+    line-height: 1.25;
+}
+
+.pl-corp__free-analysis-desc {
+    font-size: 15px;
+    color: #a3a3a3;
+    margin: 0 auto 18px;
+    max-width: 480px;
+    line-height: 1.55;
+}
+
+.pl-corp__free-analysis-form {
+    width: 100%;
+    margin: 0;
+}
+
+.pl-corp__free-analysis-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    align-items: stretch;
+    width: 100%;
+    margin: 0;
+}
+
+.pl-corp__free-analysis-row .pl-corp__free-analysis-input,
+.pl-corp__free-analysis-row .pl-corp__free-analysis-submit {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.pl-corp__free-analysis-row .pl-corp__free-analysis-input.mobile-touch-target,
+.pl-corp__free-analysis-row .pl-corp__free-analysis-submit.mobile-touch-target {
+    display: block;
+    min-width: 0;
+}
+
+.pl-corp__free-analysis-input {
+    min-height: 48px;
+    padding: 12px 16px;
+    font-size: 16px;
+    color: #fff;
+    background: rgba(10, 10, 10, 0.55);
+    border: 1px solid #2a2a2a;
+    border-radius: 11px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.pl-corp__free-analysis-input::placeholder {
+    color: #6a6a6a;
+}
+
+.pl-corp__free-analysis-input:focus {
+    outline: none;
+    border-color: var(--pl-corp-acc);
+    background: rgba(10, 10, 10, 0.72);
+}
+
+.pl-corp__free-analysis-row .pl-corp__free-analysis-submit.pl-corp__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 1.2;
+    white-space: normal;
+    text-align: center;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .pl-corp__free-analysis-row .pl-corp__free-analysis-submit.pl-corp__btn {
+        font-size: 13px;
+        padding: 12px 10px;
+    }
+}
+
+@media (max-width: 767px) {
+    .pl-corp__free-analysis {
+        padding-top: 20px;
+        padding-bottom: 32px;
+    }
+
+    .pl-corp__free-analysis-card {
+        padding: 20px 16px;
+    }
+
+    .pl-corp__free-analysis-desc {
+        margin-bottom: 16px;
+    }
+
+    .pl-corp__free-analysis-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .pl-corp__free-analysis-row .pl-corp__free-analysis-submit.pl-corp__btn {
+        font-size: 15px;
+        padding: 14px 18px;
+    }
+}
+
+/* ===== CALC PROMO ===== */
+.pl-corp__calc-promo {
+    padding: clamp(48px, 7vw, 80px) 0;
+}
+
+.pl-corp__calc-promo-row {
+    display: grid;
+    grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
+    gap: clamp(40px, 5vw, 72px);
+    align-items: start;
+}
+
+.pl-corp__calc-promo-card {
+    grid-column: 1;
+    background: #101010;
+    border: 1px solid #262626;
+    border-radius: 20px;
+    padding: clamp(28px, 4vw, 40px);
+    text-align: center;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
+}
+
+.pl-corp__calc-promo-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(20px, 2.8vw, 28px);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 24px;
+    line-height: 1.3;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pl-corp__calc-promo-btn {
+    display: inline-flex;
+    min-width: min(100%, 320px);
+    min-height: 48px;
+}
+
+.pl-corp__calc-promo-monobank {
+    grid-column: 2;
+    display: block;
+    align-self: center;
+    line-height: 0;
+    text-decoration: none;
+}
+
+.pl-corp__calc-promo-monobank img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 767px) {
+    .pl-corp__calc-promo-row {
+        grid-template-columns: 1fr;
+    }
+
+    .pl-corp__calc-promo-monobank {
+        grid-column: 1;
+        max-width: min(100%, 480px);
+        margin: 0 auto;
+    }
+
+    .pl-corp__calc-promo-btn {
+        width: 100%;
+    }
 }
 
 /* ===== TECH ===== */

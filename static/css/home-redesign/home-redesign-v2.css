@@ -10,6 +10,8 @@
   --v2-card-br: rgba(255,255,255,0.14);
   --v2-mute: rgba(255,255,255,0.62);
   --v2-mute-2: rgba(255,255,255,0.45);
+  --v2-line-grad-v: linear-gradient(180deg, transparent, rgba(230, 81, 0, 0.85), transparent);
+  --v2-line-grad-h: linear-gradient(90deg, transparent, rgba(230, 81, 0, 0.85), transparent);
   font-family: 'Space Grotesk', system-ui, sans-serif;
   background: var(--v2-bg);
   color: var(--v2-fg);
@@ -23,6 +25,7 @@
 
 
 .home-redesign .v2-rule{
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,9 +35,30 @@
   text-transform: uppercase;
   color: rgba(255,255,255,0.55);
   padding: 12px 0;
-  border-top: 1px solid rgba(255,255,255,0.18);
-  border-bottom: 1px solid rgba(255,255,255,0.18);
+  border-top: none;
+  border-bottom: none;
   margin-bottom: 36px;
+}
+
+.home-redesign .v2-rule::before,
+.home-redesign .v2-rule::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 99px;
+  background: var(--v2-line-grad-h);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.home-redesign .v2-rule::before {
+  top: 0;
+}
+
+.home-redesign .v2-rule::after {
+  bottom: 0;
 }
 
 .home-redesign .v2-rule span:first-child{ color: var(--v2-orange); }
@@ -73,17 +97,32 @@
   position: relative;
   background: var(--v2-card);
   border: 1px solid var(--v2-card-br);
-  border-left: 3px solid var(--v2-orange);
+  border-left: none;
   border-radius: 0 4px 4px 0;
   padding: 24px 22px 22px;
   min-height: 560px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+}
+
+.home-redesign .v2-why-card::before,
+.home-redesign .v2-why-foot::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10%;
+  bottom: 10%;
+  width: 2px;
+  border-radius: 99px;
+  background: var(--v2-line-grad-v);
+  opacity: 0.85;
+  pointer-events: none;
 }
 
 .home-redesign .v2-why-head{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: flex-start;
   margin-bottom: 20px;
 }
@@ -119,9 +158,12 @@
 
 
 .home-redesign .v2-hr{
-  height: 1px;
-  background: rgba(255,255,255,0.12);
+  position: relative;
+  height: 2px;
   margin: 0 0 18px;
+  border-radius: 99px;
+  background: var(--v2-line-grad-h);
+  opacity: 0.6;
 }
 
 
@@ -138,14 +180,39 @@
 .home-redesign .v2-why-list{ list-style: none; padding: 0; margin: 0 0 18px; }
 
 .home-redesign .v2-why-list li{
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 10px;
-  padding: 8px 0;
-  border-bottom: 1px dotted rgba(255,255,255,0.12);
+  padding: 8px 0 8px 12px;
+  border-bottom: none;
   font-size: 13px;
   line-height: 1.35;
+}
+
+.home-redesign .v2-why-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14%;
+  bottom: 14%;
+  width: 2px;
+  border-radius: 99px;
+  background: var(--v2-line-grad-v);
+  opacity: 0.75;
+}
+
+.home-redesign .v2-why-list li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  border-radius: 99px;
+  background: var(--v2-line-grad-h);
+  opacity: 0.45;
 }
 
 .home-redesign .v2-li-key{
@@ -175,18 +242,32 @@
 
 
 .home-redesign .v2-why-note{
+  position: relative;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: 11px;
   line-height: 1.5;
   color: var(--v2-mute-2);
   margin: auto 0 0;
   padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: none;
+}
+
+.home-redesign .v2-why-note::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  border-radius: 99px;
+  background: var(--v2-line-grad-h);
+  opacity: 0.6;
 }
 
 /* footer */
 
 .home-redesign .v2-why-foot{
+  position: relative;
   display: flex;
   gap: 20px;
   align-items: flex-start;
@@ -194,7 +275,8 @@
   padding: 24px 24px 24px 28px;
   background: var(--v2-card);
   border: 1px solid var(--v2-card-br);
-  border-left: 3px solid var(--v2-orange);
+  border-left: none;
+  overflow: hidden;
 }
 
 .home-redesign .v2-why-foot p{ font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.85); margin: 0; }

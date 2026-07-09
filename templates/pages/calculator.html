@@ -6,7 +6,7 @@
 {% block description %}{{ meta_description }}{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/calculator.css' %}?v=18">
+<link rel="stylesheet" href="{% static 'css/calculator.css' %}?v=26">
 {% endblock %}
 
 {% block content %}
@@ -23,21 +23,32 @@
                         <div class="calc-hero__benefits">
                             <div class="calc-benefit">
                                 <span class="calc-benefit__number">01</span>
-                                <p class="calc-benefit__text">{% trans "AI агенти для швидкої розробки" %}</p>
+                                <p class="calc-benefit__text">{% trans "Швидка та якісна розробка під ключ для проєктів будь-якої складності." %}</p>
                             </div>
                             <div class="calc-benefit">
                                 <span class="calc-benefit__number">02</span>
-                                <p class="calc-benefit__text">{% trans "Продумана архітектура та логіка продукту" %}</p>
+                                <p class="calc-benefit__text">{% trans "Продумана архітектура та логіка продукту." %}</p>
                             </div>
                             <div class="calc-benefit">
                                 <span class="calc-benefit__number">03</span>
-                                <p class="calc-benefit__text">{% trans "Власна LLM модель Prometey" %}</p>
+                                <p class="calc-benefit__text">{% trans "Пожиттєва гарантія на наші програмні продукти." %}</p>
                             </div>
                             <div class="calc-benefit">
                                 <span class="calc-benefit__number">04</span>
-                                <p class="calc-benefit__text">{% trans "Автоматизоване тестування" %}</p>
+                                <p class="calc-benefit__text">{% trans "Жодних щомісячних або прихованих платежів (повна прозорість)." %}</p>
                             </div>
                         </div>
+
+                        <a href="{% url 'monobank_chastynamy' %}" class="calc-monobank-banner" aria-label="{% trans 'Покупка частинами monobank | Universal Bank' %}">
+                            <img
+                                src="{% static 'images/monobank/pch-banner-black.jpg' %}"
+                                alt="{% trans 'Покупка частинами monobank | Universal Bank' %}"
+                                width="1024"
+                                height="218"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </a>
                     </div>
 
                     <aside class="calc-hero__sidebar">
@@ -61,23 +72,12 @@
                     <div class="calc-test__header">
                         <span class="calc-test__label">{% trans "Розрахунок вартості" %}</span>
                         <h2 id="calc-test-title" class="medium-title calc-test__title">{% trans "Розробки веб-сайту" %}</h2>
-                        <div class="calc-test__additional-note">
-                            <label class="calc-test__checkbox-wrapper">
-                                <input type="checkbox" id="alt-services" name="alt-services" class="calc-test__alt-checkbox">
-                                <span class="calc-test__checkbox-text form-intro">{% trans "Якщо вам потрібен мобільний застосунок, Telegram-бот або реклама — поставте галочку та залиште дані зворотнього зв'язку у формі під тестом (тест заповнювати не потрібно якщо додатково вам не потрібен сайт)" %}</span>
-                            </label>
-                        </div>
                     </div>
 
                     <form id="calculator-test" class="calc-form" data-form-type="test"
                           data-question-label="{% trans 'Питання' %}"
                           data-of-label="{% trans 'з' %}">
                         {% csrf_token %}
-
-                        <div class="calc-step-nav" id="calc-step-nav" hidden>
-                            <button type="button" class="calc-step-nav__prev">{% trans "Назад" %}</button>
-                            <button type="button" class="calc-step-nav__next">{% trans "Далі" %}</button>
-                        </div>
 
                         <div class="calc-question">
                             <div class="calc-question__header">
@@ -216,6 +216,12 @@
                             </div>
                         </div>
 
+                        <div class="calc-step-nav" id="calc-step-nav" hidden>
+                            <button type="button" class="calc-step-nav__prev" hidden>{% trans "← Назад" %}</button>
+                            <button type="button" class="calc-step-nav__skip">{% trans "Пропустити" %}</button>
+                            <button type="button" class="calc-step-nav__next" disabled>{% trans "Далі →" %}</button>
+                        </div>
+
                         <div class="calc-user-data">
                             <div class="calc-user-data__fields">
                                 <div class="calc-field">
@@ -247,5 +253,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/calculator.js' %}?v=12" nonce="{{ csp_nonce }}"></script>
+<script src="{% static 'js/calculator.js' %}?v=13" nonce="{{ csp_nonce }}"></script>
 {% endblock %}

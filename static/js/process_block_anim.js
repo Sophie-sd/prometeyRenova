@@ -1,7 +1,7 @@
 (function (global) {
     'use strict';
 
-    var NUM_REVEAL_DURATION = 240;
+    var NUM_REVEAL_DURATION = 120;
 
     function setupWatermarkNum(el) {
         if (!el || el.dataset.pbWatermark === '1') {

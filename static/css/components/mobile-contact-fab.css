@@ -1,0 +1,62 @@
+/* Mobile contact FAB — opens call-request-modal on small screens */
+
+.mobile-contact-fab {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .mobile-contact-fab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        right: clamp(16px, 4vw, 24px);
+        bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        z-index: 9999;
+        width: 67px;
+        height: 67px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        color: #ffffff;
+        cursor: pointer;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2),
+                    0 1px 0 rgba(255, 255, 255, 0.4) inset;
+        transition: background-color 0.2s ease-out,
+                    border-color 0.2s ease-out,
+                    transform 0.2s ease-out,
+                    box-shadow 0.2s ease-out,
+                    opacity 0.2s ease-out,
+                    visibility 0.2s ease-out;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    .mobile-contact-fab:active {
+        transform: scale(0.95);
+    }
+
+    .mobile-contact-fab__icon {
+        width: 26px;
+        height: 26px;
+        flex-shrink: 0;
+    }
+
+    body.menu-open .mobile-contact-fab,
+    body.modal-open .mobile-contact-fab {
+        visibility: hidden;
+        pointer-events: none;
+        opacity: 0;
+    }
+}
+
+@supports (-webkit-touch-callout: none) {
+    @media (max-width: 767px) {
+        .mobile-contact-fab {
+            right: max(env(safe-area-inset-right, 0px), clamp(16px, 4vw, 24px));
+        }
+    }
+}

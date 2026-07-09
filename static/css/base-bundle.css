@@ -2136,6 +2136,69 @@ body.menu-open .contact-widget {
     transition: opacity 0.2s ease;
 }
 
+/* ===== MOBILE CONTACT FAB ===== */
+
+.mobile-contact-fab {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .mobile-contact-fab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        right: clamp(16px, 4vw, 24px);
+        bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        z-index: 9999;
+        width: 67px;
+        height: 67px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        color: #ffffff;
+        cursor: pointer;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2),
+                    0 1px 0 rgba(255, 255, 255, 0.4) inset;
+        transition: background-color 0.2s ease-out,
+                    border-color 0.2s ease-out,
+                    transform 0.2s ease-out,
+                    box-shadow 0.2s ease-out,
+                    opacity 0.2s ease-out,
+                    visibility 0.2s ease-out;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    .mobile-contact-fab:active {
+        transform: scale(0.95);
+    }
+
+    .mobile-contact-fab__icon {
+        width: 26px;
+        height: 26px;
+        flex-shrink: 0;
+    }
+
+    body.menu-open .mobile-contact-fab,
+    body.modal-open .mobile-contact-fab {
+        visibility: hidden;
+        pointer-events: none;
+        opacity: 0;
+    }
+}
+
+@supports (-webkit-touch-callout: none) {
+    @media (max-width: 767px) {
+        .mobile-contact-fab {
+            right: max(env(safe-area-inset-right, 0px), clamp(16px, 4vw, 24px));
+        }
+    }
+}
+
 /* ===== BUTTON SIZES ===== */
 
 .btn-small {
@@ -3825,8 +3888,9 @@ body.modal-open .main-footer {
         max-height: calc(100dvh - 40px);
         max-height: calc(var(--mobile-vh, 100vh) - 40px);
         overflow: hidden;
-        padding: 40px 16px 16px;
-        gap: 10px;
+        padding: clamp(24px, 5vw, 34px);
+        padding-top: 40px;
+        gap: 20px;
     }
 
     /* Header компактніший */
@@ -3849,8 +3913,8 @@ body.modal-open .main-footer {
 
     /* Direct-contact секція — компактна, стискається */
     #call-request-modal .modal-direct-contact {
-        margin: 0;
-        padding: 10px 8px;
+        margin: 0 0 24px;
+        padding: 20px 16px;
         flex-shrink: 1;
         min-height: 0;
     }
@@ -3867,20 +3931,20 @@ body.modal-open .main-footer {
     }
 
     #call-request-modal .modal-social-links {
-        gap: 20px;
+        gap: 18px;
     }
 
     #call-request-modal .modal-social-link {
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
-        min-height: 36px;
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        min-height: 48px;
     }
 
     #call-request-modal .modal-social-link svg,
     #call-request-modal .modal-social-link img {
-        width: 18px;
-        height: 18px;
+        width: 22px;
+        height: 22px;
     }
 
     /* Форма — flex-grow щоб зайняла залишок, але стискається */
@@ -3889,29 +3953,30 @@ body.modal-open .main-footer {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 16px;
     }
 
     #call-request-modal .modal-form .form-group {
-        margin-bottom: 0;
+        margin-bottom: 16px;
     }
 
     #call-request-modal .modal-form .form-label {
-        font-size: 13px;
-        margin-bottom: 3px;
+        font-size: 14px;
+        margin-bottom: 6px;
     }
 
     #call-request-modal .modal-form .form-input {
-        padding: 8px 10px;
-        font-size: 14px;
+        padding: 12px 14px;
+        font-size: 16px;
         height: auto;
-        min-height: 38px;
+        min-height: 48px;
     }
 
     #call-request-modal .modal-form .form-submit {
-        margin-top: 4px;
-        padding: 10px 16px;
-        font-size: 14px;
+        margin-top: 16px;
+        padding: 14px 20px;
+        font-size: 15px;
+        min-height: 48px;
         flex-shrink: 0;
     }
 

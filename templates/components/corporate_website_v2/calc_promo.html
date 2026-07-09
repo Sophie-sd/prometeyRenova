@@ -1,0 +1,25 @@
+{% load static %}
+<section id="calc-promo" class="pl-corp__calc-promo pl-corp__section" aria-labelledby="pl-corp-calc-promo-title">
+    <div class="pl-corp__inner">
+        <div class="pl-corp__calc-promo-row">
+            <div class="pl-corp__calc-promo-card" data-reveal>
+                <h2 id="pl-corp-calc-promo-title" class="pl-corp__calc-promo-title">
+                    Отримайте безкоштовний розрахунок вартості вашого сайту
+                </h2>
+                <a href="#calculator" class="pl-corp__btn pl-corp__btn--primary pl-corp__calc-promo-btn mobile-touch-target">
+                    Калькулятор розрахунку
+                </a>
+            </div>
+            <a href="{% url 'monobank_chastynamy' %}" class="pl-corp__calc-promo-monobank" data-reveal aria-label="Покупка частинами monobank">
+                <img
+                    src="{% static 'images/monobank/label-black-outline-15.png' %}"
+                    alt="Покупка частинами monobank"
+                    width="1500"
+                    height="493"
+                    loading="lazy"
+                    decoding="async"
+                >
+            </a>
+        </div>
+    </div>
+</section>

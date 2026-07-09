@@ -151,36 +151,37 @@
     }
 
     function getCheckedOptions() {
-        return Array.from(form.querySelectorAll('input[name="q_options"]:checked'))
-            .map(function (cb) { return cb.value; });
+        var val = getCheckedValue('q_options');
+        return val ? [val] : [];
     }
 
     function recommendPackage() {
         var score = { starter: 0, corporate: 0, premium: 0 };
         var business = getCheckedValue('q_business');
+        var goal = getCheckedValue('q_goal');
         var pages = getCheckedValue('q_pages');
-        var options = getCheckedOptions();
+        var option = getCheckedValue('q_options');
         var timeline = getCheckedValue('q_timeline');
 
         if (pages === '1 сторінка (лендинг)') score.starter += 4;
-        if (pages === '5–7 сторінок (корпоративний)') score.corporate += 4;
-        if (pages === '10–20 сторінок') score.premium += 3;
-        if (pages === '20+ сторінок або мультимовність') score.premium += 5;
+        if (pages === 'до 10 сторінок') score.corporate += 4;
+        if (pages === '11–20 сторінок') score.premium += 3;
+        if (pages === '21+ сторінок') score.premium += 5;
 
         if (business === 'Виробництво / опт') score.corporate += 1;
         if (business === 'Торгівля') score.corporate += 1;
         if (business === 'Інше / не визначився') score.corporate += 1;
 
-        options.forEach(function (val) {
-            if (val === 'Google Ads' || val === 'Facebook + Instagram' || val === 'SEO-просування') {
-                score.corporate += 1;
-            }
-            if (val === 'CRM + Telegram') score.corporate += 1;
-            if (val === '1С / Bitrix24' || val === 'Мультимовність') score.premium += 3;
-        });
+        if (goal === 'Збір заявок та контактів') score.starter += 2;
+        if (goal === 'Презентація бренду або послуг') score.corporate += 2;
+        if (goal === 'Прямі онлайн-продажі') score.corporate += 2;
+        if (goal === 'Масштабування') score.premium += 3;
 
-        if (options.length >= 4) score.premium += 2;
-        if (options.length >= 2 && options.length <= 3) score.corporate += 1;
+        if (option === 'Рекламні послуги' || option === 'SEO розвиток сайту') {
+            score.corporate += 2;
+        }
+        if (option === 'CRM та автоматизація') score.corporate += 2;
+        if (option === 'Мультимовність') score.premium += 3;
 
         if (timeline === 'Якнайшвидше (до 7 днів)') score.starter += 3;
         if (timeline === 'Протягом 2 тижнів') score.corporate += 2;
@@ -289,8 +290,9 @@
         var data = PKG_MAP[pkgKey];
         var fields = [
             { name: 'q_business', label: 'Тип бізнесу' },
+            { name: 'q_goal', label: 'Бізнес-ціль' },
             { name: 'q_pages', label: 'Кількість сторінок' },
-            { name: 'q_options', label: 'Додаткові опції', multi: true },
+            { name: 'q_options', label: 'Додаткові опції' },
             { name: 'q_timeline', label: 'Терміни' }
         ];
 
@@ -301,13 +303,8 @@
         }
 
         fields.forEach(function (field) {
-            if (field.multi) {
-                var vals = getCheckedOptions();
-                if (vals.length) parts.push(field.label + ': ' + vals.join(', '));
-            } else {
-                var val = getCheckedValue(field.name);
-                if (val) parts.push(field.label + ': ' + val);
-            }
+            var val = getCheckedValue(field.name);
+            if (val) parts.push(field.label + ': ' + val);
         });
 
         detailsInput.value = parts.join('\n');
