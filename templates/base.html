@@ -6,14 +6,25 @@
 <head>
     <meta charset="UTF-8">
     <!-- Google Tag Manager — deferred until user interaction or 6s to reduce TBT/LCP.
-         Conversion events on /thank-you/ call _loadGTM() explicitly, so they always fire
-         immediately regardless of timer. -->
+         Load immediately for Tag Assistant / GTM Preview (opener, gtm_debug, preview cookies).
+         Conversion events on /thank-you/ call _loadGTM() explicitly. -->
     <script nonce="{{ csp_nonce }}">
     window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
     function _loadGTM(){if(window._gtmL)return;window._gtmL=1;var j=document.createElement('script');j.async=true;j.setAttribute('nonce','{{ csp_nonce }}');j.nonce='{{ csp_nonce }}';j.src='https://www.googletagmanager.com/gtm.js?id=GTM-K2FVPPTK';document.head.appendChild(j);}
     window._loadGTM=_loadGTM;
-    ['scroll','click','touchstart','keydown','mousemove'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
-    setTimeout(_loadGTM,6000);
+    (function(){
+      var q=location.search||'';
+      var c=document.cookie||'';
+      var preview=!!window.opener
+        || /(?:^|[?&#])gtm_debug(?:=|&|#|$)/.test(q+location.hash)
+        || /(?:^|[?&#])gtm_preview=/.test(q)
+        || /(?:^|[?&#])gtm_auth=/.test(q)
+        || /(^|;\s*)gtm_auth=/.test(c)
+        || /(^|;\s*)gtm_preview=/.test(c);
+      if(preview){_loadGTM();return;}
+      ['scroll','click','touchstart','keydown','mousemove'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
+      setTimeout(_loadGTM,6000);
+    })();
     </script>
     <!-- End Google Tag Manager -->
     <!-- iOS Safari оптимізований viewport -->

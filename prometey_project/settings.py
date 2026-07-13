@@ -106,6 +106,9 @@ if RENDER_EXTERNAL_URL:
 else:
     CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://0.0.0.0:8000']
 
+# Tag Assistant / GTM Preview відкриває сайт у popup і потребує window.opener.
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+
 # Security headers (тільки для продакшн)
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

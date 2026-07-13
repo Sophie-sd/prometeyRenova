@@ -335,6 +335,10 @@ if DEBUG:
         'http://0.0.0.0:8000'
     ])
 
+# Tag Assistant / GTM Preview відкриває сайт у popup і потребує window.opener.
+# Дефолт Django ('same-origin') рве цей зв'язок → «Не удалось подключиться».
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+
 # Security headers (тільки для продакшн)
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
