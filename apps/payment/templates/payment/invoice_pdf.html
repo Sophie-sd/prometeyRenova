@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <title>Рахунок №{{ invoice.number }}</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 16mm 14mm 18mm 14mm;
+    }
+    @font-face {
+      font-family: NotoSans;
+      src: url("{{ font_regular }}");
+    }
+    @font-face {
+      font-family: NotoSans;
+      src: url("{{ font_bold }}");
+      font-weight: bold;
+    }
+    body {
+      font-family: NotoSans, sans-serif;
+      font-size: 10pt;
+      color: #2B2F33;
+      line-height: 1.4;
+    }
+    .accent { color: #E86A17; }
+    .muted { color: #5A6066; }
+    .bold { font-weight: bold; }
+    .header-table { width: 100%; margin-bottom: 6px; }
+    .brand-cell { width: 40%; vertical-align: middle; }
+    .title-cell { width: 60%; text-align: right; vertical-align: middle; }
+    .brand-logo { width: 28px; height: 28px; vertical-align: middle; }
+    .brand-name {
+      font-size: 13pt;
+      font-weight: bold;
+      vertical-align: middle;
+      padding-left: 6px;
+    }
+    .doc-title {
+      font-size: 16pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin: 0;
+      letter-spacing: -0.3px;
+    }
+    .doc-meta { font-size: 10pt; color: #5A6066; margin-top: 3px; }
+    .accent-line {
+      border: 0;
+      border-top: 2px solid #E86A17;
+      margin: 8px 0 14px;
+    }
+    .parties { width: 100%; margin-bottom: 14px; }
+    .party { width: 50%; vertical-align: top; padding-right: 10px; }
+    .party-right { padding-right: 0; padding-left: 10px; }
+    .section-label {
+      font-size: 9pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #E86A17;
+      margin: 0 0 5px;
+    }
+    .party-name { font-weight: bold; font-size: 11pt; margin: 0 0 3px; }
+    .party-line { margin: 0 0 2px; font-size: 10pt; }
+    .items { width: 100%; border-collapse: collapse; margin: 8px 0 12px; font-size: 9pt; }
+    .items th {
+      background-color: #E5E7EA;
+      font-weight: bold;
+      text-align: left;
+      padding: 6px 5px;
+      border: 1px solid #C8CCD0;
+    }
+    .items td {
+      padding: 6px 5px;
+      border: 1px solid #C8CCD0;
+      vertical-align: top;
+    }
+    .items tr.alt td { background-color: #F7F5F3; }
+    .c-num { width: 24px; text-align: center; }
+    .c-unit { width: 60px; }
+    .c-qty { width: 48px; text-align: right; }
+    .c-price { width: 72px; text-align: right; }
+    .c-sum { width: 78px; text-align: right; }
+    .totals { width: 260px; margin-left: auto; }
+    .totals td { padding: 3px 0; }
+    .totals .label { color: #5A6066; text-align: left; }
+    .totals .value { text-align: right; font-weight: bold; }
+    .totals .pay .label,
+    .totals .pay .value {
+      color: #E86A17;
+      font-size: 12pt;
+      font-weight: bold;
+    }
+    .amount-words {
+      text-align: right;
+      color: #5A6066;
+      font-size: 9pt;
+      font-style: italic;
+      margin: 6px 0 16px;
+    }
+    .sign-row { margin-top: 8px; }
+    .sign-line {
+      display: inline-block;
+      border-bottom: 1px solid #2B2F33;
+      width: 150px;
+      margin-left: 10px;
+    }
+    .footer {
+      text-align: center;
+      color: #5A6066;
+      font-size: 8pt;
+      margin-top: 28px;
+    }
+  </style>
+</head>
+<body>
+  <table class="header-table">
+    <tr>
+      <td class="brand-cell">
+        {% if logo_uri %}
+        <img class="brand-logo" src="{{ logo_uri }}" alt="">
+        {% endif %}
+        <span class="brand-name">PrometeyLabs</span>
+      </td>
+      <td class="title-cell">
+        <div class="doc-title">Рахунок на оплату</div>
+        <div class="doc-meta">№ {{ invoice.number }} · {{ invoice_date }}</div>
+      </td>
+    </tr>
+  </table>
+  <hr class="accent-line">
+
+  <table class="parties">
+    <tr>
+      <td class="party">
+        <div class="section-label">Виконавець</div>
+        <div class="party-name">{{ recipient_name }}</div>
+        {% if recipient_ipn %}<div class="party-line">РНОКПП {{ recipient_ipn }}</div>{% endif %}
+        {% if recipient_iban %}
+        <div class="party-line">
+          IBAN {{ recipient_iban }}{% if recipient_bank %} · {{ recipient_bank }}{% endif %}
+        </div>
+        {% endif %}
+        {% if recipient_mfo %}<div class="party-line muted">МФО {{ recipient_mfo }}</div>{% endif %}
+        {% if recipient_bank_edrpou %}<div class="party-line muted">ЄДРПОУ банку {{ recipient_bank_edrpou }}</div>{% endif %}
+        <div class="party-line muted">Єдиний податок, 3 група, 5%, без ПДВ</div>
+      </td>
+      <td class="party party-right">
+        <div class="section-label">Замовник</div>
+        <div class="party-name">{{ invoice.client_name }}</div>
+        <div class="party-line">РНОКПП/ЄДРПОУ {{ invoice.client_tax_id }}</div>
+        {% if invoice.client_address %}<div class="party-line">{{ invoice.client_address }}</div>{% endif %}
+      </td>
+    </tr>
+  </table>
+
+  <div class="section-label">Деталі</div>
+  <div class="party-line">Договір № {{ invoice.contract_number }} від {{ contract_date }} р.</div>
+
+  <table class="items">
+    <thead>
+      <tr>
+        <th class="c-num">№</th>
+        <th>Послуга</th>
+        <th class="c-unit">Од.</th>
+        <th class="c-qty">К-сть</th>
+        <th class="c-price">Ціна</th>
+        <th class="c-sum">Сума</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr class="{% if forloop.counter|divisibleby:2 %}alt{% endif %}">
+        <td class="c-num">{{ item.position }}</td>
+        <td>{{ item.title }}</td>
+        <td class="c-unit">{{ item.unit }}</td>
+        <td class="c-qty">{{ item.quantity }}</td>
+        <td class="c-price">{{ item.price_formatted }}</td>
+        <td class="c-sum">{{ item.amount_formatted }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <table class="totals">
+    <tr>
+      <td class="label">Без ПДВ</td>
+      <td class="value">{{ total_formatted }} грн</td>
+    </tr>
+    <tr class="pay">
+      <td class="label">До сплати</td>
+      <td class="value">{{ total_formatted }} грн</td>
+    </tr>
+  </table>
+  <div class="amount-words">{{ total_words }}</div>
+
+  <div class="section-label">Оплата</div>
+  <div class="party-line">Рахунок доступний до {{ valid_until }}</div>
+
+  <div style="margin-top:22px;">
+    <div class="section-label">Виконавець</div>
+    <div class="sign-row">{{ sign_name }} <span class="sign-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+  </div>
+
+  <div class="footer">PrometeyLabs · prometeylabs@gmail.com</div>
+</body>
+</html>

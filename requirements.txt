@@ -20,3 +20,4 @@ django-compressor==4.5
 rcssmin==1.1.2
 rjsmin==1.2.2
 google-ads>=25.1.0
+xhtml2pdf>=0.2.16

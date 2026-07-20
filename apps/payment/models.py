@@ -304,3 +304,6 @@ class SubscriptionCharge(models.Model):
     def __str__(self):
         return f'{self.source_payment.client_name} — {self.amount_uah} UAH — {self.get_status_display()}'
 
+
+from .invoice_models import Invoice, InvoiceItem, InvoiceSequence  # noqa: E402,F401
+

@@ -101,6 +101,7 @@ UNFOLD = {
                 "items": [
                     {"title": "Посилання",     "icon": "link",            "link": reverse_lazy("admin:payment_paymentlink_changelist")},
                     {"title": "Підписки",      "icon": "autorenew",       "link": "/admin/payment/paymentlink/?is_subscription=1"},
+                    {"title": "Рахунки",       "icon": "receipt_long",    "link": reverse_lazy("admin:payment_invoice_changelist")},
                     {"title": "Отримувачі",   "icon": "account_balance", "link": reverse_lazy("admin:payment_recipientprofile_changelist")},
                     {"title": "Налаштування", "icon": "settings",        "link": reverse_lazy("admin:payment_paymentsettings_changelist")},
                 ],

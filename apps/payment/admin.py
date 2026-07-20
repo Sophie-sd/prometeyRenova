@@ -14,6 +14,7 @@ from unfold.contrib.filters.admin import (
 
 from .models import PaymentLink, PaymentLinkFile, PaymentSettings, RecipientProfile, SubscriptionCharge
 from .subscription_service import MonobankSubscriptionService
+from . import invoice_admin  # noqa: F401  — реєстрація InvoiceAdmin
 
 
 # ── PaymentSettings ────────────────────────────────────────────────────────

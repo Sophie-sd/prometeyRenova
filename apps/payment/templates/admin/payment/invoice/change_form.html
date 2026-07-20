@@ -1,0 +1,23 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block submit_buttons_bottom %}
+{% if invoice_is_readonly %}
+<div class="submit-row">
+  {% if invoice_pdf_url %}
+  <a class="button default" href="{{ invoice_pdf_url }}" style="background:#16a34a;color:#fff;border-color:#15803d;">
+    {% trans "Завантажити PDF" %}
+  </a>
+  {% endif %}
+  <a class="button" href="{% url 'admin:payment_invoice_changelist' %}">
+    {% trans "Назад до списку" %}
+  </a>
+</div>
+{% else %}
+{{ block.super }}
+<div class="submit-row" style="margin-top:0.75rem;">
+  <input type="submit" value="{% trans 'Зберегти і завантажити PDF' %}" name="_save_and_pdf"
+         style="background:#16a34a;color:#fff;border-color:#15803d;">
+</div>
+{% endif %}
+{% endblock %}
