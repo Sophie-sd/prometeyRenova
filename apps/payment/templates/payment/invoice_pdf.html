@@ -6,7 +6,7 @@
   <style>
     @page {
       size: A4;
-      margin: 16mm 14mm 20mm 14mm;
+      margin: 16mm 14mm 12mm 14mm;
     }
     @font-face {
       font-family: NotoSans;
@@ -27,17 +27,32 @@
     .header-table { width: 100%; margin-bottom: 6px; }
     .brand-cell { width: 42%; vertical-align: middle; }
     .title-cell { width: 58%; text-align: right; vertical-align: middle; }
-    .brand-logo {
-      width: 32px;
-      height: 32px;
+    .brand-inner {
+      border-collapse: collapse;
+      border: 0;
+    }
+    .brand-inner td {
+      border: 0;
+      padding: 0;
       vertical-align: middle;
+    }
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      display: block;
+      margin-top: -5px;
+    }
+    .brand-gap {
+      width: 28px;
+      min-width: 28px;
+      font-size: 1pt;
+      line-height: 1pt;
     }
     .brand-name {
       font-size: 16pt;
       font-weight: bold;
-      vertical-align: middle;
-      padding-left: 16px;
       letter-spacing: -0.3px;
+      padding: 0;
     }
     .doc-title {
       font-size: 16pt;
@@ -107,14 +122,14 @@
       font-style: italic;
       margin: 6px 0 0;
     }
-    /* Відступ, щоб блок підпису опинився в нижній половині аркуша */
+    /* Середина між «одразу після таблиці» і попереднім занадто низьким положенням */
     .sign-spacer {
       width: 100%;
       border: 0;
       border-collapse: collapse;
     }
     .sign-spacer td {
-      height: 78mm;
+      height: 42mm;
       font-size: 1pt;
       line-height: 1pt;
       border: 0;
@@ -146,12 +161,14 @@
       font-size: 1pt;
     }
     .footer-block {
+      position: fixed;
+      bottom: 3mm;
+      left: 0;
+      right: 0;
       text-align: center;
       color: #5A6066;
       font-size: 8.5pt;
       width: 100%;
-      margin-top: 18mm;
-      padding-top: 4px;
     }
   </style>
 </head>
@@ -159,10 +176,17 @@
   <table class="header-table">
     <tr>
       <td class="brand-cell">
-        {% if logo_uri %}
-        <img class="brand-logo" src="{{ logo_uri }}" alt="">
-        {% endif %}
-        <span class="brand-name">PrometeyLabs</span>
+        <table class="brand-inner">
+          <tr>
+            <td>
+              {% if logo_uri %}
+              <img class="brand-logo" src="{{ logo_uri }}" alt="">
+              {% endif %}
+            </td>
+            <td class="brand-gap">&nbsp;</td>
+            <td class="brand-name">PrometeyLabs</td>
+          </tr>
+        </table>
       </td>
       <td class="title-cell">
         <div class="doc-title">Рахунок на оплату</div>
