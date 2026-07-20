@@ -83,8 +83,8 @@ def invoice_context(invoice) -> dict:
             'title': item.title,
             'unit': item.unit,
             'quantity': item.quantity,
-            'price_formatted': format_money_ua(item.price),
-            'amount_formatted': format_money_ua(item.amount),
+            'price_formatted': format_money_ua(item.price).replace(' ', '\u00a0'),
+            'amount_formatted': format_money_ua(item.amount).replace(' ', '\u00a0'),
         })
     fonts = _font_paths()
     return {
@@ -96,7 +96,7 @@ def invoice_context(invoice) -> dict:
         'invoice_date': invoice.invoice_date.strftime('%d.%m.%Y'),
         'valid_until': invoice.valid_until.strftime('%d.%m.%Y'),
         'contract_date': invoice.contract_date.strftime('%d.%m.%Y'),
-        'total_formatted': format_money_ua(invoice.total_amount),
+        'total_formatted': format_money_ua(invoice.total_amount).replace(' ', '\u00a0'),
         'total_words': amount_in_words_ua(invoice.total_amount),
         'recipient_name': invoice.recipient_name_snapshot,
         'recipient_ipn': invoice.recipient_ipn_snapshot,
@@ -143,9 +143,9 @@ def generate_invoice_pdf_bytes(invoice) -> bytes:
     return result.getvalue()
 
 
-def get_or_create_invoice_pdf(invoice) -> Tuple[bytes, str]:
+def get_or_create_invoice_pdf(invoice, force: bool = False) -> Tuple[bytes, str]:
     filename = build_pdf_filename(invoice)
-    if invoice.pdf_file:
+    if invoice.pdf_file and not force:
         invoice.pdf_file.open('rb')
         try:
             data = invoice.pdf_file.read()
@@ -155,5 +155,7 @@ def get_or_create_invoice_pdf(invoice) -> Tuple[bytes, str]:
             return data, filename
 
     data = generate_invoice_pdf_bytes(invoice)
+    if invoice.pdf_file:
+        invoice.pdf_file.delete(save=False)
     invoice.pdf_file.save(filename, ContentFile(data), save=True)
     return data, filename

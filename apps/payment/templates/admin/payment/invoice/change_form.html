@@ -1,12 +1,17 @@
 {% extends "admin/change_form.html" %}
-{% load i18n %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'payment/css/invoice_admin.css' %}">
+{% endblock %}
 
 {% block submit_buttons_bottom %}
 {% if invoice_is_readonly %}
-<div class="submit-row">
+<div class="submit-row invoice-view-actions">
   {% if invoice_pdf_url %}
-  <a class="button default" href="{{ invoice_pdf_url }}" style="background:#16a34a;color:#fff;border-color:#15803d;">
-    {% trans "Завантажити PDF" %}
+  <a class="invoice-pdf-icon-btn" href="{{ invoice_pdf_url }}" title="{% trans 'Завантажити PDF' %}" aria-label="{% trans 'Завантажити PDF' %}">
+    <span class="material-symbols-outlined" aria-hidden="true">download</span>
   </a>
   {% endif %}
   <a class="button" href="{% url 'admin:payment_invoice_changelist' %}">
@@ -15,9 +20,12 @@
 </div>
 {% else %}
 {{ block.super }}
-<div class="submit-row" style="margin-top:0.75rem;">
-  <input type="submit" value="{% trans 'Зберегти і завантажити PDF' %}" name="_save_and_pdf"
-         style="background:#16a34a;color:#fff;border-color:#15803d;">
-</div>
+<input type="submit"
+       id="invoice-save-pdf-btn"
+       class="invoice-save-pdf-btn"
+       name="_save_and_pdf"
+       value="{% trans 'Зберегти і завантажити PDF' %}"
+       hidden>
+<script src="{% static 'payment/js/invoice_admin.js' %}"></script>
 {% endif %}
 {% endblock %}

@@ -6,7 +6,7 @@
   <style>
     @page {
       size: A4;
-      margin: 16mm 14mm 18mm 14mm;
+      margin: 16mm 14mm 16mm 14mm;
     }
     @font-face {
       font-family: NotoSans;
@@ -23,9 +23,7 @@
       color: #2B2F33;
       line-height: 1.4;
     }
-    .accent { color: #E86A17; }
     .muted { color: #5A6066; }
-    .bold { font-weight: bold; }
     .header-table { width: 100%; margin-bottom: 6px; }
     .brand-cell { width: 40%; vertical-align: middle; }
     .title-cell { width: 60%; text-align: right; vertical-align: middle; }
@@ -41,7 +39,6 @@
       font-weight: bold;
       text-transform: uppercase;
       margin: 0;
-      letter-spacing: -0.3px;
     }
     .doc-meta { font-size: 10pt; color: #5A6066; margin-top: 3px; }
     .accent-line {
@@ -76,39 +73,51 @@
     }
     .items tr.alt td { background-color: #F7F5F3; }
     .c-num { width: 24px; text-align: center; }
-    .c-unit { width: 60px; }
+    .c-unit { width: 58px; }
     .c-qty { width: 48px; text-align: right; }
-    .c-price { width: 72px; text-align: right; }
-    .c-sum { width: 78px; text-align: right; }
-    .totals { width: 260px; margin-left: auto; }
-    .totals td { padding: 3px 0; }
-    .totals .label { color: #5A6066; text-align: left; }
-    .totals .value { text-align: right; font-weight: bold; }
-    .totals .pay .label,
-    .totals .pay .value {
+    .c-price {
+      width: 96px;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .totals { width: 240px; margin-left: auto; }
+    .totals td { padding: 3px 0; white-space: nowrap; }
+    .totals .label {
       color: #E86A17;
       font-size: 12pt;
       font-weight: bold;
+      text-align: left;
+    }
+    .totals .value {
+      color: #E86A17;
+      font-size: 12pt;
+      font-weight: bold;
+      text-align: right;
     }
     .amount-words {
       text-align: right;
       color: #5A6066;
       font-size: 9pt;
       font-style: italic;
-      margin: 6px 0 16px;
+      margin: 6px 0 18px;
     }
-    .sign-row { margin-top: 8px; }
+    .bottom-row { width: 100%; margin-top: 8px; }
+    .bottom-left { width: 48%; vertical-align: top; }
+    .bottom-right { width: 52%; vertical-align: top; text-align: left; padding-left: 12px; }
+    .payment-text { font-weight: bold; margin: 0; font-size: 10.5pt; }
+    .sign-row { margin-top: 4px; font-size: 10.5pt; }
     .sign-line {
       display: inline-block;
       border-bottom: 1px solid #2B2F33;
-      width: 150px;
+      width: 160px;
       margin-left: 10px;
     }
     .footer {
       text-align: center;
       color: #5A6066;
       font-size: 8pt;
-      margin-top: 28px;
+      margin-top: 36px;
+      padding-top: 8px;
     }
   </style>
 </head>
@@ -164,7 +173,6 @@
         <th class="c-unit">Од.</th>
         <th class="c-qty">К-сть</th>
         <th class="c-price">Ціна</th>
-        <th class="c-sum">Сума</th>
       </tr>
     </thead>
     <tbody>
@@ -175,7 +183,6 @@
         <td class="c-unit">{{ item.unit }}</td>
         <td class="c-qty">{{ item.quantity }}</td>
         <td class="c-price">{{ item.price_formatted }}</td>
-        <td class="c-sum">{{ item.amount_formatted }}</td>
       </tr>
       {% endfor %}
     </tbody>
@@ -183,23 +190,24 @@
 
   <table class="totals">
     <tr>
-      <td class="label">Без ПДВ</td>
-      <td class="value">{{ total_formatted }} грн</td>
-    </tr>
-    <tr class="pay">
       <td class="label">До сплати</td>
       <td class="value">{{ total_formatted }} грн</td>
     </tr>
   </table>
   <div class="amount-words">{{ total_words }}</div>
 
-  <div class="section-label">Оплата</div>
-  <div class="party-line">Рахунок доступний до {{ valid_until }}</div>
-
-  <div style="margin-top:22px;">
-    <div class="section-label">Виконавець</div>
-    <div class="sign-row">{{ sign_name }} <span class="sign-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-  </div>
+  <table class="bottom-row">
+    <tr>
+      <td class="bottom-left">
+        <div class="section-label">Оплата</div>
+        <p class="payment-text">Строк протягом 3 банківських днів</p>
+      </td>
+      <td class="bottom-right">
+        <div class="section-label">Виконавець</div>
+        <div class="sign-row">{{ sign_name }} <span class="sign-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </td>
+    </tr>
+  </table>
 
   <div class="footer">PrometeyLabs · prometeylabs@gmail.com</div>
 </body>

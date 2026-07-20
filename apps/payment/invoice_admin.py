@@ -18,6 +18,13 @@ class InvoiceItemForm(forms.ModelForm):
     class Meta:
         model = InvoiceItem
         fields = ('title', 'unit', 'quantity', 'price', 'position')
+        widgets = {
+            'title': forms.Textarea(attrs={
+                'rows': 2,
+                'cols': 40,
+                'class': 'vLargeTextField invoice-item-title',
+            }),
+        }
 
     def clean_quantity(self):
         qty = self.cleaned_data.get('quantity')
@@ -37,8 +44,7 @@ class InvoiceItemInline(UnfoldTabularInline):
     form = InvoiceItemForm
     extra = 1
     min_num = 1
-    fields = ('position', 'title', 'unit', 'quantity', 'price', 'amount')
-    readonly_fields = ('amount',)
+    fields = ('position', 'title', 'unit', 'quantity', 'price')
     ordering = ('position', 'id')
     verbose_name = _('Послуга')
     verbose_name_plural = _('Послуги')
@@ -91,12 +97,17 @@ class InvoiceAdmin(UnfoldModelAdmin):
     list_filter_sheet = False
     list_display = (
         'number', 'invoice_date', 'recipient_col', 'client_name',
-        'total_col', 'contract_col', 'created_at_col', 'actions_col',
+        'total_col', 'contract_col', 'created_at_col', 'pdf_col',
     )
+    list_display_links = ('number',)
     search_fields = ('number', 'client_name', 'contract_number', 'client_tax_id')
     ordering = ('-number',)
     list_per_page = 50
     change_form_template = 'admin/payment/invoice/change_form.html'
+
+    class Media:
+        css = {'all': ('payment/css/invoice_admin.css',)}
+        js = ('payment/js/invoice_admin.js',)
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
@@ -206,7 +217,7 @@ class InvoiceAdmin(UnfoldModelAdmin):
             messages.error(request, _('Рахунок не знайдено.'))
             return HttpResponseRedirect(reverse('admin:payment_invoice_changelist'))
         try:
-            data, filename = get_or_create_invoice_pdf(invoice)
+            data, filename = get_or_create_invoice_pdf(invoice, force=True)
         except Exception as exc:
             messages.error(request, _('Помилка генерації PDF: %s') % exc)
             return HttpResponseRedirect(
@@ -256,15 +267,16 @@ class InvoiceAdmin(UnfoldModelAdmin):
         from django.utils import timezone
         return timezone.localtime(obj.created_at).strftime('%d.%m.%Y %H:%M')
 
-    @admin.display(description=_('Дії'))
-    def actions_col(self, obj):
-        view_url = reverse('admin:payment_invoice_change', args=[obj.pk])
+    @admin.display(description=_('PDF'))
+    def pdf_col(self, obj):
         pdf_url = reverse('admin:payment_invoice_download_pdf', args=[obj.pk])
         return format_html(
-            '<a class="button" href="{}">{}</a>&nbsp;'
-            '<a class="button" href="{}">{}</a>',
-            view_url, _('Перегляд'),
-            pdf_url, _('PDF'),
+            '<a class="invoice-pdf-dl" href="{}" title="{}" aria-label="{}">'
+            '<span class="material-symbols-outlined" aria-hidden="true">download</span>'
+            '</a>',
+            pdf_url,
+            _('Завантажити PDF'),
+            _('Завантажити PDF'),
         )
 
     def delete_model(self, request, obj):

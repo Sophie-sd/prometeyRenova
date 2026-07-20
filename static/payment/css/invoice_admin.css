@@ -1,0 +1,98 @@
+/* Адмінка рахунків — компактні поля послуг і кнопки PDF */
+
+.invoice-item-title,
+#invoiceitem_set-group textarea,
+.inline-group .field-title textarea {
+  min-height: 2.5rem;
+  height: 2.75rem;
+  max-height: 3.25rem;
+  resize: vertical;
+  line-height: 1.35;
+  padding: 0.4rem 0.55rem;
+}
+
+.invoice-view-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.invoice-pdf-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background: #16a34a;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.2s ease-out;
+}
+
+.invoice-pdf-icon-btn:hover {
+  background: #15803d;
+  color: #fff;
+}
+
+.invoice-pdf-icon-btn .material-symbols-outlined {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.invoice-save-pdf-btn {
+  background: #16a34a;
+  color: #fff;
+  border: 1px solid #15803d;
+  border-radius: 0.5rem;
+  padding: 0.55rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: auto;
+  order: -1;
+}
+
+.invoice-save-pdf-btn:hover {
+  background: #15803d;
+}
+
+/* Список: іконка PDF */
+.invoice-pdf-dl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #16a34a;
+  text-decoration: none;
+}
+
+.invoice-pdf-dl:hover {
+  color: #15803d;
+}
+
+.invoice-pdf-dl .material-symbols-outlined {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+@media (max-width: 1024px) {
+  .invoice-item-title,
+  #invoiceitem_set-group textarea,
+  .inline-group .field-title textarea {
+    min-height: 2.75rem;
+    height: 3rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .invoice-view-actions {
+    justify-content: stretch;
+  }
+
+  .invoice-save-pdf-btn {
+    width: 100%;
+    margin: 0 0 0.5rem;
+    order: 0;
+  }
+}
