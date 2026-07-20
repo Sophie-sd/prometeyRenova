@@ -96,3 +96,33 @@
     order: 0;
   }
 }
+
+/* Підказки для блоку «Замовник» */
+.invoice-client-hints {
+  margin: 0.25rem 0 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(234, 88, 12, 0.25);
+  background: rgba(249, 115, 22, 0.08);
+  color: inherit;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.invoice-client-hints__title {
+  margin: 0 0 0.4rem;
+  font-weight: 700;
+}
+
+.invoice-client-hints__list {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.invoice-client-hints__list li {
+  margin: 0.2rem 0;
+}
+
+.invoice-client-hints__list li + li {
+  margin-top: 0.35rem;
+}

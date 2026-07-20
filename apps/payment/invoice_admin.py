@@ -6,12 +6,27 @@ from django.contrib import admin, messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import path, reverse
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from unfold.admin import ModelAdmin as UnfoldModelAdmin, TabularInline as UnfoldTabularInline
 
 from .invoice_models import Invoice, InvoiceItem
 from .invoice_pdf import get_or_create_invoice_pdf
 from .models import RecipientProfile
+
+
+CLIENT_HINTS_HTML = mark_safe(
+    '<div class="invoice-client-hints">'
+    '<p class="invoice-client-hints__title">Що вказувати:</p>'
+    '<ul class="invoice-client-hints__list">'
+    '<li><strong>ФОП</strong> — ФОП Прізвище Імʼя По батькові, РНОКПП (10 цифр), '
+    'адреса за бажанням</li>'
+    '<li><strong>ТОВ / юрособа</strong> — повна назва (ТОВ «…»), ЄДРПОУ (8 цифр), '
+    'юридична адреса бажано</li>'
+    '<li><strong>Фізособа</strong> — ПІБ повністю, РНОКПП (якщо є), адреса за бажанням</li>'
+    '</ul>'
+    '</div>'
+)
 
 
 class InvoiceItemForm(forms.ModelForm):
@@ -86,6 +101,23 @@ class InvoiceAdminForm(forms.ModelForm):
             ).order_by('name')
             self.fields['recipient'].label = _('Отримувач / Виконавець')
             self.fields['recipient'].empty_label = _('— оберіть отримувача —')
+        if 'client_name' in self.fields:
+            self.fields['client_name'].label = _('Замовник (назва / ПІБ)')
+            self.fields['client_name'].help_text = _(
+                'ФОП: ФОП Прізвище Імʼя По батькові · '
+                'ТОВ: повна назва (ТОВ «…») · '
+                'Фізособа: ПІБ повністю'
+            )
+        if 'client_tax_id' in self.fields:
+            self.fields['client_tax_id'].label = _('РНОКПП / ЄДРПОУ')
+            self.fields['client_tax_id'].help_text = _(
+                'ФОП / фізособа — РНОКПП (10 цифр); ТОВ / юрособа — ЄДРПОУ (8 цифр)'
+            )
+        if 'client_address' in self.fields:
+            self.fields['client_address'].label = _('Адреса (опційно)')
+            self.fields['client_address'].help_text = _(
+                'Для ТОВ бажано юридичну адресу; для ФОП / фізособи — за бажанням'
+            )
         if 'invoice_date' in self.fields and not self.instance.pk:
             self.fields['invoice_date'].initial = date.today()
 
@@ -147,15 +179,16 @@ class InvoiceAdmin(UnfoldModelAdmin):
                 ),
             }),
             (_('Замовник'), {
-                'fields': ('client_name', 'client_tax_id', 'client_address'),
-            }),
-            (_('Рахунок'), {
-                'fields': ('invoice_date', 'valid_until'),
-                'description': _(
-                    'Номер рахунку призначається автоматично при збереженні. '
-                    '«Доступний до» = дата рахунку + 3 дні.'
-                ),
-            }),
+                    'fields': ('client_name', 'client_tax_id', 'client_address'),
+                    'description': CLIENT_HINTS_HTML,
+                }),
+                (_('Рахунок'), {
+                    'fields': ('invoice_date', 'valid_until'),
+                    'description': _(
+                        'Номер рахунку призначається автоматично при збереженні. '
+                        '«Доступний до» = дата рахунку + 3 дні.'
+                    ),
+                }),
             (_('Договір'), {
                 'fields': ('contract_number', 'contract_date'),
             }),
