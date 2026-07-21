@@ -6,7 +6,15 @@
   <style>
     @page {
       size: A4;
-      margin: 16mm 14mm 12mm 14mm;
+      margin: 14mm 14mm 14mm 14mm;
+
+      @frame footer_frame {
+        -pdf-frame-content: page_footer;
+        left: 14mm;
+        right: 14mm;
+        bottom: 4mm;
+        height: 10mm;
+      }
     }
     @font-face {
       font-family: NotoSans;
@@ -24,10 +32,15 @@
       line-height: 1.4;
     }
     .muted { color: #5A6066; }
-    .header-table { width: 100%; margin-bottom: 6px; }
+    .header-table {
+      width: 100%;
+      margin: 0 0 8px;
+      border-collapse: collapse;
+    }
     .brand-cell { width: 42%; vertical-align: middle; }
     .title-cell { width: 58%; text-align: right; vertical-align: middle; }
     .brand-inner {
+      width: auto;
       border-collapse: collapse;
       border: 0;
     }
@@ -40,19 +53,20 @@
       width: 34px;
       height: 34px;
       display: block;
-      margin-top: -5px;
+      margin-top: -4px;
     }
+    /* Горизонтальний відступ лого ↔ текст = ширина колонки «К-сть» */
     .brand-gap {
-      width: 28px;
-      min-width: 28px;
-      font-size: 1pt;
-      line-height: 1pt;
+      width: 48px;
+      max-width: 48px;
+      min-width: 48px;
     }
     .brand-name {
+      font-family: NotoSans, sans-serif;
       font-size: 16pt;
       font-weight: bold;
       letter-spacing: -0.3px;
-      padding: 0;
+      white-space: nowrap;
     }
     .doc-title {
       font-size: 16pt;
@@ -65,7 +79,7 @@
     .accent-line {
       border: 0;
       border-top: 2px solid #E86A17;
-      margin: 8px 0 14px;
+      margin: 0 0 14px;
     }
     .parties { width: 100%; margin-bottom: 14px; }
     .party { width: 50%; vertical-align: top; padding-right: 10px; }
@@ -122,7 +136,6 @@
       font-style: italic;
       margin: 6px 0 0;
     }
-    /* Середина між «одразу після таблиці» і попереднім занадто низьким положенням */
     .sign-spacer {
       width: 100%;
       border: 0;
@@ -130,8 +143,6 @@
     }
     .sign-spacer td {
       height: 42mm;
-      font-size: 1pt;
-      line-height: 1pt;
       border: 0;
     }
     .bottom-row {
@@ -144,35 +155,35 @@
     .sign-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 6px;
+      margin-top: 8px;
     }
     .sign-name-cell {
-      width: auto;
+      font-family: NotoSans, sans-serif;
+      font-size: 12pt;
+      font-weight: bold;
+      color: #2B2F33;
       white-space: nowrap;
-      padding-right: 12px;
-      font-size: 10.5pt;
+      padding: 0 14px 0 0;
       vertical-align: bottom;
     }
     .sign-line-cell {
       width: 55%;
       border-bottom: 1.2pt solid #2B2F33;
-      height: 18px;
+      height: 16px;
       vertical-align: bottom;
-      font-size: 1pt;
+      padding: 0;
     }
-    .footer-block {
-      position: fixed;
-      bottom: 3mm;
-      left: 0;
-      right: 0;
+    #page_footer {
       text-align: center;
       color: #5A6066;
+      font-family: NotoSans, sans-serif;
       font-size: 8.5pt;
-      width: 100%;
     }
   </style>
 </head>
 <body>
+  <div id="page_footer">PrometeyLabs · prometeylabs@gmail.com</div>
+
   <table class="header-table">
     <tr>
       <td class="brand-cell">
@@ -183,7 +194,7 @@
               <img class="brand-logo" src="{{ logo_uri }}" alt="">
               {% endif %}
             </td>
-            <td class="brand-gap">&nbsp;</td>
+            <td class="brand-gap"></td>
             <td class="brand-name">PrometeyLabs</td>
           </tr>
         </table>
@@ -255,7 +266,7 @@
   <div class="amount-words">{{ total_words }}</div>
 
   <table class="sign-spacer">
-    <tr><td>&nbsp;</td></tr>
+    <tr><td></td></tr>
   </table>
 
   <table class="bottom-row">
@@ -269,13 +280,11 @@
         <table class="sign-table">
           <tr>
             <td class="sign-name-cell">{{ sign_name }}</td>
-            <td class="sign-line-cell">&nbsp;</td>
+            <td class="sign-line-cell"></td>
           </tr>
         </table>
       </td>
     </tr>
   </table>
-
-  <div class="footer-block">PrometeyLabs · prometeylabs@gmail.com</div>
 </body>
 </html>
