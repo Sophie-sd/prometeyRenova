@@ -136,28 +136,18 @@
       width: 100%;
       margin-top: 0;
     }
-    .bottom-left { width: 40%; vertical-align: top; }
-    .bottom-right { width: 60%; vertical-align: top; text-align: left; padding-left: 12px; }
+    .bottom-left { width: 50%; vertical-align: top; }
+    .bottom-right { width: 50%; vertical-align: top; text-align: left; padding-left: 8px; }
     .payment-text { font-weight: bold; margin: 0; font-size: 10.5pt; }
-    /* Таблиця авто-ширини (без width:100%) — щоб xhtml2pdf не стискав шрифт і малював border-bottom */
-    .sign-table {
-      border-collapse: collapse;
-      margin-top: 8px;
-    }
-    .sign-name-cell {
+    /* Імʼя (з NBSP) + коротша лінія _ в одному рядку — без вкладеної таблиці.
+       Довгі _ або table width:1px у xhtml2pdf ламають nowrap / розтягують клітинки. */
+    .sign-row {
+      margin: 8px 0 0;
       font-family: NotoSans, sans-serif;
       font-size: 10.5pt;
       font-weight: bold;
       color: #2B2F33;
       white-space: nowrap;
-      padding: 0 10px 0 0;
-      border: 0;
-    }
-    .sign-line-cell {
-      width: 130px;
-      border: 0;
-      border-bottom: 1px solid #2B2F33;
-      padding: 0;
     }
     #page_footer {
       text-align: center;
@@ -253,12 +243,7 @@
       </td>
       <td class="bottom-right">
         <div class="section-label">Виконавець</div>
-        <table class="sign-table">
-          <tr>
-            <td class="sign-name-cell">{{ sign_name }}</td>
-            <td class="sign-line-cell">&nbsp;</td>
-          </tr>
-        </table>
+        <p class="sign-row">{{ sign_name }}&nbsp;&nbsp;__________________</p>
       </td>
     </tr>
   </table>

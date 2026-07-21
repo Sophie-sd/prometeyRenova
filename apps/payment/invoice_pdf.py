@@ -104,7 +104,7 @@ def invoice_context(invoice) -> dict:
         'recipient_bank': invoice.recipient_bank_snapshot,
         'recipient_mfo': invoice.recipient_mfo_snapshot,
         'recipient_bank_edrpou': invoice.recipient_bank_edrpou_snapshot,
-        'sign_name': _short_recipient_name(invoice.recipient_name_snapshot),
+        'sign_name': _short_recipient_name(invoice.recipient_name_snapshot).replace(' ', '\u00a0'),
     }
 
 
