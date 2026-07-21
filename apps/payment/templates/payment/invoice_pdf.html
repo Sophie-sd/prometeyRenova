@@ -39,27 +39,14 @@
     }
     .brand-cell { width: 42%; vertical-align: middle; }
     .title-cell { width: 58%; text-align: right; vertical-align: middle; }
-    .brand-inner {
-      width: auto;
-      border-collapse: collapse;
-      border: 0;
-    }
-    .brand-inner td {
-      border: 0;
-      padding: 0;
-      vertical-align: middle;
-    }
+    /* Лого і напис без вкладеної таблиці — xhtml2pdf невірно рахує вузькі table-колонки */
     .brand-logo {
       width: 34px;
       height: 34px;
-      display: block;
+      vertical-align: middle;
       margin-top: -4px;
-    }
-    /* Горизонтальний відступ лого ↔ текст = половина ширини колонки «К-сть» */
-    .brand-gap {
-      width: 24px;
-      max-width: 24px;
-      min-width: 24px;
+      /* Горизонтальний відступ лого ↔ текст = половина ширини колонки «К-сть» */
+      margin-right: 24px;
     }
     .brand-name {
       font-family: NotoSans, sans-serif;
@@ -67,6 +54,7 @@
       font-weight: bold;
       letter-spacing: -0.3px;
       white-space: nowrap;
+      vertical-align: middle;
     }
     .doc-title {
       font-size: 16pt;
@@ -152,26 +140,25 @@
     .bottom-left { width: 48%; vertical-align: top; }
     .bottom-right { width: 52%; vertical-align: top; text-align: left; padding-left: 12px; }
     .payment-text { font-weight: bold; margin: 0; font-size: 10.5pt; }
-    .sign-table {
-      width: 100%;
-      border-collapse: collapse;
+    /* Підпис без вкладеної таблиці — xhtml2pdf стискав шрифт у вузькій table-колонці */
+    .sign-row {
       margin-top: 8px;
+      font-size: 10.5pt;
     }
-    .sign-name-cell {
+    .sign-name {
       font-family: NotoSans, sans-serif;
       font-size: 10.5pt;
       font-weight: bold;
       color: #2B2F33;
       white-space: nowrap;
-      padding: 0 14px 0 0;
-      vertical-align: bottom;
     }
-    .sign-line-cell {
-      width: 55%;
+    .sign-line {
+      display: inline-block;
+      width: 160px;
+      margin-left: 14px;
       border-bottom: 1.2pt solid #2B2F33;
-      height: 16px;
+      height: 1px;
       vertical-align: bottom;
-      padding: 0;
     }
     #page_footer {
       text-align: center;
@@ -187,17 +174,7 @@
   <table class="header-table">
     <tr>
       <td class="brand-cell">
-        <table class="brand-inner">
-          <tr>
-            <td>
-              {% if logo_uri %}
-              <img class="brand-logo" src="{{ logo_uri }}" alt="">
-              {% endif %}
-            </td>
-            <td class="brand-gap"></td>
-            <td class="brand-name">PrometeyLabs</td>
-          </tr>
-        </table>
+        {% if logo_uri %}<img class="brand-logo" src="{{ logo_uri }}" alt="">{% endif %}<span class="brand-name">PrometeyLabs</span>
       </td>
       <td class="title-cell">
         <div class="doc-title">Рахунок на оплату</div>
@@ -277,12 +254,7 @@
       </td>
       <td class="bottom-right">
         <div class="section-label">Виконавець</div>
-        <table class="sign-table">
-          <tr>
-            <td class="sign-name-cell">{{ sign_name }}</td>
-            <td class="sign-line-cell"></td>
-          </tr>
-        </table>
+        <div class="sign-row"><span class="sign-name">{{ sign_name }}</span><span class="sign-line"></span></div>
       </td>
     </tr>
   </table>
