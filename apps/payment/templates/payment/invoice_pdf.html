@@ -132,15 +132,29 @@
       height: 42mm;
       border: 0;
     }
+    /* table-layout:fixed + HTML width — інакше xhtml2pdf розтягує ліву
+       колонку під довгий текст «Строк…» і зсуває «Виконавець» лівіше центру. */
     .bottom-row {
       width: 100%;
       margin-top: 0;
+      border-collapse: collapse;
+      table-layout: fixed;
     }
-    .bottom-left { width: 50%; vertical-align: top; }
-    .bottom-right { width: 50%; vertical-align: top; text-align: left; padding-left: 8px; }
+    .bottom-left {
+      width: 50%;
+      vertical-align: top;
+      padding: 0;
+      border: 0;
+    }
+    .bottom-right {
+      width: 50%;
+      vertical-align: top;
+      text-align: left;
+      padding: 0;
+      border: 0;
+    }
     .payment-text { font-weight: bold; margin: 0; font-size: 10.5pt; }
-    /* Імʼя (з NBSP) + коротша лінія _ в одному рядку — без вкладеної таблиці.
-       Довгі _ або table width:1px у xhtml2pdf ламають nowrap / розтягують клітинки. */
+    /* Імʼя (NBSP) + _ в одному рядку; без вкладеної таблиці (вона дає дірку). */
     .sign-row {
       margin: 8px 0 0;
       font-family: NotoSans, sans-serif;
@@ -235,13 +249,13 @@
     <tr><td></td></tr>
   </table>
 
-  <table class="bottom-row">
+  <table class="bottom-row" width="100%">
     <tr>
-      <td class="bottom-left">
+      <td class="bottom-left" width="50%">
         <div class="section-label">Оплата</div>
         <p class="payment-text">Строк протягом 3 банківських днів</p>
       </td>
-      <td class="bottom-right">
+      <td class="bottom-right" width="50%">
         <div class="section-label">Виконавець</div>
         <p class="sign-row">{{ sign_name }}&nbsp;&nbsp;__________________</p>
       </td>
