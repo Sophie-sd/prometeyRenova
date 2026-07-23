@@ -200,7 +200,6 @@
         {% endif %}
         {% if recipient_mfo %}<div class="party-line muted">МФО {{ recipient_mfo }}</div>{% endif %}
         {% if recipient_bank_edrpou %}<div class="party-line muted">ЄДРПОУ банку {{ recipient_bank_edrpou }}</div>{% endif %}
-        <div class="party-line muted">Єдиний податок, 3 група, 5%, без ПДВ</div>
       </td>
       <td class="party party-right">
         <div class="section-label">Замовник</div>
@@ -252,8 +251,8 @@
   <table class="bottom-row" width="100%">
     <tr>
       <td class="bottom-left" width="50%">
-        <div class="section-label">Оплата</div>
-        <p class="payment-text">Строк протягом 3 банківських днів</p>
+        <div class="section-label">Рахунок дійсний до</div>
+        <p class="payment-text">{{ valid_until }}</p>
       </td>
       <td class="bottom-right" width="50%">
         <div class="section-label">Виконавець</div>
