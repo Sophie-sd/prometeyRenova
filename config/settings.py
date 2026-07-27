@@ -259,8 +259,8 @@ ANYMAIL = {
     "MAILGUN_SENDER_DOMAIN": os.environ.get('MAILGUN_DOMAIN', 'mg.prometeylabs.com'),
 }
 
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'Prometey Labs <prometeylabs@gmail.com>')
-CONTACT_EMAIL = os.environ.get('CONTACT_EMAIL', 'prometeylabs@gmail.com')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'Prometey Labs <info@prometeylabs.com>')
+CONTACT_EMAIL = os.environ.get('CONTACT_EMAIL', 'info@prometeylabs.com')
 
 # MONOBANK - Зберігаємо поточні налаштування
 MONOBANK_TOKEN = os.environ.get('MONOBANK_TOKEN', '')

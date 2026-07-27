@@ -339,7 +339,7 @@ class SiteContactSettings(models.Model):
         help_text=_('Без +, наприклад 380639520565'),
     )
     email = models.EmailField(
-        default='prometeylabs@gmail.com',
+        default='info@prometeylabs.com',
         verbose_name=_('Email'),
     )
     instagram_url = models.URLField(
