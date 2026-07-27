@@ -100,8 +100,8 @@ class ContactsView(BasePageView):
     meta_description = _('Зв\'яжіться з командою PrometeyLabs для розробки сайтів, Telegram ботів, реклами чи навчання. Київ, Україна.')
 
 class OfferView(BasePageView):
-    page_title = _('Публічна оферта на надання послуг | PrometeyLabs')
-    meta_description = _('Публічна оферта на надання послуг від PrometeyLabs. Офіційні умови надання послуг веб-розробки, мобільних застосунків та маркетингу.')
+    page_title = _('Публічний договір (оферта) про надання послуг | PrometeyLabs')
+    meta_description = _('Публічний договір (оферта) про надання ІТ-послуг від PrometeyLabs. Офіційні умови надання послуг веб-розробки, мобільних застосунків та маркетингу.')
 
     def get_template_names(self):
         from django.utils import translation
@@ -120,8 +120,8 @@ class PrivacyView(BasePageView):
         return ['pages/privacy.html']
 
 class CookiesView(BasePageView):
-    page_title = _('Політика щодо файлів cookie | PrometeyLabs')
-    meta_description = _('Політика щодо файлів cookie від PrometeyLabs. Дізнайтеся, які файли cookie ми використовуємо та як керувати налаштуваннями.')
+    page_title = _('Політика використання файлів cookie | PrometeyLabs')
+    meta_description = _('Політика використання файлів cookie від PrometeyLabs. Дізнайтеся, які файли cookie ми використовуємо та як керувати налаштуваннями.')
 
     def get_template_names(self):
         from django.utils import translation

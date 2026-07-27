@@ -168,6 +168,54 @@
     color: #000000;
 }
 
+/* ===== ТАБЛИЦЯ (перелік cookie-файлів тощо) ===== */
+.legal-article .legal-table-wrapper {
+    margin: 15px 0 20px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.legal-article .legal-table {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.legal-article .legal-table caption {
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.legal-article .legal-table th,
+.legal-article .legal-table td {
+    padding: 12px 14px;
+    text-align: left;
+    line-height: 1.5;
+    color: #000000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    vertical-align: top;
+}
+
+.legal-article .legal-table thead th {
+    background: #E65100;
+    color: #FFFFFF;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.legal-article .legal-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.legal-article .legal-table tbody tr:nth-child(even) {
+    background: rgba(230, 81, 0, 0.04);
+}
+
 /* ===== АДАПТАЦІЯ ДЕСКТОП ===== */
 @media (max-width: 1024px) {
     .legal-article .legal-title {
@@ -192,6 +240,11 @@
 
     .legal-article .legal-section p {
         font-size: 15px;
+    }
+
+    .legal-article .legal-table {
+        font-size: 13px;
+        min-width: 600px;
     }
 }
 
@@ -259,6 +312,21 @@
     .legal-article .legal-steps li {
         margin-bottom: 5px;
         font-size: 15px;
+    }
+
+    .legal-article .legal-table-wrapper {
+        margin: 12px 0 16px 0;
+        border-radius: 6px;
+    }
+
+    .legal-article .legal-table {
+        font-size: 12px;
+        min-width: 560px;
+    }
+
+    .legal-article .legal-table th,
+    .legal-article .legal-table td {
+        padding: 9px 10px;
     }
 }
 
