@@ -1497,6 +1497,11 @@ class PrometeyApp {
             const data = await response.json();
 
             if (response.ok && data.success) {
+                // Enhanced Conversions: phone for GTM before thank-you redirect
+                if (data.redirect && window.ECPhone) {
+                    window.ECPhone.saveFromRaw(formData.get('phone'));
+                }
+
                 // ТІЛЬКИ при успішній відправці - очищаємо форму
                 // Для тесту - виклик спеціального очищення
                 if (formType === 'test' && window.calculatorInstance) {

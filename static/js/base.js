@@ -543,6 +543,11 @@ class PrometeyApp {
             const data = await response.json();
 
             if (response.ok && data.success) {
+                // Enhanced Conversions: phone for GTM before thank-you redirect
+                if (data.redirect && window.ECPhone) {
+                    window.ECPhone.saveFromRaw(formData.get('phone'));
+                }
+
                 // ТІЛЬКИ при успішній відправці - очищаємо форму
                 // Для тесту - виклик спеціального очищення
                 if (formType === 'test' && window.calculatorInstance) {
@@ -555,6 +560,7 @@ class PrometeyApp {
                 
                 // КРИТИЧНО: Очищаємо збережені дані користувача після успішної відправки
                 // щоб вони не з'являлися в інших формах
+                // (не чіпає ec_phone — потрібен на /thank-you/ для Google Ads)
                 this.clearUserData();
 
                 this.handleFormSuccess(data, formType);
