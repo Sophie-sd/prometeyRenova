@@ -37,3 +37,11 @@
         STORAGE_KEY: STORAGE_KEY
     };
 })();
+
+window.ec_stored_phone = (function () {
+    try {
+        return sessionStorage.getItem('ec_phone') || '';
+    } catch (e) {
+        return '';
+    }
+})();

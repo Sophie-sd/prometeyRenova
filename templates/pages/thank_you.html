@@ -39,6 +39,7 @@
 {% endblock %}
 
 {% block base_js %}
+<script src="{% static 'js/core/ec-phone.js' %}" nonce="{{ csp_nonce }}"></script>
 <script nonce="{{ csp_nonce }}">
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: 'generate_lead', page_type: 'thank_you' });
