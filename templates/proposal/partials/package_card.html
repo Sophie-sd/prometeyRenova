@@ -1,0 +1,28 @@
+{% load i18n %}
+<article class="prop-sheet prop-sheet--package{% if package.is_recommended %} prop-sheet--recommended{% endif %} prop-reveal prop-tilt"
+         data-prop-reveal
+         data-prop-tilt
+         data-i="{{ forloop.counter0 }}">
+    <div class="prop-sheet__inner">
+        <div class="prop-glare" aria-hidden="true"></div>
+        {% if package.is_recommended %}
+        <span class="prop-sheet__badge">{% trans "Рекомендовано" %}</span>
+        {% endif %}
+        <h3 class="prop-sheet__title">{{ package.get_localized_name }}</h3>
+        {% if package.get_localized_scope %}
+        <p class="prop-sheet__text">{{ package.get_localized_scope }}</p>
+        {% endif %}
+        <dl class="prop-package-meta">
+            {% if package.get_localized_duration %}
+            <div class="prop-package-meta__row">
+                <dt>{% trans "Термін" %}</dt>
+                <dd>{{ package.get_localized_duration }}</dd>
+            </div>
+            {% endif %}
+            <div class="prop-package-meta__row prop-package-meta__row--price">
+                <dt>{% trans "Вартість" %}</dt>
+                <dd>{{ package.format_price }}</dd>
+            </div>
+        </dl>
+    </div>
+</article>

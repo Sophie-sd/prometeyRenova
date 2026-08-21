@@ -1,4 +1,5 @@
 from django.urls import path
+from . import proposal_views
 from . import views
 from . import webhooks
 
@@ -21,6 +22,11 @@ urlpatterns = [
     path('internet-shop-ru/', views.InternetShopRuView.as_view(), name='internet_shop_ru'),
     path('corporate-website/', views.CorporateWebsiteView.as_view(), name='corporate_website'),
     path('thank-you/', views.ThankYouView.as_view(), name='thank_you'),
+    path(
+        'proposal/<slug:slug>/',
+        proposal_views.ProposalDetailView.as_view(),
+        name='proposal_detail',
+    ),
 
     # AJAX обробка форм
     path('forms/submit/', views.handle_form_submission, name='form_submit'),

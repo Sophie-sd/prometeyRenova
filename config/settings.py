@@ -125,6 +125,11 @@ UNFOLD = {
                         "icon": "work",
                         "link": reverse_lazy("admin:core_portfolioproject_changelist"),
                     },
+                    {
+                        "title": "Комерційні пропозиції",
+                        "icon": "description",
+                        "link": reverse_lazy("admin:core_proposal_changelist"),
+                    },
                 ],
             },
             {

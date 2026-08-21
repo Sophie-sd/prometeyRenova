@@ -1,0 +1,57 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#FAF7F2">
+    <title>{% block title %}{{ page_title }}{% endblock %} — PrometeyLabs</title>
+    <meta name="description" content="{% block description %}{{ meta_description }}{% endblock %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
+    <link rel="stylesheet" href="{% static 'proposal/css/proposal_tokens.css' %}?v=18">
+    <link rel="stylesheet" href="{% static 'proposal/css/proposal_layout.css' %}?v=18">
+    <link rel="stylesheet" href="{% static 'proposal/css/proposal_sections.css' %}?v=18">
+    <link rel="stylesheet" href="{% static 'proposal/css/proposal_extras.css' %}?v=18">
+    <link rel="stylesheet" href="{% static 'proposal/css/proposal_motion.css' %}?v=18">
+    {% block page_css %}{% endblock %}
+</head>
+<body class="prop-body">
+    <a class="prop-skip" href="#prop-main">{% trans "Перейти до змісту" %}</a>
+
+    <div class="prop-page">
+        <header class="prop-header">
+            <a class="prop-logo" href="https://www.prometeylabs.com/" rel="noopener">
+                <img src="{% static 'images/logo.png' %}" alt="PrometeyLabs" class="prop-logo__img" width="36" height="36">
+                <span class="prop-logo__text">Prometey<strong>Labs</strong></span>
+            </a>
+            <p class="prop-header__tag">{% trans "Комерційна пропозиція" %}</p>
+        </header>
+
+        <aside class="prop-rail" aria-hidden="true">
+            <span class="prop-rail__label" data-prop-rail-label>01</span>
+            <div class="prop-rail__track">
+                <div class="prop-rail__fill" data-prop-rail-fill></div>
+            </div>
+        </aside>
+
+        <main id="prop-main" class="prop-main">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="prop-footer">
+            <p class="prop-footer__brand">
+                © {{ current_year }} PrometeyLabs ·
+                <a href="https://www.prometeylabs.com/" rel="noopener">prometeylabs.com</a>
+            </p>
+            <p class="prop-footer__note">{% trans "Документ конфіденційний. Не для публічного поширення." %}</p>
+        </footer>
+    </div>
+
+    {% block page_js %}
+    <script src="{% static 'proposal/js/proposal_reveal.js' %}?v=6" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'proposal/js/proposal_tilt.js' %}?v=6" nonce="{{ csp_nonce }}" defer></script>
+    {% endblock %}
+</body>
+</html>

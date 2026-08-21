@@ -27,6 +27,7 @@ from .models import (
 )
 from .portfolio_sanitize import linkify_portfolio_html
 from .admin_widgets import PortfolioImageWidget
+from . import proposal_admin  # noqa: F401 — реєстрація ProposalAdmin
 
 PORTFOLIO_IMAGE_WIDGETS = {
     'card_image': PortfolioImageWidget,

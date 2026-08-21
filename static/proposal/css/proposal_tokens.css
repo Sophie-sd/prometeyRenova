@@ -1,0 +1,57 @@
+/* Proposal design tokens */
+:root {
+    --prop-orange: #E65100;
+    --prop-ink: #111111;
+    --prop-paper: #FAF7F2;
+    --prop-paper-deep: #F0EBE3;
+    --prop-white: #FFFFFF;
+    --prop-muted: #5C5C5C;
+    --prop-line: rgba(17, 17, 17, 0.12);
+
+    --prop-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --prop-mega: clamp(1.875rem, 7.5vw, 4.5rem);
+    --prop-h2: clamp(1.625rem, 3.4vw, 2.5rem);
+    --prop-h3: clamp(1.125rem, 2.1vw, 1.45rem);
+    --prop-body: 1.0625rem;
+    --prop-small: 0.875rem;
+
+    --prop-space-xs: 0.75rem;
+    --prop-space-sm: 1.25rem;
+    --prop-space-md: 2rem;
+    --prop-space-lg: 3rem;
+    --prop-space-xl: 4.5rem;
+
+    --prop-gutter: 1.5rem;
+    --prop-radius: 0.35rem;
+    --prop-container: 64rem;
+    --prop-shadow: 0 1rem 2.25rem rgba(17, 17, 17, 0.08);
+
+    --duration-fast: 160ms;
+    --duration-ui: 200ms;
+    --duration-modal: 300ms;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    --tilt-shadow: 0.08;
+    --glare-x: 50%;
+    --glare-y: 40%;
+}
+
+@media (min-width: 48rem) {
+    :root {
+        --prop-space-xs: 1rem;
+        --prop-space-sm: 1.5rem;
+        --prop-space-md: 2.5rem;
+        --prop-space-lg: 4rem;
+        --prop-space-xl: 6rem;
+        --prop-gutter: 2rem;
+        --prop-body: 1.125rem;
+    }
+}
+
+@media (min-width: 64rem) {
+    :root {
+        --prop-gutter: 2.5rem;
+    }
+}

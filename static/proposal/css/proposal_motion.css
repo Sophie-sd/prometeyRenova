@@ -1,0 +1,170 @@
+/* Proposal motion: reveal, tilt depth (desktop), SVG draw */
+
+.prop-reveal {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0);
+    transition:
+        opacity var(--duration-modal) var(--ease-out),
+        transform var(--duration-modal) var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 40ms);
+}
+
+.prop-reveal.is-revealed {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.prop-hero__title--reveal {
+    animation: propTitleReveal 520ms var(--ease-out) both;
+}
+
+@keyframes propTitleReveal {
+    from {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        transform: translate3d(0, 0.4rem, 0);
+    }
+    to {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Glare layer */
+.prop-glare {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    overflow: hidden;
+    background: radial-gradient(
+        380px circle at var(--glare-x) var(--glare-y),
+        rgba(255, 255, 255, 0.32),
+        transparent 42%
+    );
+    opacity: 0;
+    transition: opacity var(--duration-ui) var(--ease-out);
+    z-index: 2;
+}
+
+.prop-tilt.is-tilting .prop-glare {
+    opacity: 1;
+}
+
+/* SVG draw via pathLength=1 */
+.prop-svg__draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 520ms var(--ease-out);
+}
+
+.is-revealed .prop-svg__draw,
+.prop-reveal.is-revealed .prop-svg__draw {
+    stroke-dashoffset: 0;
+}
+
+.prop-svg__node {
+    opacity: 0;
+    transform: translate3d(0, 5px, 0);
+    transition:
+        opacity 280ms var(--ease-out),
+        transform 280ms var(--ease-out);
+}
+
+.is-revealed .prop-svg__node {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.is-revealed .prop-svg__node[data-node="0"] { transition-delay: 60ms; }
+.is-revealed .prop-svg__node[data-node="1"] { transition-delay: 110ms; }
+.is-revealed .prop-svg__node[data-node="2"] { transition-delay: 150ms; }
+.is-revealed .prop-svg__node[data-node="3"] { transition-delay: 190ms; }
+.is-revealed .prop-svg__node[data-node="4"] { transition-delay: 240ms; }
+.is-revealed .prop-svg__node[data-node="5"] { transition-delay: 280ms; }
+.is-revealed .prop-svg__node[data-node="6"] { transition-delay: 320ms; }
+
+/* Stagger */
+.prop-reveal[data-i="0"] { --i: 0; }
+.prop-reveal[data-i="1"] { --i: 1; }
+.prop-reveal[data-i="2"] { --i: 2; }
+.prop-reveal[data-i="3"] { --i: 3; }
+.prop-reveal[data-i="4"] { --i: 4; }
+.prop-reveal[data-i="5"] { --i: 5; }
+.prop-reveal[data-i="6"] { --i: 6; }
+.prop-reveal[data-i="7"] { --i: 7; }
+
+/* Tilt: desktop + fine pointer only */
+@media (hover: hover) and (pointer: fine) and (min-width: 48rem) {
+    .prop-tilt {
+        perspective: 1100px;
+    }
+
+    .prop-tilt > .prop-hero-card,
+    .prop-sheet.prop-tilt,
+    .prop-expert.prop-tilt {
+        transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
+        transform-style: preserve-3d;
+        transition: transform var(--duration-fast) var(--ease-out);
+        will-change: transform;
+        box-shadow: 0 1.15rem 2.5rem rgba(17, 17, 17, var(--tilt-shadow));
+    }
+
+    .prop-tilt.is-tilting > .prop-hero-card,
+    .prop-sheet.prop-tilt.is-tilting,
+    .prop-expert.prop-tilt.is-tilting {
+        transition: none;
+    }
+
+    .prop-tilt .prop-sheet__num,
+    .prop-tilt .prop-hero-card__img,
+    .prop-tilt .prop-sheet__icon,
+    .prop-tilt .prop-guarantee__img,
+    .prop-tilt .prop-expert__seal-img {
+        transform: translateZ(36px);
+    }
+
+    .prop-tilt .prop-sheet__title,
+    .prop-tilt .prop-sheet__text,
+    .prop-tilt .prop-prose,
+    .prop-tilt .prop-hero-card__label,
+    .prop-tilt .prop-hero-card__brand,
+    .prop-tilt .prop-hero-card__list {
+        transform: translateZ(12px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .prop-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .prop-hero__title--reveal {
+        animation: none;
+    }
+
+    .prop-svg__draw {
+        stroke-dashoffset: 0;
+        transition: none;
+    }
+
+    .prop-svg__node {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .prop-tilt > .prop-hero-card,
+    .prop-sheet.prop-tilt,
+    .prop-expert.prop-tilt {
+        transform: none;
+        will-change: auto;
+    }
+
+    .prop-sticky-cta {
+        transition: none;
+    }
+}

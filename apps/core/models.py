@@ -735,3 +735,11 @@ class Client(models.Model):
         from .portfolio_images import resolve_client_logo_url
 
         return resolve_client_logo_url(self)
+
+
+from .proposal_models import (  # noqa: E402,F401
+    Proposal,
+    ProposalModule,
+    ProposalPackage,
+    ProposalSpec,
+)
