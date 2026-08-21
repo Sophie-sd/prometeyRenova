@@ -56,4 +56,7 @@ python manage.py seed_portfolio_projects
 echo "👥 Seeding homepage clients (from static assets)..."
 python manage.py seed_clients
 
+echo "📄 Seeding B2B Parts commercial proposal..."
+python manage.py seed_proposal_b2b_parts
+
 echo "✅ Build complete!"
