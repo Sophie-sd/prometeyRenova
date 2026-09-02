@@ -1,0 +1,143 @@
+/* =================================
+   TZ GENERATOR — PAGE STRIP
+   Seamless marquee (seamless_loop_skill)
+   ================================= */
+
+.cf {
+    --cf-gap: 28px;
+    --cf-card: min(62vw, 228px);
+    --loop-duration: 42s;
+    overflow: hidden;
+    width: 100%;
+    padding-block: 28px 32px;
+}
+
+.cf__track {
+    display: flex;
+    width: max-content;
+    animation: cf-loop-x var(--loop-duration) linear infinite;
+    animation-play-state: paused;
+}
+
+.cf.is-motion .cf__track {
+    animation-play-state: running;
+    will-change: transform;
+}
+
+.cf__set {
+    display: flex;
+    flex: none;
+    gap: var(--cf-gap);
+    padding-inline-end: var(--cf-gap);
+}
+
+.cf__card {
+    position: relative;
+    flex: none;
+    width: var(--cf-card);
+    -webkit-transform: translateZ(0) scale(1);
+    transform: translateZ(0) scale(1);
+    transform-origin: center center;
+    transition: transform 420ms ease-out;
+}
+
+.cf__doc {
+    background: #fff;
+    border: 1px solid #d8d2cc;
+    border-radius: 14px;
+    overflow: hidden;
+    isolation: isolate;
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.55) inset,
+        0 14px 36px rgba(0, 0, 0, 0.32);
+}
+
+.cf__screen {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.cf__shot {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.cf__doc-title {
+    margin: 10px 0 0;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+}
+
+@keyframes cf-loop-x {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .cf__card:hover {
+        z-index: 2;
+        -webkit-transform: translateZ(0) scale(1.06);
+        transform: translateZ(0) scale(1.06);
+    }
+}
+
+@media (min-width: 640px) {
+    .cf {
+        --cf-gap: 36px;
+        --cf-card: min(40vw, 248px);
+    }
+
+    .cf__screen {
+        height: 260px;
+    }
+}
+
+@media (min-width: 768px) {
+    .cf {
+        --cf-gap: 40px;
+        --cf-card: min(32vw, 252px);
+    }
+}
+
+@media (min-width: 880px) {
+    .cf {
+        --cf-gap: 48px;
+        --cf-card: min(22vw, 258px);
+        --loop-duration: 52s;
+        padding-block: 32px 36px;
+    }
+
+    .cf__screen {
+        height: 280px;
+    }
+}
+
+@media (min-width: 1100px) {
+    .cf {
+        --cf-gap: 56px;
+        --cf-card: min(18vw, 258px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cf__track {
+        animation: none;
+        will-change: auto;
+    }
+
+    .cf__card {
+        transition: none;
+    }
+
+    .cf__card:hover {
+        -webkit-transform: translateZ(0) scale(1);
+        transform: translateZ(0) scale(1);
+    }
+}

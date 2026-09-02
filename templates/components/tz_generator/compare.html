@@ -1,0 +1,98 @@
+{% load i18n %}
+<section id="tz-compare" class="pl-tz__section" aria-labelledby="pl-tz-compare-title">
+    <div class="pl-tz__inner">
+        <div class="pl-tz__section-head pl-tz__section-head--left" data-reveal>
+            <p class="pl-tz__tag"><span class="pl-tz__tag-dot" aria-hidden="true"></span>{% trans "Без ТЗ / З ТЗ" %}</p>
+            <h2 id="pl-tz-compare-title" class="pl-tz__title">
+                {% trans "«Зробіть щось схоже» коштує дорожче," %}<br>
+                <span class="pl-tz__accent">{% trans "ніж чітке ТЗ." %}</span>
+            </h2>
+        </div>
+
+        <div data-compare-reveal>
+        <div class="pl-tz__cards">
+            <div class="pl-tz__card">
+                <div class="pl-tz__badge">
+                    <span class="pl-tz__badge-dot pl-tz__badge-dot--bad" aria-hidden="true"></span>
+                    {% trans "Без ТЗ" %}
+                </div>
+                <p class="pl-tz__card-title pl-tz__card-title--bad">{% trans "Розробка навпомацки" %}</p>
+                <ul class="pl-tz__list">
+                    <li class="pl-tz__list-item pl-tz__list-item--bad">
+                        <svg class="pl-tz__list-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7a4a44" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+                        {% trans "Кожна правка узгоджується довго і хаотично" %}
+                    </li>
+                    <li class="pl-tz__list-item pl-tz__list-item--bad">
+                        <svg class="pl-tz__list-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7a4a44" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+                        {% trans "Бюджет розповзається через недооцінений обсяг" %}
+                    </li>
+                    <li class="pl-tz__list-item pl-tz__list-item--bad">
+                        <svg class="pl-tz__list-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7a4a44" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+                        {% trans "Терміни зсуваються через нові вимоги в процесі" %}
+                    </li>
+                    <li class="pl-tz__list-item pl-tz__list-item--bad">
+                        <svg class="pl-tz__list-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7a4a44" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+                        {% trans "Результат не збігається з тим, що уявляли" %}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-tz__card pl-tz__card--accent">
+                <div class="pl-tz__card-glow" aria-hidden="true"></div>
+                <div class="pl-tz__card-inner">
+                    <div class="pl-tz__badge">
+                        <span class="pl-tz__badge-dot pl-tz__badge-dot--good" aria-hidden="true"></span>
+                        {% trans "З ТЗ" %}
+                    </div>
+                    <p class="pl-tz__card-title pl-tz__card-title--good">{% trans "Прозорий і передбачуваний проєкт" %}</p>
+                    <ul class="pl-tz__list">
+                        <li class="pl-tz__list-item pl-tz__list-item--good">
+                            <svg class="pl-tz__list-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            {% trans "Фіксований обсяг робіт і точна оцінка вартості" %}
+                        </li>
+                        <li class="pl-tz__list-item pl-tz__list-item--good">
+                            <svg class="pl-tz__list-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            {% trans "Чіткі терміни без зривів дедлайнів" %}
+                        </li>
+                        <li class="pl-tz__list-item pl-tz__list-item--good">
+                            <svg class="pl-tz__list-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            {% trans "Спільне бачення результату з першого дня" %}
+                        </li>
+                        <li class="pl-tz__list-item pl-tz__list-item--good">
+                            <svg class="pl-tz__list-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            {% trans "Мінімум переробок і додаткових витрат" %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="pl-tz__risk">
+            <div class="pl-tz__risk-copy">
+                <p class="pl-tz__risk-title">{% trans "Цифри з реальних проєктів PrometeyLabs" %}</p>
+                <p class="pl-tz__text pl-tz__text--muted">{% trans "Клієнти, які починають з чіткого ТЗ, отримують передбачуваний результат і рідше повертаються з правками «щось не так»." %}</p>
+            </div>
+            <div class="pl-tz__stats">
+                <div class="pl-tz__stat">
+                    <div class="pl-tz__stat-num" data-count-to="63" data-count-suffix="%">0<span>%</span></div>
+                    <div class="pl-tz__stat-label">{% trans "менше переробок під час розробки" %}</div>
+                </div>
+                <div class="pl-tz__stat">
+                    <div class="pl-tz__stat-num" data-count-to="3" data-count-unit=" хв">0<span> хв</span></div>
+                    <div class="pl-tz__stat-label">{% trans "щоб пройти квіз і отримати PDF" %}</div>
+                </div>
+                <div class="pl-tz__stat">
+                    <div class="pl-tz__stat-num" data-count-to="24" data-count-unit=" год">0<span> год</span></div>
+                    <div class="pl-tz__stat-label">{% trans "до розширеного ТЗ на email" %}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pl-tz__section-cta">
+            <a href="#tz-quiz" class="pl-tz__btn pl-tz__btn--primary pl-tz__btn--full mobile-touch-target">
+                {% trans "Скласти своє ТЗ" %}
+            </a>
+        </div>
+        </div>
+    </div>
+</section>

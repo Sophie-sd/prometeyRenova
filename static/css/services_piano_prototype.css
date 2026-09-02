@@ -1,0 +1,59 @@
+/* Prototype page shell for services piano block */
+
+body.svc-piano-proto-page {
+    background: #050505;
+}
+
+body.svc-piano-proto-page .main-content {
+    background: #050505;
+}
+
+.svc-piano-proto-wrap {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+    z-index: 1;
+    padding-top: max(clamp(72px, 12vw, 96px), calc(env(safe-area-inset-top) + 56px));
+    padding-bottom: max(clamp(48px, 8vw, 72px), env(safe-area-inset-bottom));
+    box-sizing: border-box;
+}
+
+.svc-piano-proto-wrap.home-redesign.vf {
+    padding:
+        max(clamp(72px, 12vw, 96px), calc(env(safe-area-inset-top) + 56px))
+        0
+        max(clamp(48px, 8vw, 72px), env(safe-area-inset-bottom));
+}
+
+.svc-piano-proto-hint {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 16px;
+    margin: 0 auto clamp(24px, 4vw, 36px);
+    padding:
+        0
+        max(clamp(16px, 4vw, 20px), env(safe-area-inset-right))
+        0
+        max(clamp(16px, 4vw, 20px), env(safe-area-inset-left));
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: center;
+}
+
+.svc-piano-proto-hint__label {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 767px) {
+    .svc-piano-proto-wrap {
+        padding-top: max(68px, calc(env(safe-area-inset-top) + 52px));
+    }
+    .svc-piano-proto-wrap.home-redesign.vf {
+        padding-top: max(68px, calc(env(safe-area-inset-top) + 52px));
+    }
+}

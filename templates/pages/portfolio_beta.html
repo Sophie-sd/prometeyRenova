@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Портфоліо - PrometeyLabs" %}{% endblock %}
+{% block description %}{% trans "Портфоліо PrometeyLabs — сучасні веб-рішення під ключ для вашого бізнесу." %}{% endblock %}
+
+{% block extra_css %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/portfolio_beta.css' %}?v=11">
+{% endblock %}
+
+{% block content %}
+
+<!-- ===== HERO: CAROUSEL ===== -->
+<section class="beta-hero" aria-label="{% trans 'Наші проекти' %}">
+    <div class="beta-hero__inner">
+
+        <div class="beta-hero__headings">
+            <h1 class="beta-hero__title">{% trans "СТВОРЕНІ НАМИ" %}</h1>
+            <p class="beta-hero__subtitle">{% trans "САЙТИ ПІД КЛЮЧ" %}</p>
+        </div>
+
+        {% if portfolio_projects %}
+        <div class="beta-carousel" id="beta-carousel">
+
+            <div class="beta-carousel__track-wrapper">
+                <div class="beta-carousel__track" id="beta-carousel-track">
+                    {% for project in portfolio_projects %}
+                    <article
+                        class="beta-carousel__slide"
+                        id="beta-slide-{{ forloop.counter }}"
+                        aria-label="{{ project.get_localized_title }}"
+                    >
+                        <div class="beta-carousel__card">
+                            <div class="beta-carousel__image">
+                                <picture>
+                                    {% if project.has_card_image_mobile %}
+                                    <source media="(max-width: 767px)" srcset="{{ project.get_card_image_mobile_src }}">
+                                    {% endif %}
+                                    <img
+                                        src="{{ project.get_card_image_src }}"
+                                        alt="{{ project.get_card_alt }}"
+                                        loading="lazy"
+                                        decoding="async"
+                                    >
+                                </picture>
+                                {% if project.get_localized_card_description or project.modal_content or project.has_modal_hero %}
+                                <div class="beta-carousel__overlay" aria-hidden="true">
+                                    {% if project.get_localized_card_description %}
+                                    <p class="beta-carousel__overlay-desc">{{ project.get_localized_card_description }}</p>
+                                    {% endif %}
+                                    {% if project.modal_content or project.has_modal_hero %}
+                                    <a
+                                        href="{% url 'portfolio_project_detail' project.slug %}"
+                                        class="beta-carousel__learn-btn"
+                                        tabindex="-1"
+                                    >
+                                        {% trans "Дізнатись більше" %}
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="beta-carousel__info">
+                                <div class="beta-carousel__info-text">
+                                    <h2 class="beta-carousel__project-title">{{ project.get_localized_title }}</h2>
+                                    {% if project.get_localized_subtitle %}
+                                    <span class="beta-carousel__project-type">{{ project.get_localized_subtitle }}</span>
+                                    {% endif %}
+                                </div>
+                                {% if project.modal_content or project.has_modal_hero %}
+                                <a
+                                    href="{% url 'portfolio_project_detail' project.slug %}"
+                                    class="beta-carousel__detail-btn"
+                                >
+                                    {% trans "Детальніше" %} <span aria-hidden="true">↗</span>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="beta-carousel__nav" aria-label="{% trans 'Навігація каруселі' %}">
+                <button type="button" class="beta-nav-btn" data-dir="prev" aria-label="{% trans 'Попередній проект' %}">
+                    <svg class="beta-nav-btn__icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M15 18L9 12L15 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button type="button" class="beta-nav-btn" data-dir="next" aria-label="{% trans 'Наступний проект' %}">
+                    <svg class="beta-nav-btn__icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M9 18L15 12L9 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+        {% else %}
+        <p class="beta-hero__empty">{% trans "Проєкти портфоліо скоро з'являться." %}</p>
+        {% endif %}
+
+    </div>
+</section>
+
+<!-- ===== FEATURE BLOCKS ===== -->
+{% if feature_blocks %}
+<section class="beta-features" aria-label="{% trans 'Переваги нашого підходу' %}">
+    <div class="beta-features__container">
+        {% for block in feature_blocks %}
+        <div class="beta-feature {% if block.is_image_left %}beta-feature--img-left{% else %}beta-feature--img-right{% endif %}">
+
+            <div class="beta-feature__image-col">
+                {% if block.get_image_src %}
+                <img
+                    src="{{ block.get_image_src }}?v=2"
+                    alt="{{ block.get_localized_title }}"
+                    class="beta-feature__img"
+                    loading="lazy"
+                    decoding="async"
+                >
+                {% else %}
+                <div class="beta-feature__img-placeholder" aria-hidden="true"></div>
+                {% endif %}
+            </div>
+
+            <div class="beta-feature__text-col">
+                <span class="beta-feature__tag">PROOF/0{{ forloop.counter }}</span>
+                <h3 class="beta-feature__title">{{ block.get_localized_title }}</h3>
+                <p class="beta-feature__text">{{ block.get_localized_text }}</p>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/portfolio_beta.js' %}?v=5" nonce="{{ csp_nonce }}" defer></script>
+{% endblock %}

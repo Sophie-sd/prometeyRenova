@@ -1,0 +1,274 @@
+/* Step 01 — monitor hero + accordion */
+
+.pf-flow__step--hero {
+    align-self: stretch;
+}
+
+.pf-flow__step-inner--monitor {
+    position: relative;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+    box-shadow: none;
+    height: 100%;
+    min-height: clamp(180px, 24vw, 228px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pf-flow__step--hero.is-revealing .pf-flow__step-inner--monitor,
+.pf-flow__step--hero.is-visible .pf-flow__step-inner--monitor {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.pf-flow__step--hero.is-revealing .pf-flow__step-inner--monitor::before,
+.pf-flow__step--hero.is-revealing .pf-flow__step-inner--monitor::after,
+.pf-flow__step--hero.is-visible .pf-flow__step-inner--monitor::before,
+.pf-flow__step--hero.is-visible .pf-flow__step-inner--monitor::after {
+    display: none;
+}
+
+.pf-flow__step--hero .pf-flow__step-num {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0 clamp(2px, 1.2vw, 10px) 0 0;
+    font-family: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(76px, 19vw, 148px);
+    font-weight: 800;
+    line-height: 0.82;
+    letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(230, 81, 0, 0.22);
+    pointer-events: none;
+    user-select: none;
+    transition: -webkit-text-stroke-color 0.5s ease;
+}
+
+.pf-flow__step--hero.is-revealing .pf-flow__step-num,
+.pf-flow__step--hero.is-visible .pf-flow__step-num {
+    -webkit-text-stroke-color: rgba(230, 81, 0, 0.32);
+    color: transparent;
+}
+
+.pf-flow__hero-scene {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    flex: 1;
+    min-height: clamp(168px, 21vw, 212px);
+    display: grid;
+    grid-template-columns: minmax(0, 54%) minmax(0, 1fr);
+    column-gap: clamp(10px, 2.4vw, 18px);
+    align-items: center;
+}
+
+.pf-flow__hero-monitor {
+    position: relative;
+    z-index: 1;
+    grid-column: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: clamp(168px, 21vw, 212px);
+    max-width: 100%;
+    object-fit: contain;
+    object-position: left center;
+    -webkit-user-drag: none;
+    user-select: none;
+    pointer-events: none;
+    justify-self: start;
+}
+
+.pf-flow__hero-copy {
+    position: relative;
+    z-index: 2;
+    grid-column: 2;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    align-self: center;
+}
+
+.pf-flow__hero-title {
+    font-size: clamp(13px, 2vw, 16px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0 0 clamp(3px, 0.6vw, 6px);
+    opacity: 0;
+    transform: translate3d(10px, 0, 0);
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);
+}
+
+.pf-flow__step--hero.is-revealing .pf-flow__hero-title,
+.pf-flow__step--hero.is-visible .pf-flow__hero-title {
+    animation: pf-hero-title-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes pf-hero-title-in {
+    0% {
+        opacity: 0;
+        transform: translate3d(12px, 0, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.pf-flow__hero-accordion {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pf-flow__hero-accordion.is-open {
+    max-height: 140px;
+}
+
+.pf-flow__hero-list {
+    list-style: none;
+    margin: 0;
+    padding: clamp(3px, 0.6vw, 6px) 0 0;
+}
+
+.pf-flow__hero-item {
+    font-size: clamp(10px, 1.35vw, 12px);
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.68);
+    padding: clamp(2px, 0.45vw, 4px) 0;
+    opacity: 0;
+    transform: translate3d(-16px, 0, 0);
+}
+
+.pf-flow__hero-item + .pf-flow__hero-item {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pf-flow__hero-accordion.is-open .pf-flow__hero-item {
+    animation: pf-hero-item-in 0.48s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.pf-flow__hero-accordion.is-open .pf-flow__hero-item:nth-child(1) { animation-delay: 0.08s; }
+.pf-flow__hero-accordion.is-open .pf-flow__hero-item:nth-child(2) { animation-delay: 0.2s; }
+.pf-flow__hero-accordion.is-open .pf-flow__hero-item:nth-child(3) { animation-delay: 0.32s; }
+.pf-flow__hero-accordion.is-open .pf-flow__hero-item:nth-child(4) { animation-delay: 0.44s; }
+
+@keyframes pf-hero-item-in {
+    0% {
+        opacity: 0;
+        transform: translate3d(-16px, 0, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@media (max-width: 767px) {
+    .pf-flow__step-inner--monitor {
+        min-height: auto;
+    }
+
+    .pf-flow__step--hero .pf-flow__step-num {
+        font-size: clamp(56px, 24vw, 92px);
+        padding-right: max(clamp(2px, 1vw, 6px), env(safe-area-inset-right));
+    }
+
+    .pf-flow__hero-scene {
+        min-height: clamp(148px, 38vw, 188px);
+        grid-template-columns: minmax(0, 50%) minmax(0, 1fr);
+        column-gap: clamp(8px, 2vw, 12px);
+    }
+
+    .pf-flow__hero-monitor {
+        max-height: clamp(148px, 38vw, 188px);
+    }
+
+    .pf-flow__hero-title {
+        font-size: clamp(12px, 3.2vw, 15px);
+    }
+
+    .pf-flow__hero-item {
+        font-size: clamp(9px, 2.4vw, 11px);
+    }
+
+    @keyframes pf-hero-title-in {
+        0% {
+            opacity: 0;
+            transform: translate3d(0, 8px, 0);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .pf-flow__grid {
+        align-items: stretch;
+    }
+
+    .pf-flow__step-inner--monitor {
+        min-height: 100%;
+    }
+
+    .pf-flow__hero-scene {
+        min-height: 100%;
+    }
+
+    .pf-flow__hero-monitor {
+        max-height: min(100%, 212px);
+    }
+}
+
+@media (min-width: 1025px) {
+    .pf-flow__hero-scene {
+        grid-template-columns: minmax(0, 52%) minmax(0, 1fr);
+        column-gap: clamp(12px, 2vw, 20px);
+    }
+
+    .pf-flow__hero-monitor {
+        max-height: min(100%, 204px);
+    }
+
+    .pf-flow__step--hero .pf-flow__step-num {
+        font-size: clamp(88px, 14vw, 152px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pf-flow__step--hero.is-revealing .pf-flow__hero-title,
+    .pf-flow__step--hero.is-visible .pf-flow__hero-title {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .pf-flow__hero-accordion {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .pf-flow__hero-accordion.is-open .pf-flow__hero-item {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}

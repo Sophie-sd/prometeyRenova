@@ -21,6 +21,7 @@ class FormSubmission(models.Model):
         ('call-request', _('Замовлення дзвінка')),
         ('footer-consultation', _('Заявка з футера')),
         ('test_result', _('Результат тесту калькулятора')),
+        ('tz_generator', _('Генератор ТЗ для сайту')),
     ]
     
     # Вибір статусів
@@ -204,6 +205,7 @@ class FormSubmission(models.Model):
             'call-request': 'Дзвінок',
             'footer-consultation': 'Футер',
             'test_result': 'Тест',
+            'tz_generator': 'ТЗ',
         }
         return display_map.get(self.form_type, self.get_form_type_display())
 
@@ -519,6 +521,23 @@ class PortfolioProject(models.Model):
         blank=True,
         verbose_name=_('Alt текст картки (RU)'),
     )
+    cta_label = models.CharField(
+        max_length=120,
+        blank=True,
+        verbose_name=_('Текст кнопки'),
+        help_text=_('Якщо порожньо — «Більше інформації»'),
+    )
+    cta_label_ru = models.CharField(
+        max_length=120,
+        blank=True,
+        verbose_name=_('Текст кнопки (RU)'),
+    )
+    cta_url = models.CharField(
+        max_length=500,
+        blank=True,
+        verbose_name=_('Посилання кнопки'),
+        help_text=_('Внутрішнє (/contacts/) або повне https://…. Без URL кнопка не показується.'),
+    )
     modal_hero = models.ImageField(
         upload_to=portfolio_upload_to,
         blank=True,
@@ -551,6 +570,11 @@ class PortfolioProject(models.Model):
     order = models.PositiveIntegerField(
         default=0,
         verbose_name=_('Порядок на /portfolio/'),
+        help_text=_(
+            'Сортування у видачі. Шахматка (фото ліворуч/праворуч) '
+            'і колір фону (помаранчевий → сірий → фіолетовий) рахуються '
+            'автоматично з позиції в списку.'
+        ),
     )
     home_order = models.PositiveIntegerField(
         default=0,
@@ -576,10 +600,51 @@ class PortfolioProject(models.Model):
     def get_modal_id(self) -> str:
         return f'project-{self.slug}-modal'
 
-    def get_layout_modifier(self) -> str:
-        if self.order % 2 == 0:
-            return 'project-card--image-left'
-        return 'project-card--image-right'
+    def get_layout_modifier(self, index=None):
+        """Шахматка за індексом видачі (forloop.counter0), не за order."""
+        if index is None:
+            index = self.order
+        if index % 2 == 1:
+            return 'pf-snap--flip'
+        return ''
+
+    @staticmethod
+    def get_snap_tone(index):
+        tones = ('orange', 'gray', 'purple')
+        return tones[index % 3]
+
+    def get_watermark_mark(self) -> str:
+        title = self.get_localized_title().strip()
+        if not title:
+            return ''
+        return title[0].upper()
+
+    def get_localized_cta_label(self) -> str:
+        from django.utils.translation import gettext
+
+        from .i18n_content import localized_text
+
+        label = localized_text(self.cta_label, self.cta_label_ru)
+        if label:
+            return label
+        return gettext('Більше інформації')
+
+    def get_safe_cta_href(self) -> str:
+        raw = (self.cta_url or '').strip()
+        if not raw:
+            return ''
+        lowered = raw.lower()
+        if lowered.startswith(('javascript:', 'data:', 'vbscript:')):
+            return ''
+        if raw.startswith('/') and not raw.startswith('//'):
+            return raw
+        if lowered.startswith(('https://', 'http://', 'mailto:', 'tel:')):
+            return raw
+        return ''
+
+    def is_external_cta(self) -> bool:
+        href = self.get_safe_cta_href()
+        return href.lower().startswith(('http://', 'https://'))
 
     def get_integration_tags(self) -> list[str]:
         if not self.integrations:
@@ -610,6 +675,11 @@ class PortfolioProject(models.Model):
         from .i18n_content import localized_text
 
         return localized_text(self.modal_content, self.modal_content_ru)
+
+    def get_detail_content_parts(self) -> tuple[str, str, str]:
+        from .portfolio_sanitize import split_modal_content_for_detail
+
+        return split_modal_content_for_detail(self.get_localized_modal_content())
 
     def get_home_image(self):
         if self.home_story_image:
@@ -735,6 +805,67 @@ class Client(models.Model):
         from .portfolio_images import resolve_client_logo_url
 
         return resolve_client_logo_url(self)
+
+
+def feature_block_upload_to(instance, filename: str) -> str:
+    return f'feature_blocks/{filename}'
+
+
+class PortfolioFeatureBlock(models.Model):
+    """Текстово-зображальний блок для сторінки /portfolio-beta/."""
+
+    title = models.CharField(max_length=200, verbose_name=_('Заголовок'))
+    text = models.TextField(verbose_name=_('Текст'))
+    title_ru = models.CharField(max_length=200, blank=True, verbose_name=_('Заголовок (RU)'))
+    text_ru = models.TextField(blank=True, verbose_name=_('Текст (RU)'))
+    image = models.ImageField(
+        upload_to=feature_block_upload_to,
+        blank=True,
+        null=True,
+        verbose_name=_('Зображення'),
+    )
+    order = models.PositiveSmallIntegerField(default=0, verbose_name=_('Порядок'))
+    is_published = models.BooleanField(default=True, verbose_name=_('Опубліковано'))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Створено'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Оновлено'))
+
+    class Meta:
+        db_table = 'core_portfolio_feature_block'
+        ordering = ['order']
+        verbose_name = _('Feature-блок портфоліо Beta')
+        verbose_name_plural = _('Feature-блоки портфоліо Beta')
+
+    def __str__(self) -> str:
+        return self.title
+
+    def get_localized_title(self) -> str:
+        from .i18n_content import localized_text
+
+        return localized_text(self.title, self.title_ru)
+
+    def get_localized_text(self) -> str:
+        from .i18n_content import localized_text
+
+        return localized_text(self.text, self.text_ru)
+
+    def get_image_src(self) -> str:
+        if self.image and self.image.name:
+            return self.image.url
+
+        static_fallbacks = {
+            0: 'images/portfolio_beta/feature-block-admin-dark.png',
+            1: 'images/portfolio_beta/feature-block-yourbrand.png',
+            2: 'images/portfolio_beta/feature-block-multilang.png',
+        }
+        fallback = static_fallbacks.get(self.order)
+        if fallback:
+            from django.templatetags.static import static
+
+            return static(fallback)
+        return ''
+
+    def is_image_left(self) -> bool:
+        return self.order % 2 == 0
 
 
 from .proposal_models import (  # noqa: E402,F401

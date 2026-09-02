@@ -1,0 +1,42 @@
+{% load i18n %}
+{% load static %}
+<article class="cf__card">
+    <div class="cf__doc">
+        <div class="cf__screen">
+            <img class="cf__shot" src="{% static 'images/tz_generator/cf-home.png' %}" width="750" height="1000" alt="{% if is_clone %}{% else %}{% trans "Макет головної сторінки" %}{% endif %}" {% if is_clone %}loading="lazy"{% endif %} decoding="async">
+        </div>
+    </div>
+    <p class="cf__doc-title">{% trans "Головна сторінка" %}</p>
+</article>
+<article class="cf__card">
+    <div class="cf__doc">
+        <div class="cf__screen">
+            <img class="cf__shot" src="{% static 'images/tz_generator/cf-catalog.png' %}" width="750" height="1000" alt="{% if is_clone %}{% else %}{% trans "Макет каталогу послуг" %}{% endif %}" loading="lazy" decoding="async">
+        </div>
+    </div>
+    <p class="cf__doc-title">{% trans "Каталог / послуги" %}</p>
+</article>
+<article class="cf__card">
+    <div class="cf__doc">
+        <div class="cf__screen">
+            <img class="cf__shot" src="{% static 'images/tz_generator/cf-about.png' %}" width="750" height="1000" alt="{% if is_clone %}{% else %}{% trans "Макет сторінки про компанію" %}{% endif %}" loading="lazy" decoding="async">
+        </div>
+    </div>
+    <p class="cf__doc-title">{% trans "Про компанію" %}</p>
+</article>
+<article class="cf__card">
+    <div class="cf__doc">
+        <div class="cf__screen">
+            <img class="cf__shot" src="{% static 'images/tz_generator/cf-portfolio.png' %}" width="750" height="1000" alt="{% if is_clone %}{% else %}{% trans "Макет портфоліо" %}{% endif %}" loading="lazy" decoding="async">
+        </div>
+    </div>
+    <p class="cf__doc-title">{% trans "Портфоліо / кейси" %}</p>
+</article>
+<article class="cf__card">
+    <div class="cf__doc">
+        <div class="cf__screen">
+            <img class="cf__shot" src="{% static 'images/tz_generator/cf-contacts.png' %}" width="750" height="1000" alt="{% if is_clone %}{% else %}{% trans "Макет сторінки контактів" %}{% endif %}" loading="lazy" decoding="async">
+        </div>
+    </div>
+    <p class="cf__doc-title">{% trans "Контакти" %}</p>
+</article>

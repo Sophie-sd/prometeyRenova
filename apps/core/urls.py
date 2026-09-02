@@ -1,5 +1,6 @@
 from django.urls import path
 from . import proposal_views
+from . import tz_views
 from . import views
 from . import webhooks
 
@@ -19,6 +20,7 @@ urlpatterns = [
     path('internet-shop/', views.InternetShopView.as_view(), name='internet_shop'),
     path('internet-shop-v2/', views.InternetShopV2View.as_view(), name='internet_shop_v2'),
     path('corporate-website-v2/', views.CorporateWebsiteV2View.as_view(), name='corporate_website_v2'),
+    path('tz-dlia-saitu/', tz_views.TzGeneratorView.as_view(), name='tz_generator'),
     path('internet-shop-ru/', views.InternetShopRuView.as_view(), name='internet_shop_ru'),
     path('corporate-website/', views.CorporateWebsiteView.as_view(), name='corporate_website'),
     path('thank-you/', views.ThankYouView.as_view(), name='thank_you'),
@@ -31,7 +33,10 @@ urlpatterns = [
     # AJAX обробка форм
     path('forms/submit/', views.handle_form_submission, name='form_submit'),
     path('forms/test/', views.handle_test_submission, name='test_submit'),
-    
+    path('forms/tz/', tz_views.handle_tz_submission, name='tz_submit'),
+    path('forms/tz/<str:token>/pdf/', tz_views.download_tz_pdf, name='tz_pdf'),
+    path('forms/tz/<str:token>/upsell/', tz_views.handle_tz_upsell, name='tz_upsell'),
+
     # Webhooks
     path('webhook/keycrm/', webhooks.keycrm_webhook, name='keycrm_webhook'),
 ]

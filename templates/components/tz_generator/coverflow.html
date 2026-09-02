@@ -1,0 +1,23 @@
+{% load i18n %}
+{% load static %}
+<section id="tz-coverflow" class="pl-tz__section pl-tz__section--dark" aria-labelledby="pl-tz-coverflow-title">
+    <div class="pl-tz__inner">
+        <div class="pl-tz__section-head" data-reveal>
+            <p class="pl-tz__tag pl-tz__tag--center"><span class="pl-tz__tag-dot" aria-hidden="true"></span>{% trans "Приклад результату" %}</p>
+            <h2 id="pl-tz-coverflow-title" class="pl-tz__title pl-tz__title--section">
+                {% trans "Сторінки, які потрапляють" %} <span class="pl-tz__accent">{% trans "у ваше ТЗ" %}</span>
+            </h2>
+        </div>
+    </div>
+
+    <div class="cf" data-loop>
+        <div class="cf__track">
+            <div class="cf__set">
+                {% include 'components/tz_generator/coverflow_set.html' %}
+            </div>
+            <div class="cf__set" aria-hidden="true">
+                {% include 'components/tz_generator/coverflow_set.html' with is_clone=True %}
+            </div>
+        </div>
+    </div>
+</section>

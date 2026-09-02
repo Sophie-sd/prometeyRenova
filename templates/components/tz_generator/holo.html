@@ -1,0 +1,34 @@
+{% load i18n %}
+<section id="tz-includes" class="pl-tz__section" aria-labelledby="pl-tz-includes-title">
+    <div class="pl-tz__inner">
+        <div class="pl-tz__section-head" data-reveal>
+            <p class="pl-tz__tag pl-tz__tag--center"><span class="pl-tz__tag-dot" aria-hidden="true"></span>{% trans "Що входить у ТЗ" %}</p>
+            <h2 id="pl-tz-includes-title" class="pl-tz__title pl-tz__title--section">
+                {% trans "Чотири розділи" %} <span class="pl-tz__accent">{% trans "одного документа" %}</span>
+            </h2>
+        </div>
+
+        <div class="holo-grid">
+            <article class="holo-card reveal" data-tilt data-delay="0">
+                <p class="holo-card__index">01</p>
+                <h3 class="holo-card__title">{% trans "Цілі та аудиторія" %}</h3>
+                <p class="holo-card__text">{% trans "Що продає сайт, хто клієнт і які дії від нього очікуються." %}</p>
+            </article>
+            <article class="holo-card reveal" data-tilt data-delay="1">
+                <p class="holo-card__index">02</p>
+                <h3 class="holo-card__title">{% trans "Структура сторінок" %}</h3>
+                <p class="holo-card__text">{% trans "Карта розділів, навігація та логіка переходів між сторінками." %}</p>
+            </article>
+            <article class="holo-card reveal" data-tilt data-delay="2">
+                <p class="holo-card__index">03</p>
+                <h3 class="holo-card__title">{% trans "Функціонал та інтеграції" %}</h3>
+                <p class="holo-card__text">{% trans "CRM, оплати, мультимовність, аналітика і все, що автоматизує бізнес." %}</p>
+            </article>
+            <article class="holo-card reveal" data-tilt data-delay="3">
+                <p class="holo-card__index">04</p>
+                <h3 class="holo-card__title">{% trans "Стиль і бренд-гайд" %}</h3>
+                <p class="holo-card__text">{% trans "Візуальний напрям, тон комунікації та орієнтовний бюджет проєкту." %}</p>
+            </article>
+        </div>
+    </div>
+</section>

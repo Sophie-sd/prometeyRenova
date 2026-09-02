@@ -1,0 +1,476 @@
+/* =================================
+   TZ GENERATOR — PART 2
+   Compare bad/good · stats · process rail SECT-10 · holo cards CARD-05
+   ================================= */
+
+/* ===== COMPARE (BEZ TZ / Z TZ) ===== */
+.pl-tz__cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: stretch;
+}
+
+.pl-tz__card {
+    flex: 1 1 340px;
+    min-width: 0;
+    background: #101010;
+    border: 1px solid #232323;
+    border-radius: 18px;
+    padding: clamp(24px, 3vw, 32px);
+}
+
+.pl-tz__card--accent {
+    position: relative;
+    padding: 0;
+    border-color: rgba(var(--pl-tz-acc-rgb), 0.35);
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.pl-tz__card-glow {
+    position: absolute;
+    inset: -30%;
+    background: radial-gradient(circle at 30% 20%, rgba(var(--pl-tz-acc-rgb), 0.22), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.pl-tz__card-inner {
+    position: relative;
+    z-index: 1;
+    padding: clamp(24px, 3vw, 32px);
+}
+
+.pl-tz__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #a3a3a3;
+    margin-bottom: 18px;
+}
+
+.pl-tz__badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.pl-tz__badge-dot--bad {
+    background: #b5443d;
+}
+
+.pl-tz__badge-dot--good {
+    background: var(--pl-tz-acc);
+    box-shadow: 0 0 10px rgba(var(--pl-tz-acc-rgb), 0.7);
+}
+
+.pl-tz__card-title {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(19px, 2.2vw, 23px);
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+}
+
+.pl-tz__card-title--bad {
+    color: #d7c9c6;
+}
+
+.pl-tz__card-title--good {
+    color: #fff;
+}
+
+.pl-tz__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.pl-tz__list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14.5px;
+    line-height: 1.5;
+}
+
+.pl-tz__list-item--bad {
+    color: #a89b98;
+}
+
+.pl-tz__list-item--good {
+    color: #e5e5e5;
+}
+
+.pl-tz__list-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .pl-tz__card--accent:hover .pl-tz__card-glow {
+        opacity: 1;
+    }
+}
+
+.pl-tz__risk {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(20px, 4vw, 40px);
+    padding-top: 28px;
+    border-top: 1px solid #1c1c1c;
+}
+
+.pl-tz__risk-copy {
+    flex: 1 1 260px;
+    min-width: 0;
+}
+
+.pl-tz__risk-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 8px;
+}
+
+.pl-tz__stats {
+    display: flex;
+    gap: clamp(24px, 5vw, 48px);
+    flex-wrap: wrap;
+}
+
+.pl-tz__stat {
+    min-width: 120px;
+}
+
+.pl-tz__stat-num {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(30px, 4vw, 42px);
+    line-height: 1;
+    color: var(--pl-tz-acc);
+    letter-spacing: -0.02em;
+}
+
+.pl-tz__stat-num span {
+    font-size: 0.5em;
+    color: #a3a3a3;
+    margin-left: 3px;
+}
+
+.pl-tz__stat-label {
+    font-size: 13px;
+    color: #9a9a9a;
+    margin-top: 6px;
+}
+
+.pl-tz__section-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    margin-top: clamp(24px, 4vw, 32px);
+}
+
+.pl-tz__section-cta .pl-tz__btn {
+    width: 100%;
+    min-height: 48px;
+}
+
+/* ===== PROCESS RAIL (SECT-10) ===== */
+.process-rail {
+    margin-top: 8px;
+}
+
+.process-rail__bar {
+    overflow: hidden;
+    height: 2px;
+    background: #1c1c1c;
+    border-radius: 99px;
+    margin-bottom: clamp(32px, 5vw, 52px);
+}
+
+.process-rail__fill {
+    display: block;
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 1400ms cubic-bezier(0.22, 1, 0.36, 1);
+    background: linear-gradient(90deg, var(--pl-tz-acc), var(--pl-tz-acc-h));
+}
+
+.process-rail.is-rail-on .process-rail__fill {
+    transform: scaleX(1);
+}
+
+.process-rail__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+}
+
+.process-rail__item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.process-rail__num {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--pl-tz-acc);
+}
+
+.process-rail__item.is-visible .process-rail__num {
+    opacity: 0;
+    transform: scale(1.12);
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.process-rail__item.is-visible.is-stamped .process-rail__num {
+    opacity: 1;
+    transform: none;
+}
+
+.process-rail__item h3 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.process-rail__item p {
+    font-size: 14px;
+    color: #9a9a9a;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 34ch;
+}
+
+@media (min-width: 640px) {
+    .process-rail__list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px clamp(24px, 4vw, 40px);
+    }
+}
+
+@media (min-width: 1024px) {
+    .process-rail__list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .process-rail.is-rail-on .process-rail__fill,
+    .process-rail .process-rail__fill {
+        transform: scaleX(1);
+        transition: none;
+    }
+
+    .process-rail__item.is-visible .process-rail__num,
+    .process-rail__item.is-visible.is-stamped .process-rail__num {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* ===== HOLO CARDS (CARD-05, dark adaptation) ===== */
+@property --holo-foil {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+
+@property --holo-glare {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+
+.holo-grid {
+    display: grid;
+    gap: clamp(18px, 2.5vw, 24px);
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+    .holo-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .holo-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.holo-card {
+    --px: 0.5;
+    --py: 0.5;
+    --holo-foil: 0;
+    --holo-glare: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 240px;
+    padding: 30px 26px 28px;
+    border: 1px solid #262626;
+    border-radius: 18px;
+    background: #101010;
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+        --holo-foil 260ms cubic-bezier(0.23, 1, 0.32, 1),
+        --holo-glare 260ms cubic-bezier(0.23, 1, 0.32, 1),
+        border-color 0.3s ease;
+}
+
+.holo-card::before {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 80% 55% at 50% 0%, rgb(255 255 255 / 0.32), transparent 55%),
+        linear-gradient(160deg, rgb(255 255 255 / 0.14), transparent 45%, rgb(255 255 255 / 0.06));
+    mix-blend-mode: color-dodge;
+    opacity: var(--holo-foil);
+    transform: translate3d(calc((var(--px) - 0.5) * -40%), calc((var(--py) - 0.5) * -40%), 0);
+}
+
+.holo-card::after {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(115deg, transparent 42%, rgb(255 255 255 / 0.42) 50%, transparent 58%),
+        radial-gradient(circle at center, rgb(255 255 255 / 0.30) 0%, rgb(255 255 255 / 0.12) 22%, transparent 48%);
+    mix-blend-mode: screen;
+    opacity: var(--holo-glare);
+    transform: translate3d(calc((var(--px) - 0.5) * 60%), calc((var(--py) - 0.5) * 60%), 0);
+}
+
+.holo-card.is-tilt::before,
+.holo-card.is-tilt::after {
+    will-change: transform, opacity;
+}
+
+.holo-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.holo-card__index {
+    margin: 0 0 22px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    color: var(--pl-tz-acc);
+}
+
+.holo-card__title {
+    margin: 0 0 12px;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(18px, 2vw, 21px);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: #fff;
+    text-shadow: 0 1px 6px rgb(0 0 0 / 0.55);
+}
+
+.holo-card__text {
+    margin: 0;
+    max-width: 26ch;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #c4c4c4;
+    text-shadow: 0 1px 6px rgb(0 0 0 / 0.5);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .holo-card.reveal.is-visible:hover,
+    .holo-card.reveal.is-visible.is-tilt {
+        --holo-foil: 0.48;
+        --holo-glare: 0.30;
+        z-index: 2;
+        border-color: rgba(var(--pl-tz-acc-rgb), 0.4);
+        transition:
+            transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+            --holo-foil 260ms cubic-bezier(0.23, 1, 0.32, 1),
+            --holo-glare 260ms cubic-bezier(0.23, 1, 0.32, 1),
+            border-color 0.3s ease;
+    }
+
+    .holo-card.reveal.is-visible:hover {
+        transform: perspective(1000px) translateY(-4px);
+    }
+
+    .holo-card.reveal.is-visible.is-tilt {
+        transform: perspective(1000px) translateY(-4px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+    }
+}
+
+.holo-card:focus-within {
+    --holo-foil: 0.48;
+    --holo-glare: 0.30;
+}
+
+@media (hover: none), (pointer: coarse) {
+    .holo-card {
+        --holo-foil: 0;
+        --holo-glare: 0;
+    }
+
+    .holo-card::before,
+    .holo-card::after {
+        transform: none;
+        will-change: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .holo-card {
+        --holo-foil: 0;
+        --holo-glare: 0;
+    }
+
+    .holo-card.reveal.is-visible:hover,
+    .holo-card.reveal.is-visible.is-tilt {
+        transform: none;
+    }
+
+    .holo-card::before,
+    .holo-card::after {
+        transform: none;
+        will-change: auto;
+        filter: none;
+    }
+}

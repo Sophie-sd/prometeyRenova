@@ -1,0 +1,177 @@
+{% load i18n %}
+<section id="tz-quiz" class="pl-tz__section pl-tz__section--dark" aria-labelledby="pl-tz-quiz-title">
+    <div class="pl-tz__inner pl-tz__inner--narrow">
+        <div class="pl-tz__section-head" data-reveal>
+            <p class="pl-tz__tag pl-tz__tag--center"><span class="pl-tz__tag-dot" aria-hidden="true"></span>{% trans "Конструктор ТЗ" %}</p>
+            <h2 id="pl-tz-quiz-title" class="pl-tz__title pl-tz__title--section">
+                {% trans "Створіть своє" %} <span class="pl-tz__accent">{% trans "технічне завдання" %}</span>
+            </h2>
+            <p class="pl-tz__text pl-tz__text--center">{% trans "8 коротких кроків — і базове ТЗ вже у вас у PDF." %}</p>
+        </div>
+
+        <div class="pl-tz__quiz-wrap" data-reveal>
+        <form id="pl-tz-quiz-form" class="pl-tz__quiz" data-quiz-form novalidate>
+            {% csrf_token %}
+
+            <div class="pl-tz__quiz-header">
+                <div class="pl-tz__quiz-progress" aria-hidden="true">
+                    <div class="pl-tz__quiz-progress-bar" data-quiz-progress></div>
+                </div>
+                <p class="pl-tz__quiz-progress-label">{% trans "Крок" %} <span data-quiz-step-num>1</span> {% trans "з" %} 8</p>
+            </div>
+
+            <div class="pl-tz__quiz-step" data-step="1">
+                <p class="pl-tz__quiz-question">{% trans "Який тип сайту вам потрібен?" %}</p>
+                <ul class="pl-tz__quiz-options">
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="site_type" value="landing"><span class="pl-tz__quiz-option-text">{% trans "Лендінг / промо-сайт" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="site_type" value="corporate"><span class="pl-tz__quiz-option-text">{% trans "Корпоративний сайт" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="site_type" value="shop"><span class="pl-tz__quiz-option-text">{% trans "Інтернет-магазин" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="site_type" value="portal"><span class="pl-tz__quiz-option-text">{% trans "Портал / веб-сервіс" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="site_type" value="other"><span class="pl-tz__quiz-option-text">{% trans "Інший тип" %}</span></label></li>
+                </ul>
+            </div>
+
+            <div class="pl-tz__quiz-step" data-step="2" data-multi="true" hidden>
+                <p class="pl-tz__quiz-question">{% trans "Які цілі проєкту?" %}</p>
+                <p class="pl-tz__quiz-hint">{% trans "Можна обрати декілька варіантів" %}</p>
+                <ul class="pl-tz__quiz-options">
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="goals" value="leads"><span class="pl-tz__quiz-option-text">{% trans "Збір заявок і лідів" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="goals" value="sales"><span class="pl-tz__quiz-option-text">{% trans "Продажі онлайн" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="goals" value="brand"><span class="pl-tz__quiz-option-text">{% trans "Презентація бренду" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="goals" value="info"><span class="pl-tz__quiz-option-text">{% trans "Інформаційний ресурс" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="goals" value="support"><span class="pl-tz__quiz-option-text">{% trans "Підтримка клієнтів" %}</span></label></li>
+                </ul>
+            </div>
+
+            <div class="pl-tz__quiz-step" data-step="3" data-multi="true" hidden>
+                <p class="pl-tz__quiz-question">{% trans "Які розділи потрібні на сайті?" %}</p>
+                <p class="pl-tz__quiz-hint">{% trans "Можна обрати декілька варіантів" %}</p>
+                <ul class="pl-tz__quiz-options">
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="sections" value="home"><span class="pl-tz__quiz-option-text">{% trans "Головна" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="sections" value="about"><span class="pl-tz__quiz-option-text">{% trans "Про компанію" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="sections" value="services"><span class="pl-tz__quiz-option-text">{% trans "Послуги / товари" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="sections" value="portfolio"><span class="pl-tz__quiz-option-text">{% trans "Портфоліо / кейси" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="sections" value="blog"><span class="pl-tz__quiz-option-text">{% trans "Блог / новини" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="sections" value="contacts"><span class="pl-tz__quiz-option-text">{% trans "Контакти" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="sections" value="faq"><span class="pl-tz__quiz-option-text">{% trans "FAQ" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="sections" value="cabinet"><span class="pl-tz__quiz-option-text">{% trans "Особистий кабінет" %}</span></label></li>
+                </ul>
+            </div>
+
+            <div class="pl-tz__quiz-step" data-step="4" data-multi="true" hidden>
+                <p class="pl-tz__quiz-question">{% trans "Який функціонал потрібен?" %}</p>
+                <p class="pl-tz__quiz-hint">{% trans "Можна обрати декілька варіантів" %}</p>
+                <ul class="pl-tz__quiz-options">
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="features" value="crm"><span class="pl-tz__quiz-option-text">{% trans "Інтеграція з CRM" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="features" value="payment"><span class="pl-tz__quiz-option-text">{% trans "Оплата онлайн" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="features" value="multilang"><span class="pl-tz__quiz-option-text">{% trans "Мультимовність" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="features" value="seo"><span class="pl-tz__quiz-option-text">{% trans "SEO-оптимізація" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="features" value="ads"><span class="pl-tz__quiz-option-text">{% trans "Підготовка під рекламу" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="features" value="chat"><span class="pl-tz__quiz-option-text">{% trans "Чат / месенджери" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="features" value="analytics"><span class="pl-tz__quiz-option-text">{% trans "Аналітика і цілі" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="checkbox" name="features" value="admin"><span class="pl-tz__quiz-option-text">{% trans "Зручна адмінка" %}</span></label></li>
+                </ul>
+            </div>
+
+            <div class="pl-tz__quiz-step" data-step="5" hidden>
+                <p class="pl-tz__quiz-question">{% trans "Який стиль і візуал ближче?" %}</p>
+                <ul class="pl-tz__quiz-options">
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="style" value="minimal"><span class="pl-tz__quiz-option-text">{% trans "Мінімалізм" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="style" value="premium"><span class="pl-tz__quiz-option-text">{% trans "Преміум / luxury" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="style" value="bold"><span class="pl-tz__quiz-option-text">{% trans "Яскравий / сміливий" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="style" value="corporate"><span class="pl-tz__quiz-option-text">{% trans "Строгий корпоративний" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="style" value="creative"><span class="pl-tz__quiz-option-text">{% trans "Креативний" %}</span></label></li>
+                </ul>
+            </div>
+
+            <div class="pl-tz__quiz-step" data-step="6" hidden>
+                <p class="pl-tz__quiz-question">{% trans "Коли плануєте запуск?" %}</p>
+                <ul class="pl-tz__quiz-options">
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="timeline" value="asap"><span class="pl-tz__quiz-option-text">{% trans "Якнайшвидше (до 2 тижнів)" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="timeline" value="month"><span class="pl-tz__quiz-option-text">{% trans "До 1 місяця" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="timeline" value="quarter"><span class="pl-tz__quiz-option-text">{% trans "1–3 місяці" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="timeline" value="flex"><span class="pl-tz__quiz-option-text">{% trans "Гнучкий графік" %}</span></label></li>
+                </ul>
+            </div>
+
+            <div class="pl-tz__quiz-step" data-step="7" hidden>
+                <p class="pl-tz__quiz-question">{% trans "Орієнтовний бюджет проєкту?" %}</p>
+                <ul class="pl-tz__quiz-options">
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="budget" value="starter"><span class="pl-tz__quiz-option-text">{% trans "До 50 000 грн" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="budget" value="growth"><span class="pl-tz__quiz-option-text">{% trans "50–150 000 грн" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="budget" value="pro"><span class="pl-tz__quiz-option-text">{% trans "150–400 000 грн" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="budget" value="enterprise"><span class="pl-tz__quiz-option-text">{% trans "Від 400 000 грн" %}</span></label></li>
+                    <li><label class="pl-tz__quiz-option"><input type="radio" name="budget" value="unknown"><span class="pl-tz__quiz-option-text">{% trans "Потрібна консультація" %}</span></label></li>
+                </ul>
+            </div>
+
+            <div class="pl-tz__quiz-step" data-step="8" data-text="true" hidden>
+                <p class="pl-tz__quiz-question">{% trans "Опишіть проєкт своїми словами" %}</p>
+                <div class="pl-tz__quiz-textareas">
+                    <div>
+                        <label class="pl-tz__quiz-field-label" for="pl-tz-quiz-description">{% trans "Короткий опис проєкту" %}</label>
+                        <textarea id="pl-tz-quiz-description" name="description" class="pl-tz__quiz-textarea mobile-touch-target" maxlength="2000" placeholder="{% trans "Наприклад: потрібен інтернет-магазин косметики з доставкою Новою поштою..." %}"></textarea>
+                    </div>
+                    <div>
+                        <label class="pl-tz__quiz-field-label" for="pl-tz-quiz-extra">{% trans "Додаткові побажання (необов'язково)" %}</label>
+                        <textarea id="pl-tz-quiz-extra" name="extra" class="pl-tz__quiz-textarea mobile-touch-target" maxlength="1000" placeholder="{% trans "Референси, приклади сайтів, особливі вимоги..." %}"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pl-tz__quiz-step pl-tz__quiz-step--contact" data-step="contact" hidden>
+                <p class="pl-tz__quiz-question">{% trans "Майже готово!" %}</p>
+                <p class="pl-tz__quiz-hint">{% trans "Залишіть контакти — надішлемо базове ТЗ у PDF одразу." %}</p>
+
+                <div class="pl-tz__quiz-fields--contact">
+                    <div class="pl-tz__quiz-field">
+                        <label class="pl-tz__quiz-field-label" for="pl-tz-quiz-name">{% trans "Ваше ім'я" %}</label>
+                        <input type="text" id="pl-tz-quiz-name" name="name" class="pl-tz__quiz-input mobile-touch-target" autocomplete="given-name" required placeholder="{% trans "Ім'я" %}">
+                    </div>
+                    <div class="pl-tz__quiz-field">
+                        <label class="pl-tz__quiz-field-label" for="pl-tz-quiz-phone">{% trans "Телефон" %}</label>
+                        <input type="tel" id="pl-tz-quiz-phone" name="phone" class="pl-tz__quiz-input mobile-touch-target" autocomplete="tel" inputmode="tel" required placeholder="+38(___)__-__-___">
+                    </div>
+                    <div class="pl-tz__quiz-field">
+                        <label class="pl-tz__quiz-field-label" for="pl-tz-quiz-email">Email</label>
+                        <input type="email" id="pl-tz-quiz-email" name="email" class="pl-tz__quiz-input mobile-touch-target" autocomplete="email" inputmode="email" required placeholder="you@email.com">
+                    </div>
+                    <p class="pl-tz__quiz-error" data-quiz-submit-error></p>
+                </div>
+            </div>
+
+            <div class="pl-tz__quiz-step pl-tz__quiz-step--success" data-step="success" hidden>
+                <div class="pl-tz__success">
+                    <div class="pl-tz__success-icon" aria-hidden="true">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <h3 class="pl-tz__success-title">{% trans "Базове ТЗ готове!" %}</h3>
+                    <p class="pl-tz__success-text" data-quiz-success-message>{% trans "Завантажте PDF зараз. Розширене ТЗ зі структурою сторінок надішлемо на email протягом доби." %}</p>
+                    <a href="#" class="pl-tz__btn pl-tz__btn--primary pl-tz__success-pdf mobile-touch-target" data-quiz-pdf-link target="_blank" rel="noopener">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 11 12 16 17 11"/><path d="M5 21h14"/></svg>
+                        {% trans "Завантажити PDF" %}
+                    </a>
+
+                    <div class="pl-tz__success-upsell" data-quiz-upsell>
+                        <p class="pl-tz__success-upsell-title">{% trans "Що робимо далі?" %}</p>
+                        <div class="pl-tz__success-upsell-actions">
+                            <button type="button" class="pl-tz__btn pl-tz__btn--primary mobile-touch-target" data-upsell-choice="estimate">{% trans "Хочу прорахунок вартості" %}</button>
+                            <button type="button" class="pl-tz__btn pl-tz__btn--ghost mobile-touch-target" data-upsell-choice="consultation">{% trans "Хочу консультацію" %}</button>
+                            <button type="button" class="pl-tz__btn pl-tz__btn--ghost mobile-touch-target" data-upsell-choice="none">{% trans "Поки лише PDF" %}</button>
+                        </div>
+                    </div>
+                    <p class="pl-tz__success-note" data-quiz-upsell-done hidden></p>
+                </div>
+            </div>
+
+            <div class="pl-tz__quiz-nav">
+                <button type="button" class="pl-tz__btn pl-tz__btn--ghost pl-tz__quiz-prev mobile-touch-target" hidden>{% trans "← Назад" %}</button>
+                <button type="button" class="pl-tz__btn pl-tz__btn--ghost pl-tz__quiz-skip mobile-touch-target" hidden>{% trans "Пропустити" %}</button>
+                <button type="button" class="pl-tz__btn pl-tz__btn--primary pl-tz__quiz-next mobile-touch-target" hidden disabled>{% trans "Далі →" %}</button>
+                <button type="submit" class="pl-tz__btn pl-tz__btn--primary pl-tz__quiz-submit mobile-touch-target" hidden disabled data-quiz-submit>{% trans "Отримати ТЗ у PDF →" %}</button>
+                <p class="pl-tz__quiz-submit-note" hidden data-quiz-submit-note>{% trans "Безкоштовно. Без спаму. PDF одразу." %}</p>
+            </div>
+        </form>
+        </div>
+    </div>
+</section>

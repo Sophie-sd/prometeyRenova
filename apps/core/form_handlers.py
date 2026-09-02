@@ -189,7 +189,8 @@ def save_form_submission(form_type, form_data, email_success=False):
         extra_data = {}
         extra_fields = ['course_type', 'experience', 'company', 'answers',
                        'alt_services_checked', 'event_title', 'source_page',
-                       'landing_page', 'landing_referrer']
+                       'landing_page', 'landing_referrer', 'quiz', 'upsell',
+                       'pdf_token']
         for field in extra_fields:
             if form_data.get(field):
                 extra_data[field] = form_data[field]

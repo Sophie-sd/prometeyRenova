@@ -1,0 +1,40 @@
+{% load i18n %}
+<section id="tz-process" class="pl-tz__section pl-tz__section--dark" aria-labelledby="pl-tz-process-title">
+    <div class="pl-tz__inner">
+        <div class="pl-tz__section-head" data-reveal>
+            <p class="pl-tz__tag pl-tz__tag--center"><span class="pl-tz__tag-dot" aria-hidden="true"></span>{% trans "Як це працює" %}</p>
+            <h2 id="pl-tz-process-title" class="pl-tz__title pl-tz__title--section">
+                {% trans "Від питань до готового" %} <span class="pl-tz__accent">{% trans "документа" %}</span>
+            </h2>
+            <p class="pl-tz__text pl-tz__text--center-wide">{% trans "Чотири кроки — і у вас на руках структуроване технічне завдання, з яким можна йти до будь-якого підрядника." %}</p>
+        </div>
+
+        <div class="process-rail">
+            <div class="process-rail__bar" aria-hidden="true">
+                <span class="process-rail__fill"></span>
+            </div>
+            <ol class="process-rail__list">
+                <li class="process-rail__item reveal" data-delay="0">
+                    <span class="process-rail__num">01</span>
+                    <h3>{% trans "Квіз 3 хвилини" %}</h3>
+                    <p>{% trans "Обираєте тип сайту, цілі, розділи та функціонал у зручному конструкторі." %}</p>
+                </li>
+                <li class="process-rail__item reveal" data-delay="1">
+                    <span class="process-rail__num">02</span>
+                    <h3>{% trans "Аналіз відповідей" %}</h3>
+                    <p>{% trans "Система структурує ваші відповіді у розділи технічного завдання." %}</p>
+                </li>
+                <li class="process-rail__item reveal" data-delay="2">
+                    <span class="process-rail__num">03</span>
+                    <h3>{% trans "Базове ТЗ у PDF" %}</h3>
+                    <p>{% trans "Завантажуєте документ одразу — без реєстрації й очікування." %}</p>
+                </li>
+                <li class="process-rail__item reveal" data-delay="3">
+                    <span class="process-rail__num">04</span>
+                    <h3>{% trans "Розширене ТЗ на email" %}</h3>
+                    <p>{% trans "Протягом доби надсилаємо деталізовану версію зі сценаріями і структурою сторінок." %}</p>
+                </li>
+            </ol>
+        </div>
+    </div>
+</section>

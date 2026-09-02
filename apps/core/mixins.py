@@ -4,7 +4,7 @@
 from django.views.generic import TemplateView
 from django.utils import timezone
 
-from apps.core.models import Client, PortfolioProject
+from apps.core.models import Client, PortfolioProject, PortfolioFeatureBlock
 
 
 class BasePageView(TemplateView):
@@ -32,12 +32,21 @@ def published_portfolio_queryset():
 
 
 def portfolio_page_projects():
-    return (
+    projects = list(
         published_portfolio_queryset()
         .filter(show_on_portfolio=True)
         .order_by('order', 'title')
     )
+    for index, project in enumerate(projects):
+        project.snap_index = index
+        project.snap_tone = PortfolioProject.get_snap_tone(index)
+        project.snap_layout = project.get_layout_modifier(index)
+    return projects
 
 
 def homepage_clients():
     return Client.objects.filter(is_active=True).order_by('order', 'name')
+
+
+def feature_blocks():
+    return PortfolioFeatureBlock.objects.filter(is_published=True).order_by('order')

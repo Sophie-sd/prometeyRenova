@@ -1,0 +1,16 @@
+{% load i18n %}
+<section id="tz-final" class="pl-tz__section pl-tz__final" aria-labelledby="pl-tz-final-title">
+    <div class="pl-tz__inner pl-tz__inner--narrow">
+        <p class="pl-tz__tag pl-tz__tag--center"><span class="pl-tz__tag-dot" aria-hidden="true"></span>{% trans "Готові почати?" %}</p>
+        <h2 id="pl-tz-final-title" class="pl-tz__title pl-tz__title--section pl-tz__final-title">
+            {% trans "Ваше ТЗ" %} <span class="pl-tz__accent">{% trans "чекає на 3 хвилини уваги" %}</span>
+        </h2>
+        <p class="pl-tz__text pl-tz__final-text">
+            {% trans "Пройдіть квіз, отримайте базове ТЗ у PDF і замовте прорахунок вартості або консультацію в один клік." %}
+        </p>
+        <div class="pl-tz__final-actions">
+            <a href="#tz-quiz" class="pl-tz__btn pl-tz__btn--primary mobile-touch-target">{% trans "Створити ТЗ безкоштовно" %}</a>
+            <button type="button" class="pl-tz__btn pl-tz__btn--ghost mobile-touch-target" data-modal="call-request-modal">{% trans "Замовити консультацію" %}</button>
+        </div>
+    </div>
+</section>

@@ -1,35 +1,47 @@
 {% load i18n %}
-<article class="project-card {{ project.get_layout_modifier }}">
-    <div class="project-card__container">
-        <div class="project-card__image-wrapper">
-            <picture>
-                {% if project.has_card_image_mobile %}
-                <source media="(max-width: 767px)" srcset="{{ project.get_card_image_mobile_src }}">
-                {% endif %}
-                <img src="{{ project.get_card_image_src }}" alt="{{ project.get_card_alt }}" class="project-card__image" loading="lazy" decoding="async">
-            </picture>
-        </div>
-        <div class="project-card__content">
-            <h2 class="project-card__title">{{ project.get_localized_title }}
+<article
+    class="pf-snap pf-snap--tone-{{ project.snap_tone }}{% if project.snap_layout %} {{ project.snap_layout }}{% endif %}"
+    data-project-snap
+    data-index="{{ project.snap_index }}"
+>
+    <div class="pf-snap__asset" data-snap-asset>
+        <picture>
+            {% if project.has_card_image_mobile %}
+            <source media="(max-width: 767px)" srcset="{{ project.get_card_image_mobile_src }}">
+            {% endif %}
+            <img src="{{ project.get_card_image_src }}"
+                 alt="{{ project.get_card_alt }}"
+                 class="pf-snap__img"
+                 {% if forloop.first %}loading="eager"{% else %}loading="lazy"{% endif %}
+                 decoding="async">
+        </picture>
+    </div>
+    <div class="pf-snap__content" data-snap-content data-mark="{{ project.get_watermark_mark }}">
+        <div class="pf-snap__wrap">
+            <h2 class="pf-snap__title">{{ project.get_localized_title }}
                 {% if project.get_localized_subtitle %}
-                <span class="project-card__subtitle">{{ project.get_localized_subtitle }}</span>
+                <span class="pf-snap__subtitle">{{ project.get_localized_subtitle }}</span>
                 {% endif %}
             </h2>
-            <p class="project-card__description">{{ project.get_localized_card_description }}</p>
+            <p class="pf-snap__desc">{{ project.get_localized_card_description }}</p>
 
             {% if project.get_integration_tags %}
-            <div class="project-card__integrations">
+            <div class="pf-snap__tags">
                 {% for tag in project.get_integration_tags %}
-                <span class="integration-tag"><span class="integration-hash">#</span>{{ tag }}</span>
+                <span class="pf-snap__tag"><span class="pf-snap__hash">#</span>{{ tag }}</span>
                 {% endfor %}
             </div>
             {% endif %}
 
-            {% if project.modal_content or project.has_modal_hero %}
-            <button class="btn btn-secondary project-card__more-btn" data-modal="{{ project.get_modal_id }}" type="button">
-                <span>{% trans "Більше інформації" %}</span>
-                <span class="detail-arrow" aria-hidden="true">↗</span>
-            </button>
+            {% if project.get_safe_cta_href %}
+            <a
+                class="btn btn-secondary pf-snap__cta"
+                href="{{ project.get_safe_cta_href }}"
+                {% if project.is_external_cta %}target="_blank" rel="noopener noreferrer"{% endif %}
+            >
+                <span>{{ project.get_localized_cta_label }}</span>
+                <span class="pf-snap__arrow" aria-hidden="true">↗</span>
+            </a>
             {% endif %}
         </div>
     </div>

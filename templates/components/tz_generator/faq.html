@@ -1,0 +1,63 @@
+{% load i18n %}
+<section id="tz-faq" class="pl-tz__section pl-tz__section--dark" aria-labelledby="pl-tz-faq-title">
+    <div class="pl-tz__inner pl-tz__inner--narrow">
+        <div class="pl-tz__section-head" data-reveal>
+            <p class="pl-tz__tag pl-tz__tag--center"><span class="pl-tz__tag-dot" aria-hidden="true"></span>FAQ</p>
+            <h2 id="pl-tz-faq-title" class="pl-tz__title pl-tz__title--section">
+                {% trans "Питання про" %} <span class="pl-tz__accent">{% trans "генератор ТЗ" %}</span>
+            </h2>
+        </div>
+
+        <div class="pl-tz__faq-list" data-faq>
+            <div class="pl-tz__faq-item">
+                <button type="button" class="pl-tz__faq-q mobile-touch-target" data-faq-toggle aria-expanded="false">
+                    <span>{% trans "Що таке ТЗ для сайту і навіщо воно?" %}</span>
+                    <svg class="pl-tz__faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+                <div class="pl-tz__faq-a">
+                    <div class="pl-tz__faq-a-inner">{% trans "Технічне завдання фіксує цілі, структуру, функції та обмеження проєкту. Без нього розробка дорожчає і зриває терміни через постійні уточнення." %}</div>
+                </div>
+            </div>
+
+            <div class="pl-tz__faq-item">
+                <button type="button" class="pl-tz__faq-q mobile-touch-target" data-faq-toggle aria-expanded="false">
+                    <span>{% trans "Чим базове ТЗ відрізняється від розширеного?" %}</span>
+                    <svg class="pl-tz__faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+                <div class="pl-tz__faq-a">
+                    <div class="pl-tz__faq-a-inner">{% trans "Базове ТЗ ви отримуєте одразу в PDF за відповідями квіза. Розширене — з деталізацією сценаріїв, структурою сторінок і технічними вимогами — приходить на email протягом доби." %}</div>
+                </div>
+            </div>
+
+            <div class="pl-tz__faq-item">
+                <button type="button" class="pl-tz__faq-q mobile-touch-target" data-faq-toggle aria-expanded="false">
+                    <span>{% trans "Чи можна одразу отримати прорахунок вартості?" %}</span>
+                    <svg class="pl-tz__faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+                <div class="pl-tz__faq-a">
+                    <div class="pl-tz__faq-a-inner">{% trans "Так. Після завантаження PDF можна одразу замовити прорахунок або консультацію від PrometeyLabs — це займе один клік." %}</div>
+                </div>
+            </div>
+
+            <div class="pl-tz__faq-item">
+                <button type="button" class="pl-tz__faq-q mobile-touch-target" data-faq-toggle aria-expanded="false">
+                    <span>{% trans "Скільки часу займає проходження квіза?" %}</span>
+                    <svg class="pl-tz__faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+                <div class="pl-tz__faq-a">
+                    <div class="pl-tz__faq-a-inner">{% trans "Зазвичай 3–5 хвилин: кілька виборів у зручних кроках і два короткі текстові поля для опису проєкту." %}</div>
+                </div>
+            </div>
+
+            <div class="pl-tz__faq-item">
+                <button type="button" class="pl-tz__faq-q mobile-touch-target" data-faq-toggle aria-expanded="false">
+                    <span>{% trans "Чи можна використати це ТЗ з іншим підрядником?" %}</span>
+                    <svg class="pl-tz__faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+                <div class="pl-tz__faq-a">
+                    <div class="pl-tz__faq-a-inner">{% trans "Так, документ повністю ваш. Ви можете передати його будь-якій команді розробки або звернутись до нас за реалізацією." %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

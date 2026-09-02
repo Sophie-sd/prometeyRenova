@@ -1,0 +1,115 @@
+{% load i18n %}
+<section id="top" class="pl-tz__hero pl-tz__section" aria-labelledby="pl-tz-hero-title">
+    <div class="pl-tz__hero-glow" aria-hidden="true"></div>
+    <div class="pl-tz__hero-grid" aria-hidden="true"></div>
+
+    <div class="pl-tz__inner">
+        <div class="pl-tz__hero-row">
+            <div class="pl-tz__hero-copy">
+                <p class="pl-tz__tag"><span class="pl-tz__tag-dot" aria-hidden="true"></span>{% trans "Генератор ТЗ · 3 хвилини" %}</p>
+                <h1 id="pl-tz-hero-title" class="pl-tz__title pl-tz__title--hero">
+                    {% trans "Створіть ТЗ для сайту" %} <span class="pl-tz__accent">{% trans "за 3 хвилини." %}</span>
+                </h1>
+                <p class="pl-tz__text pl-tz__hero-lead">
+                    {% trans "Відповідаєте на кілька питань — отримуєте базове технічне завдання у PDF миттєво. Розширене ТЗ зі структурою сторінок і сценаріями надійде на email протягом доби." %}
+                </p>
+                <div class="pl-tz__hero-actions">
+                    <a href="#tz-quiz" class="pl-tz__btn pl-tz__btn--primary mobile-touch-target">{% trans "Створити ТЗ безкоштовно" %}</a>
+                    <button type="button" class="pl-tz__btn pl-tz__btn--ghost mobile-touch-target" data-modal="call-request-modal">{% trans "Замовити консультацію" %}</button>
+                </div>
+                <div class="pl-tz__hero-trust">
+                    <span class="pl-tz__trust-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                        {% trans "PDF одразу, без очікування" %}
+                    </span>
+                    <span class="pl-tz__trust-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                        {% trans "Розширене ТЗ протягом доби" %}
+                    </span>
+                    <span class="pl-tz__trust-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                        {% trans "Повністю безкоштовно" %}
+                    </span>
+                </div>
+            </div>
+
+            <div class="pl-tz__hero-stage" data-doc-stage>
+                <div class="pl-tz__doc" data-doc>
+                    <div class="pl-tz__doc-bar">
+                        <span class="pl-tz__doc-dot" aria-hidden="true"></span>
+                        <span class="pl-tz__doc-dot" aria-hidden="true"></span>
+                        <span class="pl-tz__doc-dot" aria-hidden="true"></span>
+                        <span class="pl-tz__doc-url">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            TZ_Vash-Sait.pdf
+                        </span>
+                    </div>
+                    <div class="pl-tz__doc-body">
+                        <div class="pl-tz__doc-panel is-active" data-doc-panel="brief" aria-hidden="false">
+                            <div class="pl-tz__doc-label" data-doc-line><span class="pl-tz__doc-label-line" aria-hidden="true"></span>{% trans "Технічне завдання" %}</div>
+                            <h3 class="pl-tz__doc-title" data-doc-line>{% trans "Базове ТЗ на розробку сайту" %}</h3>
+                            <div class="pl-tz__doc-lines">
+                                <p class="pl-tz__doc-line" data-doc-line>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span><strong>{% trans "Тип сайту:" %}</strong> {% trans "Інтернет-магазин" %}</span>
+                                </p>
+                                <p class="pl-tz__doc-line" data-doc-line>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span><strong>{% trans "Ціль:" %}</strong> {% trans "Продажі онлайн" %}</span>
+                                </p>
+                                <p class="pl-tz__doc-line" data-doc-line>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span><strong>{% trans "Терміни:" %}</strong> {% trans "До 1 місяця" %}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="pl-tz__doc-panel" data-doc-panel="structure" aria-hidden="true">
+                            <div class="pl-tz__doc-label"><span class="pl-tz__doc-label-line" aria-hidden="true"></span>{% trans "Структура сайту" %}</div>
+                            <h3 class="pl-tz__doc-title">{% trans "8 розділів під ваш бізнес" %}</h3>
+                            <div class="pl-tz__doc-lines">
+                                <p class="pl-tz__doc-line"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>{% trans "Головна · Каталог · Про нас" %}</span></p>
+                                <p class="pl-tz__doc-line"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>{% trans "Портфоліо · Блог · FAQ" %}</span></p>
+                                <p class="pl-tz__doc-line"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>{% trans "Контакти · Особистий кабінет" %}</span></p>
+                            </div>
+                        </div>
+
+                        <div class="pl-tz__doc-panel" data-doc-panel="budget" aria-hidden="true">
+                            <div class="pl-tz__doc-label"><span class="pl-tz__doc-label-line" aria-hidden="true"></span>{% trans "Орієнтовний кошторис" %}</div>
+                            <h3 class="pl-tz__doc-title">{% trans "Прозорий розподіл бюджету" %}</h3>
+                            <div class="pl-tz__doc-bars">
+                                <div class="pl-tz__doc-bar-row">
+                                    <div class="pl-tz__doc-bar-head"><span>{% trans "Дизайн" %}</span><strong>30%</strong></div>
+                                    <div class="pl-tz__doc-bar-track"><span class="pl-tz__doc-bar-fill pl-tz__doc-bar-fill--30"></span></div>
+                                </div>
+                                <div class="pl-tz__doc-bar-row">
+                                    <div class="pl-tz__doc-bar-head"><span>{% trans "Розробка" %}</span><strong>50%</strong></div>
+                                    <div class="pl-tz__doc-bar-track"><span class="pl-tz__doc-bar-fill pl-tz__doc-bar-fill--50"></span></div>
+                                </div>
+                                <div class="pl-tz__doc-bar-row">
+                                    <div class="pl-tz__doc-bar-head"><span>{% trans "SEO і запуск" %}</span><strong>20%</strong></div>
+                                    <div class="pl-tz__doc-bar-track"><span class="pl-tz__doc-bar-fill pl-tz__doc-bar-fill--20"></span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pl-tz__doc-tabs" data-doc-tabs role="tablist" aria-label="{% trans "Розділи документа ТЗ" %}">
+                            <button type="button" class="pl-tz__doc-tab is-active" data-doc-tab="brief" role="tab" aria-selected="true">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                <span>{% trans "ТЗ" %}</span>
+                            </button>
+                            <button type="button" class="pl-tz__doc-tab" data-doc-tab="structure" role="tab" aria-selected="false">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                                <span>{% trans "Структура" %}</span>
+                            </button>
+                            <button type="button" class="pl-tz__doc-tab" data-doc-tab="budget" role="tab" aria-selected="false">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-tz-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+                                <span>{% trans "Кошторис" %}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

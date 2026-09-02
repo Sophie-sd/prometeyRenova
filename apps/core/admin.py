@@ -24,6 +24,7 @@ from .models import (
     FormSubmission,
     SiteContactSettings,
     PortfolioProject,
+    PortfolioFeatureBlock,
 )
 from .portfolio_sanitize import linkify_portfolio_html
 from .admin_widgets import PortfolioImageWidget
@@ -486,6 +487,23 @@ class PortfolioProjectAdminForm(forms.ModelForm):
         raw = self.cleaned_data.get('modal_content', '')
         return linkify_portfolio_html(raw)
 
+    def clean_cta_url(self):
+        raw = (self.cleaned_data.get('cta_url') or '').strip()
+        if not raw:
+            return ''
+        lowered = raw.lower()
+        if lowered.startswith(('javascript:', 'data:', 'vbscript:')):
+            raise forms.ValidationError(
+                _('Небезпечний протокол у посиланні кнопки.'),
+            )
+        if raw.startswith('/') and not raw.startswith('//'):
+            return raw
+        if lowered.startswith(('https://', 'http://', 'mailto:', 'tel:')):
+            return raw
+        raise forms.ValidationError(
+            _('Дозволені внутрішні шляхи (/…) або http(s)/mailto/tel.'),
+        )
+
 
 @admin.register(PortfolioProject)
 class PortfolioProjectAdmin(UnfoldModelAdmin):
@@ -530,7 +548,11 @@ class PortfolioProjectAdmin(UnfoldModelAdmin):
                 'card_image_alt_ru',
             ),
         }),
+        (_('Кнопка картки'), {
+            'fields': ('cta_label', 'cta_label_ru', 'cta_url'),
+        }),
         (_('Модальне вікно'), {
+            'classes': ('collapse',),
             'fields': (
                 'modal_content',
                 'modal_content_ru',
@@ -579,6 +601,41 @@ class PortfolioProjectAdmin(UnfoldModelAdmin):
         return format_html(
             '<img src="{}" alt="" class="pl-admin-image-preview">',
             src,
+        )
+
+
+@admin.register(PortfolioFeatureBlock)
+class PortfolioFeatureBlockAdmin(UnfoldModelAdmin):
+    list_filter_sheet = False
+    list_display = ('title', 'order', 'is_published', 'updated_at')
+    list_editable = ('order', 'is_published')
+    search_fields = ('title', 'text')
+    ordering = ('order',)
+    readonly_fields = ('created_at', 'updated_at', 'image_preview')
+
+    fieldsets = (
+        (_('Контент'), {
+            'fields': ('title', 'title_ru', 'text', 'text_ru'),
+        }),
+        (_('Зображення'), {
+            'fields': ('image', 'image_preview'),
+        }),
+        (_('Відображення'), {
+            'fields': ('order', 'is_published'),
+        }),
+        (_('Службове'), {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',),
+        }),
+    )
+
+    @admin.display(description=_('Прев\'ю зображення'))
+    def image_preview(self, obj):
+        if not obj or not obj.get_image_src():
+            return '—'
+        return format_html(
+            '<img src="{}" alt="" class="pl-admin-image-preview">',
+            obj.get_image_src(),
         )
 
 

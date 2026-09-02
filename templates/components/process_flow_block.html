@@ -1,0 +1,158 @@
+{% load i18n static %}
+<section class="pf-flow" aria-labelledby="pf-flow-title">
+    <div class="pf-flow__inner">
+        <header class="pf-flow__header">
+            <p class="pf-flow__tag">[ {% trans "PROCESS" %} ]</p>
+            <h2 class="pf-flow__title" id="pf-flow-title">{% trans "ЯК МИ СТВОРЮЄМО САЙТ" %}</h2>
+            <p class="pf-flow__subtitle">{% trans "Покроковий процес співпраці — від ідеї до запуску" %}</p>
+        </header>
+
+        <div class="pf-flow__stage">
+            <div class="pf-flow__grid" id="pf-flow-grid">
+                <article class="pf-flow__step pf-flow__step--hero" data-step="1">
+                    <div class="pf-flow__step-inner pf-flow__step-inner--monitor">
+                        <span class="pf-flow__step-num" aria-hidden="true">01</span>
+                        <div class="pf-flow__hero-scene">
+                            <img
+                                class="pf-flow__hero-monitor"
+                                src="{% static 'images/process_flow/monitor-3d.png' %}?v=2"
+                                width="640"
+                                height="480"
+                                alt=""
+                                decoding="async"
+                                loading="lazy"
+                            >
+                            <div class="pf-flow__hero-copy">
+                                <h3 class="pf-flow__hero-title" id="pf-hero-title">{% trans "Збір інформації" %}</h3>
+                                <div class="pf-flow__hero-accordion" id="pf-hero-accordion" role="region" aria-labelledby="pf-hero-title">
+                                    <ul class="pf-flow__hero-list">
+                                        <li class="pf-flow__hero-item">{% trans "Бриф" %}</li>
+                                        <li class="pf-flow__hero-item">{% trans "Цілі бізнесу" %}</li>
+                                        <li class="pf-flow__hero-item">{% trans "Аудиторія" %}</li>
+                                        <li class="pf-flow__hero-item">{% trans "Технічні вимоги" %}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="pf-flow__step" data-step="2">
+                    <div class="pf-flow__step-inner">
+                        <span class="pf-flow__step-num" aria-hidden="true">02</span>
+                        <span class="pf-flow__step-icon" aria-hidden="true">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="4" y="6" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                                <rect x="16" y="6" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                                <rect x="10" y="16" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M8 12v2h3M20 12v2h-3M14 14v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <h3 class="pf-flow__step-title">{% trans "Карта сайту" %}</h3>
+                        <p class="pf-flow__step-desc">{% trans "Структура сторінок, логіка навігації та сценарії користувача" %}</p>
+                    </div>
+                </article>
+
+                <article class="pf-flow__step" data-step="3">
+                    <div class="pf-flow__step-inner">
+                        <span class="pf-flow__step-num" aria-hidden="true">03</span>
+                        <span class="pf-flow__step-icon" aria-hidden="true">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M4 22c0-4 3-6 6-6s6 2 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M18 8h6M21 5v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <h3 class="pf-flow__step-title">{% trans "Розробка дизайну" %}</h3>
+                        <p class="pf-flow__step-desc">{% trans "UI/UX макети, фірмовий стиль та адаптивні прототипи" %}</p>
+                    </div>
+                </article>
+
+                <article class="pf-flow__step" data-step="4">
+                    <div class="pf-flow__step-inner">
+                        <span class="pf-flow__step-num" aria-hidden="true">04</span>
+                        <span class="pf-flow__step-icon" aria-hidden="true">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 8l-3 6 3 6M20 8l3 6-3 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M13 22l2-16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <h3 class="pf-flow__step-title">{% trans "Приклад верстки" %}</h3>
+                        <p class="pf-flow__step-desc">{% trans "Чистий HTML/CSS, швидкість завантаження та кросбраузерність" %}</p>
+                    </div>
+                </article>
+
+                <article class="pf-flow__step" data-step="5">
+                    <div class="pf-flow__step-inner">
+                        <span class="pf-flow__step-num" aria-hidden="true">05</span>
+                        <span class="pf-flow__step-icon" aria-hidden="true">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 20l4-4 3 3 6-7 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M6 6h16v16H6z" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                        </span>
+                        <h3 class="pf-flow__step-title">{% trans "Збір правок" %}</h3>
+                        <p class="pf-flow__step-desc">{% trans "Тестування, фідбек та фінальне полірування деталей" %}</p>
+                    </div>
+                </article>
+
+                <article class="pf-flow__step" data-step="6">
+                    <div class="pf-flow__step-inner">
+                        <span class="pf-flow__step-num" aria-hidden="true">06</span>
+                        <span class="pf-flow__step-icon" aria-hidden="true">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 4v8l5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8 18l-2 6 6-2M20 18l2 6-6-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="14" cy="14" r="9" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                        </span>
+                        <h3 class="pf-flow__step-title">{% trans "Деплой" %}</h3>
+                        <p class="pf-flow__step-desc">{% trans "Запуск на сервер, домен, SSL та передача проєкту" %}</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="pf-flow__links" aria-hidden="true">
+                <svg class="pf-flow__links-defs" width="0" height="0" focusable="false">
+                    <defs>
+                        <linearGradient id="pf-line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="rgba(230, 81, 0, 0.12)"/>
+                            <stop offset="45%" stop-color="rgba(255, 138, 80, 0.48)"/>
+                            <stop offset="100%" stop-color="rgba(230, 81, 0, 0.28)"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="pf-flow__link" data-connector="1">
+                    <svg class="pf-flow__link-svg" preserveAspectRatio="none">
+                        <path class="pf-flow__link-glow"/>
+                        <path class="pf-flow__link-path"/>
+                    </svg>
+                </div>
+                <div class="pf-flow__link" data-connector="2">
+                    <svg class="pf-flow__link-svg" preserveAspectRatio="none">
+                        <path class="pf-flow__link-glow"/>
+                        <path class="pf-flow__link-path"/>
+                    </svg>
+                </div>
+                <div class="pf-flow__link" data-connector="3">
+                    <svg class="pf-flow__link-svg" preserveAspectRatio="none">
+                        <path class="pf-flow__link-glow"/>
+                        <path class="pf-flow__link-path"/>
+                    </svg>
+                </div>
+                <div class="pf-flow__link" data-connector="4">
+                    <svg class="pf-flow__link-svg" preserveAspectRatio="none">
+                        <path class="pf-flow__link-glow"/>
+                        <path class="pf-flow__link-path"/>
+                    </svg>
+                </div>
+                <div class="pf-flow__link" data-connector="5">
+                    <svg class="pf-flow__link-svg" preserveAspectRatio="none">
+                        <path class="pf-flow__link-glow"/>
+                        <path class="pf-flow__link-path"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

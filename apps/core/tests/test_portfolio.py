@@ -57,13 +57,54 @@ class PortfolioModelTests(SimpleTestCase):
         )
         self.assertEqual(project.get_integration_tags(), ['tag one', 'tag two'])
 
-    def test_layout_modifier_even_order_left(self):
-        project = PortfolioProject(title='T', slug='t', card_description='D', order=0)
-        self.assertEqual(project.get_layout_modifier(), 'project-card--image-left')
+    def test_layout_modifier_even_index_no_flip(self):
+        project = PortfolioProject(title='T', slug='t', card_description='D', order=99)
+        self.assertEqual(project.get_layout_modifier(0), '')
+        self.assertEqual(project.get_layout_modifier(2), '')
 
-    def test_layout_modifier_odd_order_right(self):
-        project = PortfolioProject(title='T', slug='t', card_description='D', order=1)
-        self.assertEqual(project.get_layout_modifier(), 'project-card--image-right')
+    def test_layout_modifier_odd_index_flip(self):
+        project = PortfolioProject(title='T', slug='t', card_description='D', order=0)
+        self.assertEqual(project.get_layout_modifier(1), 'pf-snap--flip')
+        self.assertEqual(project.get_layout_modifier(3), 'pf-snap--flip')
+
+    def test_snap_tone_cycle(self):
+        self.assertEqual(PortfolioProject.get_snap_tone(0), 'orange')
+        self.assertEqual(PortfolioProject.get_snap_tone(1), 'gray')
+        self.assertEqual(PortfolioProject.get_snap_tone(2), 'purple')
+        self.assertEqual(PortfolioProject.get_snap_tone(3), 'orange')
+        self.assertEqual(PortfolioProject.get_snap_tone(4), 'gray')
+        self.assertEqual(PortfolioProject.get_snap_tone(5), 'purple')
+
+    def test_safe_cta_href_blocks_javascript(self):
+        project = PortfolioProject(
+            title='T',
+            slug='t',
+            card_description='D',
+            cta_url='javascript:alert(1)',
+        )
+        self.assertEqual(project.get_safe_cta_href(), '')
+
+    def test_safe_cta_href_allows_internal_and_https(self):
+        internal = PortfolioProject(
+            title='T',
+            slug='t',
+            card_description='D',
+            cta_url='/contacts/',
+        )
+        external = PortfolioProject(
+            title='T2',
+            slug='t2',
+            card_description='D',
+            cta_url='https://example.com/case',
+        )
+        self.assertEqual(internal.get_safe_cta_href(), '/contacts/')
+        self.assertEqual(external.get_safe_cta_href(), 'https://example.com/case')
+        self.assertFalse(internal.is_external_cta())
+        self.assertTrue(external.is_external_cta())
+
+    def test_watermark_mark(self):
+        project = PortfolioProject(title='Speak Up', slug='speakup', card_description='D')
+        self.assertEqual(project.get_watermark_mark(), 'S')
 
     def test_modal_id(self):
         project = PortfolioProject(title='T', slug='speakup', card_description='D')

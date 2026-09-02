@@ -7,7 +7,9 @@
 бізнесу." %}{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+<link rel="stylesheet" href="{% static 'css/portfolio.css' %}?v=snap10">
+<link rel="stylesheet" href="{% static 'css/portfolio-brand-snap.css' %}?v=snap10">
+<link rel="stylesheet" href="{% static 'css/portfolio-brand-snap2.css' %}?v=snap10">
 {% endblock %}
 
 {% block content %}
@@ -34,27 +36,16 @@
     </div>
 </section>
 
-<!-- Portfolio Projects Section -->
-<section class="portfolio-projects content-section--first">
-    <div class="container container-wide">
-        {% for project in portfolio_projects %}
-        {% include 'components/portfolio_project_card.html' with project=project %}
-        {% empty %}
-        <p class="text-medium color-white text-center">{% trans "Проєкти портфоліо скоро з’являться." %}</p>
-        {% endfor %}
-    </div>
+<section class="portfolio-projects content-section--first pf-snaps" data-portfolio-snap aria-label="{% trans 'Проєкти портфоліо' %}">
+    {% for project in portfolio_projects %}
+    {% include 'components/portfolio_project_card.html' with project=project %}
+    {% empty %}
+    <p class="pf-snaps__empty text-medium color-white">{% trans "Проєкти портфоліо скоро з’являться." %}</p>
+    {% endfor %}
 </section>
-
-<!-- Portfolio Project Modals -->
-{% for project in portfolio_projects %}
-{% if project.modal_content or project.modal_hero %}
-{% include 'components/portfolio_project_modal.html' with project=project %}
-{% endif %}
-{% endfor %}
 
 {% endblock %}
 
 {% block extra_js %}
-<!-- Portfolio animations and interactions -->
-<script src="{% static 'js/portfolio.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/portfolio-brand-snap.js' %}?v=snap10" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}
