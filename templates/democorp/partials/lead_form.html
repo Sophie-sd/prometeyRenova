@@ -1,0 +1,29 @@
+{% load i18n demotenant %}
+<form class="dc-lead-form" data-qa="lead-form"
+      hx-post="{% url 'democorp:lead' slug=site.slug %}"
+      hx-target="closest .dc-lead-form-wrap"
+      hx-swap="innerHTML">
+    {% csrf_token %}
+    <input type="text" name="honeypot" class="dc-lead-form__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+    {% if product %}<input type="hidden" name="product_slug" value="{{ product.slug }}">{% endif %}
+    <div class="dc-field">
+        {{ lead_form.name.label_tag }}
+        {{ lead_form.name }}
+    </div>
+    <div class="dc-field">
+        {{ lead_form.phone.label_tag }}
+        {{ lead_form.phone }}
+    </div>
+    <div class="dc-field">
+        {{ lead_form.email.label_tag }}
+        {{ lead_form.email }}
+    </div>
+    <div class="dc-field">
+        {{ lead_form.message.label_tag }}
+        {{ lead_form.message }}
+    </div>
+    {% if lead_form.errors %}<p class="dc-lead-form__error">{% trans "Перевірте поля форми." %}</p>{% endif %}
+    <button type="submit" class="dc-btn dc-btn--primary">
+        {% if product %}{% trans "Хочу такий сайт" %}{% else %}{% tenant_text blocks_map registry "cta" "submit_label" %}{% endif %}
+    </button>
+</form>

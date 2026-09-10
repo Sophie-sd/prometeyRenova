@@ -1,0 +1,142 @@
+/* RoyalSmoke design tokens — dark luxury tobacco atelier */
+@font-face {
+  font-family: "Fixel Display";
+  src: url("../fonts/fixel-display/FixelDisplay-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fixel Display";
+  src: url("../fonts/fixel-display/FixelDisplay-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fixel Display";
+  src: url("../fonts/fixel-display/FixelDisplay-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fixel Display";
+  src: url("../fonts/fixel-display/FixelDisplay-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fixel Display";
+  src: url("../fonts/fixel-display/FixelDisplay-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --rs-bark: #100d0c;
+  --rs-bark-light: #181412;
+  --rs-slot: #322a26;
+  --rs-seashell: #fcf2ee;
+  --rs-gold: #c99a44;
+  --rs-gold-hover: #d8ac5c;
+  --rs-coffee: #1c1715;
+
+  --rs-text: var(--rs-seashell);
+  --rs-text-muted: rgba(252, 242, 238, 0.6);
+  --rs-text-soft: rgba(252, 242, 238, 0.85);
+  --rs-hairline: rgba(252, 242, 238, 0.14);
+  --rs-border: rgba(252, 242, 238, 0.4);
+  --rs-border-soft: rgba(252, 242, 238, 0.25);
+  --rs-shadow: rgba(16, 13, 12, 0.45);
+  --rs-overlay: rgba(16, 13, 12, 0.55);
+
+  --rs-font-display: "Fixel Display", "Helvetica Neue", sans-serif;
+  --rs-font-ui: "Fixel Display", "Helvetica Neue", sans-serif;
+  --rs-weight-display: 700;
+  --rs-weight-sub: 600;
+  --rs-weight-ui: 500;
+
+  /* Page / section display headings (Калькулятор reference) */
+  --rs-heading-page-font: var(--rs-font-ui);
+  --rs-heading-page-weight: var(--rs-weight-sub);
+  --rs-heading-page-size: clamp(28px, 5vw, 42px);
+  --rs-heading-page-tracking: 0.28em;
+  --rs-heading-page-lh: 1.12;
+  --rs-heading-page-color: rgba(252, 242, 238, 0.92);
+
+  --rs-space-1: 4px;
+  --rs-space-2: 8px;
+  --rs-space-3: 12px;
+  --rs-space-4: 16px;
+  --rs-space-5: 24px;
+  --rs-space-6: 40px;
+  --rs-space-7: 56px;
+  --rs-space-8: 104px;
+
+  --rs-pad-x: 24px;
+  --rs-pad-x-sm: 20px;
+  --rs-pad-x-lg: 64px;
+  --rs-container: 1440px;
+
+  --rs-header-h: 60px;
+  --rs-nav-h: 58px;
+  --rs-radius-pill: 150px;
+  --rs-tap: 44px;
+  --rs-btn-h: 48px;
+  --rs-btn-h-lg: 52px;
+  --rs-z-header: 100;
+  --rs-z-drawer: 200;
+  --rs-z-overlay: 250;
+  --rs-z-gate: 300;
+  --rs-z-float: 80;
+
+  /* ——— Motion: Emil UI (<300ms) + Luxury (500–2500ms) ——— */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drift: ease;
+  --ease-reveal: var(--ease-out);
+  --ease-ui: cubic-bezier(0.2, 0.8, 0.25, 1);
+
+  --t-fast: 160ms;
+  --t-base: 250ms;
+  --t-modal: 300ms;
+  --motion-soft: 500ms;
+  --motion-reveal: 1000ms;
+  --motion-slide: 1500ms;
+  --motion-drift: 2500ms;
+  --stagger-ui: 60ms;
+  --stagger-reveal: 120ms;
+
+  /* RS aliases → canonical tokens */
+  --rs-ease: var(--ease-ui);
+  --rs-ease-hero: var(--ease-out);
+  --rs-ease-out: var(--ease-out);
+  --rs-ease-drift: var(--ease-drift);
+  --rs-dur-fast: var(--t-fast);
+  --rs-dur: var(--t-base);
+  --rs-dur-slow: var(--motion-soft);
+  --rs-dur-hero: var(--motion-drift);
+
+  /* Scroll reveal — luxury pace */
+  --rs-reveal-duration: var(--motion-reveal);
+  --rs-reveal-easing: var(--ease-reveal);
+  --rs-reveal-delay: 0ms;
+  --rs-reveal-y: 24px;
+  --rs-reveal-x: 14px;
+  --rs-reveal-scale: 0.97;
+  --rs-stagger-reveal: var(--stagger-reveal);
+  --rs-hover-lift: -3px;
+  --rs-hover-zoom: 1.035;
+
+  --rs-safe-t: env(safe-area-inset-top, 0px);
+  --rs-safe-r: env(safe-area-inset-right, 0px);
+  --rs-safe-b: env(safe-area-inset-bottom, 0px);
+  --rs-safe-l: env(safe-area-inset-left, 0px);
+}

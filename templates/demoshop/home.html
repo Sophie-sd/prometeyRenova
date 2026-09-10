@@ -1,0 +1,233 @@
+{% extends 'demoshop/base.html' %}
+{% load static demoshop_extras i18n %}
+
+{% block body_class %} ds-body--hero-overlay{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'demoshop/css/demoshop_page_strip.css' %}?v=17">
+<link rel="stylesheet" href="{% static 'demoshop/css/demoshop_hero.css' %}?v=17">
+<link rel="stylesheet" href="{% static 'demoshop/css/demoshop_categories.css' %}?v=7">
+<link rel="stylesheet" href="{% static 'demoshop/css/demoshop_header_compact.css' %}?v=11">
+{% endblock %}
+
+{% block pre_main %}
+{% if slides %}
+<section class="ds-hero ds-hero--fullbleed" data-ds-reveal data-ds-hero data-ds-hero-slider>
+    <div class="ds-hero__viewport" aria-live="polite">
+        {% for slide in slides %}
+        <article class="ds-hero__slide{% if forloop.first %} is-active{% endif %}"
+                 data-ds-hero-slide
+                 {% if not forloop.first %}aria-hidden="true"{% endif %}>
+            <div class="ds-hero__media">
+                <picture class="ds-hero__picture">
+                    {% if slide.image_narrow %}
+                    <source media="(max-width: 767px)" srcset="{{ slide.image_narrow.url }}">
+                    {% endif %}
+                    {% if slide.image %}
+                    <img class="ds-hero__bg"
+                         src="{{ slide.image.url }}"
+                         alt=""
+                         width="2560"
+                         height="1440"
+                         {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+                    {% else %}
+                    <img class="ds-hero__bg"
+                         src="{% static 'demoshop/seed/hero/slide-1-wide.webp' %}"
+                         alt=""
+                         width="2560"
+                         height="1440"
+                         {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+                    {% endif %}
+                </picture>
+            </div>
+            <div class="ds-hero__overlay"></div>
+            <div class="ds-hero__content">
+                {% if forloop.first %}
+                <h1 class="ds-hero__title">{{ slide.localized_title }}</h1>
+                {% else %}
+                <p class="ds-hero__title" role="presentation">{{ slide.localized_title }}</p>
+                {% endif %}
+                {% if slide.localized_subtitle %}
+                <p class="ds-hero__subtitle">{{ slide.localized_subtitle }}</p>
+                {% endif %}
+                {% if slide.localized_cta_label %}
+                <a class="ds-btn ds-btn--hero ds-btn--lg" href="{% url 'demoshop:catalog' shop_slug=shop.slug %}">
+                    {{ slide.localized_cta_label }}
+                </a>
+                {% endif %}
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    {% if slides|length > 1 %}
+    <div class="ds-hero__controls" data-ds-hero-controls>
+        <button type="button" class="ds-hero__nav ds-hero__nav--prev" data-ds-hero-prev aria-label="{% trans 'Попередній слайд' %}">
+            <span aria-hidden="true">‹</span>
+        </button>
+        <div class="ds-hero__dots" role="tablist" aria-label="{% trans 'Слайди банера' %}">
+            {% for slide in slides %}
+            <button type="button"
+                    class="ds-hero__dot{% if forloop.first %} is-active{% endif %}"
+                    data-ds-hero-dot
+                    data-index="{{ forloop.counter0 }}"
+                    role="tab"
+                    aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                    aria-label="{% blocktrans with n=forloop.counter %}Слайд {{ n }}{% endblocktrans %}">
+            </button>
+            {% endfor %}
+        </div>
+        <button type="button" class="ds-hero__nav ds-hero__nav--next" data-ds-hero-next aria-label="{% trans 'Наступний слайд' %}">
+            <span aria-hidden="true">›</span>
+        </button>
+    </div>
+    {% endif %}
+</section>
+<div class="ds-header-compact-sentinel" data-ds-compact-sentinel aria-hidden="true"></div>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if categories %}
+<section class="ds-section ds-section--after-hero ds-container">
+    <div class="ds-cat-row grid-desktop-cols-{{ categories|length|ideal_cols:4 }}">
+        {% for category in categories %}
+        {% with cat_img=category|category_image %}
+        <div class="ds-cat-row__item">
+            <a class="ds-cat-card ds-cat-card--wipe ds-reveal" data-ds-reveal
+               href="{% url 'demoshop:catalog' shop_slug=shop.slug %}?category={{ category.slug }}">
+                <span class="ds-cat-card__media" aria-hidden="true">
+                    <img class="ds-cat-card__img"
+                         src="{% static cat_img %}"
+                         alt=""
+                         loading="lazy"
+                         decoding="async"
+                         width="800"
+                         height="800">
+                    <span class="ds-cat-card__shade"></span>
+                    <span class="ds-cat-card__wipe"></span>
+                </span>
+                <span class="ds-cat-card__body">
+                    <span class="ds-cat-card__name">{{ category.localized_name|default:category.name }}</span>
+                </span>
+            </a>
+        </div>
+        {% endwith %}
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<div class="ds-home-mid">
+{% if featured %}
+<section class="ds-hits ds-section">
+    <header class="ds-section__head ds-section__head--row ds-container ds-reveal" data-ds-reveal>
+        <h2 class="ds-section__title">{% trans "Хіти продажів" %}</h2>
+        <a class="ds-link-more" href="{% url 'demoshop:hits' shop_slug=shop.slug %}">{% trans "Дивитись усі" %} →</a>
+    </header>
+    <div class="page-strip" data-loop data-qa="product-grid">
+        <div class="page-strip__track">
+            <div class="page-strip__set">
+                {% include 'demoshop/partials/product_strip_set.html' with products=featured %}
+            </div>
+            <div class="page-strip__set" aria-hidden="true">
+                {% include 'demoshop/partials/product_strip_set.html' with products=featured is_clone=True %}
+            </div>
+            <div class="page-strip__set" aria-hidden="true">
+                {% include 'demoshop/partials/product_strip_set.html' with products=featured is_clone=True %}
+            </div>
+            <div class="page-strip__set" aria-hidden="true">
+                {% include 'demoshop/partials/product_strip_set.html' with products=featured is_clone=True %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% block_image shop 'home' 'about_image' as ds_about_image %}
+<section class="ds-about" data-ds-about>
+    <div class="ds-about__stage">
+        <div class="ds-about__media">
+            {% if ds_about_image %}
+            <img src="{{ ds_about_image }}" alt="" width="2560" height="1440" loading="lazy" decoding="async">
+            {% endif %}
+        </div>
+        <div class="ds-about__frame">
+            <div class="ds-about__copy">
+                <div class="ds-about__blind" data-i="0">
+                    <h2 class="ds-about__title">{% block_text shop 'home' 'about_title' %}</h2>
+                </div>
+                <div class="ds-about__blind" data-i="1">
+                    <p class="ds-about__body">{% block_text shop 'home' 'about_text' %}</p>
+                </div>
+                <dl class="ds-about__stats">
+                    <div class="ds-about__blind ds-about__stat" data-i="2">
+                        <dt class="ds-about__stat-num">{% block_text shop 'home' 'stat_orders' %}</dt>
+                        <dd>{% trans "замовлень" %}</dd>
+                    </div>
+                    <div class="ds-about__blind ds-about__stat" data-i="3">
+                        <dt class="ds-about__stat-num">{% block_text shop 'home' 'stat_clients' %}</dt>
+                        <dd>{% trans "клієнтів" %}</dd>
+                    </div>
+                    <div class="ds-about__blind ds-about__stat ds-about__stat--accent" data-i="4">
+                        <dt class="ds-about__stat-num">{% block_text shop 'home' 'stat_rating' %}</dt>
+                        <dd>{% trans "рейтинг" %}</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if on_sale %}
+<section class="ds-hits ds-hits--promo ds-section">
+    <header class="ds-section__head ds-section__head--row ds-container ds-reveal" data-ds-reveal>
+        <h2 class="ds-section__title">{% trans "Акції" %}</h2>
+        <a class="ds-link-more" href="{% url 'demoshop:promotions' shop_slug=shop.slug %}">{% trans "Дивитись усі" %} →</a>
+    </header>
+    <div class="page-strip page-strip--reverse" data-loop data-qa="product-grid">
+        <div class="page-strip__track">
+            <div class="page-strip__set">
+                {% include 'demoshop/partials/product_strip_set.html' with products=on_sale %}
+            </div>
+            <div class="page-strip__set" aria-hidden="true">
+                {% include 'demoshop/partials/product_strip_set.html' with products=on_sale is_clone=True %}
+            </div>
+            <div class="page-strip__set" aria-hidden="true">
+                {% include 'demoshop/partials/product_strip_set.html' with products=on_sale is_clone=True %}
+            </div>
+            <div class="page-strip__set" aria-hidden="true">
+                {% include 'demoshop/partials/product_strip_set.html' with products=on_sale is_clone=True %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+</div>
+
+{% if reviews %}
+<section class="ds-section ds-container">
+    <header class="ds-section__head ds-reveal" data-ds-reveal>
+        <h2 class="ds-section__title">{% trans "Відгуки клієнтів" %}</h2>
+    </header>
+    <div class="ds-reviews">
+        {% for review in reviews %}
+        <blockquote class="ds-quote{% if forloop.first %} ds-quote--lead{% endif %} ds-reveal" data-ds-reveal>
+            <p class="ds-quote__text">{{ review.text }}</p>
+            <footer class="ds-quote__meta">
+                <cite class="ds-quote__name">{{ review.author_name }}</cite>
+                <span class="ds-quote__rating" aria-label="{% blocktrans with n=review.rating %}Оцінка {{ n }} з 5{% endblocktrans %}">{{ review.rating }} {% trans "з 5" %}</span>
+                {% if review.product %}
+                <span class="ds-quote__product">{{ review.product.localized_name }}</span>
+                {% endif %}
+            </footer>
+        </blockquote>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'demoshop/js/header_compact.js' %}?v=5" nonce="{{ csp_nonce }}" defer></script>
+{% endblock %}

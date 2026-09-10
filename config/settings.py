@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from django.urls import reverse_lazy
 from django.templatetags.static import static
+from django.utils.translation import gettext_lazy as _
 
 load_dotenv()
 
@@ -41,12 +42,16 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.blog',
     'apps.payment',
+    'apps.demotenant',
+    'apps.demoshop',
+    'apps.demolanding',
+    'apps.democorp',
 ]
 
 # UNFOLD ADMIN
 UNFOLD = {
     "SITE_TITLE": "PrometeyLabs",
-    "SITE_HEADER": "PrometeyLabs — Адмінпанель",
+    "SITE_HEADER": _("PrometeyLabs — Адмінпанель"),
     "SITE_ICON": lambda request: static("images/favicon-48x48.png"),
     "SITE_LOGO": {
         "light": lambda request: static("images/favicon-48x48.png"),
@@ -80,6 +85,7 @@ UNFOLD = {
         lambda request: static("admin/css/admin-list-filters.css"),
         lambda request: static("admin/css/admin-sidebar-logo.css"),
         lambda request: static("admin/css/admin-image-preview.css"),
+        lambda request: static("demoshop/css/demoshop_admin.css"),
     ],
     "SCRIPTS": [
         lambda request: static("admin/js/admin-theme.js"),
@@ -90,61 +96,133 @@ UNFOLD = {
         "show_all_applications": False,
         "navigation": [
             {
-                "title": "CRM — Заявки",
+                "title": _("CRM — Заявки"),
                 "items": [
-                    {"title": "Заявки", "icon": "inbox", "link": reverse_lazy("admin:core_formsubmission_changelist")},
+                    {
+                        "title": _("Заявки"), "icon": "inbox", "link": reverse_lazy("admin:core_formsubmission_changelist"),
+                        "permission": "apps.demoshop.admin_permissions.is_prometey_staff",
+                    },
                 ],
             },
             {
-                "title": "Платежі",
+                "title": _("Платежі"),
                 "separator": True,
                 "items": [
-                    {"title": "Посилання",     "icon": "link",            "link": reverse_lazy("admin:payment_paymentlink_changelist")},
-                    {"title": "Підписки",      "icon": "autorenew",       "link": "/admin/payment/paymentlink/?is_subscription=1"},
-                    {"title": "Рахунки",       "icon": "receipt_long",    "link": reverse_lazy("admin:payment_invoice_changelist")},
-                    {"title": "Отримувачі",   "icon": "account_balance", "link": reverse_lazy("admin:payment_recipientprofile_changelist")},
-                    {"title": "Налаштування", "icon": "settings",        "link": reverse_lazy("admin:payment_paymentsettings_changelist")},
+                    {"title": _("Посилання"),     "icon": "link",            "link": reverse_lazy("admin:payment_paymentlink_changelist"), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
+                    {"title": _("Підписки"),      "icon": "autorenew",       "link": "/admin/payment/paymentlink/?is_subscription=1", "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
+                    {"title": _("Рахунки"),       "icon": "receipt_long",    "link": reverse_lazy("admin:payment_invoice_changelist"), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
+                    {"title": _("Отримувачі"),   "icon": "account_balance", "link": reverse_lazy("admin:payment_recipientprofile_changelist"), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
+                    {"title": _("Налаштування"), "icon": "settings",        "link": reverse_lazy("admin:payment_paymentsettings_changelist"), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
                 ],
             },
             {
-                "title": "Сайт",
+                "title": _("Сайт"),
                 "separator": True,
                 "items": [
                     {
-                        "title": "Контакти та карта",
+                        "title": _("Контакти та карта"),
                         "icon": "contact_phone",
                         "link": reverse_lazy("admin:core_sitecontactsettings_changelist"),
+                        "permission": "apps.demoshop.admin_permissions.is_prometey_staff",
                     },
                     {
-                        "title": "Клієнти",
+                        "title": _("Клієнти"),
                         "icon": "groups",
                         "link": reverse_lazy("admin:core_client_changelist"),
+                        "permission": "apps.demoshop.admin_permissions.is_prometey_staff",
                     },
                     {
-                        "title": "Портфоліо",
+                        "title": _("Портфоліо"),
                         "icon": "work",
                         "link": reverse_lazy("admin:core_portfolioproject_changelist"),
+                        "permission": "apps.demoshop.admin_permissions.is_prometey_staff",
                     },
                     {
-                        "title": "Комерційні пропозиції",
+                        "title": _("Комерційні пропозиції"),
                         "icon": "description",
                         "link": reverse_lazy("admin:core_proposal_changelist"),
+                        "permission": "apps.demoshop.admin_permissions.is_prometey_staff",
                     },
                 ],
             },
             {
-                "title": "Блог",
-                "separator": True,
-                "items": [
-                    {"title": "Статті", "icon": "article", "link": reverse_lazy("admin:blog_blogpost_changelist")},
-                ],
-            },
-            {
-                "title": "Система",
+                "title": _("Блог"),
                 "separator": True,
                 "items": [
                     {
-                        "title": "Користувачі",
+                        "title": _("Статті"), "icon": "article", "link": reverse_lazy("admin:blog_blogpost_changelist"),
+                        "permission": "apps.demoshop.admin_permissions.is_prometey_staff",
+                    },
+                ],
+            },
+            {
+                "title": _("Демо-сайти"),
+                "separator": True,
+                "items": [
+                    {
+                        "title": _("Магазини"),
+                        "icon": "storefront",
+                        "link": reverse_lazy("admin:demoshop_demoshop_changelist"),
+                        "permission": "apps.demoshop.admin_permissions.is_prometey_staff",
+                    },
+                    {
+                        "title": _("Корпоративні сайти"),
+                        "icon": "domain",
+                        "link": reverse_lazy("admin:democorp_corpsite_changelist"),
+                        "permission": "apps.demoshop.admin_permissions.is_prometey_staff",
+                    },
+                    {
+                        "title": _("Лендінги"),
+                        "icon": "web",
+                        "link": reverse_lazy("admin:demolanding_landingsite_changelist"),
+                        "permission": "apps.demoshop.admin_permissions.is_prometey_staff",
+                    },
+                ],
+            },
+            {
+                "title": _("Мій магазин"),
+                "separator": True,
+                "items": [
+                    {"title": _("Контент і кольори"), "icon": "palette", "link": reverse_lazy("admin:demoshop_shopblock_changelist"), "permission": "apps.demoshop.admin_permissions.is_demo_client"},
+                    {"title": _("Товари"), "icon": "inventory_2", "link": reverse_lazy("admin:demoshop_shopproduct_changelist"), "permission": "apps.demoshop.admin_permissions.is_demo_client"},
+                    {"title": _("Категорії"), "icon": "category", "link": reverse_lazy("admin:demoshop_shopcategory_changelist"), "permission": "apps.demoshop.admin_permissions.is_demo_client"},
+                    {"title": _("Відгуки"), "icon": "star", "link": reverse_lazy("admin:demoshop_shopreview_changelist"), "permission": "apps.demoshop.admin_permissions.is_demo_client"},
+                    {"title": _("Замовлення"), "icon": "receipt_long", "link": reverse_lazy("admin:demoshop_shoporder_changelist"), "permission": "apps.demoshop.admin_permissions.is_demo_client"},
+                ],
+            },
+            {
+                "title": _("Мій сайт"),
+                "separator": True,
+                "items": [
+                    {"title": _("Контент і стиль"), "icon": "palette", "link": reverse_lazy("admin:democorp_corpblock_changelist"), "permission": "apps.demotenant.permissions.is_demo_corp_client"},
+                    {"title": _("Етапи роботи"), "icon": "precision_manufacturing", "link": reverse_lazy("admin:democorp_corpproductionstep_changelist"), "permission": "apps.demotenant.permissions.is_demo_corp_client"},
+                    {"title": _("Галерея"), "icon": "photo_library", "link": reverse_lazy("admin:democorp_corpgalleryimage_changelist"), "permission": "apps.demotenant.permissions.is_demo_corp_client"},
+                    {"title": _("Категорії каталогу"), "icon": "category", "link": reverse_lazy("admin:democorp_corpcategory_changelist"), "permission": "apps.demotenant.permissions.is_demo_corp_catalog_client"},
+                    {"title": _("Приклади сайтів"), "icon": "inventory_2", "link": reverse_lazy("admin:democorp_corpproduct_changelist"), "permission": "apps.demotenant.permissions.is_demo_corp_catalog_client"},
+                    {"title": _("Відгуки"), "icon": "star", "link": reverse_lazy("admin:democorp_corptestimonial_changelist"), "permission": "apps.demotenant.permissions.is_demo_corp_client"},
+                    {"title": _("Партнери"), "icon": "handshake", "link": reverse_lazy("admin:democorp_corppartner_changelist"), "permission": "apps.demotenant.permissions.is_demo_corp_client"},
+                    {"title": _("Заявки"), "icon": "mail", "link": reverse_lazy("admin:democorp_corplead_changelist"), "permission": "apps.demotenant.permissions.is_demo_corp_client"},
+                ],
+            },
+            {
+                "title": _("Мій лендінг"),
+                "separator": True,
+                "items": [
+                    {"title": _("Контент і стиль"), "icon": "palette", "link": reverse_lazy("admin:demolanding_landingblock_changelist"), "permission": "apps.demotenant.permissions.is_demo_landing_client"},
+                    {"title": _("Послуги"), "icon": "handyman", "link": reverse_lazy("admin:demolanding_landingoffer_changelist"), "permission": "apps.demotenant.permissions.is_demo_landing_client"},
+                    {"title": _("Галерея"), "icon": "photo_library", "link": reverse_lazy("admin:demolanding_landinggalleryimage_changelist"), "permission": "apps.demotenant.permissions.is_demo_landing_client"},
+                    {"title": _("До / після"), "icon": "compare", "link": reverse_lazy("admin:demolanding_landingbeforeafter_changelist"), "permission": "apps.demotenant.permissions.is_demo_landing_client"},
+                    {"title": _("Відгуки"), "icon": "star", "link": reverse_lazy("admin:demolanding_landingtestimonial_changelist"), "permission": "apps.demotenant.permissions.is_demo_landing_client"},
+                    {"title": _("Партнери"), "icon": "handshake", "link": reverse_lazy("admin:demolanding_landingpartner_changelist"), "permission": "apps.demotenant.permissions.is_demo_landing_client"},
+                    {"title": _("Заявки"), "icon": "mail", "link": reverse_lazy("admin:demolanding_landinglead_changelist"), "permission": "apps.demotenant.permissions.is_demo_landing_client"},
+                ],
+            },
+            {
+                "title": _("Система"),
+                "separator": True,
+                "items": [
+                    {
+                        "title": _("Користувачі"),
                         "icon": "person",
                         "link": reverse_lazy("admin:auth_user_changelist"),
                         "permission": "apps.core.admin_permissions.can_manage_admin_users",

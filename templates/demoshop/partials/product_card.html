@@ -1,0 +1,54 @@
+{% load demoshop_extras i18n %}
+<article class="ds-card{% if is_clone %} is-clone{% endif %}"{% if is_clone %} aria-hidden="true"{% endif %}>
+    <div class="ds-card__media">
+        {% if product.main_image %}
+        <img class="ds-card__img" src="{{ product.main_image.image.url }}" alt="{{ product.localized_name }}" loading="lazy" decoding="async">
+        {% endif %}
+        <a class="ds-card__hit" href="{{ product.get_absolute_url }}"{% if is_clone %} tabindex="-1"{% endif %}>
+            <span class="ds-sr-only">{{ product.localized_name }}</span>
+        </a>
+        <div class="ds-card__badges">
+            {% if product.is_featured %}<span class="ds-badge ds-badge--hit">{% trans "Хіт" %}</span>{% endif %}
+            {% if product.discount_percent %}
+            <span class="ds-card__sale">
+                <span class="ds-badge">-{{ product.discount_percent }}%</span>
+                {% if product.sale_timer_active %}
+                <span class="timer--pill"
+                      data-countdown="{{ product.sale_end_date|date:'U' }}"
+                      data-expired-label="{% trans "Акція завершена" %}"
+                      data-label-days="{% trans "д" %}"></span>
+                {% endif %}
+            </span>
+            {% elif product.sale_timer_active %}
+            <span class="timer--pill"
+                  data-countdown="{{ product.sale_end_date|date:'U' }}"
+                  data-expired-label="{% trans "Акція завершена" %}"
+                  data-label-days="{% trans "д" %}"></span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="ds-card__body">
+        <h3 class="ds-card__name">{{ product.localized_name }}</h3>
+        <div class="ds-card__price-row">
+            <span class="ds-card__price">{{ product.price|money }} {% currency_symbol %}</span>
+            {% if product.old_price %}
+            <span class="ds-card__price-old">{{ product.old_price|money }} {% currency_symbol %}</span>
+            {% endif %}
+        </div>
+        {% if not in_strip %}
+        <div class="ds-card__actions">
+            <form class="ds-card__cart-form" data-qa="cart-add" hx-post="{% url 'demoshop:cart_add' shop_slug=shop.slug %}" hx-target="#ds-drawer-root" hx-swap="innerHTML">
+                <input type="hidden" name="product_id" value="{{ product.pk }}">
+                <input type="hidden" name="qty" value="1">
+                <button type="submit" class="ds-btn ds-btn--primary ds-card__cta"{% if is_clone %} tabindex="-1"{% endif %}>{% trans "До кошика" %}</button>
+            </form>
+            <button type="button"
+                    class="ds-wish-toggle"
+                    data-wishlist-toggle
+                    data-product-id="{{ product.pk }}"
+                    aria-label="{% trans "Додати в обране" %}"
+                    aria-pressed="false"{% if is_clone %} tabindex="-1"{% endif %}>♡</button>
+        </div>
+        {% endif %}
+    </div>
+</article>

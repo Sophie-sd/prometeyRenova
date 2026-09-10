@@ -1,0 +1,252 @@
+{% extends 'demolanding/base.html' %}
+{% load i18n demotenant %}
+
+{% block title %}{% tenant_text blocks_map registry "seo" "title" %}{% endblock %}
+{% block meta_description %}
+<meta name="description" content="{% tenant_text blocks_map registry 'seo' 'description' %}">
+{% endblock %}
+
+{% block pre_main %}
+{% include 'demolanding/partials/header.html' %}
+{% include 'demolanding/partials/drawer.html' %}
+{% endblock %}
+
+{% block content %}
+{% tenant_text blocks_map registry "stats" "stat_projects" as stat_projects %}
+{% tenant_text blocks_map registry "stats" "stat_years" as stat_years %}
+{% tenant_text blocks_map registry "stats" "stat_clients" as stat_clients %}
+{% tenant_text blocks_map registry "stats" "stat_warranty" as stat_warranty %}
+
+<section class="dl-hero{% if not site.hero_image and not site.hero_video %} dl-hero--plain{% endif %}" id="hero">
+    {% if site.hero_mode == 'scroll_video' and site.hero_video %}
+    <video class="dl-hero__media" src="{{ site.hero_video.url }}" poster="{% if site.hero_poster %}{{ site.hero_poster.url }}{% endif %}" autoplay muted loop playsinline></video>
+    {% elif site.hero_image %}
+    <picture>
+        {% if site.hero_image_narrow %}
+        <source media="(max-width: 767px)" srcset="{{ site.hero_image_narrow.url }}">
+        {% endif %}
+        <img class="dl-hero__media" src="{{ site.hero_image.url }}" alt="{% tenant_text blocks_map registry 'header' 'company_name' %}" loading="eager" decoding="async">
+    </picture>
+    {% endif %}
+    <div class="dl-hero__overlay" aria-hidden="true"></div>
+    <div class="dl-container dl-hero__content">
+        <p class="dl-hero__eyebrow">{% tenant_text blocks_map registry "header" "company_name" %}</p>
+        <h1 class="dl-hero__title">{% tenant_text blocks_map registry "hero" "title" %}</h1>
+        <p class="dl-hero__subtitle">{% tenant_text blocks_map registry "hero" "subtitle" %}</p>
+        <a class="dl-btn dl-btn--primary" href="#cta">{% tenant_text blocks_map registry "hero" "cta_label" %}</a>
+    </div>
+    <span class="dl-hero__scroll">{% trans "Гортайте далі" %}</span>
+</section>
+
+{% if stats_visible %}
+<section class="dl-stats" data-reveal>
+    <div class="dl-container dl-stats__grid">
+        <div>
+            <p class="dl-stats__value dl-mono" data-count-to="{{ stat_projects }}">{{ stat_projects }}</p>
+            <p class="dl-stats__label">{% trans "днів до старту" %}</p>
+        </div>
+        <div>
+            <p class="dl-stats__value dl-mono" data-count-to="{{ stat_years }}">{{ stat_years }}</p>
+            <p class="dl-stats__label">{% trans "одна сторінка" %}</p>
+        </div>
+        <div>
+            <p class="dl-stats__value dl-mono" data-count-to="{{ stat_clients }}">{{ stat_clients }}</p>
+            <p class="dl-stats__label">{% trans "годин прийому" %}</p>
+        </div>
+        <div>
+            <p class="dl-stats__value dl-mono" data-count-to="{{ stat_warranty }}" data-count-suffix="%">{{ stat_warranty }}</p>
+            <p class="dl-stats__label">{% trans "з телефону" %}</p>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if offers_visible %}
+<section class="dl-section" id="offers">
+    <div class="dl-container">
+        <div class="dl-section__head">
+            <h2 class="dl-section__title" data-reveal>{% tenant_text blocks_map registry "offers" "title" %}</h2>
+        </div>
+        <div class="dl-offers__grid" data-reveal-stagger>
+            {% for offer in offers %}
+            <article class="dl-offer-card{% if forloop.counter == 2 %} dl-offer-card--rec{% endif %}" data-reveal>
+                <div class="dl-offer-card__panel">
+                    {% if offer.image %}<img class="dl-offer-card__img" src="{{ offer.image.url }}" alt="{{ offer.localized_title }}" loading="lazy">{% endif %}
+                    <p class="dl-offer-card__index dl-mono">{% if forloop.counter < 10 %}0{% endif %}{{ forloop.counter }}</p>
+                    <h3 class="dl-offer-card__title">{{ offer.localized_title }}</h3>
+                    <p class="dl-offer-card__desc">{{ offer.localized_description }}</p>
+                    {% if offer.price_from %}
+                    <p class="dl-offer-card__price dl-mono">
+                        <span class="dl-offer-card__price-value">{{ offer.price_from|floatformat:"0" }}</span>
+                        <span class="dl-offer-card__price-unit">€</span>
+                    </p>
+                    {% endif %}
+                    <a class="dl-offer-card__cta" href="#cta">{% trans "Хочу так" %}</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if process_visible %}
+<section class="dl-section dl-section--soft" id="process">
+    <div class="dl-container">
+        <div class="dl-section__head">
+            <h2 class="dl-section__title" data-reveal>{% tenant_text blocks_map registry "process" "title" %}</h2>
+        </div>
+        <div class="dl-process__grid">
+            {% for step_key in process_steps %}
+            <div class="dl-process__step" data-reveal>
+                <p class="dl-process__num dl-mono">0{{ forloop.counter }}</p>
+                <p class="dl-process__text">{% tenant_text blocks_map registry "process" step_key %}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if gallery_visible and gallery_images %}
+<section class="dl-section" id="gallery">
+    <div class="dl-container">
+        <div class="dl-section__head">
+            <h2 class="dl-section__title" data-reveal>{% tenant_text blocks_map registry "gallery" "title" %}</h2>
+        </div>
+        <div class="bento">
+            {% for image in gallery_images %}
+            <figure class="bento__item{% if image.span == '2x1' %} bento__item--2x1{% elif image.span == '1x2' %} bento__item--1x2{% endif %}">
+                <div class="bento__frame">
+                    <img src="{{ image.image.url }}" alt="{{ image.localized_caption }}" loading="lazy">
+                </div>
+                {% if image.localized_caption %}
+                <figcaption class="bento__caption">{{ image.localized_caption }}</figcaption>
+                {% endif %}
+            </figure>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if before_after_visible and before_after_pairs %}
+<section class="dl-section dl-section--soft" id="before-after">
+    <div class="dl-container">
+        <div class="dl-section__head">
+            <h2 class="dl-section__title" data-reveal>{% tenant_text blocks_map registry "before_after" "title" %}</h2>
+        </div>
+        <div class="dl-ba-grid">
+            {% for pair in before_after_pairs %}
+            <article class="dl-ba-card">
+                {% if pair.title %}<h3 class="dl-ba-card__title">{{ pair.title }}</h3>{% endif %}
+            <div class="ba-compare" data-ba-compare data-reveal
+                 role="slider" tabindex="0"
+                 aria-valuemin="2" aria-valuemax="98" aria-valuenow="52"
+                 aria-label="{% trans 'Порівняння до і після' %}{% if pair.title %}: {{ pair.title }}{% endif %}">
+                <div class="ba-compare__layer ba-compare__layer--after">
+                    <img src="{{ pair.image_after.url }}" alt="{% trans 'Після' %}" width="1600" height="900" loading="lazy" decoding="async" draggable="false">
+                </div>
+                <div class="ba-compare__layer ba-compare__layer--before">
+                    <img src="{{ pair.image_before.url }}" alt="{% trans 'До' %}" width="1600" height="900" loading="lazy" decoding="async" draggable="false">
+                </div>
+                <div class="ba-compare__handle" aria-hidden="true">
+                    <span class="ba-compare__knob">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M8 6 3 12l5 6M16 6l5 6-5 6"/>
+                        </svg>
+                    </span>
+                </div>
+                <span class="ba-compare__label ba-compare__label--before">{% trans "До" %}</span>
+                <span class="ba-compare__label ba-compare__label--after">{% trans "Після" %}</span>
+            </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if reviews_visible and testimonials %}
+<section class="dl-section" id="reviews">
+    <div class="dl-container">
+        <div class="dl-section__head">
+            <h2 class="dl-section__title" data-reveal>{% tenant_text blocks_map registry "reviews" "title" %}</h2>
+        </div>
+        <div class="dl-reviews__grid">
+            {% for review in testimonials %}
+            <article class="dl-review-card" data-reveal>
+                <p class="dl-review-card__rating" aria-label="{% blocktrans with n=review.rating %}Оцінка {{ n }} з 5{% endblocktrans %}">
+                    {% for _ in "12345" %}
+                    <span class="dl-review-card__star{% if forloop.counter <= review.rating %} is-on{% endif %}" aria-hidden="true">★</span>
+                    {% endfor %}
+                </p>
+                <p class="dl-review-card__text">«{{ review.localized_text }}»</p>
+                <p class="dl-review-card__meta"><strong>{{ review.author_name }}</strong>{% if review.role %} · {{ review.role }}{% endif %}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if faq_visible %}
+<section class="dl-section dl-section--soft" id="faq">
+    <div class="dl-container dl-faq">
+        <div class="dl-section__head">
+            <h2 class="dl-section__title" data-reveal>{% tenant_text blocks_map registry "faq" "title" %}</h2>
+        </div>
+        {% for q_key, a_key in faq_pairs %}
+        <details class="dl-faq__item"{% if forloop.first %} open{% endif %}>
+            <summary class="dl-faq__btn">
+                <span class="dl-faq__q">{% tenant_text blocks_map registry "faq" q_key %}</span>
+                <span class="dl-faq__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M6.2 9.2 12 15l5.8-5.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </summary>
+            <div class="dl-faq__panel">{% tenant_text blocks_map registry "faq" a_key %}</div>
+        </details>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% tenant_image blocks_map "cta" "image" as cta_image %}
+<section class="dl-section dl-cta" id="cta">
+    <div class="dl-container dl-cta__grid">
+        <div class="dl-cta__panel">
+            <h2 class="dl-section__title" data-reveal>{% tenant_text blocks_map registry "cta" "title" %}</h2>
+            <p class="dl-cta__lead" data-reveal>{% tenant_text blocks_map registry "cta" "subtitle" %}</p>
+            <div id="dl-lead-root" data-reveal-hold>
+                {% include 'demolanding/partials/lead_form.html' %}
+            </div>
+        </div>
+        {% if cta_image %}
+        <figure class="dl-cta__visual">
+            <img src="{{ cta_image }}" alt="{% tenant_text blocks_map registry 'cta' 'title' %}" loading="eager" decoding="async">
+        </figure>
+        {% endif %}
+    </div>
+</section>
+
+{% if partners_visible and partners %}
+<section class="dl-partners">
+    <div class="loop" data-loop>
+        <div class="loop__track">
+            <div class="loop__set">
+                {% for partner in partners %}
+                <span class="dl-partners__name">{{ partner.name }}</span>
+                {% endfor %}
+            </div>
+            <div class="loop__set" aria-hidden="true">
+                {% for partner in partners %}
+                <span class="dl-partners__name">{{ partner.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

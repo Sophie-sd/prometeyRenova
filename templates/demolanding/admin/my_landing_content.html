@@ -1,0 +1,72 @@
+{% extends "admin/base_site.html" %}
+{% load static i18n %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'demolanding/css/demolanding_admin.css' %}?v=3">
+{% endblock %}
+
+{% block content %}
+<div class="dl-admin-form">
+    <h1>{{ title }}</h1>
+    <p>
+        {% trans "Лендінг" %}: <strong>{{ tenant.name }}</strong> ·
+        <a href="{% url 'demolanding:home' slug=tenant.slug %}" target="_blank" rel="noopener">{% trans "Переглянути вітрину" %}</a>
+    </p>
+    <nav class="dl-admin-form__collections" aria-label="{% trans 'Колекції' %}">
+        <a href="{% url 'admin:demolanding_landingoffer_changelist' %}">{% trans "Послуги" %}</a>
+        <a href="{% url 'admin:demolanding_landinggalleryimage_changelist' %}">{% trans "Галерея" %}</a>
+        <a href="{% url 'admin:demolanding_landingbeforeafter_changelist' %}">{% trans "До / після" %}</a>
+        <a href="{% url 'admin:demolanding_landingtestimonial_changelist' %}">{% trans "Відгуки" %}</a>
+        <a href="{% url 'admin:demolanding_landingpartner_changelist' %}">{% trans "Партнери" %}</a>
+        <a href="{% url 'admin:demolanding_landinglead_changelist' %}">{% trans "Заявки" %}</a>
+    </nav>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for group in block_groups %}
+        <fieldset class="dl-admin-form__fieldset">
+            <legend>{{ group.label }}</legend>
+            {% for item in group.fields %}
+            {% if item.langs %}
+            <div class="dl-admin-form__i18n">
+                {% for field in item.langs %}
+                <div class="dl-admin-form__field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="dl-admin-form__field">
+                {{ item.field.label_tag }}
+                {{ item.field }}
+                {% if item.type == 'image' and item.current_image %}
+                <img class="dl-admin-form__preview" src="{{ item.current_image.url }}" alt="">
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </fieldset>
+        {% endfor %}
+
+        <fieldset class="dl-admin-form__fieldset">
+            <legend>{% trans "Стиль, hero, кольори" %}</legend>
+            {% for field in settings_form %}
+            <div class="dl-admin-form__field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.name == 'hero_image' and tenant.hero_image %}
+                <img class="dl-admin-form__preview" src="{{ tenant.hero_image.url }}" alt="">
+                {% elif field.name == 'hero_image_narrow' and tenant.hero_image_narrow %}
+                <img class="dl-admin-form__preview" src="{{ tenant.hero_image_narrow.url }}" alt="">
+                {% endif %}
+            </div>
+            {% endfor %}
+        </fieldset>
+
+        <button type="submit" class="dl-admin-form__submit">{% trans "Зберегти зміни" %}</button>
+    </form>
+</div>
+{% endblock %}

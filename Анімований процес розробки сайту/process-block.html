@@ -1,0 +1,558 @@
+<!-- ============================================================
+     PROCESS BLOCK  ·  "Як створюється ваш сайт"
+     Django-ready partial — {% include %} me on any page.
+     Stack: HTML · CSS (mobile-first) · Vanilla JS. No React.
+     All styles/JS scoped under #pb-process.
+
+     BUG FIXED (v2):
+       SVG overlay is now a SIBLING of .pb-grid inside .pb-grid-wrap
+       (not a child of .pb-grid), so :nth-child(1-6) selectors map
+       correctly to steps 01-06, and arrow coords use the wrap as
+       their coordinate origin — no more off-by-one layout or
+       arrows crossing card boundaries.
+     ============================================================ -->
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Процес — Як створюється сайт</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ── page shell (demo only — strip when embedding) ── */
+  html, body { margin: 0; background: #08080c; }
+
+  /* ══════════════════════════════════════════════════════
+     BLOCK ROOT
+  ══════════════════════════════════════════════════════ */
+  #pb-process {
+    --pb-bg:       #0a0a0f;
+    --pb-card:     rgba(255,255,255,.025);
+    --pb-card-hi:  rgba(255,255,255,.05);
+    --pb-line:     rgba(255,255,255,.08);
+    --pb-line-hi:  rgba(255,255,255,.18);
+    --pb-orange:   #ff6a00;
+    --pb-orange-2: #ff9544;
+    --pb-text:     #f4f4f6;
+    --pb-muted:    #8b8b96;
+    --pb-radius:   20px;
+
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 84px 20px 96px;
+    background: var(--pb-bg);
+    color: var(--pb-text);
+    font-family: "Manrope", system-ui, -apple-system, sans-serif;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  #pb-process * { box-sizing: border-box; }
+
+  /* ambient glow */
+  #pb-process::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(120% 80% at 50% -10%, rgba(255,106,0,.17), transparent 55%),
+      radial-gradient(80% 60% at 85% 115%, rgba(255,106,0,.07), transparent 60%);
+  }
+  /* faint grid texture */
+  #pb-process::after {
+    content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+    background-size: 54px 54px;
+    -webkit-mask-image: radial-gradient(120% 90% at 50% 0, #000, transparent 75%);
+            mask-image: radial-gradient(120% 90% at 50% 0, #000, transparent 75%);
+  }
+
+  .pb-inner { max-width: 1180px; margin: 0 auto; }
+
+  /* ══════════════════════════════════════════════════════
+     HEADER
+  ══════════════════════════════════════════════════════ */
+  .pb-head { max-width: 640px; margin: 0 0 52px; }
+
+  .pb-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--pb-orange-2); margin: 0 0 18px;
+  }
+  .pb-eyebrow::before {
+    content: ""; width: 7px; height: 7px; border-radius: 50%; flex: none;
+    background: var(--pb-orange); box-shadow: 0 0 12px var(--pb-orange);
+  }
+
+  .pb-title {
+    margin: 0; font-weight: 800; line-height: 1.06; letter-spacing: -.02em;
+    font-size: clamp(28px, 6vw, 46px);
+  }
+  .pb-title b {
+    color: transparent;
+    background: linear-gradient(95deg, var(--pb-orange), var(--pb-orange-2));
+    -webkit-background-clip: text; background-clip: text;
+  }
+
+  .pb-sub {
+    margin: 16px 0 0; color: var(--pb-muted); font-weight: 500; line-height: 1.6;
+    font-size: clamp(15px, 2.4vw, 17px); max-width: 46ch; text-wrap: pretty;
+  }
+
+  /* ══════════════════════════════════════════════════════
+     GRID WRAPPER
+     position:relative so the absolutely-placed SVG covers
+     exactly the grid area and shares the same origin.
+  ══════════════════════════════════════════════════════ */
+  .pb-grid-wrap { position: relative; }
+
+  /* ── SVG arrow overlay ── */
+  #pb-arrows {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    overflow: visible; pointer-events: none;
+    /* z-index intentionally low — arrows sit between bg and cards */
+  }
+  #pb-arrows path {
+    fill: none;
+    stroke: url(#pb-grad);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 6px rgba(255,106,0,.5));
+  }
+
+  /* ── Grid: mobile = 1 column ── */
+  .pb-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 56px;
+    position: relative; /* stacking ctx so cards sit above SVG */
+    z-index: 1;
+  }
+
+  /* ══════════════════════════════════════════════════════
+     STEP CARD
+  ══════════════════════════════════════════════════════ */
+  .pb-step {
+    position: relative; z-index: 1;
+    padding: 26px 24px 30px;
+    border: 1px solid var(--pb-line);
+    border-radius: var(--pb-radius);
+    background: linear-gradient(160deg, var(--pb-card), rgba(255,255,255,.01));
+    backdrop-filter: blur(2px);
+    /* entrance state */
+    opacity: 0;
+    transform: translateY(24px) scale(.97);
+    transition:
+      opacity .55s ease,
+      transform .55s cubic-bezier(.22,1,.36,1),
+      border-color .3s ease,
+      background .3s ease;
+    will-change: opacity, transform;
+  }
+  .pb-step.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: pbPop .7s ease both;
+  }
+  @keyframes pbPop {
+    0%   { box-shadow: 0 0 0 0 rgba(255,106,0,0); }
+    35%  { box-shadow: 0 0 0 5px rgba(255,106,0,.14), 0 20px 44px -18px rgba(255,106,0,.38); }
+    100% { box-shadow: 0 0 0 0 rgba(255,106,0,0); }
+  }
+  .pb-step:hover {
+    border-color: var(--pb-line-hi);
+    background: linear-gradient(160deg, var(--pb-card-hi), rgba(255,255,255,.015));
+  }
+
+  .pb-step__top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .pb-step__num {
+    font-size: 38px; font-weight: 800; line-height: 1; letter-spacing: -.03em;
+    color: transparent;
+    background: linear-gradient(135deg, var(--pb-orange), var(--pb-orange-2));
+    -webkit-background-clip: text; background-clip: text;
+  }
+  .pb-step__icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px; flex: none; border-radius: 14px;
+    color: var(--pb-orange-2);
+    background: rgba(255,106,0,.10);
+    border: 1px solid rgba(255,106,0,.22);
+  }
+  .pb-step__icon svg { width: 24px; height: 24px; }
+  .pb-step__title { margin: 0 0 8px; font-size: 19px; font-weight: 700; letter-spacing: -.01em; }
+  .pb-step__desc  { margin: 0; color: var(--pb-muted); font-size: 14.5px; line-height: 1.55; font-weight: 500; text-wrap: pretty; }
+
+  /* ══════════════════════════════════════════════════════
+     DESKTOP  ≥ 860 px  —  3 × 2 snake layout
+     Row 1: 01 → 02 → 03   (left → right)
+              ↓ col 3
+     Row 2: 06 ← 05 ← 04   (right → left)
+
+     NOTE: SVG is NOT inside .pb-grid, so :nth-child counts
+     only the 6 article elements — no off-by-one shift.
+  ══════════════════════════════════════════════════════ */
+  @media (min-width: 860px) {
+    #pb-process { padding: 110px 40px 124px; }
+
+    .pb-grid {
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 80px;   /* wide gap keeps arrow lines fully inside gap area */
+      row-gap:    104px;
+    }
+
+    .pb-step:nth-child(1) { grid-area: 1 / 1; }  /* 01  top-left     */
+    .pb-step:nth-child(2) { grid-area: 1 / 2; }  /* 02  top-mid      */
+    .pb-step:nth-child(3) { grid-area: 1 / 3; }  /* 03  top-right    */
+    .pb-step:nth-child(4) { grid-area: 2 / 3; }  /* 04  bottom-right */
+    .pb-step:nth-child(5) { grid-area: 2 / 2; }  /* 05  bottom-mid   */
+    .pb-step:nth-child(6) { grid-area: 2 / 1; }  /* 06  bottom-left  */
+
+    .pb-step__num { font-size: 42px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pb-step { transition: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ BLOCK ══════════════ -->
+<section id="pb-process" aria-label="Процес створення сайту">
+  <div class="pb-inner">
+
+    <header class="pb-head">
+      <p class="pb-eyebrow">Процес роботи</p>
+      <h2 class="pb-title">Як створюється <b>ваш сайт</b></h2>
+      <p class="pb-sub">Шість прозорих кроків — від першої зустрічі до запуску. Ви бачите прогрес на кожному етапі.</p>
+    </header>
+
+    <!--
+      .pb-grid-wrap  = positioning context for the SVG overlay
+      #pb-arrows     = SVG sibling of .pb-grid  ← KEY: not inside the grid
+      .pb-grid       = only the 6 article cards; :nth-child(1-6) is clean
+    -->
+    <div class="pb-grid-wrap" id="pb-grid-wrap">
+
+      <svg id="pb-arrows" aria-hidden="true">
+        <defs>
+          <linearGradient id="pb-grad" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0"   stop-color="#ff6a00"></stop>
+            <stop offset="1"   stop-color="#ff9544"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <div class="pb-grid" id="pb-grid">
+
+        <!-- 01 -->
+        <article class="pb-step" data-step="1">
+          <div class="pb-step__top">
+            <span class="pb-step__num">01</span>
+            <span class="pb-step__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="M20 20l-3.2-3.2"></path>
+                <path d="M11 8v3l2 1.5"></path>
+              </svg>
+            </span>
+          </div>
+          <h3 class="pb-step__title">Збір інформації</h3>
+          <p class="pb-step__desc">Аналізуємо ваш бізнес, цілі, аудиторію та конкурентів.</p>
+        </article>
+
+        <!-- 02 -->
+        <article class="pb-step" data-step="2">
+          <div class="pb-step__top">
+            <span class="pb-step__num">02</span>
+            <span class="pb-step__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="8.5" y="3" width="7" height="5" rx="1.3"></rect>
+                <rect x="3" y="16" width="6" height="5" rx="1.3"></rect>
+                <rect x="15" y="16" width="6" height="5" rx="1.3"></rect>
+                <path d="M12 8v4M6 16v-2h12v2"></path>
+              </svg>
+            </span>
+          </div>
+          <h3 class="pb-step__title">Карта сайту</h3>
+          <p class="pb-step__desc">Формуємо структуру сторінок і логіку навігації.</p>
+        </article>
+
+        <!-- 03 -->
+        <article class="pb-step" data-step="3">
+          <div class="pb-step__top">
+            <span class="pb-step__num">03</span>
+            <span class="pb-step__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 4.5l5 5L9 20l-5 1 1-5L14.5 4.5z"></path>
+                <path d="M13 6l5 5"></path>
+              </svg>
+            </span>
+          </div>
+          <h3 class="pb-step__title">Розробка дизайну</h3>
+          <p class="pb-step__desc">Створюємо унікальний візуальний стиль під ваш бренд.</p>
+        </article>
+
+        <!-- 04 -->
+        <article class="pb-step" data-step="4">
+          <div class="pb-step__top">
+            <span class="pb-step__num">04</span>
+            <span class="pb-step__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8.5 8L4.5 12l4 4"></path>
+                <path d="M15.5 8l4 4-4 4"></path>
+                <path d="M13 5l-2 14"></path>
+              </svg>
+            </span>
+          </div>
+          <h3 class="pb-step__title">Приклад верстки</h3>
+          <p class="pb-step__desc">Переносимо дизайн у адаптивний, чистий код.</p>
+        </article>
+
+        <!-- 05 -->
+        <article class="pb-step" data-step="5">
+          <div class="pb-step__top">
+            <span class="pb-step__num">05</span>
+            <span class="pb-step__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 13.5a2.5 2.5 0 0 1-2.5 2.5H9l-4 3.5V6a2.5 2.5 0 0 1 2.5-2.5h10A2.5 2.5 0 0 1 20 6z"></path>
+                <path d="M9.5 9.5h6M9.5 12.5h3.5"></path>
+              </svg>
+            </span>
+          </div>
+          <h3 class="pb-step__title">Збір правок</h3>
+          <p class="pb-step__desc">Узгоджуємо деталі та вносимо ваші корективи.</p>
+        </article>
+
+        <!-- 06 -->
+        <article class="pb-step" data-step="6">
+          <div class="pb-step__top">
+            <span class="pb-step__num">06</span>
+            <span class="pb-step__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 14c0-5 3-9.5 7-11 4 1.5 7 6 7 11l-3 2H8l-3-2z"></path>
+                <circle cx="12" cy="9.5" r="1.8"></circle>
+                <path d="M9 17l-2 4M15 17l2 4M12 18v3"></path>
+              </svg>
+            </span>
+          </div>
+          <h3 class="pb-step__title">Деплой</h3>
+          <p class="pb-step__desc">Публікуємо сайт на сервері й запускаємо в роботу.</p>
+        </article>
+
+      </div><!-- /.pb-grid -->
+    </div><!-- /.pb-grid-wrap -->
+
+  </div><!-- /.pb-inner -->
+</section>
+
+<!-- ══════════════ SCRIPT ══════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  var SVGNS  = 'http://www.w3.org/2000/svg';
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  var wrap  = document.getElementById('pb-grid-wrap');
+  var grid  = document.getElementById('pb-grid');
+  var svg   = document.getElementById('pb-arrows');
+  var cards = Array.prototype.slice.call(grid.querySelectorAll('.pb-step'));
+
+  var paths = [];   /* one <path> per card-to-card connector */
+  var token = 0;   /* increment to cancel a running play() */
+
+  /* ── util ─────────────────────────────────────── */
+  function wait(ms) {
+    return new Promise(function (resolve) { setTimeout(resolve, ms); });
+  }
+
+  /* ── buildArrows ───────────────────────────────
+     Measures card positions relative to .pb-grid-wrap
+     (the SVG's coordinate origin) and draws connector
+     paths. All coords stay inside the inter-card gaps.
+  ─────────────────────────────────────────────────── */
+  function buildArrows() {
+    paths.forEach(function (p) { p.remove(); });
+    paths = [];
+
+    var wr = wrap.getBoundingClientRect();
+
+    /* SVG viewBox matches wrapper in CSS px */
+    svg.setAttribute('viewBox', '0 0 ' + wr.width + ' ' + wr.height);
+
+    /* clearance from card face into the gap (px) */
+    var GAP = 12;
+    /* arrowhead arm length (px) */
+    var AH  = 7;
+
+    var boxes = cards.map(function (c) {
+      var r = c.getBoundingClientRect();
+      return {
+        l:  r.left   - wr.left,
+        t:  r.top    - wr.top,
+        r:  r.right  - wr.left,
+        b:  r.bottom - wr.top,
+        w:  r.width,
+        h:  r.height,
+        cx: r.left   - wr.left + r.width  * 0.5,
+        cy: r.top    - wr.top  + r.height * 0.5
+      };
+    });
+
+    for (var i = 0; i < boxes.length - 1; i++) {
+      var a = boxes[i];
+      var b = boxes[i + 1];
+
+      /*
+        "sameRow" = their vertical centres differ by less than
+        half a card height → they're in the same grid row.
+      */
+      var sameRow = Math.abs(a.cy - b.cy) < a.h * 0.5;
+      var d = '';
+      var x1, x2, y, x, y1, y2;
+
+      if (sameRow) {
+        y = (a.cy + b.cy) * 0.5;   /* mid-line between the two cards */
+
+        if (b.cx > a.cx) {
+          /* ——►  left → right   (row 1: 01→02, 02→03)
+             Exit the RIGHT face of A, enter the LEFT face of B.
+             Both points fall inside the column gap.             */
+          x1 = a.r + GAP;
+          x2 = b.l - GAP;
+          d = 'M ' + x1 + ' ' + y + ' L ' + x2 + ' ' + y
+            /* arrowhead pointing RIGHT at x2 */
+            + ' M ' + x2 + ' ' + y
+            + ' L ' + (x2 - AH) + ' ' + (y - AH * 0.6)
+            + ' M ' + x2 + ' ' + y
+            + ' L ' + (x2 - AH) + ' ' + (y + AH * 0.6);
+
+        } else {
+          /* ◄——  right → left   (row 2 snake: 04→05, 05→06)
+             Exit the LEFT face of A, enter the RIGHT face of B.
+             Both points fall inside the same column gap.        */
+          x1 = a.l - GAP;
+          x2 = b.r + GAP;
+          d = 'M ' + x1 + ' ' + y + ' L ' + x2 + ' ' + y
+            /* arrowhead pointing LEFT at x2 */
+            + ' M ' + x2 + ' ' + y
+            + ' L ' + (x2 + AH) + ' ' + (y - AH * 0.6)
+            + ' M ' + x2 + ' ' + y
+            + ' L ' + (x2 + AH) + ' ' + (y + AH * 0.6);
+        }
+
+      } else {
+        /* ▼  vertical down   (col 3: 03→04)
+           Exit the BOTTOM face of A, enter the TOP face of B.
+           Both points fall inside the row gap.                  */
+        x  = a.cx;
+        y1 = a.b + GAP;
+        y2 = b.t - GAP;
+        d = 'M ' + x + ' ' + y1 + ' L ' + x + ' ' + y2
+          /* arrowhead pointing DOWN at y2 */
+          + ' M ' + x + ' ' + y2
+          + ' L ' + (x - AH * 0.65) + ' ' + (y2 - AH)
+          + ' M ' + x + ' ' + y2
+          + ' L ' + (x + AH * 0.65) + ' ' + (y2 - AH);
+      }
+
+      var p = document.createElementNS(SVGNS, 'path');
+      p.setAttribute('d', d);
+      svg.appendChild(p);
+      var len = p.getTotalLength();
+      p._len  = len;
+      p.style.strokeDasharray  = len;
+      p.style.strokeDashoffset = len;   /* hidden until animated */
+      paths.push(p);
+    }
+  }
+
+  /* ── helpers ───────────────────────────────────── */
+  function hideAll() {
+    cards.forEach(function (c) { c.classList.remove('is-visible'); });
+    paths.forEach(function (p) {
+      p.style.transition       = 'none';
+      p.style.strokeDashoffset = p._len;
+    });
+    void grid.offsetWidth; /* flush reflow before animating */
+  }
+
+  function showAllInstant() {
+    cards.forEach(function (c) { c.classList.add('is-visible'); });
+    paths.forEach(function (p) {
+      p.style.transition       = 'none';
+      p.style.strokeDashoffset = 0;
+    });
+  }
+
+  /* ── play ──────────────────────────────────────────
+     Sequential animation: card appears → arrow draws →
+     next card appears → …  Token guards against stale
+     async chains when a new play() is triggered.
+  ─────────────────────────────────────────────────── */
+  async function play() {
+    var my = ++token;
+    buildArrows();
+
+    if (reduce) { showAllInstant(); return; }
+
+    hideAll();
+
+    for (var i = 0; i < cards.length; i++) {
+      if (my !== token) return;
+
+      /* reveal card */
+      cards[i].classList.add('is-visible');
+      await wait(520);
+
+      if (my !== token) return;
+
+      /* draw connector to next card */
+      if (i < paths.length) {
+        var p = paths[i];
+        p.style.transition       = 'stroke-dashoffset .48s ease';
+        p.style.strokeDashoffset = 0;
+        await wait(440);
+      }
+    }
+  }
+
+  /* ── IntersectionObserver ──────────────────────────
+     Plays when ≥ 35 % of the grid is in viewport.
+     Resets on scroll-out so it replays next time.
+  ─────────────────────────────────────────────────── */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        play();
+      } else {
+        token++;
+        hideAll();
+      }
+    });
+  }, { threshold: 0.35 });
+  io.observe(grid);
+
+  /* ── resize handler ────────────────────────────── */
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () {
+      var r      = grid.getBoundingClientRect();
+      var inView = r.top < window.innerHeight * 0.65 && r.bottom > 0;
+      if (inView) { play(); } else { buildArrows(); }
+    }, 200);
+  });
+})();
+</script>
+
+</body>
+</html>

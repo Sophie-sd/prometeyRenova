@@ -1,0 +1,23 @@
+{% load demoshop_extras i18n %}
+<a class="ds-cart-link" href="{% url 'demoshop:cart' shop_slug=shop.slug %}" id="ds-cart-count" hx-swap-oob="true" aria-label="{% trans "Кошик" %}" data-qa="cart-count">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+    </svg>
+    <span class="ds-cart-link__count" data-cart-count>{{ cart_count }}</span>
+</a>
+<div class="ds-cart-toast" data-ds-cart-toast>
+    <div class="ds-cart-toast__card" role="status">
+        {% if product.main_image %}
+        <img class="ds-cart-toast__img" src="{{ product.main_image.image.url }}" alt="" width="56" height="56">
+        {% else %}
+        <span class="ds-cart-toast__img" aria-hidden="true"></span>
+        {% endif %}
+        <div class="ds-cart-toast__copy">
+            <p class="ds-cart-toast__kicker">{% trans "Додано в кошик" %}</p>
+            <p class="ds-cart-toast__name">{{ product.localized_name }}</p>
+            <a class="ds-cart-toast__go" href="{% url 'demoshop:cart' shop_slug=shop.slug %}">{% trans "До кошика" %}</a>
+        </div>
+        <button type="button" class="ds-cart-toast__x" data-ds-toast-close aria-label="{% trans "Закрити" %}">×</button>
+    </div>
+</div>

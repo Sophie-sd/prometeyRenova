@@ -1,0 +1,18 @@
+{% load i18n %}
+<li>
+    <a href="{% url 'democorp:home' slug=site.slug %}"{% if request.resolver_match.url_name == 'home' %} aria-current="page"{% endif %}>{% trans "Головна" %}</a>
+</li>
+<li>
+    <a href="{% url 'democorp:production' slug=site.slug %}"{% if request.resolver_match.url_name == 'production' %} aria-current="page"{% endif %}>{% trans "Як працюємо" %}</a>
+</li>
+{% if site.has_catalog %}
+<li>
+    <a href="{% url 'democorp:catalog' slug=site.slug %}"{% if request.resolver_match.url_name == 'catalog' or request.resolver_match.url_name == 'product_detail' %} aria-current="page"{% endif %}>{% trans "Приклади" %}</a>
+</li>
+{% endif %}
+<li>
+    <a href="{% url 'democorp:about' slug=site.slug %}"{% if request.resolver_match.url_name == 'about' %} aria-current="page"{% endif %}>{% trans "Про нас" %}</a>
+</li>
+<li>
+    <a href="{% url 'democorp:contacts' slug=site.slug %}"{% if request.resolver_match.url_name == 'contacts' %} aria-current="page"{% endif %}>{% trans "Контакти" %}</a>
+</li>

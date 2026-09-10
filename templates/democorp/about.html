@@ -1,0 +1,32 @@
+{% extends 'democorp/base.html' %}
+{% load i18n demotenant %}
+
+{% block title %}{% tenant_text blocks_map registry "about" "title" %} — {% tenant_text blocks_map registry "header" "company_name" %}{% endblock %}
+
+{% block content %}
+{% tenant_image blocks_map "about" "photo" as about_photo %}
+{% tenant_text blocks_map registry "about" "title" as about_title %}
+<section class="dc-page-header dc-container">
+    <p class="dc-breadcrumbs"><a href="{% url 'democorp:home' slug=site.slug %}">{% trans "Головна" %}</a> / {{ about_title }}</p>
+    <h1>{{ about_title }}</h1>
+</section>
+
+<section class="dc-section dc-container dc-about">
+    <div>
+        <p class="dc-prose">{% tenant_text blocks_map registry "about" "text" %}</p>
+        <div class="dc-about__mission">
+            <h3>{% trans "Місія" %}</h3>
+            <p>{% tenant_text blocks_map registry "about" "mission" %}</p>
+        </div>
+    </div>
+    {% if about_photo or about_fallback %}
+    <div class="obj-tilt" data-tilt>
+        {% if about_photo %}
+        <img class="dc-about__media" src="{{ about_photo }}" alt="{{ about_title }}" loading="lazy">
+        {% elif about_fallback.image %}
+        <img class="dc-about__media" src="{{ about_fallback.image.url }}" alt="{{ about_fallback.localized_caption }}" loading="lazy">
+        {% endif %}
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

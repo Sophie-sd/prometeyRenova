@@ -1,0 +1,40 @@
+{% extends 'democorp/base.html' %}
+{% load i18n demotenant %}
+
+{% block title %}{% tenant_text blocks_map registry "catalog" "title" %} — {% tenant_text blocks_map registry "header" "company_name" %}{% endblock %}
+
+{% block content %}
+<section class="dc-page-header dc-container">
+    <p class="dc-breadcrumbs"><a href="{% url 'democorp:home' slug=site.slug %}">{% trans "Головна" %}</a> / {% tenant_text blocks_map registry "catalog" "title" %}</p>
+    <h1>{% tenant_text blocks_map registry "catalog" "title" %}</h1>
+</section>
+
+<section class="dc-section dc-container" data-qa="product-grid">
+    <div class="dc-catalog__filters">
+        <a class="dc-catalog__filter{% if not active_category %} is-active{% endif %}" href="{% url 'democorp:catalog' slug=site.slug %}"{% if not active_category %} aria-current="page"{% endif %}>{% trans "Усі" %}</a>
+        {% for category in categories %}
+        <a class="dc-catalog__filter{% if active_category == category.slug %} is-active{% endif %}" href="?category={{ category.slug }}"{% if active_category == category.slug %} aria-current="page"{% endif %}>{{ category.localized_name }}</a>
+        {% endfor %}
+    </div>
+    {% if products %}
+    <div class="dc-product-grid">
+        {% for product in products %}
+        <article data-qa="product-card">
+            <a class="frame-card" href="{% url 'democorp:product_detail' slug=site.slug product_slug=product.slug %}">
+                <span class="frame-card__corner frame-card__corner--tl" aria-hidden="true"></span>
+                <span class="frame-card__corner frame-card__corner--br" aria-hidden="true"></span>
+                {% with image=product.images.first %}
+                {% if image %}<img class="dc-product-card__img" src="{{ image.image.url }}" alt="{{ product.localized_name }}" loading="lazy">{% endif %}
+                {% endwith %}
+                <h3>{{ product.localized_name }}</h3>
+                <p>{{ product.localized_excerpt }}</p>
+                {% if product.price_from %}<p class="dc-product-card__price">{% trans "від" %} {{ product.price_from }} €</p>{% endif %}
+            </a>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="dc-catalog__empty">{% trans "У цій категорії поки немає прикладів." %}</p>
+    {% endif %}
+</section>
+{% endblock %}

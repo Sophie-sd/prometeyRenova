@@ -10,9 +10,9 @@ description: >-
 
 # Page Strip Hover
 
-Канон (читати першим): `/Users/sofiadmitrenko/Prometey_vault/05_System/Skills/design_skills/motion/page_strip_hover_skill.md`
+Канон (читати першим): `/Users/sofiadmitrenko/Library/Mobile Documents/com~apple~CloudDocs/Prometey_vault/05_System/Skills/design_skills/motion/page_strip_hover_skill.md`
 
-ERR: `/Users/sofiadmitrenko/Prometey_vault/05_System/Skills/_meta/references/page-strip-hover-reference.md`
+ERR: `/Users/sofiadmitrenko/Library/Mobile Documents/com~apple~CloudDocs/Prometey_vault/05_System/Skills/_meta/references/page-strip-hover-reference.md`
 
 `/skill page_strip_hover_skill`
 

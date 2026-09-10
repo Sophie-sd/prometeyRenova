@@ -1,0 +1,53 @@
+{% extends 'demoshop/base.html' %}
+{% load demoshop_extras i18n %}
+
+{% block title %}{% trans "Каталог" %}{% endblock %}
+
+{% block content %}
+<section class="ds-section ds-container">
+    <div class="ds-catalog-layout">
+        <aside class="ds-filter-sidebar">
+            <form action="." method="get" id="ds-filter-form">
+                <p class="ds-filter-sidebar__title">{% trans "Категорії" %}</p>
+                <div class="ds-filter-list">
+                    <a class="ds-filter-link {% if not current_category %}is-active{% endif %}" href="{% url 'demoshop:catalog' shop_slug=shop.slug %}">
+                        {% trans "Усі товари" %}
+                    </a>
+                    {% for cat in categories %}
+                    <a class="ds-filter-link {% if current_category.slug == cat.slug %}is-active{% endif %}"
+                       href="{% url 'demoshop:catalog' shop_slug=shop.slug %}?category={{ cat.slug }}">
+                        {{ cat.icon }} {{ cat.localized_name }}
+                    </a>
+                    {% endfor %}
+                </div>
+
+                <div class="ds-mt-8">
+                    <p class="ds-filter-sidebar__title">{% trans "Пошук" %}</p>
+                    <input id="ds-search-input" class="ds-search-input" type="search" name="q" value="{{ query }}" placeholder="{% trans "Назва товару…" %}">
+                </div>
+
+                <div class="ds-mt-8">
+                    <p class="ds-filter-sidebar__title">{% trans "Сортування" %}</p>
+                    <select name="sort" class="ds-search-input" onchange="this.form.submit()">
+                        <option value="popularity" {% if current_sort == 'popularity' %}selected{% endif %}>{% trans "Популярне" %}</option>
+                        <option value="price_asc" {% if current_sort == 'price_asc' %}selected{% endif %}>{% trans "Ціна: спочатку дешеві" %}</option>
+                        <option value="price_desc" {% if current_sort == 'price_desc' %}selected{% endif %}>{% trans "Ціна: спочатку дорогі" %}</option>
+                        <option value="newest" {% if current_sort == 'newest' %}selected{% endif %}>{% trans "Новинки" %}</option>
+                    </select>
+                </div>
+            </form>
+        </aside>
+
+        <div class="ds-catalog-main">
+            <div class="ds-toolbar">
+                <h1 class="ds-section__title ds-section__title--sm">
+                    {% if current_category %}{{ current_category.localized_name }}{% else %}{% block_text shop 'catalog' 'catalog_title' %}{% endif %}
+                </h1>
+                <p class="ds-toolbar__total">{{ total }} {% trans "товарів" %}</p>
+            </div>
+            {% include 'demoshop/partials/_product_grid.html' with products=page_obj %}
+            {% include 'demoshop/partials/_pagination.html' with page_obj=page_obj %}
+        </div>
+    </div>
+</section>
+{% endblock %}

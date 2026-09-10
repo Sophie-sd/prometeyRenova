@@ -1,0 +1,61 @@
+{% extends "admin/base_site.html" %}
+{% load static i18n %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'democorp/css/democorp_admin.css' %}?v=3">
+{% endblock %}
+
+{% block content %}
+<div class="dc-admin-form">
+    <h1>{{ title }}</h1>
+    <p>
+        {% trans "Сайт" %}: <strong>{{ tenant.name }}</strong> ·
+        <a href="{% url 'democorp:home' slug=tenant.slug %}" target="_blank" rel="noopener">{% trans "Переглянути вітрину" %}</a>
+        {% if tenant.has_catalog %} · <a href="{% url 'democorp:catalog' slug=tenant.slug %}" target="_blank" rel="noopener">{% trans "Каталог" %}</a>{% endif %}
+    </p>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for group in block_groups %}
+        <fieldset class="dc-admin-form__fieldset">
+            <legend>{{ group.label }}</legend>
+            {% for item in group.fields %}
+            {% if item.langs %}
+            <div class="dc-admin-form__i18n">
+                {% for field in item.langs %}
+                <div class="dc-admin-form__field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="dc-admin-form__field">
+                {{ item.field.label_tag }}
+                {{ item.field }}
+                {% if item.type == 'image' and item.current_image %}
+                <img class="dc-admin-form__preview" src="{{ item.current_image.url }}" alt="">
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </fieldset>
+        {% endfor %}
+
+        <fieldset class="dc-admin-form__fieldset">
+            <legend>{% trans "Стиль, hero-фото, кольори" %}</legend>
+            {% for field in settings_form %}
+            <div class="dc-admin-form__field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}<p class="dc-admin-form__help">{{ field.help_text }}</p>{% endif %}
+            </div>
+            {% endfor %}
+        </fieldset>
+
+        <button type="submit" class="dc-admin-form__submit">{% trans "Зберегти зміни" %}</button>
+    </form>
+</div>
+{% endblock %}

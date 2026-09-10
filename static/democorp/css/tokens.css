@@ -1,0 +1,137 @@
+/* Demo-corp tokens — RoyalSmoke bark/seashell/gold, префікс --dc-* (CMS theme.css). */
+@font-face {
+  font-family: "Fixel Display";
+  src: url("../fonts/fixel-display/FixelDisplay-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fixel Display";
+  src: url("../fonts/fixel-display/FixelDisplay-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fixel Display";
+  src: url("../fonts/fixel-display/FixelDisplay-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fixel Display";
+  src: url("../fonts/fixel-display/FixelDisplay-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fixel Display";
+  src: url("../fonts/fixel-display/FixelDisplay-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --dc-primary: #100d0c;
+  --dc-primary-hover: #181412;
+  --dc-accent: #c99a44;
+  --dc-accent-hover: #d8ac5c;
+  --dc-champagne: #e8d5b0;
+  --dc-champagne-bright: #f3e6c4;
+  --dc-surface: #100d0c;
+  --dc-surface-alt: var(--dc-primary-hover);
+  --dc-slot: #322a26;
+  --dc-text: #fcf2ee;
+  --dc-text-muted: rgba(252, 242, 238, 0.6);
+  --dc-text-soft: rgba(252, 242, 238, 0.85);
+  --dc-white: #fcf2ee;
+  --dc-coffee: #1c1715;
+  --dc-hairline: rgba(252, 242, 238, 0.14);
+  --dc-border: rgba(252, 242, 238, 0.4);
+  --dc-border-soft: rgba(252, 242, 238, 0.25);
+  --dc-shadow: rgba(16, 13, 12, 0.45);
+  --dc-success: #4a7a52;
+  --dc-danger: #c45c4a;
+  --dc-danger-text: #e8a090;
+
+  --dc-radius-sm: 0;
+  --dc-radius-md: 0;
+  --dc-radius-pill: 150px;
+
+  --dc-sp-1: 4px;
+  --dc-sp-2: 8px;
+  --dc-sp-3: 12px;
+  --dc-sp-4: 16px;
+  --dc-sp-5: 24px;
+  --dc-sp-6: 40px;
+  --dc-sp-7: 56px;
+  --dc-sp-8: 104px;
+
+  --dc-fs-sm: 12px;
+  --dc-fs-md: 14px;
+  --dc-fs-lg: 17px;
+  --dc-fs-2xl: clamp(28px, 5vw, 42px);
+  --dc-fs-hero: 34px;
+
+  --dc-ff-display: "Fixel Display", "Helvetica Neue", sans-serif;
+  --dc-ff-body: "Fixel Display", "Helvetica Neue", sans-serif;
+  --dc-weight-ui: 500;
+  --dc-weight-sub: 600;
+  --dc-weight-display: 700;
+
+  --dc-heading-tracking: 0.28em;
+  --dc-heading-lh: 1.12;
+
+  --dc-container-max: 1440px;
+  --dc-header-h: 60px;
+  --dc-btn-h: 48px;
+  --dc-tap: 44px;
+  --dc-pad-x: 24px;
+
+  --dc-safe-t: env(safe-area-inset-top, 0px);
+  --dc-safe-r: env(safe-area-inset-right, 0px);
+  --dc-safe-b: env(safe-area-inset-bottom, 0px);
+  --dc-safe-l: env(safe-area-inset-left, 0px);
+
+  --drawer-bg: rgba(16, 13, 12, 0.88);
+  --frame-color: var(--dc-accent);
+  --process-rail-track: var(--dc-hairline);
+  --process-rail-fill: var(--dc-accent);
+  --radius-md: 0;
+}
+
+[data-preset='clean'] {
+  --dc-surface-alt: var(--dc-primary-hover);
+  --dc-slot: #3a322c;
+}
+
+@media (max-width: 359px) {
+  :root {
+    --dc-pad-x: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --dc-fs-md: 15px;
+    --dc-heading-tracking: 0.3em;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --dc-fs-md: 16px;
+    --dc-fs-hero: 56px;
+    --dc-header-h: 72px;
+    --dc-btn-h: 52px;
+    --dc-pad-x: 64px;
+  }
+}

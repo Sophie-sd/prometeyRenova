@@ -1,0 +1,443 @@
+"""Ідемпотентний seed демо-магазину: контент, каталог, hero, відгуки, фото.
+
+Контракт мінімуму — seed_demo_shop_skill (ERR-31): усі видимі фічі вітрини
+мають хоч один рядок даних. Ідемпотентність: update_or_create по slug.
+"""
+from __future__ import annotations
+
+from datetime import timedelta
+from decimal import Decimal
+
+from django.utils import timezone
+
+from ..block_defaults import BLOCK_REGISTRY
+from ..catalog_models import ShopCategory, ShopProduct, ShopProductImage, ShopReview
+from ..content_models import ShopBlock, ShopHeroSlide
+from .images import load_seed_image
+
+CATEGORY_SEED = [
+    ('Електроніка', 'Электроника', 'Electronics', 'Elektronika', '📱'),
+    ('Дім і побут', 'Дом и быт', 'Home & Living', 'Dům a domácnost', '🏠'),
+    ('Аксесуари', 'Аксессуары', 'Accessories', 'Doplňky', '🎒'),
+    ('Новинки', 'Новинки', 'New Arrivals', 'Novinky', '✨'),
+]
+
+# Іменовані SKU + slug ассета в static/demoshop/seed/products/<slug>.webp
+PRODUCT_SEED = [
+    {
+        'name': 'Бездротові навушники Aura',
+        'name_ru': 'Беспроводные наушники Aura',
+        'name_en': 'Aura Wireless Headphones',
+        'name_cs': 'Bezdrátová sluchátka Aura',
+        'slug': 'wireless-headphones', 'cat': 0, 'price': 2490, 'featured': True
+    },
+    {
+        'name': 'Смарт-годинник Horizon',
+        'name_ru': 'Смарт-часы Horizon',
+        'name_en': 'Horizon Smart Watch',
+        'name_cs': 'Chytré hodinky Horizon',
+        'slug': 'smart-watch', 'cat': 0, 'price': 3990, 'featured': True
+    },
+    {
+        'name': 'Портативна колонка Echo',
+        'name_ru': 'Портативная колонка Echo',
+        'name_en': 'Echo Portable Speaker',
+        'name_cs': 'Přenosný reproduktor Echo',
+        'slug': 'portable-speaker', 'cat': 0, 'price': 1890, 'featured': True
+    },
+    {
+        'name': 'Настільна лампа Lumen',
+        'name_ru': 'Настольная лампа Lumen',
+        'name_en': 'Lumen Desk Lamp',
+        'name_cs': 'Stolní lampa Lumen',
+        'slug': 'desk-lamp', 'cat': 1, 'price': 1290, 'featured': True
+    },
+    {
+        'name': 'Органайзер для столу Craft',
+        'name_ru': 'Органайзер для стола Craft',
+        'name_en': 'Craft Desk Organizer',
+        'name_cs': 'Organizér na stůl Craft',
+        'slug': 'desk-organizer', 'cat': 1, 'price': 790, 'featured': False
+    },
+    {
+        'name': 'Термокружка Ceramic Soft',
+        'name_ru': 'Термокружка Ceramic Soft',
+        'name_en': 'Ceramic Soft Thermo Mug',
+        'name_cs': 'Termohrnek Ceramic Soft',
+        'slug': 'thermo-mug', 'cat': 1, 'price': 590, 'featured': True
+    },
+    {
+        'name': 'Рюкзак міський Trail',
+        'name_ru': 'Рюкзак городской Trail',
+        'name_en': 'Trail City Backpack',
+        'name_cs': 'Městský batoh Trail',
+        'slug': 'city-backpack', 'cat': 2, 'price': 2190, 'featured': True
+    },
+    {
+        'name': 'Чохол для телефону SoftCase',
+        'name_ru': 'Чехол для телефона SoftCase',
+        'name_en': 'SoftCase Phone Case',
+        'name_cs': 'Obal na telefon SoftCase',
+        'slug': 'phone-case', 'cat': 2, 'price': 390, 'featured': False
+    },
+    {
+        'name': 'Повербанк Charge 20K',
+        'name_ru': 'Повербанк Charge 20K',
+        'name_en': 'Charge 20K Power Bank',
+        'name_cs': 'Powerbanka Charge 20K',
+        'slug': 'power-bank', 'cat': 0, 'price': 1190, 'featured': False
+    },
+    {
+        'name': 'Набір посуду Stoneware',
+        'name_ru': 'Набор посуды Stoneware',
+        'name_en': 'Stoneware Dishware Set',
+        'name_cs': 'Sada nádobí Stoneware',
+        'slug': 'dishware-set', 'cat': 1, 'price': 1590, 'featured': False
+    },
+    {
+        'name': 'Плед фліс Cloud',
+        'name_ru': 'Плед флис Cloud',
+        'name_en': 'Cloud Fleece Blanket',
+        'name_cs': 'Fleecová deka Cloud',
+        'slug': 'fleece-blanket', 'cat': 1, 'price': 990, 'featured': False
+    },
+    {
+        'name': 'Свічка ароматична Amber',
+        'name_ru': 'Свеча ароматическая Amber',
+        'name_en': 'Amber Scented Candle',
+        'name_cs': 'Aromatická svíčka Amber',
+        'slug': 'aroma-candle', 'cat': 1, 'price': 450, 'featured': False
+    },
+    {
+        'name': 'Килимок для йоги Balance',
+        'name_ru': 'Коврик для йоги Balance',
+        'name_en': 'Balance Yoga Mat',
+        'name_cs': 'Podložka na jógu Balance',
+        'slug': 'yoga-mat', 'cat': 3, 'price': 890, 'featured': False
+    },
+    {
+        'name': 'Гарнітура ігрова Pulse',
+        'name_ru': 'Гарнитура игровая Pulse',
+        'name_en': 'Pulse Gaming Headset',
+        'name_cs': 'Herní sluchátka Pulse',
+        'slug': 'gaming-headset', 'cat': 0, 'price': 2790, 'featured': False
+    },
+    {
+        'name': 'Тримач для телефону Stand',
+        'name_ru': 'Держатель для телефона Stand',
+        'name_en': 'Stand Phone Holder',
+        'name_cs': 'Držák na telefon Stand',
+        'slug': 'phone-holder', 'cat': 2, 'price': 349, 'featured': False
+    },
+    {
+        'name': 'Кабель USB-C Braided',
+        'name_ru': 'Кабель USB-C Braided',
+        'name_en': 'Braided USB-C Cable',
+        'name_cs': 'Kabel USB-C Braided',
+        'slug': 'usb-c-cable', 'cat': 2, 'price': 299, 'featured': False
+    },
+]
+
+REVIEW_SEED = [
+    {
+        'author': 'Олена',
+        'rating': 5,
+        'product_slug': 'wireless-headphones',
+        'text': (
+            'Aura тримають заряд два робочі дні. '
+            'У метро нічого не свистить, навіть на максимумі.'
+        ),
+    },
+    {
+        'author': 'Ігор',
+        'rating': 5,
+        'product_slug': 'city-backpack',
+        'text': (
+            'Trail взяв на щодень: ноут 15" сідає рівно, '
+            'блискавка не клинить після місяця.'
+        ),
+    },
+    {
+        'author': 'Марія',
+        'rating': 5,
+        'product_slug': 'desk-lamp',
+        'text': (
+            'Lumen стоїть на столі біля вікна. '
+            'Ввечері світло тепле, очі не ріже.'
+        ),
+    },
+    {
+        'author': 'Андрій',
+        'rating': 4,
+        'product_slug': 'power-bank',
+        'text': (
+            'Charge 20K зарядив телефон двічі в дорозі. '
+            'Трохи важчий, ніж думав, але тримає.'
+        ),
+    },
+    {
+        'author': 'Наталія',
+        'rating': 5,
+        'product_slug': 'thermo-mug',
+        'text': (
+            'Кава в Ceramic Soft тепла ще опівдні. '
+            'Кришка не тече в сумці — перевірила.'
+        ),
+    },
+    {
+        'author': 'Дмитро',
+        'rating': 5,
+        'product_slug': 'portable-speaker',
+        'text': (
+            'Echo возив на дачу. Бас нормальний для такого розміру, '
+            'сусіди не скаржились.'
+        ),
+    },
+]
+
+HERO_SLIDES_SEED = [
+    (
+        'Нова колекція вже тут', 'Новая коллекция уже здесь', 'New collection is here', 'Nová kolekce je tady',
+        'Встигніть обрати найкраще за акційними цінами', 'Успейте выбрать лучшее по акционным ценам',
+        'Choose the best at promotional prices', 'Vyberte si nejlepší za akční ceny, než zmizí',
+        'До каталогу', 'В каталог', 'To Catalog', 'Do katalogu',
+        'hero/slide-1-wide.webp', 'hero/slide-1-narrow.webp',
+    ),
+    (
+        'Безкоштовна доставка', 'Бесплатная доставка', 'Free Shipping', 'Doprava zdarma',
+        'При замовленні від 1000 грн по всій Україні', 'При заказе от 1000 грн по всей Украине',
+        'For orders over 1 500 Kč across Czechia', 'Při objednávce nad 1 500 Kč po celé ČR',
+        'Дізнатись більше', 'Узнать больше', 'Learn More', 'Zjistit více',
+        'hero/slide-2-wide.webp', 'hero/slide-2-narrow.webp',
+    ),
+    (
+        'Гарантія повернення 14 днів', 'Гарантия возврата 14 дней', '14-Day Return Guarantee', 'Záruka vrácení 14 dní',
+        'Купуйте впевнено — повернення без питань', 'Покупайте уверенно — возврат без вопросов',
+        'Shop with confidence — no-questions-asked returns', 'Nakupujte s jistotou — vrácení bez otázek',
+        'Обрати товар', 'Выбрать товар', 'Choose a Product', 'Vybrat produkt',
+        'hero/slide-3-wide.webp', 'hero/slide-3-narrow.webp',
+    ),
+]
+
+GIFT_PROMO_SLUGS = {'wireless-headphones', 'aroma-candle'}
+
+
+def _seed_blocks(shop, force_images: bool = False) -> None:
+    for entry in BLOCK_REGISTRY:
+        block, created = ShopBlock.objects.get_or_create(
+            shop=shop,
+            page=entry['page'],
+            key=entry['key'],
+            defaults={
+                'block_type': entry['type'],
+                'label': str(entry['label']),
+                'value_text': entry.get('default', ''),
+                'value_text_ru': entry.get('default_ru', ''),
+                'value_text_en': entry.get('default_en', ''),
+                'value_text_cs': entry.get('default_cs', ''),
+            },
+        )
+        # Backfill _ru/_cs для блоків, створених до додавання цих локалей.
+        if not created and not block.value_text_ru and entry.get('default_ru'):
+            block.value_text_ru = entry['default_ru']
+            block.save(update_fields=['value_text_ru'])
+        if not created and not block.value_text_cs and entry.get('default_cs'):
+            block.value_text_cs = entry['default_cs']
+            block.save(update_fields=['value_text_cs'])
+        if entry['type'] != 'image':
+            continue
+        need_image = created or force_images or not block.value_image
+        if need_image and entry['key'] == 'about_image':
+            block.value_image = load_seed_image(
+                'about/about.webp', fallback_label=shop.name, size=(2560, 1440),
+            )
+            block.save(update_fields=['value_image'])
+        elif need_image:
+            block.value_image = load_seed_image(
+                'about/about.webp', fallback_label=shop.name, size=(1200, 720),
+            )
+            block.save(update_fields=['value_image'])
+
+
+def _seed_categories(shop) -> list:
+    categories = []
+    for order, (name, name_ru, name_en, name_cs, icon) in enumerate(CATEGORY_SEED):
+        category, created = ShopCategory.objects.get_or_create(
+            shop=shop,
+            name=name,
+            defaults={
+                'name_ru': name_ru,
+                'name_en': name_en,
+                'name_cs': name_cs,
+                'icon': icon,
+                'order': order
+            },
+        )
+        # Backfill _cs для категорій, створених до додавання чеської локалі.
+        if not created and not category.name_cs:
+            category.name_cs = name_cs
+            category.save(update_fields=['name_cs'])
+        categories.append(category)
+    return categories
+
+
+def _attach_product_image(product: ShopProduct, asset_slug: str, force: bool = False) -> None:
+    existing = product.images.filter(is_main=True).first() or product.images.first()
+    if existing and not force:
+        return
+    image_file = load_seed_image(
+        f'products/{asset_slug}.webp',
+        fallback_label=product.name,
+        size=(800, 800),
+    )
+    if existing and force:
+        existing.image.save(f'{asset_slug}.webp', image_file, save=True)
+        existing.alt = product.name
+        existing.is_main = True
+        existing.save(update_fields=['alt', 'is_main'])
+        return
+    ShopProductImage.objects.create(
+        product=product, image=image_file, alt=product.name, is_main=True,
+    )
+
+
+def _seed_products(shop, categories, force_images: bool = False) -> list:
+    products = []
+    now = timezone.now()
+    keep_slugs = {item['slug'] for item in PRODUCT_SEED}
+    for index, item in enumerate(PRODUCT_SEED):
+        price = Decimal(item['price'])
+        has_sale = index % 4 == 0
+        old_price = (price * Decimal('1.25')).quantize(Decimal('1')) if has_sale else None
+        sale_end = (now + timedelta(days=5 + (index % 5))) if has_sale else None
+
+        gift = 'Міні-свічка в подарунок до замовлення' if item['slug'] in GIFT_PROMO_SLUGS else ''
+        gift_ru = 'Мини-свеча в подарок к заказу' if item['slug'] in GIFT_PROMO_SLUGS else ''
+        gift_en = 'Mini-candle as a gift with your order' if item['slug'] in GIFT_PROMO_SLUGS else ''
+        gift_cs = 'Mini svíčka jako dárek k objednávce' if item['slug'] in GIFT_PROMO_SLUGS else ''
+
+        product, _created = ShopProduct.objects.update_or_create(
+            shop=shop,
+            slug=item['slug'],
+            defaults={
+                'category': categories[item['cat'] % len(categories)],
+                'name': item['name'],
+                'name_ru': item['name_ru'],
+                'name_en': item['name_en'],
+                'name_cs': item['name_cs'],
+                'short_description': 'Демо-товар для перевірки каталогу, кошика і CMS.',
+                'short_description_ru': 'Демо-товар для проверки каталога, корзины и CMS.',
+                'short_description_en': 'Demo product for testing catalog, cart and CMS.',
+                'short_description_cs': 'Demo produkt pro testování katalogu, košíku a CMS.',
+                'description': (
+                    'Це демонстраційний товар з преміальним фото. '
+                    'Замініть назву, опис і зображення в адмінці «Мій магазин».'
+                ),
+                'description_ru': (
+                    'Это демонстрационный товар с премиальным фото. '
+                    'Замените название, описание и изображения в админке «Мой магазин».'
+                ),
+                'description_en': (
+                    'This is a demo product with a premium photo. '
+                    'Replace the title, description and images in the "My Shop" admin.'
+                ),
+                'description_cs': (
+                    'Toto je demo produkt s prémiovou fotkou. '
+                    'Změňte název, popis a obrázky v administraci „Můj obchod“.'
+                ),
+                'price': price,
+                'old_price': old_price,
+                'sale_end_date': sale_end,
+                'gift_promo_text': gift,
+                'gift_promo_text_ru': gift_ru,
+                'gift_promo_text_en': gift_en,
+                'gift_promo_text_cs': gift_cs,
+                'is_featured': item['featured'],
+                'is_active': True,
+                'order': index,
+            },
+        )
+        _attach_product_image(product, item['slug'], force=force_images)
+        products.append(product)
+
+    # Прибираємо legacy №N товари зі старого seed (залишаємо лише канонічний каталог)
+    ShopProduct.objects.filter(shop=shop).exclude(slug__in=keep_slugs).update(is_active=False)
+    return products
+
+
+def _seed_reviews(shop, products, force: bool = False) -> None:
+    if shop.reviews.exists() and not force:
+        return
+    if force:
+        shop.reviews.all().delete()
+    by_slug = {product.slug: product for product in products}
+    for item in REVIEW_SEED:
+        ShopReview.objects.create(
+            shop=shop,
+            product=by_slug.get(item['product_slug']),
+            author_name=item['author'],
+            rating=item['rating'],
+            text=item['text'],
+        )
+
+
+def _seed_hero_slides(shop, force_images: bool = False) -> None:
+    for order, (
+        title, title_ru, title_en, title_cs, sub, sub_ru, sub_en, sub_cs, cta, cta_ru, cta_en, cta_cs,
+        wide_path, narrow_path,
+    ) in enumerate(HERO_SLIDES_SEED):
+        slide, created = ShopHeroSlide.objects.get_or_create(
+            shop=shop,
+            order=order,
+            defaults={
+                'title': title,
+                'title_ru': title_ru,
+                'title_en': title_en,
+                'title_cs': title_cs,
+                'subtitle': sub,
+                'subtitle_ru': sub_ru,
+                'subtitle_en': sub_en,
+                'subtitle_cs': sub_cs,
+                'cta_label': cta,
+                'cta_label_ru': cta_ru,
+                'cta_label_en': cta_en,
+                'cta_label_cs': cta_cs,
+                'is_active': True,
+            },
+        )
+        # Backfill _cs для слайдів, створених до додавання чеської локалі.
+        if not created and not slide.title_cs:
+            slide.title_cs = title_cs
+            slide.subtitle_cs = sub_cs
+            slide.cta_label_cs = cta_cs
+            slide.save(update_fields=['title_cs', 'subtitle_cs', 'cta_label_cs'])
+
+        need_images = created or force_images or not slide.image or not slide.image_narrow
+        if need_images:
+            wide = load_seed_image(wide_path, fallback_label=title, size=(2560, 1440))
+            narrow = load_seed_image(narrow_path, fallback_label=title, size=(1080, 1620))
+            slide.image.save(f'hero-{order}-wide.webp', wide, save=False)
+            slide.image_narrow.save(f'hero-{order}-narrow.webp', narrow, save=False)
+            if not slide.title_en:
+                slide.title = title
+                slide.title_ru = title_ru
+                slide.title_en = title_en
+                slide.title_cs = title_cs
+                slide.subtitle = sub
+                slide.subtitle_ru = sub_ru
+                slide.subtitle_en = sub_en
+                slide.subtitle_cs = sub_cs
+                slide.cta_label = cta
+                slide.cta_label_ru = cta_ru
+                slide.cta_label_en = cta_en
+                slide.cta_label_cs = cta_cs
+            slide.save()
+
+
+def seed_demo_shop(shop, force_images: bool = False, force_reviews: bool = False) -> None:
+    """Ідемпотентно наповнює магазин мінімальним контрактом вітрини (ERR-31)."""
+    _seed_blocks(shop, force_images=force_images)
+    categories = _seed_categories(shop)
+    products = _seed_products(shop, categories, force_images=force_images)
+    _seed_reviews(shop, products, force=force_reviews)
+    _seed_hero_slides(shop, force_images=force_images)

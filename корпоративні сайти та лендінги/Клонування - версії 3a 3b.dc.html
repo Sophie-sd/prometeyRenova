@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#161616;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+::selection{background:#FF6B35;color:#0A0A0A}
+@keyframes pl-fill{from{width:0}}
+@keyframes pl-pop{0%{opacity:0;transform:scale(.5)}60%{transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+@keyframes pl-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pl-glow{0%,100%{box-shadow:0 24px 50px rgba(0,0,0,.5),0 0 0 rgba(255,107,53,0)}50%{box-shadow:0 24px 50px rgba(0,0,0,.5),0 0 34px rgba(255,107,53,.32)}}
+@keyframes pl-sheen{0%{transform:translateX(-120%)}60%,100%{transform:translateX(320%)}}
+@keyframes pl-flow{to{stroke-dashoffset:-32}}
+@keyframes pl-blink{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes pl-inf{0%,100%{transform:rotate(0)}50%{transform:rotate(180deg)}}
+@keyframes pl-rise{from{opacity:0;transform:translateY(26px) scale(.96)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+</style>
+<script>
+(function(){
+  function boot(){
+    var root=document.getElementById('plGrowShow');
+    if(!root){ setTimeout(boot,60); return; }
+    if(root.__booted){ return; }
+    root.__booted=1;
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var els=root.querySelectorAll('[data-reveal]');
+    if(!reduce){
+      els.forEach(function(el){ if(el.__r) return; el.__r=1; var d=el.getAttribute('data-reveal')||'0'; el.style.opacity='0'; el.style.transform='translateY(20px)'; el.style.transition='opacity .6s cubic-bezier(.2,.7,.2,1) '+d+'ms, transform .6s cubic-bezier(.2,.7,.2,1) '+d+'ms'; });
+      var show=function(el){ el.style.opacity='1'; el.style.transform='none'; };
+      if('IntersectionObserver' in window){
+        var io=new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ show(e.target); io.unobserve(e.target); } }); },{threshold:.1,rootMargin:'0px 0px -5% 0px'});
+        els.forEach(function(el){ io.observe(el); });
+        requestAnimationFrame(function(){ var vh=window.innerHeight||800; els.forEach(function(el){ if(el.getBoundingClientRect().top<vh*.96){ show(el); io.unobserve(el);} }); });
+      } else { els.forEach(show); }
+    }
+
+    // 3b: looping highlight + growth counter
+    var cards=root.querySelectorAll('[data-gcard]');
+    var countel=root.querySelector('[data-grow]');
+    var n=3;
+    var i=0;
+    if(cards.length && !reduce){
+      setInterval(function(){
+        cards.forEach(function(c){ c.style.borderColor='#2a2a2a'; c.style.boxShadow='0 20px 40px rgba(0,0,0,.45)'; });
+        var c=cards[i%cards.length];
+        c.style.borderColor='#FF6B35';
+        c.style.boxShadow='0 20px 44px rgba(0,0,0,.45), 0 0 30px rgba(255,107,53,.3)';
+        i++;
+        n++;
+        var ce=root.querySelector('[data-grow]'); if(ce){ ce.textContent='×'+n; }
+      },1500);
+    }
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',boot,{once:true}); }
+  boot();
+})();
+</script>
+</helmet>
+
+<div id="plGrowShow" style="background:#161616;color:#fff;font-family:'Inter',system-ui,sans-serif;line-height:1.6;padding:44px 40px 90px;min-height:100vh">
+
+  <div style="max-width:1240px;margin:0 auto 40px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#FF6B35;margin-bottom:10px">Редизайн блоку §05 · 2 версії · стиль «зростаючі картки»</div>
+    <h1 style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.02em;margin:0 0 8px;color:#fff">«Технологія клонування: необмежене масштабування без бюджетів»</h1>
+    <p style="font-size:14px;color:#8a8a8a;margin:0;max-width:660px">Той самий текст, кольори збережено. Картки-сайти зростають зліва направо — метафора масштабування. Версія <a href="#3a" style="color:#FF6B35;text-decoration:none">3a</a> — текст + діаграма росту · <a href="#3b" style="color:#FF6B35;text-decoration:none">3b</a> — центрована сцена з живим лічильником.</p>
+  </div>
+
+  <section style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:56px">
+
+    <!-- ============================================================= -->
+    <!-- VERSION 3a — TEXT + GROWTH DIAGRAM                             -->
+    <!-- ============================================================= -->
+    <div id="3a" style="scroll-margin-top:24px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+        <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;color:#0A0A0A;background:#FF6B35;padding:5px 11px;border-radius:6px">3a</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8a8a8a">Текст ліворуч · діаграма росту праворуч</span>
+      </div>
+
+      <div style="position:relative;background:#0A0A0A;border:1px solid #1f1f1f;border-radius:18px;padding:clamp(30px,4vw,58px);overflow:hidden">
+        <div aria-hidden="true" style="position:absolute;top:-140px;right:-120px;width:560px;height:560px;background:radial-gradient(circle,rgba(255,107,53,.14),transparent 60%);filter:blur(20px);pointer-events:none"></div>
+
+        <div style="position:relative;display:flex;flex-wrap:wrap;gap:clamp(30px,4vw,56px);align-items:center">
+          <!-- left copy -->
+          <div data-reveal="0" style="flex:1 1 380px;min-width:300px">
+            <h2 style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(26px,3.6vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 18px;color:#fff">Технологія клонування: необмежене масштабування без бюджетів</h2>
+            <p style="font-size:16px;color:#a3a3a3;margin:0 0 24px;line-height:1.6">Наша архітектура дозволяє робити <span style="color:#FF6B35;font-weight:600">«Snapshot»</span> вашого сайту. Копіюєте папку з готовим сайтом, наповнюєте її іншим контентом — і отримуєте новий, ідеально оптимізований ресурс абсолютно безоплатно.</p>
+            <div style="background:#0c0d0e;border:1px solid #232323;border-left:2px solid #FF6B35;border-radius:0 12px 12px 0;padding:18px 22px">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#FF6B35;margin-bottom:8px">Кейс</div>
+              <p style="font-size:15px;color:#dcdcdc;margin:0;line-height:1.6">Потрібен лендінг під нову послугу або регіон? Копіюйте, змінюйте текст, публікуйте. Це займає <span style="color:#fff;font-weight:600">5 хвилин</span> і коштує вам <span style="color:#fff;font-weight:600">0 грн</span>.</p>
+            </div>
+          </div>
+
+          <!-- right: growing cards -->
+          <div data-reveal="120" style="flex:1 1 440px;min-width:300px">
+            <div style="display:flex;align-items:flex-end;gap:14px;justify-content:center">
+
+              <!-- card 1 small (master) -->
+              <div style="width:118px;background:#0d0d0d;border:1px solid #2a2a2a;border-radius:14px;padding:14px;display:flex;flex-direction:column;min-height:188px;position:relative;overflow:hidden;animation:pl-rise .6s ease .1s both">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#6a6a6a;margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">site-original/</div>
+                <div style="height:10px;width:52px;background:#FF6B35;border-radius:4px;margin-bottom:12px;animation:pl-fill 1s ease .4s both"></div>
+                <div style="height:5px;width:80%;background:#2a2d30;border-radius:3px;margin-bottom:6px"></div>
+                <div style="height:5px;width:60%;background:#2a2d30;border-radius:3px"></div>
+                <div style="margin-top:auto"><div style="height:30px;width:64px;background:#2a1810;border:1px solid #4a2c1a;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:9px;color:#c98a5a;animation:pl-pop .4s ease .9s both">100/100</div></div>
+              </div>
+
+              <!-- card 2 medium -->
+              <div style="width:154px;background:#0d0d0d;border:1px solid #2a2a2a;border-radius:14px;padding:16px;display:flex;flex-direction:column;min-height:216px;position:relative;overflow:hidden;animation:pl-rise .6s ease .3s both">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#6a6a6a;margin-bottom:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">landing-послуга/</div>
+                <div style="height:11px;width:66px;background:#FF6B35;border-radius:4px;margin-bottom:13px;animation:pl-fill 1s ease .6s both"></div>
+                <div style="height:5px;width:90%;background:#2a2d30;border-radius:3px;margin-bottom:6px"></div>
+                <div style="height:5px;width:74%;background:#2a2d30;border-radius:3px;margin-bottom:6px"></div>
+                <div style="height:5px;width:82%;background:#2a2d30;border-radius:3px"></div>
+                <div style="margin-top:auto"><div style="height:34px;width:86px;background:#2a1810;border:1px solid #4a2c1a;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:#FF8a55;animation:pl-pop .4s ease 1.1s both">копія · 0 грн</div></div>
+              </div>
+
+              <!-- card 3 large -->
+              <div style="width:210px;background:#0d0d0d;border:1px solid #FF6B35;border-radius:16px;padding:18px;display:flex;flex-direction:column;min-height:244px;position:relative;overflow:hidden;animation:pl-rise .6s ease .5s both, pl-glow 3.4s ease-in-out 1.4s infinite">
+                <span aria-hidden="true" style="position:absolute;top:0;left:0;width:60px;height:100%;background:linear-gradient(90deg,transparent,rgba(255,107,53,.14),transparent);animation:pl-sheen 3.6s ease-in-out 1.6s infinite"></span>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a8a8a;margin-bottom:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative">landing-регіон/</div>
+                <div style="height:12px;width:78px;background:#FF6B35;border-radius:4px;margin-bottom:15px;animation:pl-fill 1s ease .8s both;position:relative"></div>
+                <div style="height:6px;width:92%;background:#2a2d30;border-radius:3px;margin-bottom:7px;position:relative"></div>
+                <div style="height:6px;width:80%;background:#2a2d30;border-radius:3px;margin-bottom:7px;position:relative"></div>
+                <div style="height:6px;width:86%;background:#2a2d30;border-radius:3px;position:relative"></div>
+                <div style="margin-top:auto;display:flex;gap:8px;position:relative">
+                  <div style="flex:1;height:38px;background:#FF6B35;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:#0A0A0A;animation:pl-pop .4s ease 1.3s both">копія · 0 грн</div>
+                  <div style="width:56px;height:38px;background:#2a2d30;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:#bdbdbd;animation:pl-pop .4s ease 1.45s both">5 хв</div>
+                </div>
+              </div>
+            </div>
+            <div style="text-align:center;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#7a7a7a">1 Snapshot <span style="color:#FF6B35">→</span> безліміт лендінгів <span style="color:#FF6B35">×∞</span></div>
+          </div>
+        </div>
+
+        <!-- guarantees -->
+        <div style="position:relative;display:flex;flex-wrap:wrap;gap:16px;margin-top:clamp(30px,3.6vw,48px)">
+          <div data-reveal="0" style="flex:1 1 240px;background:#0d0d0d;border:1px solid #232323;border-radius:14px;padding:24px"><div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(26px,3.4vw,40px);color:#FF6B35;line-height:1;margin-bottom:12px">1 рік</div><p style="font-weight:600;font-size:15px;color:#fff;margin:0 0 6px">Безкоштовна підтримка</p><p style="font-size:13.5px;color:#9a9a9a;margin:0;line-height:1.5">Технічні питання, дрібні правки та консультації протягом першого року — без доплат.</p></div>
+          <div data-reveal="80" style="flex:1 1 240px;background:#0d0d0d;border:1px solid #232323;border-radius:14px;padding:24px"><div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(26px,3.4vw,40px);color:#FF6B35;line-height:1;margin-bottom:12px;display:inline-block;animation:pl-inf 6s ease-in-out infinite">∞</div><p style="font-weight:600;font-size:15px;color:#fff;margin:0 0 6px">Пожиттєва гарантія на код</p><p style="font-size:13.5px;color:#9a9a9a;margin:0;line-height:1.5">Чистий код без плагінів — стабільна робота функціоналу протягом усього життя ресурсу.</p></div>
+          <div data-reveal="160" style="flex:1 1 240px;background:#0d0d0d;border:1px solid #232323;border-radius:14px;padding:24px"><div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(26px,3.4vw,40px);color:#FF6B35;line-height:1;margin-bottom:12px">×∞</div><p style="font-weight:600;font-size:15px;color:#fff;margin:0 0 6px">Безлімітні копії</p><p style="font-size:13.5px;color:#9a9a9a;margin:0;line-height:1.5">Створюйте нові лендінги з готового сайту без додаткових бюджетів на розробку.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- VERSION 3b — CENTERED STAGE + LIVE GROWTH COUNTER             -->
+    <!-- ============================================================= -->
+    <div id="3b" style="scroll-margin-top:24px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+        <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;color:#0A0A0A;background:#FF6B35;padding:5px 11px;border-radius:6px">3b</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8a8a8a">Центрована сцена · живий лічильник росту</span>
+      </div>
+
+      <div style="position:relative;background:#0A0A0A;border:1px solid #1f1f1f;border-radius:18px;padding:clamp(30px,4vw,64px);overflow:hidden">
+        <div aria-hidden="true" style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:760px;height:420px;background:radial-gradient(ellipse,rgba(255,107,53,.12),transparent 62%);filter:blur(20px);pointer-events:none"></div>
+        <div aria-hidden="true" style="position:absolute;bottom:-80px;right:-40px;font-family:'Unbounded',sans-serif;font-weight:900;font-size:260px;line-height:.7;color:rgba(255,107,53,.05);pointer-events:none">∞</div>
+
+        <div data-reveal="0" style="position:relative;max-width:720px;margin:0 auto 12px;text-align:center">
+          <h2 style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(26px,3.6vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 16px;color:#fff">Технологія клонування: необмежене масштабування без бюджетів</h2>
+          <p style="font-size:16px;color:#a3a3a3;margin:0;line-height:1.6">Наша архітектура дозволяє робити <span style="color:#FF6B35;font-weight:600">«Snapshot»</span> вашого сайту. Копіюєте папку з готовим сайтом, наповнюєте її іншим контентом — і отримуєте новий, ідеально оптимізований ресурс абсолютно безоплатно.</p>
+        </div>
+
+        <!-- live counter -->
+        <div data-reveal="80" style="position:relative;display:flex;justify-content:center;margin:26px 0 34px">
+          <div style="display:inline-flex;align-items:center;gap:14px;background:#0d0d0d;border:1px solid #232323;border-radius:99px;padding:10px 22px">
+            <span style="width:9px;height:9px;border-radius:50%;background:#2ecc71;animation:pl-blink 1.5s ease-in-out infinite"></span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8a8a8a">лендінгів згенеровано з 1 Snapshot</span>
+            <span data-grow style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:20px;color:#FF6B35;min-width:52px;text-align:left">×3</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#FF6B35">· 0 грн</span>
+          </div>
+        </div>
+
+        <!-- centered growing cards -->
+        <div data-reveal="140" style="position:relative;display:flex;align-items:flex-end;gap:clamp(12px,1.6vw,20px);justify-content:center;flex-wrap:wrap">
+
+          <div data-gcard style="width:150px;background:#0d0d0d;border:1px solid #2a2a2a;border-radius:14px;padding:16px;display:flex;flex-direction:column;min-height:196px;box-shadow:0 20px 40px rgba(0,0,0,.45);transition:border-color .5s,box-shadow .5s;animation:pl-float 5s ease-in-out .0s infinite">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#6a6a6a;margin-bottom:12px">site-original/</div>
+            <div style="height:11px;width:58px;background:#FF6B35;border-radius:4px;margin-bottom:13px;animation:pl-fill 1s ease .3s both"></div>
+            <div style="height:5px;width:82%;background:#2a2d30;border-radius:3px;margin-bottom:6px"></div>
+            <div style="height:5px;width:64%;background:#2a2d30;border-radius:3px"></div>
+            <div style="margin-top:auto"><div style="height:32px;width:74px;background:#2a1810;border:1px solid #4a2c1a;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#c98a5a">100/100</div></div>
+          </div>
+
+          <div data-gcard style="width:184px;background:#0d0d0d;border:1px solid #2a2a2a;border-radius:14px;padding:17px;display:flex;flex-direction:column;min-height:224px;box-shadow:0 20px 40px rgba(0,0,0,.45);transition:border-color .5s,box-shadow .5s;animation:pl-float 5s ease-in-out .4s infinite">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6a6a6a;margin-bottom:13px">landing-послуга/</div>
+            <div style="height:12px;width:70px;background:#FF6B35;border-radius:4px;margin-bottom:14px;animation:pl-fill 1s ease .5s both"></div>
+            <div style="height:6px;width:90%;background:#2a2d30;border-radius:3px;margin-bottom:7px"></div>
+            <div style="height:6px;width:76%;background:#2a2d30;border-radius:3px;margin-bottom:7px"></div>
+            <div style="height:6px;width:84%;background:#2a2d30;border-radius:3px"></div>
+            <div style="margin-top:auto"><div style="height:34px;width:100px;background:#2a1810;border:1px solid #4a2c1a;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:#FF8a55">копія · 0 грн</div></div>
+          </div>
+
+          <div data-gcard style="width:228px;background:#0d0d0d;border:1px solid #FF6B35;border-radius:16px;padding:19px;display:flex;flex-direction:column;min-height:252px;box-shadow:0 20px 44px rgba(0,0,0,.45), 0 0 30px rgba(255,107,53,.3);transition:border-color .5s,box-shadow .5s;overflow:hidden;animation:pl-float 5s ease-in-out .8s infinite">
+            <span aria-hidden="true" style="position:absolute;top:0;left:0;width:64px;height:100%;background:linear-gradient(90deg,transparent,rgba(255,107,53,.16),transparent);animation:pl-sheen 3.4s ease-in-out infinite"></span>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#8a8a8a;margin-bottom:15px;position:relative">landing-регіон/</div>
+            <div style="height:13px;width:82px;background:#FF6B35;border-radius:4px;margin-bottom:16px;animation:pl-fill 1s ease .7s both;position:relative"></div>
+            <div style="height:6px;width:92%;background:#2a2d30;border-radius:3px;margin-bottom:8px;position:relative"></div>
+            <div style="height:6px;width:80%;background:#2a2d30;border-radius:3px;margin-bottom:8px;position:relative"></div>
+            <div style="height:6px;width:88%;background:#2a2d30;border-radius:3px;position:relative"></div>
+            <div style="margin-top:auto;display:flex;gap:9px;position:relative">
+              <div style="flex:1;height:40px;background:#FF6B35;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:#0A0A0A">копія · 0 грн</div>
+              <div style="width:60px;height:40px;background:#2a2d30;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#bdbdbd">5 хв</div>
+            </div>
+          </div>
+
+          <!-- ghost "+∞" card -->
+          <div style="width:150px;min-height:196px;border:1px dashed #333;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#5a5a5a">
+            <span style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:30px;color:#FF6B35">+∞</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7a7a7a;text-align:center;padding:0 10px">наступна копія<br>0 грн · 5 хв</span>
+          </div>
+        </div>
+
+        <!-- case -->
+        <div data-reveal="0" style="position:relative;max-width:720px;margin:clamp(30px,3.6vw,44px) auto 0;background:#0d0d0d;border:1px solid #232323;border-radius:12px;padding:18px 22px;display:flex;gap:14px;align-items:flex-start">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#FF6B35;text-transform:uppercase;letter-spacing:.1em;flex:none;padding-top:3px">Кейс</span>
+          <p style="font-size:15px;color:#dcdcdc;margin:0;line-height:1.6">Потрібен лендінг під нову послугу або регіон? Копіюйте, змінюйте текст, публікуйте. Це займає <span style="color:#fff;font-weight:600">5 хвилин</span> і коштує вам <span style="color:#fff;font-weight:600">0 грн</span>.</p>
+        </div>
+
+        <!-- guarantees row -->
+        <div style="position:relative;border:1px solid #232323;border-radius:14px;overflow:hidden;display:flex;flex-wrap:wrap;background:#0a0a0a;margin-top:24px">
+          <div data-reveal="0" style="flex:1 1 240px;padding:24px 26px;border-right:1px solid #232323"><div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(24px,3vw,36px);color:#FF6B35;line-height:1;margin-bottom:12px">1 рік</div><p style="font-weight:600;font-size:15px;color:#fff;margin:0 0 6px">Безкоштовна підтримка</p><p style="font-size:13.5px;color:#9a9a9a;margin:0;line-height:1.5">Технічні питання, дрібні правки та консультації протягом першого року — без доплат.</p></div>
+          <div data-reveal="80" style="flex:1 1 240px;padding:24px 26px;border-right:1px solid #232323"><div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(24px,3vw,36px);color:#FF6B35;line-height:1;margin-bottom:12px;display:inline-block;animation:pl-inf 6s ease-in-out infinite">∞</div><p style="font-weight:600;font-size:15px;color:#fff;margin:0 0 6px">Пожиттєва гарантія на код</p><p style="font-size:13.5px;color:#9a9a9a;margin:0;line-height:1.5">Чистий код без плагінів — стабільна робота функціоналу протягом усього життя ресурсу.</p></div>
+          <div data-reveal="160" style="flex:1 1 240px;padding:24px 26px"><div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(24px,3vw,36px);color:#FF6B35;line-height:1;margin-bottom:12px">×∞</div><p style="font-weight:600;font-size:15px;color:#fff;margin:0 0 6px">Безлімітні копії</p><p style="font-size:13.5px;color:#9a9a9a;margin:0;line-height:1.5">Створюйте нові лендінги з готового сайту без додаткових бюджетів на розробку.</p></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+</x-dc>
+</body>
+</html>

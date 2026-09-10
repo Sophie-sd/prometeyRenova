@@ -1,0 +1,82 @@
+/* Lead-форма: RS fields, honeypot поза екраном, input ≥16px на iOS. */
+.dc-lead-form,
+.dc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 520px;
+}
+
+.dc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dc-field label {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dc-text-muted);
+}
+
+.dc-input {
+  width: 100%;
+  min-height: var(--dc-btn-h);
+  padding: 12px 14px;
+  font-family: var(--dc-ff-body);
+  font-size: 16px;
+  font-weight: var(--dc-weight-ui);
+  border-radius: 0;
+  border: 1px solid var(--dc-border-soft);
+  background: var(--dc-surface-alt);
+  color: var(--dc-text);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.dc-input:focus {
+  border-color: var(--dc-accent);
+  outline: 2px solid var(--dc-accent);
+  outline-offset: 2px;
+}
+
+.dc-field textarea.dc-input,
+.dc-input[rows] {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.dc-lead-form__honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dc-lead-form__success {
+  text-align: center;
+  color: var(--dc-text-soft);
+  font-weight: var(--dc-weight-sub);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dc-lead-form__error {
+  color: var(--dc-danger-text);
+  font-size: 12px;
+  margin: 0;
+}
+
+.dc-lead-form.is-invalid .dc-input,
+.dc-field.is-invalid .dc-input {
+  border-color: var(--dc-danger);
+}
+
+@supports (-webkit-touch-callout: none) {
+  .dc-input {
+    font-size: 16px;
+  }
+}

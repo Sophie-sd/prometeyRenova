@@ -1,0 +1,29 @@
+{% extends 'demoshop/base.html' %}
+{% load i18n demoshop_sales %}
+
+{% block title %}{% trans "Вхід в адмінку" %}{% endblock %}
+
+{% block content %}
+<section class="ds-section ds-container ds-admin-access">
+    <h1 class="ds-section__title">{% trans "Адмінка вашого магазину" %}</h1>
+    {% sales_page_notes 'admin_access' as access_notes %}
+
+    <div class="ds-admin-access__creds">
+        <p>{% trans "Керуйте товарами, замовленнями, текстами, фото та кольорами — лише цього магазину." %}</p>
+        <p><strong>{% trans "Логін" %}:</strong> {{ shop.demo_login }}</p>
+        <p><strong>{% trans "Пароль" %}:</strong> {{ shop.demo_password }}</p>
+        <a class="ds-btn ds-btn--primary ds-btn--lg" href="{% url 'demoshop:admin_login' shop_slug=shop.slug %}" target="_blank" rel="noopener">{% trans "Увійти в адмінку" %}</a>
+    </div>
+
+    {% if access_notes %}
+    <div class="ds-admin-access__grid">
+        {% for note in access_notes %}
+        <article class="ds-admin-access__card">
+            <h2>{{ note.title }}</h2>
+            <p>{{ note.body }}</p>
+        </article>
+        {% endfor %}
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

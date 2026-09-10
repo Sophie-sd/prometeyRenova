@@ -1,0 +1,57 @@
+/* Демо-магазин: базові CSS-токени (перевизначаються /demo/<slug>/theme.css per-shop) */
+:root {
+    --ds-primary: #D6CEC7;
+    --ds-primary-hover: #C5BDB5;
+    --ds-accent: #BD6843;
+    --ds-accent-2: #B5BBC4;
+    --ds-surface: #F9F3ED;
+    --ds-surface-alt: #CBCDBE;
+    --ds-surface-soft: #E4DDD6;
+    --ds-marquee-bg: #511F1F;
+    --ds-footer: #B5BBC4;
+    --ds-text: #221C1A;
+    --ds-text-muted: #7A7A7A;
+    --ds-border: rgba(34, 28, 26, 0.12);
+    --ds-white: #FDFAF8;
+    --ds-success: #6B7A4A;
+    --ds-danger: #BD6843;
+    --ds-promo-watermark: #BD6843;
+    --ds-badge-discount: var(--ds-marquee-bg);
+
+    --ds-radius-sm: 8px;
+    --ds-radius-md: 16px;
+    --ds-radius-pill: 999px;
+
+    --ds-sp-1: 4px;  --ds-sp-2: 8px;  --ds-sp-3: 12px; --ds-sp-4: 16px;
+    --ds-sp-5: 24px; --ds-sp-6: 32px; --ds-sp-7: 48px; --ds-sp-8: 64px;
+
+    --ds-fs-xs: 0.75rem; --ds-fs-sm: 0.875rem; --ds-fs-md: 1rem;
+    --ds-fs-lg: 1.25rem; --ds-fs-xl: 1.75rem; --ds-fs-2xl: clamp(2rem, 4vw, 3rem);
+    --ds-fs-hero: clamp(2.25rem, 6vw, 4.5rem);
+
+    --ds-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ds-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ds-ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    --ds-duration-fast: 160ms;
+    --ds-duration-ui: 200ms;
+    --ds-duration-modal: 300ms;
+    --ds-t-fast: var(--ds-duration-fast);
+    --ds-t-base: var(--ds-duration-ui);
+    --ds-t-slow: 700ms;
+    --ds-t-reveal: 1200ms;
+
+    --ds-header-h: 48px;
+    --ds-accent-hover: #A85635;
+    --ds-container-max: 1200px;
+    --ds-header-pad: max(12px, env(safe-area-inset-left, 0px));
+    --ds-header-pad-end: max(12px, env(safe-area-inset-right, 0px));
+    --ds-capsule-pad-x: clamp(12px, 2.5vw, 28px);
+    --ds-capsule-max: calc(var(--ds-container-max) + 32px);
+    --ds-vh: 100dvh;
+}
+
+@media (max-width: 640px) {
+    :root {
+        --ds-capsule-pad-x: 12px;
+    }
+}

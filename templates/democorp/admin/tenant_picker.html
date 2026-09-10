@@ -1,0 +1,22 @@
+{% extends "admin/base_site.html" %}
+{% load static i18n %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'democorp/css/democorp_admin.css' %}?v=2">
+{% endblock %}
+
+{% block content %}
+<div class="dc-admin-form">
+    <h1>{{ title }}</h1>
+    <p>{% trans "Оберіть корпоративний демо-сайт для редагування контенту." %}</p>
+    <ul class="dc-admin-picker">
+        {% for site in tenants %}
+        <li>
+            <a href="{{ request.path }}?tenant={{ site.pk }}">{{ site.name }}</a>
+            <span>{{ site.slug }}{% if site.has_catalog %} · {% trans "каталог" %}{% endif %}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

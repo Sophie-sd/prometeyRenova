@@ -8070,9 +8070,33 @@ msgstr "Перейти к оплате"
 msgid "Усі"
 msgstr "Нет"
 
-#: templates/democorp/catalog.html:34
-msgid "У цій категорії поки немає товарів."
-msgstr ""
+#: templates/democorp/catalog.html:37
+msgid "У цій категорії поки немає прикладів."
+msgstr "В этой категории пока нет примеров."
+
+#: templates/democorp/partials/nav_links.html:6
+msgid "Як працюємо"
+msgstr "Как мы работаем"
+
+#: templates/democorp/partials/nav_links.html:10
+msgid "Приклади"
+msgstr "Примеры"
+
+#: templates/democorp/partials/lead_form.html:27
+msgid "Хочу такий сайт"
+msgstr "Хочу такой сайт"
+
+#: templates/democorp/production.html:50
+msgid "Ще екрани"
+msgstr "Ещё экраны"
+
+#: config/settings.py
+msgid "Етапи роботи"
+msgstr "Этапы работы"
+
+#: config/settings.py
+msgid "Приклади сайтів"
+msgstr "Примеры сайтов"
 
 #: templates/democorp/home.html:76
 #, fuzzy
@@ -8128,12 +8152,6 @@ msgstr "Оставить заявку"
 #| msgid "Дякуємо! Ми зв'яжемося з вами найближчим часом."
 msgid "Дякуємо! Ми зв'яжемося з вами протягом дня."
 msgstr "Спасибо! Мы свяжемся с вами в ближайшее время."
-
-#: templates/democorp/production.html:28
-#, fuzzy
-#| msgid "Класифікація"
-msgid "Сертифікати"
-msgstr "Классификация"
 
 #: templates/demolanding/admin/my_landing_content.html:36
 msgid "Стиль, hero, кольори"

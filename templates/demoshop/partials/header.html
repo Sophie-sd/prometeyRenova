@@ -1,0 +1,75 @@
+{% load demoshop_extras i18n %}
+<header class="ds-header">
+    <div class="ds-header__capsule">
+        <div class="ds-header__row" id="ds-header-row">
+            <a class="ds-logo" href="{% url 'demoshop:home' shop_slug=shop.slug %}">
+                {% block_text shop 'header' 'shop_name' %}
+            </a>
+            <nav class="ds-nav" aria-label="{% trans "Основна навігація" %}">
+                <a class="ds-nav__link" href="{% url 'demoshop:home' shop_slug=shop.slug %}">{% trans "Головна" %}</a>
+                <div class="ds-nav__item ds-nav__item--flyout" data-ds-flyout>
+                    <a class="ds-nav__link" href="{% url 'demoshop:catalog' shop_slug=shop.slug %}">{% trans "Каталог" %}</a>
+                    {% if nav_categories %}
+                    <div class="ds-flyout" role="menu">
+                        {% for category in nav_categories %}
+                        <a class="ds-flyout__link" role="menuitem" href="{% url 'demoshop:catalog' shop_slug=shop.slug %}?category={{ category.slug }}">
+                            {{ category.icon }} {{ category.localized_name }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <a class="ds-nav__link" href="{% url 'demoshop:promotions' shop_slug=shop.slug %}">{% trans "Акції" %}</a>
+            </nav>
+            <div class="ds-header__actions">
+                {% get_current_language as CURRENT_LANG %}
+                <div class="ds-lang-switcher">
+                    <form action="{% url 'set_language' %}" method="post" id="ds-lang-form">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.path }}" id="ds-lang-next">
+                        <select name="language"
+                            onchange="document.getElementById('ds-lang-next').value = (window.location.pathname.replace(/^\/(en|ru|cs)\//, '/') + window.location.search); this.form.submit();"
+                            class="ds-lang-select">
+                            {% get_available_languages as LANGUAGES %}
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% for language in languages %}
+                            {% if language.code != 'ru' %}
+                            <option value="{{ language.code }}" {% if language.code == CURRENT_LANG %}selected{% endif %}>
+                                {{ language.code|upper }}
+                            </option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                        {% if CURRENT_LANG == 'ru' %}
+                        <span class="ds-lang-select__current" aria-hidden="true">RU</span>
+                        {% endif %}
+                    </form>
+                </div>
+
+                <a class="ds-wish-link" href="{% url 'demoshop:wishlist' shop_slug=shop.slug %}" aria-label="{% trans "Обране" %}" data-qa="wishlist-count">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M12 21s-7-4.5-9.5-8.5C.5 9 2.5 5 6.5 5c2 0 3.5 1.2 4.5 2.5C12 6.2 13.5 5 15.5 5c4 0 6 4 4 7.5C19 16.5 12 21 12 21z"/>
+                    </svg>
+                    <span class="ds-wish-link__count" data-wishlist-count>0</span>
+                </a>
+                {% include 'demoshop/partials/_cart_count.html' %}
+                <a class="ds-btn ds-btn--outline ds-btn--sm ds-header__cta" href="{% url 'demoshop:admin_access' shop_slug=shop.slug %}">
+                    <span class="ds-header__cta-label">{% trans "Перейти в адмінку" %}</span>
+                </a>
+            </div>
+        </div>
+        <button type="button"
+                class="ds-header__burger"
+                data-qa="menu-open"
+                data-ds-menu-toggle
+                aria-expanded="false"
+                aria-controls="ds-header-row"
+                aria-label="{% trans 'Відкрити меню' %}"
+                data-label-open="{% trans 'Відкрити меню' %}"
+                data-label-close="{% trans 'Закрити меню' %}">
+            <span class="ds-header__burger-line" aria-hidden="true"></span>
+            <span class="ds-header__burger-line" aria-hidden="true"></span>
+            <span class="ds-header__burger-line" aria-hidden="true"></span>
+        </button>
+    </div>
+</header>

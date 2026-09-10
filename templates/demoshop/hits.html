@@ -1,0 +1,19 @@
+{% extends 'demoshop/base.html' %}
+{% load demoshop_extras i18n %}
+
+{% block title %}{% trans "Хіти продажів" %}{% endblock %}
+
+{% block content %}
+<section class="ds-section ds-container">
+    <div class="ds-toolbar">
+        <h1 class="ds-section__title">{% trans "Хіти продажів" %}</h1>
+        <p>{% trans "Найпопулярніші товари магазину" %}</p>
+    </div>
+
+    {% if products %}
+    {% include 'demoshop/partials/_product_grid.html' with products=products %}
+    {% else %}
+    <p class="ds-empty-state">{% trans "Зараз немає хітів продажів." %} <a href="{% url 'demoshop:catalog' shop_slug=shop.slug %}">{% trans "До каталогу" %}</a></p>
+    {% endif %}
+</section>
+{% endblock %}

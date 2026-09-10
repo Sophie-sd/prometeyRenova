@@ -1,0 +1,31 @@
+{% extends 'democorp/base.html' %}
+{% load i18n demotenant %}
+
+{% block title %}{% trans "Контакти" %} — {% tenant_text blocks_map registry "header" "company_name" %}{% endblock %}
+
+{% block content %}
+{% tenant_text blocks_map registry "contacts" "phone" as contact_phone %}
+{% tenant_text blocks_map registry "contacts" "email" as contact_email %}
+<section class="dc-page-header dc-container">
+    <p class="dc-breadcrumbs"><a href="{% url 'democorp:home' slug=site.slug %}">{% trans "Головна" %}</a> / {% trans "Контакти" %}</p>
+    <h1>{% trans "Контакти" %}</h1>
+</section>
+
+<section class="dc-section dc-container dc-contacts__grid">
+    <div class="dc-contacts__meta">
+        <p>{% tenant_text blocks_map registry "contacts" "address" %}</p>
+        <p>{% tenant_text blocks_map registry "contacts" "schedule" %}</p>
+        {% with phone_href=contact_phone|tel_href %}
+        {% if phone_href %}
+        <p><a href="tel:{{ phone_href }}">{{ contact_phone }}</a></p>
+        {% endif %}
+        {% endwith %}
+        {% if contact_email %}
+        <p><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></p>
+        {% endif %}
+    </div>
+    <div class="dc-lead-form-wrap">
+        {% include 'democorp/partials/lead_form.html' %}
+    </div>
+</section>
+{% endblock %}

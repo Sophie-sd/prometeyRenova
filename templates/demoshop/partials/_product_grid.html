@@ -1,0 +1,10 @@
+{% load demoshop_extras i18n %}
+<div class="ds-product-grid" data-qa="product-grid">
+    {% for product in products %}
+        <div class="ds-product-grid__item">
+            {% include 'demoshop/partials/product_card.html' %}
+        </div>
+    {% empty %}
+        <p class="ds-empty-state">{% trans "Товарів не знайдено. Спробуйте змінити фільтр або пошук." %}</p>
+    {% endfor %}
+</div>

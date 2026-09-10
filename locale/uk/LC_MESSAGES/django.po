@@ -6967,8 +6967,32 @@ msgstr ""
 msgid "Усі"
 msgstr ""
 
-#: templates/democorp/catalog.html:34
-msgid "У цій категорії поки немає товарів."
+#: templates/democorp/catalog.html:37
+msgid "У цій категорії поки немає прикладів."
+msgstr ""
+
+#: templates/democorp/partials/nav_links.html:6
+msgid "Як працюємо"
+msgstr ""
+
+#: templates/democorp/partials/nav_links.html:10
+msgid "Приклади"
+msgstr ""
+
+#: templates/democorp/partials/lead_form.html:27
+msgid "Хочу такий сайт"
+msgstr ""
+
+#: templates/democorp/production.html:50
+msgid "Ще екрани"
+msgstr ""
+
+#: config/settings.py
+msgid "Етапи роботи"
+msgstr ""
+
+#: config/settings.py
+msgid "Приклади сайтів"
 msgstr ""
 
 #: templates/democorp/home.html:76
@@ -7011,10 +7035,6 @@ msgstr "Залишити заявку"
 #: templates/democorp/partials/lead_success.html:2
 #: templates/demolanding/partials/lead_success.html:2
 msgid "Дякуємо! Ми зв'яжемося з вами протягом дня."
-msgstr ""
-
-#: templates/democorp/production.html:28
-msgid "Сертифікати"
 msgstr ""
 
 #: templates/demolanding/admin/my_landing_content.html:36

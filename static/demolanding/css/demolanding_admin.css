@@ -1,0 +1,21 @@
+/* «Мій лендінг» — проста форма над стандартним Unfold admin/base_site.html. */
+.dl-admin-form { max-width: 900px; }
+.dl-admin-form__fieldset { margin-bottom: 24px; border: 1px solid #e5e5e5; border-radius: 8px; padding: 16px; }
+.dl-admin-form__field { margin-bottom: 12px; }
+.dl-admin-form__preview { max-width: 160px; display: block; margin-top: 8px; border-radius: 6px; }
+.dl-admin-thumb { object-fit: cover; border-radius: 6px; display: block; }
+.dl-admin-form__collections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 0 0 24px;
+}
+.dl-admin-form__collections a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.dl-admin-form__submit { padding: 10px 24px; border-radius: 999px; border: none; background: #16181a; color: #f7f6f4; cursor: pointer; }
+.dl-admin-form__i18n { margin-bottom: 20px; padding-inline-start: 12px; border-inline-start: 2px solid #dff250; }
+.dl-admin-picker { padding-inline-start: 1.25rem; max-width: 640px; }
+.dl-admin-picker li { margin-bottom: 10px; }

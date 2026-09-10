@@ -1,0 +1,142 @@
+/* RoyalSmoke motion — scroll reveal + hover utilities */
+
+/* ——— Reveal ——— */
+[data-rs-reveal] {
+  opacity: 0;
+  transform: translate3d(0, var(--rs-reveal-y), 0);
+  transition:
+    opacity var(--rs-reveal-duration) var(--rs-reveal-easing) var(--rs-reveal-delay),
+    transform var(--rs-reveal-duration) var(--rs-reveal-easing) var(--rs-reveal-delay);
+  will-change: opacity, transform;
+}
+
+[data-rs-reveal="scale"] {
+  transform: scale(var(--rs-reveal-scale));
+}
+
+[data-rs-reveal="right"] {
+  transform: translate3d(calc(var(--rs-reveal-x) * -1), 0, 0);
+}
+
+[data-rs-reveal="left"] {
+  transform: translate3d(var(--rs-reveal-x), 0, 0);
+}
+
+[data-rs-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* ——— Hover: lift ——— */
+.rs-hover-lift {
+  transition:
+    transform var(--motion-soft) var(--ease-out),
+    border-color var(--t-fast) var(--ease-out);
+}
+
+/* ——— Hover: image zoom (overflow parent) ——— */
+.rs-hover-zoom {
+  overflow: hidden;
+}
+
+.rs-hover-zoom img,
+.rs-hover-zoom .rs-hover-zoom__target {
+  transition: transform var(--motion-soft) var(--ease-out);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* ——— Hover: gold underline grow ——— */
+.rs-hover-underline {
+  position: relative;
+  display: inline-block;
+  border-bottom: 0;
+  padding-bottom: 3px;
+}
+
+.rs-hover-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--rs-gold);
+  transition: width var(--t-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .rs-hover-lift:hover {
+    transform: translate3d(0, var(--rs-hover-lift), 0);
+  }
+
+  .rs-hover-zoom:hover img,
+  .rs-hover-zoom:hover .rs-hover-zoom__target {
+    transform: scale(var(--rs-hover-zoom));
+  }
+
+  .rs-hover-underline:hover::after {
+    width: 100%;
+  }
+
+  .rs-brand-tile:hover .rs-brand-tile__media img,
+  .rs-brand-tile:hover .rs-brand-tile__mark {
+    transform: translate3d(0, -2px, 0) scale(1.04);
+  }
+
+  .rs-card:hover {
+    transform: translate3d(0, var(--rs-hover-lift), 0);
+  }
+}
+
+.rs-brand-tile__media img,
+.rs-brand-tile__mark {
+  transition: transform var(--motion-soft) var(--ease-out);
+}
+
+.rs-card {
+  transition: transform var(--motion-soft) var(--ease-out);
+}
+
+/* Parallax layers — GPU-friendly */
+[data-parallax-layer],
+[data-parallax-fixed] {
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-rs-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: opacity var(--motion-soft) linear;
+    will-change: auto;
+  }
+
+  .rs-hover-lift,
+  .rs-hover-zoom img,
+  .rs-hover-zoom .rs-hover-zoom__target,
+  .rs-hover-underline::after,
+  .rs-brand-tile__media img,
+  .rs-brand-tile__mark,
+  .rs-card {
+    transition: none;
+    transform: none;
+  }
+
+  [data-parallax-layer],
+  [data-parallax-fixed] {
+    will-change: auto;
+    transform: none;
+  }
+}
+
+/* iOS / narrow: same luxury duration, softer travel distance */
+@media (max-width: 767px) {
+  :root {
+    --rs-reveal-y: 18px;
+    --rs-reveal-x: 10px;
+  }
+}

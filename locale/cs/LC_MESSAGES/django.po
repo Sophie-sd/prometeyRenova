@@ -7386,9 +7386,33 @@ msgstr "Přejít na obsah"
 msgid "Усі"
 msgstr "Ne"
 
-#: templates/democorp/catalog.html:34
-msgid "У цій категорії поки немає товарів."
-msgstr ""
+#: templates/democorp/catalog.html:37
+msgid "У цій категорії поки немає прикладів."
+msgstr "V této kategorii zatím nejsou příklady."
+
+#: templates/democorp/partials/nav_links.html:6
+msgid "Як працюємо"
+msgstr "Jak pracujeme"
+
+#: templates/democorp/partials/nav_links.html:10
+msgid "Приклади"
+msgstr "Příklady"
+
+#: templates/democorp/partials/lead_form.html:27
+msgid "Хочу такий сайт"
+msgstr "Chci takový web"
+
+#: templates/democorp/production.html:50
+msgid "Ще екрани"
+msgstr "Další obrazovky"
+
+#: config/settings.py
+msgid "Етапи роботи"
+msgstr "Fáze práce"
+
+#: config/settings.py
+msgid "Приклади сайтів"
+msgstr "Příklady webů"
 
 #: templates/democorp/home.html:76
 #, fuzzy
@@ -7441,12 +7465,6 @@ msgstr "Nezávazná poptávka"
 #| msgid "Дякуємо! Ми зв'яжемося з вами найближчим часом."
 msgid "Дякуємо! Ми зв'яжемося з вами протягом дня."
 msgstr "Děkujeme! Brzy se s vámi spojíme."
-
-#: templates/democorp/production.html:28
-#, fuzzy
-#| msgid "Специфікація"
-msgid "Сертифікати"
-msgstr "Specifikace"
 
 #: templates/demolanding/admin/my_landing_content.html:36
 #, fuzzy

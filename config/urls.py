@@ -35,6 +35,10 @@ urlpatterns += i18n_patterns(
     path('', include('apps.core.urls')),
     path('blog/', include('apps.blog.urls')),
     path('payment/', include('apps.payment.urls')),
+    # Демо-магазини — тепер у i18n_patterns для презентації англомовним клієнтам
+    path('demo/', include('apps.demoshop.urls', namespace='demoshop')),
+    path('demo-landing/', include('apps.demolanding.urls', namespace='demolanding')),
+    path('demo-site/', include('apps.democorp.urls', namespace='democorp')),
     prefix_default_language=False
 )
 

@@ -1,0 +1,14 @@
+{% load demoshop_extras i18n %}
+<footer class="ds-footer">
+    <div class="ds-container ds-footer__grid">
+        <div>
+            <p class="ds-footer__brand">{% block_text shop 'header' 'shop_name' %}</p>
+            <p class="ds-footer__text">{% block_text shop 'footer' 'footer_text' %}</p>
+        </div>
+        <div class="ds-footer__contacts">
+            <p>{% block_text shop 'footer' 'footer_phone' %}</p>
+            <p>{% block_text shop 'footer' 'footer_email' %}</p>
+        </div>
+    </div>
+    <p class="ds-footer__note">{% trans "Це демо PrometeyLabs: ваші товари, Нова Пошта і оплата — без конструктора." %}</p>
+</footer>

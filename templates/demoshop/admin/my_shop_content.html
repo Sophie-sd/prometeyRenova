@@ -1,0 +1,68 @@
+{% extends "admin/base_site.html" %}
+{% load static i18n %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'demoshop/css/demoshop_admin.css' %}?v=2">
+{% endblock %}
+
+{% block content %}
+<div class="ds-admin-shop">
+    <h1>{{ title }}</h1>
+    <p class="ds-admin-shop__hint">
+        {% trans "Магазин" %}: <strong>{{ shop.name }}</strong> ·
+        <a href="{% url 'demoshop:home' shop_slug=shop.slug %}" target="_blank" rel="noopener">{% trans "Переглянути вітрину" %}</a>
+    </p>
+    <aside class="ds-admin-sales">
+        <p class="ds-admin-sales__title">{% trans "Тексти без квитка розробнику" %}</p>
+        <p class="ds-admin-sales__body">{% trans "Текст і колір міняєте самі. Зберегли — вітрина вже нова. Чекати розробника не треба." %}</p>
+    </aside>
+
+    <form method="post" enctype="multipart/form-data" class="ds-admin-shop__form">
+        {% csrf_token %}
+
+        {% for group in block_groups %}
+        <fieldset class="ds-admin-shop__fieldset">
+            <legend>{{ group.label }}</legend>
+            {% for item in group.fields %}
+            <div class="ds-admin-shop__field">
+                {{ item.field.label_tag }}
+                {{ item.field }}
+                {% if item.type == 'image' and item.current_image %}
+                <img class="ds-admin-shop__preview" src="{{ item.current_image.url }}" alt="">
+                {% endif %}
+            </div>
+            {% endfor %}
+        </fieldset>
+        {% endfor %}
+
+        <fieldset class="ds-admin-shop__fieldset">
+            <legend>{% trans "Кольори теми" %}</legend>
+            {% for field in theme_form %}
+            <div class="ds-admin-shop__field">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+            {% endfor %}
+        </fieldset>
+
+        <fieldset class="ds-admin-shop__fieldset">
+            <legend>{% trans "Слайди головної (hero)" %}</legend>
+            {{ slide_formset.management_form }}
+            {% for form in slide_formset %}
+            <div class="ds-admin-shop__slide">
+                {{ form.id }}
+                {% for field in form.visible_fields %}
+                <div class="ds-admin-shop__field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </fieldset>
+
+        <button type="submit" class="ds-admin-shop__submit">{% trans "Зберегти зміни" %}</button>
+    </form>
+</div>
+{% endblock %}

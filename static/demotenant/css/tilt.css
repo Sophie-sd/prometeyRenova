@@ -1,0 +1,54 @@
+/* object_tilt_glare_skill: нахил + лаковий блік. will-change лише під .is-tilt (MERR-10). */
+@property --tilt-foil {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tilt-glare {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+.obj-tilt {
+  position: relative;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --tilt-foil: 0;
+  --tilt-glare: 0;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transition: transform var(--duration-modal) var(--ease-out);
+}
+
+.obj-tilt.is-tilt {
+  will-change: transform;
+}
+
+.obj-tilt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--tilt-glare-x, 50%) var(--tilt-glare-y, 50%),
+    rgba(255, 255, 255, calc(var(--tilt-glare) * 0.6)),
+    transparent 60%
+  );
+  opacity: var(--tilt-foil);
+  transition: opacity 260ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .obj-tilt:hover {
+    --tilt-foil: 0.48;
+    --tilt-glare: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obj-tilt,
+  .obj-tilt.is-tilt {
+    transform: none;
+  }
+}

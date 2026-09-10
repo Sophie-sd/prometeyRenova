@@ -1,0 +1,44 @@
+/* CARD-04 frame hover corners — рамка перетворюється на L-кути при hover/reveal. */
+.frame-card {
+  position: relative;
+  transition: transform var(--duration-modal) var(--ease-out);
+}
+
+.frame-card__corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--frame-color, currentColor);
+  opacity: 0;
+  transition: opacity var(--duration-ui) var(--ease-out);
+}
+
+.frame-card__corner--tl {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+.frame-card__corner--br {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .frame-card:hover .frame-card__corner {
+    opacity: 1;
+  }
+
+  .frame-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame-card {
+    transition: none;
+  }
+}

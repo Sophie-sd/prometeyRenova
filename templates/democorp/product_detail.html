@@ -1,0 +1,34 @@
+{% extends 'democorp/base.html' %}
+{% load i18n demotenant %}
+
+{% block title %}{{ product.localized_name }} — {% tenant_text blocks_map registry "header" "company_name" %}{% endblock %}
+
+{% block content %}
+<section class="dc-container dc-section dc-pdp">
+    <div class="dc-pdp__gallery">
+        {% for image in product.images.all %}
+        {% if forloop.first %}
+        <div class="obj-tilt" data-tilt>
+            <img src="{{ image.image.url }}" alt="{{ product.localized_name }}" loading="eager" decoding="async">
+        </div>
+        {% else %}
+        <img src="{{ image.image.url }}" alt="{{ product.localized_name }}" loading="lazy">
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div>
+        <p class="dc-breadcrumbs"><a href="{% url 'democorp:catalog' slug=site.slug %}">{% tenant_text blocks_map registry "catalog" "title" %}</a> / {{ product.localized_name }}</p>
+        <h1>{{ product.localized_name }}</h1>
+        <p>{{ product.localized_excerpt }}</p>
+        {% if product.price_from %}<p class="dc-product-card__price">{% trans "від" %} {{ product.price_from }} €</p>{% endif %}
+        {% if product.localized_specs %}<p class="dc-pdp__specs">{{ product.localized_specs }}</p>{% endif %}
+
+        <div class="dc-pdp-buy">
+            <p class="dc-pdp-buy__label">{% tenant_text blocks_map registry "catalog" "buy_cta_label" %}</p>
+            <div class="dc-lead-form-wrap">
+                {% include 'democorp/partials/lead_form.html' %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

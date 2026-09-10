@@ -1,0 +1,25 @@
+{% load i18n demotenant %}
+{% tenant_text blocks_map registry "header" "phone" as footer_phone %}
+{% with phone_href=footer_phone|tel_href %}
+<footer class="dl-footer">
+    <div class="dl-container dl-footer__inner">
+        <div class="dl-footer__col dl-footer__col--brand">
+            <p class="dl-footer__name">{% tenant_text blocks_map registry "header" "company_name" %}</p>
+        </div>
+        <div class="dl-footer__col dl-footer__col--address">
+            <p class="dl-footer__label">Адреса</p>
+            <p class="dl-footer__address">{% tenant_text blocks_map registry "footer" "address" %}</p>
+        </div>
+        <div class="dl-footer__col dl-footer__col--contacts">
+            <p class="dl-footer__label">Контакти</p>
+            {% if phone_href %}
+            <a class="dl-footer__phone" href="tel:{{ phone_href }}">{{ footer_phone }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="dl-container dl-footer__bottom">
+        <p class="dl-footer__copy">{% tenant_text blocks_map registry "header" "company_name" %} · {% now "Y" %}</p>
+        {% include 'demolanding/partials/socials.html' with extra_class='dl-socials--footer' %}
+    </div>
+</footer>
+{% endwith %}

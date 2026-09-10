@@ -9,9 +9,9 @@ description: >-
 
 # Object Tilt Glare
 
-Канон (читати першим): `/Users/sofiadmitrenko/Prometey_vault/05_System/Skills/design_skills/motion/object_tilt_glare_skill.md`
+Канон (читати першим): `/Users/sofiadmitrenko/Library/Mobile Documents/com~apple~CloudDocs/Prometey_vault/05_System/Skills/design_skills/motion/object_tilt_glare_skill.md`
 
-Eval: `/Users/sofiadmitrenko/Prometey_vault/05_System/Skills/_meta/skill-creator/evals/object-tilt-glare.json`
+Eval: `/Users/sofiadmitrenko/Library/Mobile Documents/com~apple~CloudDocs/Prometey_vault/05_System/Skills/_meta/skill-creator/evals/object-tilt-glare.json`
 
 `/skill object_tilt_glare_skill`
 

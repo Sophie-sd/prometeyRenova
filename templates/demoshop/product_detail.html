@@ -1,0 +1,127 @@
+{% extends 'demoshop/base.html' %}
+{% load demoshop_extras i18n %}
+
+{% block title %}{{ product.localized_name }}{% endblock %}
+
+{% block content %}
+<section class="ds-section ds-container">
+    <div class="ds-pdp-grid">
+        <div class="ds-pdp-gallery">
+            {% if product.main_image %}
+            <img src="{{ product.main_image.image.url }}" alt="{{ product.localized_name }}" width="600" height="600" decoding="async">
+            {% endif %}
+            {% if product.discount_percent or product.sale_timer_active %}
+            <div class="ds-pdp-gallery__badges" aria-hidden="true">
+                <span class="ds-card__sale">
+                    {% if product.discount_percent %}<span class="ds-badge">−{{ product.discount_percent }}%</span>{% endif %}
+                    {% if product.sale_timer_active %}
+                    <span class="timer timer--pill"
+                          data-countdown="{{ product.sale_end_date|date:'U' }}"
+                          data-expired-label="{% trans "Акція завершена" %}"
+                          data-label-days="{% trans "д" %}"></span>
+                    {% endif %}
+                </span>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="ds-pdp-info ds-reveal" data-ds-reveal>
+            {% if product.category %}
+            <p class="ds-eyebrow">
+                <a href="{% url 'demoshop:catalog' shop_slug=shop.slug %}?category={{ product.category.slug }}">{{ product.category.localized_name }}</a>
+            </p>
+            {% endif %}
+            <h1 class="ds-pdp-info__title">{{ product.localized_name }}</h1>
+
+            <div class="ds-pdp-price-row">
+                <span class="ds-pdp-price">{{ product.price|money }} {% currency_symbol %}</span>
+                {% if product.old_price %}
+                <span class="ds-pdp-price-old">{{ product.old_price|money }} {% currency_symbol %}</span>
+                {% endif %}
+            </div>
+
+            {% if product.sale_timer_active %}
+            <div class="ds-pdp-promo">
+                <p class="ds-pdp-promo__label">
+                    <svg class="ds-pdp-promo__flame" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M12 2c1.4 3.2-.2 5.2-1.6 6.6C8.8 10.2 8 11.6 8 13.4 8 16.5 10.2 19 13 19c.4 0 .8 0 1.2-.1C12.6 20.3 10.4 21.5 8 21.5 4.4 21.5 1.5 18.4 1.5 14.6 1.5 10.2 6 6.4 12 2zm3.8 8.2c1.1 1.2 1.7 2.6 1.7 4.2 0 2.6-1.7 4.8-4 5.5 2.6-.4 4.6-2.6 4.6-5.3 0-1.6-.6-3-1.6-4.1-.2-.2-.5-.4-.7-.6v.3z"/>
+                    </svg>
+                    {% trans "Акція діє ще" %}
+                </p>
+                <span class="ds-card__sale">
+                    {% if product.discount_percent %}<span class="ds-badge">−{{ product.discount_percent }}%</span>{% endif %}
+                    <span class="timer timer--pill"
+                          data-countdown="{{ product.sale_end_date|date:'U' }}"
+                          data-expired-label="{% trans "Акція завершена" %}"
+                          data-label-days="{% trans "д" %}"></span>
+                </span>
+            </div>
+            {% endif %}
+
+            {% if product.has_gift_promo %}
+            <div class="ds-gift-banner">
+                <span class="ds-gift-banner__icon" aria-hidden="true">🎁</span>
+                <p class="ds-gift-banner__text">{{ product.localized_gift_promo_text }}</p>
+                <details class="ds-gift-banner__tip">
+                    <summary aria-label="{% trans "Деталі подарунка" %}">i</summary>
+                    <p>{% trans "Подарунок додається до замовлення автоматично на етапі демонстрації." %}</p>
+                </details>
+            </div>
+            {% endif %}
+
+            {% if product.localized_short_description %}
+            <p>{{ product.localized_short_description }}</p>
+            {% endif %}
+
+            <button type="button"
+                    class="ds-wish-toggle ds-wish-toggle--lg"
+                    data-wishlist-toggle
+                    data-product-id="{{ product.pk }}"
+                    data-qa="wishlist-toggle"
+                    data-label-active="♥ {% trans "В обраному" %}"
+                    data-label-idle="♡ {% trans "В обране" %}"
+                    aria-label="{% trans "Додати в обране" %}"
+                    aria-pressed="false">♡ {% trans "В обране" %}</button>
+
+            <form hx-post="{% url 'demoshop:cart_add' shop_slug=shop.slug %}"
+                  hx-target="#ds-drawer-root"
+                  hx-swap="innerHTML"
+                  data-qa="cart-add">
+                <input type="hidden" name="product_id" value="{{ product.pk }}">
+                <div class="ds-qty-stepper" data-ds-qty>
+                    <button type="button" data-ds-qty-step="-1" aria-label="{% trans "Менше" %}">−</button>
+                    <input type="number" name="qty" value="1" min="1" max="99" inputmode="numeric">
+                    <button type="button" data-ds-qty-step="1" aria-label="{% trans "Більше" %}">+</button>
+                </div>
+                <button type="submit" class="ds-btn ds-btn--primary ds-btn--lg ds-btn--full">{% trans "Додати в кошик" %}</button>
+            </form>
+
+            {% if product.localized_description %}
+            <div class="ds-pdp-description">
+                <h2>{% trans "Опис" %}</h2>
+                <div class="ds-prose">{{ product.localized_description|linebreaks }}</div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if reviews %}
+    <div class="ds-section">
+        <h2 class="ds-section__title ds-section__title--sm">{% trans "Відгуки" %}</h2>
+        {% for review in reviews %}
+        <div class="ds-review">
+            <p class="ds-review__author">{{ review.author_name }} <span class="ds-review__rating">{{ review.rating }}★</span></p>
+            <p>{{ review.text }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if related %}
+    <div class="ds-section">
+        <h2 class="ds-section__title ds-section__title--sm">{% trans "Схожі товари" %}</h2>
+        {% include 'demoshop/partials/_product_grid.html' with products=related %}
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

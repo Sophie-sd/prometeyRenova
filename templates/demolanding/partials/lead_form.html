@@ -1,0 +1,18 @@
+{% load i18n demotenant %}
+<form class="dl-lead-form" data-qa="lead-form"
+      hx-post="{% url 'demolanding:lead' slug=site.slug %}"
+      hx-target="#dl-lead-root"
+      hx-swap="innerHTML"
+      hx-history="false">
+    {% csrf_token %}
+    <input type="text" name="honeypot" class="dl-lead-form__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+    {% for field in lead_form.visible_fields %}
+    <div class="dl-field{% if field.errors %} dl-field--error{% endif %}">
+        <label class="dl-field__label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<span class="dl-field__hint" role="alert">{{ field.errors.0 }}</span>{% endif %}
+    </div>
+    {% endfor %}
+    {% if lead_form.non_field_errors %}<p class="dl-lead-form__error" role="alert" aria-live="polite">{% trans "Перевірте поля форми." %}</p>{% endif %}
+    <button type="submit" class="dl-btn dl-btn--primary dl-btn--block">{% tenant_text blocks_map registry "cta" "submit_label" %}</button>
+</form>

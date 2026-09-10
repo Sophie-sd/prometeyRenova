@@ -1,0 +1,149 @@
+/* Base — Mobile First, iOS Safari safe · Landing v2 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: var(--lh-body);
+  color: var(--ink);
+  background: var(--canvas);
+  overflow-x: hidden;
+  padding-left: var(--safe-l);
+  padding-right: var(--safe-r);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--accent-link);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--ink);
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+.brand-mark {
+  text-wrap: balance;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+  line-height: 1.06;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--pad-x);
+}
+
+.section {
+  padding-block: var(--space-section);
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+}
+
+.section--soft {
+  background: var(--surface-soft);
+}
+
+.section--surface {
+  background: var(--surface);
+}
+
+.section__head {
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  padding-inline: clamp(0.75rem, 3.5vw, 2.25rem);
+  padding-bottom: clamp(1.125rem, 2vw, 1.75rem);
+  border-bottom: 1px solid var(--border);
+}
+
+.section__title {
+  font-size: clamp(1.75rem, 3.2vw, 2.875rem);
+  max-width: 20ch;
+}
+
+.section__lead {
+  color: var(--muted);
+  font-size: 1.0625rem;
+  margin: 0;
+  max-width: 46ch;
+}
+
+@media (min-width: 768px) {
+  .section__head {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.75rem);
+  }
+
+  .section__head .section__title {
+    margin: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    transition-duration: 0.01ms;
+  }
+}

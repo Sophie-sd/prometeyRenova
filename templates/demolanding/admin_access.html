@@ -1,0 +1,14 @@
+{% extends 'demolanding/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Вхід в адмінку" %}{% endblock %}
+
+{% block content %}
+<section class="dl-section dl-container">
+    <h1>{% trans "Адмінка вашого лендінгу" %}</h1>
+    <p>{% trans "Керуйте текстами, фото, кольорами, послугами, галереєю та заявками." %}</p>
+    <p><strong>{% trans "Логін" %}:</strong> {{ tenant.demo_login }}</p>
+    <p><strong>{% trans "Пароль" %}:</strong> {{ tenant.demo_password }}</p>
+    <a class="dl-btn dl-btn--primary" href="{% url 'demolanding:admin_login' slug=tenant.slug %}" target="_blank" rel="noopener">{% trans "Перейти в адмінку" %}</a>
+</section>
+{% endblock %}

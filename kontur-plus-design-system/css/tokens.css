@@ -1,0 +1,68 @@
+/* Kontur+ design tokens — Landing v2 lime / cream / pill */
+:root {
+  --canvas: #f7f6f4;
+  --surface: #ffffff;
+  --surface-soft: #eae6e0;
+  --ink: #16181a;
+  --muted: #6b6560;
+  --muted-deep: #4a4642;
+  --border: #dcd8d2;
+  --accent: #dff250;
+  --accent-hover: #eaff6b;
+  --accent-mark: #a8bc22;
+  --accent-deep: #7e8f1c;
+  --accent-link: #5f6e12;
+  --accent-soft: rgba(223, 242, 80, 0.28);
+  --on-accent: #16181a;
+  --success: #2e6b52;
+  --success-soft: rgba(46, 107, 82, 0.1);
+  --error: #a13d3d;
+  --error-soft: rgba(161, 61, 61, 0.08);
+  --overlay: rgba(22, 24, 26, 0.52);
+  --cream: #f7f6f4;
+  --scrim: linear-gradient(
+    180deg,
+    rgba(22, 24, 26, 0.72) 0%,
+    rgba(22, 24, 26, 0.24) 34%,
+    rgba(22, 24, 26, 0.62) 74%,
+    rgba(22, 24, 26, 0.92) 100%
+  );
+  --scrim-side: linear-gradient(
+    180deg,
+    rgba(22, 24, 26, 0.72) 0%,
+    rgba(22, 24, 26, 0.24) 34%,
+    rgba(22, 24, 26, 0.62) 74%,
+    rgba(22, 24, 26, 0.92) 100%
+  );
+
+  --font: "Outfit", "Helvetica Neue", sans-serif;
+  --font-mono: "Space Grotesk", ui-monospace, monospace;
+  --lh-body: 1.62;
+  --measure: 65ch;
+  --radius: 10px;
+  --radius-modal: 12px;
+  --radius-pill: 999px;
+  --header-h: 64px;
+  --space-section: clamp(2.75rem, 6vw, 5.5rem);
+  --content-max: 1360px;
+  --pad-x: clamp(1.25rem, 3.5vw, 3.5rem);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-reveal: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 220ms;
+  --dur-reveal: 700ms;
+  --reveal-y: 20px;
+  --reveal-x: 16px;
+  --stagger: 70ms;
+  --reveal-delay: 0ms;
+
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-h: 72px;
+  }
+}

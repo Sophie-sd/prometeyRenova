@@ -1,0 +1,113 @@
+{% extends 'demoshop/base.html' %}
+{% load demoshop_extras i18n %}
+
+{% block title %}{% trans "Оформлення замовлення" %}{% endblock %}
+
+{% block content %}
+<section class="ds-section ds-container">
+    <h1 class="ds-section__title">{% trans "Оформлення замовлення" %}</h1>
+
+    <ol class="ds-checkout-steps" aria-label="{% trans "Кроки оформлення" %}">
+        <li class="is-active">{% trans "Контакти" %}</li>
+        <li>{% trans "Доставка" %}</li>
+        <li>{% trans "Підтвердження" %}</li>
+    </ol>
+
+    <div class="ds-checkout-grid">
+        <form class="ds-checkout-form" id="ds-checkout-form" method="post" data-ds-checkout>
+            {% csrf_token %}
+            <fieldset class="ds-form-section">
+                <legend>{% trans "Контакти" %}</legend>
+                <div class="ds-field">
+                    <label for="id_customer_name">{% trans "Ім'я та прізвище" %}</label>
+                    <input id="id_customer_name" type="text" name="customer_name" required
+                           autocomplete="name" placeholder="Олександр Коваленко">
+                </div>
+                <div class="ds-field">
+                    <label for="id_phone">{% trans "Телефон" %}</label>
+                    <input id="id_phone" type="tel" name="phone" required
+                           autocomplete="tel" inputmode="tel" placeholder="+38 (063) 000-00-00">
+                </div>
+                <div class="ds-field">
+                    <label for="id_email">Email</label>
+                    <input id="id_email" type="email" name="email"
+                           autocomplete="email" placeholder="example@gmail.com">
+                </div>
+            </fieldset>
+
+            <fieldset class="ds-form-section">
+                <legend>{% trans "Доставка" %} <span class="ds-hint">({% trans "тестовий довідник НП" %})</span></legend>
+                <div class="ds-delivery-methods">
+                    <label class="ds-delivery-option">
+                        <input type="radio" name="delivery_method" value="np_warehouse" data-ds-delivery checked>
+                        <span data-label-np>{% trans "Відділення Нової Пошти" %}</span>
+                    </label>
+                    <label class="ds-delivery-option">
+                        <input type="radio" name="delivery_method" value="address" data-ds-delivery>
+                        <span data-label-address>{% trans "Адресна доставка" %}</span>
+                    </label>
+                </div>
+
+                <div class="ds-delivery-details" id="ds-delivery-np" data-ds-np-block>
+                    <div class="ds-field ds-np-block">
+                        <label for="id_np_city">{% trans "Місто" %}</label>
+                        <input id="id_np_city" type="search" name="np_city_name" autocomplete="off" placeholder="{% trans "Почніть вводити місто…" %}" data-ds-np-city>
+                        <input type="hidden" name="np_city_ref" id="id_np_city_ref" data-ds-np-city-ref>
+                        <ul class="ds-np-suggest" data-ds-np-suggest hidden></ul>
+                    </div>
+                    <div class="ds-field" id="ds-warehouse-field">
+                        <label for="id_np_warehouse">{% trans "Відділення" %}</label>
+                        <select id="id_np_warehouse" name="np_warehouse_ref" disabled
+                                data-ds-np-warehouse
+                                data-label-loading="{% trans "Завантаження…" %}"
+                                data-label-choose="{% trans "Оберіть відділення" %}">
+                            <option value="">{% trans "Спочатку оберіть місто" %}</option>
+                        </select>
+                        <input type="hidden" name="np_warehouse_name" id="id_np_warehouse_name" data-ds-np-warehouse-name>
+                    </div>
+                </div>
+
+                <div class="ds-field" id="ds-delivery-address" data-ds-address-block hidden>
+                    <label for="id_address">{% trans "Адреса доставки" %}</label>
+                    <textarea id="id_address" name="address" rows="3" placeholder="{% trans "Вулиця, будинок, квартира" %}"></textarea>
+                </div>
+            </fieldset>
+
+            <button type="button" class="ds-btn ds-btn--primary ds-btn--lg ds-btn--full ds-mt-8" data-ds-checkout-open>
+                {% trans "Підтвердити замовлення" %}
+            </button>
+        </form>
+
+        <aside class="ds-checkout-summary">
+            <h2 class="ds-section__title ds-section__title--sm">{% trans "Ваше замовлення" %}</h2>
+            <div class="ds-summary-lines">
+                {% for line in cart_lines %}
+                <div class="ds-summary-line">
+                    <span>{{ line.product.localized_name }} × {{ line.qty }}</span>
+                    <span>{{ line.line_total|money }} {% currency_symbol %}</span>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="ds-summary-total">
+                <span>{% trans "Разом" %}</span>
+                <span class="ds-summary-total__sum">{{ total|money }} {% currency_symbol %}</span>
+            </div>
+        </aside>
+    </div>
+</section>
+
+<dialog class="ds-modal" data-ds-order-modal>
+    <div class="ds-modal__panel">
+        <h2 class="ds-modal__title">{% trans "Підтвердити замовлення?" %}</h2>
+        <dl class="ds-modal__summary">
+            <div><dt>{% trans "Сума" %}</dt><dd data-ds-modal-total>{{ total|money }} {% currency_symbol %}</dd></div>
+            <div><dt>{% trans "Доставка" %}</dt><dd data-ds-modal-delivery>—</dd></div>
+            <div><dt>{% trans "Місто / адреса" %}</dt><dd data-ds-modal-place>—</dd></div>
+        </dl>
+        <div class="ds-modal__actions">
+            <button type="button" class="ds-btn ds-btn--outline" data-ds-modal-cancel>{% trans "Назад" %}</button>
+            <button type="button" class="ds-btn ds-btn--primary" data-ds-modal-confirm>{% trans "Так, оформити" %}</button>
+        </div>
+    </div>
+</dialog>
+{% endblock %}

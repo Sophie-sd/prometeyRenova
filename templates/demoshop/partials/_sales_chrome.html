@@ -1,0 +1,44 @@
+{% load i18n %}
+{% if shop %}
+<div class="ds-sales-chrome"
+     data-ds-sales-chrome
+     data-shop-id="{{ shop.pk }}"
+     data-ds-sales-page="{{ page }}">
+    <button type="button"
+            class="ds-sales-fab"
+            data-ds-sales-open
+            aria-expanded="false"
+            aria-controls="ds-sales-panel"
+            aria-label="{% trans "Чому не конструктор" %}">
+        <span class="ds-sales-fab__mark" aria-hidden="true">i</span>
+        <span class="ds-sales-fab__label">{% trans "Чому не конструктор" %}</span>
+    </button>
+
+    <div class="ds-sales-backdrop" data-ds-sales-close hidden></div>
+    <aside class="ds-sales-panel" id="ds-sales-panel" role="dialog" aria-modal="true" aria-labelledby="ds-sales-panel-title" hidden>
+        <div class="ds-sales-panel__head">
+            <h2 id="ds-sales-panel-title" class="ds-sales-panel__title">{% trans "Це не конструктор" %}</h2>
+            <button type="button" class="ds-sales-panel__x" data-ds-sales-close aria-label="{% trans "Закрити" %}">×</button>
+        </div>
+        <p class="ds-sales-panel__lead">{% trans "Це робоча вітрина вашого магазину. Тексти й фото вже можна міняти в адмінці." %}</p>
+        {% if notes %}
+        <ol class="ds-sales-panel__list">
+            {% for note in notes %}
+            <li>
+                <span class="ds-sales-panel__num" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
+                <div>
+                    <p class="ds-sales-panel__item-title">{{ note.title }}</p>
+                    <p class="ds-sales-panel__item-body">{{ note.body }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ol>
+        {% endif %}
+        <div class="ds-sales-panel__actions">
+            <a class="ds-btn ds-btn--primary ds-btn--full ds-sales-panel__cta" href="{% url 'demoshop:admin_access' shop_slug=shop.slug %}">{% trans "Відкрити мою адмінку" %}</a>
+            <button type="button" class="ds-sales-panel__hide" data-ds-sales-hide>{% trans "Не показувати" %}</button>
+            <button type="button" class="ds-sales-panel__show" data-ds-sales-show hidden>{% trans "Показати підказки" %}</button>
+        </div>
+    </aside>
+</div>
+{% endif %}

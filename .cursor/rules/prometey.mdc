@@ -1,0 +1,26 @@
+---
+description: PrometeyLabs vault — iCloud Drive, CLAUDE.md і бібліотека скілів
+alwaysApply: true
+---
+
+# Prometey Vault (iCloud Drive)
+
+Канон — iCloud Drive, не локальна копія `~/Prometey_vault`.
+
+- Vault: `/Users/sofiadmitrenko/Library/Mobile Documents/com~apple~CloudDocs/Prometey_vault/`
+- Правила: `/Users/sofiadmitrenko/Library/Mobile Documents/com~apple~CloudDocs/Prometey_vault/CLAUDE.md` (спочатку ⛔ АБСОЛЮТНІ ЗАБОРОНИ)
+- Скіли: `/Users/sofiadmitrenko/Library/Mobile Documents/com~apple~CloudDocs/Prometey_vault/05_System/Skills/`
+- Індекс: `/Users/sofiadmitrenko/Library/Mobile Documents/com~apple~CloudDocs/Prometey_vault/05_System/Skills/00_SKILLS_INDEX.md`
+- Bridges `.cursor/skills/` — лише discovery; джерело істини — vault
+
+## Порядок
+
+1. Визначити скіл з індексу / «Робочий процес зі скілами» у `CLAUDE.md`.
+2. Read файл за абсолютним iCloud-шляхом (`/skill` = ім'я файлу без `.md`).
+3. Лише після Read — писати або міняти код.
+
+## Заборони (CLAUDE)
+
+- React / Vue / Next / SPA
+- `!important`, inline `style=""`, `onclick=`
+- секрети в коді; standalone `.md` звіти без явного запиту

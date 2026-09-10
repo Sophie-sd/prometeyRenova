@@ -1,0 +1,237 @@
+/* Motion — Kontur+ · transform/opacity only · intensity 3–4 */
+
+/* —— Scroll reveal (animation, so hover transitions stay snappy) —— */
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal:not(.is-inview) {
+    opacity: 0;
+  }
+
+  .js .reveal--up:not(.is-inview) {
+    transform: translate3d(0, var(--reveal-y), 0);
+  }
+
+  .js .reveal--left:not(.is-inview) {
+    transform: translate3d(calc(var(--reveal-x) * -1), 0, 0);
+  }
+
+  .js .reveal--right:not(.is-inview) {
+    transform: translate3d(var(--reveal-x), 0, 0);
+  }
+
+  .js .reveal--scale:not(.is-inview) {
+    transform: scale(0.985);
+  }
+
+  .js .reveal--up.is-inview {
+    animation: kp-reveal-up var(--dur-reveal) var(--ease-reveal) var(--reveal-delay) both;
+  }
+
+  .js .reveal--left.is-inview {
+    animation: kp-reveal-left var(--dur-reveal) var(--ease-reveal) var(--reveal-delay) both;
+  }
+
+  .js .reveal--right.is-inview {
+    animation: kp-reveal-right var(--dur-reveal) var(--ease-reveal) var(--reveal-delay) both;
+  }
+
+  .js .reveal--scale.is-inview {
+    animation: kp-reveal-scale var(--dur-reveal) var(--ease-reveal) var(--reveal-delay) both;
+  }
+
+  .js .reveal.is-inview:not(.reveal--up):not(.reveal--left):not(.reveal--right):not(.reveal--scale) {
+    animation: kp-reveal-up var(--dur-reveal) var(--ease-reveal) var(--reveal-delay) both;
+  }
+
+  .js .reveal.is-settled {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  [data-reveal-stagger] > .reveal:nth-child(1) { --reveal-delay: 0ms; }
+  [data-reveal-stagger] > .reveal:nth-child(2) { --reveal-delay: calc(var(--stagger) * 1); }
+  [data-reveal-stagger] > .reveal:nth-child(3) { --reveal-delay: calc(var(--stagger) * 2); }
+  [data-reveal-stagger] > .reveal:nth-child(4) { --reveal-delay: calc(var(--stagger) * 3); }
+  [data-reveal-stagger] > .reveal:nth-child(5) { --reveal-delay: calc(var(--stagger) * 4); }
+  [data-reveal-stagger] > .reveal:nth-child(6) { --reveal-delay: calc(var(--stagger) * 5); }
+  [data-reveal-stagger] > .reveal:nth-child(7) { --reveal-delay: calc(var(--stagger) * 6); }
+  [data-reveal-stagger] > .reveal:nth-child(8) { --reveal-delay: calc(var(--stagger) * 7); }
+}
+
+@keyframes kp-reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-y), 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes kp-reveal-left {
+  from {
+    opacity: 0;
+    transform: translate3d(calc(var(--reveal-x) * -1), 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes kp-reveal-right {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--reveal-x), 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes kp-reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* —— Hero load-in (no scroll) —— */
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero__title,
+  .js .hero__lead,
+  .js .hero__cta,
+  .js .hero__bar {
+    animation: kp-enter 760ms var(--ease-reveal) both;
+  }
+
+  .js .hero__lead {
+    animation-delay: 90ms;
+  }
+
+  .js .hero__cta {
+    animation-delay: 160ms;
+  }
+
+  .js .hero__bar {
+    animation-delay: 230ms;
+  }
+}
+
+@keyframes kp-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* —— Existing chrome motion —— */
+@media (prefers-reduced-motion: no-preference) {
+  .card--pkg {
+    transition: transform 220ms var(--ease);
+  }
+
+  .modal-root.is-open .modal {
+    animation: kp-rise 240ms var(--ease);
+  }
+
+  .modal-root.is-open .modal-root__backdrop {
+    animation: kp-fade 200ms ease-out;
+  }
+
+  .nav-sheet.is-open {
+    animation: kp-fade 260ms ease;
+  }
+}
+
+@keyframes kp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes kp-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes kp-zoom {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.11);
+  }
+}
+
+/* —— Hover micro-interactions —— */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .case__media img,
+  .styles-grid__thumb img,
+  .feature-split__frame img,
+  .adv-card__media img {
+    transition: transform 720ms var(--ease-reveal);
+  }
+
+  .case:hover .case__media img,
+  .styles-grid__item:hover .styles-grid__thumb img,
+  .feature-split__frame:hover img,
+  .adv-card:hover .adv-card__media img {
+    transform: scale(1.035);
+  }
+
+  .review {
+    transition: transform 220ms var(--ease);
+  }
+
+  .review:hover {
+    transform: translateY(-2px);
+  }
+
+  .styles-grid__item {
+    transition: transform 220ms var(--ease);
+  }
+
+  .styles-grid__item:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn:active:not(:disabled),
+  .card__cta:active:not(:disabled) {
+    transform: translateY(0) scale(0.985);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .js .hero__title,
+  .js .hero__lead,
+  .js .hero__cta,
+  .js .hero__bar {
+    animation: none;
+  }
+}

@@ -1,0 +1,25 @@
+/* «Мій сайт» — проста форма над стандартним Unfold admin/base_site.html. */
+.dc-admin-form { max-width: 900px; }
+.dc-admin-form__fieldset { margin-bottom: 24px; border: 1px solid #e5e5e5; border-radius: 0; padding: 16px; }
+.dc-admin-form__field { margin-bottom: 12px; }
+.dc-admin-form__help { margin: 6px 0 0; font-size: 12px; line-height: 1.4; color: #6b6560; }
+.dc-admin-form__preview { max-width: 160px; display: block; margin-top: 8px; border-radius: 0; }
+.dc-admin-form__submit {
+  padding: 10px 24px;
+  border-radius: 0;
+  border: 0;
+  background: #100d0c;
+  color: #fcf2ee;
+  cursor: pointer;
+  min-height: 44px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.dc-admin-form__submit:hover {
+  background: #181412;
+}
+.dc-admin-form__i18n { margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px dashed #d6cfc3; }
+.dc-admin-form__i18n:last-child { border-bottom: 0; }
+.dc-admin-picker { list-style: none; padding: 0; margin: 0; max-width: 760px; }
+.dc-admin-picker li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid #d6cfc3; }
