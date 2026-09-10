@@ -1,11 +1,12 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.utils import timezone
-from .mixins import BasePageView, homepage_clients, portfolio_page_projects
+from .mixins import BasePageView, LocalizedLegalTemplateMixin, homepage_clients, portfolio_page_projects
 from .form_handlers import (
-    validate_phone, validate_name, create_form_response, get_form_type_from_path,
+    validate_phone, validate_name, validate_email, has_consent,
+    create_form_response, get_form_type_from_path,
     create_form_data, send_form_email, save_form_submission,
-    send_test_result_email
+    send_test_result_email, LEAD_FORM_TYPES,
 )
 from .keycrm_service import sync_submission_to_keycrm
 import logging
@@ -99,55 +100,30 @@ class ContactsView(BasePageView):
     page_title = _('Контакти | PrometeyLabs - Зв\'яжіться з нами')
     meta_description = _('Зв\'яжіться з командою PrometeyLabs для розробки сайтів, Telegram ботів, реклами чи навчання. Київ, Україна.')
 
-class OfferView(BasePageView):
+class OfferView(LocalizedLegalTemplateMixin, BasePageView):
+    legal_base_name = 'offer'
     page_title = _('Публічний договір (оферта) про надання послуг | PrometeyLabs')
     meta_description = _('Публічний договір (оферта) про надання ІТ-послуг від PrometeyLabs. Офіційні умови надання послуг веб-розробки, мобільних застосунків та маркетингу.')
 
-    def get_template_names(self):
-        from django.utils import translation
-        if translation.get_language() == 'ru':
-            return ['pages/offer-ru.html']
-        return ['pages/offer.html']
-
-class PrivacyView(BasePageView):
+class PrivacyView(LocalizedLegalTemplateMixin, BasePageView):
+    legal_base_name = 'privacy'
     page_title = _('Політика конфіденційності | PrometeyLabs')
     meta_description = _('Політика конфіденційності PrometeyLabs. Дізнайтеся, як ми захищаємо ваші персональні дані відповідно до законодавства України та GDPR.')
 
-    def get_template_names(self):
-        from django.utils import translation
-        if translation.get_language() == 'ru':
-            return ['pages/privacy-ru.html']
-        return ['pages/privacy.html']
-
-class CookiesView(BasePageView):
+class CookiesView(LocalizedLegalTemplateMixin, BasePageView):
+    legal_base_name = 'cookies'
     page_title = _('Політика використання файлів cookie | PrometeyLabs')
     meta_description = _('Політика використання файлів cookie від PrometeyLabs. Дізнайтеся, які файли cookie ми використовуємо та як керувати налаштуваннями.')
 
-    def get_template_names(self):
-        from django.utils import translation
-        if translation.get_language() == 'ru':
-            return ['pages/cookies-ru.html']
-        return ['pages/cookies.html']
-
-class RefundPolicyView(BasePageView):
+class RefundPolicyView(LocalizedLegalTemplateMixin, BasePageView):
+    legal_base_name = 'refund'
     page_title = _('Політика повернення коштів | PrometeyLabs')
     meta_description = _('Політика повернення коштів від PrometeyLabs. Дізнайтеся про умови і порядок повернення коштів за наші послуги.')
 
-    def get_template_names(self):
-        from django.utils import translation
-        if translation.get_language() == 'ru':
-            return ['pages/refund-ru.html']
-        return ['pages/refund.html']
-
-class IntellectualPropertyView(BasePageView):
+class IntellectualPropertyView(LocalizedLegalTemplateMixin, BasePageView):
+    legal_base_name = 'intellectual-property'
     page_title = _('Політика щодо інтелектуальної власності | PrometeyLabs')
     meta_description = _('Політика щодо інтелектуальної власності від PrometeyLabs. Дізнайтеся про права на контент та захист авторських прав.')
-
-    def get_template_names(self):
-        from django.utils import translation
-        if translation.get_language() == 'ru':
-            return ['pages/intellectual-property-ru.html']
-        return ['pages/intellectual-property.html']
 
 class MonobankChastView(BasePageView):
     page_title = 'Покупка частинами monobank | Universal Bank | PrometeyLabs'
@@ -269,30 +245,69 @@ class ThankYouView(BasePageView):
 def handle_form_submission(request):
     """Обробка AJAX форм"""
     if request.method != 'POST':
-        return create_form_response(False, _('Метод не дозволений'))
+        return create_form_response(False, _('Метод не дозволений'), status=405)
     
     try:
         # Отримуємо тип форми з data-form-type або окремого поля
         form_type = request.POST.get('form_type') or get_form_type_from_path(request)
         name = request.POST.get('name', '').strip()
         phone = request.POST.get('phone', '').strip()
-        
-        # Валідація базових полів
-        if not name or not phone:
-            return create_form_response(False, _('Заповніть обов\'язкові поля: ім\'я та телефон'))
-        
-        # Валідація імені
-        if not validate_name(name):
-            return create_form_response(False, _('Введіть коректне ім\'я (мінімум 2 символи, хоча б одна літера)'))
-        
-        # Валідація телефону
-        if not validate_phone(phone):
-            return create_form_response(False, _('Введіть коректний номер телефону'))
+        email = request.POST.get('email', '').strip()
+
+        is_lead = form_type in LEAD_FORM_TYPES
+
+        if is_lead:
+            if not has_consent(request):
+                return create_form_response(
+                    False,
+                    _('Підтвердіть згоду на обробку персональних даних.'),
+                    status=400,
+                )
+            if not email or not validate_email(email):
+                return create_form_response(
+                    False,
+                    _('Введіть коректний email.'),
+                    status=400,
+                )
+            if not name:
+                return create_form_response(
+                    False,
+                    _('Заповніть обов\'язкові поля: ім\'я та email'),
+                    status=400,
+                )
+            if not validate_name(name):
+                return create_form_response(
+                    False,
+                    _('Введіть коректне ім\'я (мінімум 2 символи, хоча б одна літера)'),
+                    status=400,
+                )
+            if phone and not validate_phone(phone):
+                return create_form_response(
+                    False,
+                    _('Введіть коректний номер телефону'),
+                    status=400,
+                )
+        else:
+            if not name or not phone:
+                return create_form_response(
+                    False,
+                    _('Заповніть обов\'язкові поля: ім\'я та телефон'),
+                )
+            if not validate_name(name):
+                return create_form_response(
+                    False,
+                    _('Введіть коректне ім\'я (мінімум 2 символи, хоча б одна літера)'),
+                )
+            if not validate_phone(phone):
+                return create_form_response(
+                    False,
+                    _('Введіть коректний номер телефону'),
+                )
         
         # Обробка різних типів форм
         handlers = {
             'site-request': handle_site_request,
-            'site_request': handle_site_request,  # Альтернативна назва з підкреслюванням
+            'site_request': handle_site_request,
             'developer': handle_developer_request,
             'consultation': handle_consultation_request,
             'contact': handle_contact_request,
@@ -304,11 +319,17 @@ def handle_form_submission(request):
         if handler:
             return handler(request, name, phone)
         else:
-            return create_form_response(False, _('Невідомий тип форми: {form_type}').format(form_type=form_type))
+            return create_form_response(
+                False,
+                _('Невідомий тип форми: {form_type}').format(form_type=form_type),
+            )
             
     except Exception as e:
         logger.error(f"Form submission error: {e}")
-        return create_form_response(False, _('Сталася помилка при обробці заявки. Спробуйте ще раз.'))
+        return create_form_response(
+            False,
+            _('Сталася помилка при обробці заявки. Спробуйте ще раз.'),
+        )
 
 # Функції get_form_type_from_path та validate_phone перенесені в form_handlers.py
 
@@ -432,10 +453,25 @@ def handle_test_submission(request):
         return create_form_response(False, _('Метод не дозволений'))
     
     try:
-        from apps.core.form_handlers import validate_name, validate_phone
+        from apps.core.form_handlers import validate_name, validate_phone, validate_email, has_consent
         
         name = request.POST.get('name', '').strip()
         phone = request.POST.get('phone', '').strip()
+        email = request.POST.get('email', '').strip()
+
+        if not has_consent(request):
+            return create_form_response(
+                False,
+                _('Підтвердіть згоду на обробку персональних даних.'),
+                status=400,
+            )
+
+        if not email or not validate_email(email):
+            return create_form_response(
+                False,
+                _('Введіть коректний email.'),
+                status=400,
+            )
         
         # Валідація імені та телефону
         if not validate_name(name):
@@ -465,6 +501,7 @@ def handle_test_submission(request):
         test_data = {
             'name': name,
             'phone': phone,
+            'email': email,
             'answers': answers,
             'alt_services_checked': alt_services_checked,
             'ip': request.META.get('REMOTE_ADDR', ''),
@@ -474,6 +511,7 @@ def handle_test_submission(request):
         # Підготовка даних для БД
         form_data = create_form_data(
             _('Результат тесту калькулятора'), name, phone, request,
+            email=email,
             answers=answers,
             alt_services_checked=alt_services_checked
         )
@@ -492,14 +530,18 @@ def handle_test_submission(request):
             email_sender=lambda _fd, _captured=test_data: send_test_result_email(_captured),
         )
 
+        from apps.core.calculator_estimate import estimate_from_answers
+        from django.utils.translation import get_language
+
+        result = estimate_from_answers(answers, get_language())
         success_message = _('Дякуємо! Ми зв\'яжемося з вами найближчим часом.')
-        
+
         return create_form_response(
             True,
             success_message,
-            redirect='/thank-you/',
             answers=answers,
-            alt_services_checked=alt_services_checked
+            alt_services_checked=alt_services_checked,
+            result=result,
         )
         
     except Exception as e:
@@ -508,8 +550,10 @@ def handle_test_submission(request):
 
 def handle_call_request(request, name, phone):
     """Обробка заявки на дзвінок"""
+    email = request.POST.get('email', '').strip()
     form_data = create_form_data(
-        _('Замовлення дзвінка'), name, phone, request
+        _('Замовлення дзвінка'), name, phone, request,
+        email=email,
     )
 
     submission_saved, submission_id, save_error = save_form_submission(
@@ -530,8 +574,10 @@ def handle_call_request(request, name, phone):
 
 def handle_footer_consultation(request, name, phone):
     """Обробка заявки з footer форми консультації"""
+    email = request.POST.get('email', '').strip()
     form_data = create_form_data(
-        _('Заявка з footer - Консультація'), name, phone, request
+        _('Заявка з footer - Консультація'), name, phone, request,
+        email=email,
     )
 
     submission_saved, submission_id, save_error = save_form_submission(

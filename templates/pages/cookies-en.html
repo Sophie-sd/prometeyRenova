@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Політика використання файлів cookie | PrometeyLabs" %}{% endblock %}
+{% block description %}{% trans "Політика використання файлів cookie PrometeyLabs. Дізнайтеся, які файли cookie ми використовуємо та як керувати налаштуваннями." %}{% endblock %}
+{% block keywords %}cookie policy, cookies, cookie management, cookie settings{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/legal-pages.css' %}">
+{% endblock %}
+
+{% block content %}
+<article class="legal-article">
+    <!-- Header Section -->
+    <header class="legal-header">
+        <div class="legal-header-inner">
+            <h1 class="legal-title">Cookie Policy</h1>
+            <div class="legal-meta">
+                <span class="legal-date">Last updated: September 5, 2026</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="legal-content">
+        <div class="container">
+            <div class="legal-wrapper">
+                <!-- 1. What are cookies? -->
+                <section class="legal-section">
+                    <h2>1. What are cookies?</h2>
+
+                    <div class="legal-subsection">
+                        <h3>1.1</h3>
+                        <p>Cookies are small text files that a website stores on your computer or mobile device when you visit it. They allow the site to remember your actions and settings (e.g., interface language, login information, etc.) for a period of time, so you don't have to re-enter them every time you visit again or navigate between pages.</p>
+                    </div>
+
+                    <div class="legal-subsection">
+                        <h3>1.2</h3>
+                        <p>Our website prometeylabs.com uses both session cookies (automatically deleted when the browser is closed) and persistent cookies (which remain on your device for a set period of time or until you delete them).</p>
+                    </div>
+                </section>
+
+                <!-- 2. Purpose of using cookies -->
+                <section class="legal-section">
+                    <h2>2. Purpose of using cookies</h2>
+
+                    <div class="legal-subsection">
+                        <p>We use cookies for the following purposes:</p>
+                        <ul class="legal-list">
+                            <li>ensuring the basic, correct and secure operation of the website;</li>
+                            <li>storing user preferences (e.g., selected language or region);</li>
+                            <li>analysing how users interact with the site, for the overall improvement of its functionality and interface;</li>
+                            <li>tracking aggregated visit statistics via third-party analytics services (Google Analytics, Facebook Pixel);</li>
+                            <li>displaying more relevant information and improving the quality of our services.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 3. Types of cookies we use -->
+                <section class="legal-section">
+                    <h2>3. Types of cookies we use</h2>
+
+                    <div class="legal-subsection">
+                        <h3>3.1</h3>
+                        <p><strong>Strictly necessary cookies.</strong> These files are critical for the proper functioning of the website. Without them, the site cannot work correctly (e.g., form spam protection, traffic routing). They cannot be disabled in our systems.</p>
+                    </div>
+
+                    <div class="legal-subsection">
+                        <h3>3.2</h3>
+                        <p><strong>Functional cookies.</strong> Allow the site to provide enhanced functionality and personalisation by remembering your choices.</p>
+                    </div>
+
+                    <div class="legal-subsection">
+                        <h3>3.3</h3>
+                        <p><strong>Analytical cookies.</strong> Help us collect information about how visitors use the site. Data is collected in aggregated (anonymised) form and helps us understand which pages are the most or least popular.</p>
+                    </div>
+
+                    <div class="legal-subsection">
+                        <h3>3.4</h3>
+                        <p><strong>Marketing cookies.</strong> Used to track user behaviour in order to evaluate the effectiveness of B2B advertising campaigns, optimise conversions and display the most relevant offers (retargeting) on third-party platforms. These tools include, in particular, Google Ads and Facebook Pixel tracking tags. These cookies are activated only with your explicit consent.</p>
+                    </div>
+                </section>
+
+                <!-- 4. Third-party cookies -->
+                <section class="legal-section">
+                    <h2>4. Third-party cookies</h2>
+
+                    <div class="legal-subsection">
+                        <h3>4.1</h3>
+                        <p>In some cases, we use third-party services (in particular, Google Analytics and Facebook Pixel), which may also set their own cookies on your device on our behalf when you visit the site.</p>
+                    </div>
+
+                    <div class="legal-subsection">
+                        <h3>4.2</h3>
+                        <p>By integrating third-party tools (in particular, Google Analytics, Google Ads, Facebook Pixel), we may act as a joint controller together with the relevant technology companies solely with respect to the collection and transmission of data from our site. Further processing and storage of the collected data is carried out by these corporations on their own servers in accordance with their own privacy policies. We seek to cooperate only with providers who adhere to international data protection standards and, where necessary, enter into corresponding Data Processing Agreements with them.</p>
+                    </div>
+
+                    <div class="legal-subsection">
+                        <h3>4.3</h3>
+                        <p>More detailed information about how third-party cookies work and how to opt out of them can be found on specialised resources such as allaboutcookies.org and youronlinechoices.eu.</p>
+                    </div>
+                </section>
+
+                <!-- 5. Detailed list and retention periods -->
+                <section class="legal-section">
+                    <h2>5. Detailed list and retention periods</h2>
+
+                    <div class="legal-subsection">
+                        <h3>5.1</h3>
+                        <p>For maximum transparency, we provide a detailed list of cookies that may be set on your device:</p>
+                    </div>
+
+                    <div class="legal-table-wrapper">
+                        <table class="legal-table">
+                            <thead>
+                                <tr>
+                                    <th>Cookie name / Service</th>
+                                    <th>Category</th>
+                                    <th>Provider</th>
+                                    <th>Retention period</th>
+                                    <th>Purpose</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>_ga</td>
+                                    <td>Analytical</td>
+                                    <td>Google</td>
+                                    <td>2 years</td>
+                                    <td>Distinguishing unique users for Google Analytics</td>
+                                </tr>
+                                <tr>
+                                    <td>_gcl_au</td>
+                                    <td>Marketing</td>
+                                    <td>Google Ads</td>
+                                    <td>3 months</td>
+                                    <td>Optimising and tracking conversions of advertising campaigns</td>
+                                </tr>
+                                <tr>
+                                    <td>_fbp</td>
+                                    <td>Marketing</td>
+                                    <td>Meta</td>
+                                    <td>3 months</td>
+                                    <td>Tracking visits for ad targeting</td>
+                                </tr>
+                                <tr>
+                                    <td>PHPSESSID</td>
+                                    <td>Strictly necessary</td>
+                                    <td>prometeylabs.com</td>
+                                    <td>Session (until browser is closed)</td>
+                                    <td>Maintaining the user's session state during navigation</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 6. Managing cookies -->
+                <section class="legal-section">
+                    <h2>6. Managing cookies</h2>
+
+                    <div class="legal-subsection">
+                        <h3>6.1</h3>
+                        <p>You have the full right to decide for yourself whether to accept cookies. Most web browsers are set by default to accept cookies, but you can change these settings to block them or receive a warning before they are sent.</p>
+                    </div>
+
+                    <div class="legal-subsection">
+                        <h3>6.2</h3>
+                        <p>Instructions for managing cookies for the most popular browsers can be found on their official support pages (Google Chrome, Mozilla Firefox, Apple Safari, Microsoft Edge).</p>
+                    </div>
+
+                    <div class="legal-subsection">
+                        <h3>6.3</h3>
+                        <p><strong>Consent to use cookies (Opt-In):</strong> We set functional, analytical and marketing cookies on your device only after obtaining your direct, unambiguous and informed consent via an information banner (Cookie Banner) that appears on your first visit to the site. Strictly necessary cookies are set by default, as the secure and correct operation of the resource is impossible without them.</p>
+                    </div>
+
+                    <div class="legal-subsection">
+                        <h3>6.4</h3>
+                        <p><strong>Withdrawing consent and on-site settings:</strong> You have the right to change your preferences or fully withdraw your consent to non-essential cookies at any time. This can be done in one click using the dedicated "Cookie Settings" widget (or the corresponding link in the website footer), which allows you to enable or disable individual cookie categories without having to search for global settings in your browser.</p>
+                    </div>
+
+                    <div class="legal-subsection">
+                        <h3>6.5</h3>
+                        <p><strong>Google Consent Mode v2.</strong> For Google tools (Google Analytics, Google Ads), we use Google Consent Mode v2 technology: until your consent is obtained, the relevant tags operate in a mode without setting cookies and without collecting personal identifiers (cookieless mode), and full functionality of analytical and advertising cookies is activated only after your confirmation via the consent banner. The validity period of the consent given is 12 months; if you decline, a repeat consent request will not be made earlier than 6 months later.</p>                    </div>
+
+                    <div class="legal-subsection">
+                        <h3>6.6</h3>
+                        <p><strong>Legal basis and supervisory authority.</strong> Setting non-essential cookies on the basis of prior consent (opt-in) is grounded in Section 89(3) of Act No. 127/2005 Coll., on Electronic Communications, Act No. 480/2004 Coll., on Certain Information Society Services, and Art. 6(1)(a) GDPR in conjunction with Act No. 110/2019 Coll., on Personal Data Processing. The supervisory authority for cookies and personal data protection in the Czech Republic is the Office for Personal Data Protection (Úřad pro ochranu osobních údajů, Pplk. Sochora 27, 170 00 Prague 7, www.uoou.cz), with which you have the right to lodge a complaint.</p>
+                    </div>
+                </section>
+
+                <!-- 7. Changes to the Policy -->
+                <section class="legal-section">
+                    <h2>7. Changes to the Policy</h2>
+
+                    <div class="legal-subsection">
+                        <p>We reserve the right to periodically update this Policy. Any changes take effect upon publication of the updated version on this page. The date of the last update is indicated at the beginning of the document.</p>
+                    </div>
+                </section>
+
+                <!-- 8. Contact information -->
+                <section class="legal-section">
+                    <h2>8. Contact information</h2>
+
+                    <div class="legal-subsection">
+                        <p>If you have any questions about how we use cookies, please contact us by email: info@prometeylabs.com.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</article>
+{% endblock %}

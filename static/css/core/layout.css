@@ -7,9 +7,11 @@
 
 .container {
     width: 100%;
-    margin: 0 auto;
-    padding: 0 var(--space-xs);
+    max-width: var(--pl-shell);
     margin-top: 60px;
+    margin-inline: auto;
+    padding-inline: var(--pl-gutter);
+    box-sizing: border-box;
 }
 
 .container-fluid {
@@ -18,11 +20,11 @@
 }
 
 .container-narrow {
-    max-width: 1000px;
+    max-width: calc(var(--pl-w-3) + 2 * var(--pl-gutter));
 }
 
 .container-wide {
-    max-width: 1600px;
+    max-width: var(--pl-shell);
 }
 
 /* ===== GRID СИСТЕМА ===== */
@@ -278,10 +280,6 @@
     .grid-60-40 {
         grid-template-columns: 1fr;
     }
-
-    .container {
-        padding: 0 var(--space-sm);
-    }
 }
 
 /* Мобільні */
@@ -296,11 +294,6 @@
     .grid-auto {
         grid-template-columns: 1fr;
         gap: var(--space-sm);
-    }
-
-    .container {
-        padding: 0 var(--space-xs);
-        margin-top: 60px;
     }
 
     .flex-column-mobile {

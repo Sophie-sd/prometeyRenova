@@ -169,6 +169,8 @@ class PaymentLinkAdmin(UnfoldModelAdmin):
         'first_opened_at', 'expires_at',
         'monobank_invoice_id', 'monobank_invoice_url', 'payment_processed_at',
         'subscription_status', 'card_token', 'next_charge_date', 'last_charged_at',
+        'withdrawal_waiver_accepted_at', 'withdrawal_waiver_accepted_ip',
+        'data_consent_accepted_at', 'data_consent_accepted_ip',
     )
     inlines = [PaymentLinkFileInline, SubscriptionChargeInline]
     actions = [
@@ -218,6 +220,13 @@ class PaymentLinkAdmin(UnfoldModelAdmin):
         }),
         (_('Налаштування посилання'), {
             'fields': ('status', 'duration_minutes'),
+        }),
+        (_('Згода на чекаут'), {
+            'fields': (
+                'withdrawal_waiver_accepted_at', 'withdrawal_waiver_accepted_ip',
+                'data_consent_accepted_at', 'data_consent_accepted_ip',
+            ),
+            'classes': ('collapse',),
         }),
         (_('Системна інформація'), {
             'fields': (

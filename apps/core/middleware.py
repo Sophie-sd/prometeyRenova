@@ -41,6 +41,7 @@ class CSPMiddleware:
         script_src = (
             f"'self' 'nonce-{nonce}' 'strict-dynamic' 'unsafe-eval' "
             "https://www.googletagmanager.com "
+            "https://cdn-cookieyes.com "
             "https://connect.facebook.net "
             "https://scripts.clixtell.com "
             "https://tracker.clixtell.com "
@@ -64,7 +65,12 @@ class CSPMiddleware:
             "frame-src 'self' https://www.google.com https://maps.google.com "
             "https://www.googletagmanager.com https://bid.g.doubleclick.net "
             "https://www.facebook.com https://td.doubleclick.net",
-            "connect-src 'self' https:",
+            (
+                "connect-src 'self' https: "
+                "https://cdn-cookieyes.com "
+                "https://log.cookieyes.com "
+                "https://directory.cookieyes.com"
+            ),
             "media-src 'self' data: blob:",
             "worker-src 'self' blob:",
         ])

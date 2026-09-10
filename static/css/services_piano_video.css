@@ -62,7 +62,7 @@
     z-index: 2;
     margin-top: 0;
     width: 100%;
-    padding-top: clamp(16px, 3vw, 32px);
+    padding-top: var(--svc-piano-stage-pad-top);
     overflow: visible;
 }
 

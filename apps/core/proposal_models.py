@@ -21,8 +21,20 @@ class Proposal(models.Model):
         blank=True,
         verbose_name=_('Заголовок (RU)'),
     )
+    title_en = models.CharField(
+        max_length=300,
+        blank=True,
+        verbose_name=_('Заголовок (EN)'),
+    )
+    title_cs = models.CharField(
+        max_length=300,
+        blank=True,
+        verbose_name=_('Заголовок (CS)'),
+    )
     lead = models.TextField(blank=True, verbose_name=_('Лід / підзаголовок'))
     lead_ru = models.TextField(blank=True, verbose_name=_('Лід (RU)'))
+    lead_en = models.TextField(blank=True, verbose_name=_('Лід (EN)'))
+    lead_cs = models.TextField(blank=True, verbose_name=_('Лід (CS)'))
     issued_on = models.DateField(verbose_name=_('Дата пропозиції'))
     intro_html = models.TextField(
         blank=True,
@@ -32,6 +44,14 @@ class Proposal(models.Model):
         blank=True,
         verbose_name=_('Про компанію / стек (HTML) (RU)'),
     )
+    intro_html_en = models.TextField(
+        blank=True,
+        verbose_name=_('Про компанію / стек (HTML) (EN)'),
+    )
+    intro_html_cs = models.TextField(
+        blank=True,
+        verbose_name=_('Про компанію / стек (HTML) (CS)'),
+    )
     guarantee_html = models.TextField(
         blank=True,
         verbose_name=_('Гарантія (HTML)'),
@@ -39,6 +59,14 @@ class Proposal(models.Model):
     guarantee_html_ru = models.TextField(
         blank=True,
         verbose_name=_('Гарантія (HTML) (RU)'),
+    )
+    guarantee_html_en = models.TextField(
+        blank=True,
+        verbose_name=_('Гарантія (HTML) (EN)'),
+    )
+    guarantee_html_cs = models.TextField(
+        blank=True,
+        verbose_name=_('Гарантія (HTML) (CS)'),
     )
     cta_label = models.CharField(
         max_length=120,
@@ -50,10 +78,42 @@ class Proposal(models.Model):
         blank=True,
         verbose_name=_('Текст CTA (RU)'),
     )
+    cta_label_en = models.CharField(
+        max_length=120,
+        blank=True,
+        verbose_name=_('Текст CTA (EN)'),
+    )
+    cta_label_cs = models.CharField(
+        max_length=120,
+        blank=True,
+        verbose_name=_('Текст CTA (CS)'),
+    )
     is_published = models.BooleanField(
         default=False,
         db_index=True,
         verbose_name=_('Опубліковано'),
+    )
+
+    class DemoKind(models.TextChoices):
+        SHOP = 'shop', _('Інтернет-магазин')
+        LANDING = 'landing', _('Лендінг')
+        CORPORATE = 'corporate', _('Корпоративний сайт')
+
+    kind = models.CharField(
+        max_length=20,
+        choices=DemoKind.choices,
+        default=DemoKind.SHOP,
+        db_index=True,
+        verbose_name=_('Тип демо'),
+        help_text=_('Визначає, яке демо створює дія «Створити/оновити демо»'),
+    )
+    corp_catalog = models.BooleanField(
+        default=False,
+        verbose_name=_('Каталог на корпоративному сайті'),
+        help_text=_(
+            'Лише для типу «Корпоративний сайт»: додає розділ каталогу без оплат/кошика '
+            '— кнопка «Купити» відкриває форму заявки.',
+        ),
     )
     order = models.PositiveIntegerField(default=0, verbose_name=_('Порядок'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Створено'))
@@ -67,30 +127,49 @@ class Proposal(models.Model):
     def __str__(self):
         return f'{self.client_name} — {self.title}'
 
+    @property
+    def demo_tenant(self):
+        """Активний demo-тенант цього КП, незалежно від типу (для шаблонів/адмінки)."""
+        for attr in ('demo_shop', 'demo_corp', 'demo_landing'):
+            tenant = getattr(self, attr, None)
+            if tenant is not None:
+                return tenant
+        return None
+
+    @property
+    def demo_cta_label(self) -> str:
+        return {
+            self.DemoKind.SHOP: _('Переглянути демо магазину'),
+            self.DemoKind.LANDING: _('Переглянути демо лендінгу'),
+            self.DemoKind.CORPORATE: _('Переглянути демо сайту'),
+        }.get(self.kind, _('Переглянути демо'))
+
     def get_localized_title(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.title, self.title_ru)
+        return localized_text(self.title, self.title_ru, self.title_en, self.title_cs)
 
     def get_localized_lead(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.lead, self.lead_ru)
+        return localized_text(self.lead, self.lead_ru, self.lead_en, self.lead_cs)
 
     def get_localized_cta_label(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.cta_label, self.cta_label_ru)
+        return localized_text(self.cta_label, self.cta_label_ru, self.cta_label_en, self.cta_label_cs)
 
     def get_localized_intro_html(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.intro_html, self.intro_html_ru)
+        return localized_text(self.intro_html, self.intro_html_ru, self.intro_html_en, self.intro_html_cs)
 
     def get_localized_guarantee_html(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.guarantee_html, self.guarantee_html_ru)
+        return localized_text(
+            self.guarantee_html, self.guarantee_html_ru, self.guarantee_html_en, self.guarantee_html_cs,
+        )
 
     def get_safe_intro(self) -> str:
         from .portfolio_sanitize import linkify_portfolio_html
@@ -119,8 +198,20 @@ class ProposalModule(models.Model):
         blank=True,
         verbose_name=_('Заголовок (RU)'),
     )
+    title_en = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name=_('Заголовок (EN)'),
+    )
+    title_cs = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name=_('Заголовок (CS)'),
+    )
     description = models.TextField(blank=True, verbose_name=_('Опис'))
     description_ru = models.TextField(blank=True, verbose_name=_('Опис (RU)'))
+    description_en = models.TextField(blank=True, verbose_name=_('Опис (EN)'))
+    description_cs = models.TextField(blank=True, verbose_name=_('Опис (CS)'))
     order = models.PositiveIntegerField(default=0, verbose_name=_('Порядок'))
 
     class Meta:
@@ -134,12 +225,12 @@ class ProposalModule(models.Model):
     def get_localized_title(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.title, self.title_ru)
+        return localized_text(self.title, self.title_ru, self.title_en, self.title_cs)
 
     def get_localized_description(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.description, self.description_ru)
+        return localized_text(self.description, self.description_ru, self.description_en, self.description_cs)
 
 
 class ProposalPackage(models.Model):
@@ -157,8 +248,20 @@ class ProposalPackage(models.Model):
         blank=True,
         verbose_name=_('Назва пакету (RU)'),
     )
+    name_en = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name=_('Назва пакету (EN)'),
+    )
+    name_cs = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name=_('Назва пакету (CS)'),
+    )
     scope = models.TextField(blank=True, verbose_name=_('Що входить'))
     scope_ru = models.TextField(blank=True, verbose_name=_('Що входить (RU)'))
+    scope_en = models.TextField(blank=True, verbose_name=_('Що входить (EN)'))
+    scope_cs = models.TextField(blank=True, verbose_name=_('Що входить (CS)'))
     duration = models.CharField(
         max_length=100,
         blank=True,
@@ -168,6 +271,16 @@ class ProposalPackage(models.Model):
         max_length=100,
         blank=True,
         verbose_name=_('Термін (RU)'),
+    )
+    duration_en = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name=_('Термін (EN)'),
+    )
+    duration_cs = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name=_('Термін (CS)'),
     )
     price = models.DecimalField(
         max_digits=12,
@@ -197,17 +310,17 @@ class ProposalPackage(models.Model):
     def get_localized_name(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.name, self.name_ru)
+        return localized_text(self.name, self.name_ru, self.name_en, self.name_cs)
 
     def get_localized_scope(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.scope, self.scope_ru)
+        return localized_text(self.scope, self.scope_ru, self.scope_en, self.scope_cs)
 
     def get_localized_duration(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.duration, self.duration_ru)
+        return localized_text(self.duration, self.duration_ru, self.duration_en, self.duration_cs)
 
     def format_price(self) -> str:
         amount = self.price
@@ -245,8 +358,20 @@ class ProposalSpec(models.Model):
         blank=True,
         verbose_name=_('Заголовок (RU)'),
     )
+    title_en = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name=_('Заголовок (EN)'),
+    )
+    title_cs = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name=_('Заголовок (CS)'),
+    )
     body = models.TextField(blank=True, verbose_name=_('Текст'))
     body_ru = models.TextField(blank=True, verbose_name=_('Текст (RU)'))
+    body_en = models.TextField(blank=True, verbose_name=_('Текст (EN)'))
+    body_cs = models.TextField(blank=True, verbose_name=_('Текст (CS)'))
     order = models.PositiveIntegerField(default=0, verbose_name=_('Порядок'))
 
     class Meta:
@@ -260,9 +385,9 @@ class ProposalSpec(models.Model):
     def get_localized_title(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.title, self.title_ru)
+        return localized_text(self.title, self.title_ru, self.title_en, self.title_cs)
 
     def get_localized_body(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.body, self.body_ru)
+        return localized_text(self.body, self.body_ru, self.body_en, self.body_cs)

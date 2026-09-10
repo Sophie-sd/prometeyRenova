@@ -429,9 +429,9 @@ class PrometeyApp {
                 phoneField.value = userData.phone;
                 // Спробуємо ініціалізувати PhoneMask ще раз
                 setTimeout(() => {
-                    if (typeof PhoneMask !== 'undefined' && !this.phoneMasks.has(phoneField)) {
-                        const mask = new PhoneMask(phoneField);
-                        this.phoneMasks.set(phoneField, mask);
+                    this._attachPhoneMask(phoneField);
+                    const mask = this.phoneMasks.get(phoneField);
+                    if (mask && typeof mask.formatValue === 'function') {
                         mask.formatValue(userData.phone);
                     }
                 }, 0);
@@ -454,35 +454,40 @@ class PrometeyApp {
         this.initPhoneMasksForElement(document);
     }
     
+    _useIntlPhoneMask(input) {
+        // Маска обирається лише за мовою інтерфейсу, не за контейнером поля:
+        // cs/en → вільний міжнародний формат, uk/ru → жорсткий український +38.
+        const lang = (document.documentElement.getAttribute('lang') || 'uk').toLowerCase();
+        const isIntlLang = lang.indexOf('cs') === 0 || lang.indexOf('en') === 0;
+        return isIntlLang && typeof IntlPhoneMask !== 'undefined';
+    }
+
+    _attachPhoneMask(input) {
+        if (this.phoneMasks.has(input)) return;
+        if (this._useIntlPhoneMask(input)) {
+            this.phoneMasks.set(input, new IntlPhoneMask(input));
+        } else if (typeof PhoneMask !== 'undefined') {
+            this.phoneMasks.set(input, new PhoneMask(input));
+        }
+    }
+
     initPhoneMasksForElement(container) {
-        // Ініціалізуємо маску для полів телефону в контейнері (document або modal)
-        const phoneInputs = container.querySelectorAll('input[type="tel"], input[name="phone"]');
-        
-        phoneInputs.forEach(input => {
-            // Перевіряємо чи PhoneMask доступний та чи не ініціалізований вже
-            if (typeof PhoneMask !== 'undefined' && !this.phoneMasks.has(input)) {
-                const mask = new PhoneMask(input);
-                this.phoneMasks.set(input, mask);
-            }
-        });
+        const phoneInputs = container.querySelectorAll('input[type="tel"]');
+        phoneInputs.forEach((input) => this._attachPhoneMask(input));
     }
     
     /**
      * Відновлює префікс +38 для всіх полів телефону в формі після reset
      */
     restorePhonePrefixes(form) {
-        const phoneInputs = form.querySelectorAll('input[type="tel"], input[name="phone"]');
+        const phoneInputs = form.querySelectorAll('input[type="tel"]');
         
         phoneInputs.forEach(input => {
             if (this.phoneMasks.has(input)) {
                 const mask = this.phoneMasks.get(input);
                 mask.ensurePrefix();
             } else {
-                // Якщо PhoneMask не ініціалізований, ініціалізуємо його
-                if (typeof PhoneMask !== 'undefined') {
-                    const mask = new PhoneMask(input);
-                    this.phoneMasks.set(input, mask);
-                }
+                this._attachPhoneMask(input);
             }
         });
     }
@@ -563,8 +568,9 @@ class PrometeyApp {
                 // (не чіпає ec_phone — потрібен на /thank-you/ для Google Ads)
                 this.clearUserData();
 
-                this.handleFormSuccess(data, formType);
+                // Спочатку закриваємо інші модалки, потім показуємо результат тесту
                 this.closeModal();
+                this.handleFormSuccess(data, formType);
             } else {
                 // При помилці від сервера - форма НЕ очищається, відповіді залишаються
                 // Обробляємо помилку від сервера
@@ -606,6 +612,17 @@ class PrometeyApp {
         let isValid = true;
 
         requiredFields.forEach(field => {
+            if (field.type === 'checkbox') {
+                if (!field.checked) {
+                    field.classList.add('error');
+                    this.showFieldError(field, window.I18N?.fieldRequired || 'Це поле обов\'язкове');
+                    isValid = false;
+                } else {
+                    field.classList.remove('error');
+                    this.clearFieldError(field);
+                }
+                return;
+            }
             if (!field.value.trim()) {
                 field.classList.add('error');
                 this.showFieldError(field, window.I18N?.fieldRequired || 'Це поле обов\'язкове');
@@ -619,6 +636,7 @@ class PrometeyApp {
         // Додаткова валідація для імені та телефону (як на сервері)
         const nameField = form.querySelector('[name="name"]');
         const phoneField = form.querySelector('[name="phone"]');
+        const emailField = form.querySelector('[name="email"]');
 
         if (nameField && nameField.value) {
             const name = nameField.value.trim();
@@ -642,31 +660,45 @@ class PrometeyApp {
             }
         }
 
-        if (phoneField && phoneField.value) {
-            let phoneError = null;
-            
-            // Використовуємо PhoneMask валідацію якщо доступна
-            if (this.phoneMasks.has(phoneField)) {
-                const mask = this.phoneMasks.get(phoneField);
-                const validation = mask.validate();
-                
-                if (!validation.valid) {
-                    phoneError = validation.message;
-                }
-            } else {
-                const digits = phoneField.value.replace(/\D/g, '');
-                if (digits.length < 7) {
-                    phoneError = window.I18N?.phoneInvalid || 'Введіть коректний номер телефону';
-                }
-            }
-
-            if (phoneError) {
-                phoneField.classList.add('error');
-                this.showFieldError(phoneField, phoneError);
+        if (emailField && emailField.hasAttribute('required')) {
+            const email = (emailField.value || '').trim();
+            const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            if (!emailOk) {
+                emailField.classList.add('error');
+                this.showFieldError(emailField, window.I18N?.emailInvalid || 'Введіть коректний email');
                 isValid = false;
             } else {
-                phoneField.classList.remove('error');
-                this.clearFieldError(phoneField);
+                emailField.classList.remove('error');
+                this.clearFieldError(emailField);
+            }
+        }
+
+        if (phoneField && phoneField.value) {
+            const digitsOnly = phoneField.value.replace(/\D/g, '');
+            // Порожній або лише префікс (+38 / +420) — для lead-форм ок
+            const isPrefixOnly = digitsOnly.length <= 3;
+            if (!isPrefixOnly) {
+                let phoneError = null;
+
+                if (this.phoneMasks.has(phoneField)) {
+                    const mask = this.phoneMasks.get(phoneField);
+                    const validation = mask.validate();
+
+                    if (!validation.valid) {
+                        phoneError = validation.message;
+                    }
+                } else if (digitsOnly.length < 7) {
+                    phoneError = window.I18N?.phoneInvalid || 'Введіть коректний номер телефону';
+                }
+
+                if (phoneError) {
+                    phoneField.classList.add('error');
+                    this.showFieldError(phoneField, phoneError);
+                    isValid = false;
+                } else {
+                    phoneField.classList.remove('error');
+                    this.clearFieldError(phoneField);
+                }
             }
         }
 
@@ -689,8 +721,15 @@ class PrometeyApp {
         }
     }
 
+    localizedFormUrl(path) {
+        const lang = (document.documentElement.lang || 'uk').split('-')[0].toLowerCase();
+        if (!lang || lang === 'uk') return path;
+        return `/${lang}${path}`;
+    }
+
     async submitForm(formData, formType) {
-        const url = formType === 'test' ? '/forms/test/' : '/forms/submit/';
+        const raw = formType === 'test' ? '/forms/test/' : '/forms/submit/';
+        const url = this.localizedFormUrl(raw);
 
         if (formType !== 'test') {
             formData.append('form_type', formType);
@@ -710,10 +749,12 @@ class PrometeyApp {
     }
 
     handleFormSuccess(data, formType) {
+        if (formType === 'test' && data.result) {
+            this.showTestResult(data.result);
+            return;
+        }
         if (data.redirect) {
             window.location.href = data.redirect;
-        } else if (formType === 'test' && data.result) {
-            this.showTestResult(data.result);
         }
     }
 
@@ -721,13 +762,18 @@ class PrometeyApp {
         const modal = document.getElementById('test-result-modal');
         if (!modal) return;
 
-        // Заповнюємо результати
         const projectTypeEl = modal.querySelector('#result-project-type');
         const priceEl = modal.querySelector('#result-price');
+        const priceSecEl = modal.querySelector('#result-price-secondary');
         const timelineEl = modal.querySelector('#result-timeline');
 
         if (projectTypeEl) projectTypeEl.textContent = result.project_type || '';
         if (priceEl) priceEl.textContent = result.price || '';
+        if (priceSecEl) {
+            const secondary = result.price_secondary || '';
+            priceSecEl.textContent = secondary;
+            priceSecEl.hidden = !secondary;
+        }
         if (timelineEl) timelineEl.textContent = result.timeline || '';
 
         this.openModal('test-result-modal');
@@ -782,9 +828,8 @@ class PrometeyApp {
         // Next URL - видаляємо префікс мови якщо є
         let nextUrl = window.location.pathname + window.location.search;
         const originalUrl = nextUrl;
-        // Видаляємо мовний префікс (/en/, /ru/) — uk не має префікса
-        nextUrl = nextUrl.replace(/^\/en\//, '/');
-        nextUrl = nextUrl.replace(/^\/ru\//, '/');
+        // Видаляємо мовний префікс (/en/, /ru/, /cs/) — uk не має префікса
+        nextUrl = nextUrl.replace(/^\/(en|ru|cs)\//, '/');
 
         const nextInput = document.createElement('input');
         nextInput.type = 'hidden';

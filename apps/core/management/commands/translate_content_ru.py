@@ -1,11 +1,11 @@
 """
-Fill empty *_ru fields for portfolio, feature blocks and blog posts.
+Fill empty *_ru fields for portfolio and blog posts.
 """
 from django.core.management.base import BaseCommand
 
 from apps.blog.models import BlogPost
 from apps.core.i18n_content import translate_ua_to_ru
-from apps.core.models import PortfolioFeatureBlock, PortfolioProject
+from apps.core.models import PortfolioProject
 
 
 class Command(BaseCommand):
@@ -54,21 +54,6 @@ class Command(BaseCommand):
                     self.stdout.write(f'[dry-run] PortfolioProject #{project.pk}: {project.title}')
                 else:
                     project.save()
-
-        for block in PortfolioFeatureBlock.objects.all():
-            changed = False
-            for ua_field, ru_field in (('title', 'title_ru'), ('text', 'text_ru')):
-                ua_value = getattr(block, ua_field, '') or ''
-                ru_value = getattr(block, ru_field, '') or ''
-                if should_translate(ua_value, ru_value):
-                    setattr(block, ru_field, translate_ua_to_ru(ua_value))
-                    changed = True
-            if changed:
-                updated += 1
-                if dry_run:
-                    self.stdout.write(f'[dry-run] PortfolioFeatureBlock #{block.pk}: {block.title}')
-                else:
-                    block.save()
 
         for post in BlogPost.objects.all():
             changed = False

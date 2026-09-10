@@ -24,7 +24,6 @@ from .models import (
     FormSubmission,
     SiteContactSettings,
     PortfolioProject,
-    PortfolioFeatureBlock,
 )
 from .portfolio_sanitize import linkify_portfolio_html
 from .admin_widgets import PortfolioImageWidget
@@ -88,6 +87,9 @@ class FormSubmissionAdmin(UnfoldModelAdmin):
     list_filter = [
         ('status', ChoicesDropdownFilter),
         ('form_type', ChoicesDropdownFilter),
+        ('project_type', ChoicesDropdownFilter),
+        ('budget', ChoicesDropdownFilter),
+        ('preferred_language', ChoicesDropdownFilter),
         ('priority', ChoicesDropdownFilter),
         ('created_at', RangeDateFilter),
         ('assigned_to', RelatedDropdownFilter),
@@ -95,8 +97,8 @@ class FormSubmissionAdmin(UnfoldModelAdmin):
     
     search_fields = ['name', 'phone', 'email', 'details', 'manager_comment', 'project']
     readonly_fields = [
-        'created_at', 'updated_at', 'ip_address', 'user_agent', 
-        'priority_badge'
+        'created_at', 'updated_at', 'ip_address', 'user_agent',
+        'priority_badge', 'consent_at', 'consent_ip',
     ]
     
     list_editable = ['status']
@@ -106,10 +108,16 @@ class FormSubmissionAdmin(UnfoldModelAdmin):
     # ===== FIELDSETS ДЛЯ ДЕТАЛЕЙ =====
     fieldsets = (
         (_('Контактна інформація'), {
-            'fields': ('name', 'phone', 'email', 'messenger_link')
+            'fields': (
+                'name', 'phone', 'email', 'messenger_type', 'messenger_link',
+                'preferred_language',
+            )
         }),
         (_('Класифікація'), {
-            'fields': ('project', 'form_type', 'status', 'priority', 'assigned_to'),
+            'fields': (
+                'project', 'project_type', 'budget', 'form_type',
+                'status', 'priority', 'assigned_to',
+            ),
             'classes': ('wide',)
         }),
         (_('Деталі заявки'), {
@@ -119,6 +127,10 @@ class FormSubmissionAdmin(UnfoldModelAdmin):
         (_('Робота менеджера'), {
             'fields': ('manager_comment',),
             'classes': ('wide',)
+        }),
+        (_('Згода на обробку даних'), {
+            'fields': ('consent_at', 'consent_ip'),
+            'classes': ('collapse',),
         }),
         (_('Системна інформація'), {
             'fields': ('created_at', 'updated_at', 'ip_address', 'user_agent'),
@@ -435,7 +447,22 @@ class SiteContactSettingsAdmin(UnfoldModelAdmin):
 
     fieldsets = (
         (_('Контакти'), {
-            'fields': ('phone_display', 'phone_e164', 'email', 'address'),
+            'fields': (
+                'phone_display', 'phone_e164', 'email',
+                'address', 'address_ru', 'address_en', 'address_cs',
+            ),
+        }),
+        (_('Impressum / трейдер (футер сайту)'), {
+            'fields': (
+                'legal_name', 'legal_name_ru', 'legal_name_en', 'legal_name_cs',
+                'registration_number',
+                'legal_address', 'legal_address_ru', 'legal_address_en', 'legal_address_cs',
+                'data_protection_email',
+            ),
+            'description': _(
+                'Відображається у блоці Impressum у футері на кожній сторінці сайту '
+                '(вимога прозорості трейдера для ЄС-клієнтів).'
+            ),
         }),
         (_('Соціальні мережі'), {
             'fields': ('instagram_url', 'facebook_url', 'linkedin_url', 'tiktok_url'),
@@ -534,22 +561,41 @@ class PortfolioProjectAdmin(UnfoldModelAdmin):
 
     fieldsets = (
         (_('Основне'), {
-            'fields': ('title', 'title_ru', 'subtitle', 'subtitle_ru', 'slug', 'order', 'home_order'),
+            'fields': (
+                'title', 'title_ru', 'title_en', 'title_cs',
+                'subtitle', 'subtitle_ru', 'subtitle_en', 'subtitle_cs',
+                'slug', 'order', 'home_order',
+            ),
+        }),
+        (_('Живий сайт → знімок'), {
+            'description': _(
+                'URL реального сайту клієнта. Знімок головної (desktop/mobile) генерується локально '
+                'командою `python3 manage.py capture_portfolio_screens --slug <slug>` і зберігається '
+                'у поля картки нижче. Посилання ніде публічно не показується.'
+            ),
+            'fields': ('site_url',),
         }),
         (_('Картка (/portfolio/)'), {
             'fields': (
                 'card_description',
                 'card_description_ru',
+                'card_description_en',
+                'card_description_cs',
                 'integrations',
+                'integrations_ru',
+                'integrations_en',
+                'integrations_cs',
                 'card_image',
                 'card_image_preview',
                 'card_image_mobile',
                 'card_image_alt',
                 'card_image_alt_ru',
+                'card_image_alt_en',
+                'card_image_alt_cs',
             ),
         }),
         (_('Кнопка картки'), {
-            'fields': ('cta_label', 'cta_label_ru', 'cta_url'),
+            'fields': ('cta_label', 'cta_label_ru', 'cta_label_en', 'cta_label_cs', 'cta_url'),
         }),
         (_('Модальне вікно'), {
             'classes': ('collapse',),
@@ -603,40 +649,6 @@ class PortfolioProjectAdmin(UnfoldModelAdmin):
             src,
         )
 
-
-@admin.register(PortfolioFeatureBlock)
-class PortfolioFeatureBlockAdmin(UnfoldModelAdmin):
-    list_filter_sheet = False
-    list_display = ('title', 'order', 'is_published', 'updated_at')
-    list_editable = ('order', 'is_published')
-    search_fields = ('title', 'text')
-    ordering = ('order',)
-    readonly_fields = ('created_at', 'updated_at', 'image_preview')
-
-    fieldsets = (
-        (_('Контент'), {
-            'fields': ('title', 'title_ru', 'text', 'text_ru'),
-        }),
-        (_('Зображення'), {
-            'fields': ('image', 'image_preview'),
-        }),
-        (_('Відображення'), {
-            'fields': ('order', 'is_published'),
-        }),
-        (_('Службове'), {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',),
-        }),
-    )
-
-    @admin.display(description=_('Прев\'ю зображення'))
-    def image_preview(self, obj):
-        if not obj or not obj.get_image_src():
-            return '—'
-        return format_html(
-            '<img src="{}" alt="" class="pl-admin-image-preview">',
-            obj.get_image_src(),
-        )
 
 
 @admin.register(Client)

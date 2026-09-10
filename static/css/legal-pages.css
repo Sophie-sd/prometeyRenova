@@ -85,9 +85,9 @@
 }
 
 .legal-article .legal-wrapper {
-    max-width: 900px;
+    max-width: var(--pl-w-3);
     margin: 0 auto;
-    padding: 0 20px;
+    padding-inline: 0;
 }
 
 /* ===== LEGAL SECTIONS ===== */

@@ -63,17 +63,18 @@ body.pl-corp-body .main-content {
 }
 
 .pl-corp__inner {
-    max-width: 1180px;
+    max-width: var(--pl-shell);
     margin: 0 auto;
-    padding: 0 24px;
+    padding-inline: var(--pl-gutter);
+    box-sizing: border-box;
 }
 
 .pl-corp__inner--narrow {
-    max-width: 1100px;
+    max-width: var(--pl-shell);
 }
 
 .pl-corp__inner--brief {
-    max-width: 720px;
+    max-width: calc(var(--pl-w-2) + 2 * var(--pl-gutter));
     text-align: center;
 }
 

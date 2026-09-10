@@ -40,6 +40,13 @@
                href="{% if contacts.telegram_url %}{{ contacts.telegram_url }}{% else %}mailto:{{ contacts.email }}{% endif %}">
                 {{ proposal.get_localized_cta_label }}
             </a>
+            {% if proposal.demo_tenant.is_active %}
+            <a class="prop-cta prop-cta--primary prop-cta--hero"
+               href="{{ proposal.demo_tenant.get_absolute_url }}"
+               target="_blank" rel="noopener">
+                {{ proposal.demo_cta_label }}
+            </a>
+            {% endif %}
         </div>
 
         <div class="prop-hero__scene is-revealed" data-prop-draw>

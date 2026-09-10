@@ -6,10 +6,11 @@
 {% block description %}{{ meta_description }}{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/calculator.css' %}?v=26">
+<link rel="stylesheet" href="{% static 'css/calculator.css' %}?v=28">
 {% endblock %}
 
 {% block content %}
+{% get_current_language as CURRENT_LANG %}
 <div class="calculator-page">
     <section class="calculator-main">
         <div class="container">
@@ -39,6 +40,8 @@
                             </div>
                         </div>
 
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% if LANGUAGE_CODE == 'uk' or LANGUAGE_CODE == 'ru' %}
                         <a href="{% url 'monobank_chastynamy' %}" class="calc-monobank-banner" aria-label="{% trans 'Покупка частинами monobank | Universal Bank' %}">
                             <img
                                 src="{% static 'images/monobank/pch-banner-black.jpg' %}"
@@ -49,6 +52,7 @@
                                 decoding="async"
                             >
                         </a>
+                        {% endif %}
                     </div>
 
                     <aside class="calc-hero__sidebar">
@@ -232,10 +236,12 @@
 
                                 <div class="calc-field">
                                     <label for="test-phone" class="calc-field__label">{% trans "Телефон" %}</label>
-                                    <input type="tel" id="test-phone" name="phone" class="calc-field__input" placeholder="+38(___)__-__-___" required>
+                                    <input type="tel" id="test-phone" name="phone" class="calc-field__input" placeholder="{{ phone_placeholder }}" required>
                                     <span class="calc-field__error" id="phone-error"></span>
                                 </div>
                             </div>
+
+                            {% include 'components/lead_gdpr_min.html' with prefix='calc-test' input_class='calc-field__input' wrap_class='calc-user-data__gdpr' %}
 
                             <button type="submit" class="calc-submit-btn">
                                 <span class="calc-submit-btn__text">{% trans "ОТРИМАТИ РОЗРАХУНОК" %}</span>
@@ -253,5 +259,9 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/calculator.js' %}?v=13" nonce="{{ csp_nonce }}"></script>
+<script type="application/json" id="calculator-prices-json">
+{"eur_uah":43,"eur_czk":25,"base_min_eur":{"A":250,"B":400,"C":500,"D":800,"E":1500}}
+</script>
+<script src="{% static 'js/calculator-prices.js' %}?v=1" nonce="{{ csp_nonce }}"></script>
+<script src="{% static 'js/calculator.js' %}?v=15" nonce="{{ csp_nonce }}"></script>
 {% endblock %}

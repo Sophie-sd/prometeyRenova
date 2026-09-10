@@ -159,8 +159,8 @@
                 return;
             }
 
-            var popover = getPopover(openDetail);
-            if (openDetail.contains(event.target) || (popover && popover.contains(event.target))) {
+            var step = openDetail.closest('.pb-step');
+            if (openDetail.contains(event.target) || (step && step.contains(event.target))) {
                 return;
             }
 
@@ -210,10 +210,19 @@
                 return;
             }
 
-            btn.addEventListener('click', function (event) {
+            var step = detail.closest('.pb-step');
+            var frame = step ? step.querySelector('.pb-step__float-frame') : null;
+
+            function onToggle(event) {
                 event.stopPropagation();
                 togglePopover(detail);
-            });
+            }
+
+            btn.addEventListener('click', onToggle);
+
+            if (frame) {
+                frame.addEventListener('click', onToggle);
+            }
         });
 
         document.addEventListener('click', onDocumentClick);

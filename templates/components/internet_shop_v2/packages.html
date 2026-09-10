@@ -1,38 +1,42 @@
 {% load static %}
+{% load i18n %}
 <section id="packages" class="pl-shop__section pl-shop__section--dark" aria-labelledby="pl-shop-packages-title">
     <div class="pl-shop__inner">
         <div class="pl-shop__packages-intro" data-reveal>
             <div class="pl-shop__section-head pl-shop__section-head--left">
                 <h2 id="pl-shop-packages-title" class="pl-shop__title pl-shop__title--section">
-                    Оберіть пакет під масштаб<br>вашого інтернет-магазину
+                    {% trans "Оберіть пакет під масштаб" %}<br>{% trans "вашого інтернет-магазину" %}
                 </h2>
                 <p class="pl-shop__text pl-shop__accent">
-                    Базова якість однакова — пакет визначає масштаб ШІ, інтеграцій і маркетингу.
+                    {% trans "Базова якість однакова — пакет визначає масштаб ШІ, інтеграцій і маркетингу." %}
                 </p>
             </div>
-            <a href="{% url 'monobank_chastynamy' %}" class="pl-shop__monobank-label" aria-label="Покупка частинами monobank">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% if LANGUAGE_CODE == 'uk' or LANGUAGE_CODE == 'ru' %}
+            <a href="{% url 'monobank_chastynamy' %}" class="pl-shop__monobank-label" aria-label="{% trans 'Покупка частинами monobank' %}">
                 <img
                     src="{% static 'images/monobank/label-black-outline-15.png' %}"
-                    alt="Покупка частинами monobank"
+                    alt="{% trans 'Покупка частинами monobank' %}"
                     width="1500"
                     height="493"
                     loading="lazy"
                     decoding="async"
                 >
             </a>
+            {% endif %}
         </div>
 
-        <aside class="pl-shop__pkg-foundation-wrap" data-reveal aria-label="Що входить у кожен пакет">
+        <aside class="pl-shop__pkg-foundation-wrap" data-reveal aria-label="{% trans 'Що входить у кожен пакет' %}">
             <article class="pl-shop__pkg-foundation">
-                <p class="pl-shop__pkg-foundation-lead">У кожному пакеті — одна й та сама база</p>
+                <p class="pl-shop__pkg-foundation-lead">{% trans "У кожному пакеті — одна й та сама база" %}</p>
                 <ul class="pl-shop__pkg-foundation-list">
-                    <li>Google PageSpeed 90+ на чистому коді</li>
-                    <li>Продуманий UI/UX під вашу нішу</li>
-                    <li>Зрозуміла адмін-панель з першого дня</li>
-                    <li>Розгортання під ключ на вашому домені</li>
+                    <li>{% trans "Google PageSpeed 90+ на чистому коді" %}</li>
+                    <li>{% trans "Продуманий UI/UX під вашу нішу" %}</li>
+                    <li>{% trans "Зрозуміла адмін-панель з першого дня" %}</li>
+                    <li>{% trans "Розгортання під ключ на вашому домені" %}</li>
                 </ul>
                 <p class="pl-shop__pkg-foundation-note">
-                    Пакет відрізняє <span class="pl-shop__accent">глибину ШІ</span>, <span class="pl-shop__accent">інтеграції</span> та <span class="pl-shop__accent">маркетинг</span> — не якість фундаменту.
+                    {% blocktrans trimmed %}Пакет відрізняє <span class="pl-shop__accent">глибину ШІ</span>, <span class="pl-shop__accent">інтеграції</span> та <span class="pl-shop__accent">маркетинг</span> — не якість фундаменту.{% endblocktrans %}
                 </p>
             </article>
         </aside>
@@ -40,73 +44,73 @@
         <div class="pl-shop__pkg-grid" data-pkg-stagger>
             <article class="pl-shop__pkg-card">
                 <p class="pl-shop__pkg-name">BASE</p>
-                <p class="pl-shop__pkg-price">від 800&nbsp;€</p>
-                <p class="pl-shop__pkg-desc">Базовий інтернет-магазин з усім необхідним для старту онлайн-продажів</p>
+                <p class="pl-shop__pkg-price">{% trans "від" %}&nbsp;1&nbsp;400&nbsp;€</p>
+                <p class="pl-shop__pkg-desc">{% trans "Базовий інтернет-магазин з усім необхідним для старту онлайн-продажів" %}</p>
                 <div class="pl-shop__pkg-features">
                     <ul class="pl-shop__pkg-list">
-                        <li>Базовий конверсійний дизайн під нішу</li>
-                        <li>ШІ-контент (medium рівень)</li>
-                        <li>Базова SEO-підготовка</li>
-                        <li>Інтеграції: форми, аналітика</li>
-                        <li>Обробка заявок у вбудованій адмінці</li>
-                        <li>Локалізована адмінка (UA або інша мова)</li>
-                        <li>Розгортання під ключ на домені клієнта</li>
+                        <li>{% trans "Базовий конверсійний дизайн під нішу" %}</li>
+                        <li>{% trans "ШІ-контент (medium рівень)" %}</li>
+                        <li>{% trans "Базова SEO-підготовка" %}</li>
+                        <li>{% trans "Інтеграції: форми, аналітика" %}</li>
+                        <li>{% trans "Обробка заявок у вбудованій адмінці" %}</li>
+                        <li>{% trans "Локалізована адмінка (UA або інша мова)" %}</li>
+                        <li>{% trans "Розгортання під ключ на домені клієнта" %}</li>
                     </ul>
                 </div>
-                <a href="#calculator" class="pl-shop__btn pl-shop__btn--ghost pl-shop__btn--full mobile-touch-target" data-calc-pkg="base">Дізнатися вартість</a>
+                <a href="#calculator" class="pl-shop__btn pl-shop__btn--ghost pl-shop__btn--full mobile-touch-target" data-calc-pkg="base">{% trans "Дізнатися вартість" %}</a>
             </article>
 
             <article class="pl-shop__pkg-card pl-shop__pkg-card--featured">
                 <p class="pl-shop__pkg-name">PREMIUM</p>
-                <p class="pl-shop__pkg-price">від 1&nbsp;500&nbsp;€</p>
-                <p class="pl-shop__pkg-desc">Магазин під ключ для активних продажів, автоматизації та зростання</p>
+                <p class="pl-shop__pkg-price">{% trans "від" %}&nbsp;2&nbsp;800&nbsp;€</p>
+                <p class="pl-shop__pkg-desc">{% trans "Магазин під ключ для активних продажів, автоматизації та зростання" %}</p>
                 <div class="pl-shop__pkg-features">
                     <ul class="pl-shop__pkg-list">
-                        <li>Індивідуальний UI/UX дизайн з нуля</li>
-                        <li>Premium ШІ-контент + копірайтинг</li>
-                        <li>Розширена SEO та перелінковка</li>
-                        <li>Інтеграції: платежі, логістика, CRM</li>
-                        <li>Сповіщення заявок у Email / Telegram</li>
+                        <li>{% trans "Індивідуальний UI/UX дизайн з нуля" %}</li>
+                        <li>{% trans "Premium ШІ-контент + копірайтинг" %}</li>
+                        <li>{% trans "Розширена SEO та перелінковка" %}</li>
+                        <li>{% trans "Інтеграції: платежі, логістика, CRM" %}</li>
+                        <li>{% trans "Сповіщення заявок у Email / Telegram" %}</li>
                     </ul>
                     <div class="pl-shop__pkg-extra" id="pl-shop-pkg-extra-premium" hidden>
                         <ul class="pl-shop__pkg-list pl-shop__pkg-list--more">
-                            <li>Мультимовна адмін-панель з ролями</li>
-                            <li>Розгортання під ключ на хостингу</li>
-                            <li>Контент-маркетинг: SEO-статті</li>
-                            <li>10 органічних відгуків у Google Maps</li>
-                            <li>1 рекламний кабінет + перша кампанія</li>
+                            <li>{% trans "Мультимовна адмін-панель з ролями" %}</li>
+                            <li>{% trans "Розгортання під ключ на хостингу" %}</li>
+                            <li>{% trans "Контент-маркетинг: SEO-статті" %}</li>
+                            <li>{% trans "10 органічних відгуків у Google Maps" %}</li>
+                            <li>{% trans "1 рекламний кабінет + перша кампанія" %}</li>
                         </ul>
                     </div>
-                    <button type="button" class="pl-shop__pkg-read-more" aria-expanded="false" aria-controls="pl-shop-pkg-extra-premium">Читати далі</button>
+                    <button type="button" class="pl-shop__pkg-read-more" aria-expanded="false" aria-controls="pl-shop-pkg-extra-premium" data-label-more="{% trans 'Читати далі' %}" data-label-less="{% trans 'Згорнути' %}">{% trans "Читати далі" %}</button>
                 </div>
-                <a href="#calculator" class="pl-shop__btn pl-shop__btn--primary pl-shop__btn--full mobile-touch-target" data-calc-pkg="premium">Дізнатися вартість</a>
+                <a href="#calculator" class="pl-shop__btn pl-shop__btn--primary pl-shop__btn--full mobile-touch-target" data-calc-pkg="premium">{% trans "Дізнатися вартість" %}</a>
             </article>
 
             <article class="pl-shop__pkg-card pl-shop__pkg-card--platinum">
                 <p class="pl-shop__pkg-name">PLATINUM</p>
-                <p class="pl-shop__pkg-price">від 7&nbsp;000&nbsp;€</p>
-                <p class="pl-shop__pkg-desc">Масштабна платформа з AI-екосистемою та повним маркетинговим супроводом</p>
+                <p class="pl-shop__pkg-price">{% trans "від" %}&nbsp;8&nbsp;000&nbsp;€</p>
+                <p class="pl-shop__pkg-desc">{% trans "Масштабна платформа з AI-екосистемою та повним маркетинговим супроводом" %}</p>
                 <div class="pl-shop__pkg-features">
                     <ul class="pl-shop__pkg-list">
-                        <li>Premium UI/UX + кінематографічна анімація</li>
-                        <li>Extra-High ШІ, до 10 мовних версій</li>
-                        <li>Максимальне SEO (UA + міжнародні ринки)</li>
-                        <li>Персональна CRM + AI-помічник продажів</li>
-                        <li>Автономний ШІ-адміністратор сайту</li>
+                        <li>{% trans "Premium UI/UX + кінематографічна анімація" %}</li>
+                        <li>{% trans "Extra-High ШІ, до 10 мовних версій" %}</li>
+                        <li>{% trans "Максимальне SEO (UA + міжнародні ринки)" %}</li>
+                        <li>{% trans "Персональна CRM + AI-помічник продажів" %}</li>
+                        <li>{% trans "Автономний ШІ-адміністратор сайту" %}</li>
                     </ul>
                     <div class="pl-shop__pkg-extra" id="pl-shop-pkg-extra-platinum" hidden>
                         <ul class="pl-shop__pkg-list pl-shop__pkg-list--more">
-                            <li>AI-екосистема адмінки з чатом AI-менеджера</li>
-                            <li>Власний Telegram-бот для замовлень</li>
-                            <li>Розгортання під ключ на хостинг-платформі</li>
-                            <li>6 місяців контент-маркетингу та SEO-статей</li>
-                            <li>60 органічних відгуків у Google Maps</li>
-                            <li>Медіакампанія: до 5 кампаній, 3 міс. (Meta, Google, TikTok)</li>
+                            <li>{% trans "AI-екосистема адмінки з чатом AI-менеджера" %}</li>
+                            <li>{% trans "Власний Telegram-бот для замовлень" %}</li>
+                            <li>{% trans "Розгортання під ключ на хостинг-платформі" %}</li>
+                            <li>{% trans "6 місяців контент-маркетингу та SEO-статей" %}</li>
+                            <li>{% trans "60 органічних відгуків у Google Maps" %}</li>
+                            <li>{% trans "Медіакампанія: до 5 кампаній, 3 міс. (Meta, Google, TikTok)" %}</li>
                         </ul>
                     </div>
-                    <button type="button" class="pl-shop__pkg-read-more" aria-expanded="false" aria-controls="pl-shop-pkg-extra-platinum">Читати далі</button>
+                    <button type="button" class="pl-shop__pkg-read-more" aria-expanded="false" aria-controls="pl-shop-pkg-extra-platinum" data-label-more="{% trans 'Читати далі' %}" data-label-less="{% trans 'Згорнути' %}">{% trans "Читати далі" %}</button>
                 </div>
-                <a href="#calculator" class="pl-shop__btn pl-shop__btn--ghost pl-shop__btn--full mobile-touch-target" data-calc-pkg="platinum">Дізнатися вартість</a>
+                <a href="#calculator" class="pl-shop__btn pl-shop__btn--ghost pl-shop__btn--full mobile-touch-target" data-calc-pkg="platinum">{% trans "Дізнатися вартість" %}</a>
             </article>
         </div>
 
@@ -116,7 +120,7 @@
                 class="pl-shop__btn pl-shop__btn--ghost pl-shop__btn--full mobile-touch-target"
                 data-modal="pl-shop-pkg-compare-modal"
             >
-                Порівняти пакети
+                {% trans "Порівняти пакети" %}
             </button>
         </div>
     </div>

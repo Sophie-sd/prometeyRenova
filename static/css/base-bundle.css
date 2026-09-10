@@ -41,6 +41,7 @@ a:hover {
 /* ===== BUTTON RESET ===== */
 button {
     font-family: inherit;
+    color: inherit;
     cursor: pointer;
     border: none;
     background: none;
@@ -129,6 +130,16 @@ select {
     --space-lg: clamp(60px, 8vw, 80px);
     --space-xl: clamp(80px, 12vw, 120px);
 
+    /* ===== ШИРИНА МОДУЛЯ (piano-клавіша 280) ===== */
+    --pl-col: 280px;
+    --pl-gap: clamp(8px, 1.4vw, 14px);
+    --pl-container: calc(4 * var(--pl-col) + 3 * 14px);
+    --pl-w-1: var(--pl-col);
+    --pl-w-2: calc(2 * var(--pl-col) + 14px);
+    --pl-w-3: calc(3 * var(--pl-col) + 2 * 14px);
+    --pl-gutter: max(clamp(16px, 4vw, 20px), env(safe-area-inset-left));
+    --pl-shell: calc(var(--pl-container) + 2 * var(--pl-gutter));
+
     /* ===== BREAKPOINTS (для використання в JS) ===== */
     /* Доступні через getComputedStyle */
     --breakpoint-mobile: 767px;
@@ -142,6 +153,15 @@ select {
     --easing-default: ease-out;
     --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     --easing-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --t-fast: 160ms;
+    --t-base: 250ms;
+    --t-modal: 300ms;
+    --motion-soft: 500ms;
+    --motion-reveal: 1000ms;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --stagger-reveal: 180ms;
+    --stagger-grid: 120ms;
+    --reveal-distance: 24px;
 
     /* ===== BORDER RADIUS ===== */
     --radius-sm: 8px;
@@ -161,6 +181,18 @@ select {
 
     /* ===== Z-INDEX - визначено в z-index-system.css ===== */
     /* Тут тільки fallback values якщо z-index-system не завантажився */
+}
+
+@media (min-width: 768px) {
+    :root {
+        --pl-gutter: max(64px, env(safe-area-inset-left));
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    :root {
+        --pl-gap: 10px;
+    }
 }
 
 /* ===== ТЕМНА ТЕМА (для майбутнього) ===== */
@@ -487,9 +519,11 @@ select {
 
 .container {
     width: 100%;
-    margin: 0 auto;
-    padding: 0 var(--space-xs);
+    max-width: var(--pl-shell);
     margin-top: 60px;
+    margin-inline: auto;
+    padding-inline: var(--pl-gutter);
+    box-sizing: border-box;
 }
 
 .container-fluid {
@@ -498,11 +532,11 @@ select {
 }
 
 .container-narrow {
-    max-width: 1000px;
+    max-width: calc(var(--pl-w-3) + 2 * var(--pl-gutter));
 }
 
 .container-wide {
-    max-width: 1600px;
+    max-width: var(--pl-shell);
 }
 
 /* ===== GRID СИСТЕМА ===== */
@@ -758,10 +792,6 @@ select {
     .grid-60-40 {
         grid-template-columns: 1fr;
     }
-
-    .container {
-        padding: 0 var(--space-sm);
-    }
 }
 
 /* Мобільні */
@@ -776,11 +806,6 @@ select {
     .grid-auto {
         grid-template-columns: 1fr;
         gap: var(--space-sm);
-    }
-
-    .container {
-        padding: 0 var(--space-xs);
-        margin-top: 60px;
     }
 
     .flex-column-mobile {
@@ -1136,9 +1161,10 @@ img, video {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    max-width: 1400px;
+    max-width: var(--pl-shell);
     margin: 0 auto;
-    padding: 0 var(--space-xs);
+    padding-inline: var(--pl-gutter);
+    box-sizing: border-box;
 }
 
 /* ===== ЛОГОТИП ===== */
@@ -2592,6 +2618,21 @@ body.modal-open {
     font-weight: 700;
 }
 
+.result-price-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    max-width: 70%;
+}
+
+.result-price-secondary {
+    color: var(--color-text-muted, #666);
+    font-size: 0.875rem;
+    line-height: 1.4;
+    text-align: right;
+}
+
 .result-actions {
     margin-top: var(--space-md);
 }
@@ -2620,6 +2661,16 @@ body.modal-open {
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
+    }
+
+    .result-price-wrap {
+        align-items: flex-start;
+        max-width: 100%;
+    }
+
+    .result-price-secondary {
+        text-align: left;
+        font-size: 1rem;
     }
 
     .result-actions .btn {
@@ -3004,7 +3055,7 @@ body.modal-open .main-footer {
 .footer-form .form-label {
     display: block;
     font-size: 14px;
-    color: #aaaaaa;
+    color: #d0d0d0;
     margin-bottom: 6px;
     font-weight: 500;
 }
@@ -3071,6 +3122,48 @@ body.modal-open .main-footer {
     font-size: 14px;
     font-weight: 600;
     margin-top: 5px;
+}
+
+/* ===== FOOTER IMPRESSUM (юр. дані трейдера) ===== */
+.footer-impressum {
+    padding-top: 15px;
+    margin-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.footer-impressum p {
+    font-size: 12px;
+    color: #b0b0b0;
+    line-height: 1.7;
+    flex-wrap: wrap;
+}
+
+.footer-impressum-dot {
+    padding: 0 6px;
+    color: #888888;
+}
+
+.footer-impressum-link,
+button.footer-cookie-settings-btn {
+    color: #d0d0d0;
+    -webkit-text-fill-color: #d0d0d0;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    font: inherit;
+    font-size: inherit;
+    padding: 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: color var(--transition-fast) var(--easing-default);
+}
+
+.footer-impressum-link:hover,
+button.footer-cookie-settings-btn:hover {
+    color: var(--color-brand-orange);
+    -webkit-text-fill-color: var(--color-brand-orange);
 }
 
 /* ===== FOOTER BOTTOM ===== */
@@ -3218,6 +3311,20 @@ body.modal-open .main-footer {
     .footer-submit-btn {
         font-size: 16px;
         padding: 14px 24px;
+    }
+
+    .footer-impressum {
+        padding-top: 12px;
+    }
+
+    .footer-impressum p {
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+    .footer-impressum-link,
+    button.footer-cookie-settings-btn {
+        font-size: 11px;
     }
 
     .footer-bottom {
@@ -3434,17 +3541,6 @@ body.modal-open .main-footer {
 
     .hero-buttons {
         animation: fadeInUp 1s ease-out 0.9s both;
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
     }
 }
 

@@ -1,10 +1,11 @@
-<nav class="pl-shop__anchor-nav" aria-label="Розділи сторінки">
+{% load i18n %}
+<nav class="pl-shop__anchor-nav" aria-label="{% trans 'Розділи сторінки' %}">
     <div class="pl-shop__inner">
         <ul class="pl-shop__anchor-list">
-            <li><a href="#svoboda">Чому ми</a></li>
-            <li><a href="#packages">Пакети</a></li>
-            <li><a href="#garantiya">Гарантія</a></li>
-            <li><a href="#calculator" class="pl-shop__anchor-cta">Розрахувати вартість</a></li>
+            <li><a href="#svoboda">{% trans "Чому ми" %}</a></li>
+            <li><a href="#packages">{% trans "Пакети" %}</a></li>
+            <li><a href="#garantiya">{% trans "Гарантія" %}</a></li>
+            <li><a href="#calculator" class="pl-shop__anchor-cta">{% trans "Розрахувати вартість" %}</a></li>
         </ul>
     </div>
 </nav>

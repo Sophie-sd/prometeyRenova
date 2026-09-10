@@ -181,11 +181,12 @@
                             <input type="tel" name="phone"
                                    class="form-input mobile-form-input mobile-touch-target"
                                    autocomplete="tel" inputmode="tel"
-                                   placeholder="+38(___)__-__-___" required>
+                                   placeholder="{{ phone_placeholder }}" required>
                             <button type="submit" class="btn btn-primary btn-large mobile-touch-target">
                                 Замовити дзвінок →
                             </button>
                         </div>
+                        {% include 'components/lead_gdpr_min.html' with prefix='cw-hero' input_class='form-input mobile-form-input mobile-touch-target' wrap_class='cw-hero__inline-form__gdpr' %}
                         <p class="cw-hero__inline-form__hint">Безкоштовна консультація. Без зобов'язань.</p>
                     </form>
 
@@ -759,8 +760,9 @@
                         <input type="tel" id="quiz-phone" name="phone"
                             class="form-input mobile-form-input mobile-touch-target"
                             autocomplete="tel" inputmode="tel"
-                            placeholder="+38(___)__-__-___" required>
+                            placeholder="{{ phone_placeholder }}" required>
                     </div>
+                    {% include 'components/lead_gdpr_min.html' with prefix='cw-quiz' input_class='form-input mobile-form-input mobile-touch-target' %}
                     <button type="submit" class="btn btn-primary btn-large mobile-touch-target cw-quiz__submit">
                         Дізнатися вартість →
                     </button>

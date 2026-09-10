@@ -2,7 +2,6 @@
     'use strict';
 
     var TOUCH_MQ = '(hover: none), (pointer: coarse)';
-    var STAGGER_MS = 100;
 
     function prefersReducedMotion() {
         return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -166,52 +165,6 @@
         return window.matchMedia('(max-width: 767px)').matches;
     }
 
-    function initScrollReveal(section) {
-        var units = section.querySelectorAll('.svc-piano__unit');
-        if (!units.length) {
-            return;
-        }
-
-        if (isMobilePianoLayout() || prefersReducedMotion() || !('IntersectionObserver' in window)) {
-            units.forEach(function (unit) {
-                unit.classList.add('is-visible');
-            });
-            return;
-        }
-
-        var observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (!entry.isIntersecting) {
-                    return;
-                }
-
-                var index = Array.prototype.indexOf.call(units, entry.target);
-                window.setTimeout(function () {
-                    entry.target.classList.add('is-visible');
-                }, Math.max(0, index) * STAGGER_MS);
-
-                observer.unobserve(entry.target);
-            });
-        }, {
-            threshold: 0.15,
-            rootMargin: '0px 0px -8% 0px'
-        });
-
-        units.forEach(function (unit) {
-            var rect = unit.getBoundingClientRect();
-            var vh = window.innerHeight || document.documentElement.clientHeight;
-
-            if (rect.top < vh * 0.92 && rect.bottom > 0) {
-                var idx = Array.prototype.indexOf.call(units, unit);
-                window.setTimeout(function () {
-                    unit.classList.add('is-visible');
-                }, idx * STAGGER_MS);
-            } else {
-                observer.observe(unit);
-            }
-        });
-    }
-
     function initTouchToggle(section) {
         if (isMobilePianoLayout()) {
             return null;
@@ -345,7 +298,6 @@
             ? window.initServicesPianoMobScroll(section, flipApi)
             : null;
 
-        initScrollReveal(section);
         initHoverA11y(section);
         var destroyTouch = initTouchToggle(section);
         var destroyMobileFlip = initMobileFlip(section, scrollCtrl);

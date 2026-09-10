@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <section id="top" class="pl-shop__hero" aria-labelledby="pl-shop-hero-title">
     <div class="pl-shop__hero-glow-a" aria-hidden="true"></div>
     <div class="pl-shop__hero-grid" aria-hidden="true"></div>
@@ -21,11 +22,11 @@
         <div class="pl-shop__hero-row">
             <div class="pl-shop__hero-copy">
                 <h1 id="pl-shop-hero-title" class="pl-shop__title pl-shop__title--hero">
-                    Інтернет-магазини, що завантажуються <span class="pl-shop__accent">швидше, ніж клієнт встигає клікнути.</span>
+                    {% blocktrans trimmed %}Інтернет-магазини, що завантажуються <span class="pl-shop__accent">швидше, ніж клієнт встигає клікнути.</span>{% endblocktrans %}
                 </h1>
                 <div class="pl-shop__hero-actions">
-                    <a href="#calculator" class="pl-shop__btn pl-shop__btn--primary mobile-touch-target">Розрахувати пропозицію</a>
-                    <button type="button" class="pl-shop__btn pl-shop__btn--ghost mobile-touch-target" data-modal="call-request-modal">Замовити консультацію</button>
+                    <a href="#calculator" class="pl-shop__btn pl-shop__btn--primary mobile-touch-target">{% trans "Розрахувати пропозицію" %}</a>
+                    <button type="button" class="pl-shop__btn pl-shop__btn--ghost mobile-touch-target" data-modal="call-request-modal">{% trans "Замовити консультацію" %}</button>
                 </div>
             </div>
 
@@ -35,7 +36,7 @@
                     <source type="image/webp" srcset="{% static 'images/shop_hero.webp' %}">
                     <img
                         src="{% static 'images/shop_hero.webp' %}"
-                        alt="Інтернет-магазин на ноутбуці та смартфоні"
+                        alt="{% trans 'Інтернет-магазин на ноутбуці та смартфоні' %}"
                         class="pl-shop__hero-img"
                         width="540"
                         height="540"
@@ -49,14 +50,14 @@
                 <div class="pl-shop__hero-chip pl-shop__hero-chip--speed" data-hero-chip>
                     <div class="pl-shop__chip-label">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--pl-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
-                        Швидкість завантаження
+                        {% trans "Швидкість завантаження" %}
                     </div>
-                    <div class="pl-shop__chip-value">0.8<small> сек</small></div>
+                    <div class="pl-shop__chip-value">0.8<small> {% trans "сек" %}</small></div>
                     <div class="pl-shop__chip-bar"><div class="pl-shop__chip-bar-fill"></div></div>
                 </div>
 
                 <div class="pl-shop__hero-chip pl-shop__hero-chip--sales" data-hero-chip>
-                    <div class="pl-shop__chip-label" style="margin-bottom:5px">Продажі цього місяця</div>
+                    <div class="pl-shop__chip-label" style="margin-bottom:5px">{% trans "Продажі цього місяця" %}</div>
                     <div class="pl-shop__chip-sales-row">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg>
                         <span class="pl-shop__chip-sales-val">+38%</span>
@@ -67,10 +68,12 @@
             <div class="pl-shop__hero-trust">
                 <span class="pl-shop__trust-item">
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--pl-acc)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg>
-                    Пожиттєва гарантія на код
+                    {% trans "Пожиттєва гарантія на код" %}
                 </span>
                 <span class="pl-shop__trust-item">
-                    <span aria-hidden="true">🇺🇦</span> Українська локалізація з коробки
+                    {% get_current_language as LANGUAGE_CODE %}
+                    <span aria-hidden="true">{% if LANGUAGE_CODE == 'uk' or LANGUAGE_CODE == 'ru' %}🇺🇦{% else %}🇨🇿{% endif %}</span>
+                    {% trans "Українська локалізація з коробки" %}
                 </span>
             </div>
         </div>

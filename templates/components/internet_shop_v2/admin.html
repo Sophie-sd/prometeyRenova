@@ -1,16 +1,17 @@
+{% load i18n %}
 <section class="pl-shop__section" aria-labelledby="pl-shop-admin-title">
     <div class="pl-shop__inner">
         <div class="pl-shop__admin-row">
         <div class="pl-shop__admin-copy" data-reveal>
-            <h2 id="pl-shop-admin-title" class="pl-shop__admin-title">Керуйте імперією,<br>а не розбирайтесь у коді</h2>
+            <h2 id="pl-shop-admin-title" class="pl-shop__admin-title">{% trans "Керуйте імперією," %}<br>{% trans "а не розбирайтесь у коді" %}</h2>
             <ul class="pl-shop__feature-list">
                 <li class="pl-shop__feature-item">
                     <div class="pl-shop__feature-icon" aria-hidden="true">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--pl-acc)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
                     <div>
-                        <p class="pl-shop__feature-title">Надзручна україномовна адмінка</p>
-                        <p class="pl-shop__feature-desc">Створена для людей. Ваш новий менеджер опанує її за 15 хвилин.</p>
+                        <p class="pl-shop__feature-title">{% trans "Надзручна україномовна адмінка" %}</p>
+                        <p class="pl-shop__feature-desc">{% trans "Створена для людей. Ваш новий менеджер опанує її за 15 хвилин." %}</p>
                     </div>
                 </li>
                 <li class="pl-shop__feature-item">
@@ -18,8 +19,8 @@
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--pl-acc)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
                     <div>
-                        <p class="pl-shop__feature-title">Все в 1–2 кліки</p>
-                        <p class="pl-shop__feature-desc">Оновлення залишків, зміна цін та обробка замовлень — без зайвих рухів.</p>
+                        <p class="pl-shop__feature-title">{% trans "Все в 1–2 кліки" %}</p>
+                        <p class="pl-shop__feature-desc">{% trans "Оновлення залишків, зміна цін та обробка замовлень — без зайвих рухів." %}</p>
                     </div>
                 </li>
                 <li class="pl-shop__feature-item">
@@ -27,8 +28,8 @@
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--pl-acc)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
                     <div>
-                        <p class="pl-shop__feature-title">Жодних зайвих кнопок</p>
-                        <p class="pl-shop__feature-desc">Лише ті інструменти, які генерують вам прибуток — нічого зайвого.</p>
+                        <p class="pl-shop__feature-title">{% trans "Жодних зайвих кнопок" %}</p>
+                        <p class="pl-shop__feature-desc">{% trans "Лише ті інструменти, які генерують вам прибуток — нічого зайвого." %}</p>
                     </div>
                 </li>
             </ul>
@@ -36,24 +37,61 @@
 
         <div class="pl-shop__admin-mock" data-reveal>
             <div class="pl-shop__admin-mock-glow" aria-hidden="true"></div>
-            <div class="pl-shop__admin-window" data-admin-mock role="region" aria-label="Інтерактивна демонстрація адмін-панелі">
+            <div class="pl-shop__admin-window" data-admin-mock role="region" aria-label="{% trans 'Інтерактивна демонстрація адмін-панелі' %}"
+                data-i18n-status-paid="{% trans 'Оплачено' %}"
+                data-i18n-status-pending="{% trans 'В обробці' %}"
+                data-i18n-status-shipped="{% trans 'Відправлено' %}"
+                data-i18n-title-orders="{% trans 'Замовлення' %}"
+                data-i18n-title-products="{% trans 'Товари' %}"
+                data-i18n-title-analytics="{% trans 'Аналітика' %}"
+                data-i18n-title-product="{% trans 'Товар' %}"
+                data-i18n-col-order="{% trans 'Замовлення' %}"
+                data-i18n-col-sum="{% trans 'Сума' %}"
+                data-i18n-col-status="{% trans 'Статус' %}"
+                data-i18n-col-product="{% trans 'Товар' %}"
+                data-i18n-col-price="{% trans 'Ціна' %}"
+                data-i18n-col-stock="{% trans 'Залишок' %}"
+                data-i18n-col-top="{% trans 'Топ товар' %}"
+                data-i18n-col-sales="{% trans 'Продажі' %}"
+                data-i18n-col-revenue="{% trans 'Виручка' %}"
+                data-i18n-metric-orders-today="{% trans 'Замовлень сьогодні' %}"
+                data-i18n-metric-revenue="{% trans 'Виручка' %}"
+                data-i18n-metric-conversion="{% trans 'Конверсія' %}"
+                data-i18n-metric-sales-week="{% trans 'Продажі за тиждень' %}"
+                data-i18n-metric-sku="{% trans 'SKU в каталозі' %}"
+                data-i18n-metric-instock="{% trans 'На складі' %}"
+                data-i18n-metric-new-week="{% trans 'Нових за тиждень' %}"
+                data-i18n-metric-visitors="{% trans 'Відвідувачі' %}"
+                data-i18n-metric-avg-check="{% trans 'Середній чек' %}"
+                data-i18n-visibility-active="{% trans 'Активний' %}"
+                data-i18n-visibility-low="{% trans 'Мало на складі' %}"
+                data-i18n-visibility-out="{% trans 'Немає в наявності' %}"
+                data-i18n-unit="{% trans 'од.' %}"
+                data-i18n-together="{% trans 'Разом' %}"
+                data-i18n-update-stock="{% trans 'Оновити залишок' %}"
+                data-i18n-sales-30="{% trans 'Продажі / 30 дн' %}"
+                data-i18n-open-product="{% trans 'Відкрити картку товару' %}"
+                data-i18n-change-status="{% trans 'Змінити статус замовлення' %}"
+                data-i18n-decrease-stock="{% trans 'Зменшити залишок' %}"
+                data-i18n-increase-stock="{% trans 'Збільшити залишок' %}"
+            >
                 <div class="pl-shop__admin-bar">
                     <span class="pl-shop__admin-dot" aria-hidden="true"></span>
                     <span class="pl-shop__admin-dot" aria-hidden="true"></span>
                     <span class="pl-shop__admin-dot" aria-hidden="true"></span>
-                    <button type="button" class="pl-shop__admin-back" id="pl-admin-back" hidden aria-label="Назад до списку">←</button>
-                    <span class="pl-shop__admin-bar-title" id="pl-admin-title">admin · Замовлення</span>
+                    <button type="button" class="pl-shop__admin-back" id="pl-admin-back" hidden aria-label="{% trans 'Назад до списку' %}">←</button>
+                    <span class="pl-shop__admin-bar-title" id="pl-admin-title">admin · {% trans "Замовлення" %}</span>
                 </div>
                 <div class="pl-shop__admin-body">
-                    <nav class="pl-shop__admin-sidebar" role="tablist" aria-label="Розділи адмінки">
+                    <nav class="pl-shop__admin-sidebar" role="tablist" aria-label="{% trans 'Розділи адмінки' %}">
                         <span class="pl-shop__admin-sidebar-dot" aria-hidden="true"></span>
-                        <button type="button" class="pl-shop__admin-nav-btn pl-shop__admin-nav-btn--active" role="tab" id="pl-admin-tab-orders" aria-selected="true" aria-controls="pl-admin-panel" data-admin-tab="orders" title="Замовлення">
+                        <button type="button" class="pl-shop__admin-nav-btn pl-shop__admin-nav-btn--active" role="tab" id="pl-admin-tab-orders" aria-selected="true" aria-controls="pl-admin-panel" data-admin-tab="orders" title="{% trans 'Замовлення' %}">
                             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
                         </button>
-                        <button type="button" class="pl-shop__admin-nav-btn" role="tab" id="pl-admin-tab-products" aria-selected="false" aria-controls="pl-admin-panel" data-admin-tab="products" title="Товари">
+                        <button type="button" class="pl-shop__admin-nav-btn" role="tab" id="pl-admin-tab-products" aria-selected="false" aria-controls="pl-admin-panel" data-admin-tab="products" title="{% trans 'Товари' %}">
                             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                         </button>
-                        <button type="button" class="pl-shop__admin-nav-btn" role="tab" id="pl-admin-tab-analytics" aria-selected="false" aria-controls="pl-admin-panel" data-admin-tab="analytics" title="Аналітика">
+                        <button type="button" class="pl-shop__admin-nav-btn" role="tab" id="pl-admin-tab-analytics" aria-selected="false" aria-controls="pl-admin-panel" data-admin-tab="analytics" title="{% trans 'Аналітика' %}">
                             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
                         </button>
                     </nav>
@@ -67,7 +105,7 @@
 
         <div class="pl-shop__section-cta pl-shop__section-cta--admin" data-reveal>
             <button type="button" class="pl-shop__btn pl-shop__btn--primary pl-shop__btn--full mobile-touch-target" data-modal="call-request-modal">
-                Отримати консультацію
+                {% trans "Отримати консультацію" %}
             </button>
         </div>
     </div>

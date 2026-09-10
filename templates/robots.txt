@@ -27,4 +27,12 @@ Disallow: /*/thank-you/
 Disallow: /blog/search/
 Disallow: /*/blog/search/
 
+# Demo-тенанти КП (приватні, теж <meta name="robots" content="noindex">)
+Disallow: /demo/
+Disallow: /*/demo/
+Disallow: /demo-landing/
+Disallow: /*/demo-landing/
+Disallow: /demo-site/
+Disallow: /*/demo-site/
+
 Sitemap: https://www.prometeylabs.com/sitemap.xml

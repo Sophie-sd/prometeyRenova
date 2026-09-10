@@ -350,7 +350,7 @@
             var setWidth = (lastStory.offsetLeft + lastStory.offsetWidth + gap) - firstStory.offsetLeft;
 
             container.style.setProperty('--marquee-distance', setWidth + 'px');
-            container.setAttribute('aria-label', 'Наші клієнти — автоматична демонстрація');
+            container.setAttribute('aria-label', container.dataset.marqueeLabel || container.getAttribute('aria-label') || '');
             container.setAttribute('role', 'marquee');
 
             if ('IntersectionObserver' in window) {

@@ -11,12 +11,20 @@ class BlogPost(models.Model):
     excerpt = models.TextField(max_length=300, verbose_name=_("Короткий опис"))
     content = models.TextField(verbose_name=_("Контент"))
     title_ru = models.CharField(max_length=200, blank=True, verbose_name=_("Заголовок (RU)"))
+    title_en = models.CharField(max_length=200, blank=True, verbose_name=_("Заголовок (EN)"))
+    title_cs = models.CharField(max_length=200, blank=True, verbose_name=_("Заголовок (CS)"))
     excerpt_ru = models.TextField(max_length=300, blank=True, verbose_name=_("Короткий опис (RU)"))
+    excerpt_en = models.TextField(max_length=300, blank=True, verbose_name=_("Короткий опис (EN)"))
+    excerpt_cs = models.TextField(max_length=300, blank=True, verbose_name=_("Короткий опис (CS)"))
     content_ru = models.TextField(blank=True, verbose_name=_("Контент (RU)"))
+    content_en = models.TextField(blank=True, verbose_name=_("Контент (EN)"))
+    content_cs = models.TextField(blank=True, verbose_name=_("Контент (CS)"))
     seo_title = models.CharField(max_length=70, verbose_name=_("SEO заголовок"))
     seo_description = models.CharField(max_length=160, verbose_name=_("SEO опис"))
     keywords = models.CharField(max_length=255, verbose_name=_("Ключові слова"))
     keywords_ru = models.CharField(max_length=255, blank=True, verbose_name=_("Ключові слова (RU)"))
+    keywords_en = models.CharField(max_length=255, blank=True, verbose_name=_("Ключові слова (EN)"))
+    keywords_cs = models.CharField(max_length=255, blank=True, verbose_name=_("Ключові слова (CS)"))
     
     # Нові поля для SEO
     meta_title = models.CharField(max_length=60, verbose_name=_("Meta Title"), blank=True)
@@ -81,22 +89,22 @@ class BlogPost(models.Model):
     def get_localized_title(self) -> str:
         from apps.core.i18n_content import localized_text
 
-        return localized_text(self.title, self.title_ru)
+        return localized_text(self.title, self.title_ru, self.title_en, self.title_cs)
 
     def get_localized_excerpt(self) -> str:
         from apps.core.i18n_content import localized_text
 
-        return localized_text(self.excerpt, self.excerpt_ru)
+        return localized_text(self.excerpt, self.excerpt_ru, self.excerpt_en, self.excerpt_cs)
 
     def get_localized_content(self) -> str:
         from apps.core.i18n_content import localized_text
 
-        return localized_text(self.content, self.content_ru)
+        return localized_text(self.content, self.content_ru, self.content_en, self.content_cs)
 
     def get_localized_keywords(self) -> str:
         from apps.core.i18n_content import localized_text
 
-        return localized_text(self.keywords, self.keywords_ru)
+        return localized_text(self.keywords, self.keywords_ru, self.keywords_en, self.keywords_cs)
     
     def get_reading_time_text(self):
         """Повертає текст часу читання"""

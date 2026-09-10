@@ -1,0 +1,150 @@
+/* Lead form fields — iOS Safari safe inputs, compact + full variants */
+
+.lead-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.lead-form-input,
+.lead-form-select,
+.lead-form-fields textarea.lead-form-input {
+    width: 100%;
+    min-height: 44px;
+    font-size: 16px;
+    line-height: 1.4;
+    padding: 12px 14px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.lead-form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+}
+
+.lead-form-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    min-height: 44px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.lead-form-checkbox input[type="checkbox"] {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    accent-color: var(--color-brand-orange, #E65100);
+    cursor: pointer;
+}
+
+.lead-form-policy-link {
+    text-decoration: underline;
+    color: var(--color-brand-orange, #E65100);
+}
+
+.lead-form-expect {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #888;
+}
+
+.lead-gdpr-min {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.lead-gdpr-min__label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.lead-gdpr-min__checkbox {
+    color: inherit;
+}
+
+.lead-gdpr-min .lead-form-input,
+.lead-gdpr-min input[type="email"] {
+    font-size: 16px;
+    min-height: 44px;
+    box-sizing: border-box;
+}
+
+.modal.active .modal-content {
+    max-height: 100dvh;
+    max-height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .lead-form-fields {
+        gap: 14px;
+    }
+
+    .lead-form-checkbox,
+    .lead-form-expect {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 767px) {
+    .lead-form-fields {
+        gap: 14px;
+    }
+
+    .lead-form-input,
+    .lead-form-select,
+    .lead-form-fields textarea.lead-form-input {
+        font-size: 16px;
+        min-height: 48px;
+        padding: 14px 16px;
+    }
+
+    .lead-form-checkbox {
+        min-height: 48px;
+        font-size: 16px;
+        gap: 14px;
+    }
+
+    .lead-form-checkbox input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+    }
+
+    .lead-form-expect {
+        font-size: 14px;
+    }
+
+    .modal.active .modal-content {
+        max-height: 100dvh;
+        padding-left: max(16px, env(safe-area-inset-left, 0px));
+        padding-right: max(16px, env(safe-area-inset-right, 0px));
+    }
+}
+
+@supports (-webkit-touch-callout: none) {
+    @media (max-width: 767px) {
+        .lead-form-input,
+        .lead-form-select,
+        .lead-form-fields textarea.lead-form-input,
+        .lead-form-checkbox {
+            font-size: 16px;
+        }
+    }
+}

@@ -63,13 +63,14 @@ body.pl-tz-body .main-content {
 }
 
 .pl-tz__inner {
-    max-width: 1180px;
+    max-width: var(--pl-shell);
     margin: 0 auto;
-    padding: 0 24px;
+    padding-inline: var(--pl-gutter);
+    box-sizing: border-box;
 }
 
 .pl-tz__inner--narrow {
-    max-width: 760px;
+    max-width: calc(var(--pl-w-2) + 2 * var(--pl-gutter));
 }
 
 /* ===== TYPOGRAPHY HELPERS ===== */
@@ -160,13 +161,13 @@ body.pl-tz-body .main-content {
 }
 
 .pl-tz__section-head {
-    max-width: 760px;
+    max-width: var(--pl-w-2);
     margin: 0 auto 36px;
     text-align: center;
 }
 
 .pl-tz__section-head--left {
-    max-width: 680px;
+    max-width: var(--pl-w-2);
     margin: 0 0 36px;
     text-align: left;
 }

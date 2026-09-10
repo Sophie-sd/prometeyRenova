@@ -229,6 +229,7 @@
         <p class="pay-acquiring-sub">{% trans "Картка · Apple Pay · Google Pay · Monobank" %}</p>
         <form method="post" action="{% url 'payment:create_invoice' unique_id=payment_link.unique_id %}">
             {% csrf_token %}
+            {% include 'payment/partials/_checkout_consents.html' %}
             <button type="submit" class="btn-pay" id="pay-btn">
                 {% trans "Перейти до оплати" %}
             </button>
@@ -239,6 +240,20 @@
             <img src="{% static 'payment/images/paylogos/applepay.png' %}" alt="Apple Pay" class="pay-method-logo">
             <img src="{% static 'payment/images/paylogos/gpay.png' %}" alt="Google Pay" class="pay-method-logo">
         </div>
+    </div>
+    {% else %}
+    <div class="pay-section pay-section--action">
+        {% if payment_link.withdrawal_waiver_accepted_at %}
+        <p class="pay-acquiring-sub">{% trans "Умови підтверджено." %}</p>
+        {% else %}
+        <form method="post" action="{% url 'payment:record_consent' unique_id=payment_link.unique_id %}">
+            {% csrf_token %}
+            {% include 'payment/partials/_checkout_consents.html' %}
+            <button type="submit" class="btn-pay">
+                {% trans "Підтверджую умови" %}
+            </button>
+        </form>
+        {% endif %}
     </div>
     {% endif %}
 
@@ -273,6 +288,7 @@
         <p class="section-label">{% trans "Тестовий режим" %}</p>
         <form method="post">
             {% csrf_token %}
+            {% include 'payment/partials/_checkout_consents.html' %}
             <button type="submit" class="btn-pay">{% trans "Створити тестовий інвойс" %}</button>
         </form>
     </div>

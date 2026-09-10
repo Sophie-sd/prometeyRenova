@@ -18,6 +18,11 @@ from django.core.cache import cache
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
+from .checkout import (
+    has_checkout_consents,
+    require_and_record_consents,
+    send_payment_confirmation,
+)
 from .models import PaymentLink, PaymentSettings, SubscriptionCharge
 from .monobank_service import MonobankAcquiringService
 from .subscription_service import MonobankSubscriptionService
@@ -201,6 +206,10 @@ def create_invoice(request: HttpRequest, unique_id):
     if not payment_link.use_acquiring:
         return HttpResponseBadRequest('Acquiring disabled for this payment link')
 
+    consent_error = require_and_record_consents(request, payment_link)
+    if consent_error:
+        return consent_error
+
     validity = payment_link.duration_minutes * 60 if payment_link.duration_minutes else 3600
 
     if payment_link.is_subscription:
@@ -233,6 +242,25 @@ def create_invoice(request: HttpRequest, unique_id):
     payment_link.monobank_invoice_url = page_url
     payment_link.save(update_fields=['monobank_invoice_id', 'monobank_invoice_url'])
     return redirect(page_url)
+
+
+def record_consent(request: HttpRequest, unique_id):
+    if request.method != 'POST':
+        return HttpResponseBadRequest('Invalid method')
+
+    payment_link = get_object_or_404(PaymentLink, unique_id=unique_id)
+    inactive_statuses = (
+        PaymentLink.Status.PAID,
+        PaymentLink.Status.DEACTIVATED,
+        PaymentLink.Status.EXPIRED,
+    )
+    if payment_link.status in inactive_statuses or payment_link.is_expired():
+        return render(request, 'payment/link_inactive.html', {'payment_link': payment_link})
+
+    consent_error = require_and_record_consents(request, payment_link)
+    if consent_error:
+        return consent_error
+    return redirect('payment:payment_page', unique_id=unique_id)
 
 
 @csrf_exempt
@@ -292,7 +320,10 @@ def monobank_webhook(request: HttpRequest):
             pass
 
     if status in ('success', 'paid'):
+        was_unpaid = payment_link.status != PaymentLink.Status.PAID
         payment_link.mark_paid()
+        if was_unpaid:
+            send_payment_confirmation(payment_link)
         if payment_link.is_subscription:
             _activate_subscription(payment_link, payload)
     elif status in ('expired', 'reversed', 'failure'):
@@ -316,6 +347,10 @@ def payment_failure(request: HttpRequest, unique_id):
 @staff_member_required
 def test_monobank_api(request: HttpRequest):
     if request.method == 'POST':
+        if not has_checkout_consents(request):
+            return HttpResponseBadRequest(
+                _('Підтвердіть обидва пункти: відмову від права відступлення та згоду на обробку даних.'),
+            )
         svc = MonobankAcquiringService()
         invoice_id, page_url = svc.create_invoice(
             reference='test-reference',

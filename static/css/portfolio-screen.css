@@ -1,0 +1,131 @@
+/**
+ * Portfolio screen — живий знімок головної сторінки замість статичного кадру.
+ * Desktop: hover у стані 50% (.is-done) скролить знімок вниз і повертає назад.
+ * Mobile/touch: повільний ping-pong скрол, лише поки картка у viewport (.is-motion).
+ * Перекриває картинкові правила portfolio-brand-snap(2).css через [data-pf-screen]
+ * (вища специфічність) — width-анімація asset з brand-snap не чіпається.
+ */
+
+.pf-snap__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: var(--color-black, #000);
+}
+
+.pf-snap__placeholder-mark {
+    font-size: clamp(64px, 10vw, 140px);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.12);
+    line-height: 1;
+    user-select: none;
+}
+
+/* Знімок притиснутий до верху; ширина йде за asset (shrink 100%→50% з brand-snap) */
+.pf-snap__asset[data-pf-screen] {
+    overflow: hidden;
+    contain: paint;
+}
+
+.pf-snap__asset[data-pf-screen] .pf-snap__img {
+    width: 100%;
+    height: auto;
+    max-width: none;
+    object-fit: unset;
+    object-position: top;
+    display: block;
+    transform: translate3d(0, 0, 0);
+    transition: transform 700ms var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1));
+}
+
+/* Desktop: скрол лише при hover і лише коли asset вже в стані 50% (is-done) */
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+    .pf-snap__asset[data-pf-screen].is-done:hover .pf-snap__img {
+        transform: translate3d(0, var(--pf-scroll-y, 0px), 0);
+        transition: transform var(--pf-scroll-ms, 8000ms) linear;
+        will-change: transform;
+    }
+}
+
+/* Mobile / touch: фіксована висота блоку, ping-pong скрол лише у viewport */
+@media (max-width: 767px), (hover: none) {
+    .pf-snap__asset[data-pf-screen],
+    .pf-snap__asset[data-pf-screen].is-shrinking,
+    .pf-snap__asset[data-pf-screen].is-done {
+        height: min(58dvh, 420px);
+        min-height: min(58dvh, 420px);
+    }
+
+    .pf-snap__asset[data-pf-screen] picture {
+        height: 100%;
+    }
+
+    .pf-snap__asset[data-pf-screen] .pf-snap__img {
+        height: auto;
+        object-fit: unset;
+        transition: none;
+    }
+
+    @keyframes pf-screen-pingpong {
+        0%, 6% {
+            transform: translate3d(0, 0, 0);
+        }
+        47%, 53% {
+            transform: translate3d(0, var(--pf-scroll-y, 0px), 0);
+        }
+        94%, 100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    .pf-snap__asset[data-pf-screen].is-done.is-motion .pf-snap__img {
+        animation: pf-screen-pingpong var(--pf-scroll-ms, 16000ms) linear infinite;
+        will-change: transform;
+    }
+}
+
+/*
+ * PRM: селектори повторюють специфічність hover/ping-pong правил вище
+ * (клас+атрибут+клас[+клас/:hover] = 5), щоб перекрити їх без !important —
+ * виграє порядок оголошення (це правило останнє у каскаді).
+ */
+@media (prefers-reduced-motion: reduce) {
+    .pf-snap__asset[data-pf-screen] .pf-snap__img,
+    .pf-snap__asset[data-pf-screen].is-done:hover .pf-snap__img,
+    .pf-snap__asset[data-pf-screen].is-done.is-motion .pf-snap__img {
+        transition: none;
+        animation: none;
+        transform: none;
+    }
+}
+
+/* CRM Auto-lot: коротка сторінка — біла рамка, знімок по центру по висоті */
+.pf-snap__asset[data-slug="auto-lot"] {
+    background: #ffffff;
+}
+
+.pf-snap__asset[data-slug="auto-lot"][data-pf-screen] .pf-snap__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+}
+
+@media (max-width: 767px), (hover: none) {
+    .pf-snap__asset[data-slug="auto-lot"][data-pf-screen] .pf-snap__img {
+        height: 100%;
+        object-fit: contain;
+        object-position: center center;
+    }
+}
+
+/* Mobile-only: hide selected projects (desktop/tablet keep them) */
+@media (max-width: 767px) {
+    .pf-snap[data-slug="ucvn"],
+    .pf-snap[data-slug="distageavto"],
+    .pf-snap[data-slug="queendrive"] {
+        display: none;
+    }
+}

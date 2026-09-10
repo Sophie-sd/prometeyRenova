@@ -1,11 +1,12 @@
+{% load i18n %}
 <section class="pl-shop__clients-block" aria-labelledby="pl-shop-clients-title">
     <div class="pl-shop__inner">
-        <p class="pl-shop__clients-label" id="pl-shop-clients-title">Магазини, які вже працюють на нашому коді</p>
+        <p class="pl-shop__clients-label" id="pl-shop-clients-title">{% trans "Магазини, які вже працюють на нашому коді" %}</p>
     </div>
 
     <div class="pl-shop__clients-wrap">
         <div class="pl-shop__clients-stories-wrapper">
-            <div class="pl-shop__clients-stories-container projects-stories-container" role="list">
+            <div class="pl-shop__clients-stories-container projects-stories-container" role="list" data-marquee-label="{% trans 'Наші клієнти — автоматична демонстрація' %}">
                 {% for client in home_clients %}
                 {% include 'components/client_home_story.html' with client=client is_clone=False %}
                 {% endfor %}

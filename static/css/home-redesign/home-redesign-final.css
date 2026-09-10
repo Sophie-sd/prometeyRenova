@@ -10,6 +10,10 @@
   padding: 56px 0;
 }
 
+#home-redesign-why.home-redesign.vf {
+  overflow: visible;
+}
+
 .home-redesign.vf *,
 .home-redesign.vf *::before,
 .home-redesign.vf *::after {
@@ -113,7 +117,7 @@
 
 .home-redesign.vf .v2-rule,
 .home-redesign.vf .v2-tag,
-.home-redesign.vf .v2-why-sub,
+.home-redesign.vf .v2-why-eyebrow,
 .home-redesign.vf .v2-why-note,
 .home-redesign.vf .v2-li-val {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -167,7 +171,7 @@
 }
 
 .home-redesign.vf .vf-cta-center .v2-cta-text {
-  max-width: 640px;
+  max-width: var(--pl-w-2);
   margin-left: auto;
   margin-right: auto;
 }

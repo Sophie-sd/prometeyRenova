@@ -4,8 +4,8 @@ set -o errexit
 echo "📦 Installing dependencies..."
 pip install -r requirements.txt
 
-echo "🌍 Compiling translations (uk, ru, en)..."
-python manage.py compilemessages --locale=en --locale=ru --locale=uk --ignore=prometey_env
+echo "🌍 Compiling translations (uk, ru, en, cs)..."
+python manage.py compilemessages --locale=en --locale=ru --locale=uk --locale=cs --ignore=prometey_env
 
 echo "📁 Collecting static files (з автоматичною compression)..."
 python manage.py collectstatic --no-input
@@ -51,7 +51,7 @@ echo "🌱 Seeding initial data (blog posts & events)..."
 python manage.py seed_initial_data
 
 echo "🖼️  Seeding portfolio projects (from static assets)..."
-python manage.py seed_portfolio_projects
+python manage.py seed_portfolio_projects --prune --force-images
 
 echo "👥 Seeding homepage clients (from static assets)..."
 python manage.py seed_clients

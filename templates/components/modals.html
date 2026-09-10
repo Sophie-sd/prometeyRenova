@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label for="dev-phone" class="form-label">{% trans "Номер телефону" %}</label>
                 <input type="tel" id="dev-phone" name="phone" class="form-input mobile-form-input mobile-touch-target"
-                    autocomplete="tel" inputmode="tel" required placeholder="+38(___)__-__-___">
+                    autocomplete="tel" inputmode="tel" required placeholder="{{ phone_placeholder }}">
             </div>
 
             <button type="submit" class="btn btn-primary form-submit mobile-touch-target">
@@ -60,7 +60,10 @@
                 </div>
                 <div class="result-item">
                     <span class="result-label text-base">{% trans "Орієнтовна вартість:" %}</span>
-                    <span class="result-price text-large color-brand-orange" id="result-price"></span>
+                    <div class="result-price-wrap">
+                        <span class="result-price text-large color-brand-orange" id="result-price"></span>
+                        <span class="result-price-secondary text-base" id="result-price-secondary" hidden></span>
+                    </div>
                 </div>
                 <div class="result-item">
                     <span class="result-label text-base">{% trans "Терміни виконання:" %}</span>
@@ -125,17 +128,7 @@
             <input type="hidden" name="form_type" value="call_request">
             <input type="hidden" name="source_page" id="call-modal-source-page" value="">
 
-            <div class="form-group">
-                <label for="call-name" class="form-label">{% trans "Ім'я" %}</label>
-                <input type="text" id="call-name" name="name" class="form-input mobile-form-input mobile-touch-target"
-                    autocomplete="given-name" inputmode="text" required placeholder="{% trans "Введіть ваше ім'я" %}">
-            </div>
-
-            <div class="form-group">
-                <label for="call-phone" class="form-label">{% trans "Номер телефону" %}</label>
-                <input type="tel" id="call-phone" name="phone" class="form-input mobile-form-input mobile-touch-target"
-                    autocomplete="tel" inputmode="tel" required placeholder="+38(___)__-__-___">
-            </div>
+            {% include 'components/lead_form_fields.html' with prefix='call' %}
 
             <button type="submit" class="btn btn-primary form-submit mobile-touch-target">
                 {% trans "Замовити дзвінок" %}

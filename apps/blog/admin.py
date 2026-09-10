@@ -22,8 +22,17 @@ class BlogPostAdminForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'title': AdminTinyMCE(mce_attrs=BLOG_SHORT_MCE_ATTRS),
+            'title_ru': AdminTinyMCE(mce_attrs=BLOG_SHORT_MCE_ATTRS),
+            'title_en': AdminTinyMCE(mce_attrs=BLOG_SHORT_MCE_ATTRS),
+            'title_cs': AdminTinyMCE(mce_attrs=BLOG_SHORT_MCE_ATTRS),
             'excerpt': AdminTinyMCE(mce_attrs={**BLOG_SHORT_MCE_ATTRS, 'height': 200}),
+            'excerpt_ru': AdminTinyMCE(mce_attrs={**BLOG_SHORT_MCE_ATTRS, 'height': 200}),
+            'excerpt_en': AdminTinyMCE(mce_attrs={**BLOG_SHORT_MCE_ATTRS, 'height': 200}),
+            'excerpt_cs': AdminTinyMCE(mce_attrs={**BLOG_SHORT_MCE_ATTRS, 'height': 200}),
             'content': AdminTinyMCE(),
+            'content_ru': AdminTinyMCE(),
+            'content_en': AdminTinyMCE(),
+            'content_cs': AdminTinyMCE(),
         }
 
     def clean_title(self):
@@ -61,13 +70,16 @@ class BlogPostAdmin(UnfoldModelAdmin):
     fieldsets = (
         ('Основна інформація', {
             'fields': (
-                'title', 'title_ru', 'slug', 'excerpt', 'excerpt_ru',
-                'content', 'content_ru', 'category', 'featured_image',
+                'title', 'title_ru', 'title_en', 'title_cs', 'slug',
+                'excerpt', 'excerpt_ru', 'excerpt_en', 'excerpt_cs',
+                'content', 'content_ru', 'content_en', 'content_cs',
+                'category', 'featured_image',
             )
         }),
         ('SEO налаштування', {
             'fields': (
-                'seo_title', 'seo_description', 'keywords', 'keywords_ru',
+                'seo_title', 'seo_description',
+                'keywords', 'keywords_ru', 'keywords_en', 'keywords_cs',
                 'meta_title', 'meta_description', 'og_title', 'og_description',
             )
         }),

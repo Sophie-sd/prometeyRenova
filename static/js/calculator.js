@@ -107,7 +107,9 @@ class ProjectCalculator {
         if (this.isContactStep(step)) {
             const name = step.querySelector('[name="name"]')?.value?.trim();
             const phone = step.querySelector('[name="phone"]')?.value?.trim();
-            return Boolean(name && phone);
+            const email = step.querySelector('[name="email"]')?.value?.trim();
+            const consent = step.querySelector('[name="consent"]')?.checked;
+            return Boolean(name && phone && email && consent);
         }
 
         const options = step.querySelector('.calc-options');
@@ -370,7 +372,14 @@ class ProjectCalculator {
                 const mask = app.phoneMasks.get(phoneField);
                 mask.ensurePrefix();
             } else {
-                phoneField.value = '+38';
+                const lang = (document.documentElement.lang || 'uk').split('-')[0].toLowerCase();
+                if (lang === 'cs') {
+                    phoneField.value = '+420';
+                } else if (lang === 'en') {
+                    phoneField.value = '';
+                } else {
+                    phoneField.value = '+38';
+                }
             }
             phoneField.classList.remove('error');
         }

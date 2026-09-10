@@ -30,6 +30,12 @@ class StaticViewSitemap(AbsoluteSitemap):
     changefreq = 'weekly'
     priority = 0.7
 
+    # hreflang alternates у sitemap.xml (дублює <link rel="alternate"> —
+    # рекомендація Google для мультимовних сайтів).
+    i18n = True
+    alternates = True
+    x_default = True
+
     # name → (priority, changefreq)
     PAGES = {
         'home': (1.0, 'daily'),

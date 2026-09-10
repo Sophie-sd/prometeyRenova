@@ -42,17 +42,73 @@ class FormSubmission(models.Model):
         ('normal', _('Нормальний')),
         ('high', _('Високий')),
     ]
+
+    MESSENGER_TYPE_CHOICES = [
+        ('phone', _('Телефон')),
+        ('whatsapp', 'WhatsApp'),
+        ('telegram', 'Telegram'),
+        ('viber', 'Viber'),
+    ]
+    PROJECT_TYPE_CHOICES = [
+        ('site', _('Сайт / лендінг')),
+        ('eshop', _('Інтернет-магазин')),
+        ('webapp', _('Веб-застосунок')),
+        ('other', _('Інше')),
+    ]
+    BUDGET_CHOICES = [
+        ('to_500', _('до 500 €')),
+        ('500_1500', _('500–1500 €')),
+        ('1500_3000', _('1500–3000 €')),
+        ('3000_plus', _('від 3000 €')),
+        ('discuss', _('Обговоримо')),
+    ]
+    PREFERRED_LANGUAGE_CHOICES = [
+        ('cs', 'Čeština'),
+        ('en', 'English'),
+        ('uk', _('Українська')),
+    ]
     
     # ===== КОНТАКТНІ ДАНІ =====
     name = models.CharField(max_length=200, verbose_name=_('Ім\'я'))
-    phone = models.CharField(max_length=20, verbose_name=_('Телефон'))
+    phone = models.CharField(max_length=20, blank=True, verbose_name=_('Телефон'))
     email = models.EmailField(blank=True, verbose_name=_('Email'))
     messenger_link = models.URLField(blank=True, verbose_name=_('Посилання на месенджер'))
+    messenger_type = models.CharField(
+        max_length=20,
+        choices=MESSENGER_TYPE_CHOICES,
+        blank=True,
+        default='',
+        verbose_name=_('Тип зв\'язку / месенджер'),
+    )
     project = models.CharField(
         max_length=200, 
         blank=True, 
         verbose_name=_('Проект'),
         help_text=_('Короткий опис проекту для швидкого огляду в списку')
+    )
+    project_type = models.CharField(
+        max_length=20,
+        choices=PROJECT_TYPE_CHOICES,
+        blank=True,
+        default='',
+        verbose_name=_('Тип проєкту'),
+        db_index=True,
+    )
+    budget = models.CharField(
+        max_length=20,
+        choices=BUDGET_CHOICES,
+        blank=True,
+        default='',
+        verbose_name=_('Орієнтовний бюджет'),
+        db_index=True,
+    )
+    preferred_language = models.CharField(
+        max_length=5,
+        choices=PREFERRED_LANGUAGE_CHOICES,
+        blank=True,
+        default='',
+        verbose_name=_('Бажана мова спілкування'),
+        db_index=True,
     )
     
     # ===== ДЖЕРЕЛО ТА КЛАСИФІКАЦІЯ =====
@@ -91,6 +147,18 @@ class FormSubmission(models.Model):
         null=True, 
         blank=True, 
         verbose_name=_('Час відправки email')
+    )
+
+    # ===== ЗГОДА НА ОБРОБКУ ДАНИХ =====
+    consent_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name=_('Згода на обробку даних — прийнято'),
+    )
+    consent_ip = models.GenericIPAddressField(
+        blank=True,
+        null=True,
+        verbose_name=_('IP при підтвердженні згоди'),
     )
     
     # ===== СИСТЕМНІ ПОЛЯ =====
@@ -380,6 +448,73 @@ class SiteContactSettings(models.Model):
         default='Київ, бульвар Тараса Шевченка 46а',
         verbose_name=_('Адреса'),
     )
+    address_ru = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Адреса (RU)'),
+    )
+    address_en = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Адреса (EN)'),
+    )
+    address_cs = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Адреса (CS)'),
+    )
+    legal_name = models.CharField(
+        max_length=255,
+        default='ФОП Дмитренко Софія Дмитрівна',
+        verbose_name=_('Юридична назва (Impressum)'),
+        help_text=_('Відображається у футері на кожній сторінці сайту.'),
+    )
+    legal_name_ru = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Юридична назва (RU)'),
+    )
+    legal_name_en = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Юридична назва (EN)'),
+    )
+    legal_name_cs = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Юридична назва (CS)'),
+    )
+    registration_number = models.CharField(
+        max_length=32,
+        default='3770706565',
+        verbose_name=_('Реєстраційний номер (РНОКПП)'),
+    )
+    legal_address = models.CharField(
+        max_length=255,
+        default='Полтавська обл., м. Миргород, вул. Кваші, буд 2',
+        verbose_name=_('Юридична адреса (Impressum)'),
+        help_text=_('Місце реєстрації ФОП; фактична адреса — поле «Адреса» вище.'),
+    )
+    legal_address_ru = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Юридична адреса (RU)'),
+    )
+    legal_address_en = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Юридична адреса (EN)'),
+    )
+    legal_address_cs = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Юридична адреса (CS)'),
+    )
+    data_protection_email = models.EmailField(
+        default='info@prometeylabs.com',
+        verbose_name=_('Email відповідальної особи за захист даних'),
+        help_text=_('Контакт для запитів щодо Privacy Policy (ст. 37 GDPR — окремий DPO не потрібен).'),
+    )
     maps_latitude = models.DecimalField(
         max_digits=9,
         decimal_places=6,
@@ -427,9 +562,25 @@ class SiteContactSettings(models.Model):
         return result
 
     def get_localized_address(self):
-        if not self.address:
-            return ''
-        return gettext(self.address)
+        from .i18n_content import localized_text
+
+        return localized_text(
+            self.address, self.address_ru, self.address_en, self.address_cs,
+        )
+
+    def get_localized_legal_name(self):
+        from .i18n_content import localized_text
+
+        return localized_text(
+            self.legal_name, self.legal_name_ru, self.legal_name_en, self.legal_name_cs,
+        )
+
+    def get_localized_legal_address(self):
+        from .i18n_content import localized_text
+
+        return localized_text(
+            self.legal_address, self.legal_address_ru, self.legal_address_en, self.legal_address_cs,
+        )
 
     def get_tel_href(self):
         digits = (self.phone_e164 or '').strip()
@@ -448,6 +599,9 @@ class SiteContactSettings(models.Model):
         return f'viber://add?number={digits}' if digits else ''
 
     def get_maps_embed_src(self):
+        from django.utils.translation import get_language
+        lang = (get_language() or 'uk').split('-')[0]
+        
         embed = (self.google_maps_embed_url or '').strip()
         if embed:
             return embed
@@ -456,7 +610,7 @@ class SiteContactSettings(models.Model):
             lng = self.maps_longitude
             zoom = self.maps_zoom or 15
             return (
-                f'https://www.google.com/maps?q={lat},{lng}&hl=uk&z={zoom}&output=embed'
+                f'https://www.google.com/maps?q={lat},{lng}&hl={lang}&z={zoom}&output=embed'
             )
         return ''
 
@@ -478,14 +632,38 @@ class PortfolioProject(models.Model):
         verbose_name=_('Теги інтеграцій'),
         help_text=_('Один тег на рядок (без #)'),
     )
+    integrations_ru = models.TextField(
+        blank=True,
+        verbose_name=_('Теги інтеграцій (RU)'),
+    )
+    integrations_en = models.TextField(
+        blank=True,
+        verbose_name=_('Теги інтеграцій (EN)'),
+    )
+    integrations_cs = models.TextField(
+        blank=True,
+        verbose_name=_('Теги інтеграцій (CS)'),
+    )
     card_image = models.ImageField(
         upload_to=portfolio_upload_to,
+        blank=True,
         verbose_name=_('Зображення картки (desktop)'),
+        help_text=_('Знімок головної сторінки сайту (desktop). Генерується capture_portfolio_screens.'),
     )
     card_image_mobile = models.ImageField(
         upload_to=portfolio_upload_to,
         blank=True,
         verbose_name=_('Зображення картки (mobile)'),
+        help_text=_('Знімок головної сторінки сайту (mobile). Генерується capture_portfolio_screens.'),
+    )
+    site_url = models.URLField(
+        max_length=300,
+        blank=True,
+        verbose_name=_('Живий сайт (джерело знімка)'),
+        help_text=_(
+            'URL реального сайту для management-команди capture_portfolio_screens. '
+            'Не показується публічно і не веде на нього.'
+        ),
     )
     card_image_alt = models.CharField(
         max_length=255,
@@ -508,8 +686,14 @@ class PortfolioProject(models.Model):
         verbose_name=_('Контент модального вікна (HTML)'),
     )
     title_ru = models.CharField(max_length=200, blank=True, verbose_name=_('Заголовок (RU)'))
+    title_en = models.CharField(max_length=200, blank=True, verbose_name=_('Заголовок (EN)'))
+    title_cs = models.CharField(max_length=200, blank=True, verbose_name=_('Заголовок (CS)'))
     subtitle_ru = models.CharField(max_length=200, blank=True, verbose_name=_('Підзаголовок (RU)'))
+    subtitle_en = models.CharField(max_length=200, blank=True, verbose_name=_('Підзаголовок (EN)'))
+    subtitle_cs = models.CharField(max_length=200, blank=True, verbose_name=_('Підзаголовок (CS)'))
     card_description_ru = models.TextField(blank=True, verbose_name=_('Короткий опис (картка) (RU)'))
+    card_description_en = models.TextField(blank=True, verbose_name=_('Короткий опис (картка) (EN)'))
+    card_description_cs = models.TextField(blank=True, verbose_name=_('Короткий опис (картка) (CS)'))
     modal_content_ru = models.TextField(blank=True, verbose_name=_('Контент модального вікна (HTML) (RU)'))
     home_story_label_ru = models.CharField(
         max_length=100,
@@ -521,6 +705,16 @@ class PortfolioProject(models.Model):
         blank=True,
         verbose_name=_('Alt текст картки (RU)'),
     )
+    card_image_alt_en = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Alt текст картки (EN)'),
+    )
+    card_image_alt_cs = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Alt текст картки (CS)'),
+    )
     cta_label = models.CharField(
         max_length=120,
         blank=True,
@@ -531,6 +725,16 @@ class PortfolioProject(models.Model):
         max_length=120,
         blank=True,
         verbose_name=_('Текст кнопки (RU)'),
+    )
+    cta_label_en = models.CharField(
+        max_length=120,
+        blank=True,
+        verbose_name=_('Текст кнопки (EN)'),
+    )
+    cta_label_cs = models.CharField(
+        max_length=120,
+        blank=True,
+        verbose_name=_('Текст кнопки (CS)'),
     )
     cta_url = models.CharField(
         max_length=500,
@@ -624,7 +828,9 @@ class PortfolioProject(models.Model):
 
         from .i18n_content import localized_text
 
-        label = localized_text(self.cta_label, self.cta_label_ru)
+        label = localized_text(
+            self.cta_label, self.cta_label_ru, self.cta_label_en, self.cta_label_cs,
+        )
         if label:
             return label
         return gettext('Більше інформації')
@@ -647,9 +853,17 @@ class PortfolioProject(models.Model):
         return href.lower().startswith(('http://', 'https://'))
 
     def get_integration_tags(self) -> list[str]:
-        if not self.integrations:
+        from .i18n_content import localized_text
+
+        raw = localized_text(
+            self.integrations,
+            self.integrations_ru,
+            self.integrations_en,
+            self.integrations_cs,
+        )
+        if not raw:
             return []
-        return [line.strip() for line in self.integrations.splitlines() if line.strip()]
+        return [line.strip() for line in raw.splitlines() if line.strip()]
 
     def get_safe_modal_content(self) -> str:
         from .portfolio_sanitize import linkify_portfolio_html
@@ -659,17 +873,24 @@ class PortfolioProject(models.Model):
     def get_localized_title(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.title, self.title_ru)
+        return localized_text(self.title, self.title_ru, self.title_en, self.title_cs)
 
     def get_localized_subtitle(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.subtitle, self.subtitle_ru)
+        return localized_text(
+            self.subtitle, self.subtitle_ru, self.subtitle_en, self.subtitle_cs,
+        )
 
     def get_localized_card_description(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.card_description, self.card_description_ru)
+        return localized_text(
+            self.card_description,
+            self.card_description_ru,
+            self.card_description_en,
+            self.card_description_cs,
+        )
 
     def get_localized_modal_content(self) -> str:
         from .i18n_content import localized_text
@@ -762,14 +983,18 @@ class PortfolioProject(models.Model):
 
         ua = (self.home_story_label or self.title).strip()
         ru = (self.home_story_label_ru or self.title_ru).strip()
-        return localized_text(ua, ru)
+        en = (self.title_en or '').strip()
+        cs = (self.title_cs or '').strip()
+        return localized_text(ua, ru, en, cs)
 
     def get_card_alt(self) -> str:
         from .i18n_content import localized_text
 
         ua = (self.card_image_alt or self.title).strip()
         ru = (self.card_image_alt_ru or self.title_ru).strip()
-        return localized_text(ua, ru)
+        en = (self.card_image_alt_en or self.title_en).strip()
+        cs = (self.card_image_alt_cs or self.title_cs).strip()
+        return localized_text(ua, ru, en, cs)
 
     def get_modal_title(self) -> str:
         title = self.get_localized_title()
@@ -805,67 +1030,6 @@ class Client(models.Model):
         from .portfolio_images import resolve_client_logo_url
 
         return resolve_client_logo_url(self)
-
-
-def feature_block_upload_to(instance, filename: str) -> str:
-    return f'feature_blocks/{filename}'
-
-
-class PortfolioFeatureBlock(models.Model):
-    """Текстово-зображальний блок для сторінки /portfolio-beta/."""
-
-    title = models.CharField(max_length=200, verbose_name=_('Заголовок'))
-    text = models.TextField(verbose_name=_('Текст'))
-    title_ru = models.CharField(max_length=200, blank=True, verbose_name=_('Заголовок (RU)'))
-    text_ru = models.TextField(blank=True, verbose_name=_('Текст (RU)'))
-    image = models.ImageField(
-        upload_to=feature_block_upload_to,
-        blank=True,
-        null=True,
-        verbose_name=_('Зображення'),
-    )
-    order = models.PositiveSmallIntegerField(default=0, verbose_name=_('Порядок'))
-    is_published = models.BooleanField(default=True, verbose_name=_('Опубліковано'))
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Створено'))
-    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Оновлено'))
-
-    class Meta:
-        db_table = 'core_portfolio_feature_block'
-        ordering = ['order']
-        verbose_name = _('Feature-блок портфоліо Beta')
-        verbose_name_plural = _('Feature-блоки портфоліо Beta')
-
-    def __str__(self) -> str:
-        return self.title
-
-    def get_localized_title(self) -> str:
-        from .i18n_content import localized_text
-
-        return localized_text(self.title, self.title_ru)
-
-    def get_localized_text(self) -> str:
-        from .i18n_content import localized_text
-
-        return localized_text(self.text, self.text_ru)
-
-    def get_image_src(self) -> str:
-        if self.image and self.image.name:
-            return self.image.url
-
-        static_fallbacks = {
-            0: 'images/portfolio_beta/feature-block-admin-dark.png',
-            1: 'images/portfolio_beta/feature-block-yourbrand.png',
-            2: 'images/portfolio_beta/feature-block-multilang.png',
-        }
-        fallback = static_fallbacks.get(self.order)
-        if fallback:
-            from django.templatetags.static import static
-
-            return static(fallback)
-        return ''
-
-    def is_image_left(self) -> bool:
-        return self.order % 2 == 0
 
 
 from .proposal_models import (  # noqa: E402,F401

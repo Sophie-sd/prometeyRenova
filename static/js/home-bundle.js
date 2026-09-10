@@ -1387,9 +1387,9 @@ class PrometeyApp {
                 phoneField.value = userData.phone;
                 // Спробуємо ініціалізувати PhoneMask ще раз
                 setTimeout(() => {
-                    if (typeof PhoneMask !== 'undefined' && !this.phoneMasks.has(phoneField)) {
-                        const mask = new PhoneMask(phoneField);
-                        this.phoneMasks.set(phoneField, mask);
+                    this._attachPhoneMask(phoneField);
+                    const mask = this.phoneMasks.get(phoneField);
+                    if (mask && typeof mask.formatValue === 'function') {
                         mask.formatValue(userData.phone);
                     }
                 }, 0);
@@ -1412,35 +1412,41 @@ class PrometeyApp {
         this.initPhoneMasksForElement(document);
     }
     
+    _useIntlPhoneMask(input) {
+        // Маска обирається лише за мовою інтерфейсу, не за контейнером поля:
+        // cs/en → вільний міжнародний формат, uk/ru → жорсткий український +38.
+        // (синхронізовано з static/js/base.js::_useIntlPhoneMask)
+        const lang = (document.documentElement.getAttribute('lang') || 'uk').toLowerCase();
+        const isIntlLang = lang.indexOf('cs') === 0 || lang.indexOf('en') === 0;
+        return isIntlLang && typeof IntlPhoneMask !== 'undefined';
+    }
+
+    _attachPhoneMask(input) {
+        if (this.phoneMasks.has(input)) return;
+        if (this._useIntlPhoneMask(input)) {
+            this.phoneMasks.set(input, new IntlPhoneMask(input));
+        } else if (typeof PhoneMask !== 'undefined') {
+            this.phoneMasks.set(input, new PhoneMask(input));
+        }
+    }
+
     initPhoneMasksForElement(container) {
-        // Ініціалізуємо маску для полів телефону в контейнері (document або modal)
-        const phoneInputs = container.querySelectorAll('input[type="tel"], input[name="phone"]');
-        
-        phoneInputs.forEach(input => {
-            // Перевіряємо чи PhoneMask доступний та чи не ініціалізований вже
-            if (typeof PhoneMask !== 'undefined' && !this.phoneMasks.has(input)) {
-                const mask = new PhoneMask(input);
-                this.phoneMasks.set(input, mask);
-            }
-        });
+        const phoneInputs = container.querySelectorAll('input[type="tel"]');
+        phoneInputs.forEach((input) => this._attachPhoneMask(input));
     }
     
     /**
      * Відновлює префікс +38 для всіх полів телефону в формі після reset
      */
     restorePhonePrefixes(form) {
-        const phoneInputs = form.querySelectorAll('input[type="tel"], input[name="phone"]');
+        const phoneInputs = form.querySelectorAll('input[type="tel"]');
         
         phoneInputs.forEach(input => {
             if (this.phoneMasks.has(input)) {
                 const mask = this.phoneMasks.get(input);
                 mask.ensurePrefix();
             } else {
-                // Якщо PhoneMask не ініціалізований, ініціалізуємо його
-                if (typeof PhoneMask !== 'undefined') {
-                    const mask = new PhoneMask(input);
-                    this.phoneMasks.set(input, mask);
-                }
+                this._attachPhoneMask(input);
             }
         });
     }
@@ -1723,7 +1729,9 @@ class PrometeyApp {
 
         let nextUrl = window.location.pathname + window.location.search;
         const originalUrl = nextUrl;
-        nextUrl = nextUrl.replace(/^\/(uk|en)\//, '/');
+        // Видаляємо мовний префікс (/en/, /ru/, /cs/) — uk не має префікса
+        // (синхронізовано з static/js/base.js::setLanguage)
+        nextUrl = nextUrl.replace(/^\/(en|ru|cs)\//, '/');
 
         const nextInput = document.createElement('input');
         nextInput.type = 'hidden';
@@ -1984,10 +1992,10 @@ if (typeof module !== 'undefined' && module.exports) {
 // ========================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    initServiceCardsOptimized();
     initServiceModals();
     initProjectStories();
     initAnalytics();
+    initWhyChooseAnimations();
 });
 
 function initServiceCardsOptimized() {
@@ -2221,6 +2229,44 @@ function initAnalytics() {
             clearInterval(timeTracker);
         }
     }, 1000);
+}
+
+function initWhyChooseAnimations() {
+    const whyGrid = document.querySelector('.v2-why-grid');
+    const whyCards = document.querySelectorAll('.v2-why-grid .v2-why-card');
+    if (whyCards.length === 0) return;
+
+    const reduceMotion = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!whyGrid || reduceMotion) return;
+    if (whyGrid.dataset.whyReady === '1') return;
+    whyGrid.dataset.whyReady = '1';
+
+    const canHover = () =>
+        window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    function setActiveCard(target) {
+        whyCards.forEach(card => {
+            card.classList.toggle('v2-why-card--active', card === target);
+        });
+    }
+
+    whyCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            if (!canHover()) return;
+            setActiveCard(card);
+        });
+
+        card.addEventListener('click', () => {
+            setActiveCard(card);
+        });
+    });
+
+    whyGrid.addEventListener('mouseleave', () => {
+        if (!canHover()) return;
+        setActiveCard(null);
+    });
 }
 
 // Helper функція для завантаження background images

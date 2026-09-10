@@ -18,6 +18,7 @@ class ProposalDetailView(DetailView):
     def get_queryset(self):
         return (
             Proposal.objects.filter(is_published=True)
+            .select_related('demo_shop')
             .prefetch_related('modules', 'packages', 'specs')
         )
 

@@ -64,9 +64,10 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    max-width: 1400px;
+    max-width: var(--pl-shell);
     margin: 0 auto;
-    padding: 0 var(--space-xs);
+    padding-inline: var(--pl-gutter);
+    box-sizing: border-box;
 }
 
 /* ===== ЛОГОТИП ===== */
@@ -1012,6 +1013,12 @@
 
 /* RU indicator in language-switcher (non-interactive) */
 .lang-btn--current {
+    cursor: default;
+    pointer-events: none;
+}
+
+/* RU indicator in mobile language-switcher (non-interactive) */
+.mobile-lang-btn--current {
     cursor: default;
     pointer-events: none;
 }

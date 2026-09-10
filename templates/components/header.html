@@ -41,20 +41,13 @@
         <!-- Desktop Language Switcher -->
         <div class="language-switcher">
             {% get_current_language as LANGUAGE_CODE %}
-            {% get_available_languages as LANGUAGES %}
 
-            {% for language_code, language_name in LANGUAGES %}
-            {% if language_code != 'ru' %}
-            <a href="#"
-                class="lang-btn {% if language_code == LANGUAGE_CODE %}active{% endif %} mobile-touch-target mobile-focus-visible lang-switcher-link"
-                data-language-code="{{ language_code }}">
-                {{ language_code|upper }}
-            </a>
-            {% endif %}
-            {% endfor %}
-
-            {% if LANGUAGE_CODE == 'ru' %}
-            <span class="lang-btn active lang-btn--current">RU</span>
+            {% if LANGUAGE_CODE == 'uk' or LANGUAGE_CODE == 'ru' %}
+            <a href="#" class="lang-btn {% if LANGUAGE_CODE == 'uk' %}active{% endif %} mobile-touch-target mobile-focus-visible lang-switcher-link" data-language-code="uk">UK</a>
+            <a href="#" class="lang-btn mobile-touch-target mobile-focus-visible lang-switcher-link" data-language-code="en">EN</a>
+            {% elif LANGUAGE_CODE == 'en' or LANGUAGE_CODE == 'cs' %}
+            <a href="#" class="lang-btn {% if LANGUAGE_CODE == 'en' %}active{% endif %} mobile-touch-target mobile-focus-visible lang-switcher-link" data-language-code="en">EN</a>
+            <a href="#" class="lang-btn {% if LANGUAGE_CODE == 'cs' %}active{% endif %} mobile-touch-target mobile-focus-visible lang-switcher-link" data-language-code="cs">CS</a>
             {% endif %}
         </div>
 

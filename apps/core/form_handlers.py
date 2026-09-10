@@ -35,14 +35,45 @@ def validate_name(name):
     return True
 
 
-def create_form_response(success=True, message="", **extra_data):
+_EMAIL_RE = re.compile(r'^[^@\s]+@[^@\s]+\.[^@\s]+$')
+_CHECKED = frozenset({'1', 'on', 'true', 'yes'})
+
+LEAD_FORM_TYPES = frozenset({
+    'contact',
+    'call_request',
+    'footer-consultation',
+    'consultation',
+    'site-request',
+    'site_request',
+})
+
+
+def validate_email(email):
+    if not email or not _EMAIL_RE.match(email):
+        return False
+    return True
+
+
+def client_ip(request):
+    forwarded = request.META.get('HTTP_X_FORWARDED_FOR', '')
+    if forwarded:
+        return forwarded.split(',')[0].strip() or None
+    return request.META.get('REMOTE_ADDR') or None
+
+
+def has_consent(request) -> bool:
+    value = (request.POST.get('consent') or '').strip().lower()
+    return value in _CHECKED
+
+
+def create_form_response(success=True, message="", status=200, **extra_data):
     """Створює стандартну відповідь для AJAX форм"""
     response_data = {
         'success': success,
         'message': message
     }
     response_data.update(extra_data)
-    return JsonResponse(response_data)
+    return JsonResponse(response_data, status=status)
 
 
 def get_form_type_from_path(request):
@@ -62,7 +93,7 @@ def create_form_data(form_type, name, phone, request, **extra_fields):
         'name': name,
         'phone': phone,
         'timestamp': timezone.now().strftime('%d.%m.%Y %H:%M'),
-        'ip': request.META.get('REMOTE_ADDR', ''),
+        'ip': client_ip(request) or request.META.get('REMOTE_ADDR', ''),
         'user_agent': request.META.get('HTTP_USER_AGENT', ''),
         'gclid': request.POST.get('gclid', '').strip(),
         'utm_source': request.POST.get('utm_source', '').strip(),
@@ -70,7 +101,14 @@ def create_form_data(form_type, name, phone, request, **extra_fields):
         'utm_campaign': request.POST.get('utm_campaign', '').strip(),
         'utm_term': request.POST.get('utm_term', '').strip(),
         'utm_content': request.POST.get('utm_content', '').strip(),
+        'messenger_type': request.POST.get('messenger_type', '').strip(),
+        'project_type': request.POST.get('project_type', '').strip(),
+        'budget': request.POST.get('budget', '').strip(),
+        'preferred_language': request.POST.get('preferred_language', '').strip(),
     }
+    if has_consent(request):
+        form_data['consent_at'] = timezone.now()
+        form_data['consent_ip'] = client_ip(request)
     source_page = request.POST.get('source_page', '').strip()
     if source_page:
         form_data['source_page'] = source_page
@@ -163,6 +201,12 @@ def save_form_submission(form_type, form_data, email_success=False):
             'name': form_data.get('name', ''),
             'phone': form_data.get('phone', ''),
             'email': form_data.get('email', ''),
+            'messenger_type': form_data.get('messenger_type', '') or '',
+            'project_type': form_data.get('project_type', '') or '',
+            'budget': form_data.get('budget', '') or '',
+            'preferred_language': form_data.get('preferred_language', '') or '',
+            'consent_at': form_data.get('consent_at'),
+            'consent_ip': form_data.get('consent_ip'),
             'ip_address': form_data.get('ip'),
             'user_agent': form_data.get('user_agent'),
             'status': 'new',

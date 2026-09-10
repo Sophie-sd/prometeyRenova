@@ -21,10 +21,20 @@
     );
     --svc-piano-slide-ms: 720ms;
     --svc-piano-ease: cubic-bezier(0.33, 1, 0.68, 1);
-    --svc-piano-desc-delay: 0.22s;
+    --svc-piano-desc-delay: 0.24s;
     --svc-piano-head-keys-gap: clamp(180px, 24vw, 280px);
+    --svc-piano-rise-overhang: calc(var(--svc-piano-unit-h-open) - var(--svc-piano-unit-h-idle));
+    --svc-piano-head-gap-open: clamp(18px, 1.9vw, 28px);
+    --svc-piano-stage-pad-top: clamp(16px, 3vw, 32px);
+    --svc-piano-hint-h: 20px;
+    --svc-piano-hint-mt: clamp(-28px, -3vw, -16px);
+    --svc-piano-hint-mb: clamp(20px, 2.8vw, 32px);
+    --svc-piano-hint-footprint: 0px;
     --svc-piano-head-rise-clearance: calc(
-        var(--svc-piano-unit-h-open) - var(--svc-piano-unit-h-idle) + clamp(48px, 5vw, 72px)
+        var(--svc-piano-rise-overhang)
+        + var(--svc-piano-head-gap-open)
+        - var(--svc-piano-stage-pad-top)
+        - var(--svc-piano-hint-footprint)
     );
     --svc-piano-subheading-blur: 16px;
     --svc-piano-subheading-blur-opacity: 0.32;
@@ -62,7 +72,9 @@
     justify-content: center;
     gap: 10px;
     width: 100%;
-    margin: clamp(-28px, -3vw, -16px) 0 clamp(20px, 2.8vw, 32px);
+    margin: var(--svc-piano-hint-mt) 0 var(--svc-piano-hint-mb);
+    height: var(--svc-piano-hint-h);
+    line-height: 1;
     font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: clamp(11px, 1.1vw, 12px);
     font-weight: 400;
@@ -78,6 +90,10 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
+    #svc-piano {
+        --svc-piano-hint-footprint: calc(var(--svc-piano-hint-mt) + var(--svc-piano-hint-h) + var(--svc-piano-hint-mb));
+    }
+
     #svc-piano .svc-piano__hover-hint {
         display: inline-flex;
     }
@@ -191,16 +207,6 @@
     justify-content: flex-end;
     padding-top: 0;
     overflow: visible;
-    opacity: 0;
-    transform: translateY(24px);
-    transition:
-        opacity 0.55s ease,
-        transform 0.55s cubic-bezier(0.33, 1, 0.68, 1);
-}
-
-#svc-piano .svc-piano__unit.is-visible {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 #svc-piano .svc-piano__unit.is-active,
@@ -541,10 +547,5 @@
     #svc-piano:has(.svc-piano__unit.is-active) .svc-piano__subheading {
         filter: none;
         opacity: 0.55;
-    }
-
-    #svc-piano .svc-piano__unit {
-        opacity: 1;
-        transform: none;
     }
 }

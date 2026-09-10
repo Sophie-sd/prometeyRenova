@@ -370,6 +370,23 @@
     margin-top: 4px;
 }
 
+.pl-corp__quiz-gdpr {
+    margin-top: 4px;
+}
+
+.pl-corp__quiz-gdpr .lead-gdpr-min__label {
+    color: #9a9a9a;
+}
+
+.pl-corp__quiz-gdpr .lead-form-checkbox,
+.pl-corp__quiz-gdpr .lead-form-expect {
+    color: #b0b0b0;
+}
+
+.pl-corp__quiz-gdpr .lead-form-policy-link {
+    color: var(--pl-corp-acc, #E65100);
+}
+
 .pl-corp__quiz-step--result .pl-corp__quiz-result {
     margin-bottom: 16px;
 }

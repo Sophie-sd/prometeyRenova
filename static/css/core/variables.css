@@ -36,6 +36,16 @@
     --space-lg: clamp(60px, 8vw, 80px);
     --space-xl: clamp(80px, 12vw, 120px);
 
+    /* ===== ШИРИНА МОДУЛЯ (piano-клавіша 280) ===== */
+    --pl-col: 280px;
+    --pl-gap: clamp(8px, 1.4vw, 14px);
+    --pl-container: calc(4 * var(--pl-col) + 3 * 14px);
+    --pl-w-1: var(--pl-col);
+    --pl-w-2: calc(2 * var(--pl-col) + 14px);
+    --pl-w-3: calc(3 * var(--pl-col) + 2 * 14px);
+    --pl-gutter: max(clamp(16px, 4vw, 20px), env(safe-area-inset-left));
+    --pl-shell: calc(var(--pl-container) + 2 * var(--pl-gutter));
+
     /* ===== BREAKPOINTS (для використання в JS) ===== */
     /* Доступні через getComputedStyle */
     --breakpoint-mobile: 767px;
@@ -49,6 +59,17 @@
     --easing-default: ease-out;
     --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     --easing-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* ===== MOTION (luxury reveal + emil UI) ===== */
+    --t-fast: 160ms;
+    --t-base: 250ms;
+    --t-modal: 300ms;
+    --motion-soft: 500ms;
+    --motion-reveal: 1000ms;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --stagger-reveal: 180ms;
+    --stagger-grid: 120ms;
+    --reveal-distance: 24px;
 
     /* ===== BORDER RADIUS ===== */
     --radius-sm: 8px;
@@ -68,6 +89,18 @@
 
     /* ===== Z-INDEX - визначено в z-index-system.css ===== */
     /* Тут тільки fallback values якщо z-index-system не завантажився */
+}
+
+@media (min-width: 768px) {
+    :root {
+        --pl-gutter: max(64px, env(safe-area-inset-left));
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    :root {
+        --pl-gap: 10px;
+    }
 }
 
 /* ===== ТЕМНА ТЕМА (для майбутнього) ===== */

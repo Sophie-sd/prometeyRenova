@@ -135,6 +135,25 @@ class PaymentLink(models.Model):
     monobank_invoice_url = models.URLField(blank=True, default='')
     payment_processed_at = models.DateTimeField(blank=True, null=True)
 
+    # ── Згода на чекаут (ст. 16(a)/(c) Directive 2011/83/EU, §1837 NOZ) ───────
+    withdrawal_waiver_accepted_at = models.DateTimeField(
+        blank=True, null=True,
+        verbose_name=_('Відмова від 14-денного відступлення — прийнято'),
+        help_text=_('Момент, коли клієнт підтвердив чекбокс про втрату права відступлення перед оплатою.'),
+    )
+    withdrawal_waiver_accepted_ip = models.GenericIPAddressField(
+        blank=True, null=True,
+        verbose_name=_('IP при підтвердженні відмови від відступлення'),
+    )
+    data_consent_accepted_at = models.DateTimeField(
+        blank=True, null=True,
+        verbose_name=_('Згода на обробку даних для оплати — прийнято'),
+    )
+    data_consent_accepted_ip = models.GenericIPAddressField(
+        blank=True, null=True,
+        verbose_name=_('IP при підтвердженні згоди на обробку даних'),
+    )
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Створено'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Оновлено'))
 
@@ -210,6 +229,18 @@ class PaymentLink(models.Model):
         self.status = self.Status.PAID
         self.payment_processed_at = timezone.now()
         self.save(update_fields=['status', 'payment_processed_at'])
+
+    def record_checkout_consent(self, ip_address):
+        """Фіксує момент і IP підтвердження обох чекбоксів чекауту."""
+        now = timezone.now()
+        self.withdrawal_waiver_accepted_at = now
+        self.withdrawal_waiver_accepted_ip = ip_address
+        self.data_consent_accepted_at = now
+        self.data_consent_accepted_ip = ip_address
+        self.save(update_fields=[
+            'withdrawal_waiver_accepted_at', 'withdrawal_waiver_accepted_ip',
+            'data_consent_accepted_at', 'data_consent_accepted_ip',
+        ])
 
 
 class PaymentLinkFile(models.Model):

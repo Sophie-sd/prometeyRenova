@@ -5,7 +5,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initServiceAnimations();
     initServiceModals();
     initProjectStories();
     initAnalytics();
@@ -291,28 +290,39 @@ function loadBackground(element) {
 }
 
 function initWhyChooseAnimations() {
-    const whyCards = document.querySelectorAll('.why-card');
+    const whyGrid = document.querySelector('.v2-why-grid');
+    const whyCards = document.querySelectorAll('.v2-why-grid .v2-why-card');
     if (whyCards.length === 0) return;
 
-    if (!('IntersectionObserver' in window)) {
-        whyCards.forEach(card => card.classList.add('visible'));
-        return;
+    const reduceMotion = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!whyGrid || reduceMotion) return;
+    if (whyGrid.dataset.whyReady === '1') return;
+    whyGrid.dataset.whyReady = '1';
+
+    const canHover = () =>
+        window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    function setActiveCard(target) {
+        whyCards.forEach(card => {
+            card.classList.toggle('v2-why-card--active', card === target);
+        });
     }
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const delay = entry.target.dataset.delay || 0;
-                setTimeout(() => {
-                    entry.target.classList.add('visible');
-                }, delay);
-                observer.unobserve(entry.target);
-            }
+    whyCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            if (!canHover()) return;
+            setActiveCard(card);
         });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px'
+
+        card.addEventListener('click', () => {
+            setActiveCard(card);
+        });
     });
 
-    whyCards.forEach(card => observer.observe(card));
+    whyGrid.addEventListener('mouseleave', () => {
+        if (!canHover()) return;
+        setActiveCard(null);
+    });
 }

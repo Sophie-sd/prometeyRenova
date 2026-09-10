@@ -13,7 +13,7 @@
 {% block og_description %}{% trans "Зв'яжіться з командою PrometeyLabs для розробки сайтів, Telegram ботів, реклами чи навчання. Швидка відповідь." %}{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/contacts.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'css/contacts.css' %}?v=4">
 {% endblock %}
 
 {% block content %}
@@ -72,20 +72,13 @@
                         <p class="form-intro">{% trans "Заповніть форму, і ми зв'яжемося з вами протягом 15 хвилин" %}</p>
 
                         <form id="contactForm" class="contact-form" data-form-type="contact">
-                            <div class="form-group">
-                                <label for="name" class="form-label">{% trans "Ваше ім'я" %} <span class="required">*</span></label>
-                                <input type="text" id="name" name="name" class="form-input" required placeholder="{% trans "Ім'я" %}">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="phone" class="form-label">{% trans "Телефон" %} <span class="required">*</span></label>
-                                <input type="tel" id="phone" name="phone" class="form-input" required
-                                    placeholder="+38(___)__-__-___">
-                            </div>
+                            {% csrf_token %}
+                            <input type="hidden" name="form_type" value="contact">
+                            {% include 'components/lead_form_fields.html' with prefix='contact' %}
 
                             <div class="form-group full-width">
-                                <label for="message" class="form-label">{% trans "Повідомлення" %}</label>
-                                <textarea id="message" name="message" class="form-textarea" rows="5"
+                                <label for="contact-message" class="form-label">{% trans "Повідомлення" %}</label>
+                                <textarea id="contact-message" name="message" class="form-textarea lead-form-input" rows="5"
                                     placeholder="{% trans 'Опишіть ваш проект або задайте питання' %}"></textarea>
                             </div>
 

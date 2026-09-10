@@ -55,9 +55,10 @@ body.pl-shop-body {
 }
 
 .pl-shop__inner {
-    max-width: 1180px;
+    max-width: var(--pl-shell);
     margin: 0 auto;
-    padding: 0 24px;
+    padding-inline: var(--pl-gutter);
+    box-sizing: border-box;
 }
 
 /* ===== ANCHOR SUB-NAV ===== */
@@ -702,13 +703,13 @@ body.pl-shop-body {
 }
 
 .pl-shop__section-head {
-    max-width: 760px;
+    max-width: var(--pl-w-2);
     margin: 0 auto 36px;
     text-align: center;
 }
 
 .pl-shop__section-head--left {
-    max-width: 680px;
+    max-width: var(--pl-w-2);
     margin: 0 0 36px;
     text-align: left;
 }
@@ -1894,7 +1895,7 @@ body.pl-shop-body {
 
 .pl-shop__pkg-note {
     margin: clamp(24px, 3vw, 36px) 0 0;
-    max-width: 720px;
+    max-width: var(--pl-w-2);
     font-size: 14px;
     line-height: 1.6;
     color: #7a7a7a;
@@ -2679,7 +2680,7 @@ body.pl-shop-body {
 
 .pl-shop__calc-inner {
     position: relative;
-    max-width: 720px;
+    max-width: var(--pl-w-2);
     margin: 0 auto;
 }
 
@@ -3074,6 +3075,23 @@ body.pl-shop-body {
     width: 100%;
     min-height: 48px;
     margin-top: 4px;
+}
+
+.pl-shop__quiz-gdpr {
+    margin-top: 4px;
+}
+
+.pl-shop__quiz-gdpr .lead-gdpr-min__label {
+    color: #9a9a9a;
+}
+
+.pl-shop__quiz-gdpr .lead-form-checkbox,
+.pl-shop__quiz-gdpr .lead-form-expect {
+    color: #b0b0b0;
+}
+
+.pl-shop__quiz-gdpr .lead-form-policy-link {
+    color: var(--pl-acc, #E65100);
 }
 
 .pl-shop__quiz-note {

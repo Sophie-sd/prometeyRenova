@@ -6,38 +6,108 @@
     var form = document.getElementById('pl-shop-quiz-form');
     if (!form) return;
 
-    var PKG_MAP = {
-        base: {
-            label: 'BASE',
-            price: 'від 800\u00a0€',
-            term: '3–4 тижні',
-            features: [
-                'Базовий конверсійний дизайн під нішу',
-                'ШІ-контент та базова SEO-підготовка',
-                'Розгортання під ключ на вашому домені'
-            ]
+    var lang = (document.documentElement.lang || 'uk').split('-')[0].toLowerCase();
+
+    var PKG_MAP_BY_LANG = {
+        uk: {
+            base: {
+                label: 'BASE',
+                price: 'від 1\u00a0400\u00a0€',
+                term: '3–4 тижні',
+                features: [
+                    'Базовий конверсійний дизайн під нішу',
+                    'ШІ-контент та базова SEO-підготовка',
+                    'Розгортання під ключ на вашому домені'
+                ]
+            },
+            premium: {
+                label: 'PREMIUM',
+                price: 'від 2\u00a0800\u00a0€',
+                term: '5–8 тижнів',
+                features: [
+                    'Індивідуальний UI/UX дизайн з нуля',
+                    'Інтеграції: платежі, логістика, CRM',
+                    'Контент-маркетинг та SEO-статті'
+                ]
+            },
+            platinum: {
+                label: 'PLATINUM',
+                price: 'від 8\u00a0000\u00a0€',
+                term: '2–4 місяці',
+                features: [
+                    'Premium UI/UX + кінематографічна анімація',
+                    'AI-екосистема адмінки та Telegram-бот',
+                    '6 місяців контент-маркетингу та медіакампанії'
+                ]
+            }
         },
-        premium: {
-            label: 'PREMIUM',
-            price: 'від 1\u00a0500\u00a0€',
-            term: '5–8 тижнів',
-            features: [
-                'Індивідуальний UI/UX дизайн з нуля',
-                'Інтеграції: платежі, логістика, CRM',
-                'Контент-маркетинг та SEO-статті'
-            ]
+        cs: {
+            base: {
+                label: 'BASE',
+                price: 'od 1\u00a0400\u00a0€',
+                term: '3–4 týdny',
+                features: [
+                    'Základní konverzní design pro vaši niku',
+                    'AI obsah a základní SEO příprava',
+                    'Nasazení na klíč na vaší doméně'
+                ]
+            },
+            premium: {
+                label: 'PREMIUM',
+                price: 'od 2\u00a0800\u00a0€',
+                term: '5–8 týdnů',
+                features: [
+                    'Individuální UI/UX design od nuly',
+                    'Integrace: platby, logistika, CRM',
+                    'Content marketing a SEO články'
+                ]
+            },
+            platinum: {
+                label: 'PLATINUM',
+                price: 'od 8\u00a0000\u00a0€',
+                term: '2–4 měsíce',
+                features: [
+                    'Premium UI/UX + kinematografická animace',
+                    'AI ekosystém administrace a Telegram bot',
+                    '6 měsíců content marketingu a mediakampaní'
+                ]
+            }
         },
-        platinum: {
-            label: 'PLATINUM',
-            price: 'від 7\u00a0000\u00a0€',
-            term: '2–4 місяці',
-            features: [
-                'Premium UI/UX + кінематографічна анімація',
-                'AI-екосистема адмінки та Telegram-бот',
-                '6 місяців контент-маркетингу та медіакампанії'
-            ]
+        en: {
+            base: {
+                label: 'BASE',
+                price: 'from €1\u00a0400',
+                term: '3–4 weeks',
+                features: [
+                    'Conversion-focused design for your niche',
+                    'AI content and basic SEO setup',
+                    'Turnkey deploy on your domain'
+                ]
+            },
+            premium: {
+                label: 'PREMIUM',
+                price: 'from €2\u00a0800',
+                term: '5–8 weeks',
+                features: [
+                    'Custom UI/UX design from scratch',
+                    'Integrations: payments, logistics, CRM',
+                    'Content marketing and SEO articles'
+                ]
+            },
+            platinum: {
+                label: 'PLATINUM',
+                price: 'from €8\u00a0000',
+                term: '2–4 months',
+                features: [
+                    'Premium UI/UX + cinematic animation',
+                    'Admin AI ecosystem and Telegram bot',
+                    '6 months of content marketing and media campaigns'
+                ]
+            }
         }
     };
+    PKG_MAP_BY_LANG.ru = PKG_MAP_BY_LANG.uk;
+    var PKG_MAP = PKG_MAP_BY_LANG[lang] || PKG_MAP_BY_LANG.uk;
 
     var steps = Array.from(form.querySelectorAll('.pl-shop__quiz-step'));
     var progressBar = form.querySelector('[data-quiz-progress]');
@@ -95,7 +165,7 @@
         var timeline = getCheckedValue('q_timeline');
 
         if (start === 'Старт з нуля') score.base += 2;
-        if (start === 'Міграція з Prom / OLX') score.premium += 2;
+        if (start === 'migration' || start === 'Міграція з Prom / OLX') score.premium += 2;
         if (start === 'Масштабування + маркетинг під ключ') score.platinum += 3;
         if (start === 'Ще не визначився') score.premium += 1;
 

@@ -154,7 +154,7 @@ body.modal-open .main-footer {
 .footer-form .form-label {
     display: block;
     font-size: 14px;
-    color: #aaaaaa;
+    color: #d0d0d0;
     margin-bottom: 6px;
     font-weight: 500;
 }
@@ -221,6 +221,48 @@ body.modal-open .main-footer {
     font-size: 14px;
     font-weight: 600;
     margin-top: 5px;
+}
+
+/* ===== FOOTER IMPRESSUM (юр. дані трейдера) ===== */
+.footer-impressum {
+    padding-top: 15px;
+    margin-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.footer-impressum p {
+    font-size: 12px;
+    color: #b0b0b0;
+    line-height: 1.7;
+    flex-wrap: wrap;
+}
+
+.footer-impressum-dot {
+    padding: 0 6px;
+    color: #888888;
+}
+
+.footer-impressum-link,
+button.footer-cookie-settings-btn {
+    color: #d0d0d0;
+    -webkit-text-fill-color: #d0d0d0;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    font: inherit;
+    font-size: inherit;
+    padding: 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: color var(--transition-fast) var(--easing-default);
+}
+
+.footer-impressum-link:hover,
+button.footer-cookie-settings-btn:hover {
+    color: var(--color-brand-orange);
+    -webkit-text-fill-color: var(--color-brand-orange);
 }
 
 /* ===== FOOTER BOTTOM ===== */
@@ -378,6 +420,19 @@ body.modal-open .main-footer {
     .footer-bottom p {
         font-size: 11px;
         line-height: 1.5;
+    }
+
+    .footer-impressum {
+        padding-top: 12px;
+    }
+
+    .footer-impressum p {
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+    .footer-impressum-link {
+        font-size: 11px;
     }
 }
 

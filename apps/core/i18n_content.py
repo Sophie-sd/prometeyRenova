@@ -66,11 +66,23 @@ def is_ru_language() -> bool:
     return translation.get_language() == 'ru'
 
 
-def localized_text(ua_value: str | None, ru_value: str | None) -> str:
+def localized_text(
+    ua_value: str | None,
+    ru_value: str | None,
+    en_value: str | None = None,
+    cs_value: str | None = None,
+) -> str:
     ua = (ua_value or '').strip()
     ru = (ru_value or '').strip()
-    if is_ru_language() and ru:
+    en = (en_value or '').strip()
+    cs = (cs_value or '').strip()
+    lang = translation.get_language()
+    if lang == 'en' and en:
+        return en
+    if lang == 'ru' and ru:
         return ru
+    if lang == 'cs' and cs:
+        return cs
     return ua
 
 

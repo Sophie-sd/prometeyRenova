@@ -1,11 +1,12 @@
+{% load i18n %}
 <section id="calculator" class="pl-shop__section pl-shop__calc" aria-labelledby="pl-shop-calc-title">
     <div class="pl-shop__calc-inner pl-shop__inner">
         <div class="pl-shop__calc-head" data-reveal>
             <h2 id="pl-shop-calc-title" class="pl-shop__title pl-shop__title--section">
-                Розрахуйте вартість<br>інтернет-магазину
+                {% trans "Розрахуйте вартість" %}<br>{% trans "інтернет-магазину" %}
             </h2>
             <p class="pl-shop__calc-subtitle">
-                4 коротких питання — отримаєте рекомендацію пакета та дзвінок менеджера з орієнтовною вартістю.
+                {% trans "4 коротких питання — отримаєте рекомендацію пакета та дзвінок менеджера з орієнтовною вартістю." %}
             </p>
         </div>
 
@@ -16,6 +17,8 @@
             action="{% url 'form_submit' %}"
             data-form-type="site_request"
             data-source-label="Інтернет-магазин v2"
+            data-error-phone-missing="{% trans 'Додайте номер телефону разом із Telegram або вкажіть телефон для звʼязку.' %}"
+            data-error-phone-invalid="{% trans 'Введіть коректний номер телефону або Telegram з номером.' %}"
             data-reveal
         >
             {% csrf_token %}
@@ -27,72 +30,72 @@
                 <div class="pl-shop__quiz-progress" aria-hidden="true">
                     <div class="pl-shop__quiz-progress-bar" data-quiz-progress></div>
                 </div>
-                <p class="pl-shop__quiz-progress-label">Крок <span data-quiz-step-num>1</span> з 4</p>
+                <p class="pl-shop__quiz-progress-label">{% blocktrans %}Крок <span data-quiz-step-num>1</span> з 4{% endblocktrans %}</p>
             </div>
 
             <div class="pl-shop__quiz-step" data-step="1">
-                <p class="pl-shop__quiz-question">Звідки стартуєте?</p>
+                <p class="pl-shop__quiz-question">{% trans "Звідки стартуєте?" %}</p>
                 <ul class="pl-shop__quiz-options">
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="radio" name="q_start" value="Старт з нуля">
-                            <span class="pl-shop__quiz-option-text">Старт з нуля</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "Старт з нуля" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-shop__quiz-option">
-                            <input type="radio" name="q_start" value="Міграція з Prom / OLX">
-                            <span class="pl-shop__quiz-option-text">Міграція з Prom / OLX</span>
+                            <input type="radio" name="q_start" value="migration">
+                            <span class="pl-shop__quiz-option-text">{% trans "Міграція з Prom / OLX" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="radio" name="q_start" value="Масштабування + маркетинг під ключ">
-                            <span class="pl-shop__quiz-option-text">Масштабування + маркетинг під ключ</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "Масштабування + маркетинг під ключ" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="radio" name="q_start" value="Ще не визначився">
-                            <span class="pl-shop__quiz-option-text">Ще не визначився — потрібна консультація</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "Ще не визначився — потрібна консультація" %}</span>
                         </label>
                     </li>
                 </ul>
             </div>
 
             <div class="pl-shop__quiz-step" data-step="2" hidden>
-                <p class="pl-shop__quiz-question">Скільки товарів у каталозі?</p>
+                <p class="pl-shop__quiz-question">{% trans "Скільки товарів у каталозі?" %}</p>
                 <ul class="pl-shop__quiz-options">
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="radio" name="q_products" value="До 100 товарів">
-                            <span class="pl-shop__quiz-option-text">До 100 товарів</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "До 100 товарів" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="radio" name="q_products" value="100–1000 товарів">
-                            <span class="pl-shop__quiz-option-text">100–1000 товарів</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "100–1000 товарів" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="radio" name="q_products" value="1000–10 000 товарів">
-                            <span class="pl-shop__quiz-option-text">1000–10 000 товарів</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "1000–10 000 товарів" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="radio" name="q_products" value="Більше 10 000 товарів">
-                            <span class="pl-shop__quiz-option-text">Більше 10 000 товарів</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "Більше 10 000 товарів" %}</span>
                         </label>
                     </li>
                 </ul>
             </div>
 
             <div class="pl-shop__quiz-step" data-step="3" data-multi="true" hidden>
-                <p class="pl-shop__quiz-question">Які додаткові опції потрібні?</p>
-                <p class="pl-shop__quiz-hint">Можна обрати декілька варіантів</p>
+                <p class="pl-shop__quiz-question">{% trans "Які додаткові опції потрібні?" %}</p>
+                <p class="pl-shop__quiz-hint">{% trans "Можна обрати декілька варіантів" %}</p>
                 <ul class="pl-shop__quiz-options pl-shop__quiz-options--multi">
                     <li>
                         <label class="pl-shop__quiz-option">
@@ -103,61 +106,61 @@
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="checkbox" name="q_features" value="SEO + статті">
-                            <span class="pl-shop__quiz-option-text">SEO + статті</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "SEO + статті" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="checkbox" name="q_features" value="AI-адмінка + бот">
-                            <span class="pl-shop__quiz-option-text">AI-адмінка + бот</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "AI-адмінка + бот" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="checkbox" name="q_features" value="Реклама та просування">
-                            <span class="pl-shop__quiz-option-text">Реклама та просування</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "Реклама та просування" %}</span>
                         </label>
                     </li>
                 </ul>
             </div>
 
             <div class="pl-shop__quiz-step" data-step="4" hidden>
-                <p class="pl-shop__quiz-question">Коли потрібен запуск?</p>
+                <p class="pl-shop__quiz-question">{% trans "Коли потрібен запуск?" %}</p>
                 <ul class="pl-shop__quiz-options">
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="radio" name="q_timeline" value="Якнайшвидше (до 2 тижнів)">
-                            <span class="pl-shop__quiz-option-text">Якнайшвидше (до 2 тижнів)</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "Якнайшвидше (до 2 тижнів)" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="radio" name="q_timeline" value="Протягом місяця">
-                            <span class="pl-shop__quiz-option-text">Протягом місяця</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "Протягом місяця" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="radio" name="q_timeline" value="1–3 місяці">
-                            <span class="pl-shop__quiz-option-text">1–3 місяці</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "1–3 місяці" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-shop__quiz-option">
                             <input type="radio" name="q_timeline" value="Терміни гнучкі">
-                            <span class="pl-shop__quiz-option-text">Терміни гнучкі</span>
+                            <span class="pl-shop__quiz-option-text">{% trans "Терміни гнучкі" %}</span>
                         </label>
                     </li>
                 </ul>
             </div>
 
             <div class="pl-shop__quiz-step pl-shop__quiz-step--contact" data-step="contact" hidden>
-                <p class="pl-shop__quiz-question">Майже готово!</p>
-                <p class="pl-shop__quiz-hint">Залишіть контакти — і ми покажемо орієнтовну вартість за вашими відповідями.</p>
+                <p class="pl-shop__quiz-question">{% trans "Майже готово!" %}</p>
+                <p class="pl-shop__quiz-hint">{% trans "Залишіть контакти — і ми покажемо орієнтовну вартість за вашими відповідями." %}</p>
 
                 <div class="pl-shop__quiz-fields pl-shop__quiz-fields--contact">
                     <div class="pl-shop__quiz-field">
-                        <label class="pl-shop__quiz-field-label" for="pl-shop-quiz-name">Ваше імʼя</label>
+                        <label class="pl-shop__quiz-field-label" for="pl-shop-quiz-name">{% trans "Ваше імʼя" %}</label>
                         <input
                             type="text"
                             id="pl-shop-quiz-name"
@@ -166,11 +169,11 @@
                             autocomplete="given-name"
                             inputmode="text"
                             required
-                            placeholder="Імʼя"
+                            placeholder="{% trans 'Імʼя' %}"
                         >
                     </div>
                     <div class="pl-shop__quiz-field">
-                        <label class="pl-shop__quiz-field-label" for="pl-shop-quiz-phone">Телефон</label>
+                        <label class="pl-shop__quiz-field-label" for="pl-shop-quiz-phone">{% trans "Телефон" %}</label>
                         <input
                             type="tel"
                             id="pl-shop-quiz-phone"
@@ -179,23 +182,24 @@
                             autocomplete="tel"
                             inputmode="tel"
                             required
-                            placeholder="+38(___)__-__-___"
+                            placeholder="{{ phone_placeholder }}"
                         >
                     </div>
+                    {% include 'components/lead_gdpr_min.html' with prefix='pl-shop-quiz' input_class='pl-shop__quiz-input mobile-touch-target' wrap_class='pl-shop__quiz-gdpr' %}
                     <button
                         type="submit"
                         class="pl-shop__btn pl-shop__btn--primary pl-shop__quiz-reveal mobile-touch-target"
                         data-quiz-reveal
                     >
-                        Отримати розрахунок →
+                        {% trans "Отримати розрахунок →" %}
                     </button>
                 </div>
             </div>
 
             <div class="pl-shop__quiz-nav">
-                <button type="button" class="pl-shop__btn pl-shop__btn--ghost pl-shop__quiz-prev mobile-touch-target" hidden>← Назад</button>
-                <button type="button" class="pl-shop__btn pl-shop__btn--ghost pl-shop__quiz-skip mobile-touch-target" hidden>Пропустити</button>
-                <button type="button" class="pl-shop__btn pl-shop__btn--primary pl-shop__quiz-next mobile-touch-target" hidden disabled>Далі →</button>
+                <button type="button" class="pl-shop__btn pl-shop__btn--ghost pl-shop__quiz-prev mobile-touch-target" hidden>{% trans "← Назад" %}</button>
+                <button type="button" class="pl-shop__btn pl-shop__btn--ghost pl-shop__quiz-skip mobile-touch-target" hidden>{% trans "Пропустити" %}</button>
+                <button type="button" class="pl-shop__btn pl-shop__btn--primary pl-shop__quiz-next mobile-touch-target" hidden disabled>{% trans "Далі →" %}</button>
             </div>
         </form>
     </div>

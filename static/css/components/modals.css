@@ -146,6 +146,21 @@ body.modal-open {
     font-weight: 700;
 }
 
+.result-price-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    max-width: 70%;
+}
+
+.result-price-secondary {
+    color: var(--color-text-muted, #666);
+    font-size: 0.875rem;
+    line-height: 1.4;
+    text-align: right;
+}
+
 .result-actions {
     margin-top: var(--space-md);
 }
@@ -174,6 +189,16 @@ body.modal-open {
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
+    }
+
+    .result-price-wrap {
+        align-items: flex-start;
+        max-width: 100%;
+    }
+
+    .result-price-secondary {
+        text-align: left;
+        font-size: 1rem; /* iOS Safari: без zoom на фокусі сусідніх полів */
     }
 
     .result-actions .btn {

@@ -6,38 +6,108 @@
     var form = document.getElementById('pl-corp-quiz-form');
     if (!form) return;
 
-    var PKG_MAP = {
-        starter: {
-            label: 'СТАРТОВИЙ',
-            term: '5–7 днів',
-            features: [
-                '1-сторінковий лендинг під бренд',
-                'Базове SEO та форма заявки',
-                'Інтеграція Telegram або CRM',
-                'Адаптивна мобільна версія'
-            ]
+    var lang = (document.documentElement.lang || 'uk').split('-')[0].toLowerCase();
+
+    var PKG_MAP_BY_LANG = {
+        uk: {
+            starter: {
+                label: 'СТАРТОВИЙ',
+                term: '5–7 днів',
+                features: [
+                    '1-сторінковий лендинг під бренд',
+                    'Базове SEO та форма заявки',
+                    'Інтеграція Telegram або CRM',
+                    'Адаптивна мобільна версія'
+                ]
+            },
+            corporate: {
+                label: 'КОРПОРАТИВНИЙ',
+                term: '2–3 тижні',
+                features: [
+                    '5–9 сторінок, блог для SEO',
+                    'Розширене SEO та Core Web Vitals',
+                    'CRM + Google Ads у пакеті',
+                    'Каталог послуг або продукції'
+                ]
+            },
+            premium: {
+                label: 'БІЗНЕС-ПРЕМІУМ',
+                term: '3–6 тижнів',
+                features: [
+                    '10+ сторінок, мультимовність',
+                    'Інтеграція 1С / Bitrix24',
+                    'Маркетинг під ключ: Google, Meta, TikTok',
+                    'SEO-просування та складний функціонал'
+                ]
+            }
         },
-        corporate: {
-            label: 'КОРПОРАТИВНИЙ',
-            term: '2–3 тижні',
-            features: [
-                '5–9 сторінок, блог для SEO',
-                'Розширене SEO та Core Web Vitals',
-                'CRM + Google Ads у пакеті',
-                'Каталог послуг або продукції'
-            ]
+        cs: {
+            starter: {
+                label: 'START',
+                term: '5–7 dní',
+                features: [
+                    'Jednostránkový landing na míru značky',
+                    'Základní SEO a poptávkový formulář',
+                    'Integrace Telegram nebo CRM',
+                    'Responzivní mobilní verze'
+                ]
+            },
+            corporate: {
+                label: 'FIREMNÍ',
+                term: '2–3 týdny',
+                features: [
+                    '5–9 stránek, blog pro SEO',
+                    'Rozšířené SEO a Core Web Vitals',
+                    'CRM + Google Ads v balíčku',
+                    'Katalog služeb nebo produktů'
+                ]
+            },
+            premium: {
+                label: 'BUSINESS PREMIUM',
+                term: '3–6 týdnů',
+                features: [
+                    '10+ stránek, vícejazyčnost',
+                    'Integrace Pohoda / Money S3 / ABRA',
+                    'Marketing na klíč: Google, Meta, TikTok',
+                    'SEO propagace a pokročilé funkce'
+                ]
+            }
         },
-        premium: {
-            label: 'БІЗНЕС-ПРЕМІУМ',
-            term: '3–6 тижнів',
-            features: [
-                '10+ сторінок, мультимовність',
-                'Інтеграція 1С / Bitrix24',
-                'Маркетинг під ключ: Google, Meta, TikTok',
-                'SEO-просування та складний функціонал'
-            ]
+        en: {
+            starter: {
+                label: 'STARTER',
+                term: '5–7 days',
+                features: [
+                    'One-page landing for your brand',
+                    'Basic SEO and lead form',
+                    'Telegram or CRM integration',
+                    'Responsive mobile version'
+                ]
+            },
+            corporate: {
+                label: 'CORPORATE',
+                term: '2–3 weeks',
+                features: [
+                    '5–9 pages, blog for SEO',
+                    'Advanced SEO and Core Web Vitals',
+                    'CRM + Google Ads included',
+                    'Services or product catalog'
+                ]
+            },
+            premium: {
+                label: 'BUSINESS PREMIUM',
+                term: '3–6 weeks',
+                features: [
+                    '10+ pages, multilingual',
+                    'Pohoda / Money S3 / ABRA integration',
+                    'Turnkey marketing: Google, Meta, TikTok',
+                    'SEO growth and advanced features'
+                ]
+            }
         }
     };
+    PKG_MAP_BY_LANG.ru = PKG_MAP_BY_LANG.uk;
+    var PKG_MAP = PKG_MAP_BY_LANG[lang] || PKG_MAP_BY_LANG.uk;
 
     var steps = Array.from(form.querySelectorAll('.pl-corp__quiz-step'));
     var stage = form.querySelector('.pl-corp__quiz-stage');
@@ -253,9 +323,21 @@
 
     function validateContactFields() {
         var valid = true;
+        var emailInput = form.querySelector('#pl-corp-quiz-email');
+        var consentInput = form.querySelector('[name="consent"]');
 
         if (nameInput && !nameInput.checkValidity()) {
             nameInput.reportValidity();
+            valid = false;
+        }
+
+        if (emailInput && !emailInput.checkValidity()) {
+            emailInput.reportValidity();
+            valid = false;
+        }
+
+        if (consentInput && !consentInput.checked) {
+            consentInput.reportValidity();
             valid = false;
         }
 
@@ -272,11 +354,11 @@
 
         if (contact.charAt(0) === '@') {
             if (digits < 7) {
-                showPhoneError('Додайте номер телефону разом із Telegram або вкажіть телефон для звʼязку.');
+                showPhoneError(form.dataset.errorPhoneMissing || 'Додайте номер телефону разом із Telegram або вкажіть телефон для звʼязку.');
                 valid = false;
             }
         } else if (digits < 7) {
-            showPhoneError('Введіть коректний номер телефону або Telegram з номером.');
+            showPhoneError(form.dataset.errorPhoneInvalid || 'Введіть коректний номер телефону або Telegram з номером.');
             valid = false;
         }
 

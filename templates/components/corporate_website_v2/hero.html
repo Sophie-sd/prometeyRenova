@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <section id="top" class="pl-corp__hero pl-corp__section" aria-labelledby="pl-corp-hero-title">
     <div class="pl-corp__hero-grid" aria-hidden="true"></div>
 
@@ -6,21 +7,21 @@
         <div class="pl-corp__hero-row">
             <div class="pl-corp__hero-copy">
                 <h1 id="pl-corp-hero-title" class="pl-corp__title pl-corp__title--hero">
-                    Корпоративні сайти та лендінги, що <span class="pl-corp__accent">домінують у пошуку.</span>
+                    {% blocktrans trimmed %}Корпоративні сайти та лендінги, що <span class="pl-corp__accent">домінують у пошуку.</span>{% endblocktrans %}
                 </h1>
                 <p class="pl-corp__lead">
-                    Створюємо цифрові активи з оцінкою <strong>100/100 від Google</strong>. Чистий код, який знижує вартість залучення клієнта <strong>у 2 рази</strong> та забезпечує пожиттєву масштабованість.
+                    {% blocktrans trimmed %}Створюємо цифрові активи з оцінкою <strong>100/100 від Google</strong>. Чистий код, який знижує вартість залучення клієнта <strong>у 2 рази</strong> та забезпечує пожиттєву масштабованість.{% endblocktrans %}
                 </p>
                 <div class="pl-corp__hero-actions">
-                    <a href="#calculator" class="pl-corp__btn pl-corp__btn--primary mobile-touch-target">Розрахувати вартість</a>
-                    <button type="button" class="pl-corp__btn pl-corp__btn--ghost mobile-touch-target" data-modal="call-request-modal">Замовити консультацію</button>
+                    <a href="#calculator" class="pl-corp__btn pl-corp__btn--primary mobile-touch-target">{% trans "Розрахувати вартість" %}</a>
+                    <button type="button" class="pl-corp__btn pl-corp__btn--ghost mobile-touch-target" data-modal="call-request-modal">{% trans "Замовити консультацію" %}</button>
                 </div>
             </div>
 
             <div class="pl-corp__hero-stage" data-hero-stage>
                 <div class="pl-corp__hero-stage-inner">
                     <div class="pl-corp__hero-chips-row">
-                        <div class="pl-corp__hero-chip pl-corp__hero-chip--lighthouse" data-hero-chip data-hero-tab-trigger="tech" role="button" tabindex="0" aria-label="Google Lighthouse — показати Core Web Vitals">
+                        <div class="pl-corp__hero-chip pl-corp__hero-chip--lighthouse" data-hero-chip data-hero-tab-trigger="tech" role="button" tabindex="0" aria-label="{% trans 'Google Lighthouse — показати Core Web Vitals' %}">
                             <div class="pl-corp__hero-chip-title">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9a9a9a" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>
                                 Google Lighthouse
@@ -69,12 +70,12 @@
                             </div>
                         </div>
 
-                        <div class="pl-corp__hero-chip pl-corp__hero-chip--timer" data-hero-chip data-hero-tab-trigger="speed" role="button" tabindex="0" aria-label="Час завантаження — показати тест швидкості">
+                        <div class="pl-corp__hero-chip pl-corp__hero-chip--timer" data-hero-chip data-hero-tab-trigger="speed" role="button" tabindex="0" aria-label="{% trans 'Час завантаження — показати тест швидкості' %}">
                             <div class="pl-corp__hero-chip-title">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
-                                Час завантаження
+                                {% trans "Час завантаження" %}
                             </div>
-                            <div class="pl-corp__hero-timer-val">0.1<span> сек</span></div>
+                            <div class="pl-corp__hero-timer-val">0.1<span> {% trans "сек" %}</span></div>
                             <div class="pl-corp__hero-prog" aria-hidden="true">
                                 <div class="pl-corp__hero-prog-bar"></div>
                             </div>
@@ -96,42 +97,51 @@
                                 <div class="pl-corp__hero-win-panels" data-hero-panels>
                                     <div class="pl-corp__hero-win-panel is-active" data-hero-panel="main" aria-hidden="false">
                                         <div class="pl-corp__hero-win-label" data-hero-win-line>
-                                            <span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>Corporate
+                                            <span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>{% trans "Корпоративний" %}
                                         </div>
-                                        <h3 class="pl-corp__hero-win-title" data-hero-win-line>Ваш корпоративний сайт</h3>
-                                        <p class="pl-corp__hero-win-sub" data-hero-win-line>100/100 у Google Lighthouse</p>
-                                        <p class="pl-corp__hero-win-desc" data-hero-win-line>Швидкий, безпечний і готовий до масштабування без переплат за рекламу</p>
+                                        <h3 class="pl-corp__hero-win-title" data-hero-win-line>{% trans "Ваш корпоративний сайт" %}</h3>
+                                        <p class="pl-corp__hero-win-sub" data-hero-win-line>100/100 {% trans "у Google Lighthouse" %}</p>
+                                        <p class="pl-corp__hero-win-desc" data-hero-win-line>{% trans "Швидкий, безпечний і готовий до масштабування без переплат за рекламу" %}</p>
                                     </div>
 
                                     <div class="pl-corp__hero-win-panel" data-hero-panel="economy" aria-hidden="true">
-                                        <button type="button" class="pl-corp__hero-win-back mobile-touch-target" data-hero-back>← Головна</button>
-                                        <div class="pl-corp__hero-win-label"><span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>Економія</div>
-                                        <h3 class="pl-corp__hero-win-title">−38% вартість кліку</h3>
-                                        <p class="pl-corp__hero-win-sub">Google Ads винагороджує швидкість</p>
-                                        <p class="pl-corp__hero-win-desc">Чистий код знижує CPC і підвищує Quality Score — ви платите менше за той самий трафік.</p>
+                                        <button type="button" class="pl-corp__hero-win-back mobile-touch-target" data-hero-back>{% trans "← Головна" %}</button>
+                                        <div class="pl-corp__hero-win-label"><span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>{% trans "Економія" %}</div>
+                                        <h3 class="pl-corp__hero-win-title">{% trans "−38% вартість кліку" %}</h3>
+                                        <p class="pl-corp__hero-win-sub">{% trans "Google Ads винагороджує швидкість" %}</p>
+                                        <p class="pl-corp__hero-win-desc">{% trans "Чистий код знижує CPC і підвищує Quality Score — ви платите менше за той самий трафік." %}</p>
                                         <ul class="pl-corp__hero-win-stats">
-                                            <li><span>CPC конкурентів</span><strong>₴42</strong></li>
-                                            <li><span>Ваш CPC</span><strong class="pl-corp__accent">₴26</strong></li>
+                                            {% get_current_language as LANGUAGE_CODE %}
+                                            {% if LANGUAGE_CODE == 'cs' %}
+                                            <li><span>{% trans "CPC конкурентів" %}</span><strong>42&nbsp;Kč</strong></li>
+                                            <li><span>{% trans "Ваш CPC" %}</span><strong class="pl-corp__accent">26&nbsp;Kč</strong></li>
+                                            {% elif LANGUAGE_CODE == 'en' %}
+                                            <li><span>{% trans "CPC конкурентів" %}</span><strong>€1.70</strong></li>
+                                            <li><span>{% trans "Ваш CPC" %}</span><strong class="pl-corp__accent">€1.05</strong></li>
+                                            {% else %}
+                                            <li><span>{% trans "CPC конкурентів" %}</span><strong>₴42</strong></li>
+                                            <li><span>{% trans "Ваш CPC" %}</span><strong class="pl-corp__accent">₴26</strong></li>
+                                            {% endif %}
                                         </ul>
                                     </div>
 
                                     <div class="pl-corp__hero-win-panel" data-hero-panel="tech" aria-hidden="true">
-                                        <button type="button" class="pl-corp__hero-win-back mobile-touch-target" data-hero-back>← Головна</button>
+                                        <button type="button" class="pl-corp__hero-win-back mobile-touch-target" data-hero-back>{% trans "← Головна" %}</button>
                                         <div class="pl-corp__hero-win-label"><span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>Core Web Vitals</div>
-                                        <h3 class="pl-corp__hero-win-title">Усі метрики в зеленій зоні</h3>
-                                        <p class="pl-corp__hero-win-desc">LCP, INP і CLS оптимізовані нативно — без плагінів і сторонніх скриптів.</p>
+                                        <h3 class="pl-corp__hero-win-title">{% trans "Усі метрики в зеленій зоні" %}</h3>
+                                        <p class="pl-corp__hero-win-desc">{% trans "LCP, INP і CLS оптимізовані нативно — без плагінів і сторонніх скриптів." %}</p>
                                         <ul class="pl-corp__hero-win-metrics">
-                                            <li><span>LCP</span><div class="pl-corp__hero-win-metric-bar"><span style="width:98%"></span></div><strong>0.8с</strong></li>
-                                            <li><span>INP</span><div class="pl-corp__hero-win-metric-bar"><span style="width:96%"></span></div><strong>48мс</strong></li>
+                                            <li><span>LCP</span><div class="pl-corp__hero-win-metric-bar"><span style="width:98%"></span></div><strong>{% trans "0.8с" %}</strong></li>
+                                            <li><span>INP</span><div class="pl-corp__hero-win-metric-bar"><span style="width:96%"></span></div><strong>{% trans "48мс" %}</strong></li>
                                             <li><span>CLS</span><div class="pl-corp__hero-win-metric-bar"><span style="width:100%"></span></div><strong>0.00</strong></li>
                                         </ul>
                                     </div>
 
                                     <div class="pl-corp__hero-win-panel" data-hero-panel="scale" aria-hidden="true">
-                                        <button type="button" class="pl-corp__hero-win-back mobile-touch-target" data-hero-back>← Головна</button>
-                                        <div class="pl-corp__hero-win-label"><span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>Масштаб</div>
-                                        <h3 class="pl-corp__hero-win-title">Клонування за 5 хвилин</h3>
-                                        <p class="pl-corp__hero-win-desc">Snapshot архітектури — копіюєте папку, змінюєте контент, публікуєте новий лендінг безкоштовно.</p>
+                                        <button type="button" class="pl-corp__hero-win-back mobile-touch-target" data-hero-back>{% trans "← Головна" %}</button>
+                                        <div class="pl-corp__hero-win-label"><span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>{% trans "Масштаб" %}</div>
+                                        <h3 class="pl-corp__hero-win-title">{% trans "Клонування за 5 хвилин" %}</h3>
+                                        <p class="pl-corp__hero-win-desc">{% trans "Snapshot архітектури — копіюєте папку, змінюєте контент, публікуєте новий лендінг безкоштовно." %}</p>
                                         <div class="pl-corp__hero-win-folders" aria-hidden="true">
                                             <div class="pl-corp__hero-win-folder">site-original/</div>
                                             <div class="pl-corp__hero-win-folder pl-corp__hero-win-folder--clone">site-clone-02/</div>
@@ -139,20 +149,20 @@
                                     </div>
 
                                     <div class="pl-corp__hero-win-panel" data-hero-panel="speed" aria-hidden="true">
-                                        <button type="button" class="pl-corp__hero-win-back mobile-touch-target" data-hero-back>← Головна</button>
-                                        <div class="pl-corp__hero-win-label"><span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>Тест</div>
-                                        <h3 class="pl-corp__hero-win-title">Завантаження: 0.1 сек</h3>
-                                        <p class="pl-corp__hero-win-desc">Сторінка готова до взаємодії раніше, ніж користувач встигає клікнути.</p>
+                                        <button type="button" class="pl-corp__hero-win-back mobile-touch-target" data-hero-back>{% trans "← Головна" %}</button>
+                                        <div class="pl-corp__hero-win-label"><span class="pl-corp__hero-win-label-line" aria-hidden="true"></span>{% trans "Тест" %}</div>
+                                        <h3 class="pl-corp__hero-win-title">{% trans "Завантаження: 0.1 сек" %}</h3>
+                                        <p class="pl-corp__hero-win-desc">{% trans "Сторінка готова до взаємодії раніше, ніж користувач встигає клікнути." %}</p>
                                         <div class="pl-corp__hero-win-speed" aria-hidden="true">
                                             <div class="pl-corp__hero-win-speed-bar" data-hero-speed-bar></div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="pl-corp__hero-win-cards" data-hero-win-cards role="tablist" aria-label="Розділи демо-сайту">
+                                <div class="pl-corp__hero-win-cards" data-hero-win-cards role="tablist" aria-label="{% trans 'Розділи демо-сайту' %}">
                                     <button type="button" class="pl-corp__hero-win-card mobile-touch-target" data-hero-win-line data-hero-tab="economy" role="tab" aria-selected="false">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-                                        <span>Економія на рекламі</span>
+                                        <span>{% trans "Економія на рекламі" %}</span>
                                     </button>
                                     <button type="button" class="pl-corp__hero-win-card mobile-touch-target" data-hero-win-line data-hero-tab="tech" role="tab" aria-selected="false">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
@@ -160,7 +170,7 @@
                                     </button>
                                     <button type="button" class="pl-corp__hero-win-card mobile-touch-target" data-hero-win-line data-hero-tab="scale" role="tab" aria-selected="false">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-                                        <span>Клонування сайтів</span>
+                                        <span>{% trans "Клонування сайтів" %}</span>
                                     </button>
                                 </div>
                             </div>
@@ -172,15 +182,15 @@
             <div class="pl-corp__hero-badges">
                 <span class="pl-corp__hero-badge">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
-                    Найвища оцінка Core Web Vitals
+                    {% trans "Найвища оцінка Core Web Vitals" %}
                 </span>
                 <span class="pl-corp__hero-badge">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg>
-                    Пожиттєва гарантія на код
+                    {% trans "Пожиттєва гарантія на код" %}
                 </span>
                 <span class="pl-corp__hero-badge">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--pl-corp-acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-                    Безлімітне масштабування
+                    {% trans "Безлімітне масштабування" %}
                 </span>
             </div>
         </div>

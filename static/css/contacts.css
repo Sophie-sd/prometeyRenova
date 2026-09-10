@@ -85,10 +85,7 @@
 
 /* === КОНТЕЙНЕРИ ТА СІТКА === */
 .contacts-page .container {
-    width: 90%;
-    max-width: 1400px;
     margin-top: clamp(24px, 4vh, 40px);
-    padding: 0 40px;
 }
 
 .contacts-header {
@@ -460,10 +457,6 @@
         margin: 70px 0;
     }
 
-    .contacts-page .container {
-        padding: 0 30px;
-    }
-
     .contacts-grid {
         gap: 30px;
     }
@@ -484,11 +477,6 @@
         font-size: 50px;
         margin: 50px 0;
         letter-spacing: -1px;
-    }
-
-    .contacts-page .container {
-        width: 100%;
-        padding: 0 20px;
     }
 
     .contacts-header {

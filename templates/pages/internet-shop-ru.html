@@ -309,11 +309,12 @@
                                 <input type="tel" name="phone"
                                        class="form-input mobile-form-input mobile-touch-target"
                                        autocomplete="tel" inputmode="tel"
-                                       placeholder="+38(___)__-__-___" required>
+                                       placeholder="{{ phone_placeholder }}" required>
                                 <button type="submit" class="btn btn-primary btn-large mobile-touch-target">
                                     Заказать звонок →
                                 </button>
                             </div>
+                            {% include 'components/lead_gdpr_min.html' with prefix='is-hero-ru' input_class='form-input mobile-form-input mobile-touch-target' wrap_class='is-hero__inline-form__gdpr' %}
                             <p class="is-hero__inline-form__hint">Бесплатная консультация. Без обязательств.</p>
                         </form>
                         <a href="#brief" class="is-hero__cta-secondary">
@@ -865,8 +866,9 @@
                         <input type="tel" id="quiz-phone" name="phone"
                             class="form-input mobile-form-input mobile-touch-target"
                             autocomplete="tel" inputmode="tel"
-                            placeholder="+38(___)__-__-___" required>
+                            placeholder="{{ phone_placeholder }}" required>
                     </div>
+                    {% include 'components/lead_gdpr_min.html' with prefix='is-quiz-ru' input_class='form-input mobile-form-input mobile-touch-target' %}
                     <button type="submit" class="btn btn-primary btn-large mobile-touch-target is-quiz__submit">
                         Узнать стоимость →
                     </button>

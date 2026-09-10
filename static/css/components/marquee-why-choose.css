@@ -1,6 +1,8 @@
 /* Біжуча строчка (головна + блог) */
 
 .services-marquee {
+    --loop-duration: 40s;
+    --loop-duration-mobile: 28s;
     position: relative;
     width: 100%;
     background: var(--color-black);
@@ -18,7 +20,7 @@
     display: flex;
     width: fit-content;
     will-change: transform;
-    animation: services-marquee-scroll 30s linear infinite;
+    animation: services-marquee-scroll var(--loop-duration) linear infinite;
 }
 
 @keyframes services-marquee-scroll {
@@ -65,7 +67,7 @@
     }
 
     .marquee-track {
-        animation-duration: 25s;
+        animation-duration: var(--loop-duration-mobile);
     }
 
     .marquee-item {

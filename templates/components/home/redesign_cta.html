@@ -10,14 +10,14 @@
 
     <div class="home-cta-section__inner">
         <div class="home-cta-section__body vf-cta-center">
-        <h2 class="v2-h2 v2-cta-h2">
+        <h2 class="v2-h2 v2-cta-h2 home-reveal" data-reveal-hold data-i="0">
             {% trans "ГОТОВІ" %}<br>
             <span class="v2-orange">{% trans "ПОЧАТИ?" %}</span>
         </h2>
-        <p class="v2-cta-text">
+        <p class="v2-cta-text home-reveal" data-reveal-hold data-i="1">
             {% trans "Зв'яжіться з нами для безкоштовної консультації та розрахунку вартості проєкту" %}
         </p>
-        <div class="v2-cta-btns">
+        <div class="v2-cta-btns home-reveal home-reveal--soft" data-reveal-hold data-i="2">
             <a href="{% url 'calculator' %}" class="v2-btn v2-btn-primary v2-btn-lg">
                 <span>{% trans "Розрахувати вартість" %}</span>
                 <span class="v2-arrow" aria-hidden="true">→</span>

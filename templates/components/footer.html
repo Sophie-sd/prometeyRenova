@@ -31,7 +31,10 @@
                     <a href="{% url 'cookies' %}" class="footer-link">{% trans "Політика cookies" %}</a>
                     <a href="{% url 'refund' %}" class="footer-link">{% trans "Політика повернення коштів" %}</a>
                     <a href="{% url 'intellectual_property' %}" class="footer-link">{% trans "Інтелектуальна власність" %}</a>
-                    <a href="{% url 'monobank_chastynamy' %}" class="footer-link">Покупка частинами monobank</a>
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% if LANGUAGE_CODE == 'uk' or LANGUAGE_CODE == 'ru' %}
+                    <a href="{% url 'monobank_chastynamy' %}" class="footer-link">{% trans "Покупка частинами monobank" %}</a>
+                    {% endif %}
                 </div>
             </div>
 
@@ -72,27 +75,33 @@
                 <h3>{% trans "ОТРИМАТИ КОНСУЛЬТАЦІЮ" %}</h3>
                 <form class="footer-form" data-form-type="footer-consultation">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="footer-name" class="form-label">{% trans "Ім'я" %} <span class="required">*</span></label>
-                        <input type="text" id="footer-name" name="name" class="form-input footer-input" required placeholder="{% trans "Введіть ваше ім'я" %}">
-                    </div>
-                    <div class="form-group">
-                        <label for="footer-contact" class="form-label">{% trans "Номер телефону" %} <span class="required">*</span></label>
-                        <input type="tel" id="footer-contact" name="phone" class="form-input footer-input" required placeholder="+38(___)__-__-___">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-checkbox footer-checkbox">
-                            <input type="checkbox" name="consent" required>
-                            <span>{% trans "Даю згоду на обробку персональних даних згідно з" %} <a href="{% url 'privacy' %}" class="footer-policy-link">{% trans "політики конфіденційності" %}</a></span>
-                        </label>
-                    </div>
+                    <input type="hidden" name="form_type" value="footer-consultation">
+                    {% include 'components/lead_form_fields.html' with prefix='footer' compact=True %}
                     <button type="submit" class="btn btn-primary footer-submit-btn">{% trans "Відправити" %}</button>
                 </form>
             </div>
         </div>
 
+        <div class="footer-impressum">
+            <p class="footer-impressum-legal">
+                {{ site_contact.get_localized_legal_name }}
+                <span class="footer-impressum-dot">·</span>
+                {% trans "Реєстр. №" %} {{ site_contact.registration_number }}
+                <span class="footer-impressum-dot">·</span>
+                {{ site_contact.get_localized_legal_address }}
+            </p>
+            <p class="footer-impressum-contact">
+                {% trans "Захист даних:" %}
+                <a href="mailto:{{ site_contact.data_protection_email }}" class="footer-impressum-link">{{ site_contact.data_protection_email }}</a>
+                <span class="footer-impressum-dot">·</span>
+                <button type="button" class="footer-impressum-link footer-cookie-settings-btn cky-banner-element" data-cookie-settings>
+                    {% trans "Налаштування cookie" %}
+                </button>
+            </p>
+        </div>
+
         <div class="footer-bottom">
-            <p>&copy; 2025 PrometeyLabs. {% trans "Усі права захищені." %}</p>
+            <p>&copy; {% now "Y" %} PrometeyLabs. {% trans "Усі права захищені." %}</p>
             <p>{% trans "Комплексні веб-рішення" %} • {% trans "Розробка" %} • Digital-{% trans "просування" %} • {% trans "Навчання" %}</p>
         </div>
     </div>

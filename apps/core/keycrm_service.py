@@ -177,6 +177,20 @@ class KeyCRMService:
             comment_parts.append(submission.details)
         comment_parts.append(f'Form: {submission.form_type}')
         comment_parts.append(f'Site ID: {submission.id}')
+        if submission.messenger_type:
+            comment_parts.append(
+                f'Messenger: {submission.get_messenger_type_display()}'
+            )
+        if submission.project_type:
+            comment_parts.append(
+                f'Project type: {submission.get_project_type_display()}'
+            )
+        if submission.budget:
+            comment_parts.append(f'Budget: {submission.get_budget_display()}')
+        if submission.preferred_language:
+            comment_parts.append(
+                f'Preferred language: {submission.get_preferred_language_display()}'
+            )
         extra = submission.extra_data or {}
         if extra.get('source_page'):
             comment_parts.append(f'Сторінка заявки: {extra["source_page"]}')

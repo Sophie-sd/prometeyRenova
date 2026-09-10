@@ -206,6 +206,7 @@ LANGUAGES = [
     ('uk', 'Українська'),
     ('en', 'English'),
     ('ru', 'Русский'),
+    ('cs', 'Čeština'),
 ]
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 TIME_ZONE = 'Europe/Kyiv'
@@ -276,6 +277,9 @@ if DEBUG:
 
 # FACEBOOK PIXEL
 FACEBOOK_PIXEL_ID = os.environ.get('FACEBOOK_PIXEL_ID', '1991082531458369')
+
+# CookieYes CMP Site ID (порожньо = банер не рендериться, для local/dev)
+COOKIEYES_ID = os.environ.get('COOKIEYES_ID', '')
 
 # KEYCRM
 KEYCRM_API_KEY = os.environ.get('KEYCRM_API_KEY', '')

@@ -1,0 +1,99 @@
+/* Homepage enter/reveal — compositor only. Last in page_css. */
+
+:root {
+    --t-fast: 160ms;
+    --t-base: 250ms;
+    --t-modal: 300ms;
+    --motion-soft: 650ms;
+    --motion-reveal: 1400ms;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --stagger-reveal: 200ms;
+    --stagger-grid: 140ms;
+    --reveal-distance: 24px;
+}
+
+.home-reveal {
+    --i: 0;
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-distance), 0);
+    transition:
+        opacity var(--motion-reveal) var(--ease-out),
+        transform var(--motion-reveal) var(--ease-out);
+    transition-delay: calc(var(--i) * var(--stagger-reveal));
+}
+
+.home-reveal[data-i="1"] { --i: 1; }
+.home-reveal[data-i="2"] { --i: 2; }
+.home-reveal[data-i="3"] { --i: 3; }
+
+.home-reveal--soft {
+    transition-duration: var(--motion-soft), var(--motion-soft);
+}
+
+.home-reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.home-redesign .v2-why-card {
+    transition: transform var(--t-base) var(--ease-out);
+}
+
+.home-redesign .v2-why-shell.home-reveal {
+    --why-reveal: 1100ms;
+    --why-stagger: 190ms;
+    transform: translate3d(0, 28px, 0) scale(0.97);
+    transition:
+        opacity var(--why-reveal) ease,
+        transform var(--why-reveal) ease;
+    transition-delay: calc(var(--i) * var(--why-stagger));
+}
+
+.home-redesign .v2-why-shell.home-reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+}
+
+@media (max-width: 767px) {
+    .home-redesign .v2-why-shell.home-reveal {
+        transform: translate3d(0, 20px, 0) scale(0.98);
+    }
+
+    .home-redesign .v2-why-shell.home-reveal.is-visible {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+.hero-section .hero-text h1.home-reveal,
+.hero-section .hero-text p.home-reveal,
+.hero-section .hero-buttons.home-reveal {
+    animation: none;
+}
+
+@media (min-width: 768px) {
+    #svc-piano .svc-piano__unit.home-reveal {
+        transition-delay: calc(var(--i) * var(--stagger-grid));
+    }
+}
+
+#svc-piano .svc-piano__unit.home-reveal:not(.is-visible) {
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-distance), 0);
+}
+
+@media (max-width: 767px) {
+    #svc-piano .svc-piano__unit.home-reveal {
+        transition-delay: 0ms;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-reveal,
+    .home-reveal.is-visible,
+    .home-redesign .v2-why-shell.home-reveal,
+    .home-redesign .v2-why-shell.home-reveal.is-visible {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}

@@ -5,12 +5,10 @@
     var GAP = 12;
     var AH = 6;
     var GLOW_PAD = 4;
-    var STEP_IMG_DELAY = 130;
-    var STEP_STAGGER = 270;
-    var ARROW_DRAW_MS = 140;
-    var NUM_TO_TITLE_GAP = 9;
-    var TITLE_PHASE_DURATION = 120;
-    var LETTER_GAP = 10;
+    var NUM_LEAD_MS = 90;
+    var BODY_HOLD_MS = 240;
+    var ARROW_DRAW_MS = 180;
+    var ARROW_EASE = 'ease';
 
     var anim = window.PbProcessAnim;
 
@@ -275,40 +273,31 @@
             });
         }
 
-        function waitForLayout() {
-            return new Promise(function (resolve) {
-                requestAnimationFrame(function () {
-                    requestAnimationFrame(resolve);
-                });
-            });
-        }
-
         async function animateCard(card, my) {
-            card.classList.add('is-img-visible');
-            await wait(STEP_IMG_DELAY);
-            if (my !== token) return;
-
             card.classList.add('is-visible');
 
             var numEl = card.querySelector('.pb-step__num');
-            var titleEl = card.querySelector('.pb-step__title');
-
             if (anim) {
-                if (!(await anim.playNumSequence(numEl, my, token, wait))) {
-                    return;
+                anim.resetWatermarkNum(numEl);
+                if (numEl) {
+                    void numEl.offsetWidth;
                 }
+                if (my !== token) return false;
+                anim.showNumInstant(numEl);
+            } else if (numEl) {
+                numEl.classList.add('is-num-reveal');
             }
 
-            if (my !== token) return;
+            await wait(NUM_LEAD_MS);
+            if (my !== token) return false;
 
-            await wait(NUM_TO_TITLE_GAP);
-            if (my !== token) return;
-
-            card.classList.add('is-title-visible');
-
-            if (anim && titleEl) {
-                anim.revealTypewriterEl(titleEl, LETTER_GAP, my, token, wait);
+            card.classList.add('is-img-visible', 'is-title-visible');
+            if (anim) {
+                anim.showTypewriterInstant(card);
             }
+
+            await wait(BODY_HOLD_MS);
+            return my === token;
         }
 
         async function play() {
@@ -332,18 +321,20 @@
             for (var i = 0; i < cards.length; i++) {
                 if (my !== token) return;
 
-                animateCard(cards[i], my);
+                if (!(await animateCard(cards[i], my))) {
+                    return;
+                }
 
                 if (i < cards.length - 1) {
-                    await wait(STEP_STAGGER);
                     if (my !== token) return;
 
-                    await waitForLayout();
                     var pathEl = rebuildPath(i, false);
                     if (pathEl) {
-                        pathEl.style.transition = 'stroke-dashoffset ' + (ARROW_DRAW_MS / 1000) + 's cubic-bezier(0.16, 1, 0.3, 1)';
+                        pathEl.style.transition = 'stroke-dashoffset ' + (ARROW_DRAW_MS / 1000) + 's ' + ARROW_EASE;
                         pathEl.style.strokeDashoffset = 0;
                     }
+
+                    await wait(ARROW_DRAW_MS);
                 }
             }
 
