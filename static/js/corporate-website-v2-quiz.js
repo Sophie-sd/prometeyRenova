@@ -220,9 +220,13 @@
         return input ? input.value : null;
     }
 
+    function getCheckedValues(name) {
+        return Array.from(form.querySelectorAll('input[name="' + name + '"]:checked'))
+            .map(function (input) { return input.value; });
+    }
+
     function getCheckedOptions() {
-        var val = getCheckedValue('q_options');
-        return val ? [val] : [];
+        return getCheckedValues('q_options');
     }
 
     function recommendPackage() {
@@ -230,7 +234,7 @@
         var business = getCheckedValue('q_business');
         var goal = getCheckedValue('q_goal');
         var pages = getCheckedValue('q_pages');
-        var option = getCheckedValue('q_options');
+        var options = getCheckedOptions();
         var timeline = getCheckedValue('q_timeline');
 
         if (pages === '1 сторінка (лендинг)') score.starter += 4;
@@ -247,11 +251,13 @@
         if (goal === 'Прямі онлайн-продажі') score.corporate += 2;
         if (goal === 'Масштабування') score.premium += 3;
 
-        if (option === 'Рекламні послуги' || option === 'SEO розвиток сайту') {
-            score.corporate += 2;
-        }
-        if (option === 'CRM та автоматизація') score.corporate += 2;
-        if (option === 'Мультимовність') score.premium += 3;
+        options.forEach(function (option) {
+            if (option === 'Рекламні послуги' || option === 'SEO розвиток сайту') {
+                score.corporate += 2;
+            }
+            if (option === 'CRM та автоматизація') score.corporate += 2;
+            if (option === 'Мультимовність') score.premium += 3;
+        });
 
         if (timeline === 'Якнайшвидше (до 7 днів)') score.starter += 3;
         if (timeline === 'Протягом 2 тижнів') score.corporate += 2;
@@ -331,7 +337,7 @@
             valid = false;
         }
 
-        if (emailInput && !emailInput.checkValidity()) {
+        if (emailInput && emailInput.value.trim() && !emailInput.checkValidity()) {
             emailInput.reportValidity();
             valid = false;
         }
@@ -374,7 +380,7 @@
             { name: 'q_business', label: 'Тип бізнесу' },
             { name: 'q_goal', label: 'Бізнес-ціль' },
             { name: 'q_pages', label: 'Кількість сторінок' },
-            { name: 'q_options', label: 'Додаткові опції' },
+            { name: 'q_options', label: 'Додаткові опції', multi: true },
             { name: 'q_timeline', label: 'Терміни' }
         ];
 
@@ -385,6 +391,11 @@
         }
 
         fields.forEach(function (field) {
+            if (field.multi) {
+                var vals = getCheckedValues(field.name);
+                if (vals.length) parts.push(field.label + ': ' + vals.join(', '));
+                return;
+            }
             var val = getCheckedValue(field.name);
             if (val) parts.push(field.label + ': ' + val);
         });
@@ -393,6 +404,8 @@
     }
 
     function showStep(idx) {
+        currentIdx = idx;
+
         steps.forEach(function (s, i) {
             var isActive = i === idx;
             s.classList.toggle('pl-corp__quiz-step--active', isActive);
@@ -427,8 +440,6 @@
                 nextBtn.disabled = !isStepAnswered(currentStep);
             }
         }
-
-        currentIdx = idx;
     }
 
     function prepareSubmit() {

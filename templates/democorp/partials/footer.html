@@ -6,22 +6,20 @@
     </div>
     {% endif %}
     <div class="dc-footer__top">
-        <p>{% tenant_text blocks_map registry "contacts" "address" %}</p>
-        <nav class="dc-footer__nav" aria-label="{% trans 'Футер' %}">
-            <ul>
-                {% include 'democorp/partials/nav_links.html' %}
-            </ul>
-        </nav>
+        <p class="dc-footer__brand" aria-hidden="true">
+            <span class="dc-footer__mark">Prometey</span>
+            <span class="dc-footer__mark">Labs</span>
+        </p>
+        <div class="dc-footer__actions">
+            <p>{% tenant_text blocks_map registry "contacts" "address" %}</p>
+            <nav class="dc-footer__nav" aria-label="{% trans 'Футер' %}">
+                <ul>
+                    {% include 'democorp/partials/nav_links.html' %}
+                </ul>
+            </nav>
+        </div>
     </div>
     <div class="dc-footer__bottom">
         <p>{% tenant_text blocks_map registry "header" "company_name" %} · {% now "Y" %}</p>
-        <p class="dc-footer__credit">
-            {% trans "Сайт зроблено в" %}
-            {% if request.resolver_match.namespace == 'democorp' and request.resolver_match.url_name == 'home' %}
-            <a href="https://www.prometeylabs.com/corporate-website-v2/" target="_blank" rel="nofollow noopener noreferrer">PrometeyLabs</a>
-            {% else %}
-            <span>PrometeyLabs</span>
-            {% endif %}
-        </p>
     </div>
 </footer>

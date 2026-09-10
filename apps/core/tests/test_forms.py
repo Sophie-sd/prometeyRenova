@@ -164,7 +164,7 @@ class FormValidationTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(json.loads(response.content)['success'])
 
-    def test_site_request_requires_consent_and_email(self):
+    def test_site_request_requires_consent_email_optional(self):
         data = {
             'form_type': 'site_request',
             'name': 'Квіз Клієнт',
@@ -174,6 +174,11 @@ class FormValidationTests(TestCase):
         self.assertEqual(response.status_code, 400)
 
         data['consent'] = '1'
+        response = self.client.post(self.submit_url, data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(json.loads(response.content)['success'])
+
+        data['email'] = 'not-an-email'
         response = self.client.post(self.submit_url, data)
         self.assertEqual(response.status_code, 400)
 

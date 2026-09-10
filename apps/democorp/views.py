@@ -41,10 +41,13 @@ def _base_context(site, **extra):
 def home(request, slug):
     site = _get_active_site(slug)
     blocks_map = get_blocks_map(site)
+    reviews = list(site.testimonials.all()[:5])
     context = _base_context(
         site,
         process_steps=site.production_steps.all(),
-        testimonials=site.testimonials.all(),
+        testimonials=reviews,
+        featured_review=reviews[0] if reviews else None,
+        mosaic_reviews=reviews[1:],
         featured_products=(
             site.products.filter(is_active=True, is_featured=True)[:8] if site.has_catalog else []
         ),

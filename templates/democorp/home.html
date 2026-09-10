@@ -94,39 +94,62 @@
                 {% endfor %}
             </div>
         </div>
-        <a class="dc-btn dc-btn--ghost dc-process__more" href="{% url 'democorp:production' slug=site.slug %}">{% trans "Усі етапи" %}</a>
     </div>
 </section>
 {% endif %}
 
-{% if reviews_visible and testimonials %}
+{% if reviews_visible and featured_review %}
 <section class="dc-section js-anchor" id="reviews">
     <div class="dc-container">
         <h2 data-reveal>{% tenant_text blocks_map registry "home" "reviews_title" %}</h2>
-        <div class="dc-cf">
-            <button type="button" class="dc-cf__nav" data-cf-prev aria-label="{% trans 'Назад' %}"></button>
-            <div class="cf" data-cf>
-                <div class="cf__track" data-cf-track>
-                    {% for review in testimonials %}
-                    <article class="cf__card dc-review-card">
-                        <p>«{{ review.localized_text }}»</p>
-                        <p><strong>{{ review.author_name }}</strong> · {{ review.role }}</p>
-                    </article>
-                    {% endfor %}
-                </div>
+        <div class="dc-reviews{% if not mosaic_reviews %} dc-reviews--solo{% endif %}">
+            {% if mosaic_reviews %}
+            <div class="dc-reviews__mosaic">
+                {% for review in mosaic_reviews %}
+                <article class="dc-review-card dc-review-card--compact">
+                    <p class="dc-review-card__text">«{{ review.localized_text }}»</p>
+                    <p class="dc-review-card__meta"><strong>{{ review.author_name }}</strong> · {{ review.role }}</p>
+                </article>
+                {% endfor %}
             </div>
-            <button type="button" class="dc-cf__nav dc-cf__nav--next" data-cf-next aria-label="{% trans 'Далі' %}"></button>
+            {% endif %}
+            <article class="dc-review-card dc-review-card--feature">
+                <span class="dc-review-card__mark" aria-hidden="true">«</span>
+                <p class="dc-review-card__text">{{ featured_review.localized_text }}</p>
+                <p class="dc-review-card__meta"><strong>{{ featured_review.author_name }}</strong> · {{ featured_review.role }}</p>
+            </article>
         </div>
     </div>
 </section>
 {% endif %}
 
 <section class="dc-section dc-cta js-anchor" id="cta">
-    <div class="dc-container">
-        <h2 data-reveal>{% tenant_text blocks_map registry "cta" "title" %}</h2>
-        <p data-reveal>{% tenant_text blocks_map registry "cta" "subtitle" %}</p>
-        <div class="dc-lead-form-wrap" data-reveal-hold>
-            {% include 'democorp/partials/lead_form.html' %}
+    <div class="dc-container dc-cta__grid">
+        <div class="dc-cta__copy">
+            <h2 data-reveal>{% tenant_text blocks_map registry "cta" "title" %}</h2>
+            <p class="dc-cta__lede" data-reveal>{% tenant_text blocks_map registry "cta" "subtitle" %}</p>
+            <ul class="dc-cta__points">
+                <li>
+                    <span class="dc-cta__num" aria-hidden="true">01</span>
+                    <span class="dc-cta__rule" aria-hidden="true"></span>
+                    <span>{% tenant_text blocks_map registry "cta" "point_1" %}</span>
+                </li>
+                <li>
+                    <span class="dc-cta__num" aria-hidden="true">02</span>
+                    <span class="dc-cta__rule" aria-hidden="true"></span>
+                    <span>{% tenant_text blocks_map registry "cta" "point_2" %}</span>
+                </li>
+                <li>
+                    <span class="dc-cta__num" aria-hidden="true">03</span>
+                    <span class="dc-cta__rule" aria-hidden="true"></span>
+                    <span>{% tenant_text blocks_map registry "cta" "point_3" %}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="dc-cta__form" data-reveal-hold>
+            <div class="dc-lead-form-wrap">
+                {% include 'democorp/partials/lead_form.html' %}
+            </div>
         </div>
     </div>
 </section>

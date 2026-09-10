@@ -263,7 +263,15 @@ def handle_form_submission(request):
                     _('Підтвердіть згоду на обробку персональних даних.'),
                     status=400,
                 )
-            if not email or not validate_email(email):
+            email_optional = form_type in {'site_request', 'site-request'}
+            if email_optional:
+                if email and not validate_email(email):
+                    return create_form_response(
+                        False,
+                        _('Введіть коректний email.'),
+                        status=400,
+                    )
+            elif not email or not validate_email(email):
                 return create_form_response(
                     False,
                     _('Введіть коректний email.'),

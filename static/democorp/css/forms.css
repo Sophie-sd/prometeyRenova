@@ -1,16 +1,24 @@
 /* Lead-форма: RS fields, honeypot поза екраном, input ≥16px на iOS. */
 .dc-lead-form,
 .dc-form {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 18px;
   max-width: 520px;
 }
 
+.dc-lead-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
 .dc-field {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0;
 }
 
 .dc-field label {
@@ -70,9 +78,23 @@
   margin: 0;
 }
 
+.dc-lead-form__note {
+  margin: 0;
+  font-size: var(--dc-fs-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dc-text-muted);
+}
+
 .dc-lead-form.is-invalid .dc-input,
 .dc-field.is-invalid .dc-input {
   border-color: var(--dc-danger);
+}
+
+@media (max-width: 479px) {
+  .dc-lead-form__row {
+    grid-template-columns: 1fr;
+  }
 }
 
 @supports (-webkit-touch-callout: none) {

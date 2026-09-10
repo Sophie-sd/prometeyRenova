@@ -1,4 +1,5 @@
 {% load i18n demotenant %}
+{% tenant_text blocks_map registry "cta" "note" as cta_note %}
 <form class="dc-lead-form" data-qa="lead-form"
       hx-post="{% url 'democorp:lead' slug=site.slug %}"
       hx-target="closest .dc-lead-form-wrap"
@@ -10,13 +11,15 @@
         {{ lead_form.name.label_tag }}
         {{ lead_form.name }}
     </div>
-    <div class="dc-field">
-        {{ lead_form.phone.label_tag }}
-        {{ lead_form.phone }}
-    </div>
-    <div class="dc-field">
-        {{ lead_form.email.label_tag }}
-        {{ lead_form.email }}
+    <div class="dc-lead-form__row">
+        <div class="dc-field">
+            {{ lead_form.phone.label_tag }}
+            {{ lead_form.phone }}
+        </div>
+        <div class="dc-field">
+            {{ lead_form.email.label_tag }}
+            {{ lead_form.email }}
+        </div>
     </div>
     <div class="dc-field">
         {{ lead_form.message.label_tag }}
@@ -26,4 +29,7 @@
     <button type="submit" class="dc-btn dc-btn--primary">
         {% if product %}{% trans "Хочу такий сайт" %}{% else %}{% tenant_text blocks_map registry "cta" "submit_label" %}{% endif %}
     </button>
+    {% if cta_note %}
+    <p class="dc-lead-form__note">{{ cta_note }}</p>
+    {% endif %}
 </form>

@@ -124,30 +124,31 @@
                 </ul>
             </div>
 
-            <div class="pl-corp__quiz-step" data-step="4">
+            <div class="pl-corp__quiz-step" data-step="4" data-multi="true">
                 <p class="pl-corp__quiz-question">{% trans "Що потрібно додатково?" %}</p>
-                <ul class="pl-corp__quiz-options">
+                <p class="pl-corp__quiz-hint">{% trans "Можна обрати декілька варіантів" %}</p>
+                <ul class="pl-corp__quiz-options pl-corp__quiz-options--multi">
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
-                            <input type="radio" name="q_options" value="Рекламні послуги">
+                            <input type="checkbox" name="q_options" value="Рекламні послуги">
                             <span class="pl-corp__quiz-option-text">{% trans "Рекламні послуги" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
-                            <input type="radio" name="q_options" value="SEO розвиток сайту">
+                            <input type="checkbox" name="q_options" value="SEO розвиток сайту">
                             <span class="pl-corp__quiz-option-text">{% trans "SEO розвиток сайту" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
-                            <input type="radio" name="q_options" value="CRM та автоматизація">
+                            <input type="checkbox" name="q_options" value="CRM та автоматизація">
                             <span class="pl-corp__quiz-option-text">{% trans "CRM та автоматизація" %}</span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
-                            <input type="radio" name="q_options" value="Мультимовність">
+                            <input type="checkbox" name="q_options" value="Мультимовність">
                             <span class="pl-corp__quiz-option-text">{% trans "Мультимовність" %}</span>
                         </label>
                     </li>
@@ -215,7 +216,7 @@
                             placeholder="@username  {% trans 'або' %}  {{ phone_placeholder }}"
                         >
                     </div>
-                    {% include 'components/lead_gdpr_min.html' with prefix='pl-corp-quiz' input_class='pl-corp__quiz-input mobile-touch-target' wrap_class='pl-corp__quiz-gdpr' %}
+                    {% include 'components/lead_gdpr_min.html' with prefix='pl-corp-quiz' input_class='pl-corp__quiz-input mobile-touch-target' wrap_class='pl-corp__quiz-gdpr' email_optional=True %}
                     <button
                         type="submit"
                         class="pl-corp__btn pl-corp__btn--primary pl-corp__quiz-reveal mobile-touch-target"

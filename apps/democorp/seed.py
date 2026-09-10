@@ -159,18 +159,19 @@ def _seed_gallery(site, *, reset: bool, refresh_images: bool = False) -> None:
 
 
 def _seed_testimonials(site, *, reset: bool) -> None:
-    if site.testimonials.exists() and not reset:
-        return
     if reset:
         site.testimonials.all().delete()
     for order, data in enumerate(TESTIMONIALS):
-        CorpTestimonial.objects.create(
-            tenant=site, author_name=data['author_name'], role=data['role'],
-            text=data['text'],
-            text_en=data.get('text_en', ''),
-            text_cs=data.get('text_cs', ''),
-            text_ru=data.get('text_ru', ''),
-            rating=data['rating'], order=order,
+        CorpTestimonial.objects.get_or_create(
+            tenant=site, order=order,
+            defaults={
+                'author_name': data['author_name'], 'role': data['role'],
+                'text': data['text'],
+                'text_en': data.get('text_en', ''),
+                'text_cs': data.get('text_cs', ''),
+                'text_ru': data.get('text_ru', ''),
+                'rating': data['rating'],
+            },
         )
 
 

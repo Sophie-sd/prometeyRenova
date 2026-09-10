@@ -93,6 +93,13 @@ TESTIMONIALS = [
         'text_cs': 'Texty měním sama za minutu. Reklama míň utíká — stránka lidi neodrazuje.',
         'text_ru': 'Тексты меняю сама за минуту. Реклама меньше сливается — страница не отпугивает.',
     },
+    {
+        'author_name': 'Софія Л.', 'role': 'Школа, Харків', 'rating': 5,
+        'text': 'Батьки розуміють програми з першого екрана. Запис іде вам, а не губиться в Direct.',
+        'text_en': 'Parents understand the programmes from the first screen. Booking comes to you, not lost in Direct.',
+        'text_cs': 'Rodiče pochopí programy z první obrazovky. Zápis jde vám, neztratí se v Directu.',
+        'text_ru': 'Родители понимают программы с первого экрана. Запись идёт вам, а не теряется в Direct.',
+    },
 ]
 
 PARTNERS = ['Google', 'TikTok', 'Viber', 'YouTube', 'WhatsApp', 'Maps']

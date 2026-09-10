@@ -90,19 +90,6 @@
   transition: color var(--duration-ui) var(--ease-out);
 }
 
-.dc-process__more {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  margin-top: var(--dc-sp-6);
-  margin-left: auto;
-  border-color: var(--dc-accent);
-  color: var(--dc-champagne);
-  line-height: 1;
-  text-align: center;
-}
-
 @media (max-width: 899px) {
   .dc-process {
     margin-top: var(--dc-sp-5);
@@ -153,11 +140,6 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .dc-process__more:hover {
-    border-color: var(--dc-champagne);
-    color: var(--dc-champagne-bright);
-  }
-
   .dc-process__step:hover .dc-process__dot {
     background: var(--dc-champagne);
     border-color: var(--dc-champagne-bright);
