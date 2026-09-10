@@ -3,6 +3,8 @@ services:
     plan: starter
     name: prometei-web
     runtime: python
+    branch: main
+    autoDeployTrigger: commit
     buildCommand: "./build.sh"
     startCommand: "./scripts/start.sh"
     disk:
