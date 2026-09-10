@@ -1032,6 +1032,11 @@ class Client(models.Model):
         return resolve_client_logo_url(self)
 
 
+def feature_block_upload_to(instance, filename: str) -> str:
+    """Historical upload_to for migration 0015; model removed in 0028."""
+    return f'feature_blocks/{filename}'
+
+
 from .proposal_models import (  # noqa: E402,F401
     Proposal,
     ProposalModule,
