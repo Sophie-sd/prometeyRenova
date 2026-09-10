@@ -1,0 +1,40 @@
+# Тригерить Render Deploy Hook на кожен push у main.
+# Потрібен secret RENDER_DEPLOY_HOOK (URL з Render → Settings → Deploy Hook).
+# Render підключений до Sophie-sd/prometeyRenova — secret додай саме туди
+# (і в BonisOleg, якщо пушиш туди теж).
+
+name: Render deploy
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: render-deploy-main
+  cancel-in-progress: false
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require RENDER_DEPLOY_HOOK secret
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::error::Немає secret RENDER_DEPLOY_HOOK. Render → Service → Settings → Deploy Hook → скопіюй URL → GitHub → Settings → Secrets → Actions → New repository secret."
+            exit 1
+          fi
+
+      - name: Trigger Render deploy hook
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          code=$(curl -sS -o /tmp/render_hook_body -w "%{http_code}" -X POST "$HOOK")
+          echo "HTTP $code"
+          cat /tmp/render_hook_body || true
+          echo
+          case "$code" in
+            200|201|202) echo "Deploy triggered." ;;
+            *) echo "::error::Deploy hook failed with HTTP $code"; exit 1 ;;
+          esac
