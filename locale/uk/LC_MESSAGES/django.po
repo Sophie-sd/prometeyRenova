@@ -8727,70 +8727,102 @@ msgstr ""
 #, python-format
 msgid "%(counter)s result"
 msgid_plural "%(counter)s results"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%(counter)s результат"
+msgstr[1] "%(counter)s результати"
+msgstr[2] "%(counter)s результатів"
+msgstr[3] "%(counter)s результатів"
 
 #: templates/unfold/helpers/popup_header.html:14
 #, python-format
 msgid "%(full_result_count)s total"
-msgstr ""
+msgstr "усього %(full_result_count)s"
 
 #: templates/unfold/helpers/popup_header.html:14
 msgid "Show all"
-msgstr ""
+msgstr "Показати всі"
 
 #: templates/unfold/helpers/site_logo.html:5
 #: templates/unfold/helpers/site_logo.html:6
 #: templates/unfold/helpers/site_logo.html:8
 msgid "Головна адмінпанелі"
-msgstr ""
+msgstr "Головна адмінпанелі"
 
 #: templates/unfold/widgets/clearable_file_input.html:7
 msgid "Image preview"
-msgstr ""
+msgstr "Попередній перегляд"
 
 #: templates/unfold/widgets/clearable_file_input.html:26
 msgid "Choose file to upload"
-msgstr ""
+msgstr "Оберіть файл для завантаження"
 
-# django-unfold (templates in site-packages)
-#~ msgid "Filters"
-#~ msgstr "Фільтри"
+# django-unfold (templates in site-packages) — тримати активними,
+# навіть якщо makemessages їх не бачить у проєкті.
+msgid "Filters"
+msgstr "Фільтри"
 
-#~ msgid "Search apps and models..."
-#~ msgstr "Пошук додатків і моделей..."
+msgid "Search apps and models..."
+msgstr "Пошук додатків і моделей..."
 
-#~ msgid "Type to search"
-#~ msgstr "Введіть для пошуку"
+msgid "Type to search"
+msgstr "Введіть для пошуку"
 
-#~ msgid "Go back"
-#~ msgstr "Назад"
+msgid "Go back"
+msgstr "Назад"
 
-#~ msgid "Home"
-#~ msgstr "Головна"
+msgid "Select record"
+msgstr "Обрати запис"
 
-#~ msgid "Select record"
-#~ msgstr "Обрати запис"
+msgid "Run the selected action"
+msgstr "Виконати обрану дію"
 
-#~ msgid "Run the selected action"
-#~ msgstr "Виконати обрану дію"
+msgid "Show count"
+msgstr "Показати кількість"
 
-#~ msgid "Show count"
-#~ msgstr "Показати кількість"
+msgid "Clear all filters"
+msgstr "Скинути всі фільтри"
 
-#~ msgid "Clear all filters"
-#~ msgstr "Скинути всі фільтри"
+msgid "Apply Filters"
+msgstr "Застосувати фільтри"
 
-#~ msgid "Apply Filters"
-#~ msgstr "Застосувати фільтри"
+msgid "Recent actions"
+msgstr "Недавні дії"
 
-#~ msgid "Recent actions"
-#~ msgstr "Недавні дії"
+msgid "All"
+msgstr "Всі"
 
-#~ msgid "All"
-#~ msgstr "Всі"
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "%(filter_title)s"
 
-#~ msgid "By %(filter_title)s"
-#~ msgstr "%(filter_title)s"
+msgid "Return to site"
+msgstr "Повернутися на сайт"
+
+msgid "Unknown content"
+msgstr "Невідомий тип"
+
+msgid "Action"
+msgstr "Дія"
+
+msgid "Date/time"
+msgstr "Дата/час"
+
+msgid "User"
+msgstr "Користувач"
+
+msgid "View on site"
+msgstr "Переглянути на сайті"
+
+msgid "This object doesn’t have a change history. It probably wasn’t added via this admin site."
+msgstr "У цього об’єкта немає історії змін. Ймовірно, його додано не через цю адмінку."
+
+msgid "Logout"
+msgstr "Вийти"
+
+msgid "Select all"
+msgstr "Обрати всі"
+
+msgid "Please correct the errors below."
+msgstr "Будь ласка, виправте помилки нижче."
+
+msgid "Clear filters"
+msgstr "Скинути фільтри"

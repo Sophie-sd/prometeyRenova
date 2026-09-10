@@ -16,12 +16,6 @@
     el.setAttribute('data-count-done', '1');
   }
 
-  function shouldAnimate(el) {
-    var suffix = el.getAttribute('data-count-suffix') || '';
-    var raw = (el.textContent || '').replace(/\s/g, '');
-    return raw === '' || raw === '0' || raw === '0' + suffix;
-  }
-
   function animateCount(el) {
     if (el.getAttribute('data-count-done') === '1') return;
     var target = parseFloat(el.getAttribute('data-count-to') || '0');
@@ -31,6 +25,7 @@
       return;
     }
     el.setAttribute('data-count-done', '1');
+    el.textContent = '0' + suffix;
     var duration = 1600;
     var start = null;
 
@@ -58,12 +53,11 @@
           obs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.35, rootMargin: '0px 0px -8% 0px' });
 
     items.forEach(function (el) {
       if (el.getAttribute('data-count-done') === '1') return;
-      var rect = el.getBoundingClientRect();
-      if (reduced || rect.bottom < 0 || !shouldAnimate(el)) {
+      if (reduced) {
         settle(el);
         return;
       }

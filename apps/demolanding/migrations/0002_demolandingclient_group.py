@@ -13,6 +13,7 @@ DEMO_LANDING_CLIENT_PERMS = [
     ('demolanding', 'view_landingpartner'), ('demolanding', 'add_landingpartner'),
     ('demolanding', 'change_landingpartner'), ('demolanding', 'delete_landingpartner'),
     ('demolanding', 'view_landinglead'), ('demolanding', 'change_landinglead'),
+    ('demolanding', 'delete_landinglead'),
     ('demolanding', 'view_landingblock'), ('demolanding', 'change_landingblock'),
 ]
 

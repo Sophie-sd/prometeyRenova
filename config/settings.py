@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 UNFOLD = {
     "SITE_TITLE": "PrometeyLabs",
     "SITE_HEADER": _("PrometeyLabs — Адмінпанель"),
+    "SITE_URL": "apps.demotenant.admin_site_url.resolve_view_site_url",
     "SITE_ICON": lambda request: static("images/favicon-48x48.png"),
     "SITE_LOGO": {
         "light": lambda request: static("images/favicon-48x48.png"),
@@ -85,10 +86,10 @@ UNFOLD = {
         lambda request: static("admin/css/admin-list-filters.css"),
         lambda request: static("admin/css/admin-sidebar-logo.css"),
         lambda request: static("admin/css/admin-image-preview.css"),
+        lambda request: static("demotenant/css/admin_changelist_mobile.css"),
         lambda request: static("demoshop/css/demoshop_admin.css"),
     ],
     "SCRIPTS": [
-        lambda request: static("admin/js/admin-theme.js"),
         lambda request: static("admin/js/admin-list-filters.js"),
     ],
     "SIDEBAR": {

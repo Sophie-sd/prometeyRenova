@@ -58,9 +58,11 @@ class TenantContentAdminBase(UnfoldModelAdmin):
         return False
 
     def _user_owned_tenant(self, user):
+        if not getattr(user, 'is_authenticated', False):
+            return None
         try:
             return getattr(user, self.owner_attr)
-        except ObjectDoesNotExist:
+        except (ObjectDoesNotExist, AttributeError):
             return None
 
     def _owned_tenant(self, request):

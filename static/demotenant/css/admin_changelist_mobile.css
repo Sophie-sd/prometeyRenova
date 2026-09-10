@@ -1,0 +1,53 @@
+/* Мобільний changelist: сторінка без горизонтального скролу, скролиться лише таблиця */
+html,
+body,
+#page,
+#main {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+#content,
+#content-main,
+#changelist,
+.changelist-form-container,
+#changelist-form {
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Unfold-обгортка таблиці (клас overflow-x-auto) */
+#changelist-form .overflow-x-auto,
+#changelist .overflow-x-auto {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+#result_list {
+  width: max-content;
+  min-width: 100%;
+  max-width: none;
+}
+
+@media (max-width: 767px) {
+  #result_list th,
+  #result_list td {
+    white-space: nowrap;
+  }
+
+  /* Назва може переноситись — зручніше читати на вузькому екрані */
+  #result_list th.column-title,
+  #result_list td.field-title,
+  #result_list th.column-name,
+  #result_list td.field-name {
+    white-space: normal;
+    min-width: 10rem;
+    max-width: 14rem;
+  }
+}

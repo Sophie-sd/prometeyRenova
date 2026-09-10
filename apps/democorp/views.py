@@ -138,6 +138,8 @@ def lead(request, slug):
     )
 
 
-admin_access = make_admin_access_view(CorpSite, 'democorp/admin_access.html')
+admin_access = make_admin_access_view(
+    CorpSite, 'democorp/admin_access.html', registry=BLOCK_REGISTRY,
+)
 admin_login = make_admin_login_view(CorpSite)
 theme_css = make_theme_css_view(CorpSite)

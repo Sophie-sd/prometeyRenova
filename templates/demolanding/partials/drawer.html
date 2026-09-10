@@ -6,11 +6,6 @@
     <nav class="drawer__panel">
         <div class="drawer__head">
             <p class="drawer__title">{% trans "Меню" %}</p>
-            <button type="button" class="drawer__close" data-qa="menu-close" aria-label="{% trans 'Закрити' %}">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/>
-                </svg>
-            </button>
         </div>
         <ul>
             {% if offers_visible %}<li><a href="#offers">{% trans "Що входить" %}</a></li>{% endif %}
@@ -18,6 +13,7 @@
             {% if reviews_visible %}<li><a href="#reviews">{% trans "Відгуки" %}</a></li>{% endif %}
             {% if faq_visible %}<li><a href="#faq">{% trans "Питання" %}</a></li>{% endif %}
             <li><a href="#cta">{% trans "Контакти" %}</a></li>
+            <li><a href="{% url 'demolanding:admin_login' slug=site.slug %}">{% trans "Адмінка" %}</a></li>
         </ul>
         {% include 'demolanding/partials/socials.html' with extra_class='dl-socials--drawer' %}
         {% if phone_href %}

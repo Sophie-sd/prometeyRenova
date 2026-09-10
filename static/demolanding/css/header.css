@@ -119,6 +119,33 @@
   margin-left: auto;
 }
 
+.dl-header__admin {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--dl-radius-pill);
+  border: 1px solid color-mix(in srgb, var(--dl-cream) 28%, transparent);
+  color: var(--dl-cream);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background var(--dl-dur) var(--dl-ease),
+    border-color var(--dl-dur) var(--dl-ease),
+    color var(--dl-dur) var(--dl-ease);
+}
+
+.dl-header__admin:hover,
+.dl-header__admin:focus-visible {
+  background: color-mix(in srgb, var(--dl-cream) 14%, transparent);
+  border-color: color-mix(in srgb, var(--dl-cream) 42%, transparent);
+  color: var(--dl-cream);
+}
+
 .dl-header__tel-icon,
 .dl-header__tel {
   background: var(--dl-accent);
@@ -221,6 +248,10 @@
   opacity: 0;
 }
 
+.dl-burger[aria-expanded="true"] .dl-burger__lines span:nth-child(3) {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
 .dl-socials {
   display: flex;
   align-items: center;
@@ -260,17 +291,29 @@
 .dl-socials--drawer {
   color: var(--dl-cream);
   margin-top: auto;
+  gap: 0.65rem;
+  padding-block: 0.5rem 0.25rem;
+  justify-content: center;
+  align-self: stretch;
+  width: 100%;
 }
 
 .drawer__panel .dl-socials__link {
-  width: 44px;
-  height: 44px;
-  min-height: 44px;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  min-height: 52px;
   font-size: 0;
+  background: color-mix(in srgb, var(--dl-cream) 10%, transparent);
+}
+
+.drawer__panel .dl-socials__link svg {
+  width: 22px;
+  height: 22px;
 }
 
 .drawer__panel .dl-socials--drawer + .drawer__tel {
-  margin-top: 0.75rem;
+  margin-top: 1rem;
 }
 
 body.has-drawer-open .dl-header {
@@ -288,7 +331,10 @@ body.has-drawer-open .dl-header {
   width: auto;
   background: var(--drawer-bg);
   color: var(--dl-cream);
-  padding: calc(var(--safe-t) + 4.75rem) clamp(1.25rem, 6vw, 2.75rem) calc(var(--safe-b) + 1.875rem);
+  padding-top: calc(var(--safe-t) + 7.25rem);
+  padding-bottom: calc(var(--safe-b) + 1.875rem);
+  padding-left: calc(var(--safe-l) + clamp(1.5rem, 6vw, 2.75rem));
+  padding-right: calc(var(--safe-r) + clamp(1.5rem, 6vw, 2.75rem));
 }
 
 .drawer__head {
@@ -296,41 +342,16 @@ body.has-drawer-open .dl-header {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin: 0 0 1.25rem;
+  margin: 0 0 1.75rem;
+  padding-inline: 0.15rem;
 }
 
 .drawer__title {
   margin: 0;
-  font-size: 0.8125rem;
-  letter-spacing: 0.12em;
+  font-size: 0.875rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--dl-cream) 56%, transparent);
-}
-
-.drawer__close {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  margin-inline-end: -0.5rem;
-  padding: 0;
-  border: 0;
-  border-radius: var(--dl-radius-pill);
-  background: color-mix(in srgb, var(--dl-cream) 12%, transparent);
-  color: var(--dl-cream);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.drawer__close:focus-visible {
-  outline: 2px solid var(--dl-accent-mark);
-  outline-offset: 3px;
-}
-
-.drawer__close svg {
-  width: 16px;
-  height: 16px;
+  color: color-mix(in srgb, var(--dl-cream) 62%, transparent);
 }
 
 .drawer__panel ul {
@@ -338,16 +359,19 @@ body.has-drawer-open .dl-header {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 0.25rem;
+  gap: 0.35rem;
 }
 
 .drawer__panel a {
   display: flex;
   align-items: center;
-  min-height: 44px;
+  min-height: 52px;
+  padding-inline: 0.15rem;
   color: var(--dl-cream);
-  font-size: 1.125rem;
+  font-size: clamp(1.25rem, 4.6vw, 1.5rem);
   font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
   text-decoration: none;
 }
 
@@ -361,13 +385,14 @@ body.has-drawer-open .dl-header {
   align-items: center;
   justify-content: center;
   margin-top: auto;
-  min-height: 50px;
-  padding: 0.75rem 1.25rem;
+  min-height: 54px;
+  padding: 0.85rem 1.35rem;
   border-radius: var(--dl-radius-pill);
   background: var(--dl-accent);
   color: var(--dl-on-accent);
   font-weight: 600;
-  font-size: 0.9375rem;
+  font-size: 1rem;
+  letter-spacing: 0;
   text-decoration: none;
 }
 
@@ -410,6 +435,10 @@ body.has-drawer-open .dl-header {
 
   .dl-header__inner {
     padding-right: 0.55rem;
+  }
+
+  .dl-header__admin {
+    display: inline-flex;
   }
 
   .dl-socials--header {

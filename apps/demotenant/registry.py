@@ -9,6 +9,7 @@
 from __future__ import annotations
 
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 
 def get_entry(registry: list[dict], page: str, key: str) -> dict | None:
@@ -29,10 +30,18 @@ def build_block_form(registry: list[dict], tenant) -> tuple[forms.Form, dict]:
             fields[base] = forms.BooleanField(required=False, label=str(entry['label']))
         else:
             widget = forms.Textarea(attrs={'rows': 3}) if entry.get('multiline') else forms.TextInput
-            fields[base] = forms.CharField(required=False, label=f"{entry['label']} (UA)", widget=widget)
-            fields[f'{base}__ru'] = forms.CharField(required=False, label=f"{entry['label']} (RU)", widget=widget)
-            fields[f'{base}__en'] = forms.CharField(required=False, label=f"{entry['label']} (EN)", widget=widget)
-            fields[f'{base}__cs'] = forms.CharField(required=False, label=f"{entry['label']} (CS)", widget=widget)
+            fields[base] = forms.CharField(
+                required=False, label=_('Українська'), widget=widget,
+            )
+            fields[f'{base}__ru'] = forms.CharField(
+                required=False, label=_('Російська'), widget=widget,
+            )
+            fields[f'{base}__en'] = forms.CharField(
+                required=False, label=_('Англійська'), widget=widget,
+            )
+            fields[f'{base}__cs'] = forms.CharField(
+                required=False, label=_('Чеська'), widget=widget,
+            )
 
     form_class = type('TenantBlockForm', (forms.Form,), fields)
 
@@ -87,6 +96,7 @@ def group_blocks_for_template(
             group['fields'].append({
                 'field': langs[0],
                 'type': entry['type'],
+                'title': str(entry['label']),
                 'langs': langs,
             })
     return list(groups.values())

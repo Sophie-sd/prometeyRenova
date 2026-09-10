@@ -3,17 +3,27 @@
 
 {% block extrastyle %}
 {{ block.super }}
+<link rel="stylesheet" href="{% static 'demotenant/css/admin_nav_chips.css' %}?v=4">
 <link rel="stylesheet" href="{% static 'democorp/css/democorp_admin.css' %}?v=3">
 {% endblock %}
 
 {% block content %}
 <div class="dc-admin-form">
     <h1>{{ title }}</h1>
-    <p>
-        {% trans "Сайт" %}: <strong>{{ tenant.name }}</strong> ·
-        <a href="{% url 'democorp:home' slug=tenant.slug %}" target="_blank" rel="noopener">{% trans "Переглянути вітрину" %}</a>
-        {% if tenant.has_catalog %} · <a href="{% url 'democorp:catalog' slug=tenant.slug %}" target="_blank" rel="noopener">{% trans "Каталог" %}</a>{% endif %}
-    </p>
+    <div class="dt-admin-meta">
+        <p class="dt-admin-meta__label">{% trans "Сайт" %}: <strong>{{ tenant.name }}</strong></p>
+        <a class="dt-admin-chip dt-admin-chip--accent" href="{% url 'democorp:home' slug=tenant.slug %}" target="_blank" rel="noopener">{% trans "Переглянути вітрину" %}</a>
+        {% if tenant.has_catalog %}
+        <a class="dt-admin-chip dt-admin-chip--accent" href="{% url 'democorp:catalog' slug=tenant.slug %}" target="_blank" rel="noopener">{% trans "Каталог" %}</a>
+        {% endif %}
+    </div>
+    <nav class="dt-admin-chips" aria-label="{% trans 'Колекції' %}">
+        <a class="dt-admin-chip" href="{% url 'admin:democorp_corpproductionstep_changelist' %}">{% trans "Виробництво" %}</a>
+        <a class="dt-admin-chip" href="{% url 'admin:democorp_corpgalleryimage_changelist' %}">{% trans "Галерея" %}</a>
+        <a class="dt-admin-chip" href="{% url 'admin:democorp_corptestimonial_changelist' %}">{% trans "Відгуки" %}</a>
+        <a class="dt-admin-chip" href="{% url 'admin:democorp_corppartner_changelist' %}">{% trans "Партнери" %}</a>
+        <a class="dt-admin-chip" href="{% url 'admin:democorp_corplead_changelist' %}">{% trans "Заявки" %}</a>
+    </nav>
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
