@@ -26,7 +26,11 @@
             nonce="{{ csp_nonce }}"></script>
     {% endif %}
     <!-- Google Tag Manager — deferred until user interaction or 6s to reduce TBT/LCP.
-         Load immediately for Tag Assistant / GTM Preview (opener, gtm_debug, preview cookies).
+         Load immediately for: Tag Assistant / GTM Preview (opener, gtm_debug, preview cookies),
+         OR paid traffic (gclid/gbraid/wbraid у URL чи вже збережений _prm_gclid cookie —
+         дивись static/js/core/gclid-capture.js) — щоб Clixtell (анти-фрод, вантажиться
+         через GTM custom HTML tag) і конверсійні теги стартували з першої секунди сесії
+         з реклами, а не з 6-секундною затримкою.
          Conversion events on /thank-you/ call _loadGTM() explicitly. -->
     <script nonce="{{ csp_nonce }}">
     window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
@@ -41,7 +45,10 @@
         || /(?:^|[?&#])gtm_auth=/.test(q)
         || /(^|;\s*)gtm_auth=/.test(c)
         || /(^|;\s*)gtm_preview=/.test(c);
-      if(preview){_loadGTM();return;}
+      var paidTraffic = /(?:^|[?&])(gclid|gbraid|wbraid)=/.test(q)
+        || /(^|;\s*)_prm_gclid=/.test(c);
+      window._prmPaidTraffic = paidTraffic;
+      if(preview||paidTraffic){_loadGTM();return;}
       ['scroll','click','touchstart','keydown','mousemove'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
       setTimeout(_loadGTM,6000);
     })();
