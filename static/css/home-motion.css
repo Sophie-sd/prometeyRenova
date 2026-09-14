@@ -84,10 +84,20 @@
     }
 }
 
+/* Hero (LCP-зона) НЕ чекає ні на JS (IntersectionObserver у home-reveal.js),
+   ні на асинхронний base-bundle.css (media=print -> all по .load()) —
+   максимальна специфічність гарантує opacity:1/transform:none з першого
+   рендеру CSSOM, ще до виконання будь-якого скрипта. Інакше LCP-текст
+   спершу малюється invisible (.home-reveal{opacity:0}) і "з'являється"
+   лише після свапу CSS/спрацювання observer'а — саме це PSI фіксує як
+   затримку LCP. */
 .hero-section .hero-text h1.home-reveal,
 .hero-section .hero-text p.home-reveal,
 .hero-section .hero-buttons.home-reveal {
     animation: none;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition: none;
 }
 
 @media (min-width: 768px) {
