@@ -52,6 +52,21 @@
 .home-redesign .v2-why-shell.home-reveal.is-visible {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
+    transition-duration: 350ms, 350ms;
+    transition-delay: 0ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .home-redesign .v2-why-card:hover .v2-why-shell.home-reveal.is-visible,
+    .home-redesign .v2-why-card.v2-why-card--active .v2-why-shell.home-reveal.is-visible {
+        transform: translate3d(0, 0, 0) scale(1.04);
+    }
+}
+
+@media (hover: none), (pointer: coarse) {
+    .home-redesign .v2-why-card.v2-why-card--active .v2-why-shell.home-reveal.is-visible {
+        transform: translate3d(0, 0, 0) scale(1.03);
+    }
 }
 
 @media (max-width: 767px) {
@@ -61,6 +76,11 @@
 
     .home-redesign .v2-why-shell.home-reveal.is-visible {
         transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    .home-redesign .v2-why-card:hover .v2-why-shell.home-reveal.is-visible,
+    .home-redesign .v2-why-card.v2-why-card--active .v2-why-shell.home-reveal.is-visible {
+        transform: translate3d(0, 0, 0) scale(1.03);
     }
 }
 
@@ -91,7 +111,9 @@
     .home-reveal,
     .home-reveal.is-visible,
     .home-redesign .v2-why-shell.home-reveal,
-    .home-redesign .v2-why-shell.home-reveal.is-visible {
+    .home-redesign .v2-why-shell.home-reveal.is-visible,
+    .home-redesign .v2-why-card:hover .v2-why-shell.home-reveal.is-visible,
+    .home-redesign .v2-why-card.v2-why-card--active .v2-why-shell.home-reveal.is-visible {
         opacity: 1;
         transform: none;
         transition: none;
