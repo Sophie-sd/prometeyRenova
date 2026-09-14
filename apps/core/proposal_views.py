@@ -19,7 +19,7 @@ class ProposalDetailView(DetailView):
         return (
             Proposal.objects.filter(is_published=True)
             .select_related('demo_shop')
-            .prefetch_related('modules', 'packages', 'specs')
+            .prefetch_related('modules', 'packages', 'specs', 'highlights', 'arch_nodes')
         )
 
     def get_object(self, queryset=None):
@@ -30,6 +30,7 @@ class ProposalDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         proposal = self.object
         specs = list(proposal.specs.all())
+        arch_nodes = list(proposal.arch_nodes.all())
         title = proposal.get_localized_title()
         lead = proposal.get_localized_lead()
         context.update({
@@ -41,6 +42,9 @@ class ProposalDetailView(DetailView):
             'contacts': get_site_contact_settings(),
             'modules': proposal.modules.all(),
             'packages': proposal.packages.all(),
+            'highlights': list(proposal.highlights.all()),
+            'arch_root': arch_nodes[0] if arch_nodes else None,
+            'arch_branches': arch_nodes[1:] if arch_nodes else [],
             'spec_items': [s for s in specs if s.kind == ProposalSpec.Kind.SPEC],
             'payment_items': [s for s in specs if s.kind == ProposalSpec.Kind.PAYMENT],
             'recommendation_items': [

@@ -1,169 +1,268 @@
-/* Proposal motion: reveal, tilt depth (desktop), SVG draw */
+/* Proposal motion: reveal, hero words, tree, reduced-motion */
 
 .prop-reveal {
     opacity: 0;
-    transform: translate3d(0, 1rem, 0);
-    transition:
-        opacity var(--duration-modal) var(--ease-out),
-        transform var(--duration-modal) var(--ease-out);
-    transition-delay: calc(var(--i, 0) * 40ms);
+    transform: translate3d(0, 1.125rem, 0);
 }
 
 .prop-reveal.is-revealed {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+    transition:
+        opacity var(--motion-reveal) var(--ease-reveal),
+        transform var(--motion-reveal) var(--ease-reveal);
 }
 
-.prop-hero__title--reveal {
-    animation: propTitleReveal 520ms var(--ease-out) both;
+.prop-word {
+    opacity: 0;
+    transform: translateY(60%) scale(1.03);
 }
 
-@keyframes propTitleReveal {
+.prop-hero.is-in .prop-word {
+    animation: propWordIn 1s var(--ease-hero) forwards;
+    animation-delay: calc(var(--word-i, 0) * 90ms);
+}
+
+.prop-hero.is-in .prop-hero__meta {
+    animation: propFadeIn 0.7s 0.15s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-mask > span {
+    animation: propRise 1.05s var(--ease-hero) forwards;
+}
+
+.prop-mask > span {
+    display: block;
+}
+
+.prop-anim:not(.is-in) .prop-mask > span {
+    transform: translateY(105%);
+    opacity: 0;
+}
+
+.prop-anim.is-in .prop-tree__root {
+    animation: propFadeUp 0.6s 0.05s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__h {
+    animation: propGrowH 0.6s 0.2s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__v {
+    animation: propGrowV 0.5s 0.35s var(--ease-reveal) both;
+    transform-origin: top;
+}
+
+.prop-anim.is-in .prop-tree__bus {
+    animation: propGrowH 0.6s 0.5s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__drops .prop-tree__v:nth-child(1) {
+    animation: propGrowV 0.5s 0.62s var(--ease-reveal) both;
+    transform-origin: top;
+}
+
+.prop-anim.is-in .prop-tree__drops .prop-tree__v:nth-child(2) {
+    animation: propGrowV 0.5s 0.68s var(--ease-reveal) both;
+    transform-origin: top;
+}
+
+.prop-anim.is-in .prop-tree__drops .prop-tree__v:nth-child(3) {
+    animation: propGrowV 0.5s 0.74s var(--ease-reveal) both;
+    transform-origin: top;
+}
+
+.prop-anim.is-in .prop-tree__col:nth-child(1) .prop-tree__node {
+    animation: propFadeUp 0.6s 0.8s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__col:nth-child(2) .prop-tree__node {
+    animation: propFadeUp 0.6s 0.83s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__col:nth-child(3) .prop-tree__node {
+    animation: propFadeUp 0.6s 0.86s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__h2 {
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.prop-anim.is-in .prop-tree__col:nth-child(1) .prop-tree__h2 {
+    animation: propGrowH 0.6s 0.92s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__col:nth-child(2) .prop-tree__h2 {
+    animation: propGrowH 0.6s 0.95s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__col:nth-child(3) .prop-tree__h2 {
+    animation: propGrowH 0.6s 0.98s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__dash {
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+.prop-anim.is-in .prop-tree__col:nth-child(1) .prop-tree__dash {
+    animation: propGrowV 0.5s 1.02s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__col:nth-child(2) .prop-tree__dash {
+    animation: propGrowV 0.5s 1.05s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__col:nth-child(3) .prop-tree__dash {
+    animation: propGrowV 0.5s 1.08s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__dot {
+    animation: propPop 0.4s 1.15s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__col:nth-child(2) .prop-tree__dot {
+    animation-delay: 1.18s;
+}
+
+.prop-anim.is-in .prop-tree__col:nth-child(3) .prop-tree__dot {
+    animation-delay: 1.21s;
+}
+
+.prop-anim.is-in .prop-tree__cap {
+    animation: propFadeUp 0.6s 1.25s var(--ease-reveal) both;
+}
+
+.prop-anim.is-in .prop-tree__col:nth-child(2) .prop-tree__cap {
+    animation-delay: 1.28s;
+}
+
+.prop-anim.is-in .prop-tree__col:nth-child(3) .prop-tree__cap {
+    animation-delay: 1.31s;
+}
+
+.prop-anim.is-in .prop-pay__fill {
+    animation: propGrowH 0.9s 0.15s var(--ease-reveal) both;
+}
+
+.prop-header__fill {
+    transition: transform 80ms linear;
+}
+
+@keyframes propFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes propFadeUp {
     from {
         opacity: 0;
-        clip-path: inset(0 100% 0 0);
-        transform: translate3d(0, 0.4rem, 0);
+        transform: translateY(16px) scale(0.99);
     }
     to {
         opacity: 1;
-        clip-path: inset(0 0 0 0);
-        transform: translate3d(0, 0, 0);
+        transform: translateY(0) scale(1);
     }
 }
 
-/* Glare layer */
-.prop-glare {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    border-radius: inherit;
-    overflow: hidden;
-    background: radial-gradient(
-        380px circle at var(--glare-x) var(--glare-y),
-        rgba(255, 255, 255, 0.32),
-        transparent 42%
-    );
-    opacity: 0;
-    transition: opacity var(--duration-ui) var(--ease-out);
-    z-index: 2;
-}
-
-.prop-tilt.is-tilting .prop-glare {
-    opacity: 1;
-}
-
-/* SVG draw via pathLength=1 */
-.prop-svg__draw {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    transition: stroke-dashoffset 520ms var(--ease-out);
-}
-
-.is-revealed .prop-svg__draw,
-.prop-reveal.is-revealed .prop-svg__draw {
-    stroke-dashoffset: 0;
-}
-
-.prop-svg__node {
-    opacity: 0;
-    transform: translate3d(0, 5px, 0);
-    transition:
-        opacity 280ms var(--ease-out),
-        transform 280ms var(--ease-out);
-}
-
-.is-revealed .prop-svg__node {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-}
-
-.is-revealed .prop-svg__node[data-node="0"] { transition-delay: 60ms; }
-.is-revealed .prop-svg__node[data-node="1"] { transition-delay: 110ms; }
-.is-revealed .prop-svg__node[data-node="2"] { transition-delay: 150ms; }
-.is-revealed .prop-svg__node[data-node="3"] { transition-delay: 190ms; }
-.is-revealed .prop-svg__node[data-node="4"] { transition-delay: 240ms; }
-.is-revealed .prop-svg__node[data-node="5"] { transition-delay: 280ms; }
-.is-revealed .prop-svg__node[data-node="6"] { transition-delay: 320ms; }
-
-/* Stagger */
-.prop-reveal[data-i="0"] { --i: 0; }
-.prop-reveal[data-i="1"] { --i: 1; }
-.prop-reveal[data-i="2"] { --i: 2; }
-.prop-reveal[data-i="3"] { --i: 3; }
-.prop-reveal[data-i="4"] { --i: 4; }
-.prop-reveal[data-i="5"] { --i: 5; }
-.prop-reveal[data-i="6"] { --i: 6; }
-.prop-reveal[data-i="7"] { --i: 7; }
-
-/* Tilt: desktop + fine pointer only */
-@media (hover: hover) and (pointer: fine) and (min-width: 48rem) {
-    .prop-tilt {
-        perspective: 1100px;
+@keyframes propWordIn {
+    from {
+        opacity: 0;
+        transform: translateY(60%) scale(1.03);
     }
-
-    .prop-tilt > .prop-hero-card,
-    .prop-sheet.prop-tilt,
-    .prop-expert.prop-tilt {
-        transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
-        transform-style: preserve-3d;
-        transition: transform var(--duration-fast) var(--ease-out);
-        will-change: transform;
-        box-shadow: 0 1.15rem 2.5rem rgba(17, 17, 17, var(--tilt-shadow));
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
+}
 
-    .prop-tilt.is-tilting > .prop-hero-card,
-    .prop-sheet.prop-tilt.is-tilting,
-    .prop-expert.prop-tilt.is-tilting {
-        transition: none;
+@keyframes propRise {
+    from {
+        transform: translateY(105%);
+        opacity: 0;
     }
-
-    .prop-tilt .prop-sheet__num,
-    .prop-tilt .prop-hero-card__img,
-    .prop-tilt .prop-sheet__icon,
-    .prop-tilt .prop-guarantee__img,
-    .prop-tilt .prop-expert__seal-img {
-        transform: translateZ(36px);
+    to {
+        transform: translateY(0);
+        opacity: 1;
     }
+}
 
-    .prop-tilt .prop-sheet__title,
-    .prop-tilt .prop-sheet__text,
-    .prop-tilt .prop-prose,
-    .prop-tilt .prop-hero-card__label,
-    .prop-tilt .prop-hero-card__brand,
-    .prop-tilt .prop-hero-card__list {
-        transform: translateZ(12px);
+@keyframes propGrowV {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+}
+
+@keyframes propGrowH {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+
+@keyframes propPop {
+    from {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes propSweep {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(400%); }
+}
+
+@keyframes propBreathe {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.04); }
+}
+
+@keyframes propSpin {
+    from { transform: rotate(0); }
+    to { transform: rotate(360deg); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .prop-cta:active {
+        transform: scale(0.98);
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .prop-reveal {
+    .prop-reveal,
+    .prop-word,
+    .prop-hero__meta,
+    .prop-hero__lead,
+    .prop-hero__aside,
+    .prop-hero__actions,
+    .prop-mask > span,
+    .prop-tree__root,
+    .prop-tree__h,
+    .prop-tree__v,
+    .prop-tree__bus,
+    .prop-tree__h2,
+    .prop-tree__dash,
+    .prop-tree__dot,
+    .prop-tree__cap,
+    .prop-pay__fill {
         opacity: 1;
         transform: none;
-        transition: none;
+        animation: none;
+        filter: none;
     }
 
-    .prop-hero__title--reveal {
+    .prop-glow,
+    .prop-seal__ring,
+    .prop-scroll-hint::after {
         animation: none;
     }
 
-    .prop-svg__draw {
-        stroke-dashoffset: 0;
-        transition: none;
-    }
-
-    .prop-svg__node {
-        opacity: 1;
-        transform: none;
-        transition: none;
-    }
-
-    .prop-tilt > .prop-hero-card,
-    .prop-sheet.prop-tilt,
-    .prop-expert.prop-tilt {
-        transform: none;
-        will-change: auto;
-    }
-
+    .prop-price,
+    .prop-cta,
+    .prop-contacts a,
+    .prop-header__fill,
     .prop-sticky-cta {
         transition: none;
     }

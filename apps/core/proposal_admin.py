@@ -11,6 +11,7 @@ from unfold.admin import TabularInline as UnfoldTabularInline
 from .admin_filters import BooleanDropdownFilter
 from .portfolio_sanitize import linkify_portfolio_html
 from .proposal_models import Proposal, ProposalModule, ProposalPackage, ProposalSpec
+from .proposal_visual_models import ProposalArchNode, ProposalHighlight
 
 PROPOSAL_MCE_ATTRS = {
     'height': 280,
@@ -40,6 +41,10 @@ class ProposalAdminForm(forms.ModelForm):
             'lead_ru': forms.Textarea(attrs={'rows': 3}),
             'lead_en': forms.Textarea(attrs={'rows': 3}),
             'lead_cs': forms.Textarea(attrs={'rows': 3}),
+            'recommendations_lead': forms.Textarea(attrs={'rows': 3}),
+            'recommendations_lead_ru': forms.Textarea(attrs={'rows': 3}),
+            'recommendations_lead_en': forms.Textarea(attrs={'rows': 3}),
+            'recommendations_lead_cs': forms.Textarea(attrs={'rows': 3}),
         }
 
     def clean_intro_html(self):
@@ -110,10 +115,42 @@ class ProposalSpecInline(UnfoldTabularInline):
     verbose_name_plural = _('Специфікації')
 
 
+class ProposalHighlightInline(UnfoldTabularInline):
+    model = ProposalHighlight
+    extra = 0
+    fields = (
+        'title', 'title_ru', 'title_en', 'title_cs',
+        'order',
+    )
+    ordering = ('order', 'id')
+    verbose_name = _('Херо-пункт')
+    verbose_name_plural = _('Херо-пункти')
+
+
+class ProposalArchNodeInline(UnfoldTabularInline):
+    model = ProposalArchNode
+    extra = 0
+    fields = (
+        'title', 'title_ru', 'title_en', 'title_cs',
+        'caption', 'caption_ru', 'caption_en', 'caption_cs',
+        'is_accent',
+        'order',
+    )
+    ordering = ('order', 'id')
+    verbose_name = _('Вузол архітектури')
+    verbose_name_plural = _('Дерево архітектури')
+
+
 @admin.register(Proposal)
 class ProposalAdmin(UnfoldModelAdmin):
     form = ProposalAdminForm
-    inlines = [ProposalModuleInline, ProposalPackageInline, ProposalSpecInline]
+    inlines = [
+        ProposalHighlightInline,
+        ProposalArchNodeInline,
+        ProposalModuleInline,
+        ProposalPackageInline,
+        ProposalSpecInline,
+    ]
     list_filter_sheet = False
     actions = ['create_demo_action']
     list_display = (
@@ -133,7 +170,7 @@ class ProposalAdmin(UnfoldModelAdmin):
     )
     search_fields = ('client_name', 'title', 'slug')
     prepopulated_fields = {'slug': ('client_name',)}
-    readonly_fields = ('created_at', 'updated_at')
+    readonly_fields = ('created_at', 'updated_at', 'hero_image_preview')
     ordering = ('order', '-issued_on')
 
     fieldsets = (
@@ -158,6 +195,16 @@ class ProposalAdmin(UnfoldModelAdmin):
                 'is_published',
             ),
         }),
+        (_('Вітрина'), {
+            'fields': (
+                'hero_image',
+                'hero_image_preview',
+                'recommendations_lead',
+                'recommendations_lead_ru',
+                'recommendations_lead_en',
+                'recommendations_lead_cs',
+            ),
+        }),
         (_('Демо'), {
             'description': _(
                 'Тип демо визначає, яку вітрину створює дія «Створити/оновити демо» '
@@ -176,6 +223,15 @@ class ProposalAdmin(UnfoldModelAdmin):
             'fields': ('created_at', 'updated_at'),
         }),
     )
+
+    @admin.display(description=_('Прев’ю херо'))
+    def hero_image_preview(self, obj):
+        if not obj or not obj.hero_image:
+            return '—'
+        return format_html(
+            '<img src="{}" alt="" class="pl-admin-image-preview">',
+            obj.hero_image.url,
+        )
 
     @admin.display(description=_('Відкрити'))
     def open_page(self, obj):

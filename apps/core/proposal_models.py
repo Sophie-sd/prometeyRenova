@@ -1,8 +1,17 @@
 """Моделі комерційних пропозицій (CMS-driven proposal pages)."""
 from decimal import Decimal
+from pathlib import Path
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+
+def proposal_hero_upload_to(instance, filename: str) -> str:
+    ext = Path(filename).suffix.lower()
+    if ext not in {'.jpg', '.jpeg', '.png', '.webp', '.gif'}:
+        ext = '.png'
+    slug = instance.slug or 'proposal'
+    return f'proposals/{slug}/hero{ext}'
 
 
 class Proposal(models.Model):
@@ -35,6 +44,28 @@ class Proposal(models.Model):
     lead_ru = models.TextField(blank=True, verbose_name=_('Лід (RU)'))
     lead_en = models.TextField(blank=True, verbose_name=_('Лід (EN)'))
     lead_cs = models.TextField(blank=True, verbose_name=_('Лід (CS)'))
+    hero_image = models.ImageField(
+        upload_to=proposal_hero_upload_to,
+        blank=True,
+        verbose_name=_('Фото херо'),
+        help_text=_('Тематичне фото цього КП. Кожне нове КП — своє зображення з адмінки.'),
+    )
+    recommendations_lead = models.TextField(
+        blank=True,
+        verbose_name=_('Лід рекомендацій'),
+    )
+    recommendations_lead_ru = models.TextField(
+        blank=True,
+        verbose_name=_('Лід рекомендацій (RU)'),
+    )
+    recommendations_lead_en = models.TextField(
+        blank=True,
+        verbose_name=_('Лід рекомендацій (EN)'),
+    )
+    recommendations_lead_cs = models.TextField(
+        blank=True,
+        verbose_name=_('Лід рекомендацій (CS)'),
+    )
     issued_on = models.DateField(verbose_name=_('Дата пропозиції'))
     intro_html = models.TextField(
         blank=True,
@@ -153,6 +184,16 @@ class Proposal(models.Model):
         from .i18n_content import localized_text
 
         return localized_text(self.lead, self.lead_ru, self.lead_en, self.lead_cs)
+
+    def get_localized_recommendations_lead(self) -> str:
+        from .i18n_content import localized_text
+
+        return localized_text(
+            self.recommendations_lead,
+            self.recommendations_lead_ru,
+            self.recommendations_lead_en,
+            self.recommendations_lead_cs,
+        )
 
     def get_localized_cta_label(self) -> str:
         from .i18n_content import localized_text

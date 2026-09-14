@@ -5,7 +5,10 @@ Idempotent заливка КП для B2B/B2C платформи автозап�
 """
 from datetime import date
 from decimal import Decimal
+from pathlib import Path
 
+from django.conf import settings
+from django.core.files import File
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
@@ -16,8 +19,42 @@ from apps.core.proposal_models import (
     ProposalPackage,
     ProposalSpec,
 )
+from apps.core.proposal_visual_models import ProposalArchNode, ProposalHighlight
 
 SLUG = 'b2b-parts-platform-a7f3'
+
+RECS_LEAD = (
+    'Архітектурні та імплементаційні рішення по ТЗ платформи автозапчастин '
+    '— з позиції команди з 10+ років у e-commerce.'
+)
+
+HIGHLIGHTS = [
+    {'order': 0, 'title': 'Кастомний Django-стек'},
+    {'order': 1, 'title': 'B2B / B2C під ключ'},
+    {'order': 2, 'title': 'Пожиттєва гарантія коду'},
+]
+
+ARCH_NODES = [
+    {'order': 0, 'title': 'Admin', 'caption': '', 'is_accent': False},
+    {
+        'order': 1,
+        'title': 'B2B Cabinet 1',
+        'caption': 'Prom / Rozetka',
+        'is_accent': False,
+    },
+    {
+        'order': 2,
+        'title': 'B2C Storefront',
+        'caption': 'PostgreSQL',
+        'is_accent': True,
+    },
+    {
+        'order': 3,
+        'title': 'B2B Cabinet 2',
+        'caption': 'Redis Cache',
+        'is_accent': False,
+    },
+]
 
 MODULES = [
     {
@@ -298,6 +335,16 @@ def _with_ru(payload: dict, text_keys: tuple[str, ...]) -> dict:
     return out
 
 
+def _attach_hero(proposal: Proposal) -> None:
+    src = Path(settings.BASE_DIR) / 'static' / 'proposal' / 'img' / 'parts.png'
+    if not src.is_file():
+        return
+    if proposal.hero_image:
+        proposal.hero_image.delete(save=False)
+    with src.open('rb') as handle:
+        proposal.hero_image.save('hero.png', File(handle), save=True)
+
+
 class Command(BaseCommand):
     help = 'Seed B2B parts platform commercial proposal (idempotent)'
 
@@ -328,6 +375,10 @@ class Command(BaseCommand):
                 ),
                 'lead_en': 'Custom platform on Django / HTMX / PostgreSQL / Redis for wholesale and retail trade of auto parts.',
                 'lead_cs': 'Customizovaná platforma na Django / HTMX / PostgreSQL / Redis pro velkoobchodní a maloobchodní prodej autodílů.',
+                'recommendations_lead': RECS_LEAD,
+                'recommendations_lead_ru': translate_ua_to_ru(RECS_LEAD),
+                'recommendations_lead_en': '',
+                'recommendations_lead_cs': '',
                 'issued_on': date(2026, 8, 20),
                 'intro_html': INTRO_HTML,
                 'intro_html_ru': translate_ua_to_ru(INTRO_HTML),
@@ -367,10 +418,28 @@ class Command(BaseCommand):
                 **_with_ru(data, ('title', 'body')),
             )
 
+        proposal.highlights.all().delete()
+        for data in HIGHLIGHTS:
+            ProposalHighlight.objects.create(
+                proposal=proposal,
+                **_with_ru(data, ('title',)),
+            )
+
+        proposal.arch_nodes.all().delete()
+        for data in ARCH_NODES:
+            ProposalArchNode.objects.create(
+                proposal=proposal,
+                **_with_ru(data, ('title', 'caption')),
+            )
+
+        _attach_hero(proposal)
+
         action = 'Created' if created else 'Updated'
         self.stdout.write(self.style.SUCCESS(
             f'{action}: /proposal/{SLUG}/ '
             f'({proposal.modules.count()} modules, '
             f'{proposal.packages.count()} packages, '
-            f'{proposal.specs.count()} specs)'
+            f'{proposal.specs.count()} specs, '
+            f'{proposal.highlights.count()} highlights, '
+            f'{proposal.arch_nodes.count()} arch nodes)'
         ))

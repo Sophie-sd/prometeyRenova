@@ -1,0 +1,312 @@
+/* Architecture tree + intro + ambient glow */
+
+.prop-arch__line {
+    height: 1px;
+    background: var(--prop-line);
+    margin: clamp(1.75rem, 4.5vh, 3rem) 0 clamp(2rem, 6vh, 4rem);
+}
+
+.prop-tree {
+    display: grid;
+    justify-items: center;
+    gap: 0;
+}
+
+.prop-tree__root {
+    font-family: var(--prop-display);
+    font-weight: 400;
+    font-size: clamp(1.25rem, 2.3vw, 2rem);
+    letter-spacing: -0.01em;
+}
+
+.prop-tree__h {
+    width: min(13.75rem, 60%);
+    height: 1px;
+    background: var(--prop-line);
+    margin-top: clamp(0.625rem, 1.4vh, 1rem);
+}
+
+.prop-tree__v {
+    width: 1px;
+    height: clamp(1.625rem, 4.5vh, 3.25rem);
+    background: var(--prop-accent);
+}
+
+.prop-tree__bus {
+    width: 66.7%;
+    height: 1px;
+    background: var(--prop-accent);
+}
+
+.prop-tree__drops,
+.prop-tree__cols {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+
+.prop-tree__col {
+    display: grid;
+    justify-items: center;
+    gap: 0;
+    width: 100%;
+}
+
+.prop-tree__node {
+    font-family: var(--prop-display);
+    font-weight: 400;
+    font-size: clamp(1.0625rem, 1.9vw, 1.625rem);
+    letter-spacing: -0.01em;
+    text-align: center;
+    transition: color var(--motion-soft) var(--ease-out);
+}
+
+.prop-tree__node--accent,
+.prop-tree__node:hover {
+    color: var(--prop-accent);
+}
+
+.prop-tree__h2 {
+    width: min(12.5rem, 92%);
+    height: 1px;
+    background: var(--prop-line);
+    margin-top: clamp(0.625rem, 1.4vh, 1rem);
+}
+
+.prop-tree__dash {
+    width: 1px;
+    height: clamp(1.875rem, 5vh, 3.5rem);
+    background-image: linear-gradient(var(--prop-accent) 2.5px, transparent 2.5px);
+    background-size: 1px 8px;
+    opacity: 0.85;
+}
+
+.prop-tree__dot {
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 50%;
+    background: var(--prop-accent);
+}
+
+.prop-tree__cap {
+    margin-top: clamp(0.75rem, 1.6vh, 1.125rem);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--prop-muted-faint);
+    text-align: center;
+}
+
+.prop-intro {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+}
+
+.prop-intro__index {
+    font-family: var(--prop-display);
+    font-weight: 600;
+    font-size: clamp(2.75rem, 5.4vw, 4.75rem);
+    color: var(--prop-accent);
+    line-height: 1;
+}
+
+.prop-intro__kicker {
+    margin-top: 1rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--prop-muted-faint);
+}
+
+.prop-intro__title {
+    margin: 0 0 1.75rem;
+    font-size: var(--prop-h2);
+}
+
+.prop-prose {
+    max-width: 64ch;
+}
+
+.prop-prose p {
+    margin: 0 0 1.375rem;
+    font-size: clamp(1rem, 1.35vw, 1.3125rem);
+    line-height: 1.55;
+}
+
+.prop-prose p:last-of-type {
+    margin-bottom: clamp(2.5rem, 6vh, 4rem);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--prop-muted);
+}
+
+.prop-prose strong {
+    font-weight: 700;
+    color: var(--prop-text);
+}
+
+.prop-prose ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.prop-prose li {
+    border-top: 1px solid var(--prop-line);
+    padding: clamp(1.5rem, 3vw, 2.375rem) 0;
+}
+
+.prop-prose li:last-child {
+    border-bottom: 1px solid var(--prop-line);
+}
+
+.prop-metric {
+    display: flex;
+    gap: clamp(1.25rem, 3.5vw, 2.5rem);
+    align-items: baseline;
+}
+
+.prop-metric__num {
+    font-family: var(--prop-display);
+    font-weight: 300;
+    font-size: clamp(2.875rem, 5.2vw, 5.25rem);
+    color: var(--prop-accent);
+    line-height: 1;
+    flex: 0 0 auto;
+    letter-spacing: -0.03em;
+}
+
+.prop-metric__title,
+.prop-prose li > strong {
+    display: block;
+    font-family: var(--prop-display);
+    font-weight: 300;
+    font-size: clamp(1.1875rem, 1.8vw, 1.625rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.625rem;
+}
+
+.prop-prose li > strong {
+    color: var(--prop-text);
+}
+
+.prop-glow {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle, var(--prop-accent-soft), transparent 70%);
+    animation: propBreathe 12s ease-in-out infinite;
+}
+
+.prop-glow--modules {
+    top: -10%;
+    left: -12%;
+    width: min(44vw, 35rem);
+    height: min(44vw, 35rem);
+}
+
+.prop-glow--pack {
+    bottom: -16%;
+    right: -10%;
+    width: min(48vw, 37.5rem);
+    height: min(48vw, 37.5rem);
+}
+
+.prop-glow--cta {
+    top: -20%;
+    right: -10%;
+    width: min(60vw, 43.75rem);
+    height: min(60vw, 43.75rem);
+}
+
+@media (min-width: 48rem) {
+    .prop-tree__drops,
+    .prop-tree__cols {
+        gap: clamp(1.125rem, 3vw, 2.5rem);
+    }
+
+    .prop-tree--n1 .prop-tree__bus,
+    .prop-tree--n1 .prop-tree__drops {
+        display: none;
+    }
+
+    .prop-tree--n1 .prop-tree__cols {
+        grid-template-columns: 1fr;
+    }
+
+    .prop-tree--n2 .prop-tree__drops,
+    .prop-tree--n2 .prop-tree__cols {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .prop-tree--n2 .prop-tree__bus {
+        width: 50%;
+    }
+
+    .prop-tree--n3 .prop-tree__drops,
+    .prop-tree--n3 .prop-tree__cols {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .prop-tree--n4 .prop-tree__drops,
+    .prop-tree--n4 .prop-tree__cols {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .prop-tree--n4 .prop-tree__bus {
+        width: 75%;
+    }
+
+    .prop-tree--n5 .prop-tree__drops,
+    .prop-tree--n5 .prop-tree__cols {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .prop-tree--n5 .prop-tree__bus {
+        width: 80%;
+    }
+
+    .prop-tree--n6 .prop-tree__drops,
+    .prop-tree--n6 .prop-tree__cols {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .prop-tree--n6 .prop-tree__bus {
+        width: 83.333%;
+    }
+
+    .prop-intro {
+        grid-template-columns: minmax(8.75rem, 13.75rem) minmax(0, 1fr);
+    }
+
+    .prop-intro__sticky {
+        position: sticky;
+        top: 6.875rem;
+    }
+}
+
+@media (max-width: 47.9375rem) {
+    .prop-tree__bus,
+    .prop-tree__drops {
+        display: none;
+    }
+
+    .prop-tree__cols {
+        gap: clamp(1.5rem, 4vh, 2.25rem);
+        margin-top: 1.5rem;
+    }
+
+    .prop-intro {
+        gap: 1.5rem;
+    }
+
+    .prop-intro__index {
+        font-size: 2.5rem;
+    }
+}
