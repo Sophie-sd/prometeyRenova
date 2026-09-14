@@ -8,4 +8,5 @@ echo "👥 Ensuring homepage client logos on disk..."
 python manage.py seed_clients
 
 echo "🚀 Starting application..."
-exec gunicorn config.asgi:application -k uvicorn.workers.UvicornWorker
+# WEB_CONCURRENCY from Render env (starter 512MB → prefer 2). Default 2 if unset.
+exec gunicorn config.asgi:application -k uvicorn.workers.UvicornWorker -w "${WEB_CONCURRENCY:-2}"

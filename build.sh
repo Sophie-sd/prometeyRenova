@@ -4,6 +4,9 @@ set -o errexit
 echo "📦 Installing dependencies..."
 pip install -r requirements.txt
 
+echo "🎨 Building homepage CSS bundle..."
+python3 scripts/build_home_css.py
+
 echo "🌍 Compiling translations (uk, ru, en, cs)..."
 python manage.py compilemessages --locale=en --locale=ru --locale=uk --locale=cs --ignore=prometey_env
 

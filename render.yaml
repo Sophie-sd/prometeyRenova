@@ -3,6 +3,7 @@ services:
     plan: starter
     name: prometei-web
     runtime: python
+    region: frankfurt
     branch: main
     autoDeployTrigger: commit
     buildCommand: "./build.sh"
@@ -21,7 +22,7 @@ envVars:
       - key: RENDER_EXTERNAL_HOSTNAME
         value: prometeylabs.com
       - key: WEB_CONCURRENCY
-        value: 4
+        value: 2
       - key: PYTHON_VERSION
         value: 3.12.7
       - key: LANGUAGE_CODE

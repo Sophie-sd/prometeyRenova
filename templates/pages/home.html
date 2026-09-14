@@ -9,25 +9,27 @@
 {% block extra_head %}
 <link rel="preload" as="image" href="{% static 'images/hero/hero-mobile-poster.webp' %}?v=2" media="(max-width: 767px)" fetchpriority="high">
 <link rel="preload" as="image" href="{% static 'images/hero/hero-desktop-poster.webp' %}?v=2" media="(min-width: 768px)" fetchpriority="high">
+<link rel="preload" as="font" type="font/woff2" href="{% static 'fonts/space-grotesk/space-grotesk-400-adb775.woff2' %}" crossorigin>
 {% endblock %}
 
 {% block page_css %}
+<link rel="stylesheet" href="{% static 'css/fonts.css' %}?v=1">
+{% if DEBUG %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}?v=12">
 <link rel="stylesheet" href="{% static 'css/components/marquee-why-choose.css' %}?v=2">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Unbounded:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v2.css' %}?v=4">
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v3.css' %}">
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-final.css' %}?v=2">
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-bridge.css' %}?v=10">
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-why-cards.css' %}?v=10">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/process_block.css' %}?v=50">
 <link rel="stylesheet" href="{% static 'css/services_piano_block.css' %}?v=48">
 <link rel="stylesheet" href="{% static 'css/services_piano_block_mob.css' %}?v=13">
 <link rel="stylesheet" href="{% static 'css/services_piano_video.css' %}?v=34">
 <link rel="stylesheet" href="{% static 'css/home-motion.css' %}?v=8">
+{% else %}
+<link rel="stylesheet" href="{% static 'css/home-page-bundle.css' %}?v=1">
+{% endif %}
 <noscript><style>.home-reveal{opacity:1;transform:none}</style></noscript>
 {% endblock %}
 
@@ -275,9 +277,19 @@
 
 {% block extra_js %}
 <script src="{% static 'js/home-reveal.js' %}?v=6" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/process_block_anim.js' %}?v=47" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/process_block_popover.js' %}?v=44" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/process_block.js' %}?v=51" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/services_piano_mob_scroll.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/services_piano_block.js' %}?v=14" nonce="{{ csp_nonce }}" defer></script>
+{# Below-fold process + piano: load near section (order preserved). #}
+<script type="application/json" id="home-below-fold-urls" nonce="{{ csp_nonce }}">
+[
+  "{% static 'js/process_block_anim.js' %}?v=47",
+  "{% static 'js/process_block_popover.js' %}?v=44",
+  "{% static 'js/process_block.js' %}?v=51",
+  "{% static 'js/services_piano_mob_scroll.js' %}?v=2",
+  "{% static 'js/services_piano_block.js' %}?v=14"
+]
+</script>
+<script id="home-below-fold"
+        src="{% static 'js/home-below-fold.js' %}?v=1"
+        nonce="{{ csp_nonce }}"
+        defer
+        data-nonce="{{ csp_nonce }}"></script>
 {% endblock %}
