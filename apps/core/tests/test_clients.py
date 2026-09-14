@@ -39,6 +39,11 @@ class ClientLogoFallbackTests(SimpleTestCase):
         client.logo.name = 'clients/beautyshop.png'
         self.assertIn('/static/images/portfolio/beautyshop.png', client.get_logo_url())
 
+    def test_shop_logo_webp_src_when_static_exists(self):
+        client = Client(name='Polygraph')
+        self.assertIn('/static/images/portfolio/polygraph-228.webp', client.get_logo_webp_228_url())
+        self.assertIn('/static/images/portfolio/polygraph-456.webp', client.get_logo_webp_456_url())
+
 
 class HomepageClientsTests(TestCase):
     def test_homepage_clients_returns_only_active_in_order(self):

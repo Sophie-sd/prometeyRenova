@@ -67,3 +67,14 @@ def resolve_client_logo_url(client) -> str:
         if media_path.is_file():
             return field.url
     return ''
+
+
+def resolve_client_logo_webp_url(client, width: int) -> str:
+    """Похідний WebP поруч із PNG у static/images/portfolio/ — лише якщо файл є."""
+    static_rel = _static_home_for_client_name(client.name)
+    if not static_rel.endswith('.png'):
+        return ''
+    webp_rel = f'{static_rel[:-4]}-{width}.webp'
+    if _static_file_exists(webp_rel):
+        return static_url(webp_rel)
+    return ''

@@ -11,22 +11,48 @@
 {% block extra_head %}
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.prometeylabs.com/internet-shop-v2/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image"
-    imagesrcset="{% static 'images/shop_hero_720.webp' %} 720w, {% static 'images/shop_hero.webp' %} 1080w"
-    imagesizes="(max-width: 767px) 100vw, 410px"
-    fetchpriority="high">
 {% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/internet-shop-v2-anim.css' %}?v=8">
-<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=115">
+<link rel="preload" as="image" href="{% static 'images/shop_hero_720.webp' %}" media="(max-width: 767px)" fetchpriority="high">
+<link rel="preload" as="image" href="{% static 'images/shop_hero.webp' %}" media="(min-width: 768px)" fetchpriority="high">
+<style>
+body.pl-shop-body{background:#0A0A0A;overflow-x:clip}
+.pl-shop-page{--pl-acc:#E65100;--pl-acc-h:#FF6D00;--pl-bg:#0A0A0A;--pl-header-offset:80px;background:var(--pl-bg);color:#fff;font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
+.pl-shop__inner{max-width:var(--pl-shell);margin:0 auto;padding-inline:var(--pl-gutter);box-sizing:border-box}
+.pl-shop__hero{position:relative;overflow-x:clip;overflow-y:hidden;padding:0 0 clamp(40px,5vw,68px);padding-top:calc(var(--pl-header-offset) + clamp(32px,4.5vw,52px) + env(safe-area-inset-top,0px))}
+.pl-shop__hero-row{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:flex-start;gap:clamp(28px,4vw,56px)}
+.pl-shop__hero-copy{flex:1 1 430px;min-width:0;order:1}
+.pl-shop__title--hero{font-weight:700;font-size:clamp(29px,4.5vw,55px);line-height:.92;letter-spacing:-.04em;margin:0 0 20px;color:#fff}
+.pl-shop__accent{color:var(--pl-acc)}
+.pl-shop__hero-actions{display:flex;flex-direction:column;align-items:stretch;width:fit-content;max-width:100%;gap:14px;margin-top:4px;margin-bottom:48px}
+.pl-shop__btn{display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;padding:17px 28px;border-radius:11px;min-height:48px}
+.pl-shop__btn--primary{background:var(--pl-acc);color:var(--pl-bg)}
+.pl-shop__btn--ghost{background:transparent;color:#fff;border:1px solid #333}
+.pl-shop__hero-stage{flex:1 1 360px;min-width:0;order:2;position:relative;display:flex;align-items:flex-start;justify-content:center}
+.pl-shop__hero-img{display:block;width:100%;max-width:410px;height:auto}
+.pl-shop__hero-chip{position:absolute;z-index:3;opacity:0}
+@media(max-width:767px){
+.pl-shop__hero{padding-top:calc(72px + clamp(24px,5vw,36px) + env(safe-area-inset-top,0px))}
+.pl-shop__hero-copy{flex:1 1 100%;width:100%;text-align:center}
+.pl-shop__hero-stage{flex:1 1 100%;width:100%;margin-top:12px}
+.pl-shop__hero-img{max-width:100%}
+.pl-shop__hero-actions{width:100%;margin-bottom:52px}
+}
+</style>
+<link rel="preload" href="{% static 'css/pl-display-fonts.css' %}?v=1" as="style">
+<link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=1" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=1"></noscript>
+<link rel="preload" href="{% static 'css/internet-shop-v2.css' %}?v=117" as="style">
+<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=117" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=117"></noscript>
+<noscript><style>.pl-shop__hero-chip,.pl-shop__hero-chart-wrap{opacity:1;transform:none}</style></noscript>
 {% endblock %}
 
 {% block content %}
-<div id="plShopRoot" class="pl-shop pl-shop-page">
+<div id="plShopRoot" class="pl-shop pl-shop-page"
+     data-admin-js="{% static 'js/internet-shop-v2-admin-mock.js' %}?v=3"
+     data-quiz-js="{% static 'js/internet-shop-v2-quiz.js' %}?v=8">
     {% include 'components/internet_shop_v2/hero.html' %}
     {% include 'components/internet_shop_v2/clients.html' %}
     {% include 'components/internet_shop_v2/svoboda.html' %}
@@ -39,7 +65,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/internet-shop-v2-admin-mock.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/internet-shop-v2-quiz.js' %}?v=8" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/internet-shop-v2.js' %}?v=22" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-v2.js' %}?v=23" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

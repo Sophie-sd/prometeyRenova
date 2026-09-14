@@ -1031,6 +1031,16 @@ class Client(models.Model):
 
         return resolve_client_logo_url(self)
 
+    def get_logo_webp_228_url(self) -> str:
+        from .portfolio_images import resolve_client_logo_webp_url
+
+        return resolve_client_logo_webp_url(self, 228)
+
+    def get_logo_webp_456_url(self) -> str:
+        from .portfolio_images import resolve_client_logo_webp_url
+
+        return resolve_client_logo_webp_url(self, 456)
+
 
 def feature_block_upload_to(instance, filename: str) -> str:
     """Historical upload_to for migration 0015; model removed in 0028."""

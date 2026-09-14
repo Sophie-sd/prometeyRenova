@@ -7,12 +7,16 @@
     <div class="pl-shop__clients-wrap">
         <div class="pl-shop__clients-stories-wrapper">
             <div class="pl-shop__clients-stories-container projects-stories-container" role="list" data-marquee-label="{% trans 'Наші клієнти — автоматична демонстрація' %}">
-                {% for client in home_clients %}
-                {% include 'components/client_home_story.html' with client=client is_clone=False %}
-                {% endfor %}
-                {% for client in home_clients %}
-                {% include 'components/client_home_story.html' with client=client is_clone=True %}
-                {% endfor %}
+                <div class="pl-shop__clients-set">
+                    {% for client in home_clients %}
+                    {% include 'components/internet_shop_v2/client_story.html' with client=client is_clone=False %}
+                    {% endfor %}
+                </div>
+                <div class="pl-shop__clients-set" aria-hidden="true">
+                    {% for client in home_clients %}
+                    {% include 'components/internet_shop_v2/client_story.html' with client=client is_clone=True %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

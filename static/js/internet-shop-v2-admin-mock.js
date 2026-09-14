@@ -196,7 +196,8 @@
 
     function initAdminMock() {
         var mock = document.querySelector('[data-admin-mock]');
-        if (!mock) return;
+        if (!mock || mock.__plAdminInited) return;
+        mock.__plAdminInited = 1;
 
         var panel = mock.querySelector('#pl-admin-panel');
         var titleEl = mock.querySelector('#pl-admin-title');

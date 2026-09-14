@@ -1,0 +1,18 @@
+<a href="{% url 'portfolio' %}" class="project-story v3-client{% if is_clone %} story-clone{% endif %}"{% if is_clone %} data-clone="true" aria-hidden="true" tabindex="-1"{% else %} role="listitem" aria-label="{{ client.name }}"{% endif %}>
+    <div class="v3-client-halo" aria-hidden="true"></div>
+    <div class="v3-client-ring">
+        <div class="v3-client-inner">
+            {% if client.get_logo_url %}
+            <picture>
+                {% if client.get_logo_webp_228_url %}
+                <source type="image/webp"
+                    srcset="{{ client.get_logo_webp_228_url }} 228w{% if client.get_logo_webp_456_url %}, {{ client.get_logo_webp_456_url }} 456w{% endif %}"
+                    sizes="(min-width: 768px) 120px, 84px">
+                {% endif %}
+                <img src="{{ client.get_logo_url }}" alt="" width="120" height="120" loading="lazy" decoding="async">
+            </picture>
+            {% endif %}
+        </div>
+    </div>
+    <span class="project-story-name v3-client-name">{{ client.name }}</span>
+</a>

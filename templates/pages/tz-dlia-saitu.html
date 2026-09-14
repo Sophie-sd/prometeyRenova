@@ -17,9 +17,6 @@
 <link rel="alternate" hreflang="en" href="https://www.prometeylabs.com/en/tz-dlia-saitu/">
 <link rel="alternate" hreflang="ru" href="https://www.prometeylabs.com/ru/tz-dlia-saitu/">
 <link rel="alternate" hreflang="x-default" href="https://www.prometeylabs.com/tz-dlia-saitu/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -83,6 +80,9 @@
 {% endblock %}
 
 {% block page_css %}
+<link rel="preload" href="{% static 'css/pl-display-fonts.css' %}?v=1" as="style">
+<link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=1" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=1"></noscript>
 <link rel="stylesheet" href="{% static 'css/tz-generator-1.css' %}?v=22">
 <link rel="stylesheet" href="{% static 'css/tz-generator-2.css' %}?v=21">
 <link rel="stylesheet" href="{% static 'css/tz-generator-3.css' %}?v=21">

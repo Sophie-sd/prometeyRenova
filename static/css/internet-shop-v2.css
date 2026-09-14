@@ -4,6 +4,116 @@
    Mobile-first, iOS Safari safe
    ================================= */
 
+@keyframes pl-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+}
+
+@keyframes pl-prog {
+    0% { width: 6%; }
+    100% { width: 100%; }
+}
+
+@keyframes pl-pulse {
+    0%, 100% { opacity: 0.45; }
+    50% { opacity: 0.85; }
+}
+
+@keyframes pl-bar {
+    0% { transform: scaleY(0.25); }
+    100% { transform: scaleY(1); }
+}
+
+@keyframes pl-svoboda-glow {
+    0%, 100% {
+        opacity: 0.72;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.14);
+    }
+}
+
+@keyframes pl-svoboda-accent-pop {
+    0% {
+        box-shadow: 0 0 0 0 rgba(230, 81, 0, 0.55);
+    }
+    45% {
+        box-shadow:
+            0 0 0 8px rgba(230, 81, 0, 0.12),
+            0 18px 48px rgba(230, 81, 0, 0.18);
+    }
+    100% {
+        box-shadow: 0 10px 36px rgba(0, 0, 0, 0.32);
+    }
+}
+
+@keyframes pl-svoboda-stat-flash {
+    0% {
+        color: #fff;
+        text-shadow: none;
+    }
+    35% {
+        color: var(--pl-acc);
+        text-shadow: 0 0 18px rgba(230, 81, 0, 0.45);
+    }
+    100% {
+        color: var(--pl-acc);
+        text-shadow: none;
+    }
+}
+
+@keyframes pl-pkg-extra-in {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 8px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes pl-admin-panel-in {
+    from {
+        opacity: 0;
+        transform: translate3d(12px, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes pl-admin-row-in {
+    from {
+        opacity: 0;
+        transform: translate3d(8px, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes pl-admin-status-pulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(0.94); }
+    100% { transform: scale(1); }
+}
+
+@keyframes pl-garant-num-pulse {
+    0%, 100% {
+        transform: scale(1);
+        text-shadow: none;
+    }
+    50% {
+        transform: scale(1.07);
+        text-shadow: 0 0 18px rgba(230, 81, 0, 0.42);
+    }
+}
+
 .pl-shop-page {
     --pl-acc: #E65100;
     --pl-acc-h: #FF6D00;
@@ -29,6 +139,7 @@
 }
 
 body.pl-shop-body {
+    --pl-bg: #0A0A0A;
     background: var(--pl-bg);
     overflow-x: clip;
 }
@@ -198,6 +309,8 @@ body.pl-shop-body {
     z-index: 1;
     inset: 0;
     width: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease;
     pointer-events: none;
     -webkit-mask-image: linear-gradient(
         180deg,
@@ -213,6 +326,10 @@ body.pl-shop-body {
         #000 22%,
         #000 100%
     );
+}
+
+.pl-shop__hero-chart-wrap.is-in {
+    opacity: 1;
 }
 
 .pl-shop__hero-chart {
@@ -395,7 +512,6 @@ body.pl-shop-body {
     height: auto;
     filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
     animation: pl-float 5s ease-in-out infinite;
-    will-change: transform;
 }
 
 .pl-shop__hero-chip {
@@ -409,14 +525,22 @@ body.pl-shop-body {
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
     transition:
-        transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.5s ease,
+        transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
         border-color 0.32s ease,
         box-shadow 0.38s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.pl-shop__hero-chip.is-in {
+    opacity: 1;
+    transform: none;
+}
+
 @media (hover: hover) and (pointer: fine) {
-    .pl-shop__hero-chip:hover {
+    .pl-shop__hero-chip.is-in:hover {
         transform: translate3d(0, -7px, 0);
         border-color: rgba(230, 81, 0, 0.38);
         box-shadow:
@@ -424,8 +548,8 @@ body.pl-shop-body {
             0 0 28px rgba(230, 81, 0, 0.1);
     }
 
-    .pl-shop__hero-chip:hover .pl-shop__chip-value,
-    .pl-shop__hero-chip:hover .pl-shop__chip-sales-val {
+    .pl-shop__hero-chip.is-in:hover .pl-shop__chip-value,
+    .pl-shop__hero-chip.is-in:hover .pl-shop__chip-sales-val {
         animation: pl-garant-num-pulse 1.4s ease-in-out infinite;
     }
 }
@@ -535,11 +659,13 @@ body.pl-shop-body {
     width: 100%;
     overflow: visible;
     padding: 0;
+    min-height: 148px;
 }
 
 .pl-shop__clients-stories-container {
     display: flex;
-    gap: 24px;
+    width: max-content;
+    gap: 0;
     padding: 20px 0;
     overflow: visible;
     pointer-events: none;
@@ -550,14 +676,20 @@ body.pl-shop-body {
     contain: layout style;
 }
 
+.pl-shop__clients-set {
+    display: flex;
+    flex-shrink: 0;
+    gap: 24px;
+    padding-right: 24px;
+}
+
 .pl-shop__clients-stories-container.marquee-active {
     animation: pl-shop-partner-marquee 30s linear infinite;
-    will-change: transform;
 }
 
 @keyframes pl-shop-partner-marquee {
     from { transform: translate3d(0, 0, 0); }
-    to { transform: translate3d(calc(-1 * var(--marquee-distance)), 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
 }
 
 .pl-shop-page .project-story {
@@ -640,6 +772,10 @@ body.pl-shop-body {
 }
 
 @media (min-width: 768px) {
+    .pl-shop__clients-stories-wrapper {
+        min-height: 184px;
+    }
+
     .pl-shop-page .project-story {
         width: 140px;
         max-width: 140px;
@@ -670,8 +806,9 @@ body.pl-shop-body {
 }
 
 @media (max-width: 767px) {
-    .pl-shop__clients-stories-container {
+    .pl-shop__clients-set {
         gap: 18px;
+        padding-right: 18px;
     }
 
     .pl-shop__clients-stories-container.marquee-active {
@@ -3482,10 +3619,33 @@ body.pl-shop-body {
     }
 }
 
+.pl-shop-page.is-reveal-ready [data-reveal]:not(.is-in) {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pl-shop-page [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .pl-shop__hero-img {
         animation: none;
-        will-change: auto;
+    }
+
+    .pl-shop__hero-chart-wrap,
+    .pl-shop__hero-chip {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .pl-shop-page.is-reveal-ready [data-reveal]:not(.is-in),
+    .pl-shop [data-reveal] {
+        opacity: 1;
+        transform: none;
     }
 
     .pl-shop__hero-glow-a {
@@ -3506,5 +3666,70 @@ body.pl-shop-body {
 
     .pl-shop__pkg-foundation-wrap:hover .pl-shop__pkg-foundation {
         transform: none;
+    }
+
+    .pl-shop__pkg-grid[data-pkg-stagger] .pl-shop__pkg-card,
+    .pl-shop__pkg-grid[data-pkg-stagger] .pl-shop__pkg-list li,
+    .pl-shop__svoboda-body[data-svoboda-reveal] .pl-shop__card,
+    .pl-shop__svoboda-body[data-svoboda-reveal] .pl-shop__list-item,
+    .pl-shop__svoboda-body[data-svoboda-reveal] .pl-shop__list-icon,
+    .pl-shop__svoboda-body[data-svoboda-reveal] .pl-shop__migration,
+    .pl-shop__svoboda-body[data-svoboda-reveal] .pl-shop__migration-title,
+    .pl-shop__svoboda-body[data-svoboda-reveal] .pl-shop__stat {
+        opacity: 1;
+        transform: none;
+    }
+
+    .pl-shop__svoboda-body.is-revealed .pl-shop__card--accent,
+    .pl-shop__svoboda-body.is-revealed .pl-shop__card--accent .pl-shop__card-glow,
+    .pl-shop__svoboda-body.is-revealed .pl-shop__stat-num {
+        animation: none;
+    }
+
+    .pl-shop__pkg-extra:not([hidden]) {
+        animation: none;
+    }
+
+    .pl-shop__admin-panel--enter,
+    .pl-shop__admin-panel--exit,
+    .pl-shop__admin-panel--enter .pl-shop__admin-table-row,
+    .pl-shop__admin-panel--enter .pl-shop__admin-table-row--clickable,
+    .pl-shop__admin-panel--enter .pl-shop__admin-detail-item,
+    .pl-shop__admin-panel--enter .pl-shop__admin-detail-spec,
+    .pl-shop__status--changing {
+        animation: none;
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .pl-shop__garant-box:hover,
+    .pl-shop__garant-box:hover .pl-shop__garant-num {
+        animation: none;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .pl-shop__admin-metric:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .pl-shop__admin-metric:hover .pl-shop__admin-metric-val--acc,
+    .pl-shop__admin-metric:hover .pl-shop__admin-bars .pl-shop__admin-bar-col--acc {
+        animation: none;
+    }
+
+    .pl-shop__svoboda-body.is-revealed .pl-shop__card:hover,
+    .pl-shop__svoboda-body.is-revealed .pl-shop__card--accent:hover,
+    .pl-shop__svoboda-body.is-revealed .pl-shop__migration:hover,
+    .pl-shop__svoboda-body.is-revealed .pl-shop__migration:hover .pl-shop__stat-num,
+    .pl-shop__pkg-grid.is-revealed .pl-shop__pkg-card:hover,
+    .pl-shop__hero-chip.is-in:hover,
+    .pl-shop__hero-chip.is-in:hover .pl-shop__chip-value,
+    .pl-shop__hero-chip.is-in:hover .pl-shop__chip-sales-val {
+        animation: none;
+        transform: none;
+        box-shadow: none;
     }
 }

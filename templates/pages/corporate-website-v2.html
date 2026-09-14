@@ -11,12 +11,12 @@
 {% block extra_head %}
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.prometeylabs.com/corporate-website-v2/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block page_css %}
+<link rel="preload" href="{% static 'css/pl-display-fonts.css' %}?v=1" as="style">
+<link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=1" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=1"></noscript>
 <link rel="stylesheet" href="{% static 'css/corporate-website-v2-anim.css' %}?v=13">
 <link rel="stylesheet" href="{% static 'css/corporate-website-v2.css' %}?v=25">
 <link rel="stylesheet" href="{% static 'css/corporate-website-v2-2.css' %}?v=14">

@@ -7,23 +7,81 @@
     var reduceMotion = window.matchMedia &&
         window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    function scriptNonce() {
+        var tagged = document.querySelector('script[nonce]');
+        if (!tagged) return '';
+        return tagged.nonce || tagged.getAttribute('nonce') || '';
+    }
+
+    function loadPageScript(src, onload) {
+        if (!src) return;
+        var loaded = window.__plShopScripts || (window.__plShopScripts = {});
+        if (loaded[src] === 'done') {
+            if (onload) onload();
+            return;
+        }
+        if (loaded[src] === 'pending') {
+            if (onload) {
+                document.querySelectorAll('script[src="' + src + '"]').forEach(function (el) {
+                    el.addEventListener('load', onload, { once: true });
+                });
+            }
+            return;
+        }
+        loaded[src] = 'pending';
+        var s = document.createElement('script');
+        s.src = src;
+        s.defer = true;
+        var nonce = scriptNonce();
+        if (nonce) {
+            s.setAttribute('nonce', nonce);
+            s.nonce = nonce;
+        }
+        s.addEventListener('load', function () {
+            loaded[src] = 'done';
+            if (onload) onload();
+        }, { once: true });
+        s.addEventListener('error', function () {
+            loaded[src] = 'done';
+        }, { once: true });
+        document.body.appendChild(s);
+    }
+
+    function loadWhenNear(selector, src, onload) {
+        var el = root.querySelector(selector) || document.querySelector(selector);
+        if (!el || !src) return;
+
+        function go() {
+            loadPageScript(src, onload);
+        }
+
+        if (!('IntersectionObserver' in window)) {
+            go();
+            return;
+        }
+
+        var io = new IntersectionObserver(function (entries) {
+            if (entries.some(function (entry) { return entry.isIntersecting; })) {
+                io.disconnect();
+                go();
+            }
+        }, { rootMargin: '480px 0px' });
+        io.observe(el);
+    }
+
     function initReveal() {
         var els = root.querySelectorAll('[data-reveal]');
         if (!els.length) return;
 
-        if (reduceMotion) return;
+        if (reduceMotion) {
+            els.forEach(function (el) { el.classList.add('is-in'); });
+            return;
+        }
 
-        els.forEach(function (el) {
-            if (el.__rev) return;
-            el.__rev = 1;
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(28px)';
-            el.style.transition = 'opacity .75s cubic-bezier(.2,.7,.2,1), transform .75s cubic-bezier(.2,.7,.2,1)';
-        });
+        root.classList.add('is-reveal-ready');
 
         function reveal(el) {
-            el.style.opacity = '1';
-            el.style.transform = 'none';
+            el.classList.add('is-in');
         }
 
         if ('IntersectionObserver' in window) {
@@ -37,10 +95,7 @@
             }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
 
             els.forEach(function (el) {
-                if (!el.__obs) {
-                    el.__obs = 1;
-                    io.observe(el);
-                }
+                io.observe(el);
             });
 
             requestAnimationFrame(function () {
@@ -65,7 +120,6 @@
             requestAnimationFrame(function () {
                 var len = line.getTotalLength();
                 if (!len || len < 50) len = 2800;
-
                 line.style.strokeDasharray = len + ' ' + len;
                 line.style.strokeDashoffset = String(len);
                 if (chartWrap) chartWrap.classList.remove('is-drawn');
@@ -100,13 +154,9 @@
         prepareHeroChartDraw(chartWrap, line);
 
         function finish() {
-            img.style.opacity = '1';
-            if (chartWrap) chartWrap.style.opacity = '1';
+            if (chartWrap) chartWrap.classList.add('is-in');
             playHeroChartDraw(chartWrap, line);
-            chips.forEach(function (c) {
-                c.style.opacity = '1';
-                c.style.transform = 'none';
-            });
+            chips.forEach(function (c) { c.classList.add('is-in'); });
         }
 
         if (reduceMotion) {
@@ -114,35 +164,16 @@
             return;
         }
 
-        img.style.opacity = '0';
-        img.style.transition = 'opacity .7s cubic-bezier(.2,.7,.2,1)';
-        if (chartWrap) {
-            chartWrap.style.opacity = '0';
-            chartWrap.style.transition = 'opacity .6s ease';
-        }
-        chips.forEach(function (c) {
-            c.style.opacity = '0';
-            c.style.transform = 'translateY(12px) scale(.96)';
-            c.style.transition = 'opacity .5s ease, transform .5s cubic-bezier(.2,.7,.2,1)';
-        });
-
         requestAnimationFrame(function () {
-            setTimeout(function () { img.style.opacity = '1'; }, 140);
             setTimeout(function () {
-                if (chartWrap) chartWrap.style.opacity = '1';
+                if (chartWrap) chartWrap.classList.add('is-in');
                 playHeroChartDraw(chartWrap, line);
             }, 420);
             setTimeout(function () {
-                if (chips[0]) {
-                    chips[0].style.opacity = '1';
-                    chips[0].style.transform = 'none';
-                }
+                if (chips[0]) chips[0].classList.add('is-in');
             }, 1200);
             setTimeout(function () {
-                if (chips[1]) {
-                    chips[1].style.opacity = '1';
-                    chips[1].style.transform = 'none';
-                }
+                if (chips[1]) chips[1].classList.add('is-in');
             }, 1520);
         });
     }
@@ -159,77 +190,32 @@
         });
     }
 
-    function waitForImages(container) {
-        return new Promise(function (resolve, reject) {
-            var images = container.querySelectorAll('img');
-            if (!images.length) {
-                resolve();
-                return;
-            }
-
-            var loadedCount = 0;
-            var totalImages = images.length;
-            var timeout = setTimeout(function () { reject(new Error('timeout')); }, 3000);
-
-            function done() {
-                loadedCount += 1;
-                if (loadedCount === totalImages) {
-                    clearTimeout(timeout);
-                    resolve();
-                }
-            }
-
-            images.forEach(function (img) {
-                if (img.complete) {
-                    done();
-                } else {
-                    img.addEventListener('load', done, { once: true });
-                    img.addEventListener('error', done, { once: true });
-                }
-            });
-        });
-    }
-
     function initClientsMarquee() {
         var container = root.querySelector('.pl-shop__clients-stories-container');
         if (!container) return;
 
-        function initMarqueeAnimation() {
-            var stories = container.querySelectorAll('.project-story:not(.story-clone)');
-            if (!stories.length) return;
+        container.setAttribute('aria-label', container.dataset.marqueeLabel || container.getAttribute('aria-label') || '');
+        container.setAttribute('role', 'marquee');
 
-            var containerStyles = window.getComputedStyle(container);
-            var gap = parseFloat(containerStyles.gap) || 24;
-            var firstStory = stories[0];
-            var lastStory = stories[stories.length - 1];
-            var setWidth = (lastStory.offsetLeft + lastStory.offsetWidth + gap) - firstStory.offsetLeft;
-
-            container.style.setProperty('--marquee-distance', setWidth + 'px');
-            container.setAttribute('aria-label', container.dataset.marqueeLabel || container.getAttribute('aria-label') || '');
-            container.setAttribute('role', 'marquee');
-
-            if ('IntersectionObserver' in window) {
-                var observer = new IntersectionObserver(function (entries) {
-                    entries.forEach(function (entry) {
-                        if (entry.isIntersecting) {
-                            requestAnimationFrame(function () {
-                                container.classList.add('marquee-active');
-                            });
-                            observer.unobserve(container);
-                        }
-                    });
-                }, { threshold: 0.1, rootMargin: '50px' });
-                observer.observe(container);
-            } else {
-                requestAnimationFrame(function () {
-                    container.classList.add('marquee-active');
-                });
-            }
+        function start() {
+            container.classList.add('marquee-active');
         }
 
-        waitForImages(container).then(initMarqueeAnimation).catch(function () {
-            setTimeout(initMarqueeAnimation, 500);
-        });
+        if (reduceMotion) return;
+
+        if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        requestAnimationFrame(start);
+                        observer.unobserve(container);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '50px' });
+            observer.observe(container);
+        } else {
+            requestAnimationFrame(start);
+        }
     }
 
     function observeReveal(el, onReveal) {
@@ -424,6 +410,15 @@
         });
     }
 
+    function initDeferredSections() {
+        loadWhenNear('[data-admin-mock]', root.getAttribute('data-admin-js'), function () {
+            if (typeof window.initAdminMock === 'function') {
+                window.initAdminMock();
+            }
+        });
+        loadWhenNear('#calculator', root.getAttribute('data-quiz-js'));
+    }
+
     function init() {
         initReveal();
         initPkgStagger();
@@ -433,9 +428,7 @@
         initCalcPkgLinks();
         initClientsMarquee();
         initPkgCompareTabs();
-        if (typeof window.initAdminMock === 'function') {
-            window.initAdminMock();
-        }
+        initDeferredSections();
     }
 
     if (document.readyState === 'loading') {
