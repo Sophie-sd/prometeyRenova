@@ -789,9 +789,28 @@ class VideoSystem {
     async loadVideo(videoData) {
         const { element, container } = videoData;
         const isHeroBackground = this.isHeroBackgroundVideo(element);
-        const sharedLeader = this.getSharedVideoLeader(element);
 
         try {
+            // Якщо є data-src, переносимо в src ДО перевірки sharedLeader —
+            // інакше lazy-video з data-shared-video ніколи не отримає реальне
+            // джерело (element.load() на порожньому <video> просто таймаутиться).
+            if (element.hasAttribute('data-src')) {
+                const dataSrc = element.getAttribute('data-src');
+                element.src = dataSrc;
+                element.removeAttribute('data-src');
+
+                const source = element.querySelector('source[data-src]');
+                if (source) {
+                    const sourceSrc = source.getAttribute('data-src');
+                    source.src = sourceSrc;
+                    source.removeAttribute('data-src');
+                }
+
+                element.classList.remove('lazy-video');
+            }
+
+            const sharedLeader = this.getSharedVideoLeader(element);
+
             if (sharedLeader && sharedLeader !== element) {
                 if (element.readyState < 2) {
                     element.load();
@@ -808,21 +827,6 @@ class VideoSystem {
                 await this.attemptAutoplay(videoData);
                 this.emit('video:loaded', { element, container });
                 return;
-            }
-
-            if (element.hasAttribute('data-src')) {
-                const dataSrc = element.getAttribute('data-src');
-                element.src = dataSrc;
-                element.removeAttribute('data-src');
-
-                const source = element.querySelector('source[data-src]');
-                if (source) {
-                    const sourceSrc = source.getAttribute('data-src');
-                    source.src = sourceSrc;
-                    source.removeAttribute('data-src');
-                }
-
-                element.classList.remove('lazy-video');
             }
 
             const hasSource = Boolean(element.src || element.querySelector('source[src]'));
