@@ -19,19 +19,37 @@
     });
     </script>
     {% if COOKIEYES_ID %}
-    {# Direct CMP only — do not add CookieYes in GTM (duplicate banner / late LCP). #}
+    {# Direct CMP only — do not add CookieYes in GTM. No preconnect: it raced LCP. #}
     <link rel="dns-prefetch" href="https://cdn-cookieyes.com">
-    <link rel="preconnect" href="https://cdn-cookieyes.com" crossorigin>
-    <script id="cookieyes" type="text/javascript" async
-            src="https://cdn-cookieyes.com/client_data/{{ COOKIEYES_ID }}/script.js"
-            nonce="{{ csp_nonce }}"></script>
     {% endif %}
-    <!-- Google Tag Manager — deferred until user interaction or 6s to reduce TBT/LCP.
-         Load immediately for Tag Assistant / GTM Preview (opener, gtm_debug, preview cookies).
-         Conversion events on /thank-you/ call _loadGTM() explicitly. -->
+    <!-- CookieYes after first paint; GTM on gesture or 6s. Preview loads both now.
+         /thank-you/ calls _loadGTM() (also pulls CMP). Do not cache HTML at
+         Cloudflare while GET still sets csrftoken. -->
     <script nonce="{{ csp_nonce }}">
     window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-    function _loadGTM(){if(window._gtmL)return;window._gtmL=1;var j=document.createElement('script');j.async=true;j.setAttribute('nonce','{{ csp_nonce }}');j.nonce='{{ csp_nonce }}';j.src='https://www.googletagmanager.com/gtm.js?id=GTM-K2FVPPTK';document.head.appendChild(j);}
+    function _loadCookieYes(){
+      if(window._cyL)return;window._cyL=1;
+      {% if COOKIEYES_ID %}
+      var s=document.createElement('script');
+      s.id='cookieyes';
+      s.async=true;
+      s.src='https://cdn-cookieyes.com/client_data/{{ COOKIEYES_ID }}/script.js';
+      s.setAttribute('nonce','{{ csp_nonce }}');
+      s.nonce='{{ csp_nonce }}';
+      document.head.appendChild(s);
+      {% endif %}
+    }
+    window._loadCookieYes=_loadCookieYes;
+    function _loadGTM(){
+      if(window._gtmL)return;window._gtmL=1;
+      _loadCookieYes();
+      var j=document.createElement('script');
+      j.async=true;
+      j.setAttribute('nonce','{{ csp_nonce }}');
+      j.nonce='{{ csp_nonce }}';
+      j.src='https://www.googletagmanager.com/gtm.js?id=GTM-K2FVPPTK';
+      document.head.appendChild(j);
+    }
     window._loadGTM=_loadGTM;
     (function(){
       var q=location.search||'';
@@ -42,7 +60,13 @@
         || /(?:^|[?&#])gtm_auth=/.test(q)
         || /(^|;\s*)gtm_auth=/.test(c)
         || /(^|;\s*)gtm_preview=/.test(c);
-      if(preview){_loadGTM();return;}
+      if(preview){_loadCookieYes();_loadGTM();return;}
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          if('requestIdleCallback' in window){requestIdleCallback(_loadCookieYes,{timeout:2500});}
+          else {setTimeout(_loadCookieYes,1);}
+        });
+      });
       ['scroll','click','touchstart','keydown','mousemove'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
       setTimeout(_loadGTM,6000);
     })();

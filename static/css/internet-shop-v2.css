@@ -510,6 +510,9 @@ body.pl-shop-body {
     width: 100%;
     max-width: 410px;
     height: auto;
+}
+
+.pl-shop-page.is-hero-painted .pl-shop__hero-img {
     filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
     animation: pl-float 5s ease-in-out infinite;
 }
@@ -3631,7 +3634,8 @@ body.pl-shop-body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .pl-shop__hero-img {
+    .pl-shop__hero-img,
+    .pl-shop-page.is-hero-painted .pl-shop__hero-img {
         animation: none;
     }
 

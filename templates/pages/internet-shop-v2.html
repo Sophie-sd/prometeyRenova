@@ -39,13 +39,15 @@ body.pl-shop-body{background:#0A0A0A;overflow-x:clip}
 .pl-shop__hero-img{max-width:100%}
 .pl-shop__hero-actions{width:100%;margin-bottom:52px}
 }
+.pl-shop__clients-stories-wrapper{min-height:148px}
+@media(min-width:768px){.pl-shop__clients-stories-wrapper{min-height:184px}}
 </style>
-<link rel="preload" href="{% static 'css/pl-display-fonts.css' %}?v=1" as="style">
-<link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=1" media="print" data-async-css>
-<noscript><link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=1"></noscript>
-<link rel="preload" href="{% static 'css/internet-shop-v2.css' %}?v=117" as="style">
-<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=117" media="print" data-async-css>
-<noscript><link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=117"></noscript>
+<link rel="preload" href="{% static 'css/pl-display-fonts.css' %}?v=2" as="style">
+<link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=2" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=2"></noscript>
+<link rel="preload" href="{% static 'css/internet-shop-v2.css' %}?v=118" as="style">
+<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=118" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=118"></noscript>
 <noscript><style>.pl-shop__hero-chip,.pl-shop__hero-chart-wrap{opacity:1;transform:none}</style></noscript>
 {% endblock %}
 
@@ -65,5 +67,5 @@ body.pl-shop-body{background:#0A0A0A;overflow-x:clip}
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/internet-shop-v2.js' %}?v=23" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-v2.js' %}?v=24" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}
