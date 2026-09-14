@@ -1,9 +1,9 @@
-<a href="{% url 'portfolio' %}" class="project-story v3-client{% if is_clone %} story-clone{% endif %}"{% if is_clone %} data-clone="true" aria-hidden="true" tabindex="-1"{% else %} aria-label="{{ project.get_home_label }}"{% endif %}>
+<a href="{% url 'portfolio' %}" class="project-story v3-client{% if is_clone %} story-clone{% endif %}"{% if is_clone %} data-clone="true" aria-hidden="true" tabindex="-1"{% else %} role="listitem" aria-label="{{ project.get_home_label }}"{% endif %}>
     <div class="v3-client-halo" aria-hidden="true"></div>
     <div class="v3-client-ring">
         <div class="v3-client-inner">
             {% if project.get_home_image_src %}
-            <img src="{{ project.get_home_image_src }}" alt="" width="296" height="296" loading="lazy" decoding="async">
+            <img src="{{ project.get_home_image_src }}" alt="{{ project.get_home_label }}" width="296" height="296" loading="lazy" decoding="async">
             {% endif %}
         </div>
     </div>

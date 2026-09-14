@@ -7,42 +7,38 @@
 {% block og_title %}{{ og_title }}{% endblock %}
 
 {% block page_css %}
-<link rel="preload" as="image" href="{% static 'images/hero/hero-mobile-poster.webp' %}" media="(max-width: 767px)" fetchpriority="high">
-<link rel="preload" as="image" href="{% static 'images/hero/hero-desktop-poster.webp' %}" media="(min-width: 768px)" fetchpriority="high">
-<link rel="stylesheet" href="{% static 'css/home.css' %}?v=13">
+<link rel="stylesheet" href="{% static 'css/home.css' %}?v=12">
 <link rel="stylesheet" href="{% static 'css/components/marquee-why-choose.css' %}?v=2">
-<!-- Self-hosted шрифти (Space Grotesk, JetBrains Mono, Inter).
-     Manrope/Unbounded на головній зведені до Inter/Space Grotesk — менше woff2. -->
-<link rel="stylesheet" href="{% static 'css/fonts-selfhost.css' %}?v=3">
-{% if DEBUG %}
-<!-- Dev: окремі файли для зручного дебагу (DevTools -> джерело кожного правила видно). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Unbounded:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v2.css' %}?v=4">
-<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v3.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v3.css' %}">
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-final.css' %}?v=2">
-<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-bridge.css' %}?v=11">
+<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-bridge.css' %}?v=10">
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-why-cards.css' %}?v=10">
-<link rel="stylesheet" href="{% static 'css/process_block.css' %}?v=51">
-<link rel="stylesheet" href="{% static 'css/services_piano_block.css' %}?v=49">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/process_block.css' %}?v=50">
+<link rel="stylesheet" href="{% static 'css/services_piano_block.css' %}?v=48">
 <link rel="stylesheet" href="{% static 'css/services_piano_block_mob.css' %}?v=13">
 <link rel="stylesheet" href="{% static 'css/services_piano_video.css' %}?v=34">
 <link rel="stylesheet" href="{% static 'css/home-motion.css' %}?v=5">
-{% else %}
-<!-- Prod: 10 файлів вище зібрані build.sh (той самий порядок!) в 1 файл,
-     щоб не робити 10 блокуючих запитів. Генерується заново при кожному
-     деплої з поточного вмісту — не може розсинхронізуватись. -->
-<link rel="stylesheet" href="{% static 'css/home-page-bundle.css' %}?v=2">
-{% endif %}
 <noscript><style>.home-reveal{opacity:1;transform:none}</style></noscript>
 {% endblock %}
 
 {% block content %}
 <!-- Hero Section з фоновим відео -->
 <section class="hero-section full-height">
-    <picture class="hero-poster">
-        <source media="(max-width: 767px)" srcset="{% static 'images/hero/hero-mobile-poster.webp' %}" type="image/webp">
-        <img src="{% static 'images/hero/hero-desktop-poster.webp' %}" alt="" width="1280" height="720" fetchpriority="high" decoding="async">
-    </picture>
-    {% include 'components/home/shared_bg_video.html' with lazy=False %}
+    <!-- Фонові відео для декстопу та мобільних (SHARED між hero та CTA) -->
+    <!-- Desktop відео (показується тільки на >=768px) -->
+    <video class="video-background desktop-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
+        <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
+    </video>
+
+    <!-- Mobile відео (показується тільки на <=767px) -->
+    <video class="video-background mobile-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
+        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
+    </video>
 
     <!-- Overlay для кращої читабельності -->
     <div class="video-overlay"></div>
@@ -249,11 +245,11 @@
     gclid-capture.js підключається окремо, щоб заявки з головної отримували gclid/UTM
     (див. home-bundle.js::submitForm).
 -->
-<script src="{% static 'js/core/gclid-capture.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/core/gclid-capture.js' %}" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/core/ec-phone.js' %}" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/core/phone-mask.js' %}" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/core/phone-mask-intl.js' %}" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/home-bundle.js' %}?v=7" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/core/phone-mask.js' %}" nonce="{{ csp_nonce }}"></script>
+<script src="{% static 'js/core/phone-mask-intl.js' %}" nonce="{{ csp_nonce }}"></script>
+<script src="{% static 'js/home-bundle.js' %}?v=5" nonce="{{ csp_nonce }}"></script>
 {% endblock %}
 
 {% block extra_js %}

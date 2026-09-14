@@ -1,27 +1,5 @@
 /* HOME.CSS — hero/video: hero-parallax.css; main content: home-redesign/*.css */
 
-.hero-section .hero-poster {
-    position: absolute;
-    inset: 0;
-    z-index: var(--z-background, 0);
-    pointer-events: none;
-}
-
-.hero-section .hero-poster img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.hero-section .video-background {
-    opacity: 0;
-    transition: opacity 400ms ease-out;
-}
-
-.hero-section .video-background.is-playing {
-    opacity: 1;
-}
-
 /* CTA «Готові почати» — hero-parallax cta-section pattern, outside .home-redesign.vf */
 .home-cta-section {
     --v2-orange: #E65100;

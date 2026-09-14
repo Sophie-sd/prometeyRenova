@@ -17,7 +17,7 @@
     'use strict';
 
     const COOKIE_DAYS = 90;
-    const TRACKING_PARAMS = ['gclid', 'gbraid', 'wbraid', 'fbclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+    const TRACKING_PARAMS = ['gclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
     const LANDING_KEYS = ['landing_path', 'landing_referrer'];
     const CAMPAIGN_TAGS = [
         { needle: 'shop', label: 'Інтернет-магазини' },

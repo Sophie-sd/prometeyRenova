@@ -7,7 +7,7 @@
 
         <div class="vf-clients-wrap">
             <div class="projects-stories-wrapper home-reveal" data-i="1">
-                <div class="projects-stories-container">
+                <div class="projects-stories-container" role="list">
                     {% for client in home_clients %}
                     {% include 'components/client_home_story.html' with client=client is_clone=False %}
                     {% endfor %}

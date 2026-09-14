@@ -306,8 +306,6 @@ else:
     # Продакшн: WhiteNoise з gzip/brotli компресією CSS/JS під час collectstatic
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
     WHITENOISE_MAX_AGE = 31536000
-    WHITENOISE_AUTOREFRESH = False
-    WHITENOISE_USE_FINDERS = False
     WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'zip', 'gz', 'bz2']
     WHITENOISE_IMMUTABLE_FILE_TEST = lambda path, url: url.startswith('/static/') and ('.' in url)
 

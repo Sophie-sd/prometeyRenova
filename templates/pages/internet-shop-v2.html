@@ -11,8 +11,9 @@
 {% block extra_head %}
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.prometeylabs.com/internet-shop-v2/">
-<!-- Self-hosted шрифти замість fonts.googleapis.com (ті самі Space Grotesk/JetBrains Mono) -->
-<link rel="stylesheet" href="{% static 'css/fonts-selfhost.css' %}?v=3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image"
     imagesrcset="{% static 'images/shop_hero_720.webp' %} 720w, {% static 'images/shop_hero.webp' %} 1080w"
     imagesizes="(max-width: 767px) 100vw, 410px"

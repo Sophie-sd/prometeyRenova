@@ -24,11 +24,13 @@
                         <path d="M2.5 4.5 6 8 9.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
-                <div class="nav-dropdown__menu" id="nav-services-menu">
+                <div class="nav-dropdown__menu" id="nav-services-menu" role="menu">
                     <a href="{% url 'internet_shop_v2' %}"
-                        class="nav-dropdown__link mobile-touch-target mobile-focus-visible">{% trans "інтернет-магазини" %}</a>
+                        class="nav-dropdown__link mobile-touch-target mobile-focus-visible"
+                        role="menuitem">{% trans "інтернет-магазини" %}</a>
                     <a href="{% url 'corporate_website_v2' %}"
-                        class="nav-dropdown__link mobile-touch-target mobile-focus-visible">{% trans "корпоративні сайти та лендінги" %}</a>
+                        class="nav-dropdown__link mobile-touch-target mobile-focus-visible"
+                        role="menuitem">{% trans "корпоративні сайти та лендінги" %}</a>
                 </div>
             </div>
             <a href="{% url 'calculator' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "розрахувати пропозицію" %}</a>

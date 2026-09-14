@@ -1,7 +1,11 @@
 {% load i18n static %}
 <section id="svc-piano" class="svc-piano cta-section home-redesign" aria-label="{% trans 'Послуги PrometeyLabs' %}">
-    {% static 'images/hero/hero-desktop-poster.webp' as piano_poster %}
-    {% include 'components/home/shared_bg_video.html' with lazy=True poster=piano_poster %}
+    <video class="video-background desktop-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
+        <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
+    </video>
+    <video class="video-background mobile-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
+        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
+    </video>
     <div class="video-overlay"></div>
 
     <div class="svc-piano__wrap">
@@ -29,8 +33,6 @@
                                 <span class="svc-piano__tap-hint" aria-hidden="true">click me</span>
                                 <div class="svc-piano__rise" id="svc-piano-rise-web" aria-hidden="true">
                                     <picture class="svc-piano__rise-media">
-                                        <source type="image/webp" media="(max-width: 767px)" srcset="{% static 'images/services/piano/web_mob.webp' %}">
-                                        <source type="image/webp" srcset="{% static 'images/services/piano/web.webp' %}">
                                         <source media="(max-width: 767px)" srcset="{% static 'images/services/piano/web_mob.png' %}?v=29">
                                         <img
                                             src="{% static 'images/services/piano/web.png' %}?v=29"
@@ -72,8 +74,6 @@
                                 <span class="svc-piano__tap-hint" aria-hidden="true">click me</span>
                                 <div class="svc-piano__rise" id="svc-piano-rise-mobile" aria-hidden="true">
                                     <picture class="svc-piano__rise-media">
-                                        <source type="image/webp" media="(max-width: 767px)" srcset="{% static 'images/services/piano/mob_mob.webp' %}">
-                                        <source type="image/webp" srcset="{% static 'images/services/piano/mob.webp' %}">
                                         <source media="(max-width: 767px)" srcset="{% static 'images/services/piano/mob_mob.png' %}?v=29">
                                         <img
                                             src="{% static 'images/services/piano/mob.png' %}?v=29"
@@ -115,8 +115,6 @@
                                 <span class="svc-piano__tap-hint" aria-hidden="true">click me</span>
                                 <div class="svc-piano__rise" id="svc-piano-rise-smm" aria-hidden="true">
                                     <picture class="svc-piano__rise-media">
-                                        <source type="image/webp" media="(max-width: 767px)" srcset="{% static 'images/services/piano/media_mob.webp' %}">
-                                        <source type="image/webp" srcset="{% static 'images/services/piano/media.webp' %}">
                                         <source media="(max-width: 767px)" srcset="{% static 'images/services/piano/media_mob.png' %}?v=29">
                                         <img
                                             src="{% static 'images/services/piano/media.png' %}?v=29"
@@ -158,8 +156,6 @@
                                 <span class="svc-piano__tap-hint" aria-hidden="true">click me</span>
                                 <div class="svc-piano__rise" id="svc-piano-rise-ai" aria-hidden="true">
                                     <picture class="svc-piano__rise-media">
-                                        <source type="image/webp" media="(max-width: 767px)" srcset="{% static 'images/services/piano/ai_mob.webp' %}">
-                                        <source type="image/webp" srcset="{% static 'images/services/piano/ai.webp' %}">
                                         <source media="(max-width: 767px)" srcset="{% static 'images/services/piano/ai_mob.png' %}?v=29">
                                         <img
                                             src="{% static 'images/services/piano/ai.png' %}?v=29"
