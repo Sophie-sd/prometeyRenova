@@ -21,7 +21,7 @@
     {% if COOKIEYES_ID %}
     <link rel="dns-prefetch" href="https://cdn-cookieyes.com">
     <link rel="preconnect" href="https://cdn-cookieyes.com" crossorigin>
-    <script id="cookieyes" type="text/javascript"
+    <script id="cookieyes" type="text/javascript" async
             src="https://cdn-cookieyes.com/client_data/{{ COOKIEYES_ID }}/script.js"
             nonce="{{ csp_nonce }}"></script>
     {% endif %}
@@ -45,12 +45,76 @@
         || /(?:^|[?&#])gtm_auth=/.test(q)
         || /(^|;\s*)gtm_auth=/.test(c)
         || /(^|;\s*)gtm_preview=/.test(c);
-      var paidTraffic = /(?:^|[?&])(gclid|gbraid|wbraid)=/.test(q)
-        || /(^|;\s*)_prm_gclid=/.test(c);
+      var utmMed = '';
+      try { utmMed = (new URLSearchParams(q.charAt(0)==='?' ? q.slice(1) : q).get('utm_medium') || '').toLowerCase(); } catch (e) {}
+      var paidTraffic = /(?:^|[?&])(gclid|gbraid|wbraid|fbclid|msclkid)=/.test(q)
+        || /(^|;\s*)_prm_(gclid|gbraid|wbraid|fbclid)=/.test(c)
+        || /^(cpc|ppc|paid|paidsocial)$/.test(utmMed);
       window._prmPaidTraffic = paidTraffic;
+      window.dataLayer.push({event:'pl_session', pl_traffic: paidTraffic ? 'paid' : 'organic'});
+      if (paidTraffic) {
+        var pc = document.createElement('link');
+        pc.rel = 'preconnect';
+        pc.href = 'https://scripts.clixtell.com';
+        pc.crossOrigin = 'anonymous';
+        document.head.appendChild(pc);
+      }
       if(preview||paidTraffic){_loadGTM();return;}
       ['scroll','click','touchstart','keydown','mousemove'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
       setTimeout(_loadGTM,6000);
+    })();
+    </script>
+    <script nonce="{{ csp_nonce }}">
+    (function(){
+      var KEY='pl_click_queue';
+      function gtmLive(){ return !!(window.google_tag_manager); }
+      function isTrackedOutbound(href){
+        var h=(href||'').toLowerCase();
+        return h.indexOf('tel:')===0 || h.indexOf('t.me/')!==-1 || h.indexOf('wa.me/')!==-1 || h.indexOf('api.whatsapp.com')!==-1 || h.indexOf('m.me/')!==-1;
+      }
+      function isSameDocumentNav(el, href){
+        if(!href || href.charAt(0)==='#') return true;
+        try{
+          return el.pathname===location.pathname && el.search===location.search;
+        }catch(err){ return false; }
+      }
+      document.addEventListener('click', function(e){
+        if(gtmLive()) return;
+        var el=e.target.closest && e.target.closest('a[href], button, [data-modal]');
+        if(!el) return;
+        var href=el.getAttribute && (el.getAttribute('href')||'') || '';
+        if(isTrackedOutbound(href)) return;
+        var payload={
+          event:'pl_click',
+          pl_click_text:((el.textContent||'').trim()).slice(0,80),
+          pl_click_href:href,
+          pl_click_id:el.id||'',
+          pl_pre_gtm:true
+        };
+        window.dataLayer=window.dataLayer||[];
+        window.dataLayer.push(payload);
+        try{
+          if(el.tagName==='A' && href && el.host===location.host && el.target!=='_blank' && !isSameDocumentNav(el, href)){
+            sessionStorage.setItem(KEY, JSON.stringify(payload));
+          }
+        }catch(err){}
+      }, true);
+      window.addEventListener('pagehide', function(){
+        if(gtmLive()){
+          try{ sessionStorage.removeItem(KEY); }catch(err){}
+        }
+      });
+      try{
+        var raw=sessionStorage.getItem(KEY);
+        if(raw){
+          sessionStorage.removeItem(KEY);
+          var ev=JSON.parse(raw);
+          if(ev && ev.event==='pl_click'){
+            window.dataLayer=window.dataLayer||[];
+            window.dataLayer.push(ev);
+          }
+        }
+      }catch(err){}
     })();
     </script>
     <!-- End Google Tag Manager -->
@@ -246,7 +310,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </script>
     {% block base_js %}
     <script src="{% static 'js/core/analytics.js' %}" nonce="{{ csp_nonce }}" defer></script>
-    <script src="{% static 'js/core/gclid-capture.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/core/gclid-capture.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/core/ec-phone.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/core/utils.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/mobile-core.js' %}" nonce="{{ csp_nonce }}" defer></script>
@@ -259,7 +323,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         function load(){
             if(window._vsL)return;window._vsL=1;
             var s=document.createElement('script');
-            s.src='{% static "js/video-system.js" %}';
+            s.src='{% static "js/video-system.js" %}?v=2';
             s.defer=true;
             s.setAttribute('nonce','{{ csp_nonce }}');
             s.nonce='{{ csp_nonce }}';

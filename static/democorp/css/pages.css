@@ -185,10 +185,18 @@
   gap: var(--dc-sp-4) var(--dc-sp-6);
   background: var(--dc-text);
   color: var(--dc-surface);
-  padding: var(--dc-sp-1) var(--dc-pad-x);
+  padding: var(--dc-sp-4) var(--dc-pad-x);
   font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+
+.dc-footer__identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--dc-sp-2);
+  min-width: 0;
 }
 
 .dc-footer__brand {
@@ -196,7 +204,15 @@
   align-items: center;
   gap: 0.22em;
   min-width: 0;
-  font-size: clamp(3.5rem, 7.2vw, 6.5rem);
+  font-size: clamp(2.75rem, 5.4vw, 4.75rem);
+}
+
+.dc-footer__copy {
+  color: var(--dc-surface);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.2;
 }
 
 .dc-footer__mark {
@@ -211,34 +227,32 @@
 }
 
 .dc-footer__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   min-width: 0;
-  justify-self: end;
-  text-align: right;
+  min-height: 100%;
 }
 
-.dc-footer__actions p {
-  letter-spacing: 0.12em;
-}
-
-.dc-footer__bottom {
-  background: var(--dc-coffee);
-  color: var(--dc-text-muted);
-  text-align: center;
-  padding: var(--dc-sp-2) var(--dc-pad-x) calc(var(--dc-sp-2) + var(--dc-safe-b));
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  line-height: 1.2;
+.dc-footer__nav {
+  display: flex;
+  align-items: center;
 }
 
 .dc-footer__nav ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
+  align-items: center;
   gap: var(--dc-sp-2) var(--dc-sp-4);
   list-style: none;
-  margin: var(--dc-sp-2) 0 0;
+  margin: 0;
   padding: 0;
+}
+
+.dc-footer__bottom {
+  background: var(--dc-coffee);
+  min-height: calc(var(--dc-sp-2) + var(--dc-safe-b));
 }
 
 .dc-footer__nav a {
@@ -278,19 +292,16 @@
   .dc-footer__top {
     grid-template-columns: minmax(0, 1fr);
     justify-items: stretch;
-    padding-block: var(--dc-sp-3);
+    padding-block: var(--dc-sp-5);
   }
 
   .dc-footer__brand {
     justify-content: flex-start;
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
   }
 
   .dc-footer__actions {
-    justify-self: stretch;
-  }
-
-  .dc-footer__brand {
-    font-size: clamp(1.75rem, 8vw, 2.75rem);
+    justify-content: flex-end;
   }
 
   .dc-footer__mark {

@@ -311,7 +311,7 @@
     grid-column: 1;
     align-self: center;
     width: 100%;
-    font-family: 'Unbounded', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: clamp(12px, 1.25vw, 16px);
     font-weight: 500;
     line-height: 1.15;

@@ -1,0 +1,31 @@
+{% load static %}
+<video class="video-background{% if lazy %} lazy-video{% endif %}"
+       autoplay muted loop playsinline
+       preload="{% if lazy %}none{% else %}metadata{% endif %}"
+       data-shared-video="main"
+       {% if poster %}poster="{{ poster }}"{% endif %}
+       aria-hidden="true">
+    {# src лише через JS (одразу для hero / IO для lazy) — Safari ігнорує media на <source> і інакше тягне обидва mp4. #}
+    <source data-src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4" media="(max-width: 767px)">
+    <source data-src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
+    <track kind="captions" src="{% static 'videos/empty.vtt' %}" srclang="uk" label="">
+</video>
+{% if not lazy %}
+<script nonce="{{ csp_nonce }}">
+(function(){
+  var v=document.currentScript.previousElementSibling;
+  if(!v||v.tagName!=='VIDEO')return;
+  var sources=v.querySelectorAll('source');
+  var url=null,i,m,u;
+  for(i=0;i<sources.length;i++){
+    m=sources[i].getAttribute('media');
+    u=sources[i].getAttribute('data-src');
+    if(!u)continue;
+    if(!m||window.matchMedia(m).matches){url=u;break;}
+  }
+  if(!url&&sources.length)url=sources[sources.length-1].getAttribute('data-src');
+  if(url)v.src=url;
+  for(i=0;i<sources.length;i++)sources[i].removeAttribute('data-src');
+})();
+</script>
+{% endif %}
