@@ -6,6 +6,11 @@
 {% block description %}{{ meta_description }}{% endblock %}
 {% block og_title %}{{ og_title }}{% endblock %}
 
+{% block extra_head %}
+<link rel="preload" as="image" href="{% static 'images/hero/hero-mobile-poster.webp' %}?v=2" media="(max-width: 767px)" fetchpriority="high">
+<link rel="preload" as="image" href="{% static 'images/hero/hero-desktop-poster.webp' %}?v=2" media="(min-width: 768px)" fetchpriority="high">
+{% endblock %}
+
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}?v=12">
 <link rel="stylesheet" href="{% static 'css/components/marquee-why-choose.css' %}?v=2">
@@ -22,7 +27,7 @@
 <link rel="stylesheet" href="{% static 'css/services_piano_block.css' %}?v=48">
 <link rel="stylesheet" href="{% static 'css/services_piano_block_mob.css' %}?v=13">
 <link rel="stylesheet" href="{% static 'css/services_piano_video.css' %}?v=34">
-<link rel="stylesheet" href="{% static 'css/home-motion.css' %}?v=5">
+<link rel="stylesheet" href="{% static 'css/home-motion.css' %}?v=8">
 <noscript><style>.home-reveal{opacity:1;transform:none}</style></noscript>
 {% endblock %}
 
@@ -31,14 +36,30 @@
 <section class="hero-section full-height">
     <!-- Фонові відео для декстопу та мобільних (SHARED між hero та CTA) -->
     <!-- Desktop відео (показується тільки на >=768px) -->
-    <video class="video-background desktop-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
-        <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
+    <video class="video-background desktop-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main" poster="{% static 'images/hero/hero-desktop-poster.webp' %}?v=2" data-src="{% static 'videos/desktop/main.mp4' %}?v=2" aria-hidden="true">
+        <source data-src="{% static 'videos/desktop/main.mp4' %}?v=2" type="video/mp4">
     </video>
 
-    <!-- Mobile відео (показується тільки на <=767px) -->
-    <video class="video-background mobile-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
-        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
+    <video class="video-background mobile-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main" poster="{% static 'images/hero/hero-mobile-poster.webp' %}?v=2" data-src="{% static 'videos/mobile/mainmobile.mp4' %}?v=2" aria-hidden="true">
+        <source data-src="{% static 'videos/mobile/mainmobile.mp4' %}?v=2" type="video/mp4">
     </video>
+    <script nonce="{{ csp_nonce }}">
+    (function () {
+        var mobile = window.matchMedia('(max-width: 767px)').matches;
+        document.querySelectorAll('.hero-section video.video-background').forEach(function (video) {
+            var forView = mobile ? video.classList.contains('mobile-video') : video.classList.contains('desktop-video');
+            if (!forView) return;
+            var source = video.querySelector('source');
+            var url = (source && source.getAttribute('data-src')) || video.getAttribute('data-src');
+            if (!url) return;
+            if (source) {
+                source.src = url;
+                source.removeAttribute('data-src');
+            }
+            video.removeAttribute('data-src');
+        });
+    })();
+    </script>
 
     <!-- Overlay для кращої читабельності -->
     <div class="video-overlay"></div>
@@ -247,9 +268,9 @@
 -->
 <script src="{% static 'js/core/gclid-capture.js' %}" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/core/ec-phone.js' %}" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/core/phone-mask.js' %}" nonce="{{ csp_nonce }}"></script>
-<script src="{% static 'js/core/phone-mask-intl.js' %}" nonce="{{ csp_nonce }}"></script>
-<script src="{% static 'js/home-bundle.js' %}?v=5" nonce="{{ csp_nonce }}"></script>
+<script src="{% static 'js/core/phone-mask.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/core/phone-mask-intl.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/home-bundle.js' %}?v=9" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}
 
 {% block extra_js %}

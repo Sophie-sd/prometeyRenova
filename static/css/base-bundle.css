@@ -3393,6 +3393,10 @@ button.footer-cookie-settings-btn:hover {
     will-change: transform;
 }
 
+.cta-section .video-background {
+    background-color: transparent;
+}
+
 /* Anchor cta overlays to section bounds (prevents viewport-wide dimming on hero) */
 .cta-section {
     position: relative;

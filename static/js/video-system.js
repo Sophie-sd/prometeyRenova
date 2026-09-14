@@ -15,8 +15,8 @@ class VideoSystem {
         };
 
         this.config = {
-            lazyLoadMargin: '100px',
-            lazyLoadThreshold: 0.2,
+            lazyLoadMargin: '200px',
+            lazyLoadThreshold: 0,
             loadTimeout: 10000
         };
 
@@ -25,22 +25,15 @@ class VideoSystem {
 
     // ===== INITIALIZATION =====
     async init() {
-        // Перевірка autoplay
-        this.autoplaySupported = await this.testAutoplaySupport();
-
-        // Визначення стратегії
         this.loadingStrategy = this.determineLoadingStrategy();
-
-        // Налаштування observers
         this.setupObservers();
-
-        // Обробка відео на сторінці
+        this.autoplaySupported = true;
         await this.processPageVideos();
-
         this.setupSharedVideoGroups();
-
-        // Event listeners
         this.setupEventListeners();
+        this.testAutoplaySupport().then((ok) => {
+            this.autoplaySupported = ok;
+        });
     }
 
     getSharedVideoLeader(element) {
@@ -68,7 +61,13 @@ class VideoSystem {
 
         const groups = new Map();
         sharedVideos.forEach((video) => {
+            if (!this.isVideoForCurrentViewport(video)) {
+                return;
+            }
             const key = video.getAttribute('data-shared-video');
+            if (!key) {
+                return;
+            }
             if (!groups.has(key)) {
                 groups.set(key, []);
             }
@@ -134,30 +133,31 @@ class VideoSystem {
 
     // ===== AUTOPLAY DETECTION =====
     async testAutoplaySupport() {
-        try {
-            const video = document.createElement('video');
-            video.muted = true;
-            video.playsInline = true;
-            video.style.cssText = 'position:absolute;opacity:0;left:-9999px';
+        const video = document.createElement('video');
+        video.muted = true;
+        video.playsInline = true;
+        video.hidden = true;
+        video.width = 1;
+        video.height = 1;
+        video.setAttribute('aria-hidden', 'true');
 
-            // Мінімальне тестове відео
+        try {
             const testVideoSrc = 'data:video/mp4;base64,AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAAIZnJlZQAAAu1tZGF0';
             video.src = testVideoSrc;
-
             document.body.appendChild(video);
 
             const playPromise = video.play();
 
             if (playPromise instanceof Promise) {
                 await playPromise;
-                video.remove();
                 return true;
             }
 
-            video.remove();
             return false;
         } catch (error) {
             return false;
+        } finally {
+            video.remove();
         }
     }
 
@@ -193,22 +193,67 @@ class VideoSystem {
         });
     }
 
+    isMobileViewport() {
+        return window.matchMedia('(max-width: 767px)').matches;
+    }
+
+    isVideoForCurrentViewport(video) {
+        const isMobile = this.isMobileViewport();
+        if (video.classList.contains('desktop-video') && isMobile) {
+            return false;
+        }
+        if (video.classList.contains('mobile-video') && !isMobile) {
+            return false;
+        }
+        if (!isMobile && video.closest('#svc-piano, .home-cta-section')) {
+            return false;
+        }
+        return true;
+    }
+
+    lazyObserveRoot(video) {
+        return video.closest('section, .hero-section, .cta-section, .project-section')
+            || video.parentElement
+            || video;
+    }
+
+    applyDataSrc(element) {
+        const source = element.querySelector('source');
+        const url = element.getAttribute('data-src')
+            || (source && (source.getAttribute('data-src') || source.getAttribute('src')));
+        if (!url) {
+            return Boolean(element.currentSrc || element.src || (source && source.getAttribute('src')));
+        }
+        if (source && source.getAttribute('src') !== url) {
+            source.src = url;
+        }
+        if (source) {
+            source.removeAttribute('data-src');
+        }
+        element.removeAttribute('data-src');
+        return true;
+    }
+
     // ===== PAGE VIDEOS PROCESSING =====
     async processPageVideos() {
-        // Standard videos (hero, cta)
         const standardVideos = document.querySelectorAll(
             '.video-background:not(.lazy-video), .hero-video:not(.lazy-video)'
         );
 
         for (const video of standardVideos) {
+            if (!this.isVideoForCurrentViewport(video)) {
+                continue;
+            }
             await this.processVideo(video, 'standard');
         }
 
-        // Lazy videos (portfolio projects)
         const lazyVideos = document.querySelectorAll('.lazy-video');
 
-        lazyVideos.forEach(video => {
-            // Реєструємо відео в системі але не завантажуємо
+        lazyVideos.forEach((video) => {
+            if (!this.isVideoForCurrentViewport(video)) {
+                return;
+            }
+
             const videoData = {
                 element: video,
                 mode: 'lazy',
@@ -220,10 +265,10 @@ class VideoSystem {
             this.videos.set(video, videoData);
             this.optimizeVideoAttributes(video);
 
-            // Спостерігаємо за контейнером
             if (this.observers.intersection) {
-                const container = video.closest('.project-section') || video;
-                this.observers.intersection.observe(container);
+                this.observers.intersection.observe(this.lazyObserveRoot(video));
+            } else {
+                this.loadVideo(videoData);
             }
         });
     }
@@ -267,14 +312,19 @@ class VideoSystem {
             video = element;
         } else {
             // Визначаємо яке відео завантажувати (desktop або mobile)
-            const isMobile = window.innerWidth <= 767;
-            const selector = isMobile ? 'video.lazy-video.mobile-video' : 'video.lazy-video.desktop-video';
+            const isMobile = this.isMobileViewport();
+            const selector = isMobile
+                ? 'video.lazy-video.mobile-video, video.lazy-video:not(.desktop-video)'
+                : 'video.lazy-video.desktop-video, video.lazy-video:not(.mobile-video)';
             video = element.querySelector(selector);
 
-            // Fallback на будь-яке lazy відео
             if (!video) {
                 video = element.querySelector('video.lazy-video');
             }
+        }
+
+        if (video && !this.isVideoForCurrentViewport(video)) {
+            return;
         }
 
         if (!video) {
@@ -301,10 +351,17 @@ class VideoSystem {
 
     async loadVideo(videoData) {
         const { element, container } = videoData;
+        if (!this.isVideoForCurrentViewport(element)) {
+            return;
+        }
         const isHeroBackground = this.isHeroBackgroundVideo(element);
-        const sharedLeader = this.getSharedVideoLeader(element);
 
         try {
+            this.applyDataSrc(element);
+            element.classList.remove('lazy-video');
+
+            const sharedLeader = this.getSharedVideoLeader(element);
+
             if (sharedLeader && sharedLeader !== element) {
                 if (element.readyState < 2) {
                     element.load();
@@ -327,27 +384,10 @@ class VideoSystem {
                 return;
             }
 
-            // Якщо є data-src, переносимо в src
-            if (element.hasAttribute('data-src')) {
-                const dataSrc = element.getAttribute('data-src');
-                element.src = dataSrc;
-                element.removeAttribute('data-src');
-
-                // Також для source
-                const source = element.querySelector('source[data-src]');
-                if (source) {
-                    const sourceSrc = source.getAttribute('data-src');
-                    source.src = sourceSrc;
-                    source.removeAttribute('data-src');
-                }
-
-                element.classList.remove('lazy-video');
-            }
-
-            const hasSource = Boolean(element.src || element.querySelector('source[src]'));
             const alreadyReady = element.readyState >= 2;
+            const alreadyFetching = element.networkState === 2 || element.readyState >= 1;
 
-            if (!(isHeroBackground && hasSource && alreadyReady)) {
+            if (!alreadyReady && !alreadyFetching) {
                 element.load();
             }
 
@@ -375,17 +415,12 @@ class VideoSystem {
         video.setAttribute('playsinline', '');
         video.setAttribute('webkit-playsinline', '');
 
-        if (this.isHeroBackgroundVideo(video)) {
-            video.preload = 'auto';
+        if (video.classList.contains('lazy-video')) {
+            video.preload = 'none';
             return;
         }
 
-        const isMobile = window.innerWidth <= 767;
-        if (isMobile) {
-            video.preload = this.loadingStrategy === 'minimal' ? 'none' : 'metadata';
-        } else {
-            video.preload = video.classList.contains('lazy-video') ? 'none' : 'auto';
-        }
+        video.preload = this.loadingStrategy === 'minimal' ? 'none' : 'metadata';
     }
 
     async waitForVideoReady(video) {

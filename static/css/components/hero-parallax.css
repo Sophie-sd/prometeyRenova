@@ -44,6 +44,11 @@
     will-change: transform;
 }
 
+/* Empty piano/CTA players must not paint a solid layer over the hero video */
+.cta-section .video-background {
+    background-color: transparent;
+}
+
 /* Anchor cta overlays to section bounds (prevents viewport-wide dimming on hero) */
 .cta-section {
     position: relative;

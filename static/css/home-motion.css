@@ -84,10 +84,14 @@
     }
 }
 
+/* Hero LCP: visible from first CSSOM paint. Do not wait for home-reveal.js. */
 .hero-section .hero-text h1.home-reveal,
 .hero-section .hero-text p.home-reveal,
 .hero-section .hero-buttons.home-reveal {
     animation: none;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition: none;
 }
 
 @media (min-width: 768px) {
@@ -104,6 +108,26 @@
 @media (max-width: 767px) {
     #svc-piano .svc-piano__unit.home-reveal {
         transition-delay: 0ms;
+    }
+
+    .hero-section .desktop-video,
+    #svc-piano .desktop-video,
+    .home-cta-section .desktop-video {
+        display: none;
+    }
+
+    .hero-section .mobile-video,
+    #svc-piano .mobile-video,
+    .home-cta-section .mobile-video {
+        display: block;
+    }
+}
+
+@media (min-width: 768px) {
+    .hero-section .mobile-video,
+    #svc-piano .video-background,
+    .home-cta-section .video-background {
+        display: none;
     }
 }
 

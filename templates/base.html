@@ -19,9 +19,10 @@
     });
     </script>
     {% if COOKIEYES_ID %}
+    {# Direct CMP only — do not add CookieYes in GTM (duplicate banner / late LCP). #}
     <link rel="dns-prefetch" href="https://cdn-cookieyes.com">
     <link rel="preconnect" href="https://cdn-cookieyes.com" crossorigin>
-    <script id="cookieyes" type="text/javascript"
+    <script id="cookieyes" type="text/javascript" async
             src="https://cdn-cookieyes.com/client_data/{{ COOKIEYES_ID }}/script.js"
             nonce="{{ csp_nonce }}"></script>
     {% endif %}
@@ -125,9 +126,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </style>
 
     <!-- CSS Base Bundle — non-blocking (preload + media-print swap on load) -->
-    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=32" as="style">
-    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=32" media="print" data-async-css>
-    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=32"></noscript>
+    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=34" as="style">
+    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=34" media="print" data-async-css>
+    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=34"></noscript>
     <link rel="stylesheet" href="{% static 'css/components/lead-form.css' %}?v=2">
 
     <!-- Page specific CSS -->
