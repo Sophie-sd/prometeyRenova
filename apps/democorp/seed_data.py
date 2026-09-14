@@ -44,16 +44,16 @@ PRODUCTION_STEPS = [
 ]
 
 GALLERY = [
-    {'image': 'gallery/site-1.webp', 'kind': 'production',
+    {'image': 'gallery/tilt-cards.webp', 'kind': 'production',
      'caption': 'Картки, що нахиляються', 'caption_en': 'Cards that tilt',
      'caption_cs': 'Karty, které se naklánějí', 'caption_ru': 'Карточки, которые наклоняются'},
-    {'image': 'gallery/site-4.webp', 'kind': 'production',
+    {'image': 'gallery/menu.webp', 'kind': 'production',
      'caption': 'Меню, зручне з телефону', 'caption_en': 'A menu that works on the phone',
      'caption_cs': 'Menu pohodlné v telefonu', 'caption_ru': 'Меню, удобное с телефона'},
-    {'image': 'gallery/site-5.webp', 'kind': 'production',
+    {'image': 'gallery/stats.webp', 'kind': 'production',
      'caption': 'Цифри, що рахуються', 'caption_en': 'Numbers that count up',
      'caption_cs': 'Čísla, která se načítají', 'caption_ru': 'Цифры, которые считаются'},
-    {'image': 'gallery/site-6.webp', 'kind': 'production',
+    {'image': 'gallery/form.webp', 'kind': 'production',
      'caption': 'Форма, після якої вам пишуть', 'caption_en': 'A form after which people write to you',
      'caption_cs': 'Formulář, po kterém vám napíšou', 'caption_ru': 'Форма, после которой вам пишут'},
     {'image': 'gallery/admin.webp', 'kind': 'certificate',

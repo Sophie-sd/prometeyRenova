@@ -91,7 +91,7 @@ a {
 }
 
 .dc-section {
-  padding: var(--dc-sp-6) 0;
+  padding-block: var(--dc-sp-6);
 }
 
 .js-anchor {
@@ -169,13 +169,13 @@ a {
 
 @media (min-width: 768px) {
   .dc-section {
-    padding: 72px 0;
+    padding-block: 72px;
   }
 }
 
 @media (min-width: 1024px) {
   .dc-section {
-    padding: var(--dc-sp-8) 0;
+    padding-block: var(--dc-sp-8);
   }
 }
 

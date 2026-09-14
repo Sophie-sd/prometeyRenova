@@ -12,19 +12,29 @@
 </section>
 
 <section class="dc-section dc-container dc-about">
-    <div>
-        <p class="dc-prose">{% tenant_text blocks_map registry "about" "text" %}</p>
-        <div class="dc-about__mission">
-            <h3>{% trans "Місія" %}</h3>
-            <p>{% tenant_text blocks_map registry "about" "mission" %}</p>
+    <div class="dc-about__copy">
+        <p class="dc-about__lede">{% tenant_text blocks_map registry "about" "text" %}</p>
+        <div class="dc-about__blocks">
+            <article class="dc-about__block">
+                <h2>{% trans "Місія" %}</h2>
+                <p>{% tenant_text blocks_map registry "about" "mission" %}</p>
+            </article>
+            <article class="dc-about__block">
+                <h2>{% trans "Як збираємо" %}</h2>
+                <p>{% tenant_text blocks_map registry "about" "approach" %}</p>
+            </article>
+            <article class="dc-about__block">
+                <h2>{% trans "Для кого" %}</h2>
+                <p>{% tenant_text blocks_map registry "about" "audience" %}</p>
+            </article>
         </div>
     </div>
     {% if about_photo or about_fallback %}
-    <div class="obj-tilt" data-tilt>
+    <div class="dc-about__photo obj-tilt" data-tilt>
         {% if about_photo %}
-        <img class="dc-about__media" src="{{ about_photo }}" alt="{{ about_title }}" loading="lazy">
+        <img class="dc-about__media" src="{{ about_photo }}" alt="{{ about_title }}" width="720" height="900" loading="lazy">
         {% elif about_fallback.image %}
-        <img class="dc-about__media" src="{{ about_fallback.image.url }}" alt="{{ about_fallback.localized_caption }}" loading="lazy">
+        <img class="dc-about__media" src="{{ about_fallback.image.url }}" alt="{{ about_fallback.localized_caption }}" width="720" height="900" loading="lazy">
         {% endif %}
     </div>
     {% endif %}
