@@ -19,13 +19,15 @@
     {% if products %}
     <div class="dc-product-grid">
         {% for product in products %}
-        <article data-qa="product-card">
+        <article class="dc-product-card" data-qa="product-card">
             <a class="frame-card" href="{% url 'democorp:product_detail' slug=site.slug product_slug=product.slug %}">
                 <span class="frame-card__corner frame-card__corner--tl" aria-hidden="true"></span>
                 <span class="frame-card__corner frame-card__corner--br" aria-hidden="true"></span>
-                {% with image=product.images.first %}
-                {% if image %}<img class="dc-product-card__img" src="{{ image.image.url }}" alt="{{ product.localized_name }}" loading="lazy">{% endif %}
-                {% endwith %}
+                <div class="dc-product-card__media">
+                    {% with image=product.images.first %}
+                    {% if image %}<img class="dc-product-card__img" src="{{ image.image.url }}" alt="{{ product.localized_name }}" width="1440" height="900" loading="lazy">{% endif %}
+                    {% endwith %}
+                </div>
                 <h3>{{ product.localized_name }}</h3>
                 <p>{{ product.localized_excerpt }}</p>
                 {% if product.price_from %}<p class="dc-product-card__price">{% trans "від" %} {{ product.price_from }} €</p>{% endif %}

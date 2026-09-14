@@ -29,6 +29,24 @@ def tenant_visible(blocks_map, page, key, default=True):
 
 
 @register.filter
+def ideal_cols(count, max_cols=2):
+    """Найбільша кількість колонок ≤ max_cols без сироти в останньому ряді."""
+    try:
+        count = int(count)
+        max_cols = int(max_cols)
+    except (TypeError, ValueError):
+        return max_cols
+    if count <= 0:
+        return max_cols
+    if count <= max_cols:
+        return count
+    for cols in range(max_cols, 1, -1):
+        if count % cols == 0:
+            return cols
+    return max_cols
+
+
+@register.filter
 def tel_href(value):
     raw = (value or '').strip()
     digits = ''.join(ch for ch in raw if ch.isdigit())

@@ -34,12 +34,16 @@
 
 <section class="dc-section" id="gallery">
     <div class="dc-container">
-        <div class="bento">
+        <div class="dc-gallery dc-gallery--cols-{{ gallery_images|length|ideal_cols:2 }}">
             {% for image in gallery_images %}
-            <figure class="bento__item{% if forloop.first %} bento__item--1x2{% elif forloop.counter == 2 %} bento__item--2x1{% endif %}">
-                <img src="{{ image.image.url }}" alt="{{ image.localized_caption }}" loading="lazy">
+            <figure class="dc-gallery__item">
+                <div class="dc-gallery__frame">
+                    <div class="dc-gallery__media">
+                        <img src="{{ image.image.url }}" alt="{{ image.localized_caption }}" width="1200" height="900" loading="lazy">
+                    </div>
+                </div>
                 {% if image.localized_caption %}
-                <figcaption class="dc-gallery-caption">{{ image.localized_caption }}</figcaption>
+                <figcaption class="dc-gallery__caption">{{ image.localized_caption }}</figcaption>
                 {% endif %}
             </figure>
             {% endfor %}
@@ -51,12 +55,16 @@
 <section class="dc-section" id="certificates">
     <div class="dc-container">
         <h2 data-reveal>{% trans "Ще екрани" %}</h2>
-        <div class="bento">
+        <div class="dc-gallery dc-gallery--cols-{{ certificates|length|ideal_cols:2 }}">
             {% for cert in certificates %}
-            <figure class="bento__item">
-                <img src="{{ cert.image.url }}" alt="{{ cert.localized_caption }}" loading="lazy">
+            <figure class="dc-gallery__item">
+                <div class="dc-gallery__frame">
+                    <div class="dc-gallery__media">
+                        <img src="{{ cert.image.url }}" alt="{{ cert.localized_caption }}" width="1200" height="900" loading="lazy">
+                    </div>
+                </div>
                 {% if cert.localized_caption %}
-                <figcaption class="dc-gallery-caption">{{ cert.localized_caption }}</figcaption>
+                <figcaption class="dc-gallery__caption">{{ cert.localized_caption }}</figcaption>
                 {% endif %}
             </figure>
             {% endfor %}

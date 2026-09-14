@@ -11,7 +11,6 @@
             <span class="dc-footer__mark">Labs</span>
         </p>
         <div class="dc-footer__actions">
-            <p>{% tenant_text blocks_map registry "contacts" "address" %}</p>
             <nav class="dc-footer__nav" aria-label="{% trans 'Футер' %}">
                 <ul>
                     {% include 'democorp/partials/nav_links.html' %}
@@ -20,6 +19,7 @@
         </div>
     </div>
     <div class="dc-footer__bottom">
-        <p>{% tenant_text blocks_map registry "header" "company_name" %} · {% now "Y" %}</p>
+        <p class="dc-footer__copy">{% tenant_text blocks_map registry "header" "company_name" %} · {% now "Y" %}</p>
+        <p class="dc-footer__address">{% tenant_text blocks_map registry "contacts" "address" %}</p>
     </div>
 </footer>
