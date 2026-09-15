@@ -17,3 +17,9 @@ class CookieYesDeferTests(SimpleTestCase):
             text,
         )
         self.assertLess(text.find("gtag('consent','default'"), text.find('function _loadCookieYes'))
+
+    def test_gtm_does_not_bind_scroll_or_mousemove(self):
+        text = BASE_HTML.read_text(encoding='utf-8')
+        self.assertIn("['click','touchstart','keydown']", text)
+        self.assertNotIn("'scroll'", text.split('function _loadGTM')[1].split('setTimeout(_loadGTM')[0])
+        self.assertNotIn("'mousemove'", text.split('function _loadGTM')[1].split('setTimeout(_loadGTM')[0])

@@ -10,8 +10,8 @@
 }
 
 @keyframes pl-prog {
-    0% { width: 6%; }
-    100% { width: 100%; }
+    0% { transform: scaleX(0.06); }
+    100% { transform: scaleX(1); }
 }
 
 @keyframes pl-pulse {
@@ -360,6 +360,10 @@ body.pl-shop-body {
     width: 680px;
     height: 680px;
     background: radial-gradient(circle, rgba(230, 81, 0, 0.22), rgba(230, 81, 0, 0) 62%);
+    opacity: 0.45;
+}
+
+.pl-shop-page.is-hero-glow .pl-shop__hero-glow-a {
     filter: blur(20px);
     animation: pl-pulse 7s ease-in-out infinite;
 }
@@ -597,8 +601,11 @@ body.pl-shop-body {
 
 .pl-shop__chip-bar-fill {
     height: 100%;
+    width: 100%;
     border-radius: 4px;
     background: var(--pl-acc);
+    transform: scaleX(0.06);
+    transform-origin: left center;
     animation: pl-prog 1.7s cubic-bezier(0.3, 0.9, 0.3, 1) 0.5s both;
 }
 
@@ -3646,8 +3653,10 @@ body.pl-shop-body {
         transform: none;
     }
 
-    .pl-shop__hero-glow-a {
+    .pl-shop__hero-glow-a,
+    .pl-shop-page.is-hero-glow .pl-shop__hero-glow-a {
         animation: none;
+        filter: none;
     }
 
     .pl-shop__form {

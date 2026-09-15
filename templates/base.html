@@ -64,7 +64,8 @@
       if(preview){_loadCookieYes();_loadGTM();return;}
       if(document.readyState==='complete'){_loadCookieYes();}
       else {window.addEventListener('load',_loadCookieYes,{once:true});}
-      ['scroll','click','touchstart','keydown','mousemove'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
+      {# scroll/mousemove fire during Lighthouse SI scroll and inflate TBT via GTM→Clixtell #}
+      ['click','touchstart','keydown'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
       setTimeout(_loadGTM,6000);
     })();
     </script>

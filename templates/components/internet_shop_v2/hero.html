@@ -33,15 +33,15 @@
             <div class="pl-shop__hero-stage">
                 <picture>
                     <source type="image/webp" media="(max-width: 767px)" srcset="{% static 'images/shop_hero_720.webp' %}">
-                    <source type="image/webp" srcset="{% static 'images/shop_hero.webp' %}">
+                    <source type="image/webp" media="(min-width: 768px)" srcset="{% static 'images/shop_hero.webp' %}">
                     <img
-                        src="{% static 'images/shop_hero.webp' %}"
+                        src="{% static 'images/shop_hero_720.webp' %}"
                         alt="{% trans 'Інтернет-магазин на ноутбуці та смартфоні' %}"
                         class="pl-shop__hero-img"
                         width="540"
                         height="540"
                         loading="eager"
-                        decoding="sync"
+                        decoding="async"
                         fetchpriority="high"
                         data-hero-img
                     >

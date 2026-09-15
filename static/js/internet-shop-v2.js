@@ -47,12 +47,20 @@
         document.body.appendChild(s);
     }
 
-    function loadWhenNear(selector, src, onload) {
+    function loadStylesheet(href) {
+        if (!href || document.querySelector('link[href="' + href + '"]')) return;
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        document.head.appendChild(link);
+    }
+
+    function whenNear(selector, onNear, rootMargin) {
         var el = root.querySelector(selector) || document.querySelector(selector);
-        if (!el || !src) return;
+        if (!el) return;
 
         function go() {
-            loadPageScript(src, onload);
+            onNear();
         }
 
         if (!('IntersectionObserver' in window)) {
@@ -65,8 +73,15 @@
                 io.disconnect();
                 go();
             }
-        }, { rootMargin: '480px 0px' });
+        }, { rootMargin: rootMargin || '480px 0px' });
         io.observe(el);
+    }
+
+    function loadWhenNear(selector, src, onload) {
+        if (!src) return;
+        whenNear(selector, function () {
+            loadPageScript(src, onload);
+        });
     }
 
     function initReveal() {
@@ -96,17 +111,6 @@
 
             els.forEach(function (el) {
                 io.observe(el);
-            });
-
-            requestAnimationFrame(function () {
-                var vh = window.innerHeight || 800;
-                els.forEach(function (el) {
-                    var r = el.getBoundingClientRect();
-                    if (r.top < vh * 0.95) {
-                        reveal(el);
-                        io.unobserve(el);
-                    }
-                });
             });
         } else {
             els.forEach(reveal);
@@ -143,6 +147,39 @@
         });
     }
 
+    function whenHeroReady(img, done) {
+        var settled = false;
+        function finish() {
+            if (settled) return;
+            settled = true;
+            done();
+        }
+
+        if (!img) {
+            finish();
+            return;
+        }
+
+        if (img.complete && img.naturalWidth) {
+            if (typeof img.decode === 'function') {
+                img.decode().then(finish).catch(finish);
+            } else {
+                finish();
+            }
+            return;
+        }
+
+        img.addEventListener('load', function () {
+            if (typeof img.decode === 'function') {
+                img.decode().then(finish).catch(finish);
+            } else {
+                finish();
+            }
+        }, { once: true });
+        img.addEventListener('error', finish, { once: true });
+        setTimeout(finish, 2500);
+    }
+
     function initHeroSequence() {
         var img = root.querySelector('[data-hero-img]');
         if (!img) return;
@@ -151,9 +188,12 @@
         var line = root.querySelector('[data-hero-line]');
         var chips = root.querySelectorAll('[data-hero-chip]');
 
-        prepareHeroChartDraw(chartWrap, line);
+        function enableGlow() {
+            if (!reduceMotion) root.classList.add('is-hero-glow');
+        }
 
         function finish() {
+            enableGlow();
             if (chartWrap) chartWrap.classList.add('is-in');
             playHeroChartDraw(chartWrap, line);
             chips.forEach(function (c) { c.classList.add('is-in'); });
@@ -164,17 +204,21 @@
             return;
         }
 
-        requestAnimationFrame(function () {
-            setTimeout(function () {
-                if (chartWrap) chartWrap.classList.add('is-in');
-                playHeroChartDraw(chartWrap, line);
-            }, 420);
-            setTimeout(function () {
-                if (chips[0]) chips[0].classList.add('is-in');
-            }, 1200);
-            setTimeout(function () {
-                if (chips[1]) chips[1].classList.add('is-in');
-            }, 1520);
+        whenHeroReady(img, function () {
+            prepareHeroChartDraw(chartWrap, line);
+            enableGlow();
+            requestAnimationFrame(function () {
+                setTimeout(function () {
+                    if (chartWrap) chartWrap.classList.add('is-in');
+                    playHeroChartDraw(chartWrap, line);
+                }, 420);
+                setTimeout(function () {
+                    if (chips[0]) chips[0].classList.add('is-in');
+                }, 1200);
+                setTimeout(function () {
+                    if (chips[1]) chips[1].classList.add('is-in');
+                }, 1520);
+            });
         });
     }
 
@@ -237,14 +281,6 @@
             }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
 
             io.observe(el);
-
-            requestAnimationFrame(function () {
-                var rect = el.getBoundingClientRect();
-                if (rect.top < (window.innerHeight || 800) * 0.92) {
-                    onReveal();
-                    io.disconnect();
-                }
-            });
         } else {
             onReveal();
         }
@@ -410,6 +446,61 @@
         });
     }
 
+    function attachPhoneMasks() {
+        var app = window.prometeyApp;
+        if (app && typeof app.initPhoneMasksForElement === 'function') {
+            app.initPhoneMasksForElement(document);
+        }
+    }
+
+    function loadPhoneMasks(done) {
+        var primary = root.getAttribute('data-phone-mask-js');
+        var intl = root.getAttribute('data-phone-mask-intl-js');
+        if (!primary) {
+            if (done) done();
+            return;
+        }
+
+        loadPageScript(primary, function () {
+            if (!intl) {
+                attachPhoneMasks();
+                if (done) done();
+                return;
+            }
+            loadPageScript(intl, function () {
+                attachPhoneMasks();
+                if (done) done();
+            });
+        });
+    }
+
+    function initDeferredPhoneMasks() {
+        whenNear('#calculator', function () {
+            loadPhoneMasks();
+        });
+
+        document.addEventListener('click', function onModalIntent(e) {
+            var trigger = e.target.closest('[data-modal], .modal input[type="tel"], input[type="tel"]');
+            if (!trigger) return;
+            document.removeEventListener('click', onModalIntent, true);
+            loadPhoneMasks();
+        }, true);
+
+        document.addEventListener('focusin', function onPhoneFocus(e) {
+            if (!e.target || e.target.type !== 'tel') return;
+            document.removeEventListener('focusin', onPhoneFocus, true);
+            loadPhoneMasks();
+        }, true);
+    }
+
+    function initDeferredMonoFonts() {
+        var href = root.getAttribute('data-mono-fonts-css');
+        if (!href) return;
+        whenNear('.pl-shop__clients-block', function () {
+            loadStylesheet(href);
+        }, '200px 0px');
+    }
+
     function initDeferredSections() {
         loadWhenNear('[data-admin-mock]', root.getAttribute('data-admin-js'), function () {
             if (typeof window.initAdminMock === 'function') {
@@ -417,6 +508,8 @@
             }
         });
         loadWhenNear('#calculator', root.getAttribute('data-quiz-js'));
+        initDeferredPhoneMasks();
+        initDeferredMonoFonts();
     }
 
     function init() {

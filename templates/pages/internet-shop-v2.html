@@ -11,10 +11,12 @@
 {% block extra_head %}
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.prometeylabs.com/internet-shop-v2/">
+<link rel="preload" as="image" type="image/webp" href="{% static 'images/shop_hero_720.webp' %}" media="(max-width: 767px)" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" href="{% static 'images/shop_hero.webp' %}" media="(min-width: 768px)" fetchpriority="high">
+<link rel="preload" as="font" type="font/woff2" href="{% static 'fonts/space-grotesk/space-grotesk-400-adb775.woff2' %}" crossorigin>
 {% endblock %}
 
 {% block page_css %}
-<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="{% static 'images/shop_hero_720.webp' %}" imagesrcset="{% static 'images/shop_hero_720.webp' %} 720w, {% static 'images/shop_hero.webp' %} 1080w" imagesizes="(max-width: 767px) 100vw, 410px">
 <style>
 body.pl-shop-body{background:#0A0A0A;overflow-x:clip}
 .pl-shop-page{--pl-acc:#E65100;--pl-acc-h:#FF6D00;--pl-bg:#0A0A0A;--pl-header-offset:80px;background:var(--pl-bg);color:#fff;font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
@@ -59,19 +61,22 @@ body.pl-shop-body{background:#0A0A0A;overflow-x:clip}
 .pl-shop-page .project-story .v3-client-ring{width:120px;height:120px;padding:3px}
 }
 </style>
-<link rel="preload" href="{% static 'css/pl-display-fonts.css' %}?v=2" as="style">
-<link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=2" media="print" data-async-css>
-<noscript><link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=2"></noscript>
-<link rel="preload" href="{% static 'css/internet-shop-v2.css' %}?v=119" as="style">
-<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=119" media="print" data-async-css>
-<noscript><link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=119"></noscript>
-<noscript><style>.pl-shop__hero-chip,.pl-shop__hero-chart-wrap{opacity:1;transform:none}</style></noscript>
+<link rel="preload" href="{% static 'css/pl-shop-fonts.css' %}?v=1" as="style">
+<link rel="stylesheet" href="{% static 'css/pl-shop-fonts.css' %}?v=1" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/pl-shop-fonts.css' %}?v=1"></noscript>
+<link rel="preload" href="{% static 'css/internet-shop-v2.css' %}?v=120" as="style">
+<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=120" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=120"></noscript>
+<noscript><style>.pl-shop__hero-chip,.pl-shop__hero-chart-wrap,.pl-shop-page.is-hero-glow .pl-shop__hero-glow-a{opacity:1;transform:none}</style></noscript>
 {% endblock %}
 
 {% block content %}
 <div id="plShopRoot" class="pl-shop pl-shop-page"
      data-admin-js="{% static 'js/internet-shop-v2-admin-mock.js' %}?v=3"
-     data-quiz-js="{% static 'js/internet-shop-v2-quiz.js' %}?v=8">
+     data-quiz-js="{% static 'js/internet-shop-v2-quiz.js' %}?v=8"
+     data-phone-mask-js="{% static 'js/core/phone-mask.js' %}"
+     data-phone-mask-intl-js="{% static 'js/core/phone-mask-intl.js' %}"
+     data-mono-fonts-css="{% static 'css/pl-shop-mono-fonts.css' %}?v=1">
     {% include 'components/internet_shop_v2/hero.html' %}
     {% include 'components/internet_shop_v2/clients.html' %}
     {% include 'components/internet_shop_v2/svoboda.html' %}
@@ -83,6 +88,36 @@ body.pl-shop-body{background:#0A0A0A;overflow-x:clip}
 {% include 'components/internet_shop_v2/pkg_compare_modal.html' %}
 {% endblock %}
 
+{% block base_js %}
+<script src="{% static 'js/core/analytics.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/core/gclid-capture.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/core/ec-phone.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/core/utils.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/mobile-core.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/base.js' %}?v=31" nonce="{{ csp_nonce }}" defer></script>
+<script nonce="{{ csp_nonce }}">
+(function(){
+    function load(){
+        if(window._vsL)return;window._vsL=1;
+        var s=document.createElement('script');
+        s.src='{% static "js/video-system.js" %}';
+        s.defer=true;
+        s.setAttribute('nonce','{{ csp_nonce }}');
+        s.nonce='{{ csp_nonce }}';
+        document.head.appendChild(s);
+    }
+    function check(){if(document.querySelector('video'))load();}
+    if(document.readyState==='loading'){
+        document.addEventListener('DOMContentLoaded',check,{once:true});
+    }else{check();}
+})();
+</script>
+{% get_current_language as CURRENT_LANG %}
+{% if CURRENT_LANG == 'ru' %}
+<script src="{% static 'js/lang-suggest.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
+{% endif %}
+{% endblock %}
+
 {% block extra_js %}
-<script src="{% static 'js/internet-shop-v2.js' %}?v=25" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-v2.js' %}?v=26" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}
