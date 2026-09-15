@@ -474,7 +474,7 @@ def handle_test_submission(request):
                 status=400,
             )
 
-        if not email or not validate_email(email):
+        if email and not validate_email(email):
             return create_form_response(
                 False,
                 _('Введіть коректний email.'),
@@ -538,10 +538,6 @@ def handle_test_submission(request):
             email_sender=lambda _fd, _captured=test_data: send_test_result_email(_captured),
         )
 
-        from apps.core.calculator_estimate import estimate_from_answers
-        from django.utils.translation import get_language
-
-        result = estimate_from_answers(answers, get_language())
         success_message = _('Дякуємо! Ми зв\'яжемося з вами найближчим часом.')
 
         return create_form_response(
@@ -549,7 +545,7 @@ def handle_test_submission(request):
             success_message,
             answers=answers,
             alt_services_checked=alt_services_checked,
-            result=result,
+            redirect='/thank-you/',
         )
         
     except Exception as e:

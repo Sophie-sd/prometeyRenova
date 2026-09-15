@@ -308,6 +308,7 @@ def send_test_result_email(test_data):
     try:
         name = test_data['name']
         phone = test_data['phone']
+        email = (test_data.get('email') or '').strip() or 'Не вказано'
         answers = test_data.get('answers', {})
         alt_services_checked = test_data.get('alt_services_checked', False)
         
@@ -334,6 +335,7 @@ def send_test_result_email(test_data):
 === КОНТАКТ ===
 Ім'я: {name}
 Телефон: {phone}
+Email: {email}
 
 === ТИП ЗАПИТУ ===
 """

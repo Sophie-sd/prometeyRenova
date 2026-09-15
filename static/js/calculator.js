@@ -107,9 +107,8 @@ class ProjectCalculator {
         if (this.isContactStep(step)) {
             const name = step.querySelector('[name="name"]')?.value?.trim();
             const phone = step.querySelector('[name="phone"]')?.value?.trim();
-            const email = step.querySelector('[name="email"]')?.value?.trim();
             const consent = step.querySelector('[name="consent"]')?.checked;
-            return Boolean(name && phone && email && consent);
+            return Boolean(name && phone && consent);
         }
 
         const options = step.querySelector('.calc-options');

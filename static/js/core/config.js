@@ -83,7 +83,6 @@ export const CONFIG = {
     modals: {
         developer: 'developer-modal',
         siteRequest: 'site-request-modal',
-        testResult: 'test-result-modal',
         callRequest: 'call-request-modal',
     },
 

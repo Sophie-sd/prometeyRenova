@@ -568,9 +568,8 @@ class PrometeyApp {
                 // (не чіпає ec_phone — потрібен на /thank-you/ для Google Ads)
                 this.clearUserData();
 
-                // Спочатку закриваємо інші модалки, потім показуємо результат тесту
                 this.closeModal();
-                this.handleFormSuccess(data, formType);
+                this.handleFormSuccess(data);
             } else {
                 // При помилці від сервера - форма НЕ очищається, відповіді залишаються
                 // Обробляємо помилку від сервера
@@ -660,16 +659,19 @@ class PrometeyApp {
             }
         }
 
-        if (emailField && emailField.hasAttribute('required')) {
+        if (emailField) {
             const email = (emailField.value || '').trim();
-            const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-            if (!emailOk) {
-                emailField.classList.add('error');
-                this.showFieldError(emailField, window.I18N?.emailInvalid || 'Введіть коректний email');
-                isValid = false;
-            } else {
-                emailField.classList.remove('error');
-                this.clearFieldError(emailField);
+            const mustHave = emailField.hasAttribute('required');
+            if (mustHave || email) {
+                const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+                if (!emailOk) {
+                    emailField.classList.add('error');
+                    this.showFieldError(emailField, window.I18N?.emailInvalid || 'Введіть коректний email');
+                    isValid = false;
+                } else {
+                    emailField.classList.remove('error');
+                    this.clearFieldError(emailField);
+                }
             }
         }
 
@@ -748,35 +750,10 @@ class PrometeyApp {
         });
     }
 
-    handleFormSuccess(data, formType) {
-        if (formType === 'test' && data.result) {
-            this.showTestResult(data.result);
-            return;
-        }
+    handleFormSuccess(data) {
         if (data.redirect) {
             window.location.href = data.redirect;
         }
-    }
-
-    showTestResult(result) {
-        const modal = document.getElementById('test-result-modal');
-        if (!modal) return;
-
-        const projectTypeEl = modal.querySelector('#result-project-type');
-        const priceEl = modal.querySelector('#result-price');
-        const priceSecEl = modal.querySelector('#result-price-secondary');
-        const timelineEl = modal.querySelector('#result-timeline');
-
-        if (projectTypeEl) projectTypeEl.textContent = result.project_type || '';
-        if (priceEl) priceEl.textContent = result.price || '';
-        if (priceSecEl) {
-            const secondary = result.price_secondary || '';
-            priceSecEl.textContent = secondary;
-            priceSecEl.hidden = !secondary;
-        }
-        if (timelineEl) timelineEl.textContent = result.timeline || '';
-
-        this.openModal('test-result-modal');
     }
 
     // ===== LANGUAGE SWITCHER =====

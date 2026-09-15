@@ -6,7 +6,7 @@
 {% block description %}{{ meta_description }}{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/calculator.css' %}?v=28">
+<link rel="stylesheet" href="{% static 'css/calculator.css' %}?v=29">
 {% endblock %}
 
 {% block content %}
@@ -241,7 +241,7 @@
                                 </div>
                             </div>
 
-                            {% include 'components/lead_gdpr_min.html' with prefix='calc-test' input_class='calc-field__input' wrap_class='calc-user-data__gdpr' %}
+                            {% include 'components/lead_gdpr_min.html' with prefix='calc-test' input_class='calc-field__input' wrap_class='calc-user-data__gdpr' email_optional=True %}
 
                             <button type="submit" class="calc-submit-btn">
                                 <span class="calc-submit-btn__text">{% trans "ОТРИМАТИ РОЗРАХУНОК" %}</span>
@@ -259,9 +259,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script type="application/json" id="calculator-prices-json">
-{"eur_uah":43,"eur_czk":25,"base_min_eur":{"A":250,"B":400,"C":500,"D":800,"E":1500}}
-</script>
-<script src="{% static 'js/calculator-prices.js' %}?v=1" nonce="{{ csp_nonce }}"></script>
-<script src="{% static 'js/calculator.js' %}?v=15" nonce="{{ csp_nonce }}"></script>
+<script src="{% static 'js/calculator.js' %}?v=16" nonce="{{ csp_nonce }}"></script>
 {% endblock %}

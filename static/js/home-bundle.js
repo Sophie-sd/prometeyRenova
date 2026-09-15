@@ -235,6 +235,7 @@ class MobileCore {
         this.capabilities = this.detectCapabilities();
         this.initialized = false;
         this.viewportUpdateCallbacks = [];
+        this._touchBound = false;
 
         this.init();
     }
@@ -279,20 +280,39 @@ class MobileCore {
     init() {
         if (this.initialized) return;
 
-        this.setupViewportSystem();
-        this.setupTouchOptimizations();
         this.setupPerformanceOptimizations();
-
-        if (this.device.iOS) {
-            this.setupIOSSafariOptimizations();
-        }
-
-        if (this.device.android) {
-            this.setupAndroidOptimizations();
-        }
+        this.applyPlatformClasses();
 
         this.initialized = true;
         this.dispatchInitEvent();
+
+        const runHeavy = () => {
+            this.setupViewportSystem();
+            this.setupTouchOptimizations();
+            if (this.device.iOS) {
+                this.optimizeIOSSafariPerformance();
+            }
+        };
+
+        if (typeof requestAnimationFrame === 'function') {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(runHeavy);
+            });
+        } else {
+            setTimeout(runHeavy, 0);
+        }
+    }
+
+    applyPlatformClasses() {
+        if (this.device.iOS) {
+            document.documentElement.classList.add('ios', 'safari');
+            if (this.device.iOSVersion >= 17) {
+                document.documentElement.classList.add('ios-17');
+            }
+        }
+        if (this.device.android) {
+            document.documentElement.classList.add('android');
+        }
     }
 
     setupViewportSystem() {
@@ -315,64 +335,53 @@ class MobileCore {
 
 
     setupIOSSafariOptimizations() {
-        document.documentElement.classList.add('ios', 'safari');
-
-        if (this.device.iOSVersion >= 17) {
-            document.documentElement.classList.add('ios-17');
-        }
-
-        this.fixIOSSafariScrollBounce();
+        this.applyPlatformClasses();
         this.optimizeIOSSafariPerformance();
-        this.preventIOSZoomOnInputs();
     }
 
 
     setupTouchOptimizations() {
         if (!this.device.isTouch) return;
-
         this.setupTouchFeedback();
-        this.preventAccidentalZoom();
     }
 
     setupTouchFeedback() {
-        const touchElements = document.querySelectorAll(
-            'button, [role="button"], .btn, .nav-link, .card-link, [onclick], [data-modal]'
-        );
+        if (this._touchBound) return;
+        this._touchBound = true;
 
-        touchElements.forEach(element => {
-            this.addTouchFeedback(element);
-        });
-    }
-
-    addTouchFeedback(element) {
-        let touchStartTime = 0;
+        const selector = 'button, [role="button"], .btn, .nav-link, .card-link, [data-modal]';
+        let activeEl = null;
         let touchTimeout;
 
-        element.addEventListener('touchstart', (e) => {
-            touchStartTime = Date.now();
-            element.classList.add('touch-active');
+        const clearActive = () => {
+            if (activeEl) {
+                activeEl.classList.remove('touch-active');
+                activeEl = null;
+            }
+            clearTimeout(touchTimeout);
+        };
 
+        document.addEventListener('touchstart', (e) => {
+            const el = e.target.closest && e.target.closest(selector);
+            if (!el) return;
+            clearActive();
+            activeEl = el;
+            el.classList.add('touch-active');
             if (this.capabilities.supportsVibration && this.device.iOS) {
                 navigator.vibrate(10);
             }
-
-            clearTimeout(touchTimeout);
         }, { passive: true });
 
-        element.addEventListener('touchend', (e) => {
-            const touchDuration = Date.now() - touchStartTime;
-            const minFeedbackTime = 100;
-            const remainingTime = Math.max(0, minFeedbackTime - touchDuration);
-
+        document.addEventListener('touchend', () => {
+            if (!activeEl) return;
+            const el = activeEl;
             touchTimeout = setTimeout(() => {
-                element.classList.remove('touch-active');
-            }, remainingTime);
+                el.classList.remove('touch-active');
+                if (activeEl === el) activeEl = null;
+            }, 100);
         }, { passive: true });
 
-        element.addEventListener('touchcancel', () => {
-            element.classList.remove('touch-active');
-            clearTimeout(touchTimeout);
-        }, { passive: true });
+        document.addEventListener('touchcancel', clearActive, { passive: true });
     }
 
     setupPerformanceOptimizations() {
@@ -463,25 +472,15 @@ class MobileCore {
         });
     }
 
-    preventAccidentalZoom() {
-        const inputs = document.querySelectorAll(
-            'input[type="text"], input[type="tel"], input[type="email"], textarea, select'
-        );
-
-        inputs.forEach(input => {
-            if (!input.style.fontSize || parseInt(input.style.fontSize) < 16) {
-                input.style.fontSize = '16px';
-            }
-        });
-    }
+    /** Anti-zoom via CSS font-size: 16px (base-bundle). No-op for API compat. */
+    preventAccidentalZoom() {}
 
     setupAndroidOptimizations() {
         document.documentElement.classList.add('android');
     }
 
-    fixIOSSafariScrollBounce() {
-        document.documentElement.style.overscrollBehavior = 'none';
-    }
+    /** overscroll via html.ios in CSS. No-op for API compat. */
+    fixIOSSafariScrollBounce() {}
 
     optimizeIOSSafariPerformance() {
         const videos = document.querySelectorAll('video');
@@ -1555,7 +1554,7 @@ class PrometeyApp {
                     this.restorePhonePrefixes(form);
                 }
 
-                this.handleFormSuccess(data, formType);
+                this.handleFormSuccess(data);
                 this.closeModal();
             } else {
                 // При помилці від сервера - форма НЕ очищається, відповіді залишаються
@@ -1701,27 +1700,10 @@ class PrometeyApp {
         });
     }
 
-    handleFormSuccess(data, formType) {
+    handleFormSuccess(data) {
         if (data.redirect) {
             window.location.href = data.redirect;
-        } else if (formType === 'test' && data.result) {
-            this.showTestResult(data.result);
         }
-    }
-
-    showTestResult(result) {
-        const modal = document.getElementById('test-result-modal');
-        if (!modal) return;
-
-        const projectTypeEl = modal.querySelector('#result-project-type');
-        const priceEl = modal.querySelector('#result-price');
-        const timelineEl = modal.querySelector('#result-timeline');
-
-        if (projectTypeEl) projectTypeEl.textContent = result.project_type || '';
-        if (priceEl) priceEl.textContent = result.price || '';
-        if (timelineEl) timelineEl.textContent = result.timeline || '';
-
-        this.openModal('test-result-modal');
     }
 
     setupLanguageSwitcher() {

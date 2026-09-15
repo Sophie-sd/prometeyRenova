@@ -475,14 +475,23 @@
     gap: 8px;
 }
 
-.calculator-page .calc-field__label {
+.calculator-page .calc-field__label,
+.calculator-page .calc-user-data__gdpr .form-label,
+.calculator-page .lead-gdpr-min__label {
     display: block;
     font-size: 14px;
     font-weight: 500;
-    margin-bottom: 0;
     color: var(--color-white);
     text-transform: none;
     letter-spacing: normal;
+}
+
+.calculator-page .calc-field__label {
+    margin-bottom: 0;
+}
+
+.calculator-page .lead-gdpr-min__label {
+    margin-bottom: 6px;
 }
 
 .calculator-page .calc-field__input {

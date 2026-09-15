@@ -1,15 +1,22 @@
 from pathlib import Path
 
+from django.template.loader import render_to_string
 from django.test import SimpleTestCase
 
-BASE_HTML = Path(__file__).resolve().parents[3] / 'templates' / 'base.html'
+ROOT = Path(__file__).resolve().parents[3]
+GTM_HEAD = ROOT / 'templates' / 'partials' / 'gtm_head.html'
+BASE_HTML = ROOT / 'templates' / 'base.html'
+PROPOSAL_BASE = ROOT / 'templates' / 'proposal' / 'base_proposal.html'
 
 
 class CookieYesDeferTests(SimpleTestCase):
-    def test_cmp_is_injected_after_first_paint_not_in_head_src(self):
-        text = BASE_HTML.read_text(encoding='utf-8')
+    def test_cmp_is_deferred_not_on_window_load(self):
+        text = GTM_HEAD.read_text(encoding='utf-8')
         self.assertIn('function _loadCookieYes', text)
-        self.assertIn("window.addEventListener('load',_loadCookieYes,{once:true})", text)
+        self.assertNotIn("window.addEventListener('load',_loadCookieYes,{once:true})", text)
+        self.assertIn('requestIdleCallback', text)
+        self.assertIn('timeout:12000', text)
+        self.assertIn('setTimeout(_loadCookieYes,12000)', text)
         self.assertIn('_loadCookieYes();', text)
         self.assertNotIn('rel="preconnect" href="https://cdn-cookieyes.com"', text)
         self.assertNotIn(
@@ -19,7 +26,36 @@ class CookieYesDeferTests(SimpleTestCase):
         self.assertLess(text.find("gtag('consent','default'"), text.find('function _loadCookieYes'))
 
     def test_gtm_does_not_bind_scroll_or_mousemove(self):
-        text = BASE_HTML.read_text(encoding='utf-8')
+        text = GTM_HEAD.read_text(encoding='utf-8')
         self.assertIn("['click','touchstart','keydown']", text)
-        self.assertNotIn("'scroll'", text.split('function _loadGTM')[1].split('setTimeout(_loadGTM')[0])
-        self.assertNotIn("'mousemove'", text.split('function _loadGTM')[1].split('setTimeout(_loadGTM')[0])
+        gtm_boot = text.split('function _loadGTM')[1]
+        self.assertNotIn("'scroll'", gtm_boot.split('setTimeout(_loadGTM')[0])
+        self.assertNotIn("'mousemove'", gtm_boot.split('setTimeout(_loadGTM')[0])
+        self.assertIn('setTimeout(_loadGTM,15000)', text)
+        self.assertNotIn('setTimeout(_loadGTM,6000)', text)
+        self.assertIn('GTM-K2FVPPTK', text)
+
+    def test_public_and_proposal_bases_include_gtm(self):
+        for path in (BASE_HTML, PROPOSAL_BASE):
+            text = path.read_text(encoding='utf-8')
+            self.assertIn("{% include 'partials/gtm_head.html' %}", text)
+            self.assertIn("{% include 'partials/gtm_noscript.html' %}", text)
+
+
+class ProposalGtmCoverageTests(SimpleTestCase):
+    def test_proposal_base_renders_gtm_container(self):
+        html = render_to_string(
+            'proposal/base_proposal.html',
+            {
+                'LANGUAGE_CODE': 'uk',
+                'page_title': 'B2B parts',
+                'meta_description': 'Coverage',
+                'current_year': 2026,
+                'csp_nonce': 'testnonce',
+                'COOKIEYES_ID': '',
+            },
+        )
+        self.assertIn('GTM-K2FVPPTK', html)
+        self.assertIn("gtag('consent','default'", html)
+        self.assertIn('googletagmanager.com/gtm.js?id=GTM-K2FVPPTK', html)
+        self.assertIn('googletagmanager.com/ns.html?id=GTM-K2FVPPTK', html)

@@ -1,0 +1,67 @@
+    <!-- Google Consent Mode v2 — default denied BEFORE CookieYes and GTM -->
+    <script nonce="{{ csp_nonce }}">
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent','default',{
+      ad_storage:'denied',
+      analytics_storage:'denied',
+      ad_user_data:'denied',
+      ad_personalization:'denied',
+      wait_for_update:500
+    });
+    </script>
+    {% if COOKIEYES_ID %}
+    {# Direct CMP only — do not add CookieYes in GTM. No preconnect: it raced LCP. #}
+    <link rel="dns-prefetch" href="https://cdn-cookieyes.com">
+    {% endif %}
+    <!-- CookieYes after idle/gesture (not window.load) so CMP does not inflate mobile TBT/SI.
+         GTM on gesture or 15s (ads-safe fallback). Preview loads both now. /thank-you/ calls
+         _loadGTM() (also pulls CMP). Do not cache HTML at Cloudflare while
+         GET still sets csrftoken. -->
+    <script nonce="{{ csp_nonce }}">
+    window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    function _loadCookieYes(){
+      if(window._cyL)return;window._cyL=1;
+      {% if COOKIEYES_ID %}
+      var s=document.createElement('script');
+      s.id='cookieyes';
+      s.async=true;
+      s.src='https://cdn-cookieyes.com/client_data/{{ COOKIEYES_ID }}/script.js';
+      s.setAttribute('nonce','{{ csp_nonce }}');
+      s.nonce='{{ csp_nonce }}';
+      document.head.appendChild(s);
+      {% endif %}
+    }
+    window._loadCookieYes=_loadCookieYes;
+    function _loadGTM(){
+      if(window._gtmL)return;window._gtmL=1;
+      _loadCookieYes();
+      var j=document.createElement('script');
+      j.async=true;
+      j.setAttribute('nonce','{{ csp_nonce }}');
+      j.nonce='{{ csp_nonce }}';
+      j.src='https://www.googletagmanager.com/gtm.js?id=GTM-K2FVPPTK';
+      document.head.appendChild(j);
+    }
+    window._loadGTM=_loadGTM;
+    (function(){
+      var q=location.search||'';
+      var c=document.cookie||'';
+      var preview=!!window.opener
+        || /(?:^|[?&#])gtm_debug(?:=|&|#|$)/.test(q+location.hash)
+        || /(?:^|[?&#])gtm_preview=/.test(q)
+        || /(?:^|[?&#])gtm_auth=/.test(q)
+        || /(^|;\s*)gtm_auth=/.test(c)
+        || /(^|;\s*)gtm_preview=/.test(c);
+      if(preview){_loadCookieYes();_loadGTM();return;}
+      {# scroll/mousemove fire during Lighthouse SI scroll and inflate TBT via GTM→Clixtell #}
+      ['click','touchstart','keydown'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
+      if(typeof requestIdleCallback==='function'){
+        requestIdleCallback(function(){_loadCookieYes();},{timeout:12000});
+      }else{
+        setTimeout(_loadCookieYes,12000);
+      }
+      setTimeout(_loadGTM,15000);
+    })();
+    </script>
+    <!-- End Google Tag Manager -->

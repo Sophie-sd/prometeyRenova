@@ -6,70 +6,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- Google Consent Mode v2 — default denied BEFORE CookieYes and GTM -->
-    <script nonce="{{ csp_nonce }}">
-    window.dataLayer=window.dataLayer||[];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('consent','default',{
-      ad_storage:'denied',
-      analytics_storage:'denied',
-      ad_user_data:'denied',
-      ad_personalization:'denied',
-      wait_for_update:500
-    });
-    </script>
-    {% if COOKIEYES_ID %}
-    {# Direct CMP only — do not add CookieYes in GTM. No preconnect: it raced LCP. #}
-    <link rel="dns-prefetch" href="https://cdn-cookieyes.com">
-    {% endif %}
-    <!-- CookieYes after window load so it does not race the LCP image.
-         GTM on gesture or 6s. Preview loads both now. /thank-you/ calls
-         _loadGTM() (also pulls CMP). Do not cache HTML at Cloudflare while
-         GET still sets csrftoken. -->
-    <script nonce="{{ csp_nonce }}">
-    window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-    function _loadCookieYes(){
-      if(window._cyL)return;window._cyL=1;
-      {% if COOKIEYES_ID %}
-      var s=document.createElement('script');
-      s.id='cookieyes';
-      s.async=true;
-      s.src='https://cdn-cookieyes.com/client_data/{{ COOKIEYES_ID }}/script.js';
-      s.setAttribute('nonce','{{ csp_nonce }}');
-      s.nonce='{{ csp_nonce }}';
-      document.head.appendChild(s);
-      {% endif %}
-    }
-    window._loadCookieYes=_loadCookieYes;
-    function _loadGTM(){
-      if(window._gtmL)return;window._gtmL=1;
-      _loadCookieYes();
-      var j=document.createElement('script');
-      j.async=true;
-      j.setAttribute('nonce','{{ csp_nonce }}');
-      j.nonce='{{ csp_nonce }}';
-      j.src='https://www.googletagmanager.com/gtm.js?id=GTM-K2FVPPTK';
-      document.head.appendChild(j);
-    }
-    window._loadGTM=_loadGTM;
-    (function(){
-      var q=location.search||'';
-      var c=document.cookie||'';
-      var preview=!!window.opener
-        || /(?:^|[?&#])gtm_debug(?:=|&|#|$)/.test(q+location.hash)
-        || /(?:^|[?&#])gtm_preview=/.test(q)
-        || /(?:^|[?&#])gtm_auth=/.test(q)
-        || /(^|;\s*)gtm_auth=/.test(c)
-        || /(^|;\s*)gtm_preview=/.test(c);
-      if(preview){_loadCookieYes();_loadGTM();return;}
-      if(document.readyState==='complete'){_loadCookieYes();}
-      else {window.addEventListener('load',_loadCookieYes,{once:true});}
-      {# scroll/mousemove fire during Lighthouse SI scroll and inflate TBT via GTM→Clixtell #}
-      ['click','touchstart','keydown'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
-      setTimeout(_loadGTM,6000);
-    })();
-    </script>
-    <!-- End Google Tag Manager -->
+    {% include 'partials/gtm_head.html' %}
     <!-- iOS Safari оптимізований viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -148,9 +85,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </style>
 
     <!-- CSS Base Bundle — non-blocking (preload + media-print swap on load) -->
-    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=34" as="style">
-    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=34" media="print" data-async-css>
-    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=34"></noscript>
+    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=35" as="style">
+    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=35" media="print" data-async-css>
+    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=35"></noscript>
     <link rel="preload" href="{% static 'css/components/lead-form.css' %}?v=2" as="style">
     <link rel="stylesheet" href="{% static 'css/components/lead-form.css' %}?v=2" media="print" data-async-css>
     <noscript><link rel="stylesheet" href="{% static 'css/components/lead-form.css' %}?v=2"></noscript>
@@ -204,10 +141,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 </head>
 
 <body{% block body_attrs %}{% endblock %}>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2FVPPTK"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    {% include 'partials/gtm_noscript.html' %}
     <!-- Header & Navigation -->
     {% include 'components/header.html' %}
 
@@ -267,10 +201,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <script src="{% static 'js/core/gclid-capture.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/core/ec-phone.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/core/utils.js' %}" nonce="{{ csp_nonce }}" defer></script>
-    <script src="{% static 'js/mobile-core.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/mobile-core.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/core/phone-mask.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/core/phone-mask-intl.js' %}" nonce="{{ csp_nonce }}" defer></script>
-    <script src="{% static 'js/base.js' %}?v=31" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/base.js' %}?v=32" nonce="{{ csp_nonce }}" defer></script>
     <!-- video-system.js: load only on pages that actually contain <video> (skips landings without media) -->
     <script nonce="{{ csp_nonce }}">
     (function(){

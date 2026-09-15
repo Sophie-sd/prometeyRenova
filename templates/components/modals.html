@@ -40,50 +40,6 @@
     </div>
 </div>
 
-<!-- Модалка "Результат тесту" -->
-<div class="modal" id="test-result-modal" role="dialog" aria-labelledby="result-modal-title" aria-hidden="true">
-    <div class="modal-backdrop"></div>
-    <div class="modal-content">
-        <button class="modal-close" type="button" aria-label="{% trans 'Закрити модальне вікно' %}">&times;</button>
-
-        <div class="modal-header">
-            <h3 class="text-medium color-brand-orange mb-sm" id="result-modal-title">
-                {% trans "Результат розрахунку" %}
-            </h3>
-        </div>
-
-        <div class="result-content">
-            <div class="result-summary mb-md">
-                <div class="result-item">
-                    <span class="result-label text-base">{% trans "Тип проєкту:" %}</span>
-                    <span class="result-value text-base" id="result-project-type"></span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label text-base">{% trans "Орієнтовна вартість:" %}</span>
-                    <div class="result-price-wrap">
-                        <span class="result-price text-large color-brand-orange" id="result-price"></span>
-                        <span class="result-price-secondary text-base" id="result-price-secondary" hidden></span>
-                    </div>
-                </div>
-                <div class="result-item">
-                    <span class="result-label text-base">{% trans "Терміни виконання:" %}</span>
-                    <span class="result-value text-base" id="result-timeline"></span>
-                </div>
-            </div>
-
-            <div class="result-actions text-center">
-                <a href="https://t.me/prometeylabs" class="btn btn-primary" target="_blank">
-                    {% trans "Обговорити деталі в Telegram" %}
-                </a>
-                <button type="button" class="btn btn-secondary modal-close-specific" data-modal-id="test-result-modal">
-                    {% trans "Закрити" %}
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <!-- Модалка "Замовити дзвінок" -->
 <div class="modal" id="call-request-modal" role="dialog" aria-labelledby="call-modal-title" aria-hidden="true">
     <div class="modal-backdrop"></div>

@@ -1,6 +1,9 @@
 /**
  * MOBILE-CORE.JS - Модульна система мобільних оптимізацій (2025)
  * Єдине джерело для viewport, device detection, touch
+ *
+ * Легкий sync-init (класи + reduce-motion), важкий touch/viewport — після first paint.
+ * Anti-zoom iOS і overscroll — через CSS (base-bundle), без inline style / reflow.
  */
 
 class MobileCore {
@@ -9,6 +12,7 @@ class MobileCore {
         this.capabilities = this.detectCapabilities();
         this.initialized = false;
         this.viewportUpdateCallbacks = [];
+        this._touchBound = false;
 
         this.init();
     }
@@ -19,22 +23,18 @@ class MobileCore {
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
         return {
-            // Основні платформи
             iOS: /ipad|iphone|ipod/.test(ua) && !window.MSStream,
             android: /android/.test(ua),
             safari: /^((?!chrome|android).)*safari/i.test(navigator.userAgent),
 
-            // Специфічні версії
             iOSVersion: this.getIOSVersion(ua),
             androidVersion: this.getAndroidVersion(ua),
 
-            // Характеристики
             isTouch: isTouchDevice,
             isMobile: window.innerWidth <= 767 || isTouchDevice,
             isTablet: window.innerWidth > 767 && window.innerWidth <= 1024 && isTouchDevice,
             hasNotch: CSS.supports && (CSS.supports('padding-top: env(safe-area-inset-top)') || CSS.supports('padding-top: constant(safe-area-inset-top)')),
 
-            // Performance indicators
             isLowEnd: this.detectLowEndDevice(),
             prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
         };
@@ -42,17 +42,14 @@ class MobileCore {
 
     detectCapabilities() {
         return {
-            // Modern features
             supportsIntersectionObserver: 'IntersectionObserver' in window,
             supportsResizeObserver: 'ResizeObserver' in window,
             supportsCustomProperties: CSS.supports && CSS.supports('color', 'var(--test)'),
 
-            // PWA features
             supportsServiceWorker: 'serviceWorker' in navigator,
             supportsWebShare: 'share' in navigator,
             supportsVibration: 'vibrate' in navigator,
 
-            // Display features
             supportsDisplayCutout: CSS.supports && CSS.supports('padding-top: env(safe-area-inset-top)'),
             supportsDynamicViewport: CSS.supports && CSS.supports('height: 100dvh')
         };
@@ -62,21 +59,39 @@ class MobileCore {
     init() {
         if (this.initialized) return;
 
-        this.setupViewportSystem();
-        this.setupTouchOptimizations();
         this.setupPerformanceOptimizations();
-
-        // Device-specific optimizations
-        if (this.device.iOS) {
-            this.setupIOSSafariOptimizations();
-        }
-
-        if (this.device.android) {
-            this.setupAndroidOptimizations();
-        }
+        this.applyPlatformClasses();
 
         this.initialized = true;
         this.dispatchInitEvent();
+
+        const runHeavy = () => {
+            this.setupViewportSystem();
+            this.setupTouchOptimizations();
+            if (this.device.iOS) {
+                this.optimizeIOSSafariPerformance();
+            }
+        };
+
+        if (typeof requestAnimationFrame === 'function') {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(runHeavy);
+            });
+        } else {
+            setTimeout(runHeavy, 0);
+        }
+    }
+
+    applyPlatformClasses() {
+        if (this.device.iOS) {
+            document.documentElement.classList.add('ios', 'safari');
+            if (this.device.iOSVersion >= 17) {
+                document.documentElement.classList.add('ios-17');
+            }
+        }
+        if (this.device.android) {
+            document.documentElement.classList.add('android');
+        }
     }
 
     // ===== VIEWPORT SYSTEM (2025 Standard) =====
@@ -98,75 +113,55 @@ class MobileCore {
         this.notifyViewportChange();
     }
 
-
     // ===== iOS SAFARI OPTIMIZATIONS =====
     setupIOSSafariOptimizations() {
-        // Add iOS class for CSS targeting
-        document.documentElement.classList.add('ios', 'safari');
-
-        if (this.device.iOSVersion >= 17) {
-            document.documentElement.classList.add('ios-17');
-        }
-
-        // Handle iOS Safari viewport bugs
-        this.fixIOSSafariScrollBounce();
+        this.applyPlatformClasses();
         this.optimizeIOSSafariPerformance();
-
-        // Prevent zoom on input focus (accessibility compliant)
-        this.preventIOSZoomOnInputs();
     }
-
 
     // ===== TOUCH OPTIMIZATIONS =====
     setupTouchOptimizations() {
         if (!this.device.isTouch) return;
-
         this.setupTouchFeedback();
-        this.preventAccidentalZoom();
     }
 
     setupTouchFeedback() {
-        const touchElements = document.querySelectorAll(
-            'button, [role="button"], .btn, .nav-link, .card-link, [onclick], [data-modal]'
-        );
+        if (this._touchBound) return;
+        this._touchBound = true;
 
-        touchElements.forEach(element => {
-            this.addTouchFeedback(element);
-        });
-    }
-
-    addTouchFeedback(element) {
-        let touchStartTime = 0;
+        const selector = 'button, [role="button"], .btn, .nav-link, .card-link, [data-modal]';
+        let activeEl = null;
         let touchTimeout;
 
-        element.addEventListener('touchstart', (e) => {
-            touchStartTime = Date.now();
-            element.classList.add('touch-active');
+        const clearActive = () => {
+            if (activeEl) {
+                activeEl.classList.remove('touch-active');
+                activeEl = null;
+            }
+            clearTimeout(touchTimeout);
+        };
 
-            // Haptic feedback for supported devices
+        document.addEventListener('touchstart', (e) => {
+            const el = e.target.closest && e.target.closest(selector);
+            if (!el) return;
+            clearActive();
+            activeEl = el;
+            el.classList.add('touch-active');
             if (this.capabilities.supportsVibration && this.device.iOS) {
                 navigator.vibrate(10);
             }
-
-            clearTimeout(touchTimeout);
         }, { passive: true });
 
-        element.addEventListener('touchend', (e) => {
-            const touchDuration = Date.now() - touchStartTime;
-
-            // Maintain feedback for minimum time for visual consistency
-            const minFeedbackTime = 100;
-            const remainingTime = Math.max(0, minFeedbackTime - touchDuration);
-
+        document.addEventListener('touchend', () => {
+            if (!activeEl) return;
+            const el = activeEl;
             touchTimeout = setTimeout(() => {
-                element.classList.remove('touch-active');
-            }, remainingTime);
+                el.classList.remove('touch-active');
+                if (activeEl === el) activeEl = null;
+            }, 100);
         }, { passive: true });
 
-        element.addEventListener('touchcancel', () => {
-            element.classList.remove('touch-active');
-            clearTimeout(touchTimeout);
-        }, { passive: true });
+        document.addEventListener('touchcancel', clearActive, { passive: true });
     }
 
     // ===== PERFORMANCE OPTIMIZATIONS =====
@@ -242,17 +237,10 @@ class MobileCore {
         return this.initialized;
     }
 
-    /**
-     * Реєстрація callback для viewport updates
-     * Дозволяє іншим модулям підписатись на зміни viewport
-     */
     onViewportChange(callback) {
         this.viewportUpdateCallbacks.push(callback);
     }
 
-    /**
-     * Виклик всіх зареєстрованих callbacks
-     */
     notifyViewportChange() {
         this.viewportUpdateCallbacks.forEach(callback => {
             try {
@@ -267,30 +255,17 @@ class MobileCore {
         });
     }
 
-    preventAccidentalZoom() {
-        const inputs = document.querySelectorAll(
-            'input[type="text"], input[type="tel"], input[type="email"], textarea, select'
-        );
-
-        inputs.forEach(input => {
-            if (!input.style.fontSize || parseInt(input.style.fontSize) < 16) {
-                input.style.fontSize = '16px';
-            }
-        });
-    }
+    /** @deprecated Anti-zoom via CSS font-size: 16px (base-bundle). Kept as no-op for callers. */
+    preventAccidentalZoom() {}
 
     setupAndroidOptimizations() {
-        // Android-specific optimizations
         document.documentElement.classList.add('android');
     }
 
-    fixIOSSafariScrollBounce() {
-        // Prevent elastic scroll
-        document.documentElement.style.overscrollBehavior = 'none';
-    }
+    /** @deprecated overscroll via html.ios in CSS. Kept as no-op for callers. */
+    fixIOSSafariScrollBounce() {}
 
     optimizeIOSSafariPerformance() {
-        // Performance optimizations для iOS
         const videos = document.querySelectorAll('video');
         videos.forEach(video => {
             video.setAttribute('playsinline', '');

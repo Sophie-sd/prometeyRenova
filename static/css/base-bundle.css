@@ -3769,6 +3769,23 @@ button.footer-cookie-settings-btn:hover {
 
 /* ===== iOS SAFARI OPTIMIZATIONS ===== */
 
+/* Anti-zoom on focus: 16px floor without JS inline styles (MobileCore). */
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="search"],
+input[type="url"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+    font-size: 16px;
+}
+
+html.ios {
+    overscroll-behavior: none;
+}
+
 /* iOS Safari специфічні оптимізації */
 .ios.safari {
     /* Підтримка -webkit-fill-available */

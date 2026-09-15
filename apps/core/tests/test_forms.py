@@ -1,8 +1,9 @@
 """
 Тести для форм зворотного зв'язку
 """
-from django.test import TestCase, Client
+from django.test import TestCase, Client, SimpleTestCase
 from django.urls import reverse
+from pathlib import Path
 import json
 
 from apps.core.models import FormSubmission
@@ -227,18 +228,38 @@ class CalculatorTestSubmissionTests(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertFalse(json.loads(response.content)['success'])
 
-    def test_calculator_rejects_missing_email(self):
+    def test_calculator_allows_missing_email(self):
         data = self._payload()
         del data['email']
         response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, 200)
+        body = json.loads(response.content)
+        self.assertTrue(body['success'])
+        self.assertEqual(body['redirect'], '/thank-you/')
+
+    def test_calculator_rejects_invalid_email(self):
+        response = self.client.post(self.url, self._payload(email='not-an-email'))
         self.assertEqual(response.status_code, 400)
         self.assertFalse(json.loads(response.content)['success'])
 
-    def test_calculator_returns_price_result(self):
+    def test_calculator_redirects_to_thank_you(self):
         response = self.client.post(self.url, self._payload())
         self.assertEqual(response.status_code, 200)
         body = json.loads(response.content)
         self.assertTrue(body['success'])
-        self.assertIn('result', body)
-        self.assertIn('price', body['result'])
-        self.assertTrue(body['result']['price'])
+        self.assertEqual(body['redirect'], '/thank-you/')
+        self.assertNotIn('result', body)
+
+
+ROOT = Path(__file__).resolve().parents[3]
+
+
+class CalculatorMarkupTests(SimpleTestCase):
+    def test_email_is_optional_in_calculator_template(self):
+        text = (ROOT / 'templates/pages/calculator.html').read_text(encoding='utf-8')
+        self.assertIn('email_optional=True', text)
+
+    def test_result_modal_removed_from_modals(self):
+        text = (ROOT / 'templates/components/modals.html').read_text(encoding='utf-8')
+        self.assertNotIn('test-result-modal', text)
+        self.assertNotIn('Результат розрахунку', text)
