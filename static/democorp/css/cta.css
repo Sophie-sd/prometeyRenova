@@ -28,7 +28,7 @@
   letter-spacing: 0.08em;
   line-height: 1.12;
   white-space: pre-line;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
 .dc-cta__lede {
@@ -131,9 +131,10 @@
 
 @media (max-width: 479px) {
   .dc-cta h2 {
-    font-size: 32px;
-    letter-spacing: 0.08em;
+    font-size: clamp(26px, 8vw, 30px);
+    letter-spacing: 0.04em;
     max-width: none;
+    white-space: normal;
   }
 
   .dc-cta__lede {

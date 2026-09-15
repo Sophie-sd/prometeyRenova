@@ -8,6 +8,7 @@ PAGE_LABELS = {
     'header': _('Хедер і стрічка'),
     'home': _('Головна сторінка'),
     'catalog': _('Каталог'),
+    'pdp': _('Картка товару'),
     'footer': _('Футер'),
 }
 
@@ -54,6 +55,12 @@ BLOCK_REGISTRY = [
      'default': 'Оберіть категорію або скористайтесь пошуком', 'default_en': 'Choose a category or use the search',
      'default_cs': 'Vyberte kategorii nebo použijte vyhledávání',
      'default_ru': 'Выберите категорию или воспользуйтесь поиском'},
+
+    {'page': 'pdp', 'key': 'delivery_text', 'type': TEXT, 'label': _('Вкладка «Доставка»'), 'multiline': True,
+     'default': 'Нова Пошта по всій Україні. Оплата при отриманні. Повернення протягом 14 днів.',
+     'default_en': 'Delivery across the country. Pay on receipt. Returns within 14 days.',
+     'default_cs': 'Doručení po celé zemi. Platba při převzetí. Vrácení do 14 dnů.',
+     'default_ru': 'Новая Почта по всей Украине. Оплата при получении. Возврат в течение 14 дней.'},
 
     {'page': 'footer', 'key': 'footer_text', 'type': TEXT, 'label': _('Текст футера'), 'multiline': True,
      'default': 'Демо-магазин згенеровано PrometeyLabs як приклад CMS-функціоналу.',

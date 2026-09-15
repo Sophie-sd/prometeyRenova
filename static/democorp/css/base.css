@@ -8,6 +8,8 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .dc-body {
@@ -22,6 +24,8 @@ html {
   -webkit-font-smoothing: antialiased;
   padding-left: var(--dc-safe-l);
   padding-right: var(--dc-safe-r);
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 h1,
@@ -33,6 +37,8 @@ h3 {
   letter-spacing: var(--dc-heading-tracking);
   text-transform: uppercase;
   text-wrap: balance;
+  overflow-wrap: anywhere;
+  padding-inline-end: 0.08em;
   margin: 0 0 var(--dc-sp-4);
   color: var(--dc-text-soft);
 }
@@ -88,6 +94,7 @@ a {
   max-width: var(--dc-container-max);
   margin: 0 auto;
   padding: 0 var(--dc-pad-x);
+  min-width: 0;
 }
 
 .dc-section {
@@ -164,6 +171,16 @@ a {
 
   .dc-btn--ghost:hover {
     border-color: var(--dc-accent);
+  }
+}
+
+@media (max-width: 767px) {
+  h1,
+  h2,
+  .dc-section h2,
+  .dc-page-header h1,
+  .dc-contacts h1 {
+    text-indent: 0;
   }
 }
 

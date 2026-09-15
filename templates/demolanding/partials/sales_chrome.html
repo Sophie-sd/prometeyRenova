@@ -1,0 +1,54 @@
+{% load i18n %}
+{% if site %}
+<div class="dl-sales-chrome"
+     data-dl-sales-chrome
+     data-tenant-id="{{ site.pk }}"
+     data-dl-sales-page="{{ request.resolver_match.url_name|default:'home' }}">
+    <button type="button"
+            class="dl-sales-fab"
+            data-dl-sales-open
+            aria-expanded="false"
+            aria-controls="dl-sales-panel"
+            aria-label="{% trans "Чому не конструктор" %}">
+        <span class="dl-sales-fab__mark" aria-hidden="true">i</span>
+        <span class="dl-sales-fab__label">{% trans "Чому не конструктор" %}</span>
+    </button>
+
+    <div class="dl-sales-backdrop" data-dl-sales-close hidden></div>
+    <aside class="dl-sales-panel" id="dl-sales-panel" role="dialog" aria-modal="true" aria-labelledby="dl-sales-panel-title" hidden>
+        <div class="dl-sales-panel__head">
+            <h2 id="dl-sales-panel-title" class="dl-sales-panel__title">{% trans "Це не конструктор" %}</h2>
+            <button type="button" class="dl-sales-panel__x" data-dl-sales-close aria-label="{% trans "Закрити" %}">×</button>
+        </div>
+        <p class="dl-sales-panel__lead">{% trans "Робоча вітрина лендінгу. Тексти, фото й заявки міняєте в адмінці." %}</p>
+        <ol class="dl-sales-panel__list">
+            <li>
+                <span class="dl-sales-panel__num" aria-hidden="true">01</span>
+                <div>
+                    <p class="dl-sales-panel__item-title">{% trans "Лендінг не губить рекламу" %}</p>
+                    <p class="dl-sales-panel__item-body">{% trans "Швидкий перший екран і легкі фото — без важкого конструктора. Людина встигає побачити офер і CTA." %}</p>
+                </div>
+            </li>
+            <li>
+                <span class="dl-sales-panel__num" aria-hidden="true">02</span>
+                <div>
+                    <p class="dl-sales-panel__item-title">{% trans "Телефон — окремий кадр" %}</p>
+                    <p class="dl-sales-panel__item-body">{% trans "Кнопки під палець, відступ під виріз, зрозумілий шлях до заявки." %}</p>
+                </div>
+            </li>
+            <li>
+                <span class="dl-sales-panel__num" aria-hidden="true">03</span>
+                <div>
+                    <p class="dl-sales-panel__item-title">{% trans "Тексти й заявки в адмінці" %}</p>
+                    <p class="dl-sales-panel__item-body">{% trans "Галерея, до/після, відгуки — міняєте самі. Заявка з форми з’являється одразу." %}</p>
+                </div>
+            </li>
+        </ol>
+        <div class="dl-sales-panel__actions">
+            <a class="dl-btn dl-btn--primary dl-btn--block dl-sales-panel__cta" href="{% url 'demolanding:admin_access' slug=site.slug %}">{% trans "Відкрити мою адмінку" %}</a>
+            <button type="button" class="dl-sales-panel__hide" data-dl-sales-hide>{% trans "Не показувати" %}</button>
+            <button type="button" class="dl-sales-panel__show" data-dl-sales-show hidden>{% trans "Показати підказки" %}</button>
+        </div>
+    </aside>
+</div>
+{% endif %}

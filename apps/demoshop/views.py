@@ -150,7 +150,7 @@ def product_detail(request, shop_slug, product_slug):
     )
     related = ShopProduct.objects.filter(
         shop=shop, is_active=True, category=product.category,
-    ).exclude(pk=product.pk).prefetch_related('images')[:4]
+    ).exclude(pk=product.pk).prefetch_related('images').order_by('order')[:4]
 
     reviews = product.reviews.filter(is_approved=True).order_by('-created_at')
 

@@ -59,6 +59,47 @@ function initAboutReveal() {
     });
 }
 
+function initPdpGallery(root) {
+    root.querySelectorAll('[data-ds-gallery]').forEach((gallery) => {
+        if (gallery.dataset.dsGalleryBound) return;
+        gallery.dataset.dsGalleryBound = '1';
+        const main = gallery.querySelector('[data-ds-gallery-main]');
+        const thumbs = gallery.querySelectorAll('[data-ds-gallery-thumb]');
+        if (!main || !thumbs.length) return;
+        thumbs.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const src = btn.getAttribute('data-full');
+                if (src) main.src = src;
+                thumbs.forEach((thumb) => {
+                    const on = thumb === btn;
+                    thumb.classList.toggle('is-active', on);
+                    if (on) thumb.setAttribute('aria-current', 'true');
+                    else thumb.removeAttribute('aria-current');
+                });
+            });
+        });
+    });
+}
+
+function initPdpTabs(root) {
+    root.querySelectorAll('[data-ds-tabs]').forEach((tabs) => {
+        if (tabs.dataset.dsTabsBound) return;
+        tabs.dataset.dsTabsBound = '1';
+        const buttons = tabs.querySelectorAll('[role="tab"]');
+        buttons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const panelId = btn.getAttribute('aria-controls');
+                buttons.forEach((item) => {
+                    item.setAttribute('aria-selected', item === btn ? 'true' : 'false');
+                });
+                tabs.querySelectorAll('[role="tabpanel"]').forEach((panel) => {
+                    panel.hidden = panel.id !== panelId;
+                });
+            });
+        });
+    });
+}
+
 function initQtyStepper(root) {
     root.querySelectorAll('[data-ds-qty]').forEach((wrapper) => {
         if (wrapper.dataset.dsQtyBound) return;
@@ -479,6 +520,8 @@ function initAll(root) {
     initReveal(root);
     initPageStrip(root);
     initQtyStepper(root);
+    initPdpGallery(root);
+    initPdpTabs(root);
     initWishlist(root);
     initCartToast(root);
     if (window.dsInitTimers) window.dsInitTimers(root);

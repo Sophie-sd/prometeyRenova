@@ -129,7 +129,12 @@
 
   .dc-process__title,
   .dc-process__desc {
-    max-width: 40ch;
+    max-width: none;
+    overflow-wrap: anywhere;
+  }
+
+  .dc-process__step {
+    min-width: 0;
   }
 }
 

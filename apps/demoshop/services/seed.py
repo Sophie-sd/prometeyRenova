@@ -301,6 +301,34 @@ def _attach_product_image(product: ShopProduct, asset_slug: str, force: bool = F
     )
 
 
+SEED_SLUGS = [item['slug'] for item in PRODUCT_SEED]
+
+
+def _attach_gallery_extras(product: ShopProduct, asset_slug: str, force: bool = False) -> None:
+    extra_slugs = [slug for slug in SEED_SLUGS if slug != asset_slug][:3]
+    extras = product.images.filter(is_main=False)
+    if force:
+        extras.delete()
+    have = product.images.filter(is_main=False).count()
+    if have >= 3:
+        return
+    for index, slug in enumerate(extra_slugs):
+        if index < have:
+            continue
+        image_file = load_seed_image(
+            f'products/{slug}.webp',
+            fallback_label=product.name,
+            size=(800, 800),
+        )
+        ShopProductImage.objects.create(
+            product=product,
+            image=image_file,
+            alt=product.name,
+            is_main=False,
+            order=index + 1,
+        )
+
+
 def _seed_products(shop, categories, force_images: bool = False) -> list:
     products = []
     now = timezone.now()
@@ -358,6 +386,7 @@ def _seed_products(shop, categories, force_images: bool = False) -> list:
             },
         )
         _attach_product_image(product, item['slug'], force=force_images)
+        _attach_gallery_extras(product, item['slug'], force=force_images)
         products.append(product)
 
     # Прибираємо legacy №N товари зі старого seed (залишаємо лише канонічний каталог)

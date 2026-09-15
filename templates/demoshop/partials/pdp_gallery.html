@@ -1,0 +1,48 @@
+{% load i18n %}
+{% with images=product.images.all %}
+<section class="ds-pdp-gallery" data-ds-gallery aria-label="{% trans "Фото товару" %}">
+    <div class="ds-pdp-gallery__main">
+        {% if images %}
+        {% with first=images|first %}
+        <img class="ds-pdp-gallery__image"
+             data-ds-gallery-main
+             src="{{ first.image.url }}"
+             alt="{{ product.localized_name }}"
+             width="800"
+             height="800"
+             loading="eager"
+             decoding="async">
+        {% endwith %}
+        {% else %}
+        <span class="ds-pdp-gallery__placeholder" aria-hidden="true"></span>
+        {% endif %}
+        {% if product.discount_percent or product.sale_timer_active %}
+        <div class="ds-pdp-gallery__badges" aria-hidden="true">
+            <span class="ds-card__sale">
+                {% if product.discount_percent %}<span class="ds-badge">−{{ product.discount_percent }}%</span>{% endif %}
+                {% if product.sale_timer_active %}
+                <span class="timer timer--pill"
+                      data-countdown="{{ product.sale_end_date|date:'U' }}"
+                      data-expired-label="{% trans "Акція завершена" %}"
+                      data-label-days="{% trans "д" %}"></span>
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
+    </div>
+    {% if images|length > 1 %}
+    <div class="ds-pdp-gallery__thumbs">
+        {% for img in images %}
+        <button type="button"
+                class="ds-pdp-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                data-ds-gallery-thumb
+                data-full="{{ img.image.url }}"
+                {% if forloop.first %}aria-current="true"{% endif %}
+                aria-label="{% blocktrans with n=forloop.counter %}Фото {{ n }}{% endblocktrans %}">
+            <img src="{{ img.image.url }}" alt="" width="80" height="80" loading="lazy" decoding="async">
+        </button>
+        {% endfor %}
+    </div>
+    {% endif %}
+</section>
+{% endwith %}

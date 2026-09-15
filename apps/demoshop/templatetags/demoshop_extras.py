@@ -35,6 +35,18 @@ def ideal_cols(count, max_cols=4):
 
 
 @register.filter
+def tel_href(value):
+    """Нормалізує CMS-телефон у tel:+380... для iOS Safari."""
+    raw = str(value or '')
+    kept = ''.join(ch for ch in raw if ch.isdigit() or ch == '+')
+    if not kept:
+        return ''
+    if kept.startswith('+'):
+        return f'tel:{kept}'
+    return f'tel:+{kept}'
+
+
+@register.filter
 def money(value):
     try:
         amount = int(value)

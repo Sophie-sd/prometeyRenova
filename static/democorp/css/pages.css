@@ -9,7 +9,7 @@
   font-size: var(--dc-fs-2xl);
   text-indent: var(--dc-heading-tracking);
   max-width: 100%;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
   padding-right: 0.35em;
 }
 
@@ -507,6 +507,21 @@ a.dc-contacts__row .dc-contacts__value {
     grid-template-columns: 1fr;
   }
 
+  .dc-contacts__copy {
+    padding-top: 0;
+    padding-left: 0;
+  }
+
+  .dc-footer__nav ul {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--dc-sp-1) var(--dc-sp-3);
+  }
+
+  .dc-footer__top {
+    letter-spacing: 0.08em;
+  }
+
   .dc-about__photo {
     min-height: 0;
     aspect-ratio: 4 / 5;
@@ -557,17 +572,21 @@ a.dc-contacts__row .dc-contacts__value {
     font-size: clamp(1.2rem, 5vw, 1.5rem);
   }
 
-  .dc-footer__nav ul {
-    flex-wrap: wrap;
-    gap: var(--dc-sp-1) var(--dc-sp-3);
-  }
-
   .dc-footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
     flex-wrap: wrap;
     row-gap: var(--dc-sp-1);
   }
 
   .dc-footer__address {
-    flex: 1 1 12rem;
+    flex: 1 1 auto;
+    margin-left: 0;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+
+  .dc-footer__copy {
+    overflow-wrap: anywhere;
   }
 }

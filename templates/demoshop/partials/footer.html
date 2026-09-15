@@ -1,14 +1,32 @@
 {% load demoshop_extras i18n %}
+{% block_text shop 'footer' 'footer_phone' as ds_footer_phone %}
+{% block_text shop 'footer' 'footer_email' as ds_footer_email %}
 <footer class="ds-footer">
-    <div class="ds-container ds-footer__grid">
-        <div>
+    <div class="ds-container">
+        <div class="ds-footer__bar">
             <p class="ds-footer__brand">{% block_text shop 'header' 'shop_name' %}</p>
             <p class="ds-footer__text">{% block_text shop 'footer' 'footer_text' %}</p>
-        </div>
-        <div class="ds-footer__contacts">
-            <p>{% block_text shop 'footer' 'footer_phone' %}</p>
-            <p>{% block_text shop 'footer' 'footer_email' %}</p>
+            {% if ds_footer_phone or ds_footer_email %}
+            <p class="ds-footer__contacts">
+                {% if ds_footer_phone %}
+                <a class="ds-footer__contact" href="{{ ds_footer_phone|tel_href }}">{{ ds_footer_phone }}</a>
+                {% endif %}
+                {% if ds_footer_email %}
+                <a class="ds-footer__contact" href="mailto:{{ ds_footer_email }}">{{ ds_footer_email }}</a>
+                {% endif %}
+            </p>
+            {% endif %}
+            <p class="ds-footer__note">
+                {% trans "без конструктора" %}
+                {% if request.resolver_match.url_name == 'home' %}
+                <a class="ds-footer__credit"
+                   href="https://www.prometeylabs.com/internet-shop-v2/"
+                   target="_blank"
+                   rel="nofollow noopener noreferrer">PrometeyLabs</a>
+                {% else %}
+                <span class="ds-footer__credit">PrometeyLabs</span>
+                {% endif %}
+            </p>
         </div>
     </div>
-    <p class="ds-footer__note">{% trans "Це демо PrometeyLabs: ваші товари, Нова Пошта і оплата — без конструктора." %}</p>
 </footer>

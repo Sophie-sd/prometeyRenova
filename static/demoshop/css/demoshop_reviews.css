@@ -1,0 +1,115 @@
+/* Homepage reviews — 1a cards with avatar + stars */
+
+.ds-reviews {
+    --ds-reviews-cols: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--ds-sp-4);
+    align-items: stretch;
+}
+
+.ds-review-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    padding: var(--ds-sp-5);
+    box-sizing: border-box;
+    background: var(--ds-white);
+    border: 0;
+    border-radius: 20px;
+    box-shadow: 0 10px 28px color-mix(in srgb, var(--ds-text) 8%, transparent);
+    min-width: 0;
+}
+
+.ds-review-card__head {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-sp-3);
+    min-height: 44px;
+}
+
+.ds-review-card__avatar {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--ds-accent);
+    color: var(--ds-white);
+    font-size: var(--ds-fs-md);
+    font-weight: 700;
+    line-height: 1;
+}
+
+.ds-review-card__who {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.ds-review-card__name {
+    margin: 0;
+    font-style: normal;
+    font-weight: 700;
+    font-size: var(--ds-fs-md);
+    color: var(--ds-text);
+    line-height: 1.2;
+}
+
+.ds-review-card__stars {
+    display: flex;
+    gap: 2px;
+    line-height: 1;
+}
+
+.ds-review-card__star {
+    font-size: 0.75rem;
+    color: color-mix(in srgb, var(--ds-accent) 32%, var(--ds-white));
+}
+
+.ds-review-card__star.is-on {
+    color: var(--ds-accent);
+}
+
+.ds-review-card__text {
+    margin: var(--ds-sp-4) 0 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ds-text);
+}
+
+.ds-review-card__product {
+    margin: auto 0 0;
+    padding-top: var(--ds-sp-4);
+    font-size: var(--ds-fs-sm);
+    color: var(--ds-text-muted);
+}
+
+@media (min-width: 768px) {
+    .ds-reviews { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+    .ds-reviews--cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .ds-reviews--cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ds-reviews--cols-1 { grid-template-columns: 1fr; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .ds-review-card {
+        transition: transform var(--ds-duration-ui) var(--ds-ease-out),
+                    box-shadow var(--ds-duration-ui) var(--ds-ease-out);
+    }
+    .ds-review-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 32px color-mix(in srgb, var(--ds-text) 12%, transparent);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ds-review-card { transition: none; }
+    .ds-review-card:hover { transform: none; }
+}

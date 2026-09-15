@@ -38,7 +38,7 @@
   text-indent: 0;
   font-weight: var(--dc-weight-display);
   max-width: 11em;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
 .dc-hero__subtitle {
@@ -292,6 +292,7 @@
 
   .dc-hero__title {
     max-width: 100%;
+    letter-spacing: 0.04em;
   }
 
   .dc-stats__grid {
@@ -322,6 +323,7 @@
 
   .dc-hero__title {
     max-width: 100%;
+    letter-spacing: 0.04em;
   }
 }
 

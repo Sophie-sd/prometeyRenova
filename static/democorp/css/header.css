@@ -187,6 +187,11 @@
 }
 
 @media (max-width: 479px) {
+  .dc-header__logo {
+    letter-spacing: 0.1em;
+    font-size: 15px;
+  }
+
   .dc-header__admin {
     padding: 0 10px;
     letter-spacing: 0.08em;

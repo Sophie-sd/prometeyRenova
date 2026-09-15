@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{% static 'demoshop/css/demoshop_hero.css' %}?v=17">
 <link rel="stylesheet" href="{% static 'demoshop/css/demoshop_categories.css' %}?v=7">
 <link rel="stylesheet" href="{% static 'demoshop/css/demoshop_header_compact.css' %}?v=11">
+<link rel="stylesheet" href="{% static 'demoshop/css/demoshop_reviews.css' %}?v=1">
 {% endblock %}
 
 {% block pre_main %}
@@ -210,18 +211,25 @@
     <header class="ds-section__head ds-reveal" data-ds-reveal>
         <h2 class="ds-section__title">{% trans "Відгуки клієнтів" %}</h2>
     </header>
-    <div class="ds-reviews">
+    <div class="ds-reviews ds-reviews--cols-{{ reviews|length|ideal_cols:3 }}">
         {% for review in reviews %}
-        <blockquote class="ds-quote{% if forloop.first %} ds-quote--lead{% endif %} ds-reveal" data-ds-reveal>
-            <p class="ds-quote__text">{{ review.text }}</p>
-            <footer class="ds-quote__meta">
-                <cite class="ds-quote__name">{{ review.author_name }}</cite>
-                <span class="ds-quote__rating" aria-label="{% blocktrans with n=review.rating %}Оцінка {{ n }} з 5{% endblocktrans %}">{{ review.rating }} {% trans "з 5" %}</span>
-                {% if review.product %}
-                <span class="ds-quote__product">{{ review.product.localized_name }}</span>
-                {% endif %}
-            </footer>
-        </blockquote>
+        <article class="ds-review-card ds-reveal" data-ds-reveal>
+            <header class="ds-review-card__head">
+                <span class="ds-review-card__avatar" aria-hidden="true">{{ review.author_name|slice:":1" }}</span>
+                <div class="ds-review-card__who">
+                    <p class="ds-review-card__name">{{ review.author_name }}</p>
+                    <p class="ds-review-card__stars" role="img" aria-label="{% blocktrans with n=review.rating %}Оцінка {{ n }} з 5{% endblocktrans %}">
+                        {% for _ in "12345" %}
+                        <span class="ds-review-card__star{% if forloop.counter <= review.rating %} is-on{% endif %}" aria-hidden="true">★</span>
+                        {% endfor %}
+                    </p>
+                </div>
+            </header>
+            <p class="ds-review-card__text">{{ review.text }}</p>
+            {% if review.product %}
+            <p class="ds-review-card__product">{{ review.product.localized_name }}</p>
+            {% endif %}
+        </article>
         {% endfor %}
     </div>
 </section>

@@ -28,6 +28,7 @@
 <link rel="stylesheet" href="{% static 'demolanding/css/gallery.css' %}?v=1">
 <link rel="stylesheet" href="{% static 'demotenant/css/drawer.css' %}?v=2">
 <link rel="stylesheet" href="{% static 'demolanding/css/header.css' %}?v=12">
+<link rel="stylesheet" href="{% static 'demolanding/css/sales.css' %}?v=2">
 <link rel="stylesheet" href="{% url 'demolanding:theme_css' slug=site.slug %}">
 {% block extra_css %}{% endblock %}
 </head>
@@ -40,6 +41,7 @@
     {% block content %}{% endblock %}
 </main>
 {% include 'demolanding/partials/footer.html' %}
+{% include 'demolanding/partials/sales_chrome.html' %}
 <script src="{% static 'js/vendor/htmx.min.js' %}" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'demotenant/js/motion/reveal.js' %}" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'demotenant/js/motion/loop.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
@@ -47,6 +49,7 @@
 <script src="{% static 'demotenant/js/motion/before-after.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'demotenant/js/motion/drawer.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'demolanding/js/header.js' %}?v=9" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'demolanding/js/sales.js' %}?v=1" nonce="{{ csp_nonce }}" defer></script>
 {% block page_js %}{% endblock %}
 </body>
 </html>
