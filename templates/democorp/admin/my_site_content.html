@@ -4,7 +4,7 @@
 {% block extrastyle %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'demotenant/css/admin_nav_chips.css' %}?v=4">
-<link rel="stylesheet" href="{% static 'democorp/css/democorp_admin.css' %}?v=3">
+<link rel="stylesheet" href="{% static 'democorp/css/democorp_admin.css' %}?v=4">
 {% endblock %}
 
 {% block content %}
@@ -18,8 +18,12 @@
         {% endif %}
     </div>
     <nav class="dt-admin-chips" aria-label="{% trans 'Колекції' %}">
-        <a class="dt-admin-chip" href="{% url 'admin:democorp_corpproductionstep_changelist' %}">{% trans "Виробництво" %}</a>
+        <a class="dt-admin-chip" href="{% url 'admin:democorp_corpproductionstep_changelist' %}">{% trans "Етапи роботи" %}</a>
         <a class="dt-admin-chip" href="{% url 'admin:democorp_corpgalleryimage_changelist' %}">{% trans "Галерея" %}</a>
+        {% if tenant.has_catalog %}
+        <a class="dt-admin-chip" href="{% url 'admin:democorp_corpcategory_changelist' %}">{% trans "Категорії каталогу" %}</a>
+        <a class="dt-admin-chip" href="{% url 'admin:democorp_corpproduct_changelist' %}">{% trans "Приклади сайтів" %}</a>
+        {% endif %}
         <a class="dt-admin-chip" href="{% url 'admin:democorp_corptestimonial_changelist' %}">{% trans "Відгуки" %}</a>
         <a class="dt-admin-chip" href="{% url 'admin:democorp_corppartner_changelist' %}">{% trans "Партнери" %}</a>
         <a class="dt-admin-chip" href="{% url 'admin:democorp_corplead_changelist' %}">{% trans "Заявки" %}</a>
@@ -29,21 +33,29 @@
         {% csrf_token %}
 
         {% for group in block_groups %}
-        <fieldset class="dc-admin-form__fieldset">
-            <legend>{{ group.label }}</legend>
+        <section class="dc-admin-form__fieldset" aria-labelledby="dc-group-{{ forloop.counter }}">
+            <h2 class="dc-admin-form__legend" id="dc-group-{{ forloop.counter }}">{{ group.label }}</h2>
             {% for item in group.fields %}
             {% if item.langs %}
             <div class="dc-admin-form__i18n">
-                {% for field in item.langs %}
-                <div class="dc-admin-form__field">
-                    {{ field.label_tag }}
-                    {{ field }}
+                <p class="dc-admin-form__i18n-title">{{ item.title }}</p>
+                <div class="dc-admin-form__i18n-grid">
+                    {% for field in item.langs %}
+                    <div class="dc-admin-form__field">
+                        <label class="dc-admin-form__label" for="{{ field.id_for_label }}">
+                            <span class="dc-admin-form__lang">{% if forloop.counter == 1 %}UA{% elif forloop.counter == 2 %}RU{% elif forloop.counter == 3 %}EN{% else %}CS{% endif %}</span>
+                            <span class="dc-admin-form__label-text">{{ field.label }}</span>
+                        </label>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
             {% else %}
             <div class="dc-admin-form__field">
-                {{ item.field.label_tag }}
+                <label class="dc-admin-form__label" for="{{ item.field.id_for_label }}">
+                    <span class="dc-admin-form__label-text">{{ item.field.label }}</span>
+                </label>
                 {{ item.field }}
                 {% if item.type == 'image' and item.current_image %}
                 <img class="dc-admin-form__preview" src="{{ item.current_image.url }}" alt="">
@@ -51,19 +63,24 @@
             </div>
             {% endif %}
             {% endfor %}
-        </fieldset>
+        </section>
         {% endfor %}
 
-        <fieldset class="dc-admin-form__fieldset">
-            <legend>{% trans "Стиль, hero-фото, кольори" %}</legend>
+        <section class="dc-admin-form__fieldset" aria-labelledby="dc-group-style">
+            <h2 class="dc-admin-form__legend" id="dc-group-style">{% trans "Стиль, hero-фото, кольори" %}</h2>
             {% for field in settings_form %}
             <div class="dc-admin-form__field">
-                {{ field.label_tag }}
+                <label class="dc-admin-form__label" for="{{ field.id_for_label }}">
+                    <span class="dc-admin-form__label-text">{{ field.label }}</span>
+                </label>
                 {{ field }}
                 {% if field.help_text %}<p class="dc-admin-form__help">{{ field.help_text }}</p>{% endif %}
+                {% if field.name == 'hero_image' and tenant.hero_image %}
+                <img class="dc-admin-form__preview" src="{{ tenant.hero_image.url }}" alt="">
+                {% endif %}
             </div>
             {% endfor %}
-        </fieldset>
+        </section>
 
         <button type="submit" class="dc-admin-form__submit">{% trans "Зберегти зміни" %}</button>
     </form>

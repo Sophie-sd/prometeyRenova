@@ -130,6 +130,8 @@
 
 .dc-contacts__copy {
   min-width: 0;
+  padding-top: var(--dc-sp-5);
+  padding-left: var(--dc-sp-5);
 }
 
 .dc-contacts__list {

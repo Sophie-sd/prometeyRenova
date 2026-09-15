@@ -22,5 +22,5 @@ class CorpBlock(AbstractTenantBlock):
     class Meta:
         unique_together = ('tenant', 'page', 'key')
         ordering = ('page', 'order', 'id')
-        verbose_name = _('Блок контенту')
-        verbose_name_plural = _('Блоки контенту')
+        verbose_name = _('Контент і стиль')
+        verbose_name_plural = _('Контент і стиль')

@@ -69,9 +69,9 @@
   display: block;
   width: 100%;
   aspect-ratio: 3 / 4;
-  object-fit: cover;
-  object-position: 50% 18%;
-  background: var(--dc-slot);
+  object-fit: contain;
+  object-position: 50% 40%;
+  background: transparent;
 }
 
 .dc-stats {

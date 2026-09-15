@@ -41,7 +41,7 @@ def _base_context(site, **extra):
 def home(request, slug):
     site = _get_active_site(slug)
     blocks_map = get_blocks_map(site)
-    reviews = list(site.testimonials.all()[:5])
+    reviews = list(site.testimonials.all())
     context = _base_context(
         site,
         process_steps=site.production_steps.all(),

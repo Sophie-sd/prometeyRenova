@@ -1,44 +1,5 @@
-/* Demo-corp tokens — RoyalSmoke bark/seashell/gold, префікс --dc-* (CMS theme.css). */
-@font-face {
-  font-family: "Fixel Display";
-  src: url("../fonts/fixel-display/FixelDisplay-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Fixel Display";
-  src: url("../fonts/fixel-display/FixelDisplay-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Fixel Display";
-  src: url("../fonts/fixel-display/FixelDisplay-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Fixel Display";
-  src: url("../fonts/fixel-display/FixelDisplay-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Fixel Display";
-  src: url("../fonts/fixel-display/FixelDisplay-ExtraBold.woff2") format("woff2");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* Demo-corp tokens — RoyalSmoke bark/seashell/gold, префікс --dc-* (CMS theme.css).
+   Fixel Display woff2 у репозиторії немає — системний стек (Helvetica Neue), без 404. */
 :root {
   --dc-primary: #100d0c;
   --dc-primary-hover: #181412;
@@ -81,8 +42,8 @@
   --dc-fs-2xl: clamp(28px, 5vw, 42px);
   --dc-fs-hero: 34px;
 
-  --dc-ff-display: "Fixel Display", "Helvetica Neue", sans-serif;
-  --dc-ff-body: "Fixel Display", "Helvetica Neue", sans-serif;
+  --dc-ff-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --dc-ff-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --dc-weight-ui: 500;
   --dc-weight-sub: 600;
   --dc-weight-display: 700;
