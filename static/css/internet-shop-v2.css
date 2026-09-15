@@ -310,6 +310,7 @@ body.pl-shop-body {
     inset: 0;
     width: 100%;
     opacity: 0;
+    contain: layout style paint;
     transition: opacity 0.6s ease;
     pointer-events: none;
     -webkit-mask-image: linear-gradient(
