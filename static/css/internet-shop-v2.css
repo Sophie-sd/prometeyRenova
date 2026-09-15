@@ -512,11 +512,6 @@ body.pl-shop-body {
     height: auto;
 }
 
-.pl-shop-page.is-hero-painted .pl-shop__hero-img {
-    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
-    animation: pl-float 5s ease-in-out infinite;
-}
-
 .pl-shop__hero-chip {
     position: absolute;
     z-index: 3;
@@ -3634,8 +3629,7 @@ body.pl-shop-body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .pl-shop__hero-img,
-    .pl-shop-page.is-hero-painted .pl-shop__hero-img {
+    .pl-shop__hero-img {
         animation: none;
     }
 

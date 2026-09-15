@@ -9,7 +9,7 @@ class CookieYesDeferTests(SimpleTestCase):
     def test_cmp_is_injected_after_first_paint_not_in_head_src(self):
         text = BASE_HTML.read_text(encoding='utf-8')
         self.assertIn('function _loadCookieYes', text)
-        self.assertIn("requestIdleCallback(_loadCookieYes,{timeout:2500})", text)
+        self.assertIn("window.addEventListener('load',_loadCookieYes,{once:true})", text)
         self.assertIn('_loadCookieYes();', text)
         self.assertNotIn('rel="preconnect" href="https://cdn-cookieyes.com"', text)
         self.assertNotIn(

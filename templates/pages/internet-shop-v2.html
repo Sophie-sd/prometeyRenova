@@ -14,8 +14,7 @@
 {% endblock %}
 
 {% block page_css %}
-<link rel="preload" as="image" href="{% static 'images/shop_hero_720.webp' %}" media="(max-width: 767px)" fetchpriority="high">
-<link rel="preload" as="image" href="{% static 'images/shop_hero.webp' %}" media="(min-width: 768px)" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="{% static 'images/shop_hero_720.webp' %}" imagesrcset="{% static 'images/shop_hero_720.webp' %} 720w, {% static 'images/shop_hero.webp' %} 1080w" imagesizes="(max-width: 767px) 100vw, 410px">
 <style>
 body.pl-shop-body{background:#0A0A0A;overflow-x:clip}
 .pl-shop-page{--pl-acc:#E65100;--pl-acc-h:#FF6D00;--pl-bg:#0A0A0A;--pl-header-offset:80px;background:var(--pl-bg);color:#fff;font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
@@ -30,24 +29,42 @@ body.pl-shop-body{background:#0A0A0A;overflow-x:clip}
 .pl-shop__btn--primary{background:var(--pl-acc);color:var(--pl-bg)}
 .pl-shop__btn--ghost{background:transparent;color:#fff;border:1px solid #333}
 .pl-shop__hero-stage{flex:1 1 360px;min-width:0;order:2;position:relative;display:flex;align-items:flex-start;justify-content:center}
-.pl-shop__hero-img{display:block;width:100%;max-width:410px;height:auto}
+.pl-shop__hero-stage picture{display:block;width:100%;max-width:410px}
+.pl-shop__hero-img{display:block;width:100%;max-width:410px;height:auto;aspect-ratio:1/1}
 .pl-shop__hero-chip{position:absolute;z-index:3;opacity:0}
+.pl-shop__hero-trust{flex:0 0 100%;width:100%;order:3;display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:center;padding-top:8px;margin-bottom:clamp(20px,3vw,32px)}
+.pl-shop__clients-block{padding:clamp(64px,8vw,96px) 0 clamp(28px,4vw,44px)}
+.pl-shop__clients-label{margin:0 0 18px}
+.pl-shop__clients-wrap{overflow:hidden;padding:16px 0 20px}
+.pl-shop__clients-stories-wrapper{min-height:148px}
+.pl-shop__clients-stories-container{display:flex;width:max-content;padding:20px 0}
+.pl-shop__clients-set{display:flex;flex-shrink:0;gap:24px;padding-right:24px}
+.pl-shop-page .project-story{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:96px;min-width:96px;max-width:96px;gap:14px}
+.pl-shop-page .project-story .v3-client-ring{width:84px;height:84px;border-radius:50%;padding:2px;box-sizing:border-box}
+.pl-shop-page .project-story .v3-client-inner{width:100%;height:100%;border-radius:50%;overflow:hidden}
+.pl-shop-page .project-story .v3-client-inner img{width:100%;height:100%;object-fit:cover;display:block}
 @media(max-width:767px){
 .pl-shop__hero{padding-top:calc(72px + clamp(24px,5vw,36px) + env(safe-area-inset-top,0px))}
 .pl-shop__hero-copy{flex:1 1 100%;width:100%;text-align:center}
 .pl-shop__hero-stage{flex:1 1 100%;width:100%;margin-top:12px}
-.pl-shop__hero-img{max-width:100%}
+.pl-shop__hero-stage picture,.pl-shop__hero-img{max-width:100%}
 .pl-shop__hero-actions{width:100%;margin-bottom:52px}
+.pl-shop__hero-trust{padding-top:clamp(16px,4vw,24px);margin-bottom:clamp(16px,3vw,24px)}
+.pl-shop__clients-block{padding-top:clamp(52px,9vw,68px);padding-bottom:24px}
+.pl-shop__clients-set{gap:18px;padding-right:18px}
 }
-.pl-shop__clients-stories-wrapper{min-height:148px}
-@media(min-width:768px){.pl-shop__clients-stories-wrapper{min-height:184px}}
+@media(min-width:768px){
+.pl-shop__clients-stories-wrapper{min-height:184px}
+.pl-shop-page .project-story{width:140px;min-width:140px;max-width:140px}
+.pl-shop-page .project-story .v3-client-ring{width:120px;height:120px;padding:3px}
+}
 </style>
 <link rel="preload" href="{% static 'css/pl-display-fonts.css' %}?v=2" as="style">
 <link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=2" media="print" data-async-css>
 <noscript><link rel="stylesheet" href="{% static 'css/pl-display-fonts.css' %}?v=2"></noscript>
-<link rel="preload" href="{% static 'css/internet-shop-v2.css' %}?v=118" as="style">
-<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=118" media="print" data-async-css>
-<noscript><link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=118"></noscript>
+<link rel="preload" href="{% static 'css/internet-shop-v2.css' %}?v=119" as="style">
+<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=119" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=119"></noscript>
 <noscript><style>.pl-shop__hero-chip,.pl-shop__hero-chart-wrap{opacity:1;transform:none}</style></noscript>
 {% endblock %}
 
@@ -67,5 +84,5 @@ body.pl-shop-body{background:#0A0A0A;overflow-x:clip}
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/internet-shop-v2.js' %}?v=24" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-v2.js' %}?v=25" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

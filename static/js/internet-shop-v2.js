@@ -419,11 +419,6 @@
         loadWhenNear('#calculator', root.getAttribute('data-quiz-js'));
     }
 
-    function enableHeroPaintEffects() {
-        if (reduceMotion) return;
-        root.classList.add('is-hero-painted');
-    }
-
     function init() {
         initReveal();
         initPkgStagger();
@@ -434,11 +429,6 @@
         initClientsMarquee();
         initPkgCompareTabs();
         initDeferredSections();
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(enableHeroPaintEffects, { timeout: 2500 });
-        } else {
-            setTimeout(enableHeroPaintEffects, 1200);
-        }
     }
 
     if (document.readyState === 'loading') {

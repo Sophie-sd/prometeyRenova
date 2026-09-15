@@ -22,9 +22,10 @@
     {# Direct CMP only — do not add CookieYes in GTM. No preconnect: it raced LCP. #}
     <link rel="dns-prefetch" href="https://cdn-cookieyes.com">
     {% endif %}
-    <!-- CookieYes after first paint; GTM on gesture or 6s. Preview loads both now.
-         /thank-you/ calls _loadGTM() (also pulls CMP). Do not cache HTML at
-         Cloudflare while GET still sets csrftoken. -->
+    <!-- CookieYes after window load so it does not race the LCP image.
+         GTM on gesture or 6s. Preview loads both now. /thank-you/ calls
+         _loadGTM() (also pulls CMP). Do not cache HTML at Cloudflare while
+         GET still sets csrftoken. -->
     <script nonce="{{ csp_nonce }}">
     window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
     function _loadCookieYes(){
@@ -61,12 +62,8 @@
         || /(^|;\s*)gtm_auth=/.test(c)
         || /(^|;\s*)gtm_preview=/.test(c);
       if(preview){_loadCookieYes();_loadGTM();return;}
-      requestAnimationFrame(function(){
-        requestAnimationFrame(function(){
-          if('requestIdleCallback' in window){requestIdleCallback(_loadCookieYes,{timeout:2500});}
-          else {setTimeout(_loadCookieYes,1);}
-        });
-      });
+      if(document.readyState==='complete'){_loadCookieYes();}
+      else {window.addEventListener('load',_loadCookieYes,{once:true});}
       ['scroll','click','touchstart','keydown','mousemove'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
       setTimeout(_loadGTM,6000);
     })();
