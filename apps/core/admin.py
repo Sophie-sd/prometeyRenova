@@ -24,7 +24,6 @@ from .models import (
     FormSubmission,
     SiteContactSettings,
     PortfolioProject,
-    PortfolioFeatureBlock,
 )
 from .portfolio_sanitize import linkify_portfolio_html
 from .admin_widgets import PortfolioImageWidget
@@ -534,22 +533,41 @@ class PortfolioProjectAdmin(UnfoldModelAdmin):
 
     fieldsets = (
         (_('Основне'), {
-            'fields': ('title', 'title_ru', 'subtitle', 'subtitle_ru', 'slug', 'order', 'home_order'),
+            'fields': (
+                'title', 'title_ru', 'title_en', 'title_cs',
+                'subtitle', 'subtitle_ru', 'subtitle_en', 'subtitle_cs',
+                'slug', 'order', 'home_order',
+            ),
+        }),
+        (_('Живий сайт → знімок'), {
+            'description': _(
+                'URL реального сайту клієнта. Знімок головної (desktop/mobile) генерується локально '
+                'командою `python3 manage.py capture_portfolio_screens --slug <slug>` і зберігається '
+                'у поля картки нижче. Посилання ніде публічно не показується.'
+            ),
+            'fields': ('site_url',),
         }),
         (_('Картка (/portfolio/)'), {
             'fields': (
                 'card_description',
                 'card_description_ru',
+                'card_description_en',
+                'card_description_cs',
                 'integrations',
+                'integrations_ru',
+                'integrations_en',
+                'integrations_cs',
                 'card_image',
                 'card_image_preview',
                 'card_image_mobile',
                 'card_image_alt',
                 'card_image_alt_ru',
+                'card_image_alt_en',
+                'card_image_alt_cs',
             ),
         }),
         (_('Кнопка картки'), {
-            'fields': ('cta_label', 'cta_label_ru', 'cta_url'),
+            'fields': ('cta_label', 'cta_label_ru', 'cta_label_en', 'cta_label_cs', 'cta_url'),
         }),
         (_('Модальне вікно'), {
             'classes': ('collapse',),
@@ -601,41 +619,6 @@ class PortfolioProjectAdmin(UnfoldModelAdmin):
         return format_html(
             '<img src="{}" alt="" class="pl-admin-image-preview">',
             src,
-        )
-
-
-@admin.register(PortfolioFeatureBlock)
-class PortfolioFeatureBlockAdmin(UnfoldModelAdmin):
-    list_filter_sheet = False
-    list_display = ('title', 'order', 'is_published', 'updated_at')
-    list_editable = ('order', 'is_published')
-    search_fields = ('title', 'text')
-    ordering = ('order',)
-    readonly_fields = ('created_at', 'updated_at', 'image_preview')
-
-    fieldsets = (
-        (_('Контент'), {
-            'fields': ('title', 'title_ru', 'text', 'text_ru'),
-        }),
-        (_('Зображення'), {
-            'fields': ('image', 'image_preview'),
-        }),
-        (_('Відображення'), {
-            'fields': ('order', 'is_published'),
-        }),
-        (_('Службове'), {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',),
-        }),
-    )
-
-    @admin.display(description=_('Прев\'ю зображення'))
-    def image_preview(self, obj):
-        if not obj or not obj.get_image_src():
-            return '—'
-        return format_html(
-            '<img src="{}" alt="" class="pl-admin-image-preview">',
-            obj.get_image_src(),
         )
 
 

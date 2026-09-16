@@ -10,7 +10,7 @@ from django.core.files import File
 from django.core.management.base import BaseCommand
 
 from apps.core.models import Client
-from apps.core.portfolio_seed_data import PORTFOLIO_PROJECTS
+from apps.core.portfolio_seed_data import HOME_CLIENTS
 
 
 class Command(BaseCommand):
@@ -29,13 +29,10 @@ class Command(BaseCommand):
         created = 0
         updated = 0
 
-        for item in PORTFOLIO_PROJECTS:
-            if not item.get('show_on_homepage'):
-                continue
-
-            name = (item.get('home_story_label') or item['title']).strip()
+        for item in HOME_CLIENTS:
+            name = item['name'].strip()
             defaults = {
-                'order': item.get('home_order', 0),
+                'order': item.get('order', 0),
                 'is_active': True,
             }
             client, was_created = Client.objects.get_or_create(

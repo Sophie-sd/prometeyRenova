@@ -27,23 +27,25 @@ class PortfolioImageFallbackTests(SimpleTestCase):
     @override_settings(MEDIA_ROOT='/tmp/prometey-empty-media-test')
     def test_static_fallback_when_media_missing(self):
         project = PortfolioProject(
-            title='Speak Up',
-            slug='speakup',
+            title='ZNOMax',
+            slug='znomax',
             card_description='Desc',
         )
-        project.card_image.name = 'portfolio/speakup/speakup.png'
+        project.card_image.name = 'portfolio/znomax/znomax.webp'
         src = resolve_portfolio_image_url(project, 'card_image')
-        self.assertIn('portfolio_page/speakup.png', src)
+        self.assertIn('images/portfolio/screens/znomax-desktop.webp', src)
 
-    def test_home_image_prefers_static_over_media(self):
+    def test_home_image_falls_back_to_card_static(self):
+        """home_story_image не заповнюється для нового портфоліо — get_home_image_src
+        падає на static card_image (znomax) замість media-файлу, якого нема."""
         project = PortfolioProject(
-            title='PlayVision',
-            slug='playvision',
+            title='ZNOMax',
+            slug='znomax',
             card_description='Desc',
         )
-        project.home_story_image.name = 'portfolio/playvision/playvision.png'
+        project.home_story_image.name = 'portfolio/znomax/home_missing.png'
         src = project.get_home_image_src()
-        self.assertIn('/static/images/portfolio/playvision.png', src)
+        self.assertIn('images/portfolio/screens/znomax-desktop.webp', src)
         self.assertNotIn('/media/', src)
 
 
@@ -101,6 +103,36 @@ class PortfolioModelTests(SimpleTestCase):
         self.assertEqual(external.get_safe_cta_href(), 'https://example.com/case')
         self.assertFalse(internal.is_external_cta())
         self.assertTrue(external.is_external_cta())
+
+    def test_localized_title_and_tags_follow_language(self):
+        from django.utils import translation
+
+        project = PortfolioProject(
+            title='Покрівля',
+            title_en='Pokrivlya',
+            title_cs='Pokrivlya',
+            title_ru='Кровля',
+            slug='pokrivlya',
+            card_description='UA desc',
+            card_description_en='EN desc',
+            card_description_cs='CS desc',
+            integrations='покрівля\nзаявка',
+            integrations_en='roofing\nenquiry',
+            integrations_cs='střechy\npoptávka',
+            integrations_ru='кровля\nзаявка',
+        )
+        translation.activate('en')
+        self.assertEqual(project.get_localized_title(), 'Pokrivlya')
+        self.assertEqual(project.get_localized_card_description(), 'EN desc')
+        self.assertEqual(project.get_integration_tags(), ['roofing', 'enquiry'])
+        translation.activate('cs')
+        self.assertEqual(project.get_localized_title(), 'Pokrivlya')
+        self.assertEqual(project.get_integration_tags(), ['střechy', 'poptávka'])
+        translation.activate('ru')
+        self.assertEqual(project.get_localized_title(), 'Кровля')
+        translation.activate('uk')
+        self.assertEqual(project.get_localized_title(), 'Покрівля')
+        translation.deactivate()
 
     def test_watermark_mark(self):
         project = PortfolioProject(title='Speak Up', slug='speakup', card_description='D')

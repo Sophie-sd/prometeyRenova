@@ -1,5 +1,11 @@
 /* Portfolio page — modal + hero title. Cards: portfolio-brand-snap.css */
 
+/* Snap + hero stay full-bleed; do not inherit site shell from .container */
+.hero-section .container {
+    max-width: none;
+    padding-inline: var(--space-xs);
+}
+
 /* ===== PORTFOLIO MODAL STYLES ===== */
 
 .portfolio-modal-content {

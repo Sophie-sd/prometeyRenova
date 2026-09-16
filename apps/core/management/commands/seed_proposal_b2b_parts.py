@@ -3,11 +3,8 @@ Management command: seed_proposal_b2b_parts
 
 Idempotent заливка КП для B2B/B2C платформи автозапчастин (контент з PDF 20.08.2026).
 """
-import json
-import time
 from datetime import date
 from decimal import Decimal
-from pathlib import Path
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
@@ -25,27 +22,6 @@ from apps.core.proposal_models import (
 )
 
 SLUG = 'b2b-parts-platform-a7f3'
-
-# #region agent log
-_DEBUG_LOG = Path('/Users/sofiadmitrenko/prometeyRenova/.cursor/debug-104b19.log')
-
-
-def _agent_log(hypothesis_id, location, message, data):
-    payload = {
-        'sessionId': '104b19',
-        'hypothesisId': hypothesis_id,
-        'location': location,
-        'message': message,
-        'data': data,
-        'timestamp': int(time.time() * 1000),
-    }
-    try:
-        with _DEBUG_LOG.open('a', encoding='utf-8') as handle:
-            handle.write(json.dumps(payload, ensure_ascii=False) + '\n')
-    except OSError:
-        pass
-    print(f'[debug-104b19] {hypothesis_id} {message} {data}', flush=True)
-# #endregion
 
 MODULES = [
     {
@@ -319,17 +295,8 @@ class Command(BaseCommand):
     help = 'Seed B2B parts platform commercial proposal (idempotent)'
 
     def handle(self, *args, **options):
-        leftover = {}
         for model in (Proposal, ProposalModule, ProposalPackage, ProposalSpec):
-            leftover[model._meta.db_table] = ensure_leftover_not_null_defaults(model)
-        # #region agent log
-        _agent_log(
-            'F',
-            'seed_proposal_b2b_parts.py:handle',
-            'proposal-leftover-defaults',
-            leftover,
-        )
-        # #endregion
+            ensure_leftover_not_null_defaults(model)
         with transaction.atomic():
             self._seed_rows()
 
@@ -397,16 +364,3 @@ class Command(BaseCommand):
             f'{proposal.packages.count()} packages, '
             f'{proposal.specs.count()} specs)'
         ))
-        # #region agent log
-        _agent_log(
-            'G',
-            'seed_proposal_b2b_parts.py:_seed_rows',
-            'proposal-seed-complete',
-            {
-                'created': created,
-                'modules': proposal.modules.count(),
-                'packages': proposal.packages.count(),
-                'specs': proposal.specs.count(),
-            },
-        )
-        # #endregion

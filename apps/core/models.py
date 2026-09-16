@@ -478,14 +478,38 @@ class PortfolioProject(models.Model):
         verbose_name=_('Теги інтеграцій'),
         help_text=_('Один тег на рядок (без #)'),
     )
+    integrations_ru = models.TextField(
+        blank=True,
+        verbose_name=_('Теги інтеграцій (RU)'),
+    )
+    integrations_en = models.TextField(
+        blank=True,
+        verbose_name=_('Теги інтеграцій (EN)'),
+    )
+    integrations_cs = models.TextField(
+        blank=True,
+        verbose_name=_('Теги інтеграцій (CS)'),
+    )
     card_image = models.ImageField(
         upload_to=portfolio_upload_to,
+        blank=True,
         verbose_name=_('Зображення картки (desktop)'),
+        help_text=_('Знімок головної сторінки сайту (desktop). Генерується capture_portfolio_screens.'),
     )
     card_image_mobile = models.ImageField(
         upload_to=portfolio_upload_to,
         blank=True,
         verbose_name=_('Зображення картки (mobile)'),
+        help_text=_('Знімок головної сторінки сайту (mobile). Генерується capture_portfolio_screens.'),
+    )
+    site_url = models.URLField(
+        max_length=300,
+        blank=True,
+        verbose_name=_('Живий сайт (джерело знімка)'),
+        help_text=_(
+            'URL реального сайту для management-команди capture_portfolio_screens. '
+            'Не показується публічно і не веде на нього.'
+        ),
     )
     card_image_alt = models.CharField(
         max_length=255,
@@ -508,8 +532,14 @@ class PortfolioProject(models.Model):
         verbose_name=_('Контент модального вікна (HTML)'),
     )
     title_ru = models.CharField(max_length=200, blank=True, verbose_name=_('Заголовок (RU)'))
+    title_en = models.CharField(max_length=200, blank=True, verbose_name=_('Заголовок (EN)'))
+    title_cs = models.CharField(max_length=200, blank=True, verbose_name=_('Заголовок (CS)'))
     subtitle_ru = models.CharField(max_length=200, blank=True, verbose_name=_('Підзаголовок (RU)'))
+    subtitle_en = models.CharField(max_length=200, blank=True, verbose_name=_('Підзаголовок (EN)'))
+    subtitle_cs = models.CharField(max_length=200, blank=True, verbose_name=_('Підзаголовок (CS)'))
     card_description_ru = models.TextField(blank=True, verbose_name=_('Короткий опис (картка) (RU)'))
+    card_description_en = models.TextField(blank=True, verbose_name=_('Короткий опис (картка) (EN)'))
+    card_description_cs = models.TextField(blank=True, verbose_name=_('Короткий опис (картка) (CS)'))
     modal_content_ru = models.TextField(blank=True, verbose_name=_('Контент модального вікна (HTML) (RU)'))
     home_story_label_ru = models.CharField(
         max_length=100,
@@ -521,6 +551,16 @@ class PortfolioProject(models.Model):
         blank=True,
         verbose_name=_('Alt текст картки (RU)'),
     )
+    card_image_alt_en = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Alt текст картки (EN)'),
+    )
+    card_image_alt_cs = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Alt текст картки (CS)'),
+    )
     cta_label = models.CharField(
         max_length=120,
         blank=True,
@@ -531,6 +571,16 @@ class PortfolioProject(models.Model):
         max_length=120,
         blank=True,
         verbose_name=_('Текст кнопки (RU)'),
+    )
+    cta_label_en = models.CharField(
+        max_length=120,
+        blank=True,
+        verbose_name=_('Текст кнопки (EN)'),
+    )
+    cta_label_cs = models.CharField(
+        max_length=120,
+        blank=True,
+        verbose_name=_('Текст кнопки (CS)'),
     )
     cta_url = models.CharField(
         max_length=500,
@@ -624,7 +674,9 @@ class PortfolioProject(models.Model):
 
         from .i18n_content import localized_text
 
-        label = localized_text(self.cta_label, self.cta_label_ru)
+        label = localized_text(
+            self.cta_label, self.cta_label_ru, self.cta_label_en, self.cta_label_cs,
+        )
         if label:
             return label
         return gettext('Більше інформації')
@@ -647,9 +699,17 @@ class PortfolioProject(models.Model):
         return href.lower().startswith(('http://', 'https://'))
 
     def get_integration_tags(self) -> list[str]:
-        if not self.integrations:
+        from .i18n_content import localized_text
+
+        raw = localized_text(
+            self.integrations,
+            self.integrations_ru,
+            self.integrations_en,
+            self.integrations_cs,
+        )
+        if not raw:
             return []
-        return [line.strip() for line in self.integrations.splitlines() if line.strip()]
+        return [line.strip() for line in raw.splitlines() if line.strip()]
 
     def get_safe_modal_content(self) -> str:
         from .portfolio_sanitize import linkify_portfolio_html
@@ -659,17 +719,24 @@ class PortfolioProject(models.Model):
     def get_localized_title(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.title, self.title_ru)
+        return localized_text(self.title, self.title_ru, self.title_en, self.title_cs)
 
     def get_localized_subtitle(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.subtitle, self.subtitle_ru)
+        return localized_text(
+            self.subtitle, self.subtitle_ru, self.subtitle_en, self.subtitle_cs,
+        )
 
     def get_localized_card_description(self) -> str:
         from .i18n_content import localized_text
 
-        return localized_text(self.card_description, self.card_description_ru)
+        return localized_text(
+            self.card_description,
+            self.card_description_ru,
+            self.card_description_en,
+            self.card_description_cs,
+        )
 
     def get_localized_modal_content(self) -> str:
         from .i18n_content import localized_text
@@ -762,14 +829,18 @@ class PortfolioProject(models.Model):
 
         ua = (self.home_story_label or self.title).strip()
         ru = (self.home_story_label_ru or self.title_ru).strip()
-        return localized_text(ua, ru)
+        en = (self.title_en or '').strip()
+        cs = (self.title_cs or '').strip()
+        return localized_text(ua, ru, en, cs)
 
     def get_card_alt(self) -> str:
         from .i18n_content import localized_text
 
         ua = (self.card_image_alt or self.title).strip()
         ru = (self.card_image_alt_ru or self.title_ru).strip()
-        return localized_text(ua, ru)
+        en = (self.card_image_alt_en or self.title_en).strip()
+        cs = (self.card_image_alt_cs or self.title_cs).strip()
+        return localized_text(ua, ru, en, cs)
 
     def get_modal_title(self) -> str:
         title = self.get_localized_title()
@@ -777,6 +848,11 @@ class PortfolioProject(models.Model):
         if subtitle:
             return f'{title} — {subtitle}'
         return title
+
+
+def feature_block_upload_to(instance, filename: str) -> str:
+    """Kept for historical migration 0015_portfolio_feature_block."""
+    return f'feature_blocks/{filename}'
 
 
 class Client(models.Model):
@@ -806,66 +882,15 @@ class Client(models.Model):
 
         return resolve_client_logo_url(self)
 
+    def get_logo_webp_228_url(self) -> str:
+        from .portfolio_images import resolve_client_logo_webp_url
 
-def feature_block_upload_to(instance, filename: str) -> str:
-    return f'feature_blocks/{filename}'
+        return resolve_client_logo_webp_url(self, 228)
 
+    def get_logo_webp_456_url(self) -> str:
+        from .portfolio_images import resolve_client_logo_webp_url
 
-class PortfolioFeatureBlock(models.Model):
-    """Текстово-зображальний блок для сторінки /portfolio-beta/."""
-
-    title = models.CharField(max_length=200, verbose_name=_('Заголовок'))
-    text = models.TextField(verbose_name=_('Текст'))
-    title_ru = models.CharField(max_length=200, blank=True, verbose_name=_('Заголовок (RU)'))
-    text_ru = models.TextField(blank=True, verbose_name=_('Текст (RU)'))
-    image = models.ImageField(
-        upload_to=feature_block_upload_to,
-        blank=True,
-        null=True,
-        verbose_name=_('Зображення'),
-    )
-    order = models.PositiveSmallIntegerField(default=0, verbose_name=_('Порядок'))
-    is_published = models.BooleanField(default=True, verbose_name=_('Опубліковано'))
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Створено'))
-    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Оновлено'))
-
-    class Meta:
-        db_table = 'core_portfolio_feature_block'
-        ordering = ['order']
-        verbose_name = _('Feature-блок портфоліо Beta')
-        verbose_name_plural = _('Feature-блоки портфоліо Beta')
-
-    def __str__(self) -> str:
-        return self.title
-
-    def get_localized_title(self) -> str:
-        from .i18n_content import localized_text
-
-        return localized_text(self.title, self.title_ru)
-
-    def get_localized_text(self) -> str:
-        from .i18n_content import localized_text
-
-        return localized_text(self.text, self.text_ru)
-
-    def get_image_src(self) -> str:
-        if self.image and self.image.name:
-            return self.image.url
-
-        static_fallbacks = {
-            0: 'images/portfolio_beta/feature-block-admin-dark.png',
-            1: 'images/portfolio_beta/feature-block-yourbrand.png',
-            2: 'images/portfolio_beta/feature-block-multilang.png',
-        }
-        fallback = static_fallbacks.get(self.order)
-        if fallback:
-            from django.templatetags.static import static
-
-            return static(fallback)
-        return ''
-
-    def is_image_left(self) -> bool:
-        return self.order % 2 == 0
+        return resolve_client_logo_webp_url(self, 456)
 
 
 from .proposal_models import (  # noqa: E402,F401

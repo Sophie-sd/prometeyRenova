@@ -9,8 +9,8 @@
     --pf-wash-gray: #8a8a8a;
     --pf-wash-purple: var(--color-brand-purple, #7B2CBF);
     --pf-wash: var(--pf-wash-orange);
-    --pf-wash-opacity: 0.14;
-    --pf-mark-opacity: 0.07;
+    --pf-wash-opacity: 0.22;
+    --pf-mark-opacity: 0.09;
     padding-top: 0;
     padding-bottom: 0;
 }
@@ -128,48 +128,11 @@ html.pf-snap-off {
     z-index: 0;
     pointer-events: none;
     opacity: var(--pf-wash-opacity);
-    background:
-        radial-gradient(
-            ellipse 90% 70% at 30% 40%,
-            rgba(230, 81, 0, 0.55) 0%,
-            transparent 68%
-        ),
-        linear-gradient(
-            155deg,
-            rgba(230, 81, 0, 0.28) 0%,
-            transparent 52%,
-            rgba(230, 81, 0, 0.12) 100%
-        );
-}
-
-.pf-snap--tone-gray .pf-snap__content::before {
-    background:
-        radial-gradient(
-            ellipse 90% 70% at 30% 40%,
-            rgba(138, 138, 138, 0.55) 0%,
-            transparent 68%
-        ),
-        linear-gradient(
-            155deg,
-            rgba(138, 138, 138, 0.28) 0%,
-            transparent 52%,
-            rgba(138, 138, 138, 0.12) 100%
-        );
-}
-
-.pf-snap--tone-purple .pf-snap__content::before {
-    background:
-        radial-gradient(
-            ellipse 90% 70% at 30% 40%,
-            rgba(123, 44, 191, 0.55) 0%,
-            transparent 68%
-        ),
-        linear-gradient(
-            155deg,
-            rgba(123, 44, 191, 0.28) 0%,
-            transparent 52%,
-            rgba(123, 44, 191, 0.12) 100%
-        );
+    background: radial-gradient(
+        ellipse 72% 58% at 22% 36%,
+        color-mix(in srgb, var(--pf-wash) 70%, transparent) 0%,
+        transparent 72%
+    );
 }
 
 .pf-snap__content::after {
@@ -182,7 +145,7 @@ html.pf-snap-off {
     font-size: clamp(140px, 28vw, 320px);
     font-weight: 700;
     line-height: 0.8;
-    letter-spacing: -0.06em;
+    letter-spacing: -0.04em;
     text-transform: uppercase;
     color: var(--pf-wash);
     opacity: var(--pf-mark-opacity);
@@ -200,64 +163,105 @@ html.pf-snap-off {
     z-index: 1;
     box-sizing: border-box;
     width: 100%;
-    max-width: 420px;
-    margin: 0 auto;
     padding: var(--space-lg) var(--space-xl);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 12px;
+    gap: 0;
 }
 
 .pf-snap__title {
-    margin: 0;
-    font-size: var(--font-large);
+    margin: 0 0 28px;
+    font-size: clamp(36px, 4.2vw, 64px);
     font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -1px;
-    color: var(--color-brand-orange);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
     text-transform: uppercase;
+}
+
+.pf-snap__name {
+    display: block;
+    --slab-x: 0.3746;
+    --slab-y: 0.9272;
+    --slab-depth: 0.075em;
+    --slab-steps: 16;
+    --slab-paper: #0a0a0a;
+    --slab-color: var(--color-brand-orange, #E65100);
+    --slab-shadow: #050505;
+    --slab-sx: calc(var(--slab-depth) * var(--slab-x) / var(--slab-steps));
+    --slab-sy: calc(var(--slab-depth) * var(--slab-y) / var(--slab-steps));
+    --slab-ao: color-mix(in srgb, var(--slab-color) 55%, var(--slab-paper));
+    --slab-wall: color-mix(in srgb, var(--slab-color) 28%, var(--slab-paper));
+    --slab-bounce: color-mix(in srgb, var(--slab-color) 14%, var(--slab-paper));
+    --slab-contact: color-mix(in srgb, var(--slab-shadow) 22%, transparent);
+    --slab-elevation-tight: color-mix(in srgb, var(--slab-shadow) 28%, transparent);
+    --slab-elevation: color-mix(in srgb, var(--slab-shadow) 16%, transparent);
+    color: var(--slab-color);
+    text-shadow:
+        calc(var(--slab-sx) * 1) calc(var(--slab-sy) * 1) 0 var(--slab-ao),
+        calc(var(--slab-sx) * 2) calc(var(--slab-sy) * 2) 0 var(--slab-ao),
+        calc(var(--slab-sx) * 3) calc(var(--slab-sy) * 3) 0 var(--slab-ao),
+        calc(var(--slab-sx) * 4) calc(var(--slab-sy) * 4) 0 var(--slab-ao),
+        calc(var(--slab-sx) * 5) calc(var(--slab-sy) * 5) 0 var(--slab-wall),
+        calc(var(--slab-sx) * 6) calc(var(--slab-sy) * 6) 0 var(--slab-wall),
+        calc(var(--slab-sx) * 7) calc(var(--slab-sy) * 7) 0 var(--slab-wall),
+        calc(var(--slab-sx) * 8) calc(var(--slab-sy) * 8) 0 var(--slab-wall),
+        calc(var(--slab-sx) * 9) calc(var(--slab-sy) * 9) 0 var(--slab-wall),
+        calc(var(--slab-sx) * 10) calc(var(--slab-sy) * 10) 0 var(--slab-wall),
+        calc(var(--slab-sx) * 11) calc(var(--slab-sy) * 11) 0 var(--slab-bounce),
+        calc(var(--slab-sx) * 12) calc(var(--slab-sy) * 12) 0 var(--slab-bounce),
+        calc(var(--slab-sx) * 13) calc(var(--slab-sy) * 13) 0 var(--slab-bounce),
+        calc(var(--slab-sx) * 14) calc(var(--slab-sy) * 14) 0 var(--slab-bounce),
+        calc(var(--slab-sx) * 15) calc(var(--slab-sy) * 15) 0 var(--slab-bounce),
+        calc(var(--slab-sx) * 16) calc(var(--slab-sy) * 16) 0 var(--slab-bounce),
+        calc(var(--slab-sx) * 17) calc(var(--slab-sy) * 17) 0.06em var(--slab-contact);
+    filter:
+        drop-shadow(calc(var(--slab-x) * 0.18em) calc(var(--slab-y) * 0.18em) 0.14em var(--slab-elevation-tight))
+        drop-shadow(calc(var(--slab-x) * 0.45em) calc(var(--slab-y) * 0.45em) 0.7em var(--slab-elevation));
 }
 
 .pf-snap__subtitle {
     display: block;
-    margin-top: 4px;
-    font-size: 0.6em;
+    margin-top: 10px;
+    font-size: 13px;
     font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: 0.5px;
-    color: var(--color-white);
+    line-height: 1.3;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.88);
 }
 
 .pf-snap__desc {
-    margin: 0;
+    margin: 0 0 32px;
     font-size: var(--font-sub);
     font-weight: 400;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.72);
 }
 
 .pf-snap__tags {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    margin: 0 0 28px;
+    padding: 0;
+    list-style: none;
+    border-left: 1px solid color-mix(in srgb, var(--pf-wash) 45%, transparent);
 }
 
 .pf-snap__tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 6px 12px;
-    border: 1px solid rgba(230, 81, 0, 0.3);
-    border-radius: 6px;
-    background: rgba(230, 81, 0, 0.1);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 0;
+    padding: 8px 0 8px 14px;
     font-size: var(--font-base);
     line-height: 1.4;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.72);
 }
 
 .pf-snap__hash {
-    color: var(--color-brand-orange);
+    color: var(--color-brand-orange, #E65100);
     font-weight: 700;
 }
 
@@ -266,7 +270,7 @@ html.pf-snap-off {
     align-items: center;
     gap: 6px;
     min-height: 44px;
-    margin-top: 4px;
+    margin-top: 0;
 }
 
 .pf-snap__arrow {
@@ -298,5 +302,12 @@ html.pf-snap-off {
         opacity: 1;
         transform: none;
         pointer-events: auto;
+    }
+}
+
+@media (prefers-contrast: more), (forced-colors: active), print {
+    .pf-snap__name {
+        text-shadow: none;
+        filter: none;
     }
 }

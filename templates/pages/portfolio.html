@@ -3,13 +3,13 @@
 {% load i18n %}
 
 {% block title %}{% trans "Портфоліо - PrometeyLabs" %}{% endblock %}
-{% block description %}{% trans "Наше портфоліо веб-сайтів під ключ. Приклади сучасних веб-рішень для різних сфер
-бізнесу." %}{% endblock %}
+{% block description %}{% trans "Наше портфоліо веб-сайтів під ключ. Приклади сучасних веб-рішень для різних сфер бізнесу." context "portfolio" %}{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/portfolio.css' %}?v=snap10">
-<link rel="stylesheet" href="{% static 'css/portfolio-brand-snap.css' %}?v=snap10">
-<link rel="stylesheet" href="{% static 'css/portfolio-brand-snap2.css' %}?v=snap10">
+<link rel="stylesheet" href="{% static 'css/portfolio.css' %}?v=snap14">
+<link rel="stylesheet" href="{% static 'css/portfolio-brand-snap.css' %}?v=snap13">
+<link rel="stylesheet" href="{% static 'css/portfolio-brand-snap2.css' %}?v=snap13">
+<link rel="stylesheet" href="{% static 'css/portfolio-screen.css' %}?v=screen3">
 {% endblock %}
 
 {% block content %}
@@ -36,16 +36,17 @@
     </div>
 </section>
 
-<section class="portfolio-projects content-section--first pf-snaps" data-portfolio-snap aria-label="{% trans 'Проєкти портфоліо' %}">
+<section class="portfolio-projects content-section--first pf-snaps" data-portfolio-snap aria-label="{% trans 'Проєкти портфоліо' context 'portfolio' %}">
     {% for project in portfolio_projects %}
     {% include 'components/portfolio_project_card.html' with project=project %}
     {% empty %}
-    <p class="pf-snaps__empty text-medium color-white">{% trans "Проєкти портфоліо скоро з’являться." %}</p>
+    <p class="pf-snaps__empty text-medium color-white">{% trans "Проєкти портфоліо скоро з’являться." context "portfolio" %}</p>
     {% endfor %}
 </section>
 
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/portfolio-brand-snap.js' %}?v=snap10" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/portfolio-brand-snap.js' %}?v=snap13" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/portfolio-screen-scroll.js' %}?v=screen2" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

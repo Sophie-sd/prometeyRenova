@@ -4,7 +4,7 @@
 from django.views.generic import TemplateView
 from django.utils import timezone
 
-from apps.core.models import Client, PortfolioProject, PortfolioFeatureBlock
+from apps.core.models import Client, PortfolioProject
 
 
 class BasePageView(TemplateView):
@@ -46,7 +46,3 @@ def portfolio_page_projects():
 
 def homepage_clients():
     return Client.objects.filter(is_active=True).order_by('order', 'name')
-
-
-def feature_blocks():
-    return PortfolioFeatureBlock.objects.filter(is_published=True).order_by('order')

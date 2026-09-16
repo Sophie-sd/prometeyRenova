@@ -2,12 +2,11 @@
 
 @media (max-width: 1024px) {
     .pf-snap__wrap {
-        max-width: 380px;
         padding: var(--space-md) var(--space-lg);
     }
 
     .pf-snap__title {
-        font-size: clamp(28px, 5vw, 44px);
+        font-size: clamp(32px, 4.6vw, 48px);
     }
 }
 
@@ -94,24 +93,35 @@
     .pf-snap__wrap {
         max-width: none;
         padding: var(--space-md) var(--space-sm) max(24px, env(safe-area-inset-bottom, 0px));
-        gap: 10px;
         justify-content: flex-start;
     }
 
     .pf-snap__title {
+        margin-bottom: 20px;
         font-size: clamp(28px, 8vw, 40px);
     }
 
+    .pf-snap__name {
+        --slab-depth: 0.06em;
+        filter:
+            drop-shadow(calc(var(--slab-x) * 0.39em) calc(var(--slab-y) * 0.39em) 0.3em var(--slab-elevation-tight))
+            drop-shadow(calc(var(--slab-x) * 0.9em) calc(var(--slab-y) * 0.9em) 1.35em var(--slab-elevation));
+    }
+
     .pf-snap__desc {
+        margin-bottom: 24px;
         font-size: 16px;
         -webkit-text-size-adjust: 100%;
         text-size-adjust: 100%;
     }
 
+    .pf-snap__tags {
+        margin-bottom: 20px;
+    }
+
     .pf-snap__tag {
-        font-size: 13px;
-        padding: 5px 10px;
-        flex-shrink: 0;
+        padding: 10px 0 10px 14px;
+        font-size: 16px;
     }
 
     .pf-snap__cta {
@@ -125,9 +135,24 @@
         padding: var(--space-sm) var(--space-xs) max(20px, env(safe-area-inset-bottom, 0px));
     }
 
-    .pf-snap__tag {
-        font-size: 12px;
-        padding: 4px 8px;
+    .pf-snap__title {
+        margin-bottom: 16px;
+        font-size: clamp(26px, 8.4vw, 36px);
+    }
+
+    .pf-snap__name {
+        --slab-depth: 0.05em;
+        filter:
+            drop-shadow(calc(var(--slab-x) * 0.18em) calc(var(--slab-y) * 0.18em) 0.14em var(--slab-elevation-tight))
+            drop-shadow(calc(var(--slab-x) * 0.45em) calc(var(--slab-y) * 0.45em) 0.7em var(--slab-elevation));
+    }
+
+    .pf-snap__desc {
+        margin-bottom: 20px;
+    }
+
+    .pf-snap__tags {
+        margin-bottom: 16px;
     }
 }
 
@@ -135,6 +160,13 @@
     @media (min-width: 768px) {
         .pf-snaps {
             --pf-snap-h: calc(100dvh - var(--nav-height, 60px) - env(safe-area-inset-top, 0px));
+        }
+
+        .pf-snap__name {
+            --slab-depth: 0.06em;
+            filter:
+                drop-shadow(calc(var(--slab-x) * 0.18em) calc(var(--slab-y) * 0.18em) 0.14em var(--slab-elevation-tight))
+                drop-shadow(calc(var(--slab-x) * 0.45em) calc(var(--slab-y) * 0.45em) 0.7em var(--slab-elevation));
         }
     }
 }
