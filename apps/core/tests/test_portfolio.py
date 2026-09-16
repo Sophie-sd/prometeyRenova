@@ -35,6 +35,18 @@ class PortfolioImageFallbackTests(SimpleTestCase):
         src = resolve_portfolio_image_url(project, 'card_image')
         self.assertIn('images/portfolio/screens/znomax-desktop.webp', src)
 
+    def test_prefers_static_screen_over_existing_media(self):
+        """Прод-диск може тримати leftover PNG — картка все одно бере screen з репо."""
+        project = PortfolioProject(
+            title='ZNOMax',
+            slug='znomax',
+            card_description='Desc',
+        )
+        project.card_image.name = 'portfolio/znomax/old-logo.png'
+        src = resolve_portfolio_image_url(project, 'card_image')
+        self.assertIn('images/portfolio/screens/znomax-desktop.webp', src)
+        self.assertNotIn('/media/', src)
+
     def test_home_image_falls_back_to_card_static(self):
         """home_story_image не заповнюється для нового портфоліо — get_home_image_src
         падає на static card_image (znomax) замість media-файлу, якого нема."""
