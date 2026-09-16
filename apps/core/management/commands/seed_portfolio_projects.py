@@ -12,6 +12,7 @@ from django.core.files import File
 from django.core.management.base import BaseCommand
 from django.db import connection, IntegrityError
 
+from apps.core.legacy_schema import ensure_leftover_not_null_defaults
 from apps.core.models import PortfolioProject
 from apps.core.portfolio_seed_data import IMAGE_FIELD_MAP, PORTFOLIO_PROJECTS
 
@@ -118,6 +119,7 @@ class Command(BaseCommand):
             c for c in self._not_null_columns(columns)
             if c not in model_fields
         ]
+        defaulted = ensure_leftover_not_null_defaults(PortfolioProject)
         # #region agent log
         _agent_log(
             'A',
@@ -129,6 +131,7 @@ class Command(BaseCommand):
                 'has_site_url_model': 'site_url' in model_fields,
                 'site_url_null_ok': (columns.get('site_url') or {}).get('null_ok'),
                 'extra_not_null': extra_not_null[:20],
+                'defaulted': defaulted,
                 'seed_slugs': [item['slug'] for item in PORTFOLIO_PROJECTS],
             },
         )
