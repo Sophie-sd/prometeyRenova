@@ -1,6 +1,33 @@
 """Schema leftovers after a code rollback (later NOT NULL columns still in DB)."""
+import json
+import time
+from pathlib import Path
+
 from django.db import connection
 from django.utils import timezone
+
+# #region agent log
+_DEBUG_LOG = Path('/Users/sofiadmitrenko/prometeyRenova/.cursor/debug-104b19.log')
+_LOGGED_TABLES = set()
+
+
+def _agent_log(hypothesis_id, location, message, data):
+    payload = {
+        'sessionId': '104b19',
+        'hypothesisId': hypothesis_id,
+        'location': location,
+        'message': message,
+        'data': data,
+        'timestamp': int(time.time() * 1000),
+        'runId': 'post-fix-alter',
+    }
+    try:
+        with _DEBUG_LOG.open('a', encoding='utf-8') as handle:
+            handle.write(json.dumps(payload, ensure_ascii=False) + '\n')
+    except OSError:
+        pass
+    print(f'[debug-104b19] {hypothesis_id} {message} {data}', flush=True)
+# #endregion
 
 
 def _accepts_empty_string(col):
@@ -58,9 +85,6 @@ def create_with_leftovers(model, **kwargs):
     leftovers = leftover_not_null_columns(model)
     if not leftovers:
         return model.objects.create(**kwargs)
-    if connection.vendor == 'postgresql':
-        ensure_leftover_not_null_defaults(model)
-        return model.objects.create(**kwargs)
 
     obj = model(**kwargs)
     cols = []
@@ -79,14 +103,33 @@ def create_with_leftovers(model, **kwargs):
     vals.extend([''] * len(leftovers))
     qn = connection.ops.quote_name
     table = qn(model._meta.db_table)
+    pk_col = qn(model._meta.pk.column)
     col_sql = ', '.join(qn(c) for c in cols)
     placeholders = ', '.join(['%s'] * len(cols))
-    with connection.cursor() as cursor:
-        cursor.execute(
-            f'INSERT INTO {table} ({col_sql}) VALUES ({placeholders})',
-            vals,
+    insert_sql = f'INSERT INTO {table} ({col_sql}) VALUES ({placeholders})'
+    # #region agent log
+    if model._meta.db_table not in _LOGGED_TABLES:
+        _LOGGED_TABLES.add(model._meta.db_table)
+        _agent_log(
+            'H',
+            'legacy_schema.py:create_with_leftovers',
+            'raw-insert-leftovers',
+            {
+                'table': model._meta.db_table,
+                'vendor': connection.vendor,
+                'in_atomic': connection.in_atomic_block,
+                'leftovers': leftovers,
+                'will_alter': False,
+            },
         )
-        obj.pk = cursor.lastrowid
+    # #endregion
+    with connection.cursor() as cursor:
+        if connection.vendor == 'postgresql':
+            cursor.execute(f'{insert_sql} RETURNING {pk_col}', vals)
+            obj.pk = cursor.fetchone()[0]
+        else:
+            cursor.execute(insert_sql, vals)
+            obj.pk = cursor.lastrowid
     obj._state.adding = False
     obj._state.db = 'default'
     return obj
