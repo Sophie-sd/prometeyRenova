@@ -1,0 +1,17 @@
+{% load i18n %}
+<div class="drawer" id="dc-drawer" role="dialog" aria-modal="true" aria-label="{% trans 'Меню' %}">
+    <div class="drawer__backdrop"></div>
+    <nav class="drawer__panel">
+        <div class="drawer__head">
+            <p class="drawer__title">{% trans "Меню" %}</p>
+            <button type="button" class="drawer__close" data-qa="menu-close" aria-label="{% trans 'Закрити' %}">×</button>
+        </div>
+        <ul>
+            {% include 'democorp/partials/nav_links.html' %}
+        </ul>
+        {% include 'demotenant/partials/lang_switcher.html' with extra_class='dt-lang--drawer' %}
+        <a class="dc-header__admin drawer__admin" href="{% url 'democorp:admin_login' slug=site.slug %}">{% trans "Адмінка" %}</a>
+
+        <a class="dc-btn dc-btn--primary drawer__cta" href="{% url 'democorp:contacts' slug=site.slug %}">{% trans "Залишити заявку" %}</a>
+    </nav>
+</div>

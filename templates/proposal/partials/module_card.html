@@ -1,16 +1,10 @@
 {% load i18n %}
-<article class="prop-sheet prop-sheet--module prop-reveal prop-tilt"
+<article class="prop-mod-row prop-reveal"
          data-prop-reveal
-         data-prop-tilt
-         data-i="{{ forloop.counter0 }}">
-    <div class="prop-sheet__inner">
-        <div class="prop-sheet__icon" aria-hidden="true">
-            {% include 'proposal/partials/svg/module_icon.html' %}
-        </div>
-        <span class="prop-sheet__num">{% if module.number %}{{ module.number|stringformat:"02d" }}{% else %}{{ forloop.counter|stringformat:"02d" }}{% endif %}</span>
-        <h3 class="prop-sheet__title">{{ module.get_localized_title }}</h3>
-        {% if module.get_localized_description %}
-        <p class="prop-sheet__text">{{ module.get_localized_description }}</p>
-        {% endif %}
-    </div>
+         data-mi="{% if module.number %}{{ module.number }}{% else %}{{ forloop.counter }}{% endif %}">
+    <span class="prop-mod-row__num">{% if module.number %}{{ module.number|stringformat:"02d" }}{% else %}{{ forloop.counter|stringformat:"02d" }}{% endif %}</span>
+    <h3 class="prop-mod-row__title">{{ module.get_localized_title }}</h3>
+    {% if module.get_localized_description %}
+    <p class="prop-mod-row__text">{{ module.get_localized_description }}</p>
+    {% endif %}
 </article>

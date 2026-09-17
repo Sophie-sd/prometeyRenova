@@ -1,0 +1,23 @@
+{% extends 'demoshop/base.html' %}
+{% load demoshop_extras i18n %}
+
+{% block title %}{% trans "Обране" %}{% endblock %}
+
+{% block content %}
+<section class="ds-section ds-container" data-ds-wishlist-page>
+    <div class="ds-toolbar">
+        <h1 class="ds-section__title">{% trans "Обране" %}</h1>
+        <p>{% trans "Товари, збережені в цьому браузері" %}</p>
+    </div>
+
+    <div id="ds-wishlist-grid">
+        {% if products %}
+        {% include 'demoshop/partials/_product_grid.html' with products=products %}
+        {% else %}
+        <div class="ds-empty-state-wrapper">
+            <p class="ds-empty-state ds-empty-state--grid">{% trans "Поки порожньо. Додайте товари серцем на картці." %}</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "admin/base_site.html" %}
+{% load static i18n %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'demotenant/css/admin_nav_chips.css' %}?v=4">
+<link rel="stylesheet" href="{% static 'demoshop/css/demoshop_admin.css' %}?v=2">
+{% endblock %}
+
+{% block content %}
+<div class="ds-admin-shop">
+    <h1>{{ title }}</h1>
+    <div class="dt-admin-meta">
+        <p class="dt-admin-meta__label ds-admin-shop__hint">{% trans "Магазин" %}: <strong>{{ shop.name }}</strong></p>
+        <a class="dt-admin-chip dt-admin-chip--accent" href="{% url 'demoshop:home' shop_slug=shop.slug %}" target="_blank" rel="noopener">{% trans "Переглянути вітрину" %}</a>
+    </div>
+    <nav class="dt-admin-chips" aria-label="{% trans 'Каталог і замовлення' %}">
+        <a class="dt-admin-chip" href="{% url 'admin:demoshop_shopproduct_changelist' %}">{% trans "Товари" %}</a>
+        <a class="dt-admin-chip" href="{% url 'admin:demoshop_shopcategory_changelist' %}">{% trans "Категорії" %}</a>
+        <a class="dt-admin-chip" href="{% url 'admin:demoshop_shopreview_changelist' %}">{% trans "Відгуки" %}</a>
+        <a class="dt-admin-chip" href="{% url 'admin:demoshop_shoporder_changelist' %}">{% trans "Замовлення" %}</a>
+    </nav>
+    <aside class="ds-admin-sales">
+        <p class="ds-admin-sales__title">{% trans "Тексти без квитка розробнику" %}</p>
+        <p class="ds-admin-sales__body">{% trans "Текст і колір міняєте самі. Зберегли — вітрина вже нова. Чекати розробника не треба." %}</p>
+    </aside>
+
+    <form method="post" enctype="multipart/form-data" class="ds-admin-shop__form">
+        {% csrf_token %}
+
+        {% for group in block_groups %}
+        <fieldset class="ds-admin-shop__fieldset">
+            <legend>{{ group.label }}</legend>
+            {% for item in group.fields %}
+            <div class="ds-admin-shop__field">
+                {{ item.field.label_tag }}
+                {{ item.field }}
+                {% if item.type == 'image' and item.current_image %}
+                <img class="ds-admin-shop__preview" src="{{ item.current_image.url }}" alt="">
+                {% endif %}
+            </div>
+            {% endfor %}
+        </fieldset>
+        {% endfor %}
+
+        <fieldset class="ds-admin-shop__fieldset">
+            <legend>{% trans "Кольори теми" %}</legend>
+            {% for field in theme_form %}
+            <div class="ds-admin-shop__field">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+            {% endfor %}
+        </fieldset>
+
+        <fieldset class="ds-admin-shop__fieldset">
+            <legend>{% trans "Слайди головної (hero)" %}</legend>
+            {{ slide_formset.management_form }}
+            {% for form in slide_formset %}
+            <div class="ds-admin-shop__slide">
+                {{ form.id }}
+                {% for field in form.visible_fields %}
+                <div class="ds-admin-shop__field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </fieldset>
+
+        <button type="submit" class="ds-admin-shop__submit">{% trans "Зберегти зміни" %}</button>
+    </form>
+</div>
+{% endblock %}

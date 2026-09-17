@@ -1,0 +1,13 @@
+{% extends 'demoshop/base.html' %}
+{% load demoshop_extras i18n %}
+
+{% block title %}{% trans "Кошик" %}{% endblock %}
+
+{% block content %}
+<section class="ds-section ds-container">
+    <h1 class="ds-section__title">{% trans "Кошик" %}</h1>
+    <div id="ds-cart-content" hx-get="{% url 'demoshop:cart' shop_slug=shop.slug %}" hx-trigger="cartUpdated from:body">
+        {% include 'demoshop/partials/_cart_lines.html' %}
+    </div>
+</section>
+{% endblock %}

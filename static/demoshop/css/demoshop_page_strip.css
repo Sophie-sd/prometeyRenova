@@ -1,0 +1,74 @@
+/* Хіти продажів + Акції: SECT-11 page-strip hover — окремий файл секції (PSH-10) */
+
+.page-strip {
+    --ps-gap: 20px;
+    --ps-card: min(62vw, 228px);
+    --loop-duration: 42s;
+    overflow: hidden;
+    width: 100%;
+    padding-block: 28px 32px;
+}
+@media (min-width: 768px) {
+    .page-strip { --ps-gap: 28px; }
+}
+
+.page-strip__track {
+    display: flex;
+    width: max-content;
+    animation: page-strip-x var(--loop-duration) linear infinite;
+    animation-play-state: paused;
+}
+
+.page-strip--reverse .page-strip__track {
+    animation-direction: reverse;
+}
+
+.page-strip.is-motion .page-strip__track {
+    animation-play-state: running;
+    will-change: transform;
+}
+
+.page-strip__set {
+    display: flex;
+    flex: none;
+    gap: var(--ps-gap);
+    padding-inline-end: var(--ps-gap);
+}
+
+.page-strip__card {
+    position: relative;
+    flex: none;
+    width: var(--ps-card);
+    transform: translateZ(0) scale(1);
+    transform-origin: center center;
+    transition: transform 420ms ease-out;
+}
+
+.page-strip__card .ds-card {
+    width: 100%;
+    height: 100%;
+}
+
+.page-strip .ds-card__img {
+    transform: none;
+    transition: none;
+}
+
+@keyframes page-strip-x {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-25%, 0, 0); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .page-strip__card:hover {
+        z-index: 2;
+        transform: translateZ(0) scale(1.06);
+    }
+    .page-strip .ds-card__media:hover .ds-card__img { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-strip__track { animation: none; will-change: auto; }
+    .page-strip__card { transition: none; }
+    .page-strip__card:hover { transform: translateZ(0) scale(1); }
+}

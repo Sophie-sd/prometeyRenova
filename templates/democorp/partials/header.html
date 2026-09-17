@@ -1,0 +1,17 @@
+{% load i18n demotenant %}
+<header class="dc-header">
+    <div class="dc-container dc-header__inner">
+        <a class="dc-header__logo" href="{% url 'democorp:home' slug=site.slug %}">{% tenant_text blocks_map registry "header" "company_name" %}</a>
+        <nav aria-label="{% trans 'Основна навігація' %}">
+            <ul class="dc-header__nav">
+                {% include 'democorp/partials/nav_links.html' %}
+            </ul>
+        </nav>
+        <div class="dc-header__actions">
+            {% include 'demotenant/partials/lang_switcher.html' %}
+            <a class="dc-header__admin" href="{% url 'democorp:admin_login' slug=site.slug %}">{% trans "Адмінка" %}</a>
+
+            <button type="button" class="dc-header__menu-open" data-qa="menu-open" aria-expanded="false" aria-controls="dc-drawer" aria-label="{% trans 'Меню' %}"><span class="dc-header__bars" aria-hidden="true"></span></button>
+        </div>
+    </div>
+</header>

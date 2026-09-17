@@ -1,0 +1,151 @@
+{% extends 'demoshop/base.html' %}
+{% load static demoshop_extras i18n %}
+
+{% block title %}{{ product.localized_name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'demoshop/css/demoshop_pdp.css' %}?v=3">
+<link rel="stylesheet" href="{% static 'demoshop/css/demoshop_reviews.css' %}?v=1">
+{% endblock %}
+
+{% block content %}
+<article class="ds-pdp ds-container">
+    <div class="ds-pdp-grid">
+        {% include 'demoshop/partials/pdp_gallery.html' %}
+
+        <div class="ds-pdp-info">
+            {% if product.category %}
+            <p class="ds-eyebrow">
+                <a href="{% url 'demoshop:catalog' shop_slug=shop.slug %}?category={{ product.category.slug }}">{{ product.category.localized_name }}</a>
+            </p>
+            {% endif %}
+            <h1 class="ds-pdp-info__title">{{ product.localized_name }}</h1>
+
+            <div class="ds-pdp-price-row">
+                <span class="ds-pdp-price">{{ product.price|money }} {% currency_symbol %}</span>
+                {% if product.old_price %}
+                <span class="ds-pdp-price-old">{{ product.old_price|money }} {% currency_symbol %}</span>
+                {% endif %}
+            </div>
+
+            {% if product.sale_timer_active %}
+            <div class="ds-pdp-promo">
+                <p class="ds-pdp-promo__label">
+                    <svg class="ds-pdp-promo__flame" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M12 2c1.4 3.2-.2 5.2-1.6 6.6C8.8 10.2 8 11.6 8 13.4 8 16.5 10.2 19 13 19c.4 0 .8 0 1.2-.1C12.6 20.3 10.4 21.5 8 21.5 4.4 21.5 1.5 18.4 1.5 14.6 1.5 10.2 6 6.4 12 2zm3.8 8.2c1.1 1.2 1.7 2.6 1.7 4.2 0 2.6-1.7 4.8-4 5.5 2.6-.4 4.6-2.6 4.6-5.3 0-1.6-.6-3-1.6-4.1-.2-.2-.5-.4-.7-.6v.3z"/>
+                    </svg>
+                    {% trans "Акція діє ще" %}
+                </p>
+                <span class="ds-card__sale">
+                    {% if product.discount_percent %}<span class="ds-badge">−{{ product.discount_percent }}%</span>{% endif %}
+                    <span class="timer timer--pill"
+                          data-countdown="{{ product.sale_end_date|date:'U' }}"
+                          data-expired-label="{% trans "Акція завершена" %}"
+                          data-label-days="{% trans "д" %}"></span>
+                </span>
+            </div>
+            {% endif %}
+
+            {% if product.has_gift_promo %}
+            <div class="ds-gift-banner">
+                <span class="ds-gift-banner__icon" aria-hidden="true">🎁</span>
+                <p class="ds-gift-banner__text">{{ product.localized_gift_promo_text }}</p>
+                <details class="ds-gift-banner__tip">
+                    <summary aria-label="{% trans "Деталі подарунка" %}">i</summary>
+                    <p>{% trans "Подарунок додається до замовлення автоматично на етапі демонстрації." %}</p>
+                </details>
+            </div>
+            {% endif %}
+
+            <form class="ds-pdp-buy"
+                  hx-post="{% url 'demoshop:cart_add' shop_slug=shop.slug %}"
+                  hx-target="#ds-drawer-root"
+                  hx-swap="innerHTML"
+                  data-qa="cart-add">
+                <input type="hidden" name="product_id" value="{{ product.pk }}">
+                <div class="ds-pdp-buy__row">
+                    <div class="ds-qty-stepper" data-ds-qty>
+                        <button type="button" data-ds-qty-step="-1" aria-label="{% trans "Менше" %}">−</button>
+                        <input type="number" name="qty" value="1" min="1" max="99" inputmode="numeric">
+                        <button type="button" data-ds-qty-step="1" aria-label="{% trans "Більше" %}">+</button>
+                    </div>
+                    <button type="button"
+                            class="ds-wish-toggle"
+                            data-wishlist-toggle
+                            data-product-id="{{ product.pk }}"
+                            data-qa="wishlist-toggle"
+                            aria-label="{% trans "Додати в обране" %}"
+                            aria-pressed="false">♡</button>
+                </div>
+                <button type="submit" class="ds-btn ds-btn--primary ds-pdp-buy__cta">{% trans "Додати в кошик" %}</button>
+            </form>
+
+            {% block_text shop 'pdp' 'delivery_text' as ds_pdp_delivery %}
+            <div class="ds-pdp-tabs" data-ds-tabs>
+                <div class="ds-pdp-tabs__list" role="tablist" aria-label="{% trans "Інформація про товар" %}">
+                    <button type="button"
+                            class="ds-pdp-tabs__tab"
+                            role="tab"
+                            id="ds-pdp-tab-desc"
+                            aria-controls="ds-pdp-panel-desc"
+                            aria-selected="true">{% trans "Опис" %}</button>
+                    <button type="button"
+                            class="ds-pdp-tabs__tab"
+                            role="tab"
+                            id="ds-pdp-tab-ship"
+                            aria-controls="ds-pdp-panel-ship"
+                            aria-selected="false">{% trans "Доставка" %}</button>
+                </div>
+                <div class="ds-pdp-tabs__panel ds-prose"
+                     role="tabpanel"
+                     id="ds-pdp-panel-desc"
+                     aria-labelledby="ds-pdp-tab-desc">
+                    {% if product.localized_description %}
+                    {{ product.localized_description|linebreaks }}
+                    {% elif product.localized_short_description %}
+                    <p>{{ product.localized_short_description }}</p>
+                    {% endif %}
+                </div>
+                <div class="ds-pdp-tabs__panel ds-prose"
+                     role="tabpanel"
+                     id="ds-pdp-panel-ship"
+                     aria-labelledby="ds-pdp-tab-ship"
+                     hidden>
+                    {{ ds_pdp_delivery|linebreaks }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if related %}
+    <section class="ds-pdp-related" aria-labelledby="ds-pdp-related-title">
+        <h2 class="ds-pdp-related__title" id="ds-pdp-related-title">{% trans "Схожі товари" %}</h2>
+        {% include 'demoshop/partials/pdp_related.html' with products=related %}
+    </section>
+    {% endif %}
+
+    {% if reviews %}
+    <section class="ds-pdp-reviews" aria-labelledby="ds-pdp-reviews-title">
+        <h2 class="ds-pdp-related__title" id="ds-pdp-reviews-title">{% trans "Відгуки" %}</h2>
+        <div class="ds-reviews ds-reviews--cols-{{ reviews|length|ideal_cols:3 }}">
+            {% for review in reviews %}
+            <article class="ds-review-card">
+                <header class="ds-review-card__head">
+                    <span class="ds-review-card__avatar" aria-hidden="true">{{ review.author_name|slice:":1" }}</span>
+                    <div class="ds-review-card__who">
+                        <p class="ds-review-card__name">{{ review.author_name }}</p>
+                        <p class="ds-review-card__stars" role="img" aria-label="{% blocktrans with n=review.rating %}Оцінка {{ n }} з 5{% endblocktrans %}">
+                            {% for _ in "12345" %}
+                            <span class="ds-review-card__star{% if forloop.counter <= review.rating %} is-on{% endif %}" aria-hidden="true">★</span>
+                            {% endfor %}
+                        </p>
+                    </div>
+                </header>
+                <p class="ds-review-card__text">{{ review.text }}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</article>
+{% endblock %}

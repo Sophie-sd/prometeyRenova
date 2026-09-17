@@ -1,0 +1,21 @@
+{% extends "admin/base_site.html" %}
+{% load static i18n %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'demolanding/css/demolanding_admin.css' %}?v=2">
+{% endblock %}
+
+{% block content %}
+<div class="dl-admin-form">
+    <h1>{{ title }}</h1>
+    <p>{% trans "Оберіть демо-лендінг — односторінкова вітрина, контент секцій нижче." %}</p>
+    <ol class="dl-admin-picker">
+        {% for site in tenants %}
+        <li>
+            <a href="{{ request.path }}?tenant={{ site.pk }}">{{ site.name }} · {{ site.slug }}</a>
+        </li>
+        {% endfor %}
+    </ol>
+</div>
+{% endblock %}

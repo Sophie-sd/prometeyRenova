@@ -2,6 +2,17 @@
 
 from django.db import migrations, models
 
+from apps.payment.migration_compat import add_column_if_missing
+
+
+def add_contract_file(apps, schema_editor):
+    add_column_if_missing(
+        schema_editor,
+        'payment_paymentlink',
+        'contract_file',
+        'ALTER TABLE payment_paymentlink ADD COLUMN IF NOT EXISTS contract_file varchar(100);',
+    )
+
 
 class Migration(migrations.Migration):
 
@@ -10,15 +21,21 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunSQL(
-            sql="ALTER TABLE payment_paymentlink ADD COLUMN IF NOT EXISTS contract_file varchar(100);",
-            reverse_sql="ALTER TABLE payment_paymentlink DROP COLUMN IF EXISTS contract_file;",
+        migrations.SeparateDatabaseAndState(
+            database_operations=[
+                migrations.RunPython(add_contract_file, migrations.RunPython.noop),
+            ],
             state_operations=[
                 migrations.AddField(
                     model_name='paymentlink',
                     name='contract_file',
-                    field=models.FileField(blank=True, help_text='Персональний договір для цього посилання', null=True, upload_to='contracts/'),
+                    field=models.FileField(
+                        blank=True,
+                        help_text='Персональний договір для цього посилання',
+                        null=True,
+                        upload_to='contracts/',
+                    ),
                 ),
-            ]
+            ],
         ),
     ]

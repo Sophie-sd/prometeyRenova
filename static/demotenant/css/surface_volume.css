@@ -1,0 +1,14 @@
+/* SECT-09 letterpress stats — статична «витиснена» цифра: text-shadow (об'єм)
+   + drop-shadow (левітація), без transform/will-change на самому value. */
+.stats__value {
+  --slab-light: rgba(255, 255, 255, 0.6);
+  --slab-dark: rgba(0, 0, 0, 0.22);
+  text-shadow:
+    0 1px 0 var(--slab-light),
+    0 -1px 1px var(--slab-dark);
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.12));
+}
+
+.stats__label {
+  opacity: 0.72;
+}

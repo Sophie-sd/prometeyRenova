@@ -5,74 +5,129 @@
 {% block description %}{{ proposal.get_localized_lead }}{% endblock %}
 
 {% block content %}
-{# 1. Hero — copy | aside | scene #}
-<section class="prop-hero is-revealed" data-prop-section="01" aria-labelledby="prop-hero-title">
-    <div class="prop-container prop-hero__grid">
-        <div class="prop-hero__copy">
-            <p class="prop-eyebrow">{{ proposal.client_name }} · {{ proposal.issued_on|date:"d.m.Y" }}</p>
-            <h1 id="prop-hero-title" class="prop-hero__title prop-hero__title--reveal">{{ proposal.get_localized_title }}</h1>
-            {% if proposal.get_localized_lead %}
-            <p class="prop-hero__lead">{{ proposal.get_localized_lead }}</p>
-            {% endif %}
+<section id="prop-hero" class="prop-hero" aria-labelledby="prop-hero-title">
+    {% if proposal.hero_image %}
+    <img class="prop-hero__img"
+         data-prop-hero-img
+         src="{{ proposal.hero_image.url }}"
+         alt=""
+         width="520"
+         height="520"
+         decoding="async">
+    {% endif %}
+    <div class="prop-hero__inner">
+        <div class="prop-hero__meta">
+            <span class="prop-hero__client">{{ proposal.client_name }}</span>
+            <span class="prop-hero__rule" aria-hidden="true"></span>
+            <span class="prop-hero__date">{{ proposal.issued_on|date:"d.m.Y" }}</span>
         </div>
-
-        <aside class="prop-hero__aside prop-tilt" data-prop-tilt data-tilt-max="8">
-            <div class="prop-hero-card">
-                <div class="prop-glare" aria-hidden="true"></div>
-                <img class="prop-hero-card__img"
-                     src="{% static 'proposal/img/hero-parts-3d.jpg' %}"
-                     alt=""
-                     width="420"
-                     height="420"
-                     decoding="async">
-                <p class="prop-hero-card__label">{% trans "Підготовлено" %}</p>
-                <p class="prop-hero-card__brand">PrometeyLabs</p>
-                <ul class="prop-hero-card__list">
-                    <li>{% trans "Кастомний Django-стек" %}</li>
-                    <li>{% trans "B2B / B2C під ключ" %}</li>
-                    <li>{% trans "Пожиттєва гарантія коду" %}</li>
-                </ul>
+        <h1 id="prop-hero-title" class="prop-hero__title" data-prop-words>{{ proposal.get_localized_title }}</h1>
+        <div class="prop-hero__bottom">
+            <div>
+                {% if proposal.get_localized_lead %}
+                <p class="prop-hero__lead">{{ proposal.get_localized_lead }}</p>
+                {% endif %}
+                <div class="prop-hero__actions">
+                    <a class="prop-cta"
+                       href="{% if contacts.telegram_url %}{{ contacts.telegram_url }}{% else %}mailto:{{ contacts.email }}{% endif %}">
+                        {{ proposal.get_localized_cta_label }}
+                    </a>
+                    {% if proposal.demo_tenant.is_active %}
+                    <a class="prop-cta prop-cta--ghost"
+                       href="{{ proposal.demo_tenant.get_absolute_url }}"
+                       target="_blank" rel="noopener">
+                        {{ proposal.demo_cta_label }}
+                    </a>
+                    {% endif %}
+                </div>
             </div>
-        </aside>
-
-        <div class="prop-hero__actions">
-            <a class="prop-cta prop-cta--primary prop-cta--hero"
-               href="{% if contacts.telegram_url %}{{ contacts.telegram_url }}{% else %}mailto:{{ contacts.email }}{% endif %}">
-                {{ proposal.get_localized_cta_label }}
-            </a>
-        </div>
-
-        <div class="prop-hero__scene is-revealed" data-prop-draw>
-            {% include 'proposal/partials/svg/hero_scene.html' %}
+            <aside class="prop-hero__aside">
+                <div class="prop-scroll-hint" aria-hidden="true"></div>
+                <div>
+                    <p class="prop-hero__aside-label">{% trans "Підготовлено" %}</p>
+                    <p class="prop-hero__aside-brand">PrometeyLabs</p>
+                    {% if highlights %}
+                    <ul class="prop-hero__aside-list">
+                        {% for item in highlights %}
+                        <li>{{ item.get_localized_title }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </aside>
         </div>
     </div>
 </section>
 
-{# 2. Intro #}
-{% if proposal.get_safe_intro %}
-<section class="prop-section prop-reveal" data-prop-reveal data-prop-section="02" aria-labelledby="prop-intro-title">
-    <div class="prop-container">
-        <article class="prop-sheet prop-sheet--wide prop-tilt" data-prop-tilt>
-            <div class="prop-sheet__inner">
-                <div class="prop-glare" aria-hidden="true"></div>
-                <span class="prop-sheet__num">02</span>
-                <h2 id="prop-intro-title" class="prop-sheet__title">{% trans "Про компанію та стек" %}</h2>
-                <div class="prop-prose">{{ proposal.get_safe_intro|safe }}</div>
+{% if arch_root %}
+<section id="prop-arch" class="prop-section prop-section--alt prop-anim" data-prop-anim data-prop-section="01" aria-labelledby="prop-arch-title">
+    <p class="prop-eyebrow" id="prop-arch-title">{% trans "01 / Architecture" %}</p>
+    <div class="prop-arch__line"></div>
+    <div class="prop-tree prop-tree--n{{ arch_branches|length }}">
+        <div class="prop-tree__root">{{ arch_root.get_localized_title }}</div>
+        {% if arch_branches %}
+        <div class="prop-tree__h" aria-hidden="true"></div>
+        <div class="prop-tree__v" aria-hidden="true"></div>
+        <div class="prop-tree__bus" aria-hidden="true"></div>
+        <div class="prop-tree__drops" aria-hidden="true">
+            {% for node in arch_branches %}
+            <div class="prop-tree__v"></div>
+            {% endfor %}
+        </div>
+        <div class="prop-tree__cols">
+            {% for node in arch_branches %}
+            <div class="prop-tree__col">
+                <div class="prop-tree__node{% if node.is_accent %} prop-tree__node--accent{% endif %}">{{ node.get_localized_title }}</div>
+                <div class="prop-tree__h2" aria-hidden="true"></div>
+                <div class="prop-tree__dash" aria-hidden="true"></div>
+                <div class="prop-tree__dot" aria-hidden="true"></div>
+                {% if node.get_localized_caption %}
+                <p class="prop-tree__cap">{{ node.get_localized_caption }}</p>
+                {% endif %}
             </div>
-        </article>
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
 </section>
 {% endif %}
 
-{# 3. Modules #}
+{% if proposal.get_safe_intro %}
+<section id="prop-intro" class="prop-section prop-anim" data-prop-anim data-prop-section="02" aria-labelledby="prop-intro-title">
+    <div class="prop-intro">
+        <div class="prop-intro__sticky">
+            <div class="prop-intro__index">02</div>
+            <p class="prop-intro__kicker">{% trans "Understanding" %}</p>
+        </div>
+        <div>
+            <h2 id="prop-intro-title" class="prop-intro__title"><span class="prop-mask"><span>{% trans "Про компанію та стек" %}</span></span></h2>
+            <div class="prop-prose" data-prop-metric>{{ proposal.get_safe_intro|safe }}</div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
 {% if modules %}
-<section class="prop-section prop-section--modules" data-prop-section="03" aria-labelledby="prop-modules-title">
-    <div class="prop-container">
-        <header class="prop-section__head prop-reveal" data-prop-reveal>
-            <span class="prop-sheet__num">03</span>
-            <h2 id="prop-modules-title" class="prop-section__title">{% trans "Ключові модулі платформи" %}</h2>
-        </header>
-        <div class="prop-modules-grid">
+<section id="prop-modules" class="prop-section prop-section--alt prop-anim" data-prop-anim data-prop-section="03" aria-labelledby="prop-modules-title">
+    <div class="prop-glow prop-glow--modules" aria-hidden="true"></div>
+    <header class="prop-mod__head">
+        <div>
+            <p class="prop-eyebrow">{% trans "03 / Solution" %}</p>
+            <h2 id="prop-modules-title" class="prop-section__title"><span class="prop-mask"><span>{% trans "Ключові модулі платформи" %}</span></span></h2>
+        </div>
+        <span class="prop-mod__range">01 — {{ modules|length|stringformat:"02d" }}</span>
+    </header>
+    <div class="prop-mod__grid">
+        <aside class="prop-mod__side">
+            <div class="prop-mod__marks" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
+            </div>
+            <div>
+                <div class="prop-mod__index" data-prop-mod-index>01</div>
+                <p class="prop-mod__index-sub">/ {{ modules|length|stringformat:"02d" }} {% trans "modules" %}</p>
+            </div>
+        </aside>
+        <div>
             {% for module in modules %}
                 {% include 'proposal/partials/module_card.html' %}
             {% endfor %}
@@ -81,180 +136,160 @@
 </section>
 {% endif %}
 
-{# 4. Specs / TZ #}
 {% if spec_items %}
-<section class="prop-section prop-reveal" data-prop-reveal data-prop-section="04" aria-labelledby="prop-specs-title">
-    <div class="prop-container">
-        <article class="prop-sheet prop-sheet--wide prop-tilt" data-prop-tilt>
-            <div class="prop-sheet__inner">
-                <div class="prop-glare" aria-hidden="true"></div>
-                <span class="prop-sheet__num">04</span>
-                <h2 id="prop-specs-title" class="prop-sheet__title">{% trans "Технічне завдання" %}</h2>
-                <ul class="prop-spec-list">
-                    {% for item in spec_items %}
-                    <li class="prop-spec-list__item">
-                        <h3 class="prop-spec-list__title">{{ item.get_localized_title }}</h3>
-                        {% if item.get_localized_body %}
-                        <p class="prop-spec-list__body">{{ item.get_localized_body }}</p>
-                        {% endif %}
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </article>
-    </div>
-</section>
-{% endif %}
-
-{# 5. Recommendations #}
-{% if recommendation_items %}
-<section class="prop-section prop-section--expert" data-prop-section="05" aria-labelledby="prop-expert-title">
-    <div class="prop-container">
-        <article class="prop-expert is-revealed prop-tilt" data-prop-tilt>
-            <div class="prop-expert__inner">
-                <header class="prop-expert__head">
-                    <div class="prop-expert__intro">
-                        <span class="prop-sheet__num prop-sheet__num--on-dark">05</span>
-                        <h2 id="prop-expert-title" class="prop-expert__title">{% trans "Рекомендації від PrometeyLabs" %}</h2>
-                        <p class="prop-expert__lead">
-                            {% blocktrans %}Архітектурні та імплементаційні рішення по ТЗ платформи автозапчастин — з позиції команди з 10+ років у e-commerce.{% endblocktrans %}
-                        </p>
-                    </div>
-                    <aside class="prop-expert__seal" aria-hidden="true">
-                        <img class="prop-expert__seal-img"
-                             src="{% static 'proposal/img/expert-seal-3d.jpg' %}"
-                             alt=""
-                             width="280"
-                             height="280"
-                             loading="lazy"
-                             decoding="async">
-                    </aside>
-                </header>
-
-                <ol class="prop-expert-list">
-                    {% for item in recommendation_items %}
-                    <li class="prop-expert-list__item prop-reveal" data-prop-reveal data-i="{{ forloop.counter0 }}">
-                        <span class="prop-expert-list__num">{{ forloop.counter|stringformat:"02d" }}</span>
-                        <div class="prop-expert-list__body">
-                            <h3 class="prop-expert-list__title">{{ item.get_localized_title }}</h3>
-                            {% if item.get_localized_body %}
-                            <p class="prop-expert-list__text">{{ item.get_localized_body }}</p>
-                            {% endif %}
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ol>
-
-                <footer class="prop-expert__sign">
-                    <p class="prop-expert__sign-label">{% trans "Рекомендації підготовлені командою PrometeyLabs · 10+ років у розробці e-commerce" %}</p>
-                    {% include 'proposal/partials/svg/signature_stroke.html' %}
-                </footer>
-            </div>
-        </article>
-    </div>
-</section>
-{% endif %}
-
-{# 6. Packages #}
-{% if packages %}
-<section class="prop-section prop-section--packages" data-prop-section="06" aria-labelledby="prop-packages-title">
-    <div class="prop-container">
-        <header class="prop-section__head prop-reveal" data-prop-reveal>
-            <span class="prop-sheet__num">06</span>
-            <h2 id="prop-packages-title" class="prop-section__title">{% trans "Кошторис та пакети" %}</h2>
-        </header>
-        <div class="prop-packages-grid">
-            {% for package in packages %}
-                {% include 'proposal/partials/package_card.html' %}
+<section id="prop-specs" class="prop-section prop-anim" data-prop-anim data-prop-section="04" aria-labelledby="prop-specs-title">
+    <div class="prop-spec">
+        <div class="prop-spec__sticky">
+            <div class="prop-spec__index">04</div>
+            <h2 id="prop-specs-title" class="prop-section__title"><span class="prop-mask"><span>{% trans "Технічне завдання" %}</span></span></h2>
+        </div>
+        <div>
+            {% for item in spec_items %}
+            <article class="prop-spec__item prop-reveal" data-prop-reveal>
+                <p class="prop-spec__kicker">{{ item.get_localized_title }}</p>
+                {% if item.get_localized_body %}
+                <p class="prop-spec__body">{{ item.get_localized_body }}</p>
+                {% endif %}
+            </article>
             {% endfor %}
         </div>
     </div>
 </section>
 {% endif %}
 
-{# 7. Guarantee #}
+{% if recommendation_items %}
+<section id="prop-expert" class="prop-section prop-section--alt prop-anim" data-prop-anim data-prop-section="05" aria-labelledby="prop-expert-title">
+    <div class="prop-expert__top">
+        <div>
+            <p class="prop-eyebrow">{% trans "05 / Expertise" %}</p>
+            <h2 id="prop-expert-title" class="prop-section__title"><span class="prop-mask"><span>{% trans "Рекомендації від PrometeyLabs" %}</span></span></h2>
+            {% if proposal.get_localized_recommendations_lead %}
+            <p class="prop-expert__lead">{{ proposal.get_localized_recommendations_lead }}</p>
+            {% endif %}
+        </div>
+        <aside class="prop-expert__seal" aria-hidden="true">
+            <img class="prop-expert__seal-img"
+                 src="{% static 'proposal/img/emblem.png' %}"
+                 alt=""
+                 width="180"
+                 height="180"
+                 loading="lazy"
+                 decoding="async">
+        </aside>
+    </div>
+    <ol class="prop-expert-list">
+        {% for item in recommendation_items %}
+        <li class="prop-expert-list__item prop-reveal" data-prop-reveal>
+            <div class="prop-expert-list__head">
+                <span class="prop-expert-list__num">{{ forloop.counter|stringformat:"02d" }}</span>
+                <h3 class="prop-expert-list__title">{{ item.get_localized_title }}</h3>
+            </div>
+            {% if item.get_localized_body %}
+            <p class="prop-expert-list__text">{{ item.get_localized_body }}</p>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ol>
+    <p class="prop-expert__sign">{% trans "Рекомендації підготовлені командою PrometeyLabs · 10+ років у розробці e-commerce" %}</p>
+</section>
+{% endif %}
+
+{% if packages %}
+<section id="prop-packages" class="prop-section prop-anim" data-prop-anim data-prop-section="06" aria-labelledby="prop-packages-title">
+    <div class="prop-glow prop-glow--pack" aria-hidden="true"></div>
+    <header class="prop-mod__head">
+        <div>
+            <p class="prop-eyebrow">{% trans "06 / Investment" %}</p>
+            <h2 id="prop-packages-title" class="prop-section__title"><span class="prop-mask"><span>{% trans "Кошторис та пакети" %}</span></span></h2>
+        </div>
+    </header>
+    <div class="prop-packages-grid">
+        {% for package in packages %}
+            {% include 'proposal/partials/package_card.html' %}
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
 {% if proposal.get_safe_guarantee %}
-<section class="prop-section prop-reveal" data-prop-reveal data-prop-section="07" aria-labelledby="prop-guarantee-title">
-    <div class="prop-container">
-        <article class="prop-sheet prop-sheet--accent prop-tilt" data-prop-tilt>
-            <div class="prop-sheet__inner prop-guarantee">
-                <div class="prop-guarantee__copy">
-                    <span class="prop-sheet__num prop-sheet__num--on-dark">07</span>
-                    <h2 id="prop-guarantee-title" class="prop-sheet__title">{% trans "Надійність та гарантія" %}</h2>
-                    <div class="prop-prose">{{ proposal.get_safe_guarantee|safe }}</div>
-                </div>
-                <img class="prop-guarantee__img"
-                     src="{% static 'proposal/img/guarantee-shield-3d.jpg' %}"
+<section id="prop-guarantee" class="prop-section prop-section--alt prop-anim" data-prop-anim data-prop-section="07" aria-labelledby="prop-guarantee-title">
+    <div class="prop-gua">
+        <div class="prop-gua__sticky">
+            <p class="prop-eyebrow">{% trans "07 / Guarantee" %}</p>
+            <h2 id="prop-guarantee-title" class="prop-section__title"><span class="prop-mask"><span>{% trans "Надійність та гарантія" %}</span></span></h2>
+            <div class="prop-seal" aria-hidden="true">
+                <div class="prop-seal__ring"></div>
+                <img class="prop-seal__img"
+                     src="{% static 'proposal/img/emblem.png' %}"
                      alt=""
-                     width="240"
-                     height="240"
+                     width="140"
+                     height="140"
                      loading="lazy"
                      decoding="async">
             </div>
-        </article>
+        </div>
+        <div class="prop-gua__copy prop-prose prop-reveal" data-prop-reveal>
+            {{ proposal.get_safe_guarantee|safe }}
+        </div>
     </div>
 </section>
 {% endif %}
 
-{# 8. Payment #}
 {% if payment_items %}
-<section class="prop-section prop-reveal" data-prop-reveal data-prop-section="08" aria-labelledby="prop-payment-title">
-    <div class="prop-container">
-        <article class="prop-sheet prop-sheet--wide prop-tilt" data-prop-tilt>
-            <div class="prop-sheet__inner">
-                <div class="prop-glare" aria-hidden="true"></div>
-                <span class="prop-sheet__num">08</span>
-                <h2 id="prop-payment-title" class="prop-sheet__title">{% trans "Умови оплати" %}</h2>
-                <ol class="prop-payment-list">
-                    {% for item in payment_items %}
-                    <li class="prop-payment-list__item">
-                        <h3 class="prop-payment-list__title">{{ item.get_localized_title }}</h3>
-                        {% if item.get_localized_body %}
-                        <p class="prop-payment-list__body">{{ item.get_localized_body }}</p>
-                        {% endif %}
-                    </li>
-                    {% endfor %}
-                </ol>
+<section id="prop-payment" class="prop-section prop-anim" data-prop-anim data-prop-section="08" aria-labelledby="prop-payment-title">
+    <div class="prop-pay">
+        <div class="prop-pay__sticky">
+            <p class="prop-eyebrow">{% trans "08 / Timeline" %}</p>
+            <h2 id="prop-payment-title" class="prop-section__title"><span class="prop-mask"><span>{% trans "Умови оплати" %}</span></span></h2>
+        </div>
+        <div class="prop-pay__track">
+            <div class="prop-pay__line" aria-hidden="true"></div>
+            <div class="prop-pay__fill" aria-hidden="true"></div>
+            <div class="prop-pay__nodes">
+                {% for item in payment_items %}
+                <article class="prop-pay__item">
+                    <span class="prop-pay__dot" aria-hidden="true"></span>
+                    <p class="prop-pay__pct" data-prop-pct>{{ item.get_localized_title }}</p>
+                    <h3 class="prop-pay__title">{{ item.get_localized_title }}</h3>
+                    {% if item.get_localized_body %}
+                    <p class="prop-pay__body">{{ item.get_localized_body }}</p>
+                    {% endif %}
+                </article>
+                {% endfor %}
             </div>
-        </article>
+        </div>
     </div>
 </section>
 {% endif %}
 
-{# 9. Final CTA #}
-<section class="prop-section prop-section--cta prop-reveal" data-prop-reveal data-prop-section="09" aria-labelledby="prop-final-title">
-    <div class="prop-container">
-        <article class="prop-sheet prop-sheet--cta prop-tilt" data-prop-tilt>
-            <div class="prop-sheet__inner">
-                <span class="prop-sheet__num prop-sheet__num--on-dark">09</span>
-                <h2 id="prop-final-title" class="prop-sheet__title">{% trans "Готові розпочати?" %}</h2>
-                <p class="prop-sheet__text">
-                    {% blocktrans %}Ми готові обговорити технічні нюанси та розпочати роботу над вашим проєктом.{% endblocktrans %}
-                </p>
-                <div class="prop-final-actions">
-                    <a class="prop-cta prop-cta--primary"
-                       href="{% if contacts.telegram_url %}{{ contacts.telegram_url }}{% else %}mailto:{{ contacts.email }}{% endif %}">
-                        {{ proposal.get_localized_cta_label }}
-                    </a>
-                    <ul class="prop-contacts">
-                        {% if contacts.email %}
-                        <li><a href="mailto:{{ contacts.email }}">{{ contacts.email }}</a></li>
-                        {% endif %}
-                        {% if contacts.phone_display %}
-                        <li>
-                            <a href="tel:+{{ contacts.phone_e164 }}">{{ contacts.phone_display }}</a>
-                        </li>
-                        {% endif %}
-                        <li><a href="https://www.prometeylabs.com/" rel="noopener">www.prometeylabs.com</a></li>
-                    </ul>
-                </div>
-            </div>
-        </article>
+<section id="prop-cta" class="prop-section prop-section--alt prop-cta-sec" data-prop-section="09" aria-labelledby="prop-final-title">
+    <div class="prop-glow prop-glow--cta" aria-hidden="true"></div>
+    <p class="prop-cta-sec__num">09</p>
+    <h2 id="prop-final-title" class="prop-cta-sec__title prop-reveal" data-prop-reveal>{% trans "Готові розпочати?" %}</h2>
+    <div class="prop-cta-sec__grid">
+        <div>
+            <p class="prop-cta-sec__lead">
+                {% blocktrans %}Ми готові обговорити технічні нюанси та розпочати роботу над вашим проєктом.{% endblocktrans %}
+            </p>
+            <a class="prop-cta prop-cta--fill"
+               href="{% if contacts.telegram_url %}{{ contacts.telegram_url }}{% else %}mailto:{{ contacts.email }}{% endif %}">
+                {{ proposal.get_localized_cta_label }}
+            </a>
+        </div>
+        <ul class="prop-contacts">
+            {% if contacts.email %}
+            <li><a href="mailto:{{ contacts.email }}">{{ contacts.email }}</a></li>
+            {% endif %}
+            {% if contacts.phone_display %}
+            <li><a href="tel:+{{ contacts.phone_e164 }}">{{ contacts.phone_display }}</a></li>
+            {% endif %}
+            <li><a href="https://www.prometeylabs.com/" rel="noopener">www.prometeylabs.com</a></li>
+        </ul>
     </div>
 </section>
 
 <div class="prop-sticky-cta" role="region" aria-label="{% trans 'Швидка дія' %}">
-    <a class="prop-cta prop-cta--primary prop-cta--block"
+    <a class="prop-cta prop-cta--fill prop-cta--block"
        href="{% if contacts.telegram_url %}{{ contacts.telegram_url }}{% else %}mailto:{{ contacts.email }}{% endif %}">
         {{ proposal.get_localized_cta_label }}
     </a>

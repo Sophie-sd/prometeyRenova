@@ -1,0 +1,41 @@
+/* SECT-08 seamless marquee — track translate3d(-50%), два+ .loop__set.
+   Пауза до входу у в'юпорт (.is-motion) — MERR-06. */
+.loop {
+  overflow: hidden;
+  width: 100%;
+  contain: paint;
+}
+
+.loop__track {
+  display: flex;
+  width: max-content;
+  gap: var(--loop-gap, 3rem);
+  animation: demotenant-loop-scroll var(--loop-duration, 42s) linear infinite;
+  animation-play-state: paused;
+}
+
+.loop.is-motion .loop__track {
+  animation-play-state: running;
+}
+
+.loop__set {
+  display: flex;
+  align-items: center;
+  gap: var(--loop-gap, 3rem);
+  flex-shrink: 0;
+}
+
+@keyframes demotenant-loop-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loop__track {
+    animation: none;
+  }
+}

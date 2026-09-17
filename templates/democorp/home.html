@@ -1,0 +1,162 @@
+{% extends 'democorp/base.html' %}
+{% load i18n demotenant %}
+
+{% block title %}{% tenant_text blocks_map registry "seo" "title" %}{% endblock %}
+{% block meta_description %}
+<meta name="description" content="{% tenant_text blocks_map registry 'seo' 'description' %}">
+{% endblock %}
+
+{% block content %}
+{% tenant_text blocks_map registry "header" "company_name" as company_name %}
+<section class="dc-container dc-hero">
+    <div class="dc-hero__copy">
+        <div class="dc-hero__copy-inner">
+            <p class="dc-section__eyebrow">{{ company_name }}</p>
+            <h1 class="dc-hero__title">{% tenant_text blocks_map registry "home" "hero_title" %}</h1>
+            <p class="dc-hero__subtitle">{% tenant_text blocks_map registry "home" "hero_subtitle" %}</p>
+            <a class="dc-btn dc-btn--primary" href="#cta">{% tenant_text blocks_map registry "home" "hero_cta_label" %}</a>
+        </div>
+    </div>
+    {% if site.hero_image %}
+    <div class="dc-hero__figure obj-tilt" data-tilt>
+        <img class="dc-hero__media" src="{{ site.hero_image.url }}" alt="{{ company_name }}" loading="eager" decoding="async">
+    </div>
+    {% endif %}
+</section>
+
+<section class="dc-stats">
+    <div class="dc-container dc-stats__grid">
+        <div class="dc-stats__item" data-reveal>
+            <div class="stats__value dc-stats__value" data-count-to="{% tenant_text blocks_map registry 'home' 'stat_windows' %}">0</div>
+            <p class="dc-stats__label">{% tenant_text blocks_map registry "home" "stat_windows_label" %}</p>
+        </div>
+        <div class="dc-stats__item" data-reveal>
+            <div class="stats__value dc-stats__value" data-count-to="{% tenant_text blocks_map registry 'home' 'stat_years' %}">0</div>
+            <p class="dc-stats__label">{% tenant_text blocks_map registry "home" "stat_years_label" %}</p>
+        </div>
+        <div class="dc-stats__item" data-reveal>
+            <div class="stats__value dc-stats__value" data-count-to="{% tenant_text blocks_map registry 'home' 'stat_warranty' %}">0</div>
+            <p class="dc-stats__label">{% tenant_text blocks_map registry "home" "stat_warranty_label" %}</p>
+        </div>
+        <div class="dc-stats__item" data-reveal>
+            <div class="stats__value dc-stats__value" data-count-to="{% tenant_text blocks_map registry 'home' 'stat_dealers' %}">0</div>
+            <p class="dc-stats__label">{% tenant_text blocks_map registry "home" "stat_dealers_label" %}</p>
+        </div>
+    </div>
+</section>
+
+{% if site.has_catalog and featured_products %}
+<section class="dc-section js-anchor" id="catalog-teaser">
+    <div class="dc-container">
+        <h2 data-reveal>{% tenant_text blocks_map registry "home" "catalog_teaser_title" %}</h2>
+        <div class="dc-cf dc-cf--examples">
+            <button type="button" class="dc-cf__nav" data-cf-prev aria-label="{% trans 'Назад' %}"></button>
+            <div class="cf" data-cf>
+                <div class="cf__track" data-cf-track>
+                    {% for product in featured_products %}
+                    <article class="cf__card">
+                        <a class="dc-example-card" href="{% url 'democorp:product_detail' slug=site.slug product_slug=product.slug %}">
+                            {% with image=product.images.first %}
+                            {% if image %}
+                            <div class="dc-example-card__media">
+                                <img class="dc-example-card__img" src="{{ image.image.url }}" alt="{{ product.name_en|default:product.localized_name }}" loading="lazy">
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+                            <h3 class="dc-example-card__title">{{ product.name_en|default:product.localized_name }}</h3>
+                        </a>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="button" class="dc-cf__nav dc-cf__nav--next" data-cf-next aria-label="{% trans 'Далі' %}"></button>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if process_steps %}
+<section class="dc-section js-anchor" id="process">
+    <div class="dc-container process-rail">
+        <h2 data-reveal>{% tenant_text blocks_map registry "production" "title" %}</h2>
+        <div class="dc-process">
+            <div class="process-rail__bar dc-process__bar" aria-hidden="true"><span class="process-rail__fill"></span></div>
+            <div class="dc-process__grid">
+                {% for step in process_steps %}
+                <article class="process-rail__item dc-process__step" data-reveal>
+                    <span class="dc-process__dot" aria-hidden="true"></span>
+                    <p class="process-rail__num dc-process__num stats__value">0{{ forloop.counter }}</p>
+                    <h3 class="dc-process__title">{{ step.localized_title }}</h3>
+                    {% if step.localized_description %}
+                    <p class="dc-process__desc">{{ step.localized_description }}</p>
+                    {% endif %}
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if reviews_visible and featured_review %}
+<section class="dc-section js-anchor" id="reviews">
+    <div class="dc-container">
+        <h2 data-reveal>{% tenant_text blocks_map registry "home" "reviews_title" %}</h2>
+        <div class="dc-reviews{% if not mosaic_reviews %} dc-reviews--solo{% endif %}">
+            {% if mosaic_reviews %}
+            <div class="dc-reviews__mosaic">
+                {% for review in mosaic_reviews %}
+                <article class="dc-review-card dc-review-card--compact">
+                    <p class="dc-review-card__text">«{{ review.localized_text }}»</p>
+                    <p class="dc-review-card__meta"><strong>{{ review.author_name }}</strong> · {{ review.role }}</p>
+                </article>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <article class="dc-review-card dc-review-card--feature">
+                <span class="dc-review-card__mark" aria-hidden="true">«</span>
+                <p class="dc-review-card__text">{{ featured_review.localized_text }}</p>
+                <p class="dc-review-card__meta"><strong>{{ featured_review.author_name }}</strong> · {{ featured_review.role }}</p>
+            </article>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="dc-section dc-cta js-anchor" id="cta">
+    <div class="dc-container dc-cta__grid">
+        <div class="dc-cta__copy">
+            <h2 data-reveal>{% tenant_text blocks_map registry "cta" "title" %}</h2>
+            <p class="dc-cta__lede" data-reveal>{% tenant_text blocks_map registry "cta" "subtitle" %}</p>
+            <ul class="dc-cta__points">
+                <li>
+                    <span class="dc-cta__num" aria-hidden="true">01</span>
+                    <span class="dc-cta__rule" aria-hidden="true"></span>
+                    <span>{% tenant_text blocks_map registry "cta" "point_1" %}</span>
+                </li>
+                <li>
+                    <span class="dc-cta__num" aria-hidden="true">02</span>
+                    <span class="dc-cta__rule" aria-hidden="true"></span>
+                    <span>{% tenant_text blocks_map registry "cta" "point_2" %}</span>
+                </li>
+                <li>
+                    <span class="dc-cta__num" aria-hidden="true">03</span>
+                    <span class="dc-cta__rule" aria-hidden="true"></span>
+                    <span>{% tenant_text blocks_map registry "cta" "point_3" %}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="dc-cta__form" data-reveal-hold>
+            <div class="dc-lead-form-wrap">
+                {% include 'democorp/partials/lead_form.html' %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if partners_visible and partners and not footer_partners_visible %}
+<section class="dc-section dc-partners">
+    {% include 'democorp/partials/partners_loop.html' %}
+</section>
+{% endif %}
+{% endblock %}

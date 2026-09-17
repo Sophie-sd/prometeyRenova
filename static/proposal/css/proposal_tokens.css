@@ -1,57 +1,74 @@
-/* Proposal design tokens */
+/* Proposal design tokens — dark cinematic (folder redesign) */
 :root {
-    --prop-orange: #E65100;
-    --prop-ink: #111111;
-    --prop-paper: #FAF7F2;
-    --prop-paper-deep: #F0EBE3;
-    --prop-white: #FFFFFF;
-    --prop-muted: #5C5C5C;
-    --prop-line: rgba(17, 17, 17, 0.12);
+    --prop-bg: #0a0a0a;
+    --prop-bg-2: #0d0d0d;
+    --prop-bg-3: #111214;
+    --prop-text: #f3eee7;
+    --prop-muted: rgba(243, 238, 231, 0.6);
+    --prop-muted-faint: rgba(243, 238, 231, 0.38);
+    --prop-line: rgba(243, 238, 231, 0.14);
+    --prop-line-strong: rgba(243, 238, 231, 0.26);
+    --prop-accent: #e1520e;
+    --prop-accent-soft: rgba(225, 82, 15, 0.14);
+    --prop-ink: #0a0a0a;
 
-    --prop-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --prop-mega: clamp(1.875rem, 7.5vw, 4.5rem);
-    --prop-h2: clamp(1.625rem, 3.4vw, 2.5rem);
-    --prop-h3: clamp(1.125rem, 2.1vw, 1.45rem);
-    --prop-body: 1.0625rem;
-    --prop-small: 0.875rem;
+    --prop-font: "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --prop-display: "Onest", "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    --prop-mega: clamp(1.875rem, 5.6vw, 6.25rem);
+    --prop-h2: clamp(1.625rem, 3.6vw, 4.125rem);
+    --prop-h3: clamp(1.25rem, 2.1vw, 2rem);
+    --prop-body: 1rem;
+    --prop-small: 0.8125rem;
 
     --prop-space-xs: 0.75rem;
     --prop-space-sm: 1.25rem;
     --prop-space-md: 2rem;
-    --prop-space-lg: 3rem;
-    --prop-space-xl: 4.5rem;
+    --prop-space-lg: 3.5rem;
+    --prop-space-xl: 5.5rem;
 
-    --prop-gutter: 1.5rem;
-    --prop-radius: 0.35rem;
-    --prop-container: 64rem;
-    --prop-shadow: 0 1rem 2.25rem rgba(17, 17, 17, 0.08);
+    --prop-pad: clamp(1.25rem, 5.5vw, 5.5rem);
+    --prop-gutter: 1.25rem;
+    --prop-radius: 0.125rem;
+    --prop-container: 90rem;
 
     --duration-fast: 160ms;
-    --duration-ui: 200ms;
-    --duration-modal: 300ms;
+    --duration-ui: 280ms;
+    --duration-modal: 350ms;
+    --motion-reveal: 1000ms;
+    --motion-soft: 500ms;
+    --motion-hero: 1100ms;
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-reveal: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --ease-hero: cubic-bezier(0.16, 0.84, 0.32, 1);
+    --ease-wipe: cubic-bezier(0.76, 0, 0.24, 1);
 
-    --tilt-x: 0deg;
-    --tilt-y: 0deg;
-    --tilt-shadow: 0.08;
-    --glare-x: 50%;
-    --glare-y: 40%;
+    --z-nav: 50;
+    --z-rail: 45;
+    --z-grain: 40;
+    --z-bars: 60;
+    --z-sticky: 55;
+
+    --vh: 100dvh;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
 }
 
 @media (min-width: 48rem) {
     :root {
-        --prop-space-xs: 1rem;
-        --prop-space-sm: 1.5rem;
-        --prop-space-md: 2.5rem;
-        --prop-space-lg: 4rem;
-        --prop-space-xl: 6rem;
+        --prop-body: 1.0625rem;
         --prop-gutter: 2rem;
-        --prop-body: 1.125rem;
+        --prop-space-md: 2.75rem;
+        --prop-space-lg: 4.5rem;
+        --prop-space-xl: 7.5rem;
     }
 }
 
 @media (min-width: 64rem) {
     :root {
         --prop-gutter: 2.5rem;
+        --prop-body: 1.125rem;
     }
 }

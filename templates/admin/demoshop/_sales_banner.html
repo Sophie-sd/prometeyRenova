@@ -1,0 +1,12 @@
+{% load i18n demoshop_sales %}
+{% if cl %}
+{% sales_admin_notes cl.opts.model_name as sales_notes %}
+{% if sales_notes %}
+<aside class="ds-admin-sales">
+    {% for note in sales_notes %}
+    <p class="ds-admin-sales__title">{{ note.title }}</p>
+    <p class="ds-admin-sales__body">{{ note.body }}</p>
+    {% endfor %}
+</aside>
+{% endif %}
+{% endif %}

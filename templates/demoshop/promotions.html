@@ -1,0 +1,19 @@
+{% extends 'demoshop/base.html' %}
+{% load demoshop_extras i18n %}
+
+{% block title %}{% trans "Акції" %}{% endblock %}
+
+{% block content %}
+<section class="ds-section ds-container">
+    <div class="ds-toolbar">
+        <h1 class="ds-section__title">{% trans "Акції" %}</h1>
+        <p>{% trans "Товари зі знижкою та зворотним відліком" %}</p>
+    </div>
+
+    {% if products %}
+    {% include 'demoshop/partials/_product_grid.html' with products=products %}
+    {% else %}
+    <p class="ds-empty-state">{% trans "Зараз немає активних акцій." %} <a href="{% url 'demoshop:catalog' shop_slug=shop.slug %}">{% trans "До каталогу" %}</a></p>
+    {% endif %}
+</section>
+{% endblock %}

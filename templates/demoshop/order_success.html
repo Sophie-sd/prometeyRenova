@@ -1,0 +1,23 @@
+{% extends 'demoshop/base.html' %}
+{% load demoshop_extras i18n %}
+
+{% block title %}{% trans "Замовлення прийнято" %}{% endblock %}
+
+{% block content %}
+<section class="ds-section ds-container">
+    <div class="ds-empty-state">
+        <div class="ds-success-icon">✓</div>
+        <h1 class="ds-section__title">{% blocktrans with name=order.customer_name %}Дякуємо, {{ name }}!{% endblocktrans %}</h1>
+        <p>{% currency_symbol as cur %}{% blocktrans with order_id=order.pk total=order.total|money cur=cur %}Замовлення №{{ order_id }} на суму {{ total }} {{ cur }} прийнято. Це демонстраційний магазин — оплата не стягується.{% endblocktrans %}</p>
+
+        <div class="ds-order-details">
+            <p>{% trans "Доставка" %}: {{ order.localized_np_city_name }}{% if order.np_warehouse_name %} — {{ order.localized_np_warehouse_name }}{% endif %}</p>
+            {% if order.address %}
+            <p>{% trans "Адреса" %}: {{ order.localized_address }}</p>
+            {% endif %}
+        </div>
+
+        <a class="ds-btn ds-btn--primary" href="{% url 'demoshop:home' shop_slug=shop.slug %}">{% trans "На головну" %}</a>
+    </div>
+</section>
+{% endblock %}

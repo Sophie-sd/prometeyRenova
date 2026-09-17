@@ -899,3 +899,7 @@ from .proposal_models import (  # noqa: E402,F401
     ProposalPackage,
     ProposalSpec,
 )
+from .proposal_visual_models import (  # noqa: E402,F401
+    ProposalArchNode,
+    ProposalHighlight,
+)

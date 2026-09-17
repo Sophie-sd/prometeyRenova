@@ -1,0 +1,51 @@
+/* Мобільне drawer-меню — cooperative_design §9: Escape/backdrop, scroll-lock, safe-area. */
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  visibility: hidden;
+}
+
+.drawer__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity var(--motion-soft) var(--ease-out);
+}
+
+.drawer__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(88vw, 380px);
+  padding: max(20px, env(safe-area-inset-top)) 20px max(20px, env(safe-area-inset-bottom));
+  background: var(--drawer-bg, #fff);
+  transform: translateX(100%);
+  transition: transform var(--motion-soft) var(--ease-drawer);
+  overflow-y: auto;
+}
+
+.drawer.is-open {
+  visibility: visible;
+}
+
+.drawer.is-open .drawer__backdrop {
+  opacity: 1;
+}
+
+.drawer.is-open .drawer__panel {
+  transform: translateX(0);
+}
+
+body.has-drawer-open {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer__backdrop,
+  .drawer__panel {
+    transition: none;
+  }
+}

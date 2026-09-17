@@ -11,6 +11,40 @@ third-party services are added.
 """
 import secrets
 
+_PRIVATE_ROOTS = (
+    '/proposal',
+    '/demo',
+    '/demo-landing',
+    '/demo-site',
+)
+_LANG_PREFIXES = ('/en', '/ru', '/cs', '/uk')
+
+
+def is_private_index_path(path: str) -> bool:
+    """КП і демо-вітрини: не індексувати (AdsBot ігнорує meta robots)."""
+    stripped = path or ''
+    for lang in _LANG_PREFIXES:
+        if stripped == lang or stripped.startswith(lang + '/'):
+            stripped = stripped[len(lang):] or '/'
+            break
+    for root in _PRIVATE_ROOTS:
+        if stripped == root or stripped.startswith(root + '/'):
+            return True
+    return False
+
+
+class NoIndexPrivatePathsMiddleware:
+    """X-Robots-Tag на /proposal/ і /demo*, включно з CSS/HTML демо-тем."""
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+        if is_private_index_path(request.path_info or ''):
+            response['X-Robots-Tag'] = 'noindex, nofollow'
+        return response
+
 
 class CSPMiddleware:
     def __init__(self, get_response):

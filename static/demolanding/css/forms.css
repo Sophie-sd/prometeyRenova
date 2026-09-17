@@ -1,0 +1,81 @@
+/* Lead-форма: Kontur+ fields, iOS 16px, honeypot off-screen */
+.dl-lead-form {
+  display: grid;
+  gap: 1rem;
+  position: relative;
+}
+
+.dl-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.dl-field__label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--dl-text-muted);
+}
+
+.dl-input {
+  min-height: 48px;
+  width: 100%;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--dl-border);
+  border-radius: var(--dl-radius-sm);
+  background: var(--dl-card-fill);
+  color: var(--dl-text);
+  font-size: 16px;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    border-color var(--dl-dur) var(--dl-ease),
+    box-shadow var(--dl-dur) var(--dl-ease);
+}
+
+textarea.dl-input {
+  min-height: 6.5rem;
+  resize: vertical;
+}
+
+.dl-input:focus,
+.dl-input:focus-visible {
+  outline: none;
+  border-color: var(--dl-accent-mark);
+  box-shadow: 0 0 0 3px var(--dl-accent-soft);
+}
+
+.dl-field--error .dl-input {
+  border-color: var(--dl-danger);
+  box-shadow: 0 0 0 3px var(--dl-error-soft);
+}
+
+.dl-field__hint {
+  font-size: 0.8125rem;
+  color: var(--dl-danger);
+}
+
+.dl-lead-form__honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dl-lead-form__success {
+  text-align: left;
+  color: var(--dl-success);
+  font-weight: 500;
+}
+
+.dl-lead-form__error {
+  color: var(--dl-danger);
+  font-size: 0.8125rem;
+}
+
+[data-preset='dark_premium'] .dl-input {
+  background: var(--dl-card-fill);
+  border-color: var(--dl-border);
+}

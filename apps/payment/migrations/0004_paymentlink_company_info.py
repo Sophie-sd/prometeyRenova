@@ -2,6 +2,17 @@
 
 from django.db import migrations, models
 
+from apps.payment.migration_compat import add_column_if_missing
+
+
+def add_company_info(apps, schema_editor):
+    add_column_if_missing(
+        schema_editor,
+        'payment_paymentlink',
+        'company_info',
+        "ALTER TABLE payment_paymentlink ADD COLUMN IF NOT EXISTS company_info text NOT NULL DEFAULT '';",
+    )
+
 
 class Migration(migrations.Migration):
 
@@ -10,15 +21,16 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunSQL(
-            sql="ALTER TABLE payment_paymentlink ADD COLUMN IF NOT EXISTS company_info text NOT NULL DEFAULT '';",
-            reverse_sql="ALTER TABLE payment_paymentlink DROP COLUMN IF EXISTS company_info;",
+        migrations.SeparateDatabaseAndState(
+            database_operations=[
+                migrations.RunPython(add_company_info, migrations.RunPython.noop),
+            ],
             state_operations=[
                 migrations.AddField(
                     model_name='paymentlink',
                     name='company_info',
                     field=models.TextField(blank=True, default=''),
                 ),
-            ]
+            ],
         ),
     ]

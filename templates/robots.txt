@@ -27,4 +27,34 @@ Disallow: /*/thank-you/
 Disallow: /blog/search/
 Disallow: /*/blog/search/
 
+# КП і демо-вітрини (приватні; AdsBot ігнорує User-agent: *)
+Disallow: /proposal/
+Disallow: /*/proposal/
+Disallow: /demo/
+Disallow: /*/demo/
+Disallow: /demo-landing/
+Disallow: /*/demo-landing/
+Disallow: /demo-site/
+Disallow: /*/demo-site/
+
+User-agent: AdsBot-Google
+Disallow: /proposal/
+Disallow: /*/proposal/
+Disallow: /demo/
+Disallow: /*/demo/
+Disallow: /demo-landing/
+Disallow: /*/demo-landing/
+Disallow: /demo-site/
+Disallow: /*/demo-site/
+
+User-agent: AdsBot-Google-Mobile
+Disallow: /proposal/
+Disallow: /*/proposal/
+Disallow: /demo/
+Disallow: /*/demo/
+Disallow: /demo-landing/
+Disallow: /*/demo-landing/
+Disallow: /demo-site/
+Disallow: /*/demo-site/
+
 Sitemap: https://www.prometeylabs.com/sitemap.xml

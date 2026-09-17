@@ -1,0 +1,41 @@
+{% load i18n demotenant %}
+{% tenant_text blocks_map registry "header" "phone" as header_phone %}
+{% tenant_text blocks_map registry "header" "tagline" as header_tagline %}
+{% with phone_href=header_phone|tel_href %}
+<header class="dl-header">
+    <div class="dl-header__inner">
+        <a class="dl-brand" href="#hero">
+            <span class="dl-brand__name">{% tenant_text blocks_map registry "header" "company_name" %}</span>
+            {% if header_tagline %}<span class="dl-brand__desc">{{ header_tagline }}</span>{% endif %}
+        </a>
+        <nav class="dl-header__nav" aria-label="{% trans 'Основна навігація' %}">
+            {% if offers_visible %}<a href="#offers">{% trans "Що входить" %}</a>{% endif %}
+            {% if gallery_visible %}<a href="#gallery">{% trans "Ефекти" %}</a>{% endif %}
+            {% if reviews_visible %}<a href="#reviews">{% trans "Відгуки" %}</a>{% endif %}
+            {% if faq_visible %}<a href="#faq">{% trans "Питання й відповіді" %}</a>{% endif %}
+        </nav>
+        <div class="dl-header__actions">
+            {% include 'demotenant/partials/lang_switcher.html' %}
+            {% include 'demolanding/partials/socials.html' with extra_class='dl-socials--header' %}
+
+            <a class="dl-header__admin" href="{% url 'demolanding:admin_login' slug=site.slug %}">{% trans "Адмінка" %}</a>
+            {% if phone_href %}
+            <a class="dl-header__tel-icon" href="tel:{{ phone_href }}" aria-label="{% trans 'Подзвонити' %}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+            </a>
+            <a class="dl-header__tel" href="tel:{{ phone_href }}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                {{ header_phone }}
+            </a>
+            {% endif %}
+            <button type="button" class="dl-burger" data-qa="menu-open" aria-label="{% trans 'Меню' %}" data-label-open="{% trans 'Меню' %}" data-label-close="{% trans 'Закрити' %}" aria-expanded="false" aria-controls="dl-drawer">
+                <span class="dl-burger__lines" aria-hidden="true"><span></span><span></span><span></span></span>
+            </button>
+        </div>
+    </div>
+</header>
+{% endwith %}

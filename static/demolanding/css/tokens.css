@@ -1,0 +1,97 @@
+/* Demo-лендінг tokens — Kontur+ lime / cream / pill. CMS override: --dl-primary…--dl-text. */
+:root {
+  --dl-primary: #16181a;
+  --dl-primary-hover: #33383c;
+  --dl-accent: #dff250;
+  --dl-surface: #f7f6f4;
+  --dl-text: #16181a;
+
+  --dl-canvas: var(--dl-surface);
+  --dl-cream: #f7f6f4;
+  --dl-white: #ffffff;
+  --dl-ink: var(--dl-text);
+  --dl-on-accent: #16181a;
+  --dl-card-fill: var(--dl-white);
+  --dl-surface-alt: color-mix(in srgb, var(--dl-surface) 88%, var(--dl-text) 12%);
+  --dl-text-muted: color-mix(in srgb, var(--dl-text) 42%, var(--dl-surface));
+  --dl-muted-deep: color-mix(in srgb, var(--dl-text) 72%, var(--dl-surface));
+  --dl-border: color-mix(in srgb, var(--dl-text) 16%, var(--dl-surface));
+  --dl-accent-hover: #eaff6b;
+  --dl-accent-mark: #a8bc22;
+  --dl-accent-deep: #7e8f1c;
+  --dl-accent-link: #5f6e12;
+  --dl-accent-soft: color-mix(in srgb, var(--dl-accent) 28%, transparent);
+  --dl-success: #2e6b52;
+  --dl-danger: #a13d3d;
+  --dl-error-soft: color-mix(in srgb, var(--dl-danger) 8%, transparent);
+  --dl-overlay: color-mix(in srgb, var(--dl-primary) 52%, transparent);
+  --dl-scrim: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--dl-primary) 72%, transparent) 0%,
+    color-mix(in srgb, var(--dl-primary) 24%, transparent) 34%,
+    color-mix(in srgb, var(--dl-primary) 62%, transparent) 74%,
+    color-mix(in srgb, var(--dl-primary) 92%, transparent) 100%
+  );
+  --dl-header-glass: color-mix(in srgb, var(--dl-primary) 38%, transparent);
+  --dl-header-glass-scrolled: color-mix(in srgb, var(--dl-primary) 72%, transparent);
+
+  --dl-ff-body: "Outfit", "Helvetica Neue", sans-serif;
+  --dl-ff-display: "Outfit", "Helvetica Neue", sans-serif;
+  --dl-ff-mono: "Space Grotesk", ui-monospace, monospace;
+  --dl-lh-body: 1.62;
+  --dl-measure: 65ch;
+
+  --dl-radius-sm: 10px;
+  --dl-radius-md: 1.25rem;
+  --dl-radius-modal: 12px;
+  --dl-radius-pill: 999px;
+
+  --dl-header-h: 64px;
+  --dl-container-max: 1360px;
+  --dl-pad-x: clamp(1.25rem, 3.5vw, 3.5rem);
+  --dl-space-section: clamp(2.75rem, 6vw, 5.5rem);
+
+  --dl-fs-sm: 0.8125rem;
+  --dl-fs-md: 1rem;
+  --dl-fs-lg: 1.0625rem;
+  --dl-fs-2xl: clamp(1.75rem, 3.2vw, 2.875rem);
+  --dl-fs-hero: clamp(2.125rem, 5.6vw, 4.875rem);
+
+  --dl-dur: 220ms;
+  --dl-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-reveal: 700ms;
+  --ease-reveal: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --motion-reveal: var(--dur-reveal);
+  --reveal-distance: 20px;
+  --ease-out: var(--ease-reveal);
+
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+
+  --drawer-bg: var(--dl-primary);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --dl-header-h: 72px;
+  }
+}
+
+[data-preset='light_minimal'] {
+  --dl-scrim: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--dl-primary) 42%, transparent) 0%,
+    color-mix(in srgb, var(--dl-primary) 12%, transparent) 40%,
+    color-mix(in srgb, var(--dl-primary) 38%, transparent) 78%,
+    color-mix(in srgb, var(--dl-primary) 70%, transparent) 100%
+  );
+  --dl-header-glass: color-mix(in srgb, var(--dl-primary) 28%, transparent);
+}
+
+[data-preset='dark_premium'] {
+  --dl-card-fill: color-mix(in srgb, var(--dl-surface) 86%, var(--dl-text) 14%);
+  --dl-header-glass: color-mix(in srgb, var(--dl-primary) 48%, transparent);
+  --dl-header-glass-scrolled: color-mix(in srgb, var(--dl-primary) 78%, transparent);
+}

@@ -1,0 +1,144 @@
+/* GAL-05 before/after — clip-path, --ba 2…98, knob ≥44px */
+.ba-compare {
+  --ba: 52%;
+  --ba-accent: var(--dl-accent);
+  --ba-ease: 240ms ease;
+  --ba-knob: 2.75rem;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  min-height: 14rem;
+  overflow: hidden;
+  background: var(--dl-surface-alt);
+  border-radius: var(--dl-radius-md);
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ba-compare__layer {
+  position: absolute;
+  inset: 0;
+}
+
+.ba-compare__layer img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.ba-compare__layer--before {
+  clip-path: inset(0 calc(100% - var(--ba)) 0 0);
+  transition: clip-path var(--ba-ease);
+}
+
+.ba-compare__handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--ba);
+  z-index: 2;
+  width: 2px;
+  background: var(--ba-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  pointer-events: none;
+  transition: left var(--ba-ease);
+}
+
+.ba-compare__knob {
+  flex: none;
+  width: var(--ba-knob);
+  height: var(--ba-knob);
+  border-radius: 50%;
+  background: var(--ba-accent);
+  color: var(--dl-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--dl-ink) 12%, transparent);
+}
+
+.ba-compare__knob svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.ba-compare__label {
+  position: absolute;
+  top: 1rem;
+  z-index: 3;
+  padding: 0.375rem 0.75rem;
+  background: color-mix(in srgb, var(--dl-primary) 72%, transparent);
+  color: var(--dl-cream);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  pointer-events: none;
+  border-radius: var(--dl-radius-sm);
+}
+
+.ba-compare__label--before {
+  left: 1rem;
+}
+
+.ba-compare__label--after {
+  right: 1rem;
+}
+
+.ba-compare.is-dragging .ba-compare__layer--before,
+.ba-compare.is-dragging .ba-compare__handle {
+  transition: none;
+}
+
+.ba-compare:focus-visible {
+  outline: 2px solid var(--ba-accent);
+  outline-offset: 3px;
+}
+
+@media (min-width: 768px) {
+  .ba-compare {
+    aspect-ratio: 16 / 9;
+    min-height: 17.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .ba-compare__label {
+    top: 0.75rem;
+    font-size: 0.6875rem;
+  }
+
+  .ba-compare__label--before {
+    left: 0.75rem;
+  }
+
+  .ba-compare__label--after {
+    right: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ba-compare__layer--before,
+  .ba-compare__handle {
+    transition: none;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .ba-compare {
+    min-height: max(14rem, 40vw);
+  }
+}

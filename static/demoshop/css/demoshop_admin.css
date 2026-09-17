@@ -1,0 +1,54 @@
+/* CMS-сторінка «Мій магазин»: dark-readable поля (admin_cms_blocks_skill) */
+.ds-admin-shop { max-width: 900px; }
+.ds-admin-shop__hint { margin-bottom: 24px; }
+.ds-admin-shop__fieldset {
+    border: 1px solid #374151;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.ds-admin-shop__fieldset legend {
+    font-weight: 700;
+    padding-inline: 8px;
+}
+.ds-admin-shop__field { margin-bottom: 14px; }
+.ds-admin-shop__field label { display: block; font-weight: 600; margin-bottom: 4px; }
+.ds-admin-shop__field input[type="text"],
+.ds-admin-shop__field input[type="color"],
+.ds-admin-shop__field input[type="number"],
+.ds-admin-shop__field textarea {
+    width: 100%;
+    max-width: 480px;
+    box-sizing: border-box;
+    background: #101827;
+    color: #f9fafb;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font: inherit;
+}
+.ds-admin-shop__field input[type="color"] { max-width: 80px; padding: 2px; height: 40px; }
+.ds-admin-shop__preview { max-width: 220px; margin-top: 8px; border-radius: 8px; display: block; }
+.ds-admin-shop__slide { border-top: 1px dashed #374151; padding-top: 12px; margin-top: 12px; }
+.ds-admin-shop__submit {
+    background: #BD6843;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ds-admin-sales {
+    max-width: 900px;
+    margin: 0 0 20px;
+    padding: 16px 20px;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    background: #101827;
+    color: #f9fafb;
+}
+.ds-admin-sales__title { margin: 0 0 4px; font-weight: 700; }
+.ds-admin-sales__body { margin: 0 0 12px; color: #d1d5db; }
+.ds-admin-sales__body:last-child { margin-bottom: 0; }

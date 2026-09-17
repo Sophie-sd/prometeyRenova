@@ -1,0 +1,47 @@
+/* GAL-03 asymmetrical bento gallery. --span рядок/колонка на .bento__item. */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.bento__item {
+  grid-column: span 1;
+  grid-row: span 1;
+  overflow: hidden;
+  border-radius: var(--radius-md, 12px);
+}
+
+.bento__item--2x1 {
+  grid-column: span 2;
+}
+
+.bento__item--1x2 {
+  grid-row: span 2;
+}
+
+.bento__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--motion-soft) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .bento__item:hover img {
+    transform: scale(1.04);
+  }
+}
+
+@media (max-width: 767px) {
+  .bento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .bento__item,
+  .bento__item--2x1,
+  .bento__item--1x2 {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+}

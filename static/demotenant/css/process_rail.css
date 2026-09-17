@@ -1,0 +1,73 @@
+/* SECT-10 process rail — риска заповнюється після reveal кроків (is-rail-on),
+   stamp-цифри каскадом (is-stamped). Заповнення через scaleX, не width (MERR-07/12). */
+.process-rail {
+  position: relative;
+}
+
+.process-rail__bar {
+  position: relative;
+  height: 3px;
+  background: var(--process-rail-track, rgba(0, 0, 0, 0.12));
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.process-rail__fill {
+  display: block;
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: var(--process-rail-fill, currentColor);
+  transition: transform 1400ms var(--ease-out);
+}
+
+.process-rail.is-rail-on .process-rail__fill {
+  transform: scaleX(1);
+}
+
+.process-rail__item {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity var(--motion-reveal) var(--ease-out),
+    transform var(--motion-reveal) var(--ease-out);
+}
+
+.process-rail__item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.process-rail__num {
+  opacity: 0;
+  transform: scale(0.95);
+  transition:
+    opacity var(--duration-modal) var(--ease-out),
+    transform var(--duration-modal) var(--ease-out);
+}
+
+.process-rail__item.is-stamped .process-rail__num {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process-rail__fill,
+  .process-rail__item,
+  .process-rail__num {
+    transition: none;
+    transform: none;
+  }
+
+  .process-rail.is-rail-on .process-rail__fill,
+  .process-rail .process-rail__fill {
+    transform: scaleX(1);
+  }
+
+  .process-rail__item,
+  .process-rail__item.is-visible .process-rail__num,
+  .process-rail__item.is-stamped .process-rail__num {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,64 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" data-preset="{{ site.style_preset }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="csrf-token" content="{{ csrf_token }}">
+<title>{% block title %}{{ site.name }}{% endblock %}</title>
+{% block meta_description %}{% endblock %}
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="48x48" href="{% static 'images/favicon-48x48.png' %}">
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/logo.png' %}">
+<link rel="stylesheet" href="{% static 'demotenant/css/motion_tokens.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'democorp/css/tokens.css' %}?v=7">
+<link rel="stylesheet" href="{% static 'democorp/css/base.css' %}?v=7">
+<link rel="stylesheet" href="{% static 'demotenant/css/lang.css' %}?v=1">
+<link rel="stylesheet" href="{% static 'democorp/css/header.css' %}?v=8">
+<link rel="stylesheet" href="{% static 'democorp/css/home.css' %}?v=20">
+<link rel="stylesheet" href="{% static 'democorp/css/process.css' %}?v=4">
+<link rel="stylesheet" href="{% static 'democorp/css/reviews.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'democorp/css/cta.css' %}?v=5">
+<link rel="stylesheet" href="{% static 'democorp/css/pages.css' %}?v=25">
+<link rel="stylesheet" href="{% static 'democorp/css/forms.css' %}?v=4">
+<link rel="stylesheet" href="{% static 'democorp/css/sales.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'demotenant/css/reveal.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'demotenant/css/loop.css' %}?v=3">
+<link rel="stylesheet" href="{% static 'demotenant/css/process_rail.css' %}?v=3">
+<link rel="stylesheet" href="{% static 'demotenant/css/surface_volume.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'demotenant/css/tilt.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'demotenant/css/coverflow.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'demotenant/css/frame_corners.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'demotenant/css/drawer.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'demotenant/css/bento.css' %}?v=2">
+<link rel="stylesheet" href="{% url 'democorp:theme_css' slug=site.slug %}">
+{% block extra_css %}{% endblock %}
+</head>
+<body class="dc-body{% block body_class %}{% endblock %}"
+      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+      data-tenant-id="{{ site.pk }}">
+<a class="dc-skip" href="#dc-main">{% trans "Перейти до змісту" %}</a>
+{% include 'democorp/partials/header.html' %}
+{% include 'democorp/partials/drawer.html' %}
+<main id="dc-main">
+    {% block content %}{% endblock %}
+</main>
+{% include 'democorp/partials/footer.html' %}
+{% include 'democorp/partials/sales_chrome.html' %}
+<script src="{% static 'js/vendor/htmx.min.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'demotenant/js/motion/reveal.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'demotenant/js/motion/loop.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'demotenant/js/motion/counter.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'demotenant/js/motion/process-rail.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'demotenant/js/motion/tilt.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'demotenant/js/motion/coverflow.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'demotenant/js/motion/drawer.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'demotenant/js/boot.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'democorp/js/header.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'democorp/js/sales.js' %}?v=1" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'demotenant/js/lang.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
+{% block page_js %}{% endblock %}
+</body>
+</html>

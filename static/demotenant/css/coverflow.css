@@ -1,0 +1,41 @@
+/* coverflow_carousel_skill: центр більший, боки притлумлені, native scroll-snap. */
+.cf {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.cf::-webkit-scrollbar {
+  display: none;
+}
+
+.cf__track {
+  display: flex;
+  gap: var(--cf-gap, 20px);
+  padding: 0 var(--cf-pad, 10vw);
+}
+
+.cf__card {
+  flex: 0 0 var(--cf-card, 320px);
+  scroll-snap-align: center;
+  opacity: 0.55;
+  transform: scale(0.92);
+  transition: opacity var(--duration-modal) var(--ease-out), transform var(--duration-modal) var(--ease-out);
+}
+
+.cf__card.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cf__card.is-near {
+  opacity: 0.8;
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cf__card {
+    transition: none;
+  }
+}

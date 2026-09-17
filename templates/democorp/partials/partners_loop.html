@@ -1,0 +1,14 @@
+<div class="loop dc-partners-loop" data-loop>
+    <div class="loop__track">
+        <div class="loop__set">
+            {% for partner in partners %}
+            <span class="dc-partners__name">{{ partner.name }}</span>
+            {% endfor %}
+        </div>
+        <div class="loop__set" aria-hidden="true">
+            {% for partner in partners %}
+            <span class="dc-partners__name">{{ partner.name }}</span>
+            {% endfor %}
+        </div>
+    </div>
+</div>

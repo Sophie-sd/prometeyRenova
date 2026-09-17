@@ -5,7 +5,10 @@ Idempotent заливка КП для B2B/B2C платформи автозап�
 """
 from datetime import date
 from decimal import Decimal
+from pathlib import Path
 
+from django.conf import settings
+from django.core.files import File
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
@@ -20,8 +23,42 @@ from apps.core.proposal_models import (
     ProposalPackage,
     ProposalSpec,
 )
+from apps.core.proposal_visual_models import ProposalArchNode, ProposalHighlight
 
 SLUG = 'b2b-parts-platform-a7f3'
+
+RECS_LEAD = (
+    'Архітектурні та імплементаційні рішення по ТЗ платформи автозапчастин '
+    '— з позиції команди з 10+ років у e-commerce.'
+)
+
+HIGHLIGHTS = [
+    {'order': 0, 'title': 'Кастомний Django-стек'},
+    {'order': 1, 'title': 'B2B / B2C під ключ'},
+    {'order': 2, 'title': 'Пожиттєва гарантія коду'},
+]
+
+ARCH_NODES = [
+    {'order': 0, 'title': 'Admin', 'caption': '', 'is_accent': False},
+    {
+        'order': 1,
+        'title': 'B2B Cabinet 1',
+        'caption': 'Prom / Rozetka',
+        'is_accent': False,
+    },
+    {
+        'order': 2,
+        'title': 'B2C Storefront',
+        'caption': 'PostgreSQL',
+        'is_accent': True,
+    },
+    {
+        'order': 3,
+        'title': 'B2B Cabinet 2',
+        'caption': 'Redis Cache',
+        'is_accent': False,
+    },
+]
 
 MODULES = [
     {
@@ -283,19 +320,53 @@ GUARANTEE_HTML = """
 
 
 def _with_ru(payload: dict, text_keys: tuple[str, ...]) -> dict:
+    """UA → RU/EN/CS для seed-записів.
+
+    RU автоперекладається правило-based (`translate_ua_to_ru`), якщо не задано вручну.
+    EN/CS автоперекладу не мають (немає правило-based перекладача) — просто
+    прокидаються з payload, якщо там вже є `<key>_en`/`<key>_cs` (додайте їх у
+    словник MODULES/PACKAGES/SPECS і після push+redeploy вони підхопляться сідом).
+    За відсутності — лишаються порожніми, `localized_text()` фолбечиться на UA.
+    """
     out = dict(payload)
     for key in text_keys:
         ru_key = f'{key}_ru'
         if ru_key not in out:
             out[ru_key] = translate_ua_to_ru(out.get(key, ''))
+        for lang in ('en', 'cs'):
+            lang_key = f'{key}_{lang}'
+            out.setdefault(lang_key, '')
     return out
+
+
+def _attach_hero(proposal: Proposal) -> None:
+    img_dir = Path(settings.BASE_DIR) / 'static' / 'proposal' / 'img'
+    src = None
+    for name in ('parts.png', 'hero-parts-3d.jpg'):
+        candidate = img_dir / name
+        if candidate.is_file():
+            src = candidate
+            break
+    if src is None:
+        return
+    if proposal.hero_image:
+        proposal.hero_image.delete(save=False)
+    with src.open('rb') as handle:
+        proposal.hero_image.save(src.name, File(handle), save=True)
 
 
 class Command(BaseCommand):
     help = 'Seed B2B parts platform commercial proposal (idempotent)'
 
     def handle(self, *args, **options):
-        for model in (Proposal, ProposalModule, ProposalPackage, ProposalSpec):
+        for model in (
+            Proposal,
+            ProposalModule,
+            ProposalPackage,
+            ProposalSpec,
+            ProposalHighlight,
+            ProposalArchNode,
+        ):
             ensure_leftover_not_null_defaults(model)
         with transaction.atomic():
             self._seed_rows()
@@ -313,6 +384,9 @@ class Command(BaseCommand):
                     'Разработка высокопроизводительной B2B / B2C E-Commerce '
                     'платформы автозапчастей под ключ'
                 ),
+                # EN/CS — заповніть при потребі, поки фолбек на UA (localized_text)
+                'title_en': '',
+                'title_cs': '',
                 'lead': (
                     'Кастомна платформа на Django / HTMX / PostgreSQL / Redis '
                     'для гуртової та роздрібної торгівлі автозапчастинами.'
@@ -321,13 +395,26 @@ class Command(BaseCommand):
                     'Кастомная платформа на Django / HTMX / PostgreSQL / Redis '
                     'для оптовой и розничной торговли автозапчастями.'
                 ),
+                'lead_en': 'Custom platform on Django / HTMX / PostgreSQL / Redis for wholesale and retail trade of auto parts.',
+                'lead_cs': 'Customizovaná platforma na Django / HTMX / PostgreSQL / Redis pro velkoobchodní a maloobchodní prodej autodílů.',
+                'recommendations_lead': RECS_LEAD,
+                'recommendations_lead_ru': translate_ua_to_ru(RECS_LEAD),
+                'recommendations_lead_en': '',
+                'recommendations_lead_cs': '',
                 'issued_on': date(2026, 8, 20),
                 'intro_html': INTRO_HTML,
                 'intro_html_ru': translate_ua_to_ru(INTRO_HTML),
+                'intro_html_en': '',
+                'intro_html_cs': '',
                 'guarantee_html': GUARANTEE_HTML,
                 'guarantee_html_ru': translate_ua_to_ru(GUARANTEE_HTML),
+                'guarantee_html_en': '',
+                'guarantee_html_cs': '',
                 'cta_label': 'Обговорити проєкт',
                 'cta_label_ru': 'Обсудить проект',
+                'cta_label_en': '',
+                'cta_label_cs': '',
+                'kind': Proposal.DemoKind.SHOP,
                 'is_published': True,
                 'order': 0,
             },
@@ -357,10 +444,30 @@ class Command(BaseCommand):
                 **_with_ru(data, ('title', 'body')),
             )
 
+        proposal.highlights.all().delete()
+        for data in HIGHLIGHTS:
+            create_with_leftovers(
+                ProposalHighlight,
+                proposal=proposal,
+                **_with_ru(data, ('title',)),
+            )
+
+        proposal.arch_nodes.all().delete()
+        for data in ARCH_NODES:
+            create_with_leftovers(
+                ProposalArchNode,
+                proposal=proposal,
+                **_with_ru(data, ('title', 'caption')),
+            )
+
+        _attach_hero(proposal)
+
         action = 'Created' if created else 'Updated'
         self.stdout.write(self.style.SUCCESS(
             f'{action}: /proposal/{SLUG}/ '
             f'({proposal.modules.count()} modules, '
             f'{proposal.packages.count()} packages, '
-            f'{proposal.specs.count()} specs)'
+            f'{proposal.specs.count()} specs, '
+            f'{proposal.highlights.count()} highlights, '
+            f'{proposal.arch_nodes.count()} arch nodes)'
         ))

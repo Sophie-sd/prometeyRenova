@@ -1,0 +1,5 @@
+{% for product in products %}
+<div class="page-strip__card">
+    {% include 'demoshop/partials/product_card.html' with in_strip=True is_clone=is_clone %}
+</div>
+{% endfor %}

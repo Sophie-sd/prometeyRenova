@@ -1,0 +1,180 @@
+/* Category cards — compact tiles in one row when 4 */
+
+.ds-cat-row {
+    --grid-cols: 2;
+    --grid-gap: var(--ds-sp-3);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--grid-gap);
+    width: 100%;
+}
+
+.ds-cat-row__item {
+    width: calc((100% - (var(--grid-cols) - 1) * var(--grid-gap)) / var(--grid-cols));
+    min-width: 0;
+    max-width: 255px;
+    box-sizing: border-box;
+}
+
+.ds-cat-row__item > .ds-cat-card { height: 100%; }
+
+.ds-cat-card--wipe {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--ds-white);
+    background: var(--ds-accent);
+    border: none;
+    box-shadow: 0 8px 28px rgba(34, 28, 26, 0.1);
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ds-cat-card__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.ds-cat-card__img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transform: scale(1.02);
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ds-cat-card__shade {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: rgba(189, 104, 67, 0.28);
+    opacity: 1;
+    transition: opacity 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+    pointer-events: none;
+}
+
+/* Color Wipe accent stays available but does not cover the photo on hover */
+.ds-cat-card__wipe {
+    display: none;
+}
+
+.ds-cat-card__body {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--ds-sp-2);
+    padding: clamp(8px, 2vw, 20px);
+    text-align: center;
+    color: var(--ds-white);
+}
+
+.ds-cat-card__name {
+    font-size: clamp(0.78rem, 1.6vw, 1.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0;
+    letter-spacing: -0.01em;
+    text-shadow: 0 1px 2px rgba(34, 28, 26, 0.45), 0 6px 18px rgba(34, 28, 26, 0.28);
+}
+
+.ds-cat-card--wipe:hover .ds-cat-card__shade,
+.ds-cat-card--wipe:focus-visible .ds-cat-card__shade {
+    opacity: 0;
+}
+
+.ds-cat-card--wipe:hover .ds-cat-card__img,
+.ds-cat-card--wipe:focus-visible .ds-cat-card__img {
+    transform: scale(1.06);
+}
+
+.ds-cat-card--wipe:focus-visible {
+    outline: 2px solid var(--ds-accent);
+    outline-offset: 3px;
+}
+
+/* 4 cards → always one row (incl. mobile / iOS) */
+.ds-cat-row.grid-desktop-cols-4 {
+    --grid-cols: 4;
+    --grid-gap: var(--ds-sp-5);
+    flex-wrap: nowrap;
+}
+
+.ds-cat-row.grid-desktop-cols-4 .ds-cat-row__item {
+    flex: 1 1 0;
+    width: auto;
+    max-width: 232px;
+}
+
+@media (min-width: 768px) {
+    .grid-desktop-cols-1 { --grid-cols: 1; }
+    .grid-desktop-cols-2 { --grid-cols: 2; }
+    .grid-desktop-cols-3 { --grid-cols: 3; }
+    .grid-desktop-cols-4 { --grid-cols: 4; }
+
+    .ds-cat-row {
+        --grid-gap: var(--ds-sp-4);
+    }
+
+    .ds-cat-row.grid-desktop-cols-4 {
+        --grid-gap: var(--ds-sp-5);
+    }
+
+    .ds-cat-row.grid-desktop-cols-4 .ds-cat-row__item {
+        max-width: 232px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ds-cat-row {
+        --grid-gap: var(--ds-sp-4);
+        max-width: 1020px;
+        margin-inline: auto;
+    }
+
+    .ds-cat-row.grid-desktop-cols-4 .ds-cat-row__item {
+        max-width: 220px;
+    }
+}
+
+@media (hover: none) {
+    .ds-cat-card--wipe:hover .ds-cat-card__shade {
+        opacity: 1;
+    }
+
+    .ds-cat-card--wipe:hover .ds-cat-card__img {
+        transform: scale(1.02);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ds-cat-card__img,
+    .ds-cat-card__shade {
+        transition: none;
+    }
+
+    .ds-cat-card--wipe:hover .ds-cat-card__img,
+    .ds-cat-card--wipe:focus-visible .ds-cat-card__img {
+        transform: none;
+    }
+}
+
+@supports (-webkit-touch-callout: none) {
+    .ds-cat-card--wipe {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+}

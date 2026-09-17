@@ -1,0 +1,329 @@
+/* Home: single morphing capsule↔ball header (iOS + Windows). No marquee on home.
+   Cinematic choreography: the glass edge is the one "motor" — row items
+   (including the real logo, at its normal size/position) fade/drift in the
+   order the edge passes them; the ball stays a plain hamburger hit target
+   throughout — no X, no icon morph; asymmetric easing: scroll-collapse is
+   unhurried (ease-in-out), click-expand snaps instantly then settles
+   (ease-drawer). */
+
+.ds-header-compact-sentinel {
+    position: relative;
+    height: 0;
+    pointer-events: none;
+}
+
+:root {
+    /* --ds-ball is measured/set by header_compact.js from the capsule's real
+       rendered height, so the compact state is always a perfect circle.
+       58px is only a pre-JS fallback. */
+    --ds-ball: 58px;
+
+    --ds-morph-glass-collapse: 780ms;  /* capsule → ball (scroll down / X close) */
+    --ds-morph-glass-expand: 820ms;    /* ball → capsule (click / scroll up) */
+    --ds-morph-item: 400ms;            /* row item fade + drift */
+    --ds-morph-step: 60ms;             /* stagger between row items */
+    --ds-morph-drift: 14px;
+    --ds-morph-enter-start: 200ms;     /* row items wait for the glass edge to clear them */
+    --ds-morph-row-hide: 820ms;        /* row visibility delay = last exiting item's finish (logo: 420+400) */
+}
+
+/* ---- Row item indices (left → right, N = 7). Set on the stylesheet, never
+   inline — used only for transition-delay math. ---- */
+.ds-body--hero-overlay .ds-logo { --i: 0; }
+.ds-body--hero-overlay .ds-nav__link:first-child { --i: 1; }   /* Головна */
+.ds-body--hero-overlay .ds-nav__item--flyout { --i: 2; }        /* Каталог */
+.ds-body--hero-overlay .ds-nav__link:last-child { --i: 3; }     /* Акції */
+.ds-body--hero-overlay .ds-lang-switcher { --i: 4; }
+.ds-body--hero-overlay .ds-wish-link { --i: 5; }
+.ds-body--hero-overlay .ds-cart-link { --i: 6; }
+.ds-body--hero-overlay .ds-header__cta { --i: 7; }
+
+/* ---- Glass: capsule ↔ ball ----
+   Collapse (→ ball, from full OR from open/X) is one unhurried breath.
+   Expand (→ full, from ball via click OR scroll-up) snaps then settles. */
+.ds-body--hero-overlay .ds-header__capsule::before {
+    transition:
+        width var(--ds-morph-glass-collapse) var(--ds-ease-in-out),
+        background 200ms ease;
+}
+
+.ds-body--hero-overlay .ds-header.is-compact .ds-header__capsule::before {
+    width: var(--ds-ball);
+}
+
+.ds-body--hero-overlay .ds-header:not(.is-compact) .ds-header__capsule::before,
+.ds-body--hero-overlay .ds-header.is-compact.is-open .ds-header__capsule::before {
+    width: 100%;
+    transition:
+        width var(--ds-morph-glass-expand) var(--ds-ease-drawer),
+        background 200ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .ds-body--hero-overlay .ds-header.is-compact:hover .ds-header__capsule::before {
+        background: rgba(253, 250, 248, 0.5);
+    }
+}
+
+/* ---- Row: visibility gate only — children carry the real motion.
+   Hiding is delayed until the last exiting child (logo) finishes fading,
+   so nothing pops; showing is immediate so focus/pointer land right away. */
+.ds-body--hero-overlay .ds-header__row {
+    transition: visibility 0s linear var(--ds-morph-row-hide);
+}
+
+.ds-body--hero-overlay .ds-header.is-compact .ds-header__row {
+    visibility: hidden;
+}
+
+.ds-body--hero-overlay .ds-header.is-compact.is-open .ds-header__row,
+.ds-body--hero-overlay .ds-header:not(.is-compact) .ds-header__row {
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+/* ---- Row items: fade + drift, staggered by --i.
+   Base rule = constant duration/easing, always on (harmless when nothing
+   changes). Per-state rules only move the target value + delay. ---- */
+.ds-body--hero-overlay .ds-logo,
+.ds-body--hero-overlay .ds-nav__link,
+.ds-body--hero-overlay .ds-nav__item--flyout,
+.ds-body--hero-overlay .ds-lang-switcher,
+.ds-body--hero-overlay .ds-wish-link,
+.ds-body--hero-overlay .ds-cart-link {
+    transition:
+        opacity var(--ds-morph-item) var(--ds-ease-out),
+        transform var(--ds-morph-item) var(--ds-ease-out);
+}
+
+/* Exit → ball: the glass edge sweeps right-to-left, so the rightmost item
+   (cta, --i:7) leaves first (delay 0) and the logo (--i:0) leaves last
+   (delay 420ms), right as the edge reaches it. Reused for the open→ball
+   close path too — CSS can't tell the two apart (same target state), and a
+   single unhurried timing reads well for both. */
+.ds-body--hero-overlay .ds-header.is-compact .ds-logo,
+.ds-body--hero-overlay .ds-header.is-compact .ds-nav__link,
+.ds-body--hero-overlay .ds-header.is-compact .ds-nav__item--flyout,
+.ds-body--hero-overlay .ds-header.is-compact .ds-lang-switcher,
+.ds-body--hero-overlay .ds-header.is-compact .ds-wish-link,
+.ds-body--hero-overlay .ds-header.is-compact .ds-cart-link {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(calc(var(--ds-morph-drift) * -1), 0, 0);
+    transition-delay: calc((7 - var(--i)) * var(--ds-morph-step));
+}
+
+/* Enter → full: reached either by clicking the ball (is-open) or by
+   scrolling back up past the un-pin threshold (is-compact removed). Both
+   sweep left-to-right. Logo uses the same slot/size/position as the resting
+   header in every visible state — the ball is fully hidden while is-open,
+   so no offset is needed (offset was the jump). */
+.ds-body--hero-overlay .ds-header.is-compact.is-open .ds-logo,
+.ds-body--hero-overlay .ds-header.is-compact.is-open .ds-nav__link,
+.ds-body--hero-overlay .ds-header.is-compact.is-open .ds-nav__item--flyout,
+.ds-body--hero-overlay .ds-header.is-compact.is-open .ds-lang-switcher,
+.ds-body--hero-overlay .ds-header.is-compact.is-open .ds-wish-link,
+.ds-body--hero-overlay .ds-header.is-compact.is-open .ds-cart-link,
+.ds-body--hero-overlay .ds-header:not(.is-compact) .ds-logo,
+.ds-body--hero-overlay .ds-header:not(.is-compact) .ds-nav__link,
+.ds-body--hero-overlay .ds-header:not(.is-compact) .ds-nav__item--flyout,
+.ds-body--hero-overlay .ds-header:not(.is-compact) .ds-lang-switcher,
+.ds-body--hero-overlay .ds-header:not(.is-compact) .ds-wish-link,
+.ds-body--hero-overlay .ds-header:not(.is-compact) .ds-cart-link {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0);
+    transition-delay: calc(var(--ds-morph-enter-start) + var(--i) * var(--ds-morph-step));
+}
+
+.ds-body--hero-overlay .ds-header.is-compact.is-open .ds-logo {
+    /* Ellipsis only — position matches resting header (no ball offset). */
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* ---- CTA gets its own block: full property list (background/border/color/
+   backdrop-filter from demoshop_components.css) plus opacity+transform, so
+   the compact-state override never clips the hover styling. ---- */
+.ds-body--hero-overlay .ds-header__cta {
+    transition:
+        background 0.35s ease,
+        border-color 0.35s ease,
+        color 0.35s ease,
+        -webkit-backdrop-filter 0.35s ease,
+        backdrop-filter 0.35s ease,
+        opacity var(--ds-morph-item) var(--ds-ease-out),
+        transform var(--ds-morph-item) var(--ds-ease-out);
+}
+
+.ds-body--hero-overlay .ds-header.is-compact .ds-header__cta {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(calc(var(--ds-morph-drift) * -1), 0, 0);
+    transition-delay: calc((7 - var(--i)) * var(--ds-morph-step));
+}
+
+.ds-body--hero-overlay .ds-header.is-compact.is-open .ds-header__cta,
+.ds-body--hero-overlay .ds-header:not(.is-compact) .ds-header__cta {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0);
+    transition-delay: calc(var(--ds-morph-enter-start) + var(--i) * var(--ds-morph-step));
+}
+
+/* ---- Ball / burger ---- */
+.ds-body--hero-overlay .ds-header__burger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    position: absolute;
+    box-sizing: border-box;
+    left: 0;
+    top: 0;
+    width: var(--ds-ball);
+    height: var(--ds-ball);
+    z-index: 2;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        opacity 240ms var(--ds-ease-out),
+        transform 120ms var(--ds-ease-out);
+}
+
+/* Entering compact: logo has crossfaded out of its slot by the time the
+   ball is fully formed — burger fades in on top of it, not alongside. */
+.ds-body--hero-overlay .ds-header.is-compact .ds-header__burger {
+    opacity: 1;
+    pointer-events: auto;
+    transition-delay: 560ms;
+}
+
+/* Open: the real logo has taken over the ball's slot, so the ball itself
+   (background + lines) fades away completely — no floating close control.
+   Getting back to compact happens via scrolling up (Timeline D) or via the
+   now-visible logo link. */
+.ds-body--hero-overlay .ds-header.is-compact.is-open .ds-header__burger {
+    opacity: 0;
+    pointer-events: none;
+    transition-delay: 0s;
+}
+
+.ds-body--hero-overlay .ds-header__burger:active {
+    transform: scale(0.96);
+}
+
+.ds-body--hero-overlay .ds-header__burger:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(189, 104, 67, 0.45);
+}
+
+/* ---- Burger lines: no X, no morph. The ball is a plain hamburger hit
+   target in both closed and open states — the actual "menu is open"
+   feedback now comes from the real logo + full row revealing themselves,
+   not from the icon changing shape. */
+.ds-header__burger-line {
+    width: 18px;
+    height: 2px;
+    background: var(--ds-text);
+    border-radius: 1px;
+}
+
+@supports not ((backdrop-filter: blur(1px))) {
+    .ds-body--hero-overlay .ds-header.is-compact .ds-header__capsule::before {
+        background: var(--ds-white);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    /* Same selectors + specificity as the state rules above, placed last in
+       source order — wins the cascade without !important. Movement (drift,
+       stagger delay, width morph, line rotation) is dropped; a plain
+       200ms opacity cross-fade carries every state change. */
+    .ds-body--hero-overlay .ds-header__capsule::before,
+    .ds-body--hero-overlay .ds-header:not(.is-compact) .ds-header__capsule::before,
+    .ds-body--hero-overlay .ds-header.is-compact.is-open .ds-header__capsule::before {
+        transition: none;
+    }
+
+    .ds-body--hero-overlay .ds-header__row {
+        transition-delay: 0s;
+    }
+
+    .ds-body--hero-overlay .ds-logo,
+    .ds-body--hero-overlay .ds-nav__link,
+    .ds-body--hero-overlay .ds-nav__item--flyout,
+    .ds-body--hero-overlay .ds-lang-switcher,
+    .ds-body--hero-overlay .ds-wish-link,
+    .ds-body--hero-overlay .ds-cart-link {
+        transition: opacity 200ms ease-out;
+    }
+
+    .ds-body--hero-overlay .ds-header.is-compact .ds-logo,
+    .ds-body--hero-overlay .ds-header.is-compact .ds-nav__link,
+    .ds-body--hero-overlay .ds-header.is-compact .ds-nav__item--flyout,
+    .ds-body--hero-overlay .ds-header.is-compact .ds-lang-switcher,
+    .ds-body--hero-overlay .ds-header.is-compact .ds-wish-link,
+    .ds-body--hero-overlay .ds-header.is-compact .ds-cart-link {
+        transform: none;
+        transition-delay: 0s;
+    }
+
+    .ds-body--hero-overlay .ds-header.is-compact.is-open .ds-logo,
+    .ds-body--hero-overlay .ds-header.is-compact.is-open .ds-nav__link,
+    .ds-body--hero-overlay .ds-header.is-compact.is-open .ds-nav__item--flyout,
+    .ds-body--hero-overlay .ds-header.is-compact.is-open .ds-lang-switcher,
+    .ds-body--hero-overlay .ds-header.is-compact.is-open .ds-wish-link,
+    .ds-body--hero-overlay .ds-header.is-compact.is-open .ds-cart-link,
+    .ds-body--hero-overlay .ds-header:not(.is-compact) .ds-logo,
+    .ds-body--hero-overlay .ds-header:not(.is-compact) .ds-nav__link,
+    .ds-body--hero-overlay .ds-header:not(.is-compact) .ds-nav__item--flyout,
+    .ds-body--hero-overlay .ds-header:not(.is-compact) .ds-lang-switcher,
+    .ds-body--hero-overlay .ds-header:not(.is-compact) .ds-wish-link,
+    .ds-body--hero-overlay .ds-header:not(.is-compact) .ds-cart-link {
+        transform: none;
+        transition-delay: 0s;
+    }
+
+    .ds-body--hero-overlay .ds-header__cta {
+        transition:
+            background 0.35s ease,
+            border-color 0.35s ease,
+            color 0.35s ease,
+            -webkit-backdrop-filter 0.35s ease,
+            backdrop-filter 0.35s ease,
+            opacity 200ms ease-out;
+    }
+
+    .ds-body--hero-overlay .ds-header.is-compact .ds-header__cta {
+        transform: none;
+        transition-delay: 0s;
+    }
+
+    .ds-body--hero-overlay .ds-header.is-compact.is-open .ds-header__cta,
+    .ds-body--hero-overlay .ds-header:not(.is-compact) .ds-header__cta {
+        transform: none;
+        transition-delay: 0s;
+    }
+
+    .ds-body--hero-overlay .ds-header__burger {
+        transition: opacity 200ms ease-out;
+    }
+    .ds-body--hero-overlay .ds-header.is-compact .ds-header__burger {
+        transition-delay: 0s;
+    }
+}

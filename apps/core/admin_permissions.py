@@ -1,7 +1,7 @@
 """Утиліти прав доступу для Django admin (Unfold sidebar + staff-користувачі)."""
 from django.contrib.auth.models import Permission
 
-STAFF_ADMIN_APP_LABELS = ('core', 'blog', 'payment')
+STAFF_ADMIN_APP_LABELS = ('core', 'blog', 'payment', 'demoshop', 'demolanding', 'democorp')
 STAFF_ADMIN_USERNAME = 'ValeriaKornienko'
 
 
