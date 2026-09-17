@@ -5040,6 +5040,50 @@ msgid "Надіслати бриф"
 msgstr ""
 
 #: templates/pages/telegram-bot.html
+msgid "Що далі: після брифу надішлемо орієнтир по сценарію та інтеграціях — без публічного прайса."
+msgstr ""
+
+#: templates/pages/telegram-bot.html
+msgid "після оплати код і токен — у замовника"
+msgstr ""
+
+#: templates/pages/telegram-bot.html
+msgid "гарантія 1 рік на багфікс"
+msgstr ""
+
+#: templates/pages/telegram-bot.html
+msgid "Бот студії"
+msgstr ""
+
+#: templates/pages/telegram-bot.html
+msgid "онлайн"
+msgstr ""
+
+#: templates/pages/telegram-bot.html
+msgid "Вітаю. Оберіть дію в меню — зберу заявку і передам менеджеру."
+msgstr ""
+
+#: templates/pages/telegram-bot.html
+msgid "Меню бота"
+msgstr ""
+
+#: templates/pages/telegram-bot.html
+msgid "Ім'я та телефон — передам у CRM команди."
+msgstr ""
+
+#: templates/pages/telegram-bot.html
+msgid "Олена, +380 63 123 45 67"
+msgstr ""
+
+#: templates/pages/telegram-bot.html
+msgid "Заявку надіслано. Менеджер відповість у робочі години."
+msgstr ""
+
+#: templates/pages/telegram-bot.html
+msgid "Демо: меню бота → заявка → CRM"
+msgstr ""
+
+#: templates/pages/telegram-bot.html
 msgid "Telegram-боти під ключ"
 msgstr ""
 
