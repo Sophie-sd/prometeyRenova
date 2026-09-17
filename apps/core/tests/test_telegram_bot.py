@@ -53,8 +53,20 @@ class TelegramBotPageTests(TestCase):
         self.assertTrue(0 < who < process < pkg < price < faq < form)
         self.assertNotIn('id="pl-bot-int-title"', html)
         self.assertNotIn('Надіслати бриф', html)
+        self.assertNotRegex(
+            html,
+            r'<button\b[^>]*type="submit"[^>]*>\s*Отримати кошторис\s*</button>',
+        )
+        self.assertRegex(
+            html,
+            r'<a\b[^>]*href="#pl-bot-form"[^>]*>\s*Отримати прорахунок\s*</a>',
+        )
+        self.assertRegex(
+            html,
+            r'<button\b[^>]*type="submit"[^>]*>\s*Отримати прорахунок\s*</button>',
+        )
+        self.assertIn('id="pl-bot-form-title"', html)
         self.assertGreaterEqual(html.count('Отримати прорахунок'), 2)
-        self.assertIn('href="#pl-bot-form"', html)
 
     def test_hreflang_and_canonical_use_url_tag_pattern(self):
         html = self.client.get('/telegram-bot/').content.decode()
