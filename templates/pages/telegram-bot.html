@@ -320,10 +320,16 @@
                 method="post"
                 action="{% url 'form_submit' %}"
                 data-form-type="telegram-bot"
+                data-qa="lead-form"
             >
                 {% csrf_token %}
                 <input type="hidden" name="form_type" value="telegram-bot">
                 <input type="hidden" name="source_page" value="telegram-bot">
+                {# ERR-121: honeypot — non-field; CSS hide, no inline style; errors must stay outside #}
+                <div class="pl-bot__honeypot" aria-hidden="true">
+                    <label for="pl-bot-honeypot">Company</label>
+                    <input id="pl-bot-honeypot" type="text" name="honeypot" tabindex="-1" autocomplete="off">
+                </div>
 
                 <div class="pl-bot__field">
                     <label for="pl-bot-name">{% trans "Ім'я" %} <span class="required">*</span></label>

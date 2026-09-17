@@ -702,6 +702,17 @@ body.pl-bot-body .main-content {
     }
 }
 
+
+
+/* ERR-121 honeypot: hide via class, never inline style */
+.pl-bot__honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .pl-bot__btn,
     .pl-bot__grid > li,
