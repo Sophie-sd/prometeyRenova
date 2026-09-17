@@ -160,3 +160,28 @@ class FormValidationTests(TestCase):
         self.assertEqual(response.status_code, 200)
         json_data = json.loads(response.content)
         self.assertTrue(json_data['success'])
+
+    def test_telegram_bot_form_type(self):
+        data = {
+            'form_type': 'telegram-bot',
+            'name': 'Олена Бот',
+            'phone': '+380631234567',
+            'source_page': 'telegram-bot',
+            'bot_task': 'FAQ підтримки',
+            'details': 'Потрібен бот для запису',
+        }
+        response = self.client.post(self.submit_url, data)
+        self.assertEqual(response.status_code, 200)
+        json_data = json.loads(response.content)
+        self.assertTrue(json_data['success'])
+
+    def test_unknown_form_type_does_not_500(self):
+        data = {
+            'form_type': 'not-a-real-type',
+            'name': 'Іван Петренко',
+            'phone': '+380631234567',
+        }
+        response = self.client.post(self.submit_url, data)
+        self.assertEqual(response.status_code, 200)
+        json_data = json.loads(response.content)
+        self.assertFalse(json_data['success'])

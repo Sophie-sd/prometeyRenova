@@ -7,6 +7,14 @@
 {% block og_title %}{{ og_title }}{% endblock %}
 
 {% block page_css %}
+<!-- Critical: приховати piano-елементи, що інакше блимають видимими на мілісекунди
+     до завантаження async CSS (services_piano_block.css/_mob.css). Навмисно БЕЗ
+     #svc-piano-префіксу — нижча специфічність, тож справжні ID-правила з тих
+     файлів коректно перевизначають це після завантаження (flip/hover не ламаються). -->
+<style>
+.svc-piano__mob-face--back{display:none}
+.svc-piano__rise{opacity:0;visibility:hidden;pointer-events:none}
+</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="{% static 'css/home.css' %}?v=8" as="style">
@@ -25,12 +33,12 @@
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-bridge.css' %}?v=6" media="print" data-async-css>
 <link rel="preload" href="{% static 'css/process_block.css' %}?v=45" as="style">
 <link rel="stylesheet" href="{% static 'css/process_block.css' %}?v=45" media="print" data-async-css>
-<link rel="preload" href="{% static 'css/services_piano_block.css' %}?v=45" as="style">
-<link rel="stylesheet" href="{% static 'css/services_piano_block.css' %}?v=45" media="print" data-async-css>
-<link rel="preload" href="{% static 'css/services_piano_block_mob.css' %}?v=12" as="style">
-<link rel="stylesheet" href="{% static 'css/services_piano_block_mob.css' %}?v=12" media="print" data-async-css>
-<link rel="preload" href="{% static 'css/services_piano_video.css' %}?v=33" as="style">
-<link rel="stylesheet" href="{% static 'css/services_piano_video.css' %}?v=33" media="print" data-async-css>
+<link rel="preload" href="{% static 'css/services_piano_block.css' %}?v=47" as="style">
+<link rel="stylesheet" href="{% static 'css/services_piano_block.css' %}?v=47" media="print" data-async-css>
+<link rel="preload" href="{% static 'css/services_piano_block_mob.css' %}?v=13" as="style">
+<link rel="stylesheet" href="{% static 'css/services_piano_block_mob.css' %}?v=13" media="print" data-async-css>
+<link rel="preload" href="{% static 'css/services_piano_video.css' %}?v=34" as="style">
+<link rel="stylesheet" href="{% static 'css/services_piano_video.css' %}?v=34" media="print" data-async-css>
 <noscript>
 <link rel="stylesheet" href="{% static 'css/home.css' %}?v=8">
 <link rel="stylesheet" href="{% static 'css/components/marquee-why-choose.css' %}">
@@ -40,24 +48,21 @@
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-final.css' %}">
 <link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-bridge.css' %}?v=6">
 <link rel="stylesheet" href="{% static 'css/process_block.css' %}?v=45">
-<link rel="stylesheet" href="{% static 'css/services_piano_block.css' %}?v=45">
-<link rel="stylesheet" href="{% static 'css/services_piano_block_mob.css' %}?v=12">
-<link rel="stylesheet" href="{% static 'css/services_piano_video.css' %}?v=33">
+<link rel="stylesheet" href="{% static 'css/services_piano_block.css' %}?v=47">
+<link rel="stylesheet" href="{% static 'css/services_piano_block_mob.css' %}?v=13">
+<link rel="stylesheet" href="{% static 'css/services_piano_video.css' %}?v=34">
 </noscript>
 {% endblock %}
 
 {% block content %}
 <!-- Hero Section з фоновим відео -->
 <section class="hero-section full-height">
-    <!-- Фонові відео для декстопу та мобільних (SHARED між hero та CTA) -->
-    <!-- Desktop відео (показується тільки на >=768px) -->
-    <video class="video-background desktop-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
+    <!-- Єдине фонове відео (SHARED між hero, piano та CTA). Джерело обирається
+         <source media>, щоб не тягнути обидва варіанти одночасно (perf). -->
+    <video class="video-background" autoplay muted loop playsinline preload="auto"
+        data-shared-video="main" data-video-role="leader">
+        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4" media="(max-width: 767px)">
         <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
-    </video>
-
-    <!-- Mobile відео (показується тільки на <=767px) -->
-    <video class="video-background mobile-video" autoplay muted loop playsinline preload="metadata" data-shared-video="main">
-        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4">
     </video>
 
     <!-- Overlay для кращої читабельності -->
@@ -176,7 +181,7 @@
                 <li><strong>{% trans "Сайти під ключ" %}</strong>{% trans "Landing, корпоративні, багатосторінкові з SEO" %}</li>
                 <li><strong>E-commerce</strong>{% trans "Каталог, оплати, доставки, інтеграції з маркетплейсами" %}</li>
                 <li><strong>{% trans "Веб-додатки / SaaS" %}</strong>{% trans "Особисті кабінети, підписки, аналітика, білінг" %}</li>
-                <li><strong>{% trans "Telegram-боти" %}</strong>{% trans "Автоматизація, продажі, інтеграції з CRM та платіжними системами" %}</li>
+                <li><strong>{% trans "Telegram-боти" %}</strong>{% trans "Автоматизація, продажі, інтеграції з CRM та платіжними системами" %} — <a href="{% url 'telegram_bot' %}">{% trans "замовити бота" %}</a></li>
                 <li><strong>{% trans "Оновлення проєктів" %}</strong>{% trans "Редизайн, прискорення, безпека, перенесення" %}</li>
             </ul>
             <h4 class="service-subtitle">{% trans "Робота включає:" %}</h4>
@@ -268,7 +273,7 @@
 <script src="{% static 'js/core/gclid-capture.js' %}" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/core/ec-phone.js' %}" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/core/phone-mask.js' %}" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/home-bundle.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/home-bundle.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}
 
 {% block extra_js %}
@@ -276,5 +281,5 @@
 <script src="{% static 'js/process_block_popover.js' %}?v=43" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/process_block.js' %}?v=43" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/services_piano_mob_scroll.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/services_piano_block.js' %}?v=12" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/services_piano_block.js' %}?v=13" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

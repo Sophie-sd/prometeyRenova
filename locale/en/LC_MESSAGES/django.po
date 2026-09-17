@@ -5450,6 +5450,463 @@ msgstr ""
 msgid "Choose file to upload"
 msgstr ""
 
+# Telegram-bot money page
+
+#: templates/pages/telegram-bot.html
+msgid "Отримати прорахунок"
+msgstr "Get a quote"
+
+#: templates/pages/telegram-bot.html
+msgid "Оберіть варіант"
+msgstr "Choose an option"
+
+#: templates/pages/telegram-bot.html
+msgid "Покупка частинами"
+msgstr "Pay in installments"
+
+#: templates/pages/telegram-bot.html
+msgid "Розробка Telegram-бота під ключ — пакети, строки, інтеграції | PrometeyLabs"
+msgstr ""
+"Turnkey Telegram bot development — packages, timelines, integrations | "
+"PrometeyLabs"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Замовити Telegram-бота під ключ: заявки, запис, CRM і оплата в чаті. "
+"Індивідуальний кошторис після брифу."
+msgstr ""
+"Order a turnkey Telegram bot: leads, booking, CRM and in-chat "
+"payments. Individual quote after a brief."
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"розробка telegram бота під ключ, замовити telegram бота, telegram бот "
+"ціна, чат-бот telegram для бізнесу"
+msgstr ""
+"telegram bot development, order a telegram bot, telegram bot price, "
+"business telegram chatbot"
+
+#: templates/pages/telegram-bot.html
+msgid "Telegram-бот під ключ для бізнесу | PrometeyLabs"
+msgstr "Turnkey Telegram bot for business | PrometeyLabs"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Сценарій, інтеграції та запуск Telegram-бота під ключ. Кошторис після "
+"короткого брифу — без вигаданих пакетних цін."
+msgstr ""
+"Scenario, integrations and launch of a turnkey Telegram bot. Quote "
+"after a short brief — no invented package prices."
+
+#: templates/pages/telegram-bot.html
+msgid "Розробка Telegram-бота під ключ"
+msgstr "Turnkey Telegram bot development"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Telegram-бот для заявок, запису, CRM та оплати в чаті. Індивідуальний "
+"кошторис після брифу."
+msgstr ""
+"A Telegram bot for leads, booking, CRM and in-chat payments. "
+"Individual quote after a brief."
+
+#: templates/pages/telegram-bot.html
+msgid "Скільки коштує Telegram-бот під ключ у PrometeyLabs?"
+msgstr "How much does a turnkey Telegram bot cost at PrometeyLabs?"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Вартість рахуємо індивідуально після брифу: залежить від сценарію, "
+"інтеграцій і чи потрібні оплата або Mini App. Публічних пакетних цін "
+"зараз немає — надішліть задачу, щоб отримати кошторис."
+msgstr ""
+"We quote individually after a brief: it depends on the scenario, "
+"integrations, and whether you need payments or a Mini App. There is no "
+"public package price list — send the task to get an estimate."
+
+#: templates/pages/telegram-bot.html
+msgid "Скільки триває розробка бота?"
+msgstr "How long does bot development take?"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Строк залежить від складності сценарію та інтеграцій. Орієнтир "
+"фіксуємо в оцінці після брифу, а не як універсальний дедлайн для всіх "
+"ботів."
+msgstr ""
+"The timeline depends on scenario complexity and integrations. We lock "
+"a date in the estimate after the brief, not as a universal deadline "
+"for every bot."
+
+#: templates/pages/telegram-bot.html
+msgid "Що входить у вартість, а що оплачується окремо?"
+msgstr "What is included in the price, and what is billed separately?"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"У кошторис входить сценарій, розробка, тести та запуск. Хостинг, "
+"домен, платні API та токени ШІ — окремо, якщо вони потрібні вашому "
+"кейсу."
+msgstr ""
+"The quote includes the scenario, development, tests and launch. "
+"Hosting, domain, paid APIs and AI tokens are extra if your case needs "
+"them."
+
+#: templates/pages/telegram-bot.html
+msgid "Чи інтегруєте CRM, таблиці та оплату?"
+msgstr "Do you integrate CRM, spreadsheets and payments?"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Так, інтеграції узгоджуємо під конкретний проєкт. Називаємо лише "
+"сервіси, з якими вже працювали на оцінці — без загального списку «всі "
+"CRM світу»."
+msgstr ""
+"Yes, we agree integrations for the specific project. We name only "
+"services we have already used at estimate time — not a generic list of "
+"every CRM."
+
+#: templates/pages/telegram-bot.html
+msgid "Де хоститься бот і хто володіє кодом після оплати?"
+msgstr "Where is the bot hosted, and who owns the code after payment?"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Після 100% оплати доступи, токен і код передаємо замовнику — як у "
+"публічній оферті. Хостинг може бути на вашому сервері або на "
+"узгодженій інфраструктурі."
+msgstr ""
+"After 100% payment we hand over access, the token and the code to the "
+"client — as in the public offer. Hosting can be on your server or on "
+"agreed infrastructure."
+
+#: templates/pages/telegram-bot.html
+msgid "Чи робите AI-відповіді в Telegram?"
+msgstr "Do you build AI replies in Telegram?"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"AI-відповіді додаємо за запитом, з узгодженими межами: бот не вигадує "
+"ціни чи наявність, якщо цього немає в базі знань."
+msgstr ""
+"We add AI replies on request, with agreed limits: the bot does not "
+"invent prices or stock if they are not in the knowledge base."
+
+#: templates/pages/telegram-bot.html
+msgid "Як відбувається оплата проєкту?"
+msgstr "How does project payment work?"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Оплата етапами за договором. За потреби доступна покупка частинами "
+"monobank — деталі на окремій сторінці сервісу."
+msgstr ""
+"Payment is staged by contract. Installments via monobank are available "
+"if needed — details are on a separate service page."
+
+#: templates/pages/telegram-bot.html
+msgid "Що з підтримкою після запуску?"
+msgstr "What about support after launch?"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Гарантійна підтримка — 1 рік на усунення технічних багів з вини "
+"виконавця, як у публічній оферті. Нові функції та сторонні API не "
+"входять у гарантію."
+msgstr ""
+"Warranty support is 1 year for technical bugs caused by the "
+"contractor, as in the public offer. New features and third-party APIs "
+"are not covered."
+
+#: templates/pages/telegram-bot.html
+msgid "Telegram-бот під ключ"
+msgstr "Turnkey Telegram bot"
+
+#: templates/pages/telegram-bot.html
+msgid "Telegram-бот під ключ для бізнесу: заявки, CRM і оплата в чаті"
+msgstr "A turnkey Telegram bot for business: leads, CRM and in-chat payments"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Бот як частина системи PrometeyLabs: сценарій → інтеграції → за "
+"бажанням сайт або реклама. Кошторис після брифу, без вигаданих «від N "
+"євро»."
+msgstr ""
+"The bot as part of the PrometeyLabs system: scenario → integrations → "
+"optionally a site or ads. Quote after a brief, without invented "
+"from-N-euro prices."
+
+#: templates/pages/telegram-bot.html
+msgid "Кому потрібен Telegram-бот"
+msgstr "Who needs a Telegram bot"
+
+#: templates/pages/telegram-bot.html
+msgid "Заявки й кваліфікація ліда"
+msgstr "Leads and qualification"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Збирає контакти, фільтрує запити й передає менеджеру замість нічного "
+"листування в чаті."
+msgstr ""
+"Collects contacts, filters requests and sends them to a manager "
+"instead of late-night chat threads."
+
+#: templates/pages/telegram-bot.html
+msgid "Запис на послуги"
+msgstr "Service booking"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Слот, підтвердження, нагадування — менше ручних дзвінків для салону, "
+"школи чи сервісу."
+msgstr ""
+"Slot, confirmation, reminder — fewer manual calls for a salon, school "
+"or service."
+
+#: templates/pages/telegram-bot.html
+msgid "Статуси замовлень / e-com"
+msgstr "Order statuses / e-com"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Каталог, кошик і статуси доставки в чаті. Для магазину можна поєднати "
+"з окремим сайтом."
+msgstr ""
+"Catalogue, cart and delivery statuses in chat. For a shop this can "
+"pair with a separate site."
+
+#: templates/pages/telegram-bot.html
+msgid "FAQ підтримки"
+msgstr "Support FAQ"
+
+#: templates/pages/telegram-bot.html
+msgid "Типові відповіді 24/7 і кнопка «людина», коли сценарій закінчується."
+msgstr "Typical answers 24/7 and a human button when the script ends."
+
+#: templates/pages/telegram-bot.html
+msgid "Пакети розробки"
+msgstr "Development packages"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Це типові рівні складності, не прайс-лист. Сума — після оцінки вашого "
+"сценарію."
+msgstr ""
+"These are typical complexity levels, not a price list. The amount "
+"comes after we assess your scenario."
+
+#: templates/pages/telegram-bot.html
+msgid "MVP / заявки"
+msgstr "MVP / leads"
+
+#: templates/pages/telegram-bot.html
+msgid "Індивідуальний кошторис"
+msgstr "Individual quote"
+
+#: templates/pages/telegram-bot.html
+msgid "Меню, кваліфікація ліда, заявка менеджеру."
+msgstr "Menu, lead qualification, request to a manager."
+
+#: templates/pages/telegram-bot.html
+msgid "Сценарій діалогу та кнопки"
+msgstr "Dialogue scenario and buttons"
+
+#: templates/pages/telegram-bot.html
+msgid "Збір імені й телефону"
+msgstr "Name and phone capture"
+
+#: templates/pages/telegram-bot.html
+msgid "Сповіщення в чат команди"
+msgstr "Team chat notifications"
+
+#: templates/pages/telegram-bot.html
+msgid "Бізнес / CRM"
+msgstr "Business / CRM"
+
+#: templates/pages/telegram-bot.html
+msgid "Запис, статуси, передача в CRM або таблицю."
+msgstr "Booking, statuses, handoff to CRM or a spreadsheet."
+
+#: templates/pages/telegram-bot.html
+msgid "Гілки сценарію під нішу"
+msgstr "Scenario branches for the niche"
+
+#: templates/pages/telegram-bot.html
+msgid "Інтеграція, яку підтвердимо на оцінці"
+msgstr "An integration we confirm at estimate time"
+
+#: templates/pages/telegram-bot.html
+msgid "Передача ліда з полями угоди"
+msgstr "Lead handoff with deal fields"
+
+#: templates/pages/telegram-bot.html
+msgid "Каталог / оплата"
+msgstr "Catalogue / payments"
+
+#: templates/pages/telegram-bot.html
+msgid "Оплата в чаті або Mini App — лише якщо це потрібно кейсу."
+msgstr "In-chat payment or Mini App — only if the case needs it."
+
+#: templates/pages/telegram-bot.html
+msgid "Каталог або кошик у боті"
+msgstr "Catalogue or cart in the bot"
+
+#: templates/pages/telegram-bot.html
+msgid "Платіжний провайдер за домовленістю"
+msgstr "Payment provider by agreement"
+
+#: templates/pages/telegram-bot.html
+msgid "Mini App — опційно, не за замовчуванням"
+msgstr "Mini App — optional, not default"
+
+#: templates/pages/telegram-bot.html
+msgid "Що впливає на ціну"
+msgstr "What affects the price"
+
+#: templates/pages/telegram-bot.html
+msgid "Кількість гілок сценарію та мов"
+msgstr "Number of scenario branches and languages"
+
+#: templates/pages/telegram-bot.html
+msgid "Інтеграції: CRM, оплата, склад, таблиці"
+msgstr "Integrations: CRM, payments, inventory, spreadsheets"
+
+#: templates/pages/telegram-bot.html
+msgid "Чи потрібен Mini App замість кнопок"
+msgstr "Whether you need a Mini App instead of buttons"
+
+#: templates/pages/telegram-bot.html
+msgid "AI-база знань і модерація відповідей"
+msgstr "AI knowledge base and reply moderation"
+
+#: templates/pages/telegram-bot.html
+msgid "Хто хостить бота і хто адмініструє після запуску"
+msgstr "Who hosts the bot and who administers it after launch"
+
+#: templates/pages/telegram-bot.html
+msgid "Як ми працюємо"
+msgstr "How we work"
+
+#: templates/pages/telegram-bot.html
+msgid "Бриф: ніша, задача, інтеграції"
+msgstr "Brief: niche, task, integrations"
+
+#: templates/pages/telegram-bot.html
+msgid "Сценарій діалогу й узгодження"
+msgstr "Dialogue scenario and approval"
+
+#: templates/pages/telegram-bot.html
+msgid "Розробка та підключення сервісів"
+msgstr "Development and service connections"
+
+#: templates/pages/telegram-bot.html
+msgid "Тест гілок і крайніх випадків"
+msgstr "Branch and edge-case testing"
+
+#: templates/pages/telegram-bot.html
+msgid "Запуск і передача доступів"
+msgstr "Launch and access handoff"
+
+#: templates/pages/telegram-bot.html
+msgid "Гарантійний супровід за офертою"
+msgstr "Warranty support per the offer"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Підключаємо те, що підтвердимо на оцінці: CRM, оплата, таблиці, склад, "
+"сайт. Не обіцяємо сервіси, яких команда не впроваджувала."
+msgstr ""
+"We connect what we confirm at estimate time: CRM, payments, "
+"spreadsheets, inventory, site. We do not promise services the team has "
+"not shipped."
+
+#: templates/pages/telegram-bot.html
+msgid "Часті запитання"
+msgstr "Frequently asked questions"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Гарантія збігається з публічним договором: 1 рік на багфікс з вини "
+"виконавця. Не плутати з маркетинговими формулюваннями «пожиттєво» чи "
+"«5 років» на інших сторінках."
+msgstr ""
+"The warranty matches the public contract: 1 year of bugfix for "
+"contractor-caused issues. Do not confuse this with marketing wording "
+"like lifetime or 5 years on other pages."
+
+#: templates/pages/telegram-bot.html
+msgid "Оферта"
+msgstr "Offer"
+
+#: templates/pages/telegram-bot.html
+msgid "Отримати прорахунок бота"
+msgstr "Get a bot quote"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Опишіть нішу й задачу — відповімо з орієнтиром. Ця форма не веде в "
+"калькулятор сайтів."
+msgstr ""
+"Describe the niche and task — we will reply with a range. This form "
+"does not go to the website calculator."
+
+#: templates/pages/telegram-bot.html
+msgid "Що має робити бот?"
+msgstr "What should the bot do?"
+
+#: templates/pages/telegram-bot.html
+msgid "Заявки та кваліфікація ліда"
+msgstr "Leads and qualification"
+
+#: templates/pages/telegram-bot.html
+msgid "Замовлення / e-com"
+msgstr "Orders / e-com"
+
+#: templates/pages/telegram-bot.html
+msgid "Ще не визначився"
+msgstr "Not decided yet"
+
+#: templates/pages/telegram-bot.html
+msgid "Інтеграції (якщо знаєте)"
+msgstr "Integrations (if known)"
+
+#: templates/pages/telegram-bot.html
+msgid "CRM, оплата, таблиці…"
+msgstr "CRM, payments, spreadsheets…"
+
+#: templates/pages/telegram-bot.html
+msgid "Коротко про задачу"
+msgstr "Briefly about the task"
+
+#: templates/pages/telegram-bot.html
+msgid "Ніша, що має вміти бот, де хостити"
+msgstr "Niche, what the bot should do, where to host"
+
+#: templates/pages/telegram-bot.html
+msgid "Надіслати бриф"
+msgstr "Send the brief"
+
+#: templates/pages/telegram-bot.html
+msgid "Telegram-боти під ключ"
+msgstr "Turnkey Telegram bots"
+
+#: templates/pages/telegram-bot.html
+msgid "замовити бота"
+msgstr "order a bot"
+
+#: templates/pages/telegram-bot.html
+msgid "Заявка на Telegram-бота"
+msgstr "Telegram bot request"
+
+#: templates/pages/telegram-bot.html
+msgid ""
+"Дякуємо! Заявку на Telegram-бота отримано. Ми зв'яжемося з вами "
+"найближчим часом."
+msgstr ""
+"Thank you! Your Telegram bot request was received. We will contact you "
+"shortly."
+
 #~ msgid "До і після: хаос → структуроване ТЗ"
 #~ msgstr "Before & after: chaos → structured brief"
 
@@ -5623,9 +6080,6 @@ msgstr ""
 
 #~ msgid "Хочете одразу більше?"
 #~ msgstr "Want more right away?"
-
-#~ msgid "Отримати прорахунок"
-#~ msgstr "Get a quote"
 
 #~ msgid "Консультація"
 #~ msgstr "Consultation"

@@ -99,6 +99,24 @@ class ContactsView(BasePageView):
     page_title = _('Контакти | PrometeyLabs - Зв\'яжіться з нами')
     meta_description = _('Зв\'яжіться з командою PrometeyLabs для розробки сайтів, Telegram ботів, реклами чи навчання. Київ, Україна.')
 
+
+class TelegramBotView(BasePageView):
+    """Lean money-сторінка Telegram-бота під ключ."""
+
+    template_name = 'pages/telegram-bot.html'
+    page_title = _(
+        'Розробка Telegram-бота під ключ — пакети, строки, інтеграції | PrometeyLabs'
+    )
+    meta_description = _(
+        'Замовити Telegram-бота під ключ: заявки, запис, CRM і оплата в чаті. '
+        'Індивідуальний кошторис після брифу.'
+    )
+    og_title = _('Telegram-бот під ключ для бізнесу | PrometeyLabs')
+    keywords = _(
+        'розробка telegram бота під ключ, замовити telegram бота, telegram бот ціна, '
+        'чат-бот telegram для бізнесу'
+    )
+
 class OfferView(BasePageView):
     page_title = _('Публічний договір (оферта) про надання послуг | PrometeyLabs')
     meta_description = _('Публічний договір (оферта) про надання ІТ-послуг від PrometeyLabs. Офіційні умови надання послуг веб-розробки, мобільних застосунків та маркетингу.')
@@ -298,6 +316,8 @@ def handle_form_submission(request):
             'contact': handle_contact_request,
             'call_request': handle_call_request,
             'footer-consultation': handle_footer_consultation,
+            'telegram-bot': handle_telegram_bot_request,
+            'telegram_bot': handle_telegram_bot_request,
         }
         
         handler = handlers.get(form_type)
@@ -340,6 +360,51 @@ def handle_site_request(request, name, phone):
         _('Дякуємо! Ваша заявка отримана. Ми зв\'яжемося з вами найближчим часом.'),
         redirect='/thank-you/'
     )
+
+
+def handle_telegram_bot_request(request, name, phone):
+    """Заявка зі сторінки /telegram-bot/ — окремий тип для KeyCRM/адмінки."""
+    email = request.POST.get('email', '').strip()
+    bot_task = request.POST.get('bot_task', '').strip()
+    integrations = request.POST.get('integrations', '').strip()
+    message = (
+        request.POST.get('details', '').strip()
+        or request.POST.get('message', '').strip()
+    )
+    source_page = request.POST.get('source_page', '').strip() or 'telegram-bot'
+
+    detail_parts = ['Джерело: /telegram-bot/', 'Тип: заявка на Telegram-бота']
+    if bot_task:
+        detail_parts.append(f'Задача бота: {bot_task}')
+    if integrations:
+        detail_parts.append(f'Інтеграції: {integrations}')
+    if message:
+        detail_parts.append(message)
+    details = '\n'.join(detail_parts)
+
+    form_data = create_form_data(
+        _('Заявка на Telegram-бота'), name, phone, request,
+        email=email,
+        details=details,
+        source_page=source_page,
+    )
+
+    submission_saved, submission_id, save_error = save_form_submission(
+        'telegram-bot', form_data, email_success=False
+    )
+
+    if not submission_saved:
+        logger.error(f"Failed to save telegram-bot submission: {save_error}")
+        return create_form_response(False, _('Помилка при збереженні заявки. Спробуйте ще раз.'))
+
+    _dispatch_async(submission_id, form_data)
+
+    return create_form_response(
+        True,
+        _('Дякуємо! Заявку на Telegram-бота отримано. Ми зв\'яжемося з вами найближчим часом.'),
+        redirect='/thank-you/'
+    )
+
 
 def handle_developer_request(request, name, phone):
     """Обробка заявки на курси"""

@@ -79,6 +79,10 @@
                         return;
                     }
 
+                    if (event.target.closest('a')) {
+                        return;
+                    }
+
                     event.preventDefault();
                     event.stopPropagation();
 

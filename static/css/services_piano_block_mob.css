@@ -124,15 +124,29 @@
         left: auto;
         right: auto;
         bottom: auto;
+        z-index: 3;
         opacity: 1;
         visibility: visible;
         transform: none;
         width: 100%;
         flex: 1 1 auto;
+        pointer-events: none;
         padding:
             clamp(14px, 3.5vw, 20px)
             clamp(14px, 3.5vw, 18px)
             clamp(4px, 1.5vw, 8px);
+    }
+
+    #svc-piano .svc-piano__cta {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        z-index: 4;
+        margin: 8px auto 0;
+        pointer-events: auto;
+        white-space: normal;
+        text-align: center;
     }
 
     #svc-piano .svc-piano__rise-media {

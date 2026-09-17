@@ -1,5 +1,15 @@
 /* Piano block — cta-section pattern. Fixed video from hero-parallax.css. */
 
+/* Follower відео (piano/cta) на desktop не потрібне: leader-відео з hero
+   лишається position:fixed і видно крізь ці секції (див. hero-parallax.css).
+   Ховаємо follower ДО першого пофарбування, щоб він не блокував мережу і не
+   перекривав leader своїм фоновим #1a1a1a боксом. */
+@media (min-width: 768px) {
+    .video-background--follower {
+        display: none;
+    }
+}
+
 /* Process block + first .vf are opaque → hide fixed video behind them */
 #home-redesign > .vf-host:has(.home-process-intro),
 #home-redesign > #pb-process {

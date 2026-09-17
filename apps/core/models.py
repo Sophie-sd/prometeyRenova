@@ -22,6 +22,7 @@ class FormSubmission(models.Model):
         ('footer-consultation', _('Заявка з футера')),
         ('test_result', _('Результат тесту калькулятора')),
         ('tz_generator', _('Генератор ТЗ для сайту')),
+        ('telegram-bot', _('Заявка на Telegram-бота')),
     ]
     
     # Вибір статусів
@@ -80,6 +81,63 @@ class FormSubmission(models.Model):
     # ===== ДЕТАЛІ ЗАПИТУ =====
     details = models.TextField(blank=True, verbose_name=_('Деталі / Повідомлення'))
     extra_data = models.JSONField(blank=True, null=True, verbose_name=_('Додаткові дані'))
+    budget = models.CharField(
+        max_length=20,
+        blank=True,
+        default='',
+        db_index=True,
+        choices=[
+            ('to_500', _('до 500 €')),
+            ('500_1500', _('500–1500 €')),
+            ('1500_3000', _('1500–3000 €')),
+            ('3000_plus', _('від 3000 €')),
+            ('discuss', _('Обговоримо')),
+        ],
+        verbose_name=_('Орієнтовний бюджет'),
+    )
+    project_type = models.CharField(
+        max_length=20,
+        blank=True,
+        default='',
+        db_index=True,
+        choices=[
+            ('site', _('Сайт / лендінг')),
+            ('eshop', _('Інтернет-магазин')),
+            ('webapp', _('Веб-застосунок')),
+            ('other', _('Інше')),
+        ],
+        verbose_name=_('Тип проєкту'),
+    )
+    messenger_type = models.CharField(
+        max_length=20,
+        blank=True,
+        default='',
+        choices=[
+            ('phone', _('Телефон')),
+            ('whatsapp', 'WhatsApp'),
+            ('telegram', 'Telegram'),
+            ('viber', 'Viber'),
+        ],
+        verbose_name=_("Тип зв'язку / месенджер"),
+    )
+    preferred_language = models.CharField(
+        max_length=5,
+        blank=True,
+        default='',
+        db_index=True,
+        choices=[
+            ('cs', 'Čeština'),
+            ('en', 'English'),
+            ('uk', _('Українська')),
+        ],
+        verbose_name=_('Бажана мова спілкування'),
+    )
+    consent_at = models.DateTimeField(
+        blank=True, null=True, verbose_name=_('Згода на обробку даних — прийнято')
+    )
+    consent_ip = models.GenericIPAddressField(
+        blank=True, null=True, verbose_name=_('IP при підтвердженні згоди')
+    )
     
     # ===== EMAIL ВІДПРАВКА =====
     email_sent = models.BooleanField(
@@ -206,6 +264,7 @@ class FormSubmission(models.Model):
             'footer-consultation': 'Футер',
             'test_result': 'Тест',
             'tz_generator': 'ТЗ',
+            'telegram-bot': 'Telegram-бот',
         }
         return display_map.get(self.form_type, self.get_form_type_display())
 

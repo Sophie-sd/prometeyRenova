@@ -2199,6 +2199,16 @@ body.menu-open .contact-widget {
     }
 }
 
+/* Desktop: .mobile-touch-target (display:flex, без media-запиту, нижче в каскаді)
+   переважає .mobile-contact-fab{display:none} через рівну специфічність і порядок
+   джерела — кнопка "спливала" 44px-смугою під футером. body-префікс піднімає
+   специфічність без !important, не займаючи спільний .mobile-touch-target. */
+@media (min-width: 768px) {
+    body .mobile-contact-fab {
+        display: none;
+    }
+}
+
 /* ===== BUTTON SIZES ===== */
 
 .btn-small {

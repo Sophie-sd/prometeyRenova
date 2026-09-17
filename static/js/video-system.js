@@ -100,6 +100,11 @@ class VideoSystem {
                     if (video === leader) {
                         return;
                     }
+                    // Не чіпати ще не завантажені follower-и (readyState 0):
+                    // desktop-приховані відео не повинні ініціювати мережевий запит.
+                    if (video.readyState < 1) {
+                        return;
+                    }
                     if (Math.abs(video.currentTime - time) > 0.35) {
                         try {
                             video.currentTime = time;
@@ -134,8 +139,9 @@ class VideoSystem {
 
     // ===== AUTOPLAY DETECTION =====
     async testAutoplaySupport() {
+        let video = null;
         try {
-            const video = document.createElement('video');
+            video = document.createElement('video');
             video.muted = true;
             video.playsInline = true;
             video.style.cssText = 'position:absolute;opacity:0;left:-9999px';
@@ -150,14 +156,18 @@ class VideoSystem {
 
             if (playPromise instanceof Promise) {
                 await playPromise;
-                video.remove();
                 return true;
             }
 
-            video.remove();
             return false;
         } catch (error) {
             return false;
+        } finally {
+            // Прибираємо тестовий елемент завжди — і при успіху, і при відхиленні
+            // play(), щоб не лишати мертвий <video> у DOM на кожному завантаженні.
+            if (video) {
+                video.remove();
+            }
         }
     }
 
@@ -191,17 +201,62 @@ class VideoSystem {
             rootMargin: this.config.lazyLoadMargin,
             threshold: this.config.lazyLoadThreshold
         });
+
+        // Observer для follower-відео (piano/cta): активуємо, коли секція
+        // наближається до viewport (fallback, якщо leader ще не в кеші).
+        // Не активний на сторінках без data-video-role="follower" розмітки.
+        this.observers.followers = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const activate = this._followerActivators?.get(entry.target);
+                if (activate) activate();
+                this.observers.followers.unobserve(entry.target);
+            });
+        }, {
+            rootMargin: '100% 0px',
+            threshold: 0
+        });
     }
 
     // ===== PAGE VIDEOS PROCESSING =====
     async processPageVideos() {
         // Standard videos (hero, cta)
-        const standardVideos = document.querySelectorAll(
+        const allVideos = document.querySelectorAll(
             '.video-background:not(.lazy-video), .hero-video:not(.lazy-video)'
         );
 
+        // Follower-відео (piano/cta, тільки якщо є data-video-role="follower" —
+        // сьогодні це виключно homepage-розмітка, тому на решті сторінок цей
+        // блок ніколи не спрацьовує і поведінка лишається незмінною).
+        const followerVideos = [];
+        const standardVideos = Array.from(allVideos).filter(video => {
+            if (video.getAttribute('data-video-role') === 'follower') {
+                followerVideos.push(video);
+                return false;
+            }
+            return true;
+        });
+
         for (const video of standardVideos) {
             await this.processVideo(video, 'standard');
+        }
+
+        if (followerVideos.length) {
+            if (window.innerWidth <= 767) {
+                const leader = standardVideos.find(v => v.getAttribute('data-video-role') === 'leader') || standardVideos[0];
+                this.scheduleFollowers(leader, followerVideos);
+            }
+
+            if (!this._followerMediaQuery) {
+                this._followerMediaQuery = window.matchMedia('(max-width: 767px)');
+                this._followerMediaQuery.addEventListener('change', (event) => {
+                    if (!event.matches) return;
+                    const pending = followerVideos.filter(video => !this.videos.get(video)?.loaded);
+                    if (!pending.length) return;
+                    const leader = document.querySelector('video[data-video-role="leader"]') || standardVideos[0];
+                    this.scheduleFollowers(leader, pending);
+                });
+            }
         }
 
         // Lazy videos (portfolio projects)
@@ -226,6 +281,86 @@ class VideoSystem {
                 this.observers.intersection.observe(container);
             }
         });
+    }
+
+    /**
+     * Follower-відео (piano/cta) активуються тільки на mobile, тільки коли:
+     *  a) leader повністю в буфері (0 нових байтів — грає з HTTP-кешу), або
+     *  b) секція follower-а наближається до viewport (fallback на повільній мережі), або
+     *  c) 10s таймаут / помилка leader-а (щоб ніколи не залишити секцію без відео).
+     */
+    scheduleFollowers(leader, followers) {
+        if (!leader || !followers || !followers.length) return;
+
+        const pending = new Map();
+        followers.forEach(video => {
+            if (this.videos.get(video)?.loaded) return;
+            pending.set(video, video.closest('section') || video.parentElement);
+        });
+
+        if (!pending.size) return;
+
+        let settled = false;
+        let timeoutId = null;
+
+        const cleanup = () => {
+            clearTimeout(timeoutId);
+            leader.removeEventListener('progress', onLeaderProgress);
+            leader.removeEventListener('canplaythrough', onLeaderProgress);
+            leader.removeEventListener('error', onLeaderError);
+            if (this.observers.followers) {
+                pending.forEach((section) => {
+                    if (section) this.observers.followers.unobserve(section);
+                });
+            }
+        };
+
+        const activateAll = () => {
+            if (settled) return;
+            settled = true;
+            cleanup();
+            pending.forEach((section, video) => this.processVideo(video, 'standard'));
+        };
+
+        const activateOne = (video) => {
+            if (settled || !pending.has(video)) return;
+            pending.delete(video);
+            this.processVideo(video, 'standard');
+            if (!pending.size) {
+                settled = true;
+                cleanup();
+            }
+        };
+
+        const onLeaderProgress = () => {
+            if (!leader.duration || !leader.buffered || !leader.buffered.length) return;
+            try {
+                const bufferedEnd = leader.buffered.end(leader.buffered.length - 1);
+                if (bufferedEnd >= leader.duration - 0.3) {
+                    activateAll();
+                }
+            } catch (error) {
+                /* ignore TimeRanges edge cases */
+            }
+        };
+
+        const onLeaderError = () => activateAll();
+
+        timeoutId = window.setTimeout(activateAll, this.config.loadTimeout);
+
+        leader.addEventListener('progress', onLeaderProgress);
+        leader.addEventListener('canplaythrough', onLeaderProgress);
+        leader.addEventListener('error', onLeaderError, { once: true });
+        onLeaderProgress();
+
+        if (this.observers.followers) {
+            this._followerActivators = this._followerActivators || new WeakMap();
+            pending.forEach((section, video) => {
+                if (!section) return;
+                this._followerActivators.set(section, () => activateOne(video));
+                this.observers.followers.observe(section);
+            });
+        }
     }
 
     // ===== VIDEO PROCESSING =====
@@ -354,6 +489,7 @@ class VideoSystem {
             await this.waitForVideoReady(element);
 
             videoData.loaded = true;
+            this.ensureResponsiveSource(element);
 
             if (isHeroBackground || this.autoplaySupported) {
                 await this.attemptAutoplay(videoData);
@@ -363,6 +499,40 @@ class VideoSystem {
 
         } catch (error) {
             this.handleVideoError(videoData, error);
+        }
+    }
+
+    /**
+     * Захист для браузерів, які ігнорують <source media="..."> (напр. дуже старі
+     * Chromium/WebView): після завантаження leader-а звіряємо currentSrc з тим,
+     * що мало би підійти під поточний viewport, і за потреби перемикаємо вручну.
+     */
+    ensureResponsiveSource(video) {
+        if (video.getAttribute('data-video-role') !== 'leader') return;
+
+        const sources = Array.from(video.querySelectorAll('source[media]'));
+        if (!sources.length) return;
+
+        let matched = sources.find(source => {
+            const query = source.getAttribute('media');
+            return query && window.matchMedia(query).matches;
+        });
+
+        if (!matched) {
+            matched = video.querySelector('source:not([media])');
+        }
+        if (!matched || !matched.src) return;
+
+        const matchedUrl = new URL(matched.src, location.href).href;
+        const currentUrl = video.currentSrc ? new URL(video.currentSrc, location.href).href : '';
+
+        if (currentUrl && currentUrl !== matchedUrl) {
+            const wasPlaying = !video.paused;
+            video.src = matched.src;
+            video.load();
+            if (wasPlaying) {
+                video.play().catch(() => { });
+            }
         }
     }
 

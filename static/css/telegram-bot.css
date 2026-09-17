@@ -1,0 +1,288 @@
+/* Lean Telegram-bot money page. Own namespace — do not load shop-v2/TZ assets. */
+
+.pl-bot-body {
+    background: #f5f1ed;
+}
+
+.pl-bot {
+    color: #000;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    padding-top: 88px;
+}
+
+.pl-bot__inner {
+    width: min(1120px, calc(100% - 40px));
+    margin: 0 auto;
+}
+
+.pl-bot__inner--narrow {
+    width: min(720px, calc(100% - 40px));
+}
+
+.pl-bot__section {
+    padding: 72px 0;
+}
+
+.pl-bot__section--dark {
+    background: #000;
+    color: #fff;
+}
+
+.pl-bot__eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #e65100;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.pl-bot__h1 {
+    font-size: clamp(32px, 6vw, 56px);
+    line-height: 0.95;
+    letter-spacing: -1px;
+    font-weight: 700;
+    max-width: 18ch;
+    margin-bottom: 24px;
+}
+
+.pl-bot__h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.05;
+    letter-spacing: -0.5px;
+    font-weight: 700;
+    margin-bottom: 28px;
+}
+
+.pl-bot__h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.pl-bot__lead,
+.pl-bot__note,
+.pl-bot p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.pl-bot__lead {
+    max-width: 42ch;
+    margin-bottom: 32px;
+}
+
+.pl-bot__hero {
+    padding: 48px 0 72px;
+}
+
+.pl-bot__hero-actions,
+.pl-bot__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.pl-bot a {
+    color: inherit;
+}
+
+.pl-bot__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 22px;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease-out, color 0.3s ease-out;
+}
+
+.pl-bot__btn--primary {
+    background: #e65100;
+    color: #fff;
+}
+
+.pl-bot__btn--primary:hover {
+    background: #bf360c;
+}
+
+.pl-bot__btn--ghost {
+    border: 1px solid currentColor;
+    background: transparent;
+    color: inherit;
+}
+
+.pl-bot__btn--full {
+    width: 100%;
+}
+
+.pl-bot__grid,
+.pl-bot__pkg-grid {
+    display: grid;
+    gap: 24px;
+}
+
+.pl-bot__grid {
+    grid-template-columns: 1fr;
+}
+
+.pl-bot__pkg {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 24px 20px;
+    border-radius: 12px;
+}
+
+.pl-bot__pkg--featured {
+    border-color: #e65100;
+}
+
+.pl-bot__pkg-name {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #e65100;
+    font-weight: 700;
+}
+
+.pl-bot__pkg-price {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 8px 0 12px;
+}
+
+.pl-bot__pkg ul,
+.pl-bot__checklist {
+    margin-top: 16px;
+    padding-left: 1.1em;
+}
+
+.pl-bot__pkg li,
+.pl-bot__checklist li {
+    list-style: disc;
+    margin-bottom: 8px;
+    line-height: 1.45;
+}
+
+.pl-bot__steps {
+    display: grid;
+    gap: 16px;
+}
+
+.pl-bot__steps li {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 12px;
+    align-items: baseline;
+    font-size: 16px;
+}
+
+.pl-bot__steps span {
+    color: #e65100;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.pl-bot__faq details {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 12px 0;
+}
+
+.pl-bot__section--dark .pl-bot__faq details {
+    border-bottom-color: rgba(255, 255, 255, 0.16);
+}
+
+.pl-bot__faq summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.35;
+    padding: 8px 0;
+}
+
+.pl-bot__faq p {
+    margin: 8px 0 12px;
+    max-width: 62ch;
+}
+
+.pl-bot__legal-note {
+    margin-top: 28px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #444;
+}
+
+.pl-bot__form {
+    display: grid;
+    gap: 16px;
+}
+
+.pl-bot__field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.pl-bot__field .form-input,
+.pl-bot__field select,
+.pl-bot__field textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 8px;
+    background: #111;
+    color: #fff;
+    font: inherit;
+}
+
+.pl-bot__links {
+    margin-top: 28px;
+    font-size: 14px;
+}
+
+.pl-bot__links a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.pl-bot a:focus-visible {
+    outline: 2px solid #e65100;
+    outline-offset: 3px;
+}
+
+@media (min-width: 768px) {
+    .pl-bot {
+        padding-top: 104px;
+    }
+
+    .pl-bot__section {
+        padding: 96px 0;
+    }
+
+    .pl-bot__grid,
+    .pl-bot__pkg-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .pl-bot__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pl-bot__steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .pl-bot__inner,
+    .pl-bot__inner--narrow {
+        width: calc(100% - 32px);
+    }
+}
