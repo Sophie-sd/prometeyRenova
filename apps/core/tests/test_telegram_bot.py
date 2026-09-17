@@ -38,6 +38,10 @@ class TelegramBotPageTests(TestCase):
                 self.assertIn('name="source_page"', html)
                 self.assertIn('value="telegram-bot"', html)
                 self.assertIn('data-form-type="telegram-bot"', html)
+                self.assertIn('data-qa="lead-form"', html)
+                self.assertNotIn('data-testid="lead-form"', html)
+                self.assertIn('name="honeypot"', html)
+                self.assertIn('class="pl-bot__honeypot"', html)
                 self.assertIn('id="pl-bot-form"', html)
                 self.assertIn('pl-bot__demo', html)
                 self.assertIn('pl-bot__tg-thread', html)
@@ -153,6 +157,20 @@ class TelegramBotFormTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(json.loads(response.content)['success'])
         self.assertEqual(FormSubmission.objects.latest('id').form_type, 'telegram-bot')
+
+    def test_filled_honeypot_is_silent_success_without_save(self):
+        before = FormSubmission.objects.count()
+        response = self.client.post(self.submit_url, {
+            'form_type': 'telegram-bot',
+            'name': 'Олена Бот',
+            'phone': '+380631234567',
+            'source_page': 'telegram-bot',
+            'honeypot': 'bot-filled',
+        })
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertTrue(data['success'])
+        self.assertEqual(FormSubmission.objects.count(), before)
 
     def test_unknown_form_type_does_not_500(self):
         response = self.client.post(self.submit_url, {

@@ -292,6 +292,13 @@ def handle_form_submission(request):
     try:
         # Отримуємо тип форми з data-form-type або окремого поля
         form_type = request.POST.get('form_type') or get_form_type_from_path(request)
+        if form_type in ('telegram-bot', 'telegram_bot') and request.POST.get('honeypot'):
+            # Silent success — same as democorp/demolanding; do not save spam.
+            return create_form_response(
+                True,
+                _('Дякуємо! Заявку на Telegram-бота отримано. Ми зв\'яжемося з вами найближчим часом.'),
+                redirect='/thank-you/'
+            )
         name = request.POST.get('name', '').strip()
         phone = request.POST.get('phone', '').strip()
         

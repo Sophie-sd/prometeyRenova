@@ -436,8 +436,17 @@ body.pl-bot-body .main-content {
 }
 
 .pl-bot__form {
+    position: relative;
     display: grid;
     gap: 16px;
+}
+
+.pl-bot__honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }
 
 .pl-bot__field label {
@@ -700,17 +709,6 @@ body.pl-bot-body .main-content {
     .pl-bot__note {
         font-size: 16px;
     }
-}
-
-
-
-/* ERR-121 honeypot: hide via class, never inline style */
-.pl-bot__honeypot {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {

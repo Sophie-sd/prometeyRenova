@@ -111,7 +111,7 @@
 
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/pl-product-tokens.css' %}?v=1">
-<link rel="stylesheet" href="{% static 'css/telegram-bot.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'css/telegram-bot.css' %}?v=3">
 {% endblock %}
 
 {% block content %}
@@ -325,11 +325,7 @@
                 {% csrf_token %}
                 <input type="hidden" name="form_type" value="telegram-bot">
                 <input type="hidden" name="source_page" value="telegram-bot">
-                {# ERR-121: honeypot — non-field; CSS hide, no inline style; errors must stay outside #}
-                <div class="pl-bot__honeypot" aria-hidden="true">
-                    <label for="pl-bot-honeypot">Company</label>
-                    <input id="pl-bot-honeypot" type="text" name="honeypot" tabindex="-1" autocomplete="off">
-                </div>
+                <input type="text" name="honeypot" class="pl-bot__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
                 <div class="pl-bot__field">
                     <label for="pl-bot-name">{% trans "Ім'я" %} <span class="required">*</span></label>
