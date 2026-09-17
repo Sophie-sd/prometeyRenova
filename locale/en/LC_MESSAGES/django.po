@@ -5888,50 +5888,6 @@ msgid "Надіслати бриф"
 msgstr "Send the brief"
 
 #: templates/pages/telegram-bot.html
-msgid "Що далі: після брифу надішлемо орієнтир по сценарію та інтеграціях — без публічного прайса."
-msgstr "What happens next: after the brief we send a range for the scenario and integrations — no public price list."
-
-#: templates/pages/telegram-bot.html
-msgid "після оплати код і токен — у замовника"
-msgstr "after payment the code and token belong to you"
-
-#: templates/pages/telegram-bot.html
-msgid "гарантія 1 рік на багфікс"
-msgstr "1-year bugfix warranty"
-
-#: templates/pages/telegram-bot.html
-msgid "Бот студії"
-msgstr "Studio bot"
-
-#: templates/pages/telegram-bot.html
-msgid "онлайн"
-msgstr "online"
-
-#: templates/pages/telegram-bot.html
-msgid "Вітаю. Оберіть дію в меню — зберу заявку і передам менеджеру."
-msgstr "Hi. Pick an action in the menu — I will collect the lead and pass it to a manager."
-
-#: templates/pages/telegram-bot.html
-msgid "Меню бота"
-msgstr "Bot menu"
-
-#: templates/pages/telegram-bot.html
-msgid "Ім'я та телефон — передам у CRM команди."
-msgstr "Name and phone — I will send them to the team CRM."
-
-#: templates/pages/telegram-bot.html
-msgid "Олена, +380 63 123 45 67"
-msgstr "Olena, +380 63 123 45 67"
-
-#: templates/pages/telegram-bot.html
-msgid "Заявку надіслано. Менеджер відповість у робочі години."
-msgstr "Request sent. A manager will reply during business hours."
-
-#: templates/pages/telegram-bot.html
-msgid "Демо: меню бота → заявка → CRM"
-msgstr "Demo: bot menu → lead → CRM"
-
-#: templates/pages/telegram-bot.html
 msgid "Telegram-боти під ключ"
 msgstr "Turnkey Telegram bots"
 

@@ -5711,50 +5711,6 @@ msgid "Надіслати бриф"
 msgstr "Отправить бриф"
 
 #: templates/pages/telegram-bot.html
-msgid "Що далі: після брифу надішлемо орієнтир по сценарію та інтеграціях — без публічного прайса."
-msgstr "Что дальше: после брифа отправим ориентир по сценарию и интеграциям — без публичного прайса."
-
-#: templates/pages/telegram-bot.html
-msgid "після оплати код і токен — у замовника"
-msgstr "после оплаты код и токен — у заказчика"
-
-#: templates/pages/telegram-bot.html
-msgid "гарантія 1 рік на багфікс"
-msgstr "гарантия 1 год на багфикс"
-
-#: templates/pages/telegram-bot.html
-msgid "Бот студії"
-msgstr "Бот студии"
-
-#: templates/pages/telegram-bot.html
-msgid "онлайн"
-msgstr "онлайн"
-
-#: templates/pages/telegram-bot.html
-msgid "Вітаю. Оберіть дію в меню — зберу заявку і передам менеджеру."
-msgstr "Здравствуйте. Выберите действие в меню — соберу заявку и передам менеджеру."
-
-#: templates/pages/telegram-bot.html
-msgid "Меню бота"
-msgstr "Меню бота"
-
-#: templates/pages/telegram-bot.html
-msgid "Ім'я та телефон — передам у CRM команди."
-msgstr "Имя и телефон — передам в CRM команды."
-
-#: templates/pages/telegram-bot.html
-msgid "Олена, +380 63 123 45 67"
-msgstr "Елена, +380 63 123 45 67"
-
-#: templates/pages/telegram-bot.html
-msgid "Заявку надіслано. Менеджер відповість у робочі години."
-msgstr "Заявку отправлено. Менеджер ответит в рабочие часы."
-
-#: templates/pages/telegram-bot.html
-msgid "Демо: меню бота → заявка → CRM"
-msgstr "Демо: меню бота → заявка → CRM"
-
-#: templates/pages/telegram-bot.html
 msgid "Telegram-боти під ключ"
 msgstr "Telegram-боты под ключ"
 
