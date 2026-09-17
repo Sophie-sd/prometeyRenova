@@ -2341,7 +2341,9 @@ function initMarqueeAnimation(container) {
     
     container.style.setProperty('--marquee-distance', `${setWidth}px`);
     container.setAttribute('aria-label', 'Наші проєкти - автоматична демонстрація');
-    container.setAttribute('role', 'marquee');
+    // Навмисно НЕ перезаписуємо role: контейнер вже має role="list" з шаблону
+    // (redesign_clients.html / clients.html), а "marquee" — невалідна ARIA-роль,
+    // яка ламала зв'язок list/listitem для карток клієнтів (Coresync, SpeakUp...).
     
     if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries) => {

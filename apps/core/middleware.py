@@ -85,6 +85,7 @@ class CSPMiddleware:
         )
         csp = "; ".join([
             "default-src 'self'",
+            "base-uri 'self'",
             f"script-src {script_src}",
             (
                 "style-src 'self' 'unsafe-inline' "

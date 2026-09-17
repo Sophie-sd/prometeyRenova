@@ -131,6 +131,19 @@
         key.setAttribute('aria-expanded', open ? 'true' : 'false');
         rise.setAttribute('aria-hidden', open ? 'false' : 'true');
 
+        // rise може містити фокусований лінк (напр. .svc-piano__cta у "Web-розробка"):
+        // коли rise прихований (aria-hidden="true"), він не повинен лишатись
+        // досяжним по Tab, інакше screen reader/keyboard user потрапляє у
+        // прихований елемент (WCAG "aria-hidden must not contain focusable").
+        var focusables = rise.querySelectorAll('a[href], button, input, select, textarea, [tabindex]');
+        for (var i = 0; i < focusables.length; i++) {
+            if (open) {
+                focusables[i].removeAttribute('tabindex');
+            } else {
+                focusables[i].setAttribute('tabindex', '-1');
+            }
+        }
+
         if (desc) {
             desc.setAttribute('aria-hidden', open ? 'false' : 'true');
         }
