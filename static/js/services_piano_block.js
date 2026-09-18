@@ -131,10 +131,8 @@
         key.setAttribute('aria-expanded', open ? 'true' : 'false');
         rise.setAttribute('aria-hidden', open ? 'false' : 'true');
 
-        // rise може містити фокусований лінк (напр. .svc-piano__cta у "Web-розробка"):
-        // коли rise прихований (aria-hidden="true"), він не повинен лишатись
-        // досяжним по Tab, інакше screen reader/keyboard user потрапляє у
-        // прихований елемент (WCAG "aria-hidden must not contain focusable").
+        // якщо rise містить фокусований лінк/кнопку: при aria-hidden="true"
+        // вони не повинні лишатись у Tab-порядку (WCAG aria-hidden-focus).
         var focusables = rise.querySelectorAll('a[href], button, input, select, textarea, [tabindex]');
         for (var i = 0; i < focusables.length; i++) {
             if (open) {

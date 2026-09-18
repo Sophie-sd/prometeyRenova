@@ -271,31 +271,6 @@
     object-position: center bottom;
 }
 
-#svc-piano .svc-piano__cta {
-    position: absolute;
-    left: 50%;
-    bottom: 10px;
-    z-index: 3;
-    transform: translateX(-50%);
-    pointer-events: auto;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 40px;
-    padding: 8px 14px;
-    border-radius: 8px;
-    background: #e65100;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 700;
-    text-decoration: none;
-    white-space: nowrap;
-}
-
-#svc-piano .svc-piano__cta:hover {
-    background: #bf360c;
-}
-
 #svc-piano .svc-piano__unit[data-service="web"] .svc-piano__rise-media {
     transform: scale(0.86);
     transform-origin: center bottom;
