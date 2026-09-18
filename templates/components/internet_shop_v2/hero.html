@@ -31,10 +31,12 @@
 
             <div class="pl-shop__hero-stage">
                 <picture>
-                    <source type="image/webp" media="(max-width: 767px)" srcset="{% static 'images/shop_hero_720.webp' %}">
-                    <source type="image/webp" srcset="{% static 'images/shop_hero.webp' %}">
+                    <source
+                        type="image/webp"
+                        srcset="{% static 'images/shop_hero_540.webp' %} 540w, {% static 'images/shop_hero_720.webp' %} 720w"
+                        sizes="(max-width: 767px) min(92vw, 720px), 410px">
                     <img
-                        src="{% static 'images/shop_hero.webp' %}"
+                        src="{% static 'images/shop_hero_540.webp' %}"
                         alt="Інтернет-магазин на ноутбуці та смартфоні"
                         class="pl-shop__hero-img"
                         width="540"

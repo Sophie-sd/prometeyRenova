@@ -1970,17 +1970,23 @@ class PrometeyApp {
 
         if (!widget || !toggle || !panel) return;
 
+        const syncPanel = (open) => {
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+            if ('inert' in panel) panel.inert = !open;
+        };
+
         const openWidget = () => {
             widget.classList.add('contact-widget--open');
-            toggle.setAttribute('aria-expanded', 'true');
-            panel.setAttribute('aria-hidden', 'false');
+            syncPanel(true);
         };
 
         const closeWidget = () => {
             widget.classList.remove('contact-widget--open');
-            toggle.setAttribute('aria-expanded', 'false');
-            panel.setAttribute('aria-hidden', 'true');
+            syncPanel(false);
         };
+
+        syncPanel(false);
 
         const isWidgetOpen = () => widget.classList.contains('contact-widget--open');
 

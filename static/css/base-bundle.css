@@ -102,6 +102,7 @@ select {
 :root {
     /* ===== КОЛЬОРОВА СИСТЕМА (оновлена: все помаранчеве!) ===== */
     --color-brand-orange: #E65100;
+    --color-brand-orange-active: #B33D00;
     /* Головний бренд колір - темно насичено помаранчевий */
     --color-brand-purple: #7B2CBF;
     /* Фірмовий фіолетовий колір для акцентів */
@@ -1349,7 +1350,7 @@ img, video {
     text-decoration: none;
     font-weight: 500;
     font-size: 14px;
-    transition: all var(--transition-normal) ease;
+    transition: background-color var(--transition-normal) ease, color var(--transition-normal) ease, border-color var(--transition-normal) ease;
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -1361,9 +1362,9 @@ img, video {
 }
 
 .lang-btn.active {
-    background: var(--color-brand-orange);
+    background: var(--color-brand-orange-active, #B33D00);
     color: white;
-    border-color: var(--color-brand-orange);
+    border-color: var(--color-brand-orange-active, #B33D00);
 }
 
 /* ===== MODERN BURGER MENU BUTTON ===== */

@@ -5,9 +5,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- Google Tag Manager — deferred until user interaction or 6s to reduce TBT/LCP.
-         Load immediately for Tag Assistant / GTM Preview (opener, gtm_debug, preview cookies).
-         Conversion events on /thank-you/ call _loadGTM() explicitly. -->
+    <!-- Google Tag Manager — first user input only (no timer).
+         Lab/PSI never waits 6s for gtag/FB; real sessions still fire on
+         pointer/scroll/key. Tag Assistant / GTM Preview loads immediately.
+         Conversion pages call _loadGTM() explicitly. -->
     <script nonce="{{ csp_nonce }}">
     window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
     function _loadGTM(){if(window._gtmL)return;window._gtmL=1;var j=document.createElement('script');j.async=true;j.setAttribute('nonce','{{ csp_nonce }}');j.nonce='{{ csp_nonce }}';j.src='https://www.googletagmanager.com/gtm.js?id=GTM-K2FVPPTK';document.head.appendChild(j);}
@@ -22,8 +23,7 @@
         || /(^|;\s*)gtm_auth=/.test(c)
         || /(^|;\s*)gtm_preview=/.test(c);
       if(preview){_loadGTM();return;}
-      ['scroll','click','touchstart','keydown','mousemove'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
-      setTimeout(_loadGTM,6000);
+      ['pointerdown','scroll','click','touchstart','keydown','mousemove'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
     })();
     </script>
     <!-- End Google Tag Manager -->
@@ -64,7 +64,7 @@
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
     <!-- Critical above-the-fold CSS (header + body + fixed widgets) — inline, eliminates render-blocking AND CLS -->
     <style>
-:root{--color-brand-orange:#E65100;--color-brand-purple:#7B2CBF;--color-black:#000;--color-white:#FFF;--color-beige:#bab8b7;--color-beige-alt:#FAF7F2;--color-gray:#F8F8F8;--font-mega:clamp(60px,12vw,120px);--font-large:clamp(32px,6vw,50px);--font-medium:clamp(20px,3vw,24px);--font-base:14px;--space-xs:clamp(16px,2vw,20px);--space-sm:clamp(24px,4vw,40px);--space-md:clamp(40px,6vw,60px);--space-lg:clamp(60px,8vw,80px);--space-xl:clamp(80px,12vw,120px);--transition-normal:300ms;--easing-default:ease-out;--radius-sm:8px;--z-background:-1;--z-video-overlay:1;--z-navigation:1000;--z-burger-button:10001;--z-mobile-menu:10000;--z-modal-backdrop:10002}
+:root{--color-brand-orange:#E65100;--color-brand-orange-active:#B33D00;--color-brand-purple:#7B2CBF;--color-black:#000;--color-white:#FFF;--color-beige:#bab8b7;--color-beige-alt:#FAF7F2;--color-gray:#F8F8F8;--font-mega:clamp(60px,12vw,120px);--font-large:clamp(32px,6vw,50px);--font-medium:clamp(20px,3vw,24px);--font-base:14px;--space-xs:clamp(16px,2vw,20px);--space-sm:clamp(24px,4vw,40px);--space-md:clamp(40px,6vw,60px);--space-lg:clamp(60px,8vw,80px);--space-xl:clamp(80px,12vw,120px);--transition-normal:300ms;--easing-default:ease-out;--radius-sm:8px;--z-background:-1;--z-video-overlay:1;--z-navigation:1000;--z-burger-button:10001;--z-mobile-menu:10000;--z-modal-backdrop:10002}
 *{margin:0;padding:0;box-sizing:border-box}
 html{font-size:16px;-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
 body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-weight:400;line-height:1.5;color:#000;background-color:var(--color-beige);overflow-x:hidden}
@@ -82,7 +82,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .nav-link{font-size:var(--font-base);font-weight:700;color:var(--color-white);text-decoration:none;text-transform:lowercase;letter-spacing:.5px;white-space:nowrap;padding:8px 4px}
 .language-switcher{display:flex;gap:8px;align-items:center}
 .lang-btn{padding:6px 12px;border-radius:var(--radius-sm);text-decoration:none;font-weight:500;font-size:14px;color:#fff;border:1px solid rgba(255,255,255,.3)}
-.lang-btn.active{background:var(--color-brand-orange);border-color:var(--color-brand-orange)}
+.lang-btn.active{background:var(--color-brand-orange-active);border-color:var(--color-brand-orange-active)}
 .burger-menu{display:none;width:40px;height:40px;position:relative;cursor:pointer;background:transparent;border:none;padding:0;z-index:var(--z-burger-button)}
 .burger-line{position:absolute;width:26px;height:2px;background:var(--color-white);left:50%;transform:translateX(-50%);transition:all .4s cubic-bezier(.68,-.55,.265,1.55)}
 .burger-line:nth-child(1){top:10px}
@@ -127,9 +127,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </style>
 
     <!-- CSS Base Bundle — non-blocking (preload + media-print swap on load) -->
-    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=30" as="style">
-    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=30" media="print" data-async-css>
-    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=30"></noscript>
+    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=31" as="style">
+    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=31" media="print" data-async-css>
+    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=31"></noscript>
+
+    {# Fonts, canonical, robots — before page CSS so preload starts with the blocking sheet. #}
+    {% block extra_head %}{% endblock %}
 
     <!-- Page specific CSS -->
     {% block page_css %}{% endblock %}
@@ -169,8 +172,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         ]
     }
     </script>
-
-    {% block extra_head %}{% endblock %}
 </head>
 
 <body{% block body_attrs %}{% endblock %}>
@@ -194,7 +195,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
     <!-- Contact Widget -->
     <div class="contact-widget" id="contact-widget">
-        <div class="contact-widget__panel" id="contact-widget-panel" aria-hidden="true">
+        <div class="contact-widget__panel" id="contact-widget-panel" aria-hidden="true" inert>
             <a href="{{ site_contact.get_tel_href }}" class="contact-widget__item">
                 <svg class="contact-widget__item-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M6.6 10.8C7.8 13.2 9.8 15.2 12.2 16.4L14.1 14.5C14.3 14.3 14.7 14.2 14.9 14.4C15.7 14.7 16.5 14.8 17.4 14.8C17.8 14.8 18.1 15.1 18.1 15.5V17.4C18.1 17.8 17.8 18.1 17.4 18.1C9.6 18.1 3.4 11.9 3.4 4.1C3.4 3.7 3.7 3.4 4.1 3.4H6C6.4 3.4 6.7 3.7 6.7 4.1C6.7 5 6.8 5.8 7.1 6.6C7.2 6.9 7.1 7.2 6.9 7.4L6.6 10.8Z" fill="currentColor"/>

@@ -279,7 +279,7 @@
     text-decoration: none;
     font-weight: 500;
     font-size: 14px;
-    transition: all var(--transition-normal) ease;
+    transition: background-color var(--transition-normal) ease, color var(--transition-normal) ease, border-color var(--transition-normal) ease;
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -291,9 +291,9 @@
 }
 
 .lang-btn.active {
-    background: var(--color-brand-orange);
+    background: var(--color-brand-orange-active, #B33D00);
     color: white;
-    border-color: var(--color-brand-orange);
+    border-color: var(--color-brand-orange-active, #B33D00);
 }
 
 /* ===== MODERN BURGER MENU BUTTON ===== */
