@@ -206,7 +206,8 @@
 
             container.style.setProperty('--marquee-distance', setWidth + 'px');
             container.setAttribute('aria-label', 'Наші клієнти — автоматична демонстрація');
-            container.setAttribute('role', 'marquee');
+            // Не перезаписуємо role: контейнер уже має role="list" у шаблоні.
+            // role="marquee" — невалідна ARIA-роль і ламає list/listitem.
 
             if ('IntersectionObserver' in window) {
                 var observer = new IntersectionObserver(function (entries) {

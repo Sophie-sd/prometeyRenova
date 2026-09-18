@@ -3075,12 +3075,13 @@ body.modal-open .main-footer {
     opacity: 0.8;
 }
 
-.footer-submit-btn {
+.btn.footer-submit-btn {
     width: 100%;
     padding: 12px 24px;
     font-size: 14px;
     font-weight: 600;
     margin-top: 5px;
+    background-color: #c24400;
 }
 
 /* ===== FOOTER BOTTOM ===== */

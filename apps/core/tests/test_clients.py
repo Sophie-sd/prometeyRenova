@@ -93,3 +93,49 @@ class ClientAdminTests(TestCase):
     def test_admin_add_form_accessible(self):
         response = self.client.get(reverse('admin:core_client_add'))
         self.assertEqual(response.status_code, 200)
+
+
+class ShopV2MarkupTests(SimpleTestCase):
+    def test_client_story_uses_listitem_wrap_and_webp(self):
+        from django.template.loader import render_to_string
+
+        class DummyClient:
+            name = 'Play Vision'
+
+            def get_logo_url(self):
+                return '/static/images/portfolio/playvision.png'
+
+            def get_logo_webp_228_url(self):
+                return '/static/images/portfolio/playvision-228.webp'
+
+            def get_logo_webp_456_url(self):
+                return '/static/images/portfolio/playvision-456.webp'
+
+        html = render_to_string(
+            'components/client_home_story.html',
+            {'client': DummyClient(), 'is_clone': False},
+        )
+        self.assertIn('class="project-story-wrap"', html)
+        self.assertIn('role="listitem"', html)
+        self.assertNotIn('role="listitem" aria-label=', html)
+        self.assertIn('playvision-228.webp', html)
+        self.assertIn('type="image/webp"', html)
+
+        clone = render_to_string(
+            'components/client_home_story.html',
+            {'client': DummyClient(), 'is_clone': True},
+        )
+        self.assertIn('aria-hidden="true"', clone)
+        self.assertNotIn('role="listitem"', clone)
+
+    def test_internet_shop_v2_template_self_hosts_fonts(self):
+        from pathlib import Path
+        from django.conf import settings
+
+        page = (Path(settings.BASE_DIR) / 'templates/pages/internet-shop-v2.html').read_text()
+        self.assertIn('fonts/v2/space-grotesk-latin.woff2', page)
+        self.assertNotIn('fonts.googleapis.com', page)
+        self.assertNotIn('imagesrcset', page)
+        self.assertIn('data-async-css', page)
+        js = (Path(settings.BASE_DIR) / 'static/js/internet-shop-v2.js').read_text()
+        self.assertNotIn("setAttribute('role', 'marquee')", js)

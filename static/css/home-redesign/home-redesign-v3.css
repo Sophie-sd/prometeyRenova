@@ -406,6 +406,10 @@
   position: relative;
 }
 
+.home-redesign .v3-client-inner picture{
+  display: block; width: 100%; height: 100%;
+}
+
 .home-redesign .v3-client-inner img{
   width: 100%; height: 100%;
   border-radius: 50%;

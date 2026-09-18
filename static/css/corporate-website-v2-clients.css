@@ -66,6 +66,10 @@
     to { transform: translate3d(calc(-1 * var(--marquee-distance)), 0, 0); }
 }
 
+.pl-corp-page .project-story-wrap {
+    flex-shrink: 0;
+}
+
 .pl-corp-page .project-story {
     position: relative;
     display: flex;
@@ -105,6 +109,12 @@
     border-radius: 50%;
     background: #000;
     overflow: hidden;
+}
+
+.pl-corp-page .project-story .v3-client-inner picture {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .pl-corp-page .project-story .v3-client-inner img {

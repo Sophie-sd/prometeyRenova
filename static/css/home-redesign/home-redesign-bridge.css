@@ -100,6 +100,10 @@
   padding: 0;
 }
 
+.home-redesign .project-story-wrap {
+  flex-shrink: 0;
+}
+
 .home-redesign .projects-stories-container {
   display: flex;
   gap: 24px;
@@ -176,6 +180,12 @@
   border-radius: 50%;
   background: #000;
   overflow: hidden;
+}
+
+.home-redesign .project-story .v3-client-inner picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .home-redesign .project-story .v3-client-inner img {
