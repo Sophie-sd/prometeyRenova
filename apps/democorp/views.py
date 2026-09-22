@@ -12,6 +12,7 @@ from .block_defaults import BLOCK_REGISTRY
 from .catalog_models import CorpCategory, CorpProduct
 from .forms import CorpLeadForm
 from .models import CorpSite
+from .sales_notes import copy_for_page
 
 
 def _get_active_site(slug: str) -> CorpSite:
@@ -23,7 +24,22 @@ def _require_catalog(site: CorpSite) -> None:
         raise Http404('Каталог вимкнено для цього сайту')
 
 
-def _base_context(site, **extra):
+def _sales_copy(request):
+    url_name = ''
+    match = getattr(request, 'resolver_match', None)
+    if match:
+        url_name = match.url_name or ''
+    copy = copy_for_page(url_name)
+    return {
+        'page': url_name or 'home',
+        'sales_fab': copy['fab'],
+        'sales_title': copy['title'],
+        'sales_lead': copy['lead'],
+        'sales_notes': copy['notes'],
+    }
+
+
+def _base_context(request, site, **extra):
     blocks_map = get_blocks_map(site)
     context = {
         'site': site,
@@ -33,6 +49,7 @@ def _base_context(site, **extra):
         'partners': site.partners.all(),
         'footer_partners_visible': is_visible(blocks_map, 'footer', 'partners_visible'),
     }
+    context.update(_sales_copy(request))
     context.update(extra)
     return context
 
@@ -43,6 +60,7 @@ def home(request, slug):
     blocks_map = get_blocks_map(site)
     reviews = list(site.testimonials.all())
     context = _base_context(
+        request,
         site,
         process_steps=site.production_steps.all(),
         testimonials=reviews,
@@ -62,6 +80,7 @@ def production(request, slug):
     site = _get_active_site(slug)
     blocks_map = get_blocks_map(site)
     context = _base_context(
+        request,
         site,
         process_steps=site.production_steps.all(),
         gallery_images=site.gallery_images.filter(kind='production'),
@@ -78,6 +97,7 @@ def about(request, slug):
         request,
         'democorp/about.html',
         _base_context(
+            request,
             site,
             about_fallback=site.gallery_images.filter(kind='production').first(),
         ),
@@ -87,7 +107,7 @@ def about(request, slug):
 @require_GET
 def contacts(request, slug):
     site = _get_active_site(slug)
-    return render(request, 'democorp/contacts.html', _base_context(site))
+    return render(request, 'democorp/contacts.html', _base_context(request, site))
 
 
 @require_GET
@@ -101,7 +121,7 @@ def catalog(request, slug):
         products = products.filter(category__slug=category_slug)
     return render(
         request, 'democorp/catalog.html',
-        _base_context(site, categories=categories, products=products, active_category=category_slug),
+        _base_context(request, site, categories=categories, products=products, active_category=category_slug),
     )
 
 
@@ -113,7 +133,7 @@ def product_detail(request, slug, product_slug):
         CorpProduct.objects.select_related('category').prefetch_related('images'),
         tenant=site, slug=product_slug, is_active=True,
     )
-    return render(request, 'democorp/product_detail.html', _base_context(site, product=product))
+    return render(request, 'democorp/product_detail.html', _base_context(request, site, product=product))
 
 
 @require_POST
@@ -136,7 +156,7 @@ def lead(request, slug):
     return render(
         request,
         'democorp/partials/lead_form.html',
-        _base_context(site, lead_form=form, product=product),
+        _base_context(request, site, lead_form=form, product=product),
         status=400,
     )
 

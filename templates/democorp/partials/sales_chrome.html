@@ -3,47 +3,37 @@
 <div class="dc-sales-chrome"
      data-dc-sales-chrome
      data-tenant-id="{{ site.pk }}"
-     data-dc-sales-page="{{ request.resolver_match.url_name|default:'home' }}">
+     data-dc-sales-page="{{ page|default:'home' }}">
     <button type="button"
             class="dc-sales-fab"
             data-dc-sales-open
             aria-expanded="false"
             aria-controls="dc-sales-panel"
-            aria-label="{% trans "Чому не конструктор" %}">
+            aria-label="{{ sales_fab }}">
         <span class="dc-sales-fab__mark" aria-hidden="true">i</span>
-        <span class="dc-sales-fab__label">{% trans "Чому не конструктор" %}</span>
+        <span class="dc-sales-fab__label">{{ sales_fab }}</span>
     </button>
 
     <div class="dc-sales-backdrop" data-dc-sales-close hidden></div>
     <aside class="dc-sales-panel" id="dc-sales-panel" role="dialog" aria-modal="true" aria-labelledby="dc-sales-panel-title" hidden>
         <div class="dc-sales-panel__head">
-            <h2 id="dc-sales-panel-title" class="dc-sales-panel__title">{% trans "Це не конструктор" %}</h2>
+            <h2 id="dc-sales-panel-title" class="dc-sales-panel__title">{{ sales_title }}</h2>
             <button type="button" class="dc-sales-panel__x" data-dc-sales-close aria-label="{% trans "Закрити" %}">×</button>
         </div>
-        <p class="dc-sales-panel__lead">{% trans "Це робоча вітрина корпоративного сайту. Тексти й заявки міняєте в адмінці." %}</p>
+        <p class="dc-sales-panel__lead">{{ sales_lead }}</p>
+        {% if sales_notes %}
         <ol class="dc-sales-panel__list">
+            {% for note in sales_notes %}
             <li>
-                <span class="dc-sales-panel__num" aria-hidden="true">01</span>
+                <span class="dc-sales-panel__num" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
                 <div>
-                    <p class="dc-sales-panel__item-title">{% trans "Сайт виглядає серйозно" %}</p>
-                    <p class="dc-sales-panel__item-body">{% trans "У пошуку й з телефону: людина заходить — розуміє — залишає заявку." %}</p>
+                    <p class="dc-sales-panel__item-title">{{ note.title }}</p>
+                    <p class="dc-sales-panel__item-body">{{ note.body }}</p>
                 </div>
             </li>
-            <li>
-                <span class="dc-sales-panel__num" aria-hidden="true">02</span>
-                <div>
-                    <p class="dc-sales-panel__item-title">{% trans "Не лендінг і не шаблон" %}</p>
-                    <p class="dc-sales-panel__item-body">{% trans "Головна, послуги, про нас, контакти — кілька сторінок під компанію." %}</p>
-                </div>
-            </li>
-            <li>
-                <span class="dc-sales-panel__num" aria-hidden="true">03</span>
-                <div>
-                    <p class="dc-sales-panel__item-title">{% trans "Заявка приходить вам" %}</p>
-                    <p class="dc-sales-panel__item-body">{% trans "Форма й телефон одразу. Заявка не губиться в Direct." %}</p>
-                </div>
-            </li>
+            {% endfor %}
         </ol>
+        {% endif %}
         <div class="dc-sales-panel__actions">
             <a class="dc-btn dc-btn--primary dc-sales-panel__cta" href="{% url 'democorp:admin_access' slug=site.slug %}">{% trans "Відкрити мою адмінку" %}</a>
             <button type="button" class="dc-sales-panel__hide" data-dc-sales-hide>{% trans "Не показувати" %}</button>

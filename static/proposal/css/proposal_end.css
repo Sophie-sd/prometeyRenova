@@ -119,10 +119,10 @@
     margin-bottom: 0;
     font-family: var(--prop-display);
     font-weight: 300;
-    font-size: clamp(1.5rem, 3vw, 3.125rem);
+    font-size: clamp(2.25rem, 4.5vw, 4.6875rem);
     line-height: 1.2;
     letter-spacing: -0.03em;
-    max-width: 28ch;
+    max-width: 32ch;
     color: var(--prop-text);
 }
 
@@ -148,9 +148,9 @@
 
 .prop-seal__img {
     position: absolute;
-    inset: 14%;
-    width: 72%;
-    height: 72%;
+    inset: 10%;
+    width: 80%;
+    height: 80%;
     object-fit: contain;
 }
 
@@ -277,6 +277,34 @@
     color: var(--prop-muted);
 }
 
+.prop-demo-sec {
+    padding-bottom: clamp(3rem, 8vh, 5.625rem);
+}
+
+.prop-demo-sec__grid {
+    display: grid;
+    gap: clamp(1.75rem, 4vw, 4rem);
+    align-items: end;
+}
+
+.prop-demo-sec__title {
+    margin: clamp(1.25rem, 3vh, 2rem) 0 0;
+    max-width: 8ch;
+    font-family: var(--prop-display);
+    font-weight: 300;
+    font-size: clamp(2.25rem, 6.5vw, 6.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+}
+
+.prop-demo-sec__lead {
+    margin: 0 0 2rem;
+    max-width: 36ch;
+    font-size: clamp(0.9375rem, 1.15vw, 1.125rem);
+    line-height: 1.7;
+    color: var(--prop-muted);
+}
+
 .prop-contacts {
     margin: 0;
     padding: 0;
@@ -314,7 +342,10 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .prop-gua,
+    .prop-gua {
+        grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr);
+    }
+
     .prop-pay {
         grid-template-columns: minmax(8.75rem, 13.75rem) minmax(0, 1fr);
     }
@@ -330,7 +361,8 @@
         gap: clamp(1.5rem, 4vw, 4.5rem);
     }
 
-    .prop-cta-sec__grid {
+    .prop-cta-sec__grid,
+    .prop-demo-sec__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }

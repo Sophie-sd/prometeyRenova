@@ -50,7 +50,8 @@
 }
 
 .dc-sales-fab__label {
-  white-space: nowrap;
+  white-space: normal;
+  max-width: 12.5rem;
   line-height: 1.2;
   text-align: left;
 }

@@ -59,4 +59,7 @@ python manage.py seed_clients
 echo "📄 Seeding B2B Parts commercial proposal..."
 python manage.py seed_proposal_b2b_parts
 
+echo "📄 Seeding Liber corporate proposal + classic demo-corp..."
+python manage.py seed_proposal_corporate
+
 echo "✅ Build complete!"

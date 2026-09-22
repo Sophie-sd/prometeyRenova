@@ -145,18 +145,24 @@ body.prop-body {
 
 .prop-logo {
     display: inline-flex;
-    align-items: center;
-    background: var(--prop-text);
-    padding: 0.35rem 0.6rem;
-    border-radius: 0.125rem;
-    line-height: 0;
+    align-items: baseline;
+    color: var(--prop-text);
+    font-family: var(--prop-font);
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+    line-height: 1;
     min-height: 2.75rem;
 }
 
-.prop-logo__img {
-    height: 1.25rem;
-    width: auto;
-    display: block;
+.prop-logo__labs {
+    color: #7b2cbf;
+}
+
+.prop-logo:hover,
+.prop-logo:focus-visible {
+    color: var(--prop-accent);
 }
 
 .prop-header__meta {
