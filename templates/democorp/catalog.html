@@ -1,5 +1,5 @@
 {% extends 'democorp/base.html' %}
-{% load i18n demotenant %}
+{% load custom_filters i18n demotenant %}
 
 {% block title %}{% tenant_text blocks_map registry "catalog" "title" %} — {% tenant_text blocks_map registry "header" "company_name" %}{% endblock %}
 
@@ -25,7 +25,7 @@
                 <span class="frame-card__corner frame-card__corner--br" aria-hidden="true"></span>
                 <div class="dc-product-card__media">
                     {% with image=product.images.first %}
-                    {% if image %}<img class="dc-product-card__img" src="{{ image.image.url }}" alt="{{ product.localized_name }}" width="1440" height="900" loading="lazy">{% endif %}
+                    {% if image %}<img class="dc-product-card__img" src="{{ image.image|puburl }}" alt="{{ product.localized_name }}" width="1440" height="900" loading="lazy">{% endif %}
                     {% endwith %}
                 </div>
                 <h3>{{ product.localized_name }}</h3>

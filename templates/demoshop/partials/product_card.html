@@ -1,8 +1,8 @@
-{% load demoshop_extras i18n %}
+{% load custom_filters demoshop_extras i18n %}
 <article class="ds-card{% if is_clone %} is-clone{% endif %}"{% if is_clone %} aria-hidden="true"{% endif %}>
     <div class="ds-card__media">
         {% if product.main_image %}
-        <img class="ds-card__img" src="{{ product.main_image.image.url }}" alt="{{ product.localized_name }}" loading="lazy" decoding="async">
+        <img class="ds-card__img" src="{{ product.main_image.image|puburl }}" alt="{{ product.localized_name }}" loading="lazy" decoding="async">
         {% endif %}
         <a class="ds-card__hit" href="{{ product.get_absolute_url }}"{% if is_clone %} tabindex="-1"{% endif %}>
             <span class="ds-sr-only">{{ product.localized_name }}</span>

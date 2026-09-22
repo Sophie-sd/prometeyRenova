@@ -1,5 +1,5 @@
 {% extends 'democorp/base.html' %}
-{% load i18n demotenant %}
+{% load custom_filters i18n demotenant %}
 
 {% block title %}{% tenant_text blocks_map registry "seo" "title" %}{% endblock %}
 {% block meta_description %}
@@ -19,7 +19,7 @@
     </div>
     {% if site.hero_image %}
     <div class="dc-hero__figure obj-tilt" data-tilt>
-        <img class="dc-hero__media" src="{{ site.hero_image.url }}" alt="{{ company_name }}" loading="eager" decoding="async">
+        <img class="dc-hero__media" src="{{ site.hero_image|puburl }}" alt="{{ company_name }}" loading="eager" decoding="async">
     </div>
     {% endif %}
 </section>
@@ -59,7 +59,7 @@
                             {% with image=product.images.first %}
                             {% if image %}
                             <div class="dc-example-card__media">
-                                <img class="dc-example-card__img" src="{{ image.image.url }}" alt="{{ product.name_en|default:product.localized_name }}" loading="lazy">
+                                <img class="dc-example-card__img" src="{{ image.image|puburl }}" alt="{{ product.name_en|default:product.localized_name }}" loading="lazy">
                             </div>
                             {% endif %}
                             {% endwith %}

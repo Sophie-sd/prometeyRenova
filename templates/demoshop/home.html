@@ -1,5 +1,5 @@
 {% extends 'demoshop/base.html' %}
-{% load static demoshop_extras i18n %}
+{% load static custom_filters demoshop_extras i18n %}
 
 {% block body_class %} ds-body--hero-overlay{% endblock %}
 
@@ -22,11 +22,11 @@
             <div class="ds-hero__media">
                 <picture class="ds-hero__picture">
                     {% if slide.image_narrow %}
-                    <source media="(max-width: 767px)" srcset="{{ slide.image_narrow.url }}">
+                    <source media="(max-width: 767px)" srcset="{{ slide.image_narrow|puburl }}">
                     {% endif %}
                     {% if slide.image %}
                     <img class="ds-hero__bg"
-                         src="{{ slide.image.url }}"
+                         src="{{ slide.image|puburl }}"
                          alt=""
                          width="2560"
                          height="1440"

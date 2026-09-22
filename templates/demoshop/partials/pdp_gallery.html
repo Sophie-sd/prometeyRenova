@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load custom_filters i18n %}
 {% with images=product.images.all %}
 <section class="ds-pdp-gallery" data-ds-gallery aria-label="{% trans "Фото товару" %}">
     <div class="ds-pdp-gallery__main">
@@ -6,7 +6,7 @@
         {% with first=images|first %}
         <img class="ds-pdp-gallery__image"
              data-ds-gallery-main
-             src="{{ first.image.url }}"
+             src="{{ first.image|puburl }}"
              alt="{{ product.localized_name }}"
              width="800"
              height="800"
@@ -36,10 +36,10 @@
         <button type="button"
                 class="ds-pdp-gallery__thumb{% if forloop.first %} is-active{% endif %}"
                 data-ds-gallery-thumb
-                data-full="{{ img.image.url }}"
+                data-full="{{ img.image|puburl }}"
                 {% if forloop.first %}aria-current="true"{% endif %}
                 aria-label="{% blocktrans with n=forloop.counter %}Фото {{ n }}{% endblocktrans %}">
-            <img src="{{ img.image.url }}" alt="" width="80" height="80" loading="lazy" decoding="async">
+            <img src="{{ img.image|puburl }}" alt="" width="80" height="80" loading="lazy" decoding="async">
         </button>
         {% endfor %}
     </div>

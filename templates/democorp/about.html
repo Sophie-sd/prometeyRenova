@@ -1,5 +1,5 @@
 {% extends 'democorp/base.html' %}
-{% load i18n demotenant %}
+{% load custom_filters i18n demotenant %}
 
 {% block title %}{% tenant_text blocks_map registry "about" "title" %} — {% tenant_text blocks_map registry "header" "company_name" %}{% endblock %}
 
@@ -34,7 +34,7 @@
         {% if about_photo %}
         <img class="dc-about__media" src="{{ about_photo }}" alt="{{ about_title }}" width="720" height="900" loading="lazy">
         {% elif about_fallback.image %}
-        <img class="dc-about__media" src="{{ about_fallback.image.url }}" alt="{{ about_fallback.localized_caption }}" width="720" height="900" loading="lazy">
+        <img class="dc-about__media" src="{{ about_fallback.image|puburl }}" alt="{{ about_fallback.localized_caption }}" width="720" height="900" loading="lazy">
         {% endif %}
     </div>
     {% endif %}

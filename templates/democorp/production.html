@@ -1,5 +1,5 @@
 {% extends 'democorp/base.html' %}
-{% load i18n demotenant %}
+{% load custom_filters i18n demotenant %}
 
 {% block title %}{% tenant_text blocks_map registry "production" "title" %} — {% tenant_text blocks_map registry "header" "company_name" %}{% endblock %}
 
@@ -39,7 +39,7 @@
             <figure class="dc-gallery__item">
                 <div class="dc-gallery__frame">
                     <div class="dc-gallery__media">
-                        <img src="{{ image.image.url }}" alt="{{ image.localized_caption }}" width="1200" height="900" loading="lazy">
+                        <img src="{{ image.image|puburl }}" alt="{{ image.localized_caption }}" width="1200" height="900" loading="lazy">
                     </div>
                 </div>
                 {% if image.localized_caption %}
@@ -60,7 +60,7 @@
             <figure class="dc-gallery__item">
                 <div class="dc-gallery__frame">
                     <div class="dc-gallery__media">
-                        <img src="{{ cert.image.url }}" alt="{{ cert.localized_caption }}" width="1200" height="900" loading="lazy">
+                        <img src="{{ cert.image|puburl }}" alt="{{ cert.localized_caption }}" width="1200" height="900" loading="lazy">
                     </div>
                 </div>
                 {% if cert.localized_caption %}

@@ -6,11 +6,11 @@
 
 {% block content %}
 <section id="prop-hero" class="prop-hero" aria-labelledby="prop-hero-title">
-    {% if proposal.hero_image %}
+    {% if proposal.hero_public_url %}
     <div class="prop-hero__visual" aria-hidden="true">
         <img class="prop-hero__img"
              data-prop-hero-img
-             src="{{ proposal.hero_image.url }}?v=29"
+             src="{{ proposal.hero_public_url }}?v=30"
              alt=""
              width="520"
              height="520"

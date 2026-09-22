@@ -168,6 +168,27 @@ class Proposal(models.Model):
         return None
 
     @property
+    def hero_public_url(self) -> str:
+        """Херо КП: файл у media або статична копія, з якої його сіє build."""
+        from pathlib import Path
+
+        from django.conf import settings
+        from django.templatetags.static import static
+
+        from apps.core.public_files import media_if_exists
+
+        direct = media_if_exists(self.hero_image)
+        if direct:
+            return direct
+        by_slug = {
+            'b2b-parts-platform-a7f3': 'proposal/img/parts.png',
+        }
+        rel = by_slug.get(self.slug, 'proposal/img/seal-on-dark.webp')
+        if (Path(settings.BASE_DIR) / 'static' / rel).is_file():
+            return static(rel)
+        return ''
+
+    @property
     def demo_cta_label(self) -> str:
         return {
             self.DemoKind.SHOP: _('Переглянути демо магазину'),

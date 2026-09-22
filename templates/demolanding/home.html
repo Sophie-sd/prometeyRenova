@@ -1,5 +1,5 @@
 {% extends 'demolanding/base.html' %}
-{% load i18n demotenant %}
+{% load custom_filters i18n demotenant %}
 
 {% block title %}{% tenant_text blocks_map registry "seo" "title" %}{% endblock %}
 {% block meta_description %}
@@ -19,13 +19,13 @@
 
 <section class="dl-hero{% if not site.hero_image and not site.hero_video %} dl-hero--plain{% endif %}" id="hero">
     {% if site.hero_mode == 'scroll_video' and site.hero_video %}
-    <video class="dl-hero__media" src="{{ site.hero_video.url }}" poster="{% if site.hero_poster %}{{ site.hero_poster.url }}{% endif %}" autoplay muted loop playsinline></video>
+    <video class="dl-hero__media" src="{{ site.hero_video|puburl }}" poster="{% if site.hero_poster %}{{ site.hero_poster|puburl }}{% endif %}" autoplay muted loop playsinline></video>
     {% elif site.hero_image %}
     <picture>
         {% if site.hero_image_narrow %}
-        <source media="(max-width: 767px)" srcset="{{ site.hero_image_narrow.url }}">
+        <source media="(max-width: 767px)" srcset="{{ site.hero_image_narrow|puburl }}">
         {% endif %}
-        <img class="dl-hero__media" src="{{ site.hero_image.url }}" alt="{% tenant_text blocks_map registry 'header' 'company_name' %}" loading="eager" decoding="async">
+        <img class="dl-hero__media" src="{{ site.hero_image|puburl }}" alt="{% tenant_text blocks_map registry 'header' 'company_name' %}" loading="eager" decoding="async">
     </picture>
     {% endif %}
     <div class="dl-hero__overlay" aria-hidden="true"></div>
@@ -71,7 +71,7 @@
             {% for offer in offers %}
             <article class="dl-offer-card{% if forloop.counter == 2 %} dl-offer-card--rec{% endif %}" data-reveal>
                 <div class="dl-offer-card__panel">
-                    {% if offer.image %}<img class="dl-offer-card__img" src="{{ offer.image.url }}" alt="{{ offer.localized_title }}" loading="lazy">{% endif %}
+                    {% if offer.image %}<img class="dl-offer-card__img" src="{{ offer.image|puburl }}" alt="{{ offer.localized_title }}" loading="lazy">{% endif %}
                     <p class="dl-offer-card__index dl-mono">{% if forloop.counter < 10 %}0{% endif %}{{ forloop.counter }}</p>
                     <h3 class="dl-offer-card__title">{{ offer.localized_title }}</h3>
                     <p class="dl-offer-card__desc">{{ offer.localized_description }}</p>
@@ -118,7 +118,7 @@
             {% for image in gallery_images %}
             <figure class="bento__item{% if image.span == '2x1' %} bento__item--2x1{% elif image.span == '1x2' %} bento__item--1x2{% endif %}">
                 <div class="bento__frame">
-                    <img src="{{ image.image.url }}" alt="{{ image.localized_caption }}" loading="lazy">
+                    <img src="{{ image.image|puburl }}" alt="{{ image.localized_caption }}" loading="lazy">
                 </div>
                 {% if image.localized_caption %}
                 <figcaption class="bento__caption">{{ image.localized_caption }}</figcaption>
@@ -145,10 +145,10 @@
                  aria-valuemin="2" aria-valuemax="98" aria-valuenow="52"
                  aria-label="{% trans 'Порівняння до і після' %}{% if pair.title %}: {{ pair.title }}{% endif %}">
                 <div class="ba-compare__layer ba-compare__layer--after">
-                    <img src="{{ pair.image_after.url }}" alt="{% trans 'Після' %}" width="1600" height="900" loading="lazy" decoding="async" draggable="false">
+                    <img src="{{ pair.image_after|puburl }}" alt="{% trans 'Після' %}" width="1600" height="900" loading="lazy" decoding="async" draggable="false">
                 </div>
                 <div class="ba-compare__layer ba-compare__layer--before">
-                    <img src="{{ pair.image_before.url }}" alt="{% trans 'До' %}" width="1600" height="900" loading="lazy" decoding="async" draggable="false">
+                    <img src="{{ pair.image_before|puburl }}" alt="{% trans 'До' %}" width="1600" height="900" loading="lazy" decoding="async" draggable="false">
                 </div>
                 <div class="ba-compare__handle" aria-hidden="true">
                     <span class="ba-compare__knob">

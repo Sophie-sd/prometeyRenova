@@ -1,6 +1,14 @@
 from django import template
 
+from apps.core.public_files import public_file_url
+
 register = template.Library()
+
+
+@register.filter
+def puburl(file_field):
+    """media, якщо файл на диску; інакше static seed з тим самим ім'ям."""
+    return public_file_url(file_field)
 
 
 @register.filter

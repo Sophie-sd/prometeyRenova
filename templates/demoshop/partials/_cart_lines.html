@@ -1,10 +1,10 @@
-{% load demoshop_extras i18n %}
+{% load custom_filters demoshop_extras i18n %}
 {% if cart_lines %}
 <div class="ds-cart-grid">
     <div class="ds-cart-lines">
         {% for line in cart_lines %}
         <div class="ds-cart-line" id="cart-line-{{ line.product.pk }}">
-            <img class="ds-cart-line__img" src="{{ line.product.main_image.image.url }}" alt="">
+            <img class="ds-cart-line__img" src="{{ line.product.main_image.image|puburl }}" alt="">
             <div class="ds-cart-line__info">
                 <h3 class="ds-cart-line__name">{{ line.product.localized_name }}</h3>
                 <p>{{ line.product.price|money }} {% currency_symbol %} / {% trans "шт" %}</p>

@@ -1,11 +1,11 @@
-{% load demoshop_extras i18n %}
+{% load custom_filters demoshop_extras i18n %}
 <div class="ds-related ds-related--cols-{{ products|length|ideal_cols:4 }}" data-qa="related-grid">
     {% for product in products %}
     <a class="ds-related__card" href="{{ product.get_absolute_url }}">
         <span class="ds-related__media">
             {% if product.main_image %}
             <img class="ds-related__img"
-                 src="{{ product.main_image.image.url }}"
+                 src="{{ product.main_image.image|puburl }}"
                  alt=""
                  width="400"
                  height="400"

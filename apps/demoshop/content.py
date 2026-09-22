@@ -28,7 +28,9 @@ def get_text(blocks_map: dict, page: str, key: str, default: str = '') -> str:
 
 
 def get_image_url(blocks_map: dict, page: str, key: str):
+    from apps.core.public_files import public_file_url
+
     block = blocks_map.get(f'{page}__{key}')
     if block and block.value_image:
-        return block.value_image.url
+        return public_file_url(block.value_image) or None
     return None
