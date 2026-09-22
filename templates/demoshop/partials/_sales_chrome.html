@@ -20,6 +20,7 @@
             <h2 id="ds-sales-panel-title" class="ds-sales-panel__title">{% trans "Це не конструктор" %}</h2>
             <button type="button" class="ds-sales-panel__x" data-ds-sales-close aria-label="{% trans "Закрити" %}">×</button>
         </div>
+        <div class="ds-sales-panel__scroll">
         <p class="ds-sales-panel__lead">{% trans "Це робоча вітрина вашого магазину. Тексти й фото вже можна міняти в адмінці." %}</p>
         {% if notes %}
         <ol class="ds-sales-panel__list">
@@ -34,6 +35,7 @@
             {% endfor %}
         </ol>
         {% endif %}
+        </div>
         <div class="ds-sales-panel__actions">
             <a class="ds-btn ds-btn--primary ds-btn--full ds-sales-panel__cta" href="{% url 'demoshop:admin_access' shop_slug=shop.slug %}">{% trans "Відкрити мою адмінку" %}</a>
             <button type="button" class="ds-sales-panel__hide" data-ds-sales-hide>{% trans "Не показувати" %}</button>

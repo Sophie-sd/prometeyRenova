@@ -16,10 +16,10 @@ from ..content_models import ShopBlock, ShopHeroSlide
 from .images import load_seed_image
 
 CATEGORY_SEED = [
-    ('Електроніка', 'Электроника', 'Electronics', 'Elektronika', '📱'),
-    ('Дім і побут', 'Дом и быт', 'Home & Living', 'Dům a domácnost', '🏠'),
-    ('Аксесуари', 'Аксессуары', 'Accessories', 'Doplňky', '🎒'),
-    ('Новинки', 'Новинки', 'New Arrivals', 'Novinky', '✨'),
+    ('Електроніка', 'Электроника', 'Electronics', 'Elektronika', ''),
+    ('Дім і побут', 'Дом и быт', 'Home & Living', 'Dům a domácnost', ''),
+    ('Аксесуари', 'Аксессуары', 'Accessories', 'Doplňky', ''),
+    ('Новинки', 'Новинки', 'New Arrivals', 'Novinky', ''),
 ]
 
 # Іменовані SKU + slug ассета в static/demoshop/seed/products/<slug>.webp
@@ -287,6 +287,9 @@ def _seed_categories(shop) -> list:
             if not category.name_cs:
                 category.name_cs = name_cs
                 fields.append('name_cs')
+            if category.icon:
+                category.icon = ''
+                fields.append('icon')
             if fields:
                 category.save(update_fields=fields)
         categories.append(category)

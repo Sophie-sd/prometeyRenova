@@ -516,6 +516,33 @@ function initHeroSlider() {
     start();
 }
 
+/* Catalog filters: phone drawer. Desktop sidebar is the same node, unmoved. */
+function initFilterDrawer() {
+    const drawer = document.querySelector('[data-ds-filter-drawer]');
+    const openBtn = document.querySelector('[data-ds-filter-open]');
+    if (!drawer || !openBtn || drawer.dataset.filterBound) return;
+    drawer.dataset.filterBound = '1';
+    const backdrop = document.querySelector('.ds-filter-backdrop');
+
+    function setOpen(open) {
+        drawer.classList.toggle('is-open', open);
+        if (backdrop) backdrop.hidden = !open;
+        openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.classList.toggle('ds-filter-open', open);
+        if (!open) openBtn.focus();
+    }
+
+    openBtn.addEventListener('click', () => {
+        setOpen(!drawer.classList.contains('is-open'));
+    });
+    document.querySelectorAll('[data-ds-filter-close]').forEach((el) => {
+        el.addEventListener('click', () => setOpen(false));
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && drawer.classList.contains('is-open')) setOpen(false);
+    });
+}
+
 function initAll(root) {
     initReveal(root);
     initPageStrip(root);
@@ -533,6 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAboutReveal();
     initFlyout();
     initCheckout();
+    initFilterDrawer();
     initHeroSlider();
 });
 

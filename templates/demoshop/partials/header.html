@@ -13,7 +13,7 @@
                     <div class="ds-flyout" role="menu">
                         {% for category in nav_categories %}
                         <a class="ds-flyout__link" role="menuitem" href="{% url 'demoshop:catalog' shop_slug=shop.slug %}?category={{ category.slug }}">
-                            {{ category.icon }} {{ category.localized_name }}
+                            {{ category.localized_name }}
                         </a>
                         {% endfor %}
                     </div>
@@ -50,4 +50,28 @@
             <span class="ds-header__burger-line" aria-hidden="true"></span>
         </button>
     </div>
+    <nav class="ds-dock" aria-label="{% trans "Меню магазину" %}">
+        <a class="ds-dock__link{% if request.resolver_match.url_name == 'home' %} is-active{% endif %}" href="{% url 'demoshop:home' shop_slug=shop.slug %}">
+            <svg class="ds-dock__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z" stroke-linejoin="round"/>
+            </svg>
+            <span class="ds-dock__label">{% trans "Головна" %}</span>
+        </a>
+        <a class="ds-dock__link{% if request.resolver_match.url_name == 'catalog' or request.resolver_match.url_name == 'product_detail' %} is-active{% endif %}" href="{% url 'demoshop:catalog' shop_slug=shop.slug %}">
+            <svg class="ds-dock__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/>
+                <rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/>
+                <rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/>
+                <rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/>
+            </svg>
+            <span class="ds-dock__label">{% trans "Каталог" %}</span>
+        </a>
+        <a class="ds-dock__link{% if request.resolver_match.url_name == 'promotions' %} is-active{% endif %}" href="{% url 'demoshop:promotions' shop_slug=shop.slug %}">
+            <svg class="ds-dock__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M12 3.5 20.5 12 12 20.5 3.5 12 12 3.5z" stroke-linejoin="round"/>
+                <circle cx="9" cy="9" r="1.2" fill="currentColor" stroke="none"/>
+            </svg>
+            <span class="ds-dock__label">{% trans "Акції" %}</span>
+        </a>
+    </nav>
 </header>

@@ -286,6 +286,10 @@
     box-shadow: 0 24px 48px rgba(34, 28, 26, 0.18);
     max-width: min(92vw, 420px);
     width: calc(100% - 32px);
+    max-height: min(80dvh, 100%);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 .ds-modal::backdrop { background: rgba(34, 28, 26, 0.45); }
 .ds-modal__panel { padding: var(--ds-sp-6); margin: 0; }
@@ -382,7 +386,7 @@
     }
     .ds-checkout-steps { gap: var(--ds-sp-3); }
     .ds-cart-toast {
-        bottom: max(72px, calc(60px + env(safe-area-inset-bottom, 0px)));
+        bottom: calc(88px + env(safe-area-inset-bottom, 0px));
     }
 }
 

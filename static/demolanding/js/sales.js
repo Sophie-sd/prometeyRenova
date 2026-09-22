@@ -1,4 +1,4 @@
-/* Sales-шар лендінгу: модалка, auto-open 3s, hide в localStorage. Без onclick. */
+/* Sales-шар лендінгу: модалка, auto-open 5s, hide в localStorage. Без onclick. */
 
 function salesOffKey(tenantId) {
     return `dl-sales-off:${tenantId}`;
@@ -83,7 +83,7 @@ function initSalesChrome() {
     }
 
     function delayMs() {
-        return prefersReducedMotion() ? 0 : 3000;
+        return prefersReducedMotion() ? 0 : 5000;
     }
 
     function attemptAutoOpen() {

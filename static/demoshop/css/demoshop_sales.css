@@ -72,9 +72,22 @@
     flex-direction: column;
     height: fit-content;
     max-height: min(80dvh, 640px);
+    overflow: hidden;
     background: var(--ds-white);
     color: var(--ds-text);
     box-shadow: 0 24px 64px rgba(34, 28, 26, 0.18);
+}
+body.ds-sales-panel-open {
+    overflow: hidden;
+}
+.ds-sales-panel__scroll {
+    overflow-y: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: min(46dvh, 380px);
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
 }
 .ds-sales-panel__head {
     display: flex;
@@ -112,14 +125,9 @@
 .ds-sales-panel__list {
     list-style: none;
     margin: 0;
-    padding: 0 var(--ds-sp-5);
-    overflow-y: auto;
-    flex: 1 1 auto;
-    min-height: 0;
-    max-height: min(42dvh, 280px);
+    padding: 0 var(--ds-sp-5) var(--ds-sp-5);
     display: grid;
     gap: var(--ds-sp-5);
-    -webkit-overflow-scrolling: touch;
 }
 .ds-sales-panel__list li {
     display: grid;
@@ -185,8 +193,12 @@
     }
     .ds-sales-panel {
         inset: auto 0 0;
+        height: min(70dvh, 100%);
         max-height: min(70dvh, 100%);
         border-radius: var(--ds-radius-sm) var(--ds-radius-sm) 0 0;
+    }
+    .ds-sales-panel__scroll {
+        max-height: none;
     }
 }
 
@@ -249,10 +261,8 @@
     line-height: 1.55;
 }
 
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-    @media (max-width: 767px) {
-        .ds-sales-fab {
-            bottom: max(24px, calc(16px + env(safe-area-inset-bottom)));
-        }
+@media (max-width: 767px) {
+    .ds-sales-fab {
+        bottom: calc(88px + env(safe-area-inset-bottom, 0px));
     }
 }

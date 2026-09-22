@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from apps.core.proposal_models import Proposal
 from apps.democorp.models import CorpSite
+from apps.demoshop.models import DemoShop
 
 
 def make_proposal(**overrides):
@@ -132,3 +133,65 @@ class ProposalSeedTests(TestCase):
         self.assertNotIn('/demo-site/', body)
         self.assertNotIn(proposal.slug, body)
         self.assertNotIn(site.slug, body)
+
+    def test_glass_seed_is_idempotent_without_demo(self):
+        call_command('seed_proposal_glass', no_demo=True)
+        call_command('seed_proposal_glass', no_demo=True)
+        proposal = Proposal.objects.get(slug='shop-glass-a7f3')
+        self.assertTrue(proposal.is_published)
+        self.assertEqual(proposal.client_name, 'Фабрика обробки скла')
+        self.assertEqual(proposal.kind, Proposal.DemoKind.SHOP)
+        self.assertFalse(proposal.corp_catalog)
+        self.assertEqual(proposal.packages.count(), 3)
+        self.assertEqual(proposal.modules.count(), 6)
+        names = list(
+            proposal.packages.order_by('order').values_list('name', 'is_recommended')
+        )
+        self.assertEqual(names[0][0], 'Base — каталог і розрахунок')
+        self.assertFalse(names[0][1])
+        self.assertEqual(names[1][0], 'Premium — конфігуратор')
+        self.assertTrue(names[1][1])
+        self.assertEqual(names[2][0], 'Platinum — дилери й оплата')
+        self.assertFalse(names[2][1])
+        recs = proposal.specs.filter(kind='recommendation')
+        self.assertEqual(recs.count(), 6)
+        self.assertTrue(recs.filter(title__icontains='Калькулятор як лід').exists())
+        self.assertFalse(
+            proposal.modules.filter(description__icontains='splenko').exists()
+        )
+        self.assertFalse(DemoShop.objects.filter(proposal=proposal).exists())
+
+    def test_glass_seed_provisions_classic_shop_and_stays_private(self):
+        call_command('seed_proposal_glass')
+        proposal = Proposal.objects.get(slug='shop-glass-a7f3')
+        shop = DemoShop.objects.get(proposal=proposal)
+        self.assertTrue(shop.is_active)
+
+        client = Client()
+        kp = client.get(reverse('proposal_detail', kwargs={'slug': proposal.slug}))
+        self.assertEqual(kp.status_code, 200)
+        self.assertContains(kp, 'Фабрика обробки скла')
+        self.assertContains(kp, 'noindex')
+        self.assertNotContains(kp, 'GTM-K2FVPPTK')
+        self.assertNotContains(kp, 'googletagmanager.com')
+        self.assertNotContains(kp, 'splenko')
+        self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
+        self.assertContains(kp, 'id="prop-demo"')
+        self.assertContains(kp, 'Демо вже зібране')
+        self.assertContains(kp, shop.get_absolute_url())
+        self.assertContains(kp, 'Переглянути демо магазину')
+
+        demo = client.get(reverse('demoshop:home', kwargs={'shop_slug': shop.slug}))
+        self.assertEqual(demo.status_code, 200)
+        self.assertContains(demo, 'noindex')
+        self.assertNotContains(demo, 'GTM-K2FVPPTK')
+        self.assertNotContains(demo, 'googletagmanager.com')
+        self.assertNotContains(demo, 'splenko')
+        self.assertEqual(demo['X-Robots-Tag'], 'noindex, nofollow')
+
+        sitemap = client.get('/sitemap.xml')
+        self.assertEqual(sitemap.status_code, 200)
+        body = sitemap.content.decode()
+        self.assertNotIn('/proposal/', body)
+        self.assertNotIn(proposal.slug, body)
+        self.assertNotIn(shop.slug, body)

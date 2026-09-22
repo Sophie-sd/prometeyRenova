@@ -5,8 +5,13 @@
 
 {% block content %}
 <section class="ds-section ds-container">
+    <button type="button" class="ds-filter-backdrop" data-ds-filter-close hidden aria-label="{% trans "Закрити фільтри" %}"></button>
     <div class="ds-catalog-layout">
-        <aside class="ds-filter-sidebar">
+        <aside class="ds-filter-sidebar" id="ds-filter-drawer" data-ds-filter-drawer>
+            <div class="ds-filter-sidebar__head">
+                <p class="ds-filter-sidebar__title ds-filter-sidebar__title--head">{% trans "Фільтри" %}</p>
+                <button type="button" class="ds-filter-sidebar__close" data-ds-filter-close aria-label="{% trans "Закрити фільтри" %}">×</button>
+            </div>
             <form action="." method="get" id="ds-filter-form">
                 <p class="ds-filter-sidebar__title">{% trans "Категорії" %}</p>
                 <div class="ds-filter-list">
@@ -16,7 +21,7 @@
                     {% for cat in categories %}
                     <a class="ds-filter-link {% if current_category.slug == cat.slug %}is-active{% endif %}"
                        href="{% url 'demoshop:catalog' shop_slug=shop.slug %}?category={{ cat.slug }}">
-                        {{ cat.icon }} {{ cat.localized_name }}
+                        {{ cat.localized_name }}
                     </a>
                     {% endfor %}
                 </div>
@@ -43,7 +48,16 @@
                 <h1 class="ds-section__title ds-section__title--sm">
                     {% if current_category %}{{ current_category.localized_name }}{% else %}{% block_text shop 'catalog' 'catalog_title' %}{% endif %}
                 </h1>
-                <p class="ds-toolbar__total">{{ total }} {% trans "товарів" %}</p>
+                <div class="ds-toolbar__end">
+                    <p class="ds-toolbar__total">{{ total }} {% trans "товарів" %}</p>
+                    <button type="button"
+                            class="ds-btn ds-btn--outline ds-btn--sm ds-filter-open"
+                            data-ds-filter-open
+                            aria-expanded="false"
+                            aria-controls="ds-filter-drawer">
+                        {% trans "Фільтри" %}
+                    </button>
+                </div>
             </div>
             {% include 'demoshop/partials/_product_grid.html' with products=page_obj %}
             {% include 'demoshop/partials/_pagination.html' with page_obj=page_obj %}
