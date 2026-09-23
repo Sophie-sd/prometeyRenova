@@ -47,16 +47,18 @@ def _index() -> dict[str, list[str]]:
 def _name_variants(stored_name: str) -> list[str]:
     filename = Path(stored_name).name
     names = [filename]
-    hero = _SHOP_HERO.match(filename)
-    if hero:
-        number = int(hero.group(1)) + 1
-        names.append(f'slide-{number}-{hero.group(2)}.webp')
     stem = Path(filename).stem
     suffix = Path(filename).suffix
     match = _DJANGO_SUFFIX.match(stem)
     if match:
         names.append(f'{match.group(1)}{suffix}')
-    return names
+    expanded = list(names)
+    for name in names:
+        hero = _SHOP_HERO.match(name)
+        if hero:
+            number = int(hero.group(1)) + 1
+            expanded.append(f'slide-{number}-{hero.group(2)}.webp')
+    return expanded
 
 
 def _preferred_prefix(stored_name: str) -> str:

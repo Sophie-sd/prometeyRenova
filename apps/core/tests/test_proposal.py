@@ -1,4 +1,5 @@
 from datetime import date
+from decimal import Decimal
 
 from django.core.management import call_command
 from django.test import Client, TestCase
@@ -195,3 +196,21 @@ class ProposalSeedTests(TestCase):
         self.assertNotIn('/proposal/', body)
         self.assertNotIn(proposal.slug, body)
         self.assertNotIn(shop.slug, body)
+
+    def test_mangaly_seed_is_shop_and_private(self):
+        call_command('seed_proposal_mangaly', no_demo=True)
+        call_command('seed_proposal_mangaly', no_demo=True)
+        proposal = Proposal.objects.get(slug='shop-mangaly-a7f3')
+        self.assertEqual(proposal.client_name, 'E-Commerce Мангали & Метал')
+        self.assertEqual(proposal.kind, Proposal.DemoKind.SHOP)
+        self.assertEqual(proposal.issued_on.isoformat(), '2026-09-23')
+        names = list(proposal.packages.order_by('order').values_list('name', 'price'))
+        self.assertEqual(names[0], ('Базовий', Decimal('1150.00')))
+        self.assertEqual(names[1], ('Преміум', Decimal('2000.00')))
+        self.assertEqual(names[2], ('Платінум', Decimal('3500.00')))
+        self.assertFalse(proposal.packages.filter(is_recommended=True).exists())
+        self.assertEqual(proposal.modules.count(), 7)
+        self.assertTrue(
+            proposal.specs.filter(title__icontains='Нової Пошти').exists()
+        )
+        self.assertFalse(DemoShop.objects.filter(proposal=proposal).exists())
