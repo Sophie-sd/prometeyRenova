@@ -116,7 +116,7 @@ PACKAGES = [
             'онлайн-оплата, доставка, адмінка, базовий SEO і аналітика, деплой.'
         ),
         'duration': 'до 30 днів',
-        'price': Decimal('100.00'),
+        'price': Decimal('1000.00'),
         'currency': '€',
         'is_recommended': False,
     },

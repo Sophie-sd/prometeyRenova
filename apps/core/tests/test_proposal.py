@@ -244,7 +244,7 @@ class ProposalSeedTests(TestCase):
         names = list(
             proposal.packages.order_by('order').values_list('name', 'price', 'is_recommended')
         )
-        self.assertEqual(names[0], ('Базовий', Decimal('100.00'), False))
+        self.assertEqual(names[0], ('Базовий', Decimal('1000.00'), False))
         self.assertEqual(names[1], ('Преміум', Decimal('1500.00'), True))
         self.assertEqual(names[2], ('Платінум', Decimal('4000.00'), False))
         self.assertEqual(names[3], ('Перенесення реклами', Decimal('100.00'), False))
