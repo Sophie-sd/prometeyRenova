@@ -250,3 +250,19 @@ class ProposalSeedTests(TestCase):
         self.assertEqual(names[3], ('Перенесення реклами', Decimal('100.00'), False))
         self.assertIn('пожиттєву гарантію', proposal.guarantee_html)
         self.assertFalse(Proposal.objects.filter(slug='shop-sad-gorod-a7f3', title=proposal.title).exists())
+
+    def test_ecom_b_seed_is_a_separate_shop_page(self):
+        call_command('seed_proposal_ecom', no_demo=True)
+        call_command('seed_proposal_ecom_b', no_demo=True)
+        call_command('seed_proposal_ecom_b', no_demo=True)
+        proposal = Proposal.objects.get(slug='shop-ecom-b7f3')
+        names = list(
+            proposal.packages.order_by('order').values_list('name', 'price', 'is_recommended')
+        )
+        self.assertEqual(names, [
+            ('Базовий', Decimal('950.00'), False),
+            ('Преміум', Decimal('1500.00'), True),
+            ('Платінум', Decimal('3500.00'), False),
+        ])
+        kept = Proposal.objects.get(slug='shop-ecom-a7f3')
+        self.assertEqual(kept.packages.get(name='Базовий').price, Decimal('1000.00'))

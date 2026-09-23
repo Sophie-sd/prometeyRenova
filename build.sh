@@ -74,4 +74,7 @@ python manage.py seed_proposal_garden
 echo "📄 Seeding generic e-commerce proposal + classic demo-shop..."
 python manage.py seed_proposal_ecom
 
+echo "📄 Seeding second shop proposal (950/1500/3500) + classic demo-shop..."
+python manage.py seed_proposal_ecom_b
+
 echo "✅ Build complete!"
