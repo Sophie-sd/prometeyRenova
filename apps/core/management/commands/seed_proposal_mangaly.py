@@ -277,7 +277,7 @@ def _with_ru(payload: dict, text_keys: tuple[str, ...]) -> dict:
 
 
 def _attach_hero(proposal: Proposal) -> None:
-    src = Path(settings.BASE_DIR) / 'static' / 'proposal' / 'img' / 'parts.png'
+    src = Path(settings.BASE_DIR) / 'static' / 'proposal' / 'img' / 'seal-on-dark.webp'
     if not src.is_file():
         return
     if proposal.hero_image:
