@@ -214,3 +214,23 @@ class ProposalSeedTests(TestCase):
             proposal.specs.filter(title__icontains='Нової Пошти').exists()
         )
         self.assertFalse(DemoShop.objects.filter(proposal=proposal).exists())
+
+    def test_garden_seed_is_its_own_shop_page(self):
+        call_command('seed_proposal_garden', no_demo=True)
+        call_command('seed_proposal_garden', no_demo=True)
+        proposal = Proposal.objects.get(slug='shop-sad-gorod-a7f3')
+        self.assertEqual(proposal.client_name, 'Все для саду та городу')
+        self.assertEqual(proposal.kind, Proposal.DemoKind.SHOP)
+        self.assertEqual(proposal.issued_on.isoformat(), '2026-09-23')
+        package = proposal.packages.get()
+        self.assertEqual(package.name, 'Інтернет-магазин під ключ')
+        self.assertEqual(package.price, Decimal('900.00'))
+        self.assertIn('900–950', package.scope)
+        self.assertFalse(package.is_recommended)
+        self.assertEqual(proposal.modules.count(), 6)
+        self.assertFalse(
+            Proposal.objects.filter(
+                slug='shop-mangaly-a7f3',
+                client_name='Все для саду та городу',
+            ).exists()
+        )
