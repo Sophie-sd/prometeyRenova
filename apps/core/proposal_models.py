@@ -182,6 +182,7 @@ class Proposal(models.Model):
             return direct
         by_slug = {
             'b2b-parts-platform-a7f3': 'proposal/img/parts.png',
+            'shop-ecom-a7f3': 'proposal/img/seal-on-dark.webp',
         }
         rel = by_slug.get(self.slug, 'proposal/img/seal-on-dark.webp')
         if (Path(settings.BASE_DIR) / 'static' / rel).is_file():

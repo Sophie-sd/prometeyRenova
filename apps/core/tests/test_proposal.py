@@ -234,3 +234,18 @@ class ProposalSeedTests(TestCase):
                 client_name='Все для саду та городу',
             ).exists()
         )
+
+    def test_ecom_seed_is_its_own_shop_page(self):
+        call_command('seed_proposal_ecom', no_demo=True)
+        call_command('seed_proposal_ecom', no_demo=True)
+        proposal = Proposal.objects.get(slug='shop-ecom-a7f3')
+        self.assertEqual(proposal.kind, Proposal.DemoKind.SHOP)
+        self.assertEqual(proposal.issued_on.isoformat(), '2026-09-23')
+        names = list(
+            proposal.packages.order_by('order').values_list('name', 'price', 'is_recommended')
+        )
+        self.assertEqual(names[0], ('Базовий', Decimal('950.00'), False))
+        self.assertEqual(names[1], ('Преміум', Decimal('1500.00'), True))
+        self.assertEqual(names[2], ('Платінум', Decimal('4000.00'), False))
+        self.assertIn('пожиттєву гарантію', proposal.guarantee_html)
+        self.assertFalse(Proposal.objects.filter(slug='shop-sad-gorod-a7f3', title=proposal.title).exists())

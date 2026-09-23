@@ -71,4 +71,7 @@ python manage.py seed_proposal_mangaly
 echo "📄 Seeding garden e-commerce proposal + classic demo-shop..."
 python manage.py seed_proposal_garden
 
+echo "📄 Seeding generic e-commerce proposal + classic demo-shop..."
+python manage.py seed_proposal_ecom
+
 echo "✅ Build complete!"
