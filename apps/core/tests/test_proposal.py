@@ -377,7 +377,7 @@ class ProposalSeedTests(TestCase):
         call_command('seed_proposal_advocate', no_demo=True)
         call_command('seed_proposal_advocate', no_demo=True)
         proposal = Proposal.objects.get(slug='landing-advocate-a7f3')
-        self.assertEqual(proposal.client_name, 'Адвокатські послуги')
+        self.assertEqual(proposal.client_name, 'Військове право')
         self.assertEqual(proposal.kind, Proposal.DemoKind.LANDING)
         self.assertEqual(proposal.issued_on.isoformat(), '2026-09-24')
         names = list(
