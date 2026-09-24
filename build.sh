@@ -80,4 +80,7 @@ python manage.py seed_proposal_ecom_b
 echo "📄 Seeding agro Prom.ua migration proposal + classic demo-shop..."
 python manage.py seed_proposal_agro_prom
 
+echo "📄 Seeding sanitary corporate proposal + classic demo-corp..."
+python manage.py seed_proposal_sanitary
+
 echo "✅ Build complete!"

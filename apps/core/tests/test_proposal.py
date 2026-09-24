@@ -321,3 +321,53 @@ class ProposalSeedTests(TestCase):
         body = sitemap.content.decode()
         self.assertNotIn(proposal.slug, body)
         self.assertNotIn(shop.slug, body)
+
+    def test_sanitary_seed_is_its_own_corporate_page(self):
+        call_command('seed_proposal_sanitary', no_demo=True)
+        call_command('seed_proposal_sanitary', no_demo=True)
+        proposal = Proposal.objects.get(slug='corporate-sanitary-a7f3')
+        self.assertEqual(proposal.client_name, 'Служба санітарної обробки')
+        self.assertEqual(proposal.kind, Proposal.DemoKind.CORPORATE)
+        self.assertFalse(proposal.corp_catalog)
+        self.assertEqual(proposal.issued_on.isoformat(), '2026-09-24')
+        names = list(
+            proposal.packages.order_by('order').values_list('name', 'price', 'is_recommended')
+        )
+        self.assertEqual(names, [
+            ('Односторінковий лендінг', Decimal('350.00'), False),
+            ('Корпоративний сайт', Decimal('500.00'), True),
+        ])
+        self.assertIn('пожиттєву гарантію', proposal.guarantee_html)
+        self.assertFalse(CorpSite.objects.filter(proposal=proposal).exists())
+        call_command('seed_proposal_agro_prom', no_demo=True)
+        kept = Proposal.objects.get(slug='shop-agro-prom-a7f3')
+        self.assertEqual(kept.packages.get(name='Базовий').price, Decimal('1000.00'))
+        self.assertNotEqual(kept.title, proposal.title)
+
+    def test_sanitary_seed_provisions_one_classic_site(self):
+        call_command('seed_proposal_sanitary')
+        call_command('seed_proposal_sanitary')
+        proposal = Proposal.objects.get(slug='corporate-sanitary-a7f3')
+        self.assertEqual(CorpSite.objects.filter(proposal=proposal).count(), 1)
+        site = CorpSite.objects.get(proposal=proposal)
+        self.assertEqual(site.name, 'Demo Site')
+        self.assertFalse(site.has_catalog)
+        self.assertTrue(site.slug.startswith('sanitary-'))
+
+        client = Client()
+        kp = client.get(reverse('proposal_detail', kwargs={'slug': proposal.slug}))
+        self.assertEqual(kp.status_code, 200)
+        self.assertContains(kp, 'Рекомендовано')
+        self.assertContains(kp, 'не версія вашого сайту')
+        self.assertContains(kp, 'Переглянути демо сайту')
+        self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
+        self.assertContains(kp, site.get_absolute_url())
+
+        demo = client.get(reverse('democorp:home', kwargs={'slug': site.slug}))
+        self.assertEqual(demo.status_code, 200)
+        self.assertEqual(demo['X-Robots-Tag'], 'noindex, nofollow')
+
+        sitemap = client.get('/sitemap.xml')
+        body = sitemap.content.decode()
+        self.assertNotIn(proposal.slug, body)
+        self.assertNotIn(site.slug, body)
