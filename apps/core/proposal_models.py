@@ -184,6 +184,7 @@ class Proposal(models.Model):
             'b2b-parts-platform-a7f3': 'proposal/img/parts.png',
             'shop-ecom-a7f3': 'proposal/img/seal-on-dark.webp',
             'shop-ecom-b7f3': 'proposal/img/seal-on-dark.webp',
+            'shop-agro-prom-a7f3': 'proposal/img/seal-on-dark.webp',
         }
         rel = by_slug.get(self.slug, 'proposal/img/seal-on-dark.webp')
         if (Path(settings.BASE_DIR) / 'static' / rel).is_file():
