@@ -83,4 +83,7 @@ python manage.py seed_proposal_agro_prom
 echo "📄 Seeding sanitary corporate proposal + classic demo-corp..."
 python manage.py seed_proposal_sanitary
 
+echo "📄 Seeding advocate landing proposal + classic demo-landing..."
+python manage.py seed_proposal_advocate
+
 echo "✅ Build complete!"

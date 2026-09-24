@@ -7,6 +7,7 @@ from django.urls import reverse
 
 from apps.core.proposal_models import Proposal
 from apps.democorp.models import CorpSite
+from apps.demolanding.models import LandingSite
 from apps.demoshop.models import DemoShop
 
 
@@ -364,6 +365,54 @@ class ProposalSeedTests(TestCase):
         self.assertContains(kp, site.get_absolute_url())
 
         demo = client.get(reverse('democorp:home', kwargs={'slug': site.slug}))
+        self.assertEqual(demo.status_code, 200)
+        self.assertEqual(demo['X-Robots-Tag'], 'noindex, nofollow')
+
+        sitemap = client.get('/sitemap.xml')
+        body = sitemap.content.decode()
+        self.assertNotIn(proposal.slug, body)
+        self.assertNotIn(site.slug, body)
+
+    def test_advocate_seed_is_its_own_landing_page(self):
+        call_command('seed_proposal_advocate', no_demo=True)
+        call_command('seed_proposal_advocate', no_demo=True)
+        proposal = Proposal.objects.get(slug='landing-advocate-a7f3')
+        self.assertEqual(proposal.client_name, 'Адвокатські послуги')
+        self.assertEqual(proposal.kind, Proposal.DemoKind.LANDING)
+        self.assertEqual(proposal.issued_on.isoformat(), '2026-09-24')
+        names = list(
+            proposal.packages.order_by('order').values_list('name', 'price', 'is_recommended')
+        )
+        self.assertEqual(names, [
+            ('Базовий', Decimal('400.00'), False),
+            ('Сайт + ADS', Decimal('600.00'), True),
+        ])
+        self.assertIn('пожиттєву гарантію', proposal.guarantee_html)
+        self.assertEqual(proposal.cta_label, 'Почати проєкт')
+        self.assertFalse(LandingSite.objects.filter(proposal=proposal).exists())
+        call_command('seed_proposal_sanitary', no_demo=True)
+        kept = Proposal.objects.get(slug='corporate-sanitary-a7f3')
+        self.assertEqual(kept.packages.get(name='Корпоративний сайт').price, Decimal('500.00'))
+
+    def test_advocate_seed_provisions_one_classic_landing(self):
+        call_command('seed_proposal_advocate')
+        call_command('seed_proposal_advocate')
+        proposal = Proposal.objects.get(slug='landing-advocate-a7f3')
+        self.assertEqual(LandingSite.objects.filter(proposal=proposal).count(), 1)
+        site = LandingSite.objects.get(proposal=proposal)
+        self.assertEqual(site.name, 'Demo Landing')
+        self.assertTrue(site.slug.startswith('advocate-'))
+
+        client = Client()
+        kp = client.get(reverse('proposal_detail', kwargs={'slug': proposal.slug}))
+        self.assertEqual(kp.status_code, 200)
+        self.assertContains(kp, 'Рекомендовано')
+        self.assertContains(kp, 'Переглянути демо лендінгу')
+        self.assertContains(kp, 'не версія вашого сайту')
+        self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
+        self.assertContains(kp, site.get_absolute_url())
+
+        demo = client.get(reverse('demolanding:home', kwargs={'slug': site.slug}))
         self.assertEqual(demo.status_code, 200)
         self.assertEqual(demo['X-Robots-Tag'], 'noindex, nofollow')
 
