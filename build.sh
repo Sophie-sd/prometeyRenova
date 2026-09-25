@@ -89,4 +89,7 @@ python manage.py seed_proposal_advocate
 echo "📄 Seeding locks shop proposal + classic demo-shop..."
 python manage.py seed_proposal_locks
 
+echo "📄 Seeding 4-ISP portal proposal + classic demo-shop..."
+python manage.py seed_proposal_4isp
+
 echo "✅ Build complete!"

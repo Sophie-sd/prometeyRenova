@@ -464,3 +464,51 @@ class ProposalSeedTests(TestCase):
         body = sitemap.content.decode()
         self.assertNotIn(proposal.slug, body)
         self.assertNotIn(shop.slug, body)
+
+    def test_4isp_seed_is_its_own_shop_page(self):
+        call_command('seed_proposal_4isp', no_demo=True)
+        call_command('seed_proposal_4isp', no_demo=True)
+        proposal = Proposal.objects.get(slug='shop-4isp-a7f3')
+        self.assertEqual(proposal.client_name, '4-ISP')
+        self.assertEqual(proposal.kind, Proposal.DemoKind.SHOP)
+        self.assertEqual(proposal.issued_on.isoformat(), '2026-09-25')
+        names = list(
+            proposal.packages.order_by('order').values_list('name', 'price', 'is_recommended')
+        )
+        self.assertEqual(names, [
+            ('Базовий', Decimal('1900.00'), False),
+            ('Преміум', Decimal('2700.00'), True),
+            ('Платінум', Decimal('4200.00'), False),
+        ])
+        self.assertIn('пожиттєву гарантію', proposal.guarantee_html)
+        self.assertFalse(DemoShop.objects.filter(proposal=proposal).exists())
+        call_command('seed_proposal_locks', no_demo=True)
+        kept = Proposal.objects.get(slug='shop-locks-a7f3')
+        self.assertEqual(kept.packages.get().price, Decimal('900.00'))
+
+    def test_4isp_seed_provisions_one_classic_shop(self):
+        call_command('seed_proposal_4isp')
+        call_command('seed_proposal_4isp')
+        proposal = Proposal.objects.get(slug='shop-4isp-a7f3')
+        self.assertEqual(DemoShop.objects.filter(proposal=proposal).count(), 1)
+        shop = DemoShop.objects.get(proposal=proposal)
+        self.assertEqual(shop.name, 'Demo Shop')
+        self.assertTrue(shop.slug.startswith('4isp-'))
+
+        client = Client()
+        kp = client.get(reverse('proposal_detail', kwargs={'slug': proposal.slug}))
+        self.assertEqual(kp.status_code, 200)
+        self.assertContains(kp, 'Рекомендовано')
+        self.assertContains(kp, 'Переглянути демо магазину')
+        self.assertContains(kp, 'не версія вашого сайту')
+        self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
+        self.assertContains(kp, shop.get_absolute_url())
+
+        demo = client.get(reverse('demoshop:home', kwargs={'shop_slug': shop.slug}))
+        self.assertEqual(demo.status_code, 200)
+        self.assertEqual(demo['X-Robots-Tag'], 'noindex, nofollow')
+
+        sitemap = client.get('/sitemap.xml')
+        body = sitemap.content.decode()
+        self.assertNotIn(proposal.slug, body)
+        self.assertNotIn(shop.slug, body)
