@@ -86,4 +86,7 @@ python manage.py seed_proposal_sanitary
 echo "📄 Seeding advocate landing proposal + classic demo-landing..."
 python manage.py seed_proposal_advocate
 
+echo "📄 Seeding locks shop proposal + classic demo-shop..."
+python manage.py seed_proposal_locks
+
 echo "✅ Build complete!"
