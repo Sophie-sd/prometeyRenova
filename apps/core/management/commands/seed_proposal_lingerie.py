@@ -1,8 +1,8 @@
 """
 Management command: seed_proposal_lingerie
 
-Idempotent заливка КП «Білизна та парфумерія» (PDF 28.09.2026).
-Без демо-тенанта: сторінка лише за прямим посиланням.
+Idempotent заливка КП «Білизна та парфумерія» (PDF 28.09.2026)
++ класичний demo-shop. Це не версія сайту клієнта.
 """
 from datetime import date
 from decimal import Decimal
@@ -224,7 +224,14 @@ def _attach_hero(proposal: Proposal) -> None:
 
 
 class Command(BaseCommand):
-    help = 'Seed lingerie and perfume shop proposal without a demo tenant'
+    help = 'Seed lingerie shop proposal + classic demo-shop (idempotent)'
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--no-demo',
+            action='store_true',
+            help='Тільки КП, без provision_demo_shop',
+        )
 
     def handle(self, *args, **options):
         for model in (
@@ -238,11 +245,33 @@ class Command(BaseCommand):
             ensure_leftover_not_null_defaults(model)
         with transaction.atomic():
             proposal, created = self._seed_rows()
+        if not options['no_demo']:
+            self._provision_demo(proposal)
         action = 'Created' if created else 'Updated'
         self.stdout.write(self.style.SUCCESS(
             f'{action}: /proposal/{SLUG}/ '
             f'({proposal.modules.count()} modules, '
-            f'{proposal.packages.count()} packages, no demo)'
+            f'{proposal.packages.count()} packages)'
+        ))
+
+    def _provision_demo(self, proposal: Proposal) -> None:
+        from apps.demoshop.models import DemoShop
+        from apps.demoshop.services.provision import provision_demo_shop
+
+        shop = DemoShop.objects.filter(proposal=proposal).first()
+        if shop is None:
+            shop = DemoShop(
+                proposal=proposal,
+                name='Demo Shop',
+                slug=DemoShop.generate_slug('lingerie'),
+            )
+            shop.save()
+        shop = provision_demo_shop(proposal)
+        if shop.name != 'Demo Shop':
+            shop.name = 'Demo Shop'
+            shop.save(update_fields=['name'])
+        self.stdout.write(self.style.SUCCESS(
+            f'Demo: {shop.get_absolute_url()} (slug={shop.slug})'
         ))
 
     def _seed_rows(self):

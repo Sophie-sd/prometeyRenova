@@ -558,9 +558,9 @@ class ProposalSeedTests(TestCase):
         self.assertNotIn(proposal.slug, body)
         self.assertNotIn(shop.slug, body)
 
-    def test_lingerie_seed_is_a_shop_page_without_demo(self):
-        call_command('seed_proposal_lingerie')
-        call_command('seed_proposal_lingerie')
+    def test_lingerie_seed_is_its_own_shop_page(self):
+        call_command('seed_proposal_lingerie', no_demo=True)
+        call_command('seed_proposal_lingerie', no_demo=True)
         proposal = Proposal.objects.get(slug='shop-lingerie-a7f3')
         self.assertEqual(proposal.client_name, 'Білизна та парфумерія')
         self.assertEqual(proposal.kind, Proposal.DemoKind.SHOP)
@@ -577,13 +577,30 @@ class ProposalSeedTests(TestCase):
         kept = Proposal.objects.get(slug='shop-classic-a7f3')
         self.assertEqual(kept.packages.get().price, Decimal('1000.00'))
 
+    def test_lingerie_seed_provisions_one_classic_shop(self):
+        call_command('seed_proposal_lingerie')
+        call_command('seed_proposal_lingerie')
+        proposal = Proposal.objects.get(slug='shop-lingerie-a7f3')
+        self.assertEqual(DemoShop.objects.filter(proposal=proposal).count(), 1)
+        shop = DemoShop.objects.get(proposal=proposal)
+        self.assertEqual(shop.name, 'Demo Shop')
+        self.assertTrue(shop.slug.startswith('lingerie-'))
+
         client = Client()
         kp = client.get(reverse('proposal_detail', kwargs={'slug': proposal.slug}))
         self.assertEqual(kp.status_code, 200)
+        self.assertContains(kp, 'id="prop-demo"')
+        self.assertContains(kp, 'Переглянути демо магазину')
+        self.assertContains(kp, 'не версія вашого сайту')
         self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
-        self.assertNotContains(kp, 'id="prop-demo"')
+        self.assertContains(kp, shop.get_absolute_url())
         self.assertContains(kp, '100 мл')
+
+        demo = client.get(reverse('demoshop:home', kwargs={'shop_slug': shop.slug}))
+        self.assertEqual(demo.status_code, 200)
+        self.assertEqual(demo['X-Robots-Tag'], 'noindex, nofollow')
 
         sitemap = client.get('/sitemap.xml')
         body = sitemap.content.decode()
         self.assertNotIn(proposal.slug, body)
+        self.assertNotIn(shop.slug, body)
