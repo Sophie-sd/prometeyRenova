@@ -98,4 +98,7 @@ python manage.py seed_proposal_classic
 echo "📄 Seeding lingerie shop proposal + classic demo-shop..."
 python manage.py seed_proposal_lingerie
 
+echo "📄 Seeding corporate catalog proposal (no demo)..."
+python manage.py seed_proposal_catalog
+
 echo "✅ Build complete!"
