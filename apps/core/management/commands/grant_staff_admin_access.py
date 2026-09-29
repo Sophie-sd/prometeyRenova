@@ -1,8 +1,8 @@
 """
 Idempotent-команда для надання staff-доступу до операційних розділів адмінки.
 
-Надає доступ до CRM, платежів, сайту та блогу без superuser і без керування
-користувачами.
+Надає доступ до CRM, платежів, сайту та блогу без керування
+користувачами. Суперюзерів не змінює.
 
 ENV:
 - DJANGO_STAFF_ADMIN_USERNAME (дефолт: ValeriaKornienko)
@@ -26,7 +26,7 @@ from apps.core.admin_permissions import (
 class Command(BaseCommand):
     help = (
         'Надає staff-доступ до операційних розділів адмінки '
-        '(CRM, платежі, сайт, блог) без superuser.'
+        '(CRM, платежі, сайт, блог). Суперюзерів не змінює.'
     )
 
     def add_arguments(self, parser):
@@ -51,6 +51,18 @@ class Command(BaseCommand):
                 'Створіть обліковий запис перед наданням доступу.'
             ) from exc
 
+        superuser_username = os.environ.get('DJANGO_SUPERUSER_USERNAME')
+        if user.is_superuser or (
+            superuser_username and user.username == superuser_username
+        ):
+            self.stdout.write(
+                self.style.WARNING(
+                    f'Користувач "{username}" — суперюзер. '
+                    'Деплой його не змінює.'
+                )
+            )
+            return
+
         staff_permissions = get_staff_admin_permissions()
         kept_fx = list(
             user.user_permissions.filter(
@@ -60,9 +72,8 @@ class Command(BaseCommand):
         )
 
         user.is_staff = True
-        user.is_superuser = False
         user.is_active = True
-        user.save(update_fields=['is_staff', 'is_superuser', 'is_active'])
+        user.save(update_fields=['is_staff', 'is_active'])
 
         user.user_permissions.set(list(staff_permissions) + kept_fx)
 
@@ -70,7 +81,7 @@ class Command(BaseCommand):
         self.stdout.write(
             self.style.SUCCESS(
                 f'✅ Staff-доступ надано користувачу "{username}":\n'
-                f'   is_staff=True, is_superuser=False\n'
+                f'   is_staff=True\n'
                 f'   Призначено {perm_count} permissions (core, blog, payment)'
             )
         )

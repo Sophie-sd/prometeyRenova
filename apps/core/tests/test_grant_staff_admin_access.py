@@ -1,4 +1,7 @@
 """Тести для grant_staff_admin_access management command."""
+import os
+from unittest.mock import patch
+
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.core.management.base import CommandError
@@ -34,6 +37,36 @@ class GrantStaffAdminAccessTests(TestCase):
         self.assertTrue(self.user.is_staff)
         self.assertFalse(self.user.is_superuser)
         self.assertTrue(self.user.has_perm('core.view_formsubmission'))
+
+    def test_does_not_touch_superuser(self):
+        User = get_user_model()
+        superuser = User.objects.create_superuser(
+            username='Sofia',
+            email='sofia@prometeylabs.com',
+            password='test-pass-456',
+        )
+        call_command('grant_staff_admin_access', username='Sofia')
+
+        superuser.refresh_from_db()
+        self.assertTrue(superuser.is_superuser)
+        self.assertTrue(superuser.is_staff)
+        self.assertEqual(superuser.user_permissions.count(), 0)
+
+    def test_does_not_touch_env_superuser_username(self):
+        User = get_user_model()
+        named = User.objects.create_user(
+            username='Sofia',
+            email='sofia@prometeylabs.com',
+            password='test-pass-456',
+            is_staff=True,
+            is_superuser=False,
+        )
+        with patch.dict(os.environ, {'DJANGO_SUPERUSER_USERNAME': 'Sofia'}):
+            call_command('grant_staff_admin_access', username='Sofia')
+
+        named.refresh_from_db()
+        self.assertFalse(named.is_superuser)
+        self.assertEqual(named.user_permissions.count(), 0)
 
     def test_fails_for_missing_user(self):
         with self.assertRaises(CommandError):
