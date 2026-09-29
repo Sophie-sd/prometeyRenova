@@ -1,10 +1,17 @@
 from django import template
+from django.utils.translation import gettext as _
 
 from apps.core.fx import SWITCH, format_amount, format_from, format_package_price, format_range
 
 register = template.Library()
 
 _VARIANTS = {'light', 'dark'}
+_NAMES = {
+    'EUR': 'Євро',
+    'UAH': 'Гривня',
+    'USD': 'Долар',
+    'CZK': 'Крона',
+}
 
 
 def _fx(context):
@@ -47,7 +54,12 @@ def currency_switcher(context, variant='light', region='home', oob=False):
     next_url = request.get_full_path() if request is not None else '/'
     proposal = context.get('proposal')
     choices = [
-        {'code': code, 'symbol': symbol, 'current': code == current}
+        {
+            'code': code,
+            'symbol': symbol,
+            'name': _(_NAMES[code]),
+            'current': code == current,
+        }
         for code, symbol in SWITCH
         if code in codes
     ]

@@ -100,6 +100,8 @@ class FxConvertTests(TestCase):
         self.assertEqual(response.cookies['pl_currency'].value, 'UAH')
         self.assertIn('10\u00a0000–16\u00a0000 ₴', body)
         self.assertIn('id="fx-switch-home"', body)
+        self.assertIn('fx-switch--dark', body)
+        self.assertIn('aria-label="Гривня"', body)
         self.assertIn('hx-swap-oob="outerHTML"', body)
 
     def test_htmx_rejects_unknown_region(self):

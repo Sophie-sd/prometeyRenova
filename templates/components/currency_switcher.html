@@ -1,16 +1,19 @@
 {% load i18n %}
-<form id="fx-switch-{{ region }}" class="fx-switch fx-switch--{{ variant }}" method="post" action="{% url 'set_currency' %}" hx-post="{% url 'set_currency' %}" hx-swap="none" hx-push-url="false"{% if oob %} hx-swap-oob="outerHTML"{% endif %} role="group" aria-label="{% trans 'Валюта' %}">
+<form id="fx-switch-{{ region }}" class="fx-switch fx-switch--{{ variant }}" method="post" action="{% url 'set_currency' %}" hx-post="{% url 'set_currency' %}" hx-swap="none" hx-push-url="false"{% if oob %} hx-swap-oob="outerHTML"{% endif %}>
     {% csrf_token %}
     <input type="hidden" name="region" value="{{ region }}">
     <input type="hidden" name="next" value="{{ next }}">
     {% if proposal_slug %}
     <input type="hidden" name="slug" value="{{ proposal_slug }}">
     {% endif %}
-    {% for item in choices %}
-        {% if item.current %}
-        <span class="fx-btn fx-btn--current mobile-touch-target" aria-current="true">{{ item.symbol }}</span>
-        {% else %}
-        <button type="submit" class="fx-btn mobile-touch-target mobile-focus-visible" name="currency" value="{{ item.code }}">{{ item.symbol }}</button>
-        {% endif %}
-    {% endfor %}
+    <p class="fx-switch__label" id="fx-switch-label-{{ region }}">{% trans "Валюта" %}</p>
+    <div class="fx-switch__track" role="group" aria-labelledby="fx-switch-label-{{ region }}">
+        {% for item in choices %}
+            {% if item.current %}
+            <span class="fx-btn fx-btn--current" aria-current="true" aria-label="{{ item.name }}">{{ item.symbol }}</span>
+            {% else %}
+            <button type="submit" class="fx-btn" name="currency" value="{{ item.code }}" aria-label="{{ item.name }}">{{ item.symbol }}</button>
+            {% endif %}
+        {% endfor %}
+    </div>
 </form>
