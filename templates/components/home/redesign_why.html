@@ -39,6 +39,7 @@
                 </h3>
                 <div class="v2-hr"></div>
                 <p class="v2-why-sub">{% trans "Середні діапазони цін:" %}</p>
+                {% currency_switcher "light" %}
                 <ul class="v2-why-list">
                     <li><span class="v2-li-key">{% trans "Лендінги:" %}</span><span class="v2-li-val">{% fx_range 250 400 %}</span></li>
                     <li><span class="v2-li-key">{% trans "Корпоративні сайти:" %}</span><span class="v2-li-val">{% fx_range 500 700 %}</span></li>

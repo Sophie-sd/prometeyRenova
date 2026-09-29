@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{% static 'proposal/css/proposal_extras.css' %}?v=33">
     <link rel="stylesheet" href="{% static 'proposal/css/proposal_end.css' %}?v=33">
     <link rel="stylesheet" href="{% static 'proposal/css/proposal_motion.css' %}?v=33">
-    <link rel="stylesheet" href="{% static 'css/components/currency.css' %}?v=1">
+    <link rel="stylesheet" href="{% static 'css/components/currency.css' %}?v=2">
     {% block page_css %}{% endblock %}
 </head>
 <body class="prop-body">
@@ -36,7 +36,6 @@
             <div class="prop-header__row">
                 <a class="prop-logo" href="https://www.prometeylabs.com/" rel="noopener">Prometey<span class="prop-logo__labs">Labs</span></a>
                 <div class="prop-header__meta">
-                    {% currency_switcher "proposal" %}
                     <p class="prop-header__count" data-prop-navcount>01 / 09</p>
                     <span class="prop-header__live" aria-hidden="true"></span>
                 </div>

@@ -67,7 +67,7 @@ class FxConvertTests(TestCase):
     def test_zero_rate_hides_button(self):
         self.rates.usd_per_eur = Decimal('0')
         self.rates.save()
-        html = self._render('{% load fx_tags %}{% currency_switcher "header" %}')
+        html = self._render('{% load fx_tags %}{% currency_switcher "light" %}')
         self.assertIn('value="UAH"', html)
         self.assertNotIn('value="USD"', html)
         self.assertIn('value="CZK"', html)

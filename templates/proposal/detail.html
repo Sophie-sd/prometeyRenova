@@ -1,5 +1,5 @@
 {% extends 'proposal/base_proposal.html' %}
-{% load i18n static %}
+{% load i18n static fx_tags %}
 
 {% block title %}{{ proposal.get_localized_title }}{% endblock %}
 {% block description %}{{ proposal.get_localized_lead }}{% endblock %}
@@ -204,6 +204,7 @@
             <p class="prop-eyebrow">{% trans "06 / Investment" %}</p>
             <h2 id="prop-packages-title" class="prop-section__title"><span class="prop-mask"><span>{% trans "Кошторис та пакети" %}</span></span></h2>
         </div>
+        {% currency_switcher "dark" %}
     </header>
     <div class="prop-packages-grid">
         {% for package in packages %}

@@ -1,5 +1,4 @@
 {% load i18n %}
-{% load fx_tags %}
 <!-- Modern Creative Mobile Menu -->
 <nav class="mobile-menu" role="navigation" aria-label="{% trans 'Мобільне меню' %}">
     <!-- Header з close button та перемикачем мов -->
@@ -22,7 +21,6 @@
             {% endif %}
             {% endfor %}
         </div>
-        {% currency_switcher "menu" %}
     </div>
 
     <!-- Navigation Links з великою типографікою -->

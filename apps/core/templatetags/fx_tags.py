@@ -4,7 +4,7 @@ from apps.core.fx import SWITCH, format_amount, format_from, format_package_pric
 
 register = template.Library()
 
-_VARIANTS = {'header', 'menu', 'proposal'}
+_VARIANTS = {'light', 'dark'}
 
 
 def _fx(context):
@@ -36,9 +36,9 @@ def fx_package(context, package):
 
 
 @register.inclusion_tag('components/currency_switcher.html', takes_context=True)
-def currency_switcher(context, variant='header'):
+def currency_switcher(context, variant='light'):
     if variant not in _VARIANTS:
-        variant = 'header'
+        variant = 'light'
     request = context.get('request')
     codes = context.get('fx_codes') or ['EUR']
     current = context.get('fx_currency') or 'EUR'
