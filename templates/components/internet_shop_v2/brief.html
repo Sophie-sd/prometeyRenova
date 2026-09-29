@@ -1,4 +1,3 @@
-{% load fx_tags %}
 <section id="calculator" class="pl-shop__section pl-shop__calc" aria-labelledby="pl-shop-calc-title">
     <div class="pl-shop__calc-inner pl-shop__inner">
         <div class="pl-shop__calc-head" data-reveal>
@@ -17,9 +16,6 @@
             action="{% url 'form_submit' %}"
             data-form-type="site_request"
             data-source-label="Інтернет-магазин v2"
-            data-fx-price-base="{% fx_from 800 %}"
-            data-fx-price-premium="{% fx_from 1500 %}"
-            data-fx-price-platinum="{% fx_from 7000 %}"
             data-reveal
         >
             {% csrf_token %}

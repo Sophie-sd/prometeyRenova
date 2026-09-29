@@ -1,0 +1,5 @@
+{% load fx_tags %}
+{% for package in packages %}
+{% include 'fx/prop_price.html' with package=package oob=True %}
+{% endfor %}
+{% currency_switcher "dark" "proposal" True %}

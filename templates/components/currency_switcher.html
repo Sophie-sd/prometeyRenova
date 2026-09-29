@@ -1,7 +1,11 @@
 {% load i18n %}
-<form class="fx-switch fx-switch--{{ variant }}" method="post" action="{% url 'set_currency' %}" role="group" aria-label="{% trans 'Валюта' %}">
+<form id="fx-switch-{{ region }}" class="fx-switch fx-switch--{{ variant }}" method="post" action="{% url 'set_currency' %}" hx-post="{% url 'set_currency' %}" hx-swap="none" hx-push-url="false"{% if oob %} hx-swap-oob="outerHTML"{% endif %} role="group" aria-label="{% trans 'Валюта' %}">
     {% csrf_token %}
+    <input type="hidden" name="region" value="{{ region }}">
     <input type="hidden" name="next" value="{{ next }}">
+    {% if proposal_slug %}
+    <input type="hidden" name="slug" value="{{ proposal_slug }}">
+    {% endif %}
     {% for item in choices %}
         {% if item.current %}
         <span class="fx-btn fx-btn--current mobile-touch-target" aria-current="true">{{ item.symbol }}</span>

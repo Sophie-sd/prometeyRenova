@@ -63,8 +63,9 @@
     justify-content: flex-start;
 }
 
-.fx-switch-slot--packages .fx-switch {
-    margin: 8px 0 28px;
+.v2-section > .fx-switch,
+.pl-shop__section-head .fx-switch {
+    margin: 16px 0 0;
 }
 
 @media (max-width: 1024px) {

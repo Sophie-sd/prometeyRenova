@@ -1,0 +1,6 @@
+{% load fx_tags %}
+{% include 'fx/pkg_price.html' with key='base' amount=800 oob=True %}
+{% include 'fx/pkg_price.html' with key='premium' amount=1500 oob=True %}
+{% include 'fx/pkg_price.html' with key='platinum' amount=7000 oob=True %}
+{% include 'fx/quiz_prices.html' with oob=True %}
+{% currency_switcher "dark" "shop" True %}

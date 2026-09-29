@@ -36,13 +36,16 @@ def fx_package(context, package):
 
 
 @register.inclusion_tag('components/currency_switcher.html', takes_context=True)
-def currency_switcher(context, variant='light'):
+def currency_switcher(context, variant='light', region='home', oob=False):
     if variant not in _VARIANTS:
         variant = 'light'
+    if region not in {'home', 'shop', 'proposal'}:
+        region = 'home'
     request = context.get('request')
     codes = context.get('fx_codes') or ['EUR']
     current = context.get('fx_currency') or 'EUR'
     next_url = request.get_full_path() if request is not None else '/'
+    proposal = context.get('proposal')
     choices = [
         {'code': code, 'symbol': symbol, 'current': code == current}
         for code, symbol in SWITCH
@@ -52,5 +55,8 @@ def currency_switcher(context, variant='light'):
         'choices': choices,
         'next': next_url,
         'variant': variant,
+        'region': region,
+        'oob': oob,
+        'proposal_slug': getattr(proposal, 'slug', '') or '',
         'csrf_token': context.get('csrf_token'),
     }

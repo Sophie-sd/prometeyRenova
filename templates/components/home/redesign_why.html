@@ -9,6 +9,8 @@
             {% trans "Ми розробляємо сайти, якими справді легко керувати. Жодних обмежень шаблонних рішень — тільки чистий, оптимізований код та індивідуальна архітектура. Завдяки детальній розробці адміністративної частини, ви можете самостійно оновлювати весь контент сайту в кілька кліків, не залучаючи програмістів. Ми створюємо фундамент, який готовий до будь-яких інтеграцій та росту разом із вашим бізнесом." %}
         </p>
 
+        {% currency_switcher "light" "home" %}
+
         <div class="v2-why-grid">
             <article class="v2-why-card">
                 <div class="v2-why-head">
@@ -39,13 +41,7 @@
                 </h3>
                 <div class="v2-hr"></div>
                 <p class="v2-why-sub">{% trans "Середні діапазони цін:" %}</p>
-                {% currency_switcher "light" %}
-                <ul class="v2-why-list">
-                    <li><span class="v2-li-key">{% trans "Лендінги:" %}</span><span class="v2-li-val">{% fx_range 250 400 %}</span></li>
-                    <li><span class="v2-li-key">{% trans "Корпоративні сайти:" %}</span><span class="v2-li-val">{% fx_range 500 700 %}</span></li>
-                    <li><span class="v2-li-key">{% trans "E-commerce:" %}</span><span class="v2-li-val">{% fx_range 800 1400 %}</span></li>
-                    <li><span class="v2-li-key">{% trans "Веб-додатки:" %}</span><span class="v2-li-val">{% fx_range 1500 5000 %}</span></li>
-                </ul>
+                {% include 'fx/home_prices.html' %}
                 <p class="v2-why-note">
                     {% trans "Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов." %}
                 </p>

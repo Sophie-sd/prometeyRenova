@@ -1,0 +1,2 @@
+{% load fx_tags %}
+<p id="fx-prop-{{ package.id }}" class="prop-price__sum"{% if oob %} hx-swap-oob="outerHTML"{% endif %}>{% fx_package package %}</p>

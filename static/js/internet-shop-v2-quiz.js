@@ -39,12 +39,19 @@
         }
     };
 
-    ['base', 'premium', 'platinum'].forEach(function (key) {
-        var converted = form.getAttribute('data-fx-price-' + key);
-        if (converted && PKG_MAP[key]) {
-            PKG_MAP[key].price = converted;
-        }
-    });
+    function applyQuizPrices() {
+        var node = document.getElementById('fx-quiz-prices');
+        if (!node) return;
+        ['base', 'premium', 'platinum'].forEach(function (key) {
+            var converted = node.getAttribute('data-fx-price-' + key);
+            if (converted && PKG_MAP[key]) {
+                PKG_MAP[key].price = converted;
+            }
+        });
+    }
+
+    applyQuizPrices();
+    document.body.addEventListener('htmx:afterSettle', applyQuizPrices);
 
     var steps = Array.from(form.querySelectorAll('.pl-shop__quiz-step'));
     var progressBar = form.querySelector('[data-quiz-progress]');

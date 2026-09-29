@@ -88,6 +88,27 @@ class FxConvertTests(TestCase):
         })
         self.assertTrue(response['Location'].endswith('/contacts/'))
 
+    def test_htmx_swaps_home_prices_without_redirect(self):
+        response = self.client.post('/i18n/set_currency/', {
+            'currency': 'UAH',
+            'region': 'home',
+            'next': 'https://evil.example/phish',
+        }, HTTP_HX_REQUEST='true')
+        body = response.content.decode()
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn('Location', response)
+        self.assertEqual(response.cookies['pl_currency'].value, 'UAH')
+        self.assertIn('10\u00a0000–16\u00a0000 ₴', body)
+        self.assertIn('id="fx-switch-home"', body)
+        self.assertIn('hx-swap-oob="outerHTML"', body)
+
+    def test_htmx_rejects_unknown_region(self):
+        response = self.client.post('/i18n/set_currency/', {
+            'currency': 'EUR',
+            'region': 'cart',
+        }, HTTP_HX_REQUEST='true')
+        self.assertEqual(response.status_code, 400)
+
     def test_unknown_currency_falls_back_to_eur(self):
         response = self.client.post('/i18n/set_currency/', {
             'currency': 'BTC',

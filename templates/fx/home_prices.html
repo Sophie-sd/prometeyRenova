@@ -1,0 +1,7 @@
+{% load i18n fx_tags %}
+<ul id="fx-home-prices" class="v2-why-list"{% if oob %} hx-swap-oob="outerHTML"{% endif %}>
+    <li><span class="v2-li-key">{% trans "Лендінги:" %}</span><span class="v2-li-val">{% fx_range 250 400 %}</span></li>
+    <li><span class="v2-li-key">{% trans "Корпоративні сайти:" %}</span><span class="v2-li-val">{% fx_range 500 700 %}</span></li>
+    <li><span class="v2-li-key">{% trans "E-commerce:" %}</span><span class="v2-li-val">{% fx_range 800 1400 %}</span></li>
+    <li><span class="v2-li-key">{% trans "Веб-додатки:" %}</span><span class="v2-li-val">{% fx_range 1500 5000 %}</span></li>
+</ul>

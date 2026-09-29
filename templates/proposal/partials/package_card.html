@@ -1,4 +1,4 @@
-{% load i18n fx_tags %}
+{% load i18n %}
 <article class="prop-price{% if package.is_recommended %} prop-price--rec{% endif %} prop-reveal" data-prop-reveal>
     <div>
         {% if package.is_recommended %}
@@ -15,5 +15,5 @@
         <dd>{{ package.get_localized_duration }}</dd>
     </dl>
     {% endif %}
-    <p class="prop-price__sum">{% fx_package package %}</p>
+    {% include 'fx/prop_price.html' %}
 </article>
