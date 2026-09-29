@@ -107,4 +107,7 @@ python manage.py seed_proposal_plants
 echo "📄 Seeding outerwear shop proposal + classic demo-shop..."
 python manage.py seed_proposal_outerwear
 
+echo "📄 Seeding tools shop proposal + classic demo-shop..."
+python manage.py seed_proposal_tools
+
 echo "✅ Build complete!"
