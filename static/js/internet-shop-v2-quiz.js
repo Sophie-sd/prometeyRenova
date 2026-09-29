@@ -39,6 +39,13 @@
         }
     };
 
+    ['base', 'premium', 'platinum'].forEach(function (key) {
+        var converted = form.getAttribute('data-fx-price-' + key);
+        if (converted && PKG_MAP[key]) {
+            PKG_MAP[key].price = converted;
+        }
+    });
+
     var steps = Array.from(form.querySelectorAll('.pl-shop__quiz-step'));
     var progressBar = form.querySelector('[data-quiz-progress]');
     var stepNumEl = form.querySelector('[data-quiz-step-num]');

@@ -37,7 +37,7 @@
         {% endif %}
         </div>
         <div class="ds-sales-panel__actions">
-            <a class="ds-btn ds-btn--primary ds-btn--full ds-sales-panel__cta" href="{% url 'demoshop:admin_access' shop_slug=shop.slug %}">{% trans "Відкрити мою адмінку" %}</a>
+            <a class="ds-btn ds-btn--primary ds-btn--full ds-sales-panel__cta" href="{{ shop.get_console_path }}">{% trans "Відкрити мою адмінку" %}</a>
             <button type="button" class="ds-sales-panel__hide" data-ds-sales-hide>{% trans "Не показувати" %}</button>
             <button type="button" class="ds-sales-panel__show" data-ds-sales-show hidden>{% trans "Показати підказки" %}</button>
         </div>

@@ -43,6 +43,12 @@ class AbstractDemoTenant(models.Model):
         verbose_name=_('Активний'),
         help_text=_('Вимкнено — вітрина й адмінка клієнта повертають 404'),
     )
+    console_key = models.CharField(
+        max_length=32,
+        unique=True,
+        editable=False,
+        verbose_name=_('Ключ кабінету'),
+    )
     demo_login = models.CharField(max_length=150, blank=True, verbose_name=_('Логін (демо)'))
     demo_password = models.CharField(
         max_length=150,
@@ -79,7 +85,18 @@ class AbstractDemoTenant(models.Model):
     def __str__(self):
         return self.name
 
+    def get_console_path(self) -> str:
+        from apps.demotenant.console import assign_console_key, path_for_key
+
+        if not self.console_key:
+            assign_console_key(self)
+            self.save(update_fields=['console_key'])
+        return path_for_key(self.console_key)
+
     def save(self, *args, **kwargs):
+        from apps.demotenant.console import assign_console_key
+
+        kwargs['update_fields'] = assign_console_key(self, kwargs.get('update_fields'))
         super().save(*args, **kwargs)
         # Клієнт міняє колір/налаштування → theme.css має віддати нове значення
         # відразу, тому кеш інвалідується на кожен save(), а не за TTL.

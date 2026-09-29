@@ -283,12 +283,6 @@ class ProposalAdmin(UnfoldModelAdmin):
         Proposal.DemoKind.LANDING: ('demolanding:home', 'slug'),
         Proposal.DemoKind.CORPORATE: ('democorp:home', 'slug'),
     }
-    _DEMO_ACCESS_URL = {
-        Proposal.DemoKind.SHOP: ('demoshop:admin_access', 'shop_slug'),
-        Proposal.DemoKind.LANDING: ('demolanding:admin_access', 'slug'),
-        Proposal.DemoKind.CORPORATE: ('democorp:admin_access', 'slug'),
-    }
-
     @admin.display(description=_('Демо'))
     def demo_link(self, obj):
         tenant = obj.demo_tenant
@@ -303,9 +297,8 @@ class ProposalAdmin(UnfoldModelAdmin):
         tenant = obj.demo_tenant
         if not tenant:
             return '—'
-        url_name, kwarg_name = self._DEMO_ACCESS_URL[obj.kind]
-        url = reverse(url_name, kwargs={kwarg_name: tenant.slug})
-        return format_html('<a href="{}" target="_blank" rel="noopener">{}</a>', url, tenant.demo_login or '—')
+        url = tenant.get_console_path()
+        return format_html('<a href="{}" target="_blank" rel="noopener">{}</a>', url, url)
 
     @admin.action(description=_('Створити/оновити демо'))
     def create_demo_action(self, request, queryset):

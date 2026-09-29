@@ -962,3 +962,4 @@ from .proposal_visual_models import (  # noqa: E402,F401
     ProposalArchNode,
     ProposalHighlight,
 )
+from .fx_models import ExchangeRateSettings  # noqa: E402,F401

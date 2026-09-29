@@ -50,7 +50,7 @@ def make_admin_login_view(tenant_model, slug_kwarg: str = 'slug'):
         if not request.user.is_authenticated or request.user.pk != owner.pk:
             auth_login(request, owner, backend=_AUTH_BACKEND)
 
-        return redirect('admin:index')
+        return redirect(tenant.get_console_path())
 
     return admin_login
 

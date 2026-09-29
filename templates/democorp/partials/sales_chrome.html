@@ -35,7 +35,7 @@
         </ol>
         {% endif %}
         <div class="dc-sales-panel__actions">
-            <a class="dc-btn dc-btn--primary dc-sales-panel__cta" href="{% url 'democorp:admin_access' slug=site.slug %}">{% trans "Відкрити мою адмінку" %}</a>
+            <a class="dc-btn dc-btn--primary dc-sales-panel__cta" href="{{ site.get_console_path }}">{% trans "Відкрити мою адмінку" %}</a>
             <button type="button" class="dc-sales-panel__hide" data-dc-sales-hide>{% trans "Не показувати" %}</button>
             <button type="button" class="dc-sales-panel__show" data-dc-sales-show hidden>{% trans "Показати підказки" %}</button>
         </div>

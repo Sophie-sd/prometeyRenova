@@ -1,4 +1,4 @@
-{% load static %}
+{% load static fx_tags %}
 <section id="packages" class="pl-shop__section pl-shop__section--dark" aria-labelledby="pl-shop-packages-title">
     <div class="pl-shop__inner">
         <div class="pl-shop__packages-intro" data-reveal>
@@ -45,7 +45,7 @@
         <div class="pl-shop__pkg-grid" data-pkg-stagger>
             <article class="pl-shop__pkg-card">
                 <p class="pl-shop__pkg-name">BASE</p>
-                <p class="pl-shop__pkg-price">від 800&nbsp;€</p>
+                <p class="pl-shop__pkg-price">{% fx_from 800 %}</p>
                 <p class="pl-shop__pkg-desc">Базовий інтернет-магазин з усім необхідним для старту онлайн-продажів</p>
                 <div class="pl-shop__pkg-features">
                     <ul class="pl-shop__pkg-list">
@@ -63,7 +63,7 @@
 
             <article class="pl-shop__pkg-card pl-shop__pkg-card--featured">
                 <p class="pl-shop__pkg-name">PREMIUM</p>
-                <p class="pl-shop__pkg-price">від 1&nbsp;500&nbsp;€</p>
+                <p class="pl-shop__pkg-price">{% fx_from 1500 %}</p>
                 <p class="pl-shop__pkg-desc">Магазин під ключ для активних продажів, автоматизації та зростання</p>
                 <div class="pl-shop__pkg-features">
                     <ul class="pl-shop__pkg-list">
@@ -89,7 +89,7 @@
 
             <article class="pl-shop__pkg-card pl-shop__pkg-card--platinum">
                 <p class="pl-shop__pkg-name">PLATINUM</p>
-                <p class="pl-shop__pkg-price">від 7&nbsp;000&nbsp;€</p>
+                <p class="pl-shop__pkg-price">{% fx_from 7000 %}</p>
                 <p class="pl-shop__pkg-desc">Масштабна платформа з AI-екосистемою та повним маркетинговим супроводом</p>
                 <div class="pl-shop__pkg-features">
                     <ul class="pl-shop__pkg-list">

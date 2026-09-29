@@ -4,8 +4,9 @@
 User-agent: *
 Allow: /
 
-# Адмінка та редактор
+# Адмінка студії, кабінети КП та редактор
 Disallow: /admin/
+Disallow: /k/
 Disallow: /tinymce/
 
 # Службові ендпоінти

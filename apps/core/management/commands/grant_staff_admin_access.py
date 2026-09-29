@@ -17,6 +17,7 @@ from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandError
 
 from apps.core.admin_permissions import (
+    FX_PERMISSION_CODENAMES,
     STAFF_ADMIN_USERNAME,
     get_staff_admin_permissions,
 )
@@ -51,13 +52,19 @@ class Command(BaseCommand):
             ) from exc
 
         staff_permissions = get_staff_admin_permissions()
+        kept_fx = list(
+            user.user_permissions.filter(
+                content_type__app_label='core',
+                codename__in=FX_PERMISSION_CODENAMES,
+            )
+        )
 
         user.is_staff = True
         user.is_superuser = False
         user.is_active = True
         user.save(update_fields=['is_staff', 'is_superuser', 'is_active'])
 
-        user.user_permissions.set(staff_permissions)
+        user.user_permissions.set(list(staff_permissions) + kept_fx)
 
         perm_count = staff_permissions.count()
         self.stdout.write(

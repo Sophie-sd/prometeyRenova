@@ -45,7 +45,7 @@
             </li>
         </ol>
         <div class="dl-sales-panel__actions">
-            <a class="dl-btn dl-btn--primary dl-btn--block dl-sales-panel__cta" href="{% url 'demolanding:admin_access' slug=site.slug %}">{% trans "Відкрити мою адмінку" %}</a>
+            <a class="dl-btn dl-btn--primary dl-btn--block dl-sales-panel__cta" href="{{ site.get_console_path }}">{% trans "Відкрити мою адмінку" %}</a>
             <button type="button" class="dl-sales-panel__hide" data-dl-sales-hide>{% trans "Не показувати" %}</button>
             <button type="button" class="dl-sales-panel__show" data-dl-sales-show hidden>{% trans "Показати підказки" %}</button>
         </div>

@@ -13,7 +13,7 @@
             {% if reviews_visible %}<li><a href="#reviews">{% trans "Відгуки" %}</a></li>{% endif %}
             {% if faq_visible %}<li><a href="#faq">{% trans "Питання й відповіді" %}</a></li>{% endif %}
             <li><a href="#cta">{% trans "Контакти" %}</a></li>
-            <li><a href="{% url 'demolanding:admin_login' slug=site.slug %}">{% trans "Адмінка" %}</a></li>
+            <li><a href="{{ site.get_console_path }}">{% trans "Адмінка" %}</a></li>
         </ul>
         {% include 'demotenant/partials/lang_switcher.html' with extra_class='dt-lang--drawer' %}
 

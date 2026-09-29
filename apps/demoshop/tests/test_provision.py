@@ -39,6 +39,10 @@ class DemoShopProvisionTests(TestCase):
         self.assertEqual(shop1.pk, shop2.pk)
         self.assertEqual(user_id, shop2.owner_user_id)
         self.assertEqual(slug, shop2.slug)
+        self.assertEqual(shop1.console_key, shop2.console_key)
+        self.assertTrue(shop2.console_key)
+        self.assertTrue(shop2.get_console_path().startswith('/k/'))
+        self.assertFalse(shop2.get_console_path().startswith('/admin'))
         self.assertEqual(DemoShop.objects.filter(proposal=proposal).count(), 1)
         self.assertEqual(User.objects.filter(username=shop2.demo_login).count(), 1)
         self.assertTrue(shop2.products.exists())
@@ -84,8 +88,11 @@ class DemoShopProvisionTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.wsgi_request.user.pk, shop.owner_user_id)
+        self.assertTrue(response.wsgi_request.path.startswith(shop.get_console_path()))
+        self.assertNotIn('/admin', response.wsgi_request.path)
         self.assertContains(response, 'Мій магазин')
         self.assertNotContains(response, 'CRM — Заявки')
+        self.assertNotContains(response, 'href="/admin/')
 
 
 class DemoShopTemplateAdsTests(SimpleTestCase):

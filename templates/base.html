@@ -130,6 +130,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=31" as="style">
     <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=31" media="print" data-async-css>
     <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=31"></noscript>
+    <link rel="stylesheet" href="{% static 'css/components/currency.css' %}?v=1">
 
     {# Fonts, canonical, robots — before page CSS so preload starts with the blocking sheet. #}
     {% block extra_head %}{% endblock %}
@@ -300,6 +301,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <script src="{% static 'js/lang-suggest.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
     {% endif %}
     {% endblock %}
+    <script src="{% static 'js/core/currency.js' %}?v=1" nonce="{{ csp_nonce }}" defer></script>
     {% block extra_js %}{% endblock %}
 
     <!-- CSRF Token for AJAX -->

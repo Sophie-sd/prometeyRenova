@@ -48,5 +48,5 @@ class DemoShopAdmin(UnfoldModelAdmin):
 
     @admin.display(description=_('Вхід клієнта'))
     def admin_access_link(self, obj):
-        url = reverse('demoshop:admin_access', kwargs={'shop_slug': obj.slug})
+        url = obj.get_console_path()
         return format_html('<a href="{}" target="_blank" rel="noopener">{}</a>', url, url)

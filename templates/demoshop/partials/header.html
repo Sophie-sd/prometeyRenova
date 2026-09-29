@@ -31,7 +31,7 @@
                     <span class="ds-wish-link__count" data-wishlist-count>0</span>
                 </a>
                 {% include 'demoshop/partials/_cart_count.html' %}
-                <a class="ds-btn ds-btn--outline ds-btn--sm ds-header__cta" href="{% url 'demoshop:admin_access' shop_slug=shop.slug %}">
+                <a class="ds-btn ds-btn--outline ds-btn--sm ds-header__cta" href="{{ shop.get_console_path }}">
                     <span class="ds-header__cta-label">{% trans "Перейти в адмінку" %}</span>
                 </a>
             </div>

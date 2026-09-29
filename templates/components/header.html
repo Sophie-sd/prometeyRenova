@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load fx_tags %}
 <!-- Header Navigation - Мінімалістична структура згідно STYLE.MDC -->
 <header class="main-navigation" role="banner">
     <div class="nav-container">
@@ -41,6 +42,7 @@
             <a href="{% url 'contacts' %}" class="nav-link mobile-touch-target mobile-focus-visible">{% trans "контакти" %}</a>
         </nav>
 
+        <div class="nav-tools">
         <!-- Desktop Language Switcher -->
         <div class="language-switcher">
             {% get_current_language as LANGUAGE_CODE %}
@@ -59,6 +61,8 @@
             {% if LANGUAGE_CODE == 'ru' %}
             <span class="lang-btn active lang-btn--current">RU</span>
             {% endif %}
+        </div>
+        {% currency_switcher "header" %}
         </div>
 
         <!-- Mobile Burger Button -->

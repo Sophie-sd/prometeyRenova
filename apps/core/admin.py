@@ -27,7 +27,9 @@ from .models import (
 )
 from .portfolio_sanitize import linkify_portfolio_html
 from .admin_widgets import PortfolioImageWidget
+from . import fx_admin  # noqa: F401 — реєстрація курсу валют
 from . import proposal_admin  # noqa: F401 — реєстрація ProposalAdmin
+from .fx_admin import UserFxAddForm, UserFxForm, save_user_fx_grant
 
 PORTFOLIO_IMAGE_WIDGETS = {
     'card_image': PortfolioImageWidget,
@@ -68,6 +70,24 @@ class UserAdmin(DjangoUserAdmin, UnfoldModelAdmin):
         ('is_active', BooleanDropdownFilter),
         ('groups', RelatedDropdownFilter),
     )
+
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = list(super().get_fieldsets(request, obj))
+        if request.user.is_superuser:
+            fieldsets.append((
+                _('Функціонал'),
+                {'fields': ('can_set_fx',)},
+            ))
+        return fieldsets
+
+    def get_form(self, request, obj=None, **kwargs):
+        if request.user.is_superuser:
+            kwargs['form'] = UserFxAddForm if obj is None else UserFxForm
+        return super().get_form(request, obj, **kwargs)
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        save_user_fx_grant(request, form)
 
 
 
