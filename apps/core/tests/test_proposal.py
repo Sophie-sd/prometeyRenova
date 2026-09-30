@@ -720,3 +720,37 @@ class ProposalSeedTests(TestCase):
         self.assertContains(kp, shop.get_absolute_url())
         self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
         self.assertNotContains(kp, 'Рекомендовано')
+
+    def test_autoparts_seed_provisions_one_classic_shop(self):
+        call_command('seed_proposal_autoparts')
+        call_command('seed_proposal_autoparts')
+        proposal = Proposal.objects.get(slug='shop-autoparts-a7f3')
+        self.assertEqual(proposal.client_name, 'Автозапчастини')
+        self.assertEqual(proposal.kind, Proposal.DemoKind.SHOP)
+        self.assertEqual(proposal.issued_on.isoformat(), '2026-09-30')
+        names = list(
+            proposal.packages.order_by('order').values_list('name', 'price', 'is_recommended')
+        )
+        self.assertEqual(names, [
+            ('Базовий', Decimal('900.00'), False),
+            ('Турбо-Старт', Decimal('1200.00'), False),
+        ])
+        self.assertFalse(proposal.packages.filter(is_recommended=True).exists())
+        self.assertIn('пожиттєву гарантію', proposal.guarantee_html)
+        self.assertEqual(DemoShop.objects.filter(proposal=proposal).count(), 1)
+        shop = DemoShop.objects.get(proposal=proposal)
+        self.assertEqual(shop.name, 'Demo Shop')
+        self.assertTrue(shop.slug.startswith('autoparts-'))
+        call_command('seed_proposal_tools', no_demo=True)
+        kept = Proposal.objects.get(slug='shop-tools-a7f3')
+        self.assertEqual(kept.packages.get().price, Decimal('950.00'))
+
+        client = Client()
+        kp = client.get(reverse('proposal_detail', kwargs={'slug': proposal.slug}))
+        self.assertEqual(kp.status_code, 200)
+        self.assertContains(kp, 'від 150')
+        self.assertContains(kp, 'Переглянути демо магазину')
+        self.assertContains(kp, 'не версія вашого сайту')
+        self.assertContains(kp, shop.get_absolute_url())
+        self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
+        self.assertNotContains(kp, 'Рекомендовано')
