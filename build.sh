@@ -119,4 +119,7 @@ python manage.py seed_proposal_sanvit
 echo "📄 Seeding print catalog proposal + classic demo-shop..."
 python manage.py seed_proposal_print
 
+echo "📄 Seeding concrete corporate proposal + classic demo-corp..."
+python manage.py seed_proposal_concrete
+
 echo "✅ Build complete!"

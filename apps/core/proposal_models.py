@@ -198,6 +198,7 @@ class Proposal(models.Model):
             'shop-autoparts-a7f3': 'proposal/img/seal-on-dark.webp',
             'corporate-sanvit-a7f3': 'proposal/img/seal-on-dark.webp',
             'corporate-print-a7f3': 'proposal/img/seal-on-dark.webp',
+            'corporate-concrete-a7f3': 'proposal/img/seal-on-dark.webp',
         }
         rel = by_slug.get(self.slug, 'proposal/img/seal-on-dark.webp')
         if (Path(settings.BASE_DIR) / 'static' / rel).is_file():
