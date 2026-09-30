@@ -113,7 +113,10 @@ python manage.py seed_proposal_tools
 echo "📄 Seeding autoparts shop proposal + classic demo-shop..."
 python manage.py seed_proposal_autoparts
 
-echo "📄 Seeding Sanvit corporate catalog proposal + classic demo-shop..."
+echo "📄 Seeding Sanvit corporate catalog proposal + classic demo-corp..."
 python manage.py seed_proposal_sanvit
+
+echo "📄 Seeding print catalog proposal + classic demo-shop..."
+python manage.py seed_proposal_print
 
 echo "✅ Build complete!"

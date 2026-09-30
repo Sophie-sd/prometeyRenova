@@ -1,8 +1,8 @@
 """
-Management command: seed_proposal_sanvit
+Management command: seed_proposal_print
 
-КП «Санвіт-Холдинг» (PDF 30.09.2026): корпоративний сайт з каталогом.
-Демо — стандартний корпоративний сайт із каталогом заявок, не магазин.
+КП «Поліграфія» (PDF 30.09.2026): корпоративний каталог у тексті,
+демо — стандартний інтернет-магазин.
 """
 from datetime import date
 from decimal import Decimal
@@ -26,63 +26,78 @@ from apps.core.proposal_models import (
 )
 from apps.core.proposal_visual_models import ProposalArchNode, ProposalHighlight
 
-SLUG = 'corporate-sanvit-a7f3'
+SLUG = 'corporate-print-a7f3'
 
 RECS_LEAD = (
-    'Корпоративний сайт холдингу з B2B-каталогом: '
-    'Django / HTMX, заявка без перезавантаження, PageSpeed 90+.'
+    'Корпоративний каталог поліграфії: Django / HTMX, '
+    'фільтр без перезавантаження, PageSpeed 90+.'
 )
 
 HIGHLIGHTS = [
     {'order': 0, 'title': 'Django / HTMX'},
     {'order': 1, 'title': 'PageSpeed 90+'},
-    {'order': 2, 'title': 'B2B-каталог'},
-    {'order': 3, 'title': '21 день'},
+    {'order': 2, 'title': 'Каталог'},
+    {'order': 3, 'title': '3 тижні'},
 ]
 
 ARCH_NODES = [
-    {'order': 0, 'title': 'Hold', 'caption': 'Напрямки', 'is_accent': False},
-    {'order': 1, 'title': 'Catalog', 'caption': 'Гурт · заявки', 'is_accent': True},
-    {'order': 2, 'title': 'Lead', 'caption': 'Telegram', 'is_accent': False},
-    {'order': 3, 'title': 'CMS', 'caption': 'Прайс · новини', 'is_accent': False},
-    {'order': 4, 'title': 'Launch', 'caption': 'Сервер', 'is_accent': False},
+    {'order': 0, 'title': 'Brand', 'caption': 'Поліграфія', 'is_accent': False},
+    {'order': 1, 'title': 'Catalog', 'caption': 'Фільтри', 'is_accent': True},
+    {'order': 2, 'title': 'Card', 'caption': 'PDF · ціна', 'is_accent': False},
+    {'order': 3, 'title': 'Lead', 'caption': 'Заявка', 'is_accent': False},
+    {'order': 4, 'title': 'CMS', 'caption': 'Імпорт', 'is_accent': False},
 ]
 
 MODULES = [
     {
         'number': 1,
         'order': 0,
-        'title': 'Структура холдингу',
+        'title': 'UI під телефон і ПК',
         'description': (
-            'Напрямки, дочірні бізнеси і виробничо-торговельні потужності '
-            'на окремих сторінках, без конструктора.'
+            'Адаптивний інтерфейс: асортимент читається зі смартфона і з робочого монітора.'
         ),
     },
     {
         'number': 2,
         'order': 1,
-        'title': 'Каталог товарів і B2B-послуг',
+        'title': 'Каталог і фільтри',
         'description': (
-            'Вітрина напрямків постачання і гуртової торгівлі. '
-            'Форма швидкого замовлення специфікації, не кошик магазину.'
+            'Категорії, підкатегорії, бренд і характеристики. '
+            'Список оновлюється без перезавантаження сторінки.'
         ),
     },
     {
         'number': 3,
         'order': 2,
-        'title': 'Заявка без перезавантаження',
+        'title': 'Картка і запит ціни',
         'description': (
-            'HTMX-форма йде в Telegram керівництва і на пошту '
-            'без перезавантаження сторінки.'
+            'Специфікація, галерея, PDF-паспорт і кнопка запиту комерційної ціни.'
         ),
     },
     {
         'number': 4,
         'order': 3,
-        'title': 'CMS для контенту',
+        'title': 'Кабінети за потреби',
         'description': (
-            'Прайс, звіти, новини і контакти філій оновлює контент-менеджер, '
-            'без програміста.'
+            'Окремі прайси для B2B і B2C лишаються опцією пакета. '
+            'У стандартне демо їх не збираємо.'
+        ),
+    },
+    {
+        'number': 5,
+        'order': 4,
+        'title': 'Адмінка каталогу',
+        'description': (
+            'Товари, ціни і контент, імпорт і експорт без програміста.'
+        ),
+    },
+    {
+        'number': 6,
+        'order': 5,
+        'title': 'SEO, аналітика, запуск',
+        'description': (
+            'Sitemap, редиректи, GA4 і пікселі. '
+            'Сервер, SSL, домен і первинне наповнення.'
         ),
     },
 ]
@@ -90,37 +105,13 @@ MODULES = [
 PACKAGES = [
     {
         'order': 0,
-        'name': 'Базовий сайт',
+        'name': 'Корпоративний сайт з каталогом під ключ',
         'scope': (
-            'Погоджений обсяг: до 5–7 сторінок, UI під холдинг, Django і HTMX, '
-            'своя CMS, заявки в Telegram і на пошту, базова SEO, аналітика, деплой.'
+            'Діапазон 500–800 €: точна сума після асортиментної сітки. '
+            'Архітектура бази, UI, Django і HTMX, адмінка, базова SEO, аналітика, деплой і домен.'
         ),
-        'duration': '21 робочий день',
-        'price': Decimal('750.00'),
-        'currency': '€',
-        'is_recommended': False,
-    },
-    {
-        'order': 1,
-        'name': 'Преміум пакет',
-        'scope': (
-            'Усе з Базового плюс B2B-каталог напрямків і товарів, UA/EN, '
-            'CRM, карта філій, вакансії і тендери, підтримка 30 днів.'
-        ),
-        'duration': '30 робочих днів',
-        'price': Decimal('1200.00'),
-        'currency': '€',
-        'is_recommended': False,
-    },
-    {
-        'order': 2,
-        'name': 'Платінум пакет',
-        'scope': (
-            'Усе з Преміум плюс кабінет оптового партнера, синхронізація з 1С / ERP, '
-            'калькулятори, SEO-аудит, AI-консультант і SLA на 3 місяці.'
-        ),
-        'duration': '45–60 робочих днів',
-        'price': Decimal('3500.00'),
+        'duration': '3 тижні',
+        'price': Decimal('500.00'),
         'currency': '€',
         'is_recommended': False,
     },
@@ -130,74 +121,68 @@ SPECS = [
     {
         'kind': ProposalSpec.Kind.SPEC,
         'order': 0,
-        'title': 'PageSpeed 90+',
+        'title': 'Каталог під асортимент',
         'body': (
-            'Сторінка без зайвого коду конструктора. '
-            '90+ на телефоні й ПК — умова здачі.'
+            'Підбір позицій, технічні паспорти і форма заявки. '
+            'Швидкість сторінки тримає контекст і органіку.'
         ),
     },
     {
         'kind': ProposalSpec.Kind.SPEC,
         'order': 1,
-        'title': 'Безпека ядра',
-        'body': (
-            'Django закриває SQL-ін’єкції, CSRF і XSS. '
-            'Адмінка окремо від публічних сторінок.'
-        ),
+        'title': 'PageSpeed 90+',
+        'body': 'Каталог на тисячі найменувань без затримки списку. 90+ — умова здачі.',
     },
     {
         'kind': ProposalSpec.Kind.SPEC,
         'order': 2,
         'title': 'Свій код',
-        'body': (
-            'Без Tilda, Wix і WordPress. '
-            'Немає абонплати за плагіни і ризику, що їх вимкнуть.'
-        ),
+        'body': 'Без шаблонної CMS. Немає абонплати за плагіни, які ламаються після оновлень.',
     },
     {
         'kind': ProposalSpec.Kind.RECOMMENDATION,
         'order': 0,
-        'title': 'Імідж холдингу, не шаблон',
+        'title': 'Запит ціни, не кошик у тексті КП',
         'body': (
-            'Сторінки напрямків і потужностей збираються під структуру групи, '
-            'а не під універсальну тему.'
-        ),
-    },
-    {
-        'kind': ProposalSpec.Kind.RECOMMENDATION,
-        'order': 1,
-        'title': 'Каталог лишається текстом пакета',
-        'body': (
-            'B2B-вітрина, CRM, кабінет партнера і AI — у Преміум і Платінум. '
-            'У демо їх немає: це стандартний магазин для тесту.'
+            'У пропозиції картка веде на комерційну ціну. '
+            'Демо для тесту — стандартний магазин, не версія цього каталогу.'
         ),
     },
     {
         'kind': ProposalSpec.Kind.PAYMENT,
         'order': 0,
         'title': '1-й платіж: 50%',
-        'body': 'Аванс перед стартом: прототип, структура сторінок і схема бази.',
+        'body': 'Аванс перед архітектурою і UI.',
     },
     {
         'kind': ProposalSpec.Kind.PAYMENT,
         'order': 1,
         'title': '2-й платіж: 50%',
-        'body': 'Після робочої версії на стенді, перед передачею доступів.',
+        'body': 'Після тесту і приймання, перед передачею доступів.',
+    },
+    {
+        'kind': ProposalSpec.Kind.PAYMENT,
+        'order': 2,
+        'title': 'Розстрочка: 35% / 35% / 30%',
+        'body': (
+            'Старт, екватор після верстки і каталогу, фінал після деплою. '
+            'Без відсотків і без фіксованих євро: частки від узгодженої суми.'
+        ),
     },
 ]
 
-TITLE = 'Корпоративний сайт холдингу під ключ'
+TITLE = 'Корпоративний каталог поліграфії під ключ'
 LEAD = (
-    'Презентація напрямків, активів і гуртових послуг. '
-    'Каталог зі заявкою на специфікацію — без комісії конструктора.'
+    'Каталог із фільтром і карткою товару, запит комерційної ціни '
+    'і запуск за 3 тижні — без комісії конструктора.'
 )
 
 INTRO_HTML = """
-<p><strong>PrometeyLabs</strong> збирає корпоративний сайт для ТОВ «Санвіт-Холдинг»: напрямки групи, активи і торговельні послуги.</p>
-<p>Стек: <strong>Django (Python) · HTML5 · HTMX · CSS3 · JavaScript</strong>. Без Tilda, Wix і WordPress.</p>
+<p><strong>PrometeyLabs</strong> збирає корпоративний сайт з каталогом для поліграфії: бренд, асортимент і заявка на ціну.</p>
+<p>Стек: <strong>Django (Python) · HTML5 · HTMX · CSS3 · JavaScript</strong>. Без шаблонних CMS.</p>
 <ul>
-<li><strong>PageSpeed 90+</strong> — сторінка відкривається без зайвого коду.</li>
-<li><strong>Заявка</strong> — форма йде в Telegram і на пошту без перезавантаження.</li>
+<li><strong>PageSpeed 90+</strong> — список не чекає повного перезавантаження.</li>
+<li><strong>500–800 €</strong> — сума після асортиментної сітки.</li>
 </ul>
 """.strip()
 
@@ -229,13 +214,13 @@ def _attach_hero(proposal: Proposal) -> None:
 
 
 class Command(BaseCommand):
-    help = 'Seed Sanvit corporate catalog proposal + classic demo-corp (idempotent)'
+    help = 'Seed print corporate-catalog proposal + classic demo-shop (idempotent)'
 
     def add_arguments(self, parser):
         parser.add_argument(
             '--no-demo',
             action='store_true',
-            help='Тільки КП, без provision_demo_corp',
+            help='Тільки КП, без provision_demo_shop',
         )
 
     def handle(self, *args, **options):
@@ -260,32 +245,30 @@ class Command(BaseCommand):
         ))
 
     def _provision_demo(self, proposal: Proposal) -> None:
-        from apps.democorp.models import CorpSite
-        from apps.democorp.services.provision import provision_demo_corp
         from apps.demoshop.models import DemoShop
+        from apps.demoshop.services.provision import provision_demo_shop
 
-        DemoShop.objects.filter(proposal=proposal).delete()
-        site = CorpSite.objects.filter(proposal=proposal).first()
-        if site is None:
-            site = CorpSite(
+        shop = DemoShop.objects.filter(proposal=proposal).first()
+        if shop is None:
+            shop = DemoShop(
                 proposal=proposal,
-                name='Demo Site',
-                slug=CorpSite.generate_slug('sanvit'),
+                name='Demo Shop',
+                slug=DemoShop.generate_slug('print'),
             )
-            site.save()
-        site = provision_demo_corp(proposal)
-        if site.name != 'Demo Site':
-            site.name = 'Demo Site'
-            site.save(update_fields=['name'])
+            shop.save()
+        shop = provision_demo_shop(proposal)
+        if shop.name != 'Demo Shop':
+            shop.name = 'Demo Shop'
+            shop.save(update_fields=['name'])
         self.stdout.write(self.style.SUCCESS(
-            f'Demo: {site.get_absolute_url()} (slug={site.slug})'
+            f'Demo: {shop.get_absolute_url()} (slug={shop.slug})'
         ))
 
     def _seed_rows(self):
         proposal, created = Proposal.objects.update_or_create(
             slug=SLUG,
             defaults={
-                'client_name': 'Санвіт-Холдинг',
+                'client_name': 'Поліграфія',
                 'title': TITLE,
                 'title_ru': translate_ua_to_ru(TITLE),
                 'title_en': '',
@@ -311,10 +294,10 @@ class Command(BaseCommand):
                 'cta_label_ru': 'Обсудить проект',
                 'cta_label_en': '',
                 'cta_label_cs': '',
-                'kind': Proposal.DemoKind.CORPORATE,
-                'corp_catalog': True,
+                'kind': Proposal.DemoKind.SHOP,
+                'corp_catalog': False,
                 'is_published': True,
-                'order': 19,
+                'order': 20,
             },
         )
         proposal.modules.all().delete()
