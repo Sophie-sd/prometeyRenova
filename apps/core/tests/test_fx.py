@@ -57,6 +57,15 @@ class FxConvertTests(TestCase):
             '1\u00a0628–5\u00a0425 $',
         )
 
+    def test_package_range_converts_both_ends(self):
+        package = DummyPackage('500.00', '€')
+        package.price_high = Decimal('800.00')
+        self.assertEqual(format_package_price(package, 'EUR', self.rates), '500–800 €')
+        self.assertEqual(
+            format_package_price(package, 'UAH', self.rates),
+            '20\u00a0000–32\u00a0000 ₴',
+        )
+
     def test_non_eur_package_is_not_converted(self):
         package = DummyPackage('900.00', 'грн')
         self.assertEqual(

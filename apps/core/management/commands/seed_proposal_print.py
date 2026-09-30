@@ -112,6 +112,7 @@ PACKAGES = [
         ),
         'duration': '3 тижні',
         'price': Decimal('500.00'),
+        'price_high': Decimal('800.00'),
         'currency': '€',
         'is_recommended': False,
     },

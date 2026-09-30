@@ -128,6 +128,9 @@ def is_eur_mark(mark: str | None) -> bool:
 def format_package_price(package, currency: str, rates) -> str:
     if not is_eur_mark(getattr(package, 'currency', '')):
         return package.format_price()
+    high = getattr(package, 'price_high', None)
+    if high not in (None, '') and Decimal(high) > Decimal(package.price):
+        return format_range(package.price, high, currency, rates)
     code = currency if currency in available_codes(rates) else 'EUR'
     if code == 'EUR':
         return package.format_price()

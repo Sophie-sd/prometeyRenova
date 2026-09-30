@@ -128,7 +128,7 @@ class ProposalPackageInline(UnfoldTabularInline):
         'name', 'name_ru', 'name_en', 'name_cs',
         'scope', 'scope_ru', 'scope_en', 'scope_cs',
         'duration', 'duration_ru', 'duration_en', 'duration_cs',
-        'price', 'currency',
+        'price', 'price_high', 'currency',
         'is_recommended', 'order',
     )
     ordering = ('order', 'id')

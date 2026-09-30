@@ -377,6 +377,14 @@ class ProposalPackage(models.Model):
         default=Decimal('0.00'),
         verbose_name=_('Вартість'),
     )
+    price_high = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        verbose_name=_('Вартість до'),
+        help_text=_('Якщо заповнено, на картці помаранчевим іде діапазон від вартості до цієї суми.'),
+    )
     currency = models.CharField(
         max_length=8,
         default='€',
