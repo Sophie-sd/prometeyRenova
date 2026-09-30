@@ -196,6 +196,7 @@ class Proposal(models.Model):
             'shop-outerwear-a7f3': 'proposal/img/seal-on-dark.webp',
             'shop-tools-a7f3': 'proposal/img/seal-on-dark.webp',
             'shop-autoparts-a7f3': 'proposal/img/seal-on-dark.webp',
+            'corporate-sanvit-a7f3': 'proposal/img/seal-on-dark.webp',
         }
         rel = by_slug.get(self.slug, 'proposal/img/seal-on-dark.webp')
         if (Path(settings.BASE_DIR) / 'static' / rel).is_file():
@@ -204,11 +205,21 @@ class Proposal(models.Model):
 
     @property
     def demo_cta_label(self) -> str:
-        return {
+        labels = {
             self.DemoKind.SHOP: _('Переглянути демо магазину'),
             self.DemoKind.LANDING: _('Переглянути демо лендінгу'),
             self.DemoKind.CORPORATE: _('Переглянути демо сайту'),
-        }.get(self.kind, _('Переглянути демо'))
+        }
+        tenant = self.demo_tenant
+        by_model = {
+            'demoshop': self.DemoKind.SHOP,
+            'landingsite': self.DemoKind.LANDING,
+            'corpsite': self.DemoKind.CORPORATE,
+        }
+        kind = self.kind
+        if tenant is not None:
+            kind = by_model.get(tenant._meta.model_name, kind)
+        return labels.get(kind, _('Переглянути демо'))
 
     def get_localized_title(self) -> str:
         from .i18n_content import localized_text
