@@ -876,3 +876,43 @@ class ProposalSeedTests(TestCase):
         self.assertContains(kp, site.get_absolute_url())
         self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
         self.assertNotContains(kp, 'Рекомендовано')
+
+    def test_catalog_b_seed_provisions_one_corp_catalog(self):
+        call_command('seed_proposal_catalog_b')
+        call_command('seed_proposal_catalog_b')
+        proposal = Proposal.objects.get(slug='corporate-catalog-b7f3')
+        self.assertEqual(proposal.client_name, 'Сайт з каталогом')
+        self.assertEqual(proposal.kind, Proposal.DemoKind.CORPORATE)
+        self.assertTrue(proposal.corp_catalog)
+        self.assertEqual(proposal.issued_on.isoformat(), '2026-10-01')
+        names = list(
+            proposal.packages.order_by('order').values_list('name', 'price', 'is_recommended')
+        )
+        self.assertEqual(names, [
+            ('Корпоративний сайт з каталогом', Decimal('550.00'), False),
+            ('Налаштування рекламного кабінету', Decimal('400.00'), False),
+            ('Сайт + рекламний кабінет', Decimal('850.00'), False),
+        ])
+        self.assertIn('замість 950', proposal.packages.get(price=Decimal('850.00')).scope)
+        self.assertIn('пожиттєву гарантію', proposal.guarantee_html)
+        self.assertFalse(DemoShop.objects.filter(proposal=proposal).exists())
+        self.assertEqual(CorpSite.objects.filter(proposal=proposal).count(), 1)
+        site = CorpSite.objects.get(proposal=proposal)
+        self.assertEqual(site.name, 'Demo Site')
+        self.assertTrue(site.has_catalog)
+        self.assertTrue(site.slug.startswith('catalog-b-'))
+        call_command('seed_proposal_catalog')
+        kept = Proposal.objects.get(slug='corporate-catalog-a7f3')
+        self.assertEqual(kept.packages.get().price, Decimal('1500.00'))
+        self.assertFalse(CorpSite.objects.filter(proposal=kept).exists())
+
+        client = Client()
+        kp = client.get(reverse('proposal_detail', kwargs={'slug': proposal.slug}))
+        self.assertEqual(kp.status_code, 200)
+        self.assertContains(kp, '550')
+        self.assertContains(kp, '850')
+        self.assertContains(kp, 'Переглянути демо сайту')
+        self.assertContains(kp, 'не версія вашого сайту')
+        self.assertContains(kp, site.get_absolute_url())
+        self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
+        self.assertNotContains(kp, 'Рекомендовано')
