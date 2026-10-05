@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.generic import RedirectView
 from . import proposal_views
 from . import tz_views
 from . import views
@@ -23,7 +24,15 @@ urlpatterns = [
     path('tz-dlia-saitu/', tz_views.TzGeneratorView.as_view(), name='tz_generator'),
     path('telegram-bot/', views.TelegramBotView.as_view(), name='telegram_bot'),
     path('internet-shop-ru/', views.InternetShopRuView.as_view(), name='internet_shop_ru'),
-    path('corporate-website/', views.CorporateWebsiteView.as_view(), name='corporate_website'),
+    path(
+        'corporate-website/',
+        RedirectView.as_view(
+            pattern_name='corporate_website_v2',
+            permanent=True,
+            query_string=True,
+        ),
+        name='corporate_website',
+    ),
     path('thank-you/', views.ThankYouView.as_view(), name='thank_you'),
     path(
         'proposal/<slug:slug>/',

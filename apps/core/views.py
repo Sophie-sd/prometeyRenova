@@ -221,9 +221,9 @@ class InternetShopV2View(BasePageView):
 
 
 class CorporateWebsiteV2View(BasePageView):
-    """Нова landing-сторінка корпоративних сайтів (v2) — паралельно до /corporate-website/."""
+    """Сторінка корпоративних сайтів та лендінгів. Старий /corporate-website/ редіректить сюди."""
     template_name = 'pages/corporate-website-v2.html'
-    page_title = _('Корпоративні сайти та лендінги під ключ — швидка розробка | PrometeyLabs')
+    page_title = _('Корпоративні сайти та лендінги під ключ — ціна і строки | PrometeyLabs')
     meta_description = _(
         'Розробка корпоративних сайтів та лендінгів з нативною архітектурою. '
         '100/100 Core Web Vitals, технічне SEO, пожиттєва гарантія на код.'
@@ -246,35 +246,6 @@ class InternetShopRuView(BasePageView):
     def dispatch(self, request, *args, **kwargs):
         from django.shortcuts import redirect
         return redirect('/ru/internet-shop/', permanent=True)
-
-class CorporateWebsiteView(BasePageView):
-    """
-    Serves the corporate-website landing page.
-    URL `/corporate-website/` → Ukrainian template, UA UI.
-    URL `/ru/corporate-website/` → Russian template, RU UI (i18n_patterns activates `ru`,
-    so all `{% trans %}` in shared components like header/footer render in Russian).
-    """
-    page_title = _('Корпоративний сайт під ключ за 7 днів | Розробка сайту компанії — PrometeyLabs')
-    meta_description = _('Створення корпоративного сайту під ключ. Унікальний дизайн, інтеграція з CRM, SEO + реклама Google/Facebook/TikTok у пакеті. Запуск за 7 днів. Команда досвідчених розробників. Розрахуємо вартість у брифі.')
-    og_title = _('Корпоративний сайт під ключ — створимо за 7 днів | PrometeyLabs')
-
-    def get_template_names(self):
-        from django.utils import translation
-        if translation.get_language() == 'ru':
-            return ['pages/corporate-website-ru.html']
-        return ['pages/corporate-website.html']
-
-    def get_context_data(self, **kwargs):
-        from django.utils import translation
-        context = super().get_context_data(**kwargs)
-        if translation.get_language() == 'ru':
-            context['page_title'] = 'Корпоративный сайт под ключ за 7 дней | Разработка сайта компании — PrometeyLabs'
-            context['meta_description'] = 'Создание корпоративного сайта под ключ. Уникальный дизайн, интеграция с CRM, SEO + реклама Google/Facebook/TikTok в пакете. Запуск за 7 дней. Команда опытных разработчиков. Рассчитаем стоимость в брифе.'
-            context['og_title'] = 'Корпоративный сайт под ключ — создадим за 7 дней | PrometeyLabs'
-            context['lang_suggest_always'] = True
-            context['lang_suggest_uk_url'] = '/corporate-website/'
-        return context
-
 
 class ThankYouView(BasePageView):
     template_name = 'pages/thank_you.html'
