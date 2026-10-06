@@ -46,3 +46,19 @@ def portfolio_page_projects():
 
 def homepage_clients():
     return Client.objects.filter(is_active=True).order_by('order', 'name')
+
+
+def homepage_portfolio_strip(limit=6):
+    """Короткий ряд кейсів: спочатку головна, інакше опубліковані на /portfolio/."""
+    featured = list(
+        published_portfolio_queryset()
+        .filter(show_on_homepage=True)
+        .order_by('home_order', 'order', 'title')[:limit]
+    )
+    if featured:
+        return featured
+    return list(
+        published_portfolio_queryset()
+        .filter(show_on_portfolio=True)
+        .order_by('order', 'title')[:limit]
+    )

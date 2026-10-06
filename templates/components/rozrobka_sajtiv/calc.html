@@ -1,0 +1,18 @@
+{% load i18n %}
+<section class="pl-rs__calc" id="pl-rs-calc" aria-labelledby="pl-rs-calc-title">
+    <p class="pl-rs__calc-mark" data-pl-rs-sign aria-hidden="true">€</p>
+    <div class="pl-rs__inner pl-rs__calc-grid">
+        <div>
+            <h2 id="pl-rs-calc-title" class="pl-rs__h2">{% trans "Порахуйте бюджет до дзвінка" %}</h2>
+            <p class="pl-rs__note">{% trans "Три орієнтири Soft — старт розмови. Точну суму і строк фіксуємо після брифу в договорі." %}</p>
+        </div>
+        <div class="pl-rs__actions">
+            <a class="pl-rs__cta mobile-touch-target" href="{% url 'calculator' %}">{% trans "Відкрити калькулятор" %}</a>
+            <div class="pl-rs__links">
+                <a class="pl-rs__link mobile-touch-target" href="{% url 'calculator' %}">{% trans "Розрахувати вартість" %}</a>
+                <a class="pl-rs__link mobile-touch-target" href="{{ site_contact.telegram_url }}" target="_blank" rel="noopener noreferrer">{% trans "Написати в Telegram" %}</a>
+                <a class="pl-rs__link mobile-touch-target" href="{{ site_contact.get_tel_href|default:'tel:+380639520565' }}">{% trans "Зателефонувати прямо зараз" %}</a>
+            </div>
+        </div>
+    </div>
+</section>
