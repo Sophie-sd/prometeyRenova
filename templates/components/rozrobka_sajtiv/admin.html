@@ -1,0 +1,28 @@
+{% load i18n %}
+<section class="pl-rs__section" aria-labelledby="pl-rs-admin-title">
+    <div class="pl-rs__inner pl-rs__admin">
+        <div class="pl-rs__screen" aria-hidden="true">
+            <div class="pl-rs__screen-bar">
+                <span></span><span></span><span></span>
+                <em>cms</em>
+            </div>
+            <div class="pl-rs__screen-body">
+                <ul class="pl-rs__screen-nav">
+                    <li class="is-on">{% trans "Сторінки" %}</li>
+                    <li>{% trans "Заявки" %}</li>
+                    <li>{% trans "Ціни" %}</li>
+                </ul>
+                <div class="pl-rs__screen-rows">
+                    <p><i></i>{% trans "Головна" %}<b>{% trans "Опубліковано" %}</b></p>
+                    <p><i></i>{% trans "Послуги" %}<b>{% trans "Опубліковано" %}</b></p>
+                    <p><i></i>{% trans "Ціни" %}<b>{% trans "Опубліковано" %}</b></p>
+                </div>
+            </div>
+        </div>
+        <div class="pl-rs__admin-copy">
+            <p class="pl-rs__eyebrow">{% trans "Адмінка" %}</p>
+            <h2 id="pl-rs-admin-title" class="pl-rs__h2">{% trans "Адмінка залишається у вас" %}</h2>
+            <p class="pl-rs__note">{% trans "Тексти, ціни, заявки і банери правите самі. Розробник не потрібен на кожну кому." %}</p>
+        </div>
+    </div>
+</section>

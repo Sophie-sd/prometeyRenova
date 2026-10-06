@@ -1,0 +1,33 @@
+{% load i18n %}
+<section class="pl-rs__section pl-rs__section--work" aria-labelledby="pl-rs-work-title">
+    <div class="pl-rs__inner pl-rs__head">
+        <h2 id="pl-rs-work-title" class="pl-rs__h2">{% trans "Проєкти в проді" %}</h2>
+        <a class="pl-rs__more" href="{% url 'portfolio' %}">{% trans "Усе портфоліо" %}</a>
+    </div>
+    {% if home_clients or portfolio_strip %}
+    <div class="pl-rs__strip" role="list">
+        {% for client in home_clients %}
+        <a class="pl-rs__tile pl-rs__tile--logo" role="listitem" href="{% url 'portfolio' %}">
+            {% if client.get_logo_url %}
+            <img src="{{ client.get_logo_url }}" alt="{{ client.name }}" width="88" height="88" loading="lazy" decoding="async">
+            {% endif %}
+            <span>{{ client.name }}</span>
+        </a>
+        {% endfor %}
+        {% for project in portfolio_strip %}
+        <a class="pl-rs__tile pl-rs__tile--shot" role="listitem" href="{% url 'portfolio' %}">
+            {% if project.get_home_image_src %}
+            <img src="{{ project.get_home_image_src }}" alt="{{ project.get_card_alt }}" width="168" height="210" loading="lazy" decoding="async">
+            {% else %}
+            <span class="pl-rs__tile-fallback" aria-hidden="true">PL</span>
+            {% endif %}
+            <span>{{ project.get_localized_title }}</span>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="pl-rs__inner">
+        <p class="pl-rs__note">{% trans "Кейси студії зібрані в портфоліо." %}</p>
+    </div>
+    {% endif %}
+</section>
