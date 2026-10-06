@@ -1,7 +1,12 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.utils import timezone
-from .mixins import BasePageView, homepage_clients, portfolio_page_projects
+from .mixins import (
+    BasePageView,
+    homepage_clients,
+    homepage_portfolio_strip,
+    portfolio_page_projects,
+)
 from .form_handlers import (
     validate_phone, validate_name, create_form_response, get_form_type_from_path,
     create_form_data, send_form_email, save_form_submission,
@@ -116,6 +121,29 @@ class TelegramBotView(BasePageView):
         'розробка telegram бота під ключ, замовити telegram бота, telegram бот ціна, '
         'чат-бот telegram для бізнесу'
     )
+
+class RozrobkaSajtivView(BasePageView):
+    """Ads-лендінг «розробка сайтів»: Soft € над фолдом на мобільному."""
+
+    template_name = 'pages/rozrobka-sajtiv.html'
+    page_title = _('Розробка сайтів під ключ в Україні | PrometeyLabs')
+    meta_description = _(
+        'Розробка сайтів будь-якої складності під ключ: лендінги від 250 €, '
+        'корпоративні від 500 €, магазини від 800 €. Бюджет і строки у договорі, '
+        'безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію.'
+    )
+    og_title = _('Розробка сайтів під ключ | PrometeyLabs')
+    keywords = _(
+        'розробка сайтів, сайт під ключ, лендінг, корпоративний сайт, '
+        'інтернет-магазин, PrometeyLabs'
+    )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['home_clients'] = homepage_clients()
+        context['portfolio_strip'] = homepage_portfolio_strip()
+        return context
+
 
 class OfferView(BasePageView):
     page_title = _('Публічний договір (оферта) про надання послуг | PrometeyLabs')

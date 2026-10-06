@@ -23,6 +23,7 @@ urlpatterns = [
     path('corporate-website-v2/', views.CorporateWebsiteV2View.as_view(), name='corporate_website_v2'),
     path('tz-dlia-saitu/', tz_views.TzGeneratorView.as_view(), name='tz_generator'),
     path('telegram-bot/', views.TelegramBotView.as_view(), name='telegram_bot'),
+    path('rozrobka-sajtiv/', views.RozrobkaSajtivView.as_view(), name='rozrobka_sajtiv'),
     path('internet-shop-ru/', views.InternetShopRuView.as_view(), name='internet_shop_ru'),
     path(
         'corporate-website/',

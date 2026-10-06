@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block body_attrs %} class="pl-rs-body" data-modal-source-page="rozrobka-sajtiv"{% endblock %}
+
+{% block title %}{% trans "Розробка сайтів під ключ в Україні | PrometeyLabs" %}{% endblock %}
+{% block description %}{% trans "Розробка сайтів будь-якої складності під ключ: лендінги від 250 €, корпоративні від 500 €, магазини від 800 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію." %}{% endblock %}
+{% block keywords %}{% trans "розробка сайтів, сайт під ключ, лендінг, корпоративний сайт, інтернет-магазин, PrometeyLabs" %}{% endblock %}
+{% block og_title %}{% trans "Розробка сайтів під ключ | PrometeyLabs" %}{% endblock %}
+{% block og_description %}{% trans "Розробка сайтів будь-якої складності під ключ: лендінги від 250 €, корпоративні від 500 €, магазини від 800 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію." %}{% endblock %}
+{% block og_image %}https://www.prometeylabs.com/static/images/og-image.jpg{% endblock %}
+
+{% block extra_head %}
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.prometeylabs.com{% url 'rozrobka_sajtiv' %}">
+<link rel="alternate" hreflang="uk" href="https://www.prometeylabs.com/rozrobka-sajtiv/">
+<link rel="alternate" hreflang="ru" href="https://www.prometeylabs.com/ru/rozrobka-sajtiv/">
+<link rel="alternate" hreflang="en" href="https://www.prometeylabs.com/en/rozrobka-sajtiv/">
+<link rel="alternate" hreflang="x-default" href="https://www.prometeylabs.com/rozrobka-sajtiv/">
+{% trans "Розробка сайтів під ключ | PrometeyLabs" as rs_tw_title %}
+{% trans "Розробка сайтів будь-якої складності під ключ: лендінги від 250 €, корпоративні від 500 €, магазини від 800 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію." as rs_tw_desc %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ rs_tw_title }}">
+<meta name="twitter:description" content="{{ rs_tw_desc }}">
+<meta name="twitter:image" content="https://www.prometeylabs.com/static/images/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@500;700&display=swap" as="style">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@500;700&display=swap" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@500;700&display=swap"></noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "{% filter escapejs %}{% trans "Розробка сайтів будь-якої складності під ключ" %}{% endfilter %}",
+  "serviceType": "{% filter escapejs %}{% trans "Розробка сайтів під ключ" %}{% endfilter %}",
+  "provider": {
+    "@type": "Organization",
+    "name": "PrometeyLabs",
+    "url": "https://www.prometeylabs.com"
+  },
+  "areaServed": "UA",
+  "url": "https://www.prometeylabs.com{% url 'rozrobka_sajtiv' %}",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "{% filter escapejs %}{% trans "Лендінги" %}{% endfilter %}",
+      "price": "250",
+      "priceCurrency": "EUR"
+    },
+    {
+      "@type": "Offer",
+      "name": "{% filter escapejs %}{% trans "Корпоративні" %}{% endfilter %}",
+      "price": "500",
+      "priceCurrency": "EUR"
+    },
+    {
+      "@type": "Offer",
+      "name": "{% filter escapejs %}{% trans "Магазини" %}{% endfilter %}",
+      "price": "800",
+      "priceCurrency": "EUR"
+    }
+  ]
+}
+</script>
+{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv.css' %}?v=4">
+<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv-2.css' %}?v=4">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/rozrobka-sajtiv.js' %}?v=1" nonce="{{ csp_nonce }}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div id="plRsRoot" class="pl-rs">
+    {% include 'components/rozrobka_sajtiv/hero.html' %}
+    {% include 'components/rozrobka_sajtiv/products.html' %}
+    {% include 'components/rozrobka_sajtiv/portfolio.html' %}
+    {% include 'components/rozrobka_sajtiv/admin.html' %}
+    {% include 'components/rozrobka_sajtiv/calc.html' %}
+</div>
+{% endblock %}

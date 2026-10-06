@@ -1,0 +1,45 @@
+{% load i18n %}
+<section class="pl-rs__hero" aria-labelledby="pl-rs-h1">
+    <div class="pl-rs__inner pl-rs__hero-grid">
+        <div class="pl-rs__hero-copy">
+            <div class="pl-rs__kicker">
+                <p class="pl-rs__eyebrow">{% trans "Soft · договір" %}</p>
+                <div class="pl-rs__cur" role="group" aria-label="{% trans "Валюта орієнтира" %}">
+                    <button type="button" class="pl-rs__cur-btn is-on" data-currency="eur" aria-pressed="true" aria-label="{% trans "Євро" %}">€</button>
+                    <button type="button" class="pl-rs__cur-btn" data-currency="usd" aria-pressed="false" aria-label="{% trans "Долар США" %}">$</button>
+                </div>
+            </div>
+            <h1 id="pl-rs-h1" class="pl-rs__h1">{% trans "Розробка сайтів будь-якої складності під ключ" %}</h1>
+            <p class="pl-rs__lead">{% trans "Лендінги, корпоративні сайти, інтернет-магазини, платформи будь-якої складності. Прозора співпраця: фіксуємо бюджет і строки у договорі. Безкоштовна підтримка та 5 років гарантії на код." %}</p>
+        </div>
+
+        <div class="pl-rs__prices" role="list" aria-label="{% trans "Орієнтир ціни" %}">
+            <article class="pl-rs__price" role="listitem">
+                <p class="pl-rs__price-from">{% trans "від" %}</p>
+                <p class="pl-rs__price-num"><span class="pl-rs__amount" data-pl-rs-amount data-eur="250" data-usd="270">250</span><span class="pl-rs__price-cur" data-pl-rs-sign>€</span></p>
+                <p class="pl-rs__price-name">{% trans "Лендінги" %}</p>
+            </article>
+            <article class="pl-rs__price pl-rs__price--mid" role="listitem">
+                <p class="pl-rs__price-from">{% trans "від" %}</p>
+                <p class="pl-rs__price-num"><span class="pl-rs__amount" data-pl-rs-amount data-eur="500" data-usd="540">500</span><span class="pl-rs__price-cur" data-pl-rs-sign>€</span></p>
+                <p class="pl-rs__price-name">{% trans "Корпоративні" %}</p>
+            </article>
+            <article class="pl-rs__price" role="listitem">
+                <p class="pl-rs__price-from">{% trans "від" %}</p>
+                <p class="pl-rs__price-num"><span class="pl-rs__amount" data-pl-rs-amount data-eur="800" data-usd="865">800</span><span class="pl-rs__price-cur" data-pl-rs-sign>€</span></p>
+                <p class="pl-rs__price-name">{% trans "Магазини" %}</p>
+            </article>
+        </div>
+
+        <div class="pl-rs__actions">
+            <button type="button" class="pl-rs__cta mobile-touch-target" data-modal="call-request-modal">
+                {% trans "Отримати консультацію" %}
+            </button>
+            <div class="pl-rs__links">
+                <a class="pl-rs__link mobile-touch-target" href="{% url 'calculator' %}">{% trans "Розрахувати вартість" %}</a>
+                <a class="pl-rs__link mobile-touch-target" href="{{ site_contact.telegram_url }}" target="_blank" rel="noopener noreferrer">{% trans "Написати в Telegram" %}</a>
+                <a class="pl-rs__link mobile-touch-target" href="{{ site_contact.get_tel_href|default:'tel:+380639520565' }}">{% trans "Зателефонувати прямо зараз" %}</a>
+            </div>
+        </div>
+    </div>
+</section>

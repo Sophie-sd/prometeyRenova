@@ -5922,3 +5922,159 @@ msgstr ""
 #~ "Обучение веб-разработке и AI в PrometeyLabs. Программы для новичков и "
 #~ "разработчиков с опытом. Практическое обучение, коммуникация с экспертами, "
 #~ "возможность карьеры в нашей компании."
+
+# rozrobka-sajtiv ads landing
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Сторінки"
+msgstr "Страницы"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Ціни"
+msgstr "Цены"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Адмінка залишається у вас"
+msgstr "Админка остаётся у вас"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Тексти, ціни, заявки і банери правите самі. Розробник не потрібен на кожну кому."
+msgstr "Тексты, цены, заявки и баннеры правите сами. Разработчик не нужен на каждую запятую."
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Порахуйте бюджет до дзвінка"
+msgstr "Посчитайте бюджет до звонка"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Три орієнтири Soft € — старт розмови. Точну суму і строк фіксуємо після брифу в договорі."
+msgstr "Три ориентира Soft € — старт разговора. Точную сумму и срок фиксируем после брифа в договоре."
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Відкрити калькулятор"
+msgstr "Открыть калькулятор"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Зателефонувати прямо зараз"
+msgstr "Позвонить прямо сейчас"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Проєкти в проді"
+msgstr "Проекты в проде"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Усе портфоліо"
+msgstr "Все портфолио"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Кейси студії зібрані в портфоліо."
+msgstr "Кейсы студии собраны в портфолио."
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Soft € · договір"
+msgstr "Soft € · договор"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Розробка сайтів будь-якої складності під ключ"
+msgstr "Разработка сайтов любой сложности под ключ"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Лендінги, корпоративні сайти, інтернет-магазини, платформи будь-якої складності. Прозора співпраця: фіксуємо бюджет і строки у договорі. Безкоштовна підтримка та 5 років гарантії на код."
+msgstr "Лендинги, корпоративные сайты, интернет-магазины, платформы любой сложности. Прозрачное сотрудничество: фиксируем бюджет и сроки в договоре. Бесплатная поддержка и 5 лет гарантии на код."
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Орієнтир ціни"
+msgstr "Ориентир цены"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "від"
+msgstr "от"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Лендінги"
+msgstr "Лендинги"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Корпоративні"
+msgstr "Корпоративные"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Магазини"
+msgstr "Магазины"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Отримати консультацію"
+msgstr "Получить консультацию"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Що збираємо під ключ"
+msgstr "Что собираем под ключ"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Одна сторінка під рекламу: офер, форма, швидкий запуск."
+msgstr "Одна страница под рекламу: оффер, форма, быстрый запуск."
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Структура компанії, послуги і SEO-основа."
+msgstr "Структура компании, услуги и SEO-основа."
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Каталог, оплата, доставка, замовлення в адмінці."
+msgstr "Каталог, оплата, доставка, заказы в админке."
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Платформи"
+msgstr "Платформы"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Кабінети, ролі й інтеграції — коли сайту вже мало."
+msgstr "Кабинеты, роли и интеграции — когда сайта уже мало."
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "індивідуально"
+msgstr "индивидуально"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Заявки і CRM у чаті поруч із сайтом."
+msgstr "Заявки и CRM в чате рядом с сайтом."
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "окремий бриф"
+msgstr "отдельный бриф"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Розробка сайтів під ключ в Україні | PrometeyLabs"
+msgstr "Разработка сайтов под ключ в Украине | PrometeyLabs"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Розробка сайтів будь-якої складності під ключ: лендінги від 250 €, корпоративні від 500 €, магазини від 800 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію."
+msgstr "Разработка сайтов любой сложности под ключ: лендинги от 250 €, корпоративные от 500 €, магазины от 800 €. Бюджет и сроки в договоре, бесплатная поддержка, 5 лет гарантии на код. Получить консультацию."
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "розробка сайтів, сайт під ключ, лендінг, корпоративний сайт, інтернет-магазин, PrometeyLabs"
+msgstr "разработка сайтов, сайт под ключ, лендинг, корпоративный сайт, интернет-магазин, PrometeyLabs"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Розробка сайтів під ключ | PrometeyLabs"
+msgstr "Разработка сайтов под ключ | PrometeyLabs"
+
+# rozrobka-sajtiv currency
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Soft · договір"
+msgstr "Soft · договор"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Валюта орієнтира"
+msgstr "Валюта ориентира"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Євро"
+msgstr "Евро"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Долар США"
+msgstr "Доллар США"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Три орієнтири Soft — старт розмови. Точну суму і строк фіксуємо після брифу в договорі."
+msgstr "Три ориентира Soft — старт разговора. Точную сумму и срок фиксируем после брифа в договоре."
