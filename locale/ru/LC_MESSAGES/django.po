@@ -2270,8 +2270,6 @@ msgstr "портфолио"
 
 # ===== home.html — marquee =====
 #: templates/components/header.html:22
-#, fuzzy
-#| msgid "Послуги"
 msgid "послуги"
 msgstr "услуги"
 
@@ -2979,8 +2977,6 @@ msgstr "Процесс создания сайта"
 
 #: templates/components/process_block.html:33
 #: templates/components/process_flow_block.html:26
-#, fuzzy
-#| msgid "Більше інформації"
 msgid "Збір інформації"
 msgstr "Сбор информации"
 
@@ -3010,8 +3006,6 @@ msgstr "Технические требования"
 
 #: templates/components/process_block.html:58
 #: templates/components/process_flow_block.html:51
-#, fuzzy
-#| msgid "Контакти сайту"
 msgid "Карта сайту"
 msgstr "Карта сайта"
 
@@ -3035,10 +3029,8 @@ msgid "Ієрархія контенту"
 msgstr "Иерархия контента"
 
 #: templates/components/process_block.html:83
-#, fuzzy
-#| msgid "Адаптивний дизайн"
 msgid "Приклад дизайну"
-msgstr "Адаптивный дизайн"
+msgstr "Пример дизайна"
 
 #: templates/components/process_block.html:84
 msgid "UI/UX макети"
@@ -3061,16 +3053,12 @@ msgid "Візуальна концепція"
 msgstr "Заявка на консультацию"
 
 #: templates/components/process_block.html:108
-#, fuzzy
-#| msgid "Соціальні мережі"
 msgid "Функціональна модель"
-msgstr "Социальные сети"
+msgstr "Функциональная модель"
 
 #: templates/components/process_block.html:109
-#, fuzzy
-#| msgid "Інтеграція у робочий процес"
 msgid "Інтерактивний прототип"
-msgstr "Интеграция в рабочий процесс"
+msgstr "Интерактивный прототип"
 
 #: templates/components/process_block.html:110
 msgid "Логіка форм і сценаріїв"
@@ -3089,10 +3077,8 @@ msgid "Тестування UX"
 msgstr "продвижение"
 
 #: templates/components/process_block.html:133
-#, fuzzy
-#| msgid "Терміни виконання:"
 msgid "Фінальне виконання правок"
-msgstr "Сроки выполнения:"
+msgstr "Финальное выполнение правок"
 
 #: templates/components/process_block.html:134
 msgid "Збір фідбеку"
@@ -3117,10 +3103,8 @@ msgid "Фінальне погодження"
 msgstr "Главное изображение"
 
 #: templates/components/process_block.html:158
-#, fuzzy
-#| msgid "Попередній проект"
 msgid "Деплой і передача прав"
-msgstr "Предыдущий проект"
+msgstr "Деплой и передача прав"
 
 #: templates/components/process_block.html:159
 msgid "Запуск на сервер"
@@ -3147,8 +3131,6 @@ msgid "PROCESS"
 msgstr "PROCESS"
 
 #: templates/components/process_flow_block.html:6
-#, fuzzy
-#| msgid "СТВОРЕНІ НАМИ"
 msgid "ЯК МИ СТВОРЮЄМО САЙТ"
 msgstr "КАК МЫ СОЗДАЁМ САЙТ"
 
