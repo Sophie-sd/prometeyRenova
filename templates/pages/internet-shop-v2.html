@@ -11,6 +11,30 @@
 {% block extra_head %}
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.prometeylabs.com/internet-shop-v2/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Інтернет-магазин під ключ",
+  "serviceType": "E-commerce website development",
+  "provider": {
+    "@type": "Organization",
+    "name": "PrometeyLabs",
+    "url": "https://www.prometeylabs.com",
+    "email": "info@prometeylabs.com",
+    "telephone": "+380639520565"
+  },
+  "areaServed": "UA",
+  "url": "https://www.prometeylabs.com/internet-shop-v2/",
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "EUR",
+    "lowPrice": "800",
+    "highPrice": "1400",
+    "offerCount": "1"
+  }
+}
+</script>
 <link rel="preload" href="{% static 'fonts/v2/space-grotesk-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{% static 'fonts/v2/jetbrains-mono-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{% static 'fonts/v2/jetbrains-mono-cyrillic.woff2' %}" as="font" type="font/woff2" crossorigin>

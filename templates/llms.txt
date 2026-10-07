@@ -1,0 +1,25 @@
+# PrometeyLabs
+
+> PrometeyLabs — студія розробки сайтів під ключ, інтернет-магазинів і Telegram-ботів. Україна, ціни в EUR.
+
+Ціни нижче збігаються з публічними лендінгами (не вигадані кейси).
+
+## Services
+
+- Корпоративний сайт: 500–700 € — https://www.prometeylabs.com/corporate-website-v2/
+- Інтернет-магазин: 800–1400 € — https://www.prometeylabs.com/internet-shop-v2/
+- Telegram-бот: індивідуальний кошторис після брифу (публічного прайсу немає) — https://www.prometeylabs.com/telegram-bot/
+- Soft hub (лендінг від 250 € / корп від 500 € / магазин від 800 €) — https://www.prometeylabs.com/rozrobka-sajtiv/
+
+## Company
+
+- Портфоліо: https://www.prometeylabs.com/portfolio/
+- Блог: https://www.prometeylabs.com/blog/
+- Контакти: https://www.prometeylabs.com/contacts/
+- Телефон: +380639520565
+- Email: info@prometeylabs.com
+- Сайт: https://www.prometeylabs.com/
+
+## Optional
+
+- EN mirrors: /en/corporate-website-v2/, /en/internet-shop-v2/, /en/telegram-bot/, /en/rozrobka-sajtiv/
