@@ -1,8 +1,9 @@
-"""Ads-лендінг /rozrobka-sajtiv/: шлях, Soft €, одна H1, конверсійні CTA."""
+"""Ads-лендінг /rozrobka-sajtiv/: ranges, FX €/₴, одна H1, CTA."""
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import translation
 
+from apps.core.fx_models import ExchangeRateSettings
 from apps.core.sitemaps import StaticViewSitemap
 
 
@@ -15,6 +16,18 @@ def _landing_markup(html):
 
 
 class RozrobkaSajtivPageTests(TestCase):
+    def setUp(self):
+        from decimal import Decimal
+
+        ExchangeRateSettings.objects.update_or_create(
+            pk=1,
+            defaults={
+                'uah_per_eur': Decimal('40'),
+                'usd_per_eur': Decimal('1.085'),
+                'czk_per_eur': Decimal('25'),
+            },
+        )
+
     def test_reverse_uk_path(self):
         with translation.override('uk'):
             self.assertEqual(reverse('rozrobka_sajtiv'), '/rozrobka-sajtiv/')
@@ -31,10 +44,21 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertIn('rozrobka-sajtiv.css', html)
         self.assertIn('Розробка сайтів будь-якої складності під ключ', html)
         self.assertIn('Отримати консультацію', root)
-        self.assertIn('250', root)
-        self.assertIn('500', root)
-        self.assertIn('800', root)
-        self.assertIn('€', root)
+        self.assertIn('250–400 €', root)
+        self.assertIn('500–700 €', root)
+        self.assertIn('800–1\u00a0400 €', root)
+        self.assertIn('1\u00a0500–5\u00a0000 €', root)
+        self.assertIn('3–7 днів', root)
+        self.assertIn('7–14 днів', root)
+        self.assertIn('14–21 день', root)
+        self.assertIn('14–30 днів', root)
+        self.assertIn('У сумі:', root)
+        self.assertIn('Не входить:', root)
+        self.assertIn('5 років гарантії', root)
+        self.assertNotIn('індивідуально', root)
+        self.assertNotIn('окремий бриф', root)
+        soft_hits = [s for s in ('SOFT', 'Soft ·', 'Soft —', 'орієнтири Soft') if s in html]
+        self.assertEqual(soft_hits, [], soft_hits)
         self.assertIn('rozrobka-sajtiv.js', html)
         self.assertIn('href="/calculator/"', root)
         self.assertIn('Розрахувати вартість', root)
@@ -48,55 +72,47 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertEqual(html.count('<h1'), 1)
         self.assertEqual(html.count('</h1>'), 1)
         self.assertIn('data-modal="call-request-modal"', root)
+        self.assertIn('pl-rs__product--wide', root)
+        self.assertIn('pl-rs__products', root)
 
     def test_currency_switcher_defaults_to_euro(self):
-        import re
-
         for path in ('/rozrobka-sajtiv/', '/ru/rozrobka-sajtiv/'):
             with self.subTest(path=path):
                 html = self.client.get(path).content.decode()
                 root = _landing_markup(html)
-                self.assertIn('class="pl-rs__cur"', root)
-                self.assertIn('role="group"', root)
-                self.assertIn('data-currency="eur"', root)
-                self.assertIn('data-currency="usd"', root)
-                self.assertRegex(
-                    root,
-                    r'data-currency="eur"[^>]*aria-pressed="true"',
-                )
-                self.assertRegex(
-                    root,
-                    r'data-currency="usd"[^>]*aria-pressed="false"',
-                )
-                amounts = re.findall(
-                    r'data-pl-rs-amount[^>]*>\s*([^<]+?)\s*<',
-                    root,
-                )
-                signs = re.findall(
-                    r'data-pl-rs-sign[^>]*>\s*([^<]+?)\s*<',
-                    root,
-                )
-                self.assertEqual(amounts, ['250', '500', '800', '250', '500', '800'])
-                self.assertTrue(signs)
-                self.assertTrue(all(sign == '€' for sign in signs))
-                self.assertNotIn('$', ''.join(signs))
-                self.assertIn('data-eur="250"', root)
-                self.assertIn('data-usd="270"', root)
-                self.assertIn('data-eur="500"', root)
-                self.assertIn('data-usd="540"', root)
-                self.assertIn('data-eur="800"', root)
-                self.assertIn('data-usd="865"', root)
-                self.assertNotIn('>270<', root)
-                self.assertNotIn('>540<', root)
-                self.assertNotIn('>865<', root)
+                self.assertIn('id="fx-switch-soft"', root)
+                self.assertIn('fx-switch--dark', root)
+                self.assertIn('value="UAH"', root)
+                self.assertNotIn('data-currency="usd"', root)
+                self.assertNotIn('data-currency="eur"', root)
+                self.assertNotIn('data-pl-rs-amount', root)
+                self.assertNotIn('data-usd=', root)
+                self.assertIn('250–400 €', root)
+                self.assertIn('value="UAH"', root)
+                self.assertIn('₴', root)
 
-    def test_ru_mirror_has_soft_euro_and_no_dollar(self):
+    def test_soft_fx_htmx_swaps_uah(self):
+        response = self.client.post(
+            '/i18n/set_currency/',
+            {'currency': 'UAH', 'region': 'soft', 'next': '/rozrobka-sajtiv/'},
+            HTTP_HX_REQUEST='true',
+        )
+        body = response.content.decode()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.cookies['pl_currency'].value, 'UAH')
+        self.assertIn('10\u00a0000–16\u00a0000 ₴', body)
+        self.assertIn('id="fx-switch-soft"', body)
+        self.assertIn('hx-swap-oob="outerHTML"', body)
+        self.assertIn('id="fx-soft-float-landing"', body)
+
+    def test_ru_mirror_has_euro_and_no_dollar_switcher(self):
         html = self.client.get('/ru/rozrobka-sajtiv/').content.decode()
         root = _landing_markup(html)
         self.assertIn('Разработка сайтов любой сложности под ключ', html)
         self.assertIn('Получить консультацию', root)
         self.assertIn('€', root)
-        self.assertIn('role="group"', root)
+        self.assertIn('id="fx-switch-soft"', root)
+        self.assertNotIn('data-currency="usd"', root)
         self.assertIn('href="/ru/calculator/"', root)
         self.assertIn('tel:+380639520565', root)
         self.assertEqual(html.count('<h1'), 1)
@@ -104,6 +120,8 @@ class RozrobkaSajtivPageTests(TestCase):
     def test_seo_head(self):
         html = self.client.get('/rozrobka-sajtiv/').content.decode()
         self.assertIn('Розробка сайтів під ключ в Україні | PrometeyLabs', html)
+        self.assertIn('250–400 €', html)
+        self.assertIn('500–700 €', html)
         self.assertIn('rel="canonical" href="https://www.prometeylabs.com/rozrobka-sajtiv/"', html)
         self.assertIn('hreflang="uk"', html)
         self.assertIn('hreflang="ru"', html)
@@ -112,6 +130,7 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertIn('https://www.prometeylabs.com/static/images/og-image.jpg', html)
         self.assertIn('twitter:card', html)
         self.assertIn('property="og:image"', html)
+        self.assertNotIn('від 250 €', html)
 
     def test_ru_canonical(self):
         html = self.client.get('/ru/rozrobka-sajtiv/').content.decode()

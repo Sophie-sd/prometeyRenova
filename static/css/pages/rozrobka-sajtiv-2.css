@@ -39,56 +39,74 @@
     margin-bottom: 0;
 }
 
-/* Services 34:3944 */
+/* Services tiles — Figma 1:257 desktop 3+2; mobile 1:406 list rows */
 .pl-rs__section--services {
     padding-top: 56px;
 }
 
 .pl-rs__products {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
+    width: 100%;
 }
 
 .pl-rs__product {
     position: relative;
-    display: grid;
-    grid-template-columns: 48px minmax(0, 1fr);
-    grid-template-areas:
-        "idx name"
-        "idx text"
-        "idx meta"
-        "idx pill";
-    gap: 6px 14px;
-    align-items: center;
-    min-height: 91px;
-    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    height: 184px;
+    padding: 20px;
     border-radius: 20px;
     overflow: hidden;
     color: var(--pl-rs-text);
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(10, 10, 10, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    text-decoration: none;
     transition: color 300ms ease-out, border-color 300ms ease-out;
+}
+
+.pl-rs__product--wide {
+    /* spanned via nth-child on desktop grid */
 }
 
 .pl-rs__product-glow {
     position: absolute;
-    right: -20px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 140px;
-    height: 140px;
+    right: -40px;
+    bottom: -70px;
+    width: 181px;
+    height: 181px;
     pointer-events: none;
-    opacity: 0.85;
+    opacity: 0.9;
+}
+
+.pl-rs__product-top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+}
+
+.pl-rs__product-head {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+    max-width: 60%;
 }
 
 .pl-rs__idx {
-    grid-area: idx;
-    font-size: clamp(36px, 10vw, 70px);
+    flex-shrink: 0;
+    font-size: 80px;
     font-weight: 800;
     line-height: 0.85;
     letter-spacing: -0.05em;
-    background: linear-gradient(180deg, #d05300 0%, #000 85%);
+    background: rgba(208, 83, 0, 0.18);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -96,41 +114,53 @@
 }
 
 .pl-rs__product-name {
-    grid-area: name;
     position: relative;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     letter-spacing: -0.54px;
     line-height: 1.2;
+    color: #ff6600;
+}
+
+.pl-rs__product-meta {
+    position: relative;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.8px;
+    line-height: 1;
+    color: #a1a1aa;
+    white-space: nowrap;
+}
+
+.pl-rs__product-bottom {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
 }
 
 .pl-rs__product-text,
 .pl-rs__note {
     position: relative;
-    font-size: 13px;
-    line-height: 1.35;
-    letter-spacing: -0.05em;
-    color: var(--pl-rs-muted);
-}
-
-.pl-rs__product-text { grid-area: text; }
-
-.pl-rs__product-meta {
-    grid-area: meta;
-    position: relative;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 500;
-    letter-spacing: -0.05em;
-    white-space: nowrap;
+    line-height: 1.15;
+    letter-spacing: -0.8px;
+    color: #a1a1aa;
+    max-width: 220px;
 }
 
 .pl-rs__product .pl-rs__pill {
-    grid-area: pill;
     position: relative;
-    justify-self: start;
+    flex-shrink: 0;
     min-width: 124px;
     width: auto;
-    margin-top: 4px;
+    height: 44px;
+    margin-top: 0;
 }
 
 /* Portfolio UPPER 34:4051 — no lower 34:4085 */
@@ -458,6 +488,20 @@
     width: 100%;
 }
 
+.pl-rs__pill--muted {
+    opacity: 0.72;
+    border-color: rgba(255, 255, 255, 0.35);
+    color: var(--pl-rs-muted);
+    font-weight: 500;
+}
+
+.pl-rs__pill--muted:hover,
+.pl-rs__pill--muted:focus-visible {
+    opacity: 1;
+    color: var(--pl-rs-text);
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
 @media (min-width: 768px) {
     .pl-rs__inner {
         width: min(1332px, calc(100% - 48px));
@@ -507,19 +551,33 @@
         letter-spacing: -2.5px;
     }
 
-    .pl-rs__product {
-        grid-template-columns: 96px minmax(120px, 0.9fr) minmax(160px, 1.2fr) auto auto;
-        grid-template-areas: "idx name text meta pill";
-        gap: 16px 24px;
-        align-items: center;
-        padding: 20px;
-        min-height: 91px;
+    /* Figma 1:257 — 3 equal + 2 wide tiles */
+    .pl-rs__products {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 20px;
     }
 
-    .pl-rs__product-name { font-size: 18px; }
-    .pl-rs__product-text { font-size: 16px; }
-    .pl-rs__product-meta { font-size: 16px; text-align: right; }
-    .pl-rs__product .pl-rs__pill { margin-top: 0; justify-self: end; }
+    .pl-rs__product {
+        grid-column: span 2;
+        height: 184px;
+        padding: 20px;
+    }
+
+    .pl-rs__product--wide,
+    .pl-rs__product:nth-child(4),
+    .pl-rs__product:nth-child(5) {
+        grid-column: span 3;
+    }
+
+    .pl-rs__product-name { font-size: 18px; color: #ff6600; }
+    .pl-rs__product-text { font-size: 16px; max-width: 220px; }
+    .pl-rs__product-meta { font-size: 16px; }
+    .pl-rs__product .pl-rs__pill {
+        margin-top: 0;
+        border: 1px solid #fff;
+        background: transparent;
+    }
+    .pl-rs__idx { font-size: 80px; }
 
     .pl-rs__admin {
         grid-template-columns: 0.9fr 1.15fr;
@@ -623,12 +681,17 @@
         letter-spacing: -1.7px;
     }
 
-    /* Services list 1:406 — rows ~95px, title left, price top-right, outline pill */
+    /* Services list 1:406 — stacked rows; tile wrappers use display:contents */
     .pl-rs__products {
+        display: flex;
+        flex-direction: column;
         gap: 14px;
     }
 
-    .pl-rs__product {
+    .pl-rs__product,
+    .pl-rs__product--wide,
+    .pl-rs__product:nth-child(4),
+    .pl-rs__product:nth-child(5) {
         display: grid;
         grid-template-columns: minmax(0, 1fr) auto;
         grid-template-areas:
@@ -636,12 +699,20 @@
             "text pill";
         gap: 4px 12px;
         align-items: center;
+        width: 100%;
         height: 95px;
         min-height: 95px;
         max-height: 95px;
         padding: 16px;
         border-radius: 20px;
         overflow: hidden;
+        grid-column: auto;
+    }
+
+    .pl-rs__product-top,
+    .pl-rs__product-head,
+    .pl-rs__product-bottom {
+        display: contents;
     }
 
     .pl-rs__idx {
@@ -656,6 +727,7 @@
         line-height: 1.2;
         align-self: start;
         max-width: 146px;
+        color: #fff;
     }
 
     .pl-rs__product-text {
@@ -683,6 +755,7 @@
         white-space: nowrap;
         align-self: start;
         justify-self: end;
+        max-width: none;
     }
 
     .pl-rs__product-glow {
@@ -690,6 +763,7 @@
         height: 170px;
         right: -24px;
         top: 46px;
+        bottom: auto;
         transform: none;
         opacity: 0.8;
     }

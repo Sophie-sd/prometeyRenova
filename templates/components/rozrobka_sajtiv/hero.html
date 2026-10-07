@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n static fx_tags %}
 <section class="pl-rs__hero" aria-labelledby="pl-rs-h1">
     <div class="pl-rs__hero-bg" aria-hidden="true">
         <img class="pl-rs__hero-bg-img" src="{% static 'img/rozrobka-figma/hero-bg.webp' %}" alt="" width="1600" height="639" decoding="async" fetchpriority="high">
@@ -7,11 +7,8 @@
         {# Copy + CTA first (mobile Figma 1:343); floats follow as 2×2 grid ≤767; desktop ≥1100 absolute #}
         <div class="pl-rs__hero-copy">
             <div class="pl-rs__kicker">
-                <p class="pl-rs__eyebrow">{% trans "Soft · договір" %}</p>
-                <div class="pl-rs__cur" role="group" aria-label="{% trans "Валюта орієнтира" %}">
-                    <button type="button" class="pl-rs__cur-btn is-on" data-currency="eur" aria-pressed="true" aria-label="{% trans "Євро" %}">€</button>
-                    <button type="button" class="pl-rs__cur-btn" data-currency="usd" aria-pressed="false" aria-label="{% trans "Долар США" %}">$</button>
-                </div>
+                <p class="pl-rs__eyebrow">{% trans "Договір" %}</p>
+                {% currency_switcher "dark" "soft" %}
             </div>
             <h1 id="pl-rs-h1" class="pl-rs__h1">{% trans "Розробка сайтів будь-якої складності під ключ" %}</h1>
             <p class="pl-rs__lead">{% trans "Лендінги, корпоративні сайти, інтернет-магазини, платформи будь-якої складності. Прозора співпраця: фіксуємо бюджет і строки у договорі. Безкоштовна підтримка та 5 років гарантії на код." %}</p>
@@ -25,77 +22,86 @@
             <article class="pl-rs__float pl-rs__float--tl">
                 <img class="pl-rs__float-rings" src="{% static 'img/rozrobka-figma/rings-hero.svg' %}" alt="" width="181" height="181" decoding="async">
                 <p class="pl-rs__float-title">{% trans "Лендінги" %}</p>
-                <div class="pl-rs__float-price">
-                    <span class="pl-rs__float-label">{% trans "від" %}</span>
-                    <span class="pl-rs__float-num"><span data-pl-rs-float data-eur="250" data-usd="270">250</span><span data-pl-rs-sign>€</span></span>
-                </div>
+                <p class="pl-rs__float-num">{% include 'fx/soft_range.html' with key='float-landing' low=250 high=400 %}</p>
                 <p class="pl-rs__float-chip">
                     <img src="{% static 'img/rozrobka-figma/ellipse.svg' %}" alt="" width="6" height="6" decoding="async">
-                    <span>{% trans "3–5 днів" %}</span>
+                    <span>{% trans "3–7 днів" %}</span>
                 </p>
+                <p class="pl-rs__scope-in">{% trans "У сумі: макет, верстка, форма, адаптив" %}</p>
+                <p class="pl-rs__scope-out">{% trans "Не входить: реклама, тексти з нуля, сторонні API" %}</p>
             </article>
             <article class="pl-rs__float pl-rs__float--tr">
                 <img class="pl-rs__float-rings" src="{% static 'img/rozrobka-figma/rings-hero.svg' %}" alt="" width="181" height="181" decoding="async">
                 <p class="pl-rs__float-title">{% trans "Корпоративні" %}</p>
-                <div class="pl-rs__float-price">
-                    <span class="pl-rs__float-label">{% trans "від" %}</span>
-                    <span class="pl-rs__float-num"><span data-pl-rs-float data-eur="500" data-usd="540">500</span><span data-pl-rs-sign>€</span></span>
-                </div>
+                <p class="pl-rs__float-num">{% include 'fx/soft_range.html' with key='float-corp' low=500 high=700 %}</p>
                 <p class="pl-rs__float-chip">
                     <img src="{% static 'img/rozrobka-figma/ellipse.svg' %}" alt="" width="6" height="6" decoding="async">
-                    <span>{% trans "7–10 днів" %}</span>
+                    <span>{% trans "7–14 днів" %}</span>
                 </p>
+                <p class="pl-rs__scope-in">{% trans "У сумі: структура сторінок, CMS-основа, адаптив, базова SEO" %}</p>
+                <p class="pl-rs__scope-out">{% trans "Не входить: наповнення контентом, реклама, складні інтеграції" %}</p>
             </article>
             <article class="pl-rs__float pl-rs__float--bl">
                 <img class="pl-rs__float-rings" src="{% static 'img/rozrobka-figma/rings-hero.svg' %}" alt="" width="181" height="181" decoding="async">
                 <p class="pl-rs__float-title">{% trans "Магазини" %}</p>
-                <div class="pl-rs__float-price">
-                    <span class="pl-rs__float-label">{% trans "від" %}</span>
-                    <span class="pl-rs__float-num"><span data-pl-rs-float data-eur="800" data-usd="865">800</span><span data-pl-rs-sign>€</span></span>
-                </div>
+                <p class="pl-rs__float-num">{% include 'fx/soft_range.html' with key='float-shop' low=800 high=1400 %}</p>
                 <p class="pl-rs__float-chip">
                     <img src="{% static 'img/rozrobka-figma/ellipse.svg' %}" alt="" width="6" height="6" decoding="async">
-                    <span>{% trans "7–10 днів" %}</span>
+                    <span>{% trans "14–21 день" %}</span>
                 </p>
+                <p class="pl-rs__scope-in">{% trans "У сумі: каталог, кошик, оплата/доставка-основа, адмінка замовлень" %}</p>
+                <p class="pl-rs__scope-out">{% trans "Не входить: наповнення товарів, маркетинг, кастомні інтеграції" %}</p>
             </article>
             <article class="pl-rs__float pl-rs__float--br">
                 <img class="pl-rs__float-rings" src="{% static 'img/rozrobka-figma/rings-hero.svg' %}" alt="" width="181" height="181" decoding="async">
                 <p class="pl-rs__float-title">{% trans "Платформи" %}</p>
-                <div class="pl-rs__float-price">
-                    <span class="pl-rs__float-label">{% trans "від" %}</span>
-                    <span class="pl-rs__float-num pl-rs__float-num--soft">{% trans "індивідуально" %}</span>
-                </div>
+                <p class="pl-rs__float-num">{% include 'fx/soft_range.html' with key='float-platform' low=1500 high=5000 %}</p>
                 <p class="pl-rs__float-chip">
                     <img src="{% static 'img/rozrobka-figma/ellipse.svg' %}" alt="" width="6" height="6" decoding="async">
-                    <span>{% trans "окремий бриф" %}</span>
+                    <span>{% trans "14–30 днів" %}</span>
                 </p>
+                <p class="pl-rs__scope-in">{% trans "У сумі: узгоджений MVP за брифом у діапазоні" %}</p>
+                <p class="pl-rs__scope-out">{% trans "Не входить: нові модулі після здачі, сторонні ліцензії" %}</p>
             </article>
         </div>
 
-        {# Soft € lock + secondary CTAs: keep in DOM for tests; visually hidden on mobile when floats grid shows #}
+        {# Accessible price strip (visually replaced by floats on mobile/desktop); kept for a11y + HTMX #}
         <div class="pl-rs__prices" role="list" aria-label="{% trans "Орієнтир ціни" %}">
             <article class="pl-rs__price" role="listitem">
-                <p class="pl-rs__price-from">{% trans "від" %}</p>
-                <p class="pl-rs__price-num"><span class="pl-rs__amount" data-pl-rs-amount data-eur="250" data-usd="270">250</span><span class="pl-rs__price-cur" data-pl-rs-sign>€</span></p>
+                <p class="pl-rs__price-num">{% include 'fx/soft_range.html' with key='strip-landing' low=250 high=400 %}</p>
                 <p class="pl-rs__price-name">{% trans "Лендінги" %}</p>
+                <p class="pl-rs__price-time">{% trans "3–7 днів" %}</p>
+                <p class="pl-rs__scope-in">{% trans "У сумі: макет, верстка, форма, адаптив" %}</p>
+                <p class="pl-rs__scope-out">{% trans "Не входить: реклама, тексти з нуля, сторонні API" %}</p>
             </article>
             <article class="pl-rs__price pl-rs__price--mid" role="listitem">
-                <p class="pl-rs__price-from">{% trans "від" %}</p>
-                <p class="pl-rs__price-num"><span class="pl-rs__amount" data-pl-rs-amount data-eur="500" data-usd="540">500</span><span class="pl-rs__price-cur" data-pl-rs-sign>€</span></p>
+                <p class="pl-rs__price-num">{% include 'fx/soft_range.html' with key='strip-corp' low=500 high=700 %}</p>
                 <p class="pl-rs__price-name">{% trans "Корпоративні" %}</p>
+                <p class="pl-rs__price-time">{% trans "7–14 днів" %}</p>
+                <p class="pl-rs__scope-in">{% trans "У сумі: структура сторінок, CMS-основа, адаптив, базова SEO" %}</p>
+                <p class="pl-rs__scope-out">{% trans "Не входить: наповнення контентом, реклама, складні інтеграції" %}</p>
             </article>
             <article class="pl-rs__price" role="listitem">
-                <p class="pl-rs__price-from">{% trans "від" %}</p>
-                <p class="pl-rs__price-num"><span class="pl-rs__amount" data-pl-rs-amount data-eur="800" data-usd="865">800</span><span class="pl-rs__price-cur" data-pl-rs-sign>€</span></p>
+                <p class="pl-rs__price-num">{% include 'fx/soft_range.html' with key='strip-shop' low=800 high=1400 %}</p>
                 <p class="pl-rs__price-name">{% trans "Магазини" %}</p>
+                <p class="pl-rs__price-time">{% trans "14–21 день" %}</p>
+                <p class="pl-rs__scope-in">{% trans "У сумі: каталог, кошик, оплата/доставка-основа, адмінка замовлень" %}</p>
+                <p class="pl-rs__scope-out">{% trans "Не входить: наповнення товарів, маркетинг, кастомні інтеграції" %}</p>
+            </article>
+            <article class="pl-rs__price" role="listitem">
+                <p class="pl-rs__price-num">{% include 'fx/soft_range.html' with key='strip-platform' low=1500 high=5000 %}</p>
+                <p class="pl-rs__price-name">{% trans "Платформи" %}</p>
+                <p class="pl-rs__price-time">{% trans "14–30 днів" %}</p>
+                <p class="pl-rs__scope-in">{% trans "У сумі: узгоджений MVP за брифом у діапазоні" %}</p>
+                <p class="pl-rs__scope-out">{% trans "Не входить: нові модулі після здачі, сторонні ліцензії" %}</p>
             </article>
         </div>
 
         <div class="pl-rs__actions">
             <div class="pl-rs__links">
-                <a class="pl-rs__link mobile-touch-target" href="{% url 'calculator' %}">{% trans "Розрахувати вартість" %}</a>
-                <a class="pl-rs__link mobile-touch-target" href="{{ site_contact.telegram_url }}" target="_blank" rel="noopener noreferrer">{% trans "Написати в Telegram" %}</a>
-                <a class="pl-rs__link mobile-touch-target" href="{{ site_contact.get_tel_href|default:'tel:+380639520565' }}">{% trans "Зателефонувати прямо зараз" %}</a>
+                <a class="pl-rs__link pl-rs__link--muted mobile-touch-target" href="{% url 'calculator' %}">{% trans "Розрахувати вартість" %}</a>
+                <a class="pl-rs__link pl-rs__link--muted mobile-touch-target" href="{{ site_contact.telegram_url }}" target="_blank" rel="noopener noreferrer">{% trans "Написати в Telegram" %}</a>
+                <a class="pl-rs__link pl-rs__link--muted mobile-touch-target" href="{{ site_contact.get_tel_href|default:'tel:+380639520565' }}">{% trans "Зателефонувати прямо зараз" %}</a>
             </div>
         </div>
     </div>

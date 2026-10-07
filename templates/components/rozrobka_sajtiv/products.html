@@ -1,47 +1,76 @@
-{% load i18n static %}
+{% load i18n static fx_tags %}
 <section class="pl-rs__section pl-rs__section--services" aria-labelledby="pl-rs-products-title">
     <div class="pl-rs__inner">
         <h2 id="pl-rs-products-title" class="pl-rs__h2 pl-rs__h2--center">{% trans "Що збираємо під ключ" %}</h2>
         <div class="pl-rs__products">
             <a class="pl-rs__product" href="{% url 'calculator' %}">
-                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="170" height="170" decoding="async" aria-hidden="true">
-                <span class="pl-rs__idx">01</span>
-                <span class="pl-rs__product-name">{% trans "Лендінги" %}</span>
-                <span class="pl-rs__product-text">{% trans "Одна сторінка під рекламу: офер, форма, швидкий запуск." %}</span>
-                <span class="pl-rs__product-meta">{% trans "від" %} <span class="pl-rs__amount" data-pl-rs-amount data-eur="250" data-usd="270">250</span><span data-pl-rs-sign>€</span></span>
-                <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
+                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
+                <div class="pl-rs__product-top">
+                    <div class="pl-rs__product-head">
+                        <span class="pl-rs__product-name">{% trans "Лендінги" %}</span>
+                        <span class="pl-rs__product-meta">{% include 'fx/soft_range.html' with key='prod-landing' low=250 high=400 %}</span>
+                    </div>
+                    <span class="pl-rs__idx" aria-hidden="true">01</span>
+                </div>
+                <div class="pl-rs__product-bottom">
+                    <span class="pl-rs__product-text">{% trans "Одна сторінка під рекламу: офер, форма, швидкий запуск." %}</span>
+                    <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
+                </div>
             </a>
             <a class="pl-rs__product" href="{% url 'corporate_website' %}">
-                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="170" height="170" decoding="async" aria-hidden="true">
-                <span class="pl-rs__idx">02</span>
-                <span class="pl-rs__product-name">{% trans "Корпоративні сайти" %}</span>
-                <span class="pl-rs__product-text">{% trans "Структура компанії, послуги і SEO-основа." %}</span>
-                <span class="pl-rs__product-meta">{% trans "від" %} <span class="pl-rs__amount" data-pl-rs-amount data-eur="500" data-usd="540">500</span><span data-pl-rs-sign>€</span></span>
-                <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
+                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
+                <div class="pl-rs__product-top">
+                    <div class="pl-rs__product-head">
+                        <span class="pl-rs__product-name">{% trans "Корпоративні сайти" %}</span>
+                        <span class="pl-rs__product-meta">{% include 'fx/soft_range.html' with key='prod-corp' low=500 high=700 %}</span>
+                    </div>
+                    <span class="pl-rs__idx" aria-hidden="true">02</span>
+                </div>
+                <div class="pl-rs__product-bottom">
+                    <span class="pl-rs__product-text">{% trans "Структура компанії, послуги і SEO-основа." %}</span>
+                    <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
+                </div>
             </a>
             <a class="pl-rs__product" href="{% url 'internet_shop' %}">
-                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="170" height="170" decoding="async" aria-hidden="true">
-                <span class="pl-rs__idx">03</span>
-                <span class="pl-rs__product-name">{% trans "Інтернет-магазини" %}</span>
-                <span class="pl-rs__product-text">{% trans "Каталог, оплата, доставка, замовлення в адмінці." %}</span>
-                <span class="pl-rs__product-meta">{% trans "від" %} <span class="pl-rs__amount" data-pl-rs-amount data-eur="800" data-usd="865">800</span><span data-pl-rs-sign>€</span></span>
-                <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
+                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
+                <div class="pl-rs__product-top">
+                    <div class="pl-rs__product-head">
+                        <span class="pl-rs__product-name">{% trans "Інтернет-магазини" %}</span>
+                        <span class="pl-rs__product-meta">{% include 'fx/soft_range.html' with key='prod-shop' low=800 high=1400 %}</span>
+                    </div>
+                    <span class="pl-rs__idx" aria-hidden="true">03</span>
+                </div>
+                <div class="pl-rs__product-bottom">
+                    <span class="pl-rs__product-text">{% trans "Каталог, оплата, доставка, замовлення в адмінці." %}</span>
+                    <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
+                </div>
             </a>
-            <a class="pl-rs__product" href="{% url 'calculator' %}">
-                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="170" height="170" decoding="async" aria-hidden="true">
-                <span class="pl-rs__idx">04</span>
-                <span class="pl-rs__product-name">{% trans "Платформи" %}</span>
-                <span class="pl-rs__product-text">{% trans "Кабінети, ролі й інтеграції — коли сайту вже мало." %}</span>
-                <span class="pl-rs__product-meta">{% trans "індивідуально" %}</span>
-                <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
+            <a class="pl-rs__product pl-rs__product--wide" href="{% url 'calculator' %}">
+                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
+                <div class="pl-rs__product-top">
+                    <div class="pl-rs__product-head">
+                        <span class="pl-rs__product-name">{% trans "Платформи" %}</span>
+                        <span class="pl-rs__product-meta">{% include 'fx/soft_range.html' with key='prod-platform' low=1500 high=5000 %}</span>
+                    </div>
+                    <span class="pl-rs__idx" aria-hidden="true">04</span>
+                </div>
+                <div class="pl-rs__product-bottom">
+                    <span class="pl-rs__product-text">{% trans "Кабінети, ролі й інтеграції — коли сайту вже мало." %}</span>
+                    <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
+                </div>
             </a>
-            <a class="pl-rs__product" href="{% url 'telegram_bot' %}">
-                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="170" height="170" decoding="async" aria-hidden="true">
-                <span class="pl-rs__idx">05</span>
-                <span class="pl-rs__product-name">{% trans "Telegram-боти" %}</span>
-                <span class="pl-rs__product-text">{% trans "Заявки і CRM у чаті поруч із сайтом." %}</span>
-                <span class="pl-rs__product-meta">{% trans "окремий бриф" %}</span>
-                <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
+            <a class="pl-rs__product pl-rs__product--wide" href="{% url 'telegram_bot' %}">
+                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
+                <div class="pl-rs__product-top">
+                    <div class="pl-rs__product-head">
+                        <span class="pl-rs__product-name">{% trans "Telegram-боти" %}</span>
+                    </div>
+                    <span class="pl-rs__idx" aria-hidden="true">05</span>
+                </div>
+                <div class="pl-rs__product-bottom">
+                    <span class="pl-rs__product-text">{% trans "Заявки і CRM у чаті поруч із сайтом." %}</span>
+                    <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
+                </div>
             </a>
         </div>
     </div>

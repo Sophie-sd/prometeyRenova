@@ -5,10 +5,10 @@
 {% block body_attrs %} class="pl-rs-body" data-modal-source-page="rozrobka-sajtiv"{% endblock %}
 
 {% block title %}{% trans "Розробка сайтів під ключ в Україні | PrometeyLabs" %}{% endblock %}
-{% block description %}{% trans "Розробка сайтів будь-якої складності під ключ: лендінги від 250 €, корпоративні від 500 €, магазини від 800 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію." %}{% endblock %}
+{% block description %}{% trans "Розробка сайтів будь-якої складності під ключ: лендінги 250–400 €, корпоративні 500–700 €, магазини 800–1 400 €, платформи 1 500–5 000 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію." %}{% endblock %}
 {% block keywords %}{% trans "розробка сайтів, сайт під ключ, лендінг, корпоративний сайт, інтернет-магазин, PrometeyLabs" %}{% endblock %}
 {% block og_title %}{% trans "Розробка сайтів під ключ | PrometeyLabs" %}{% endblock %}
-{% block og_description %}{% trans "Розробка сайтів будь-якої складності під ключ: лендінги від 250 €, корпоративні від 500 €, магазини від 800 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію." %}{% endblock %}
+{% block og_description %}{% trans "Розробка сайтів будь-якої складності під ключ: лендінги 250–400 €, корпоративні 500–700 €, магазини 800–1 400 €, платформи 1 500–5 000 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію." %}{% endblock %}
 {% block og_image %}https://www.prometeylabs.com/static/images/og-image.jpg{% endblock %}
 
 {% block extra_head %}
@@ -19,7 +19,7 @@
 <link rel="alternate" hreflang="en" href="https://www.prometeylabs.com/en/rozrobka-sajtiv/">
 <link rel="alternate" hreflang="x-default" href="https://www.prometeylabs.com/rozrobka-sajtiv/">
 {% trans "Розробка сайтів під ключ | PrometeyLabs" as rs_tw_title %}
-{% trans "Розробка сайтів будь-якої складності під ключ: лендінги від 250 €, корпоративні від 500 €, магазини від 800 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію." as rs_tw_desc %}
+{% trans "Розробка сайтів будь-якої складності під ключ: лендінги 250–400 €, корпоративні 500–700 €, магазини 800–1 400 €, платформи 1 500–5 000 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію." as rs_tw_desc %}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ rs_tw_title }}">
 <meta name="twitter:description" content="{{ rs_tw_desc }}">
@@ -60,6 +60,12 @@
       "name": "{% filter escapejs %}{% trans "Магазини" %}{% endfilter %}",
       "price": "800",
       "priceCurrency": "EUR"
+    },
+    {
+      "@type": "Offer",
+      "name": "{% filter escapejs %}{% trans "Платформи" %}{% endfilter %}",
+      "price": "1500",
+      "priceCurrency": "EUR"
     }
   ]
 }
@@ -67,12 +73,12 @@
 {% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv.css' %}?v=8">
-<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv-2.css' %}?v=8">
+<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv.css' %}?v=9">
+<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv-2.css' %}?v=9">
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/rozrobka-sajtiv.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/rozrobka-sajtiv.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}
 
 {% block content %}

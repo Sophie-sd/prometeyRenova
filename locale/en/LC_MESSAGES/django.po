@@ -6900,3 +6900,45 @@ msgstr "US dollar"
 #: templates/pages/rozrobka-sajtiv.html
 msgid "Три орієнтири Soft — старт розмови. Точну суму і строк фіксуємо після брифу в договорі."
 msgstr "Three Soft guides start the conversation. We fix the exact sum and timeline in the contract after the brief."
+
+msgid "3–7 днів"
+msgstr "3–7 days"
+
+msgid "7–14 днів"
+msgstr "7–14 days"
+
+msgid "14–21 день"
+msgstr "14–21 days"
+
+msgid "14–30 днів"
+msgstr "14–30 days"
+
+msgid "У сумі: макет, верстка, форма, адаптив"
+msgstr "Included: layout, markup, form, responsive"
+
+msgid "Не входить: реклама, тексти з нуля, сторонні API"
+msgstr "Not included: ads, copy from scratch, third-party APIs"
+
+msgid "У сумі: структура сторінок, CMS-основа, адаптив, базова SEO"
+msgstr "Included: page structure, CMS base, responsive, basic SEO"
+
+msgid "Не входить: наповнення контентом, реклама, складні інтеграції"
+msgstr "Not included: content fill, ads, complex integrations"
+
+msgid "У сумі: каталог, кошик, оплата/доставка-основа, адмінка замовлень"
+msgstr "Included: catalog, cart, payment/shipping base, order admin"
+
+msgid "Не входить: наповнення товарів, маркетинг, кастомні інтеграції"
+msgstr "Not included: product fill, marketing, custom integrations"
+
+msgid "У сумі: узгоджений MVP за брифом у діапазоні"
+msgstr "Included: agreed MVP per brief within range"
+
+msgid "Не входить: нові модулі після здачі, сторонні ліцензії"
+msgstr "Not included: new modules after handoff, third-party licenses"
+
+msgid "Чотири орієнтири — старт розмови. Точну суму і строк фіксуємо після брифу в договорі."
+msgstr "Four anchors — conversation start. Exact sum and timeline are fixed after the brief in the contract."
+
+msgid "Розробка сайтів будь-якої складності під ключ: лендінги 250–400 €, корпоративні 500–700 €, магазини 800–1 400 €, платформи 1 500–5 000 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію."
+msgstr "Turnkey websites of any complexity: landings 250–400 €, corporate 500–700 €, shops 800–1 400 €, platforms 1 500–5 000 €. Budget and timeline in the contract, free support, 5-year code warranty. Get a consultation."

@@ -46,7 +46,7 @@ def fx_package(context, package):
 def currency_switcher(context, variant='light', region='home', oob=False):
     if variant not in _VARIANTS:
         variant = 'light'
-    if region not in {'home', 'shop', 'proposal'}:
+    if region not in {'home', 'shop', 'proposal', 'soft'}:
         region = 'home'
     request = context.get('request')
     codes = context.get('fx_codes') or ['EUR']

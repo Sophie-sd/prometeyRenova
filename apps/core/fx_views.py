@@ -8,7 +8,7 @@ from django.views.decorators.http import require_POST
 from apps.core.fx import CURRENCY_COOKIE, CURRENCY_COOKIE_AGE, normalize_currency
 from apps.core.i18n_views import _redirect_target
 
-_REGIONS = {'home', 'shop', 'proposal'}
+_REGIONS = {'home', 'shop', 'proposal', 'soft'}
 
 
 def _with_cookie(response, code):

@@ -113,6 +113,20 @@ class FxConvertTests(TestCase):
         self.assertIn('aria-label="Гривня"', body)
         self.assertIn('hx-swap-oob="outerHTML"', body)
 
+    def test_htmx_swaps_soft_prices(self):
+        response = self.client.post('/i18n/set_currency/', {
+            'currency': 'UAH',
+            'region': 'soft',
+            'next': '/rozrobka-sajtiv/',
+        }, HTTP_HX_REQUEST='true')
+        body = response.content.decode()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.cookies['pl_currency'].value, 'UAH')
+        self.assertIn('10 000–16 000 ₴', body)
+        self.assertIn('id="fx-switch-soft"', body)
+        self.assertIn('id="fx-soft-float-landing"', body)
+        self.assertIn('hx-swap-oob="outerHTML"', body)
+
     def test_htmx_rejects_unknown_region(self):
         response = self.client.post('/i18n/set_currency/', {
             'currency': 'EUR',
