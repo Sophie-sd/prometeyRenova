@@ -2111,7 +2111,7 @@ msgstr "Интернет-магазины"
 #, fuzzy
 #| msgid "Корпоративні сайти"
 msgid "Корпоративні сайти та лендінги"
-msgstr "Корпоративные сайты"
+msgstr "Корпоративные сайты и лендинги"
 
 #: templates/components/burger_menu.html:45
 msgid "Розрахувати пропозицію"
@@ -2258,7 +2258,7 @@ msgstr "PrometeyLabs - Главная страница"
 
 #: templates/components/header.html:13
 msgid "Основне меню"
-msgstr "Главное меню"
+msgstr "Основное меню"
 
 #: templates/components/header.html:14
 msgid "головна"
