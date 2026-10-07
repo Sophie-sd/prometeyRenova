@@ -3,6 +3,8 @@ from __future__ import annotations
 
 from decimal import Decimal, ROUND_HALF_UP
 
+from django.utils.translation import gettext as _
+
 CURRENCY_COOKIE = 'pl_currency'
 CURRENCY_COOKIE_AGE = 60 * 60 * 24 * 365
 
@@ -118,7 +120,7 @@ def format_range(low, high, currency: str, rates) -> str:
 
 
 def format_from(amount, currency: str, rates) -> str:
-    return f'від {format_amount(amount, currency, rates)}'
+    return f'{_("від")} {format_amount(amount, currency, rates)}'
 
 
 def is_eur_mark(mark: str | None) -> bool:

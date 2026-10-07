@@ -6,7 +6,10 @@
     var form = document.getElementById('pl-shop-quiz-form');
     if (!form) return;
 
-    var PKG_MAP = {
+    var isRu = (document.documentElement.lang || '').toLowerCase().indexOf('ru') === 0
+        || /\/ru\//.test(location.pathname);
+
+    var PKG_MAP_UK = {
         base: {
             label: 'Старт',
             price: 'від 700\u00a0€',
@@ -38,6 +41,41 @@
             ]
         }
     };
+
+    var PKG_MAP_RU = {
+        base: {
+            label: 'Старт',
+            price: 'от 700\u00a0€',
+            term: '3–4 недели',
+            features: [
+                'Базовый конверсионный дизайн под нишу',
+                'ИИ-контент и базовая SEO-подготовка',
+                'Развёртывание под ключ на вашем домене'
+            ]
+        },
+        premium: {
+            label: 'Бизнес',
+            price: 'от 1\u00a0500\u00a0€',
+            term: '5–8 недель',
+            features: [
+                'Индивидуальный UI/UX дизайн с нуля',
+                'Интеграции: платежи, логистика, CRM',
+                'Контент-маркетинг и SEO-статьи'
+            ]
+        },
+        platinum: {
+            label: 'Масштаб',
+            price: 'от 7\u00a0000\u00a0€',
+            term: '2–4 месяца',
+            features: [
+                'Premium UI/UX + кинематографическая анимация',
+                'AI-экосистема админки и Telegram-бот',
+                '6 месяцев контент-маркетинга и медиакампании'
+            ]
+        }
+    };
+
+    var PKG_MAP = isRu ? PKG_MAP_RU : PKG_MAP_UK;
 
     function applyQuizPrices() {
         var node = document.getElementById('fx-quiz-prices');
@@ -108,31 +146,31 @@
         var features = getCheckedFeatures();
         var timeline = getCheckedValue('q_timeline');
 
-        if (start === 'Старт з нуля') score.base += 2;
-        if (start === 'Міграція з Prom / OLX') score.premium += 2;
-        if (start === 'Масштабування + маркетинг під ключ') score.platinum += 3;
-        if (start === 'Ще не визначився') score.premium += 1;
+        if (start === 'Старт з нуля' || start === 'Старт с нуля') score.base += 2;
+        if (start === 'Міграція з Prom / OLX' || start === 'Миграция с Prom / OLX') score.premium += 2;
+        if (start === 'Масштабування + маркетинг під ключ' || start === 'Масштабирование + маркетинг под ключ') score.platinum += 3;
+        if (start === 'Ще не визначився' || start === 'Ещё не определился') score.premium += 1;
 
-        if (products === 'До 100 товарів') score.base += 2;
-        if (products === '100–1000 товарів') score.premium += 2;
-        if (products === '1000–10 000 товарів') score.platinum += 2;
-        if (products === 'Більше 10 000 товарів') score.platinum += 3;
+        if (products === 'До 100 товарів' || products === 'До 100 товаров') score.base += 2;
+        if (products === '100–1000 товарів' || products === '100–1000 товаров') score.premium += 2;
+        if (products === '1000–10 000 товарів' || products === '1000–10 000 товаров') score.platinum += 2;
+        if (products === 'Більше 10 000 товарів' || products === 'Больше 10 000 товаров') score.platinum += 3;
 
         features.forEach(function (val) {
             if (val === 'CRM + Telegram') { score.premium += 2; }
-            if (val === 'SEO + статті') { score.premium += 2; score.platinum += 1; }
-            if (val === 'AI-адмінка + бот') { score.platinum += 3; }
-            if (val === 'Реклама та просування') { score.platinum += 2; }
+            if (val === 'SEO + статті' || val === 'SEO + статьи') { score.premium += 2; score.platinum += 1; }
+            if (val === 'AI-адмінка + бот' || val === 'AI-админка + бот') { score.platinum += 3; }
+            if (val === 'Реклама та просування' || val === 'Реклама и продвижение') { score.platinum += 2; }
         });
 
         if (features.length <= 1) score.base += 1;
         if (features.length >= 2 && features.length <= 3) score.premium += 1;
         if (features.length >= 4) score.platinum += 2;
 
-        if (timeline === 'Якнайшвидше (до 2 тижнів)') score.base += 2;
-        if (timeline === 'Протягом місяця') score.premium += 2;
-        if (timeline === '1–3 місяці') score.platinum += 1;
-        if (timeline === 'Терміни гнучкі') score.platinum += 1;
+        if (timeline === 'Якнайшвидше (до 2 тижнів)' || timeline === 'Как можно скорее (до 2 недель)') score.base += 2;
+        if (timeline === 'Протягом місяця' || timeline === 'В течение месяца') score.premium += 2;
+        if (timeline === '1–3 місяці' || timeline === '1–3 месяца') score.platinum += 1;
+        if (timeline === 'Терміни гнучкі' || timeline === 'Сроки гибкие') score.platinum += 1;
 
         var pkgHint = getPkgHint();
         if (pkgHint && PKG_MAP[pkgHint]) {
@@ -210,17 +248,22 @@
         var pkgKey = recommendPackage();
         var data = PKG_MAP[pkgKey];
         var pkgHint = getPkgHint();
-        var fields = [
+        var fields = isRu ? [
+            { name: 'q_start', label: 'Старт проекта' },
+            { name: 'q_products', label: 'Количество товаров' },
+            { name: 'q_features', label: 'Дополнительные опции', multi: true },
+            { name: 'q_timeline', label: 'Сроки' }
+        ] : [
             { name: 'q_start', label: 'Старт проєкту' },
             { name: 'q_products', label: 'Кількість товарів' },
             { name: 'q_features', label: 'Додаткові опції', multi: true },
             { name: 'q_timeline', label: 'Терміни' }
         ];
 
-        var parts = ['Сторінка: ' + (form.dataset.sourceLabel || 'Інтернет-магазин v2')];
+        var parts = [(isRu ? 'Страница: ' : 'Сторінка: ') + (form.dataset.sourceLabel || (isRu ? 'Интернет-магазин v2' : 'Інтернет-магазин v2'))];
 
         if (data) {
-            parts.push('Рекомендований пакет: ' + data.label + ' · ' + data.price + ' · ' + data.term);
+            parts.push((isRu ? 'Рекомендованный пакет: ' : 'Рекомендований пакет: ') + data.label + ' · ' + data.price + ' · ' + data.term);
         }
 
         fields.forEach(function (field) {
@@ -234,7 +277,7 @@
         });
 
         if (pkgHint && PKG_MAP[pkgHint]) {
-            parts.push('Підказка з картки пакета: ' + PKG_MAP[pkgHint].label);
+            parts.push((isRu ? 'Подсказка с карточки пакета: ' : 'Підказка з картки пакета: ') + PKG_MAP[pkgHint].label);
         }
 
         detailsInput.value = parts.join('\n');

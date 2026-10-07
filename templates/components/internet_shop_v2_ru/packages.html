@@ -11,14 +11,14 @@
                 </p>
                 {% currency_switcher "dark" "shop" %}
             </div>
-            <a href="{% url 'monobank_chastynamy' %}" class="pl-shop__monobank-label" aria-label="Покупка частинами monobank">
+            <a href="{% url 'monobank_chastynamy' %}" class="pl-shop__monobank-label" aria-label="Покупка частями monobank">
                 <picture>
                     <source type="image/webp"
                         srcset="{% static 'images/monobank/label-black-outline-15-728.webp' %} 728w, {% static 'images/monobank/label-black-outline-15-1456.webp' %} 1456w"
                         sizes="(max-width: 767px) 364px, 480px">
                     <img
                         src="{% static 'images/monobank/label-black-outline-15.png' %}"
-                        alt="Покупка частинами monobank"
+                        alt="Покупка частями monobank"
                         width="1500"
                         height="493"
                         loading="lazy"
@@ -28,7 +28,7 @@
             </a>
         </div>
 
-        <aside class="pl-shop__pkg-foundation-wrap" data-reveal aria-label="Що входить у кожен пакет">
+        <aside class="pl-shop__pkg-foundation-wrap" data-reveal aria-label="Что входит в каждый пакет">
             <article class="pl-shop__pkg-foundation">
                 <p class="pl-shop__pkg-foundation-lead">В каждом пакете — одна и та же база</p>
                 <ul class="pl-shop__pkg-foundation-list">
@@ -38,7 +38,7 @@
                     <li>Развёртывание под ключ на вашем домене</li>
                 </ul>
                 <p class="pl-shop__pkg-foundation-note">
-                    Пакет отличает <span class="pl-shop__accent">глубину ИИ</span>, <span class="pl-shop__accent">интеграции</span> та <span class="pl-shop__accent">маркетинг</span> — не качество фундамента.
+                    Пакет отличает <span class="pl-shop__accent">глубину ИИ</span>, <span class="pl-shop__accent">интеграции</span> и <span class="pl-shop__accent">маркетинг</span> — не качество фундамента.
                 </p>
             </article>
         </aside>
@@ -92,7 +92,7 @@
             <article class="pl-shop__pkg-card pl-shop__pkg-card--platinum">
                 <p class="pl-shop__pkg-name">Масштаб</p>
                 {% include 'fx/pkg_price.html' with key='platinum' amount=7000 %}
-                <p class="pl-shop__pkg-desc">Масштабна платформа з AI-екосистемою та повним маркетинговим супроводом</p>
+                <p class="pl-shop__pkg-desc">Масштабная платформа с AI-экосистемой и полным маркетинговым сопровождением</p>
                 <div class="pl-shop__pkg-features">
                     <ul class="pl-shop__pkg-list">
                         <li>Premium UI/UX + кинематографическая анимация</li>
@@ -104,7 +104,7 @@
                     <div class="pl-shop__pkg-extra" id="pl-shop-pkg-extra-platinum" hidden>
                         <ul class="pl-shop__pkg-list pl-shop__pkg-list--more">
                             <li>AI-экосистема админки с чатом AI-менеджера</li>
-                            <li>Власний Telegram-бот для замовлень</li>
+                            <li>Собственный Telegram-бот для заказов</li>
                             <li>Развёртывание под ключ на хостинг-платформе</li>
                             <li>6 месяцев контент-маркетинга и SEO-статей</li>
                             <li>60 органических отзывов в Google Maps</li>
