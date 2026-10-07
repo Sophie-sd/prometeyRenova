@@ -48,33 +48,39 @@
 }
 
 .pl-rs__hero-bg {
+    /* Figma 1:56 wrapper: full-bleed, overflow hidden */
     position: absolute;
-    left: 50%;
+    inset: 0;
     top: 0;
-    transform: translateX(-50%);
-    width: min(1440px, 100%);
-    height: min(793px, 100%);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    transform: none;
     pointer-events: none;
     overflow: hidden;
+    z-index: 0;
 }
 
+/* Only a light seam fade into page black at the very bottom — fibers stay bright (Figma 1:56). */
 .pl-rs__hero-bg::after {
     content: "";
     position: absolute;
     inset: 0;
-    background:
-        radial-gradient(ellipse 70% 55% at 50% 42%, rgba(208, 83, 0, 0.18), transparent 62%),
-        linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.85) 88%, #000 100%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 82%, rgba(0, 0, 0, 0.55) 94%, #000 100%);
 }
 
+/* Figma 1:56 img geometry 1:1: left -18.82%, top 0, width 137.71%, height 100% */
 .pl-rs__hero-bg-img {
     position: absolute;
     left: -18.82%;
     top: 0;
     width: 137.71%;
     height: 100%;
+    max-width: none;
     object-fit: cover;
-    object-position: center top;
+    object-position: center;
 }
 
 .pl-rs__hero-stage {
