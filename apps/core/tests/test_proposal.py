@@ -916,3 +916,58 @@ class ProposalSeedTests(TestCase):
         self.assertContains(kp, site.get_absolute_url())
         self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
         self.assertNotContains(kp, 'Рекомендовано')
+
+    def test_devisu_seed_is_corporate_with_demo_site(self):
+        from apps.demoshop.services.provision import provision_demo_shop
+
+        call_command('seed_proposal_devisu', no_demo=True)
+        proposal = Proposal.objects.get(slug='corporate-devisu-a7f3')
+        leftover = DemoShop(
+            proposal=proposal,
+            name='Demo Shop',
+            slug=DemoShop.generate_slug('devisu'),
+        )
+        leftover.save()
+        provision_demo_shop(proposal)
+        call_command('seed_proposal_devisu')
+        call_command('seed_proposal_devisu')
+        proposal.refresh_from_db()
+        self.assertEqual(proposal.client_name, 'DEVISU')
+        self.assertEqual(proposal.kind, Proposal.DemoKind.CORPORATE)
+        self.assertTrue(proposal.corp_catalog)
+        self.assertEqual(proposal.issued_on.isoformat(), '2026-10-07')
+        names = list(
+            proposal.packages.order_by('order').values_list(
+                'name', 'price', 'duration', 'is_recommended',
+            )
+        )
+        self.assertEqual(names, [
+            ('Сайт з базовим дизайном', Decimal('600.00'), '25 днів', False),
+            ('Сайт з авторським дизайном', Decimal('800.00'), '25 днів', False),
+        ])
+        self.assertFalse(proposal.packages.filter(is_recommended=True).exists())
+        self.assertIn('пожиттєву гарантію', proposal.guarantee_html)
+        self.assertIn('нестабільних сторонніх плагінів', proposal.guarantee_html)
+        proposal.hero_image = ''
+        self.assertIn('seal-on-dark.webp', proposal.hero_public_url)
+        self.assertFalse(DemoShop.objects.filter(proposal=proposal).exists())
+        self.assertEqual(CorpSite.objects.filter(proposal=proposal).count(), 1)
+        site = CorpSite.objects.get(proposal=proposal)
+        self.assertEqual(site.name, 'Demo Site')
+        self.assertTrue(site.has_catalog)
+        self.assertTrue(site.slug.startswith('devisu-'))
+        call_command('seed_proposal_catalog')
+        kept = Proposal.objects.get(slug='corporate-catalog-a7f3')
+        self.assertEqual(kept.packages.get().price, Decimal('1500.00'))
+        self.assertFalse(CorpSite.objects.filter(proposal=kept).exists())
+
+        client = Client()
+        kp = client.get(reverse('proposal_detail', kwargs={'slug': proposal.slug}))
+        self.assertEqual(kp.status_code, 200)
+        self.assertContains(kp, '600')
+        self.assertContains(kp, '800')
+        self.assertContains(kp, 'Переглянути демо сайту')
+        self.assertContains(kp, 'не версія вашого сайту')
+        self.assertContains(kp, site.get_absolute_url())
+        self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
+        self.assertNotContains(kp, 'Рекомендовано')
