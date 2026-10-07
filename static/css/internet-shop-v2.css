@@ -31,9 +31,15 @@
 body.pl-shop-body {
     --pl-bg: #0A0A0A;
     --pl-acc: #E65100;
+    --pl-header-offset: 80px;
     background: var(--pl-bg);
     color: #fff;
     overflow-x: clip;
+    scroll-padding-top: calc(var(--pl-header-offset) + env(safe-area-inset-top, 0px));
+}
+
+html:has(body.pl-shop-body) {
+    scroll-padding-top: calc(var(--pl-header-offset, 80px) + env(safe-area-inset-top, 0px));
 }
 
 body.pl-shop-body .main-footer .container {
@@ -502,9 +508,11 @@ body.pl-shop-body .main-footer .container {
 }
 
 /* ===== CLIENTS (same as home page) ===== */
-.pl-shop__clients-block {
+.pl-shop__clients-block,
+#portfolio {
     padding: clamp(64px, 8vw, 96px) 0 clamp(28px, 4vw, 44px);
     border-bottom: 1px solid #161616;
+    scroll-margin-top: calc(var(--pl-header-offset) + env(safe-area-inset-top, 0px));
 }
 
 .pl-shop__clients-label {
@@ -3509,4 +3517,80 @@ body.pl-shop-body .main-footer .container {
     .pl-shop__pkg-foundation-wrap:hover .pl-shop__pkg-foundation {
         transform: none;
     }
+}
+
+/* ===== DROPSHIPPING ===== */
+.pl-shop__dropshipping,
+#dropshipping {
+    scroll-margin-top: calc(var(--pl-header-offset) + env(safe-area-inset-top, 0px));
+}
+
+.pl-shop__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, monospace;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pl-acc);
+    margin: 0 0 16px;
+}
+
+.pl-shop__drop-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.pl-shop__drop-list li {
+    position: relative;
+    padding: 16px 16px 16px 38px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #222;
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+.pl-shop__drop-list li::before {
+    content: "→";
+    position: absolute;
+    left: 14px;
+    top: 16px;
+    color: var(--pl-acc);
+    font-weight: 700;
+}
+
+@media (min-width: 768px) {
+    .pl-shop__drop-list {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .pl-shop__drop-list {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+    }
+
+    .pl-shop__drop-list li {
+        font-size: 15px;
+        padding: 18px 18px 18px 42px;
+    }
+
+    .pl-shop__drop-list li::before {
+        left: 16px;
+        top: 18px;
+    }
+}
+
+.pl-shop__dropshipping .pl-shop__section-cta {
+    margin-top: 8px;
 }

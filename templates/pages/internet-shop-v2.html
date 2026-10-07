@@ -29,7 +29,7 @@
 <link rel="preload" href="{% static 'css/internet-shop-v2-anim.css' %}?v=10" as="style">
 <link rel="stylesheet" href="{% static 'css/internet-shop-v2-anim.css' %}?v=10" media="print" data-async-css>
 <noscript><link rel="stylesheet" href="{% static 'css/internet-shop-v2-anim.css' %}?v=10"></noscript>
-<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=116">
+<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=117">
 {% endblock %}
 
 {% block content %}
@@ -38,6 +38,7 @@
     {% include 'components/internet_shop_v2/clients.html' %}
     {% include 'components/internet_shop_v2/svoboda.html' %}
     {% include 'components/internet_shop_v2/packages.html' %}
+    {% include 'components/internet_shop_v2/dropshipping.html' %}
     {% include 'components/internet_shop_v2/admin.html' %}
     {% include 'components/internet_shop_v2/garantiya.html' %}
     {% include 'components/internet_shop_v2/brief.html' %}
@@ -47,6 +48,6 @@
 
 {% block extra_js %}
 <script src="{% static 'js/internet-shop-v2-admin-mock.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/internet-shop-v2-quiz.js' %}?v=8" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-v2-quiz.js' %}?v=9" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/internet-shop-v2.js' %}?v=23" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

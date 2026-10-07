@@ -8,8 +8,8 @@
 
     var PKG_MAP = {
         base: {
-            label: 'BASE',
-            price: 'від 800\u00a0€',
+            label: 'Старт',
+            price: 'від 700\u00a0€',
             term: '3–4 тижні',
             features: [
                 'Базовий конверсійний дизайн під нішу',
@@ -18,7 +18,7 @@
             ]
         },
         premium: {
-            label: 'PREMIUM',
+            label: 'Бізнес',
             price: 'від 1\u00a0500\u00a0€',
             term: '5–8 тижнів',
             features: [
@@ -28,7 +28,7 @@
             ]
         },
         platinum: {
-            label: 'PLATINUM',
+            label: 'Масштаб',
             price: 'від 7\u00a0000\u00a0€',
             term: '2–4 місяці',
             features: [
