@@ -2273,19 +2273,19 @@ msgstr "портфолио"
 #, fuzzy
 #| msgid "Послуги"
 msgid "послуги"
-msgstr "Услуги"
+msgstr "услуги"
 
 #: templates/components/header.html:30
 #, fuzzy
 #| msgid "Інтернет-магазини"
 msgid "інтернет-магазини"
-msgstr "Интернет-магазины"
+msgstr "интернет-магазины"
 
 #: templates/components/header.html:33
 #, fuzzy
 #| msgid "Корпоративні сайти"
 msgid "корпоративні сайти та лендінги"
-msgstr "Корпоративные сайты"
+msgstr "корпоративные сайты и лендинги"
 
 #: templates/components/header.html:36
 msgid "розрахувати пропозицію"
@@ -2305,11 +2305,11 @@ msgstr "Открыть мобильное меню"
 
 #: templates/components/home/home_process_intro.html:5
 msgid "ЯК МИ СТВОРЮЄМО"
-msgstr ""
+msgstr "КАК МЫ СОЗДАЁМ"
 
 #: templates/components/home/home_process_intro.html:6
 msgid "САЙТ"
-msgstr ""
+msgstr "САЙТ"
 
 #: templates/components/home/redesign_clients.html:5
 msgid "Наші"
@@ -2975,45 +2975,45 @@ msgstr "Больше информации"
 #, fuzzy
 #| msgid "Повернення коштів"
 msgid "Процес створення сайту"
-msgstr "Возврат средств"
+msgstr "Процесс создания сайта"
 
 #: templates/components/process_block.html:33
 #: templates/components/process_flow_block.html:26
 #, fuzzy
 #| msgid "Більше інформації"
 msgid "Збір інформації"
-msgstr "Больше информации"
+msgstr "Сбор информации"
 
 #: templates/components/process_block.html:34
 #: templates/components/process_flow_block.html:29
 msgid "Бриф"
-msgstr ""
+msgstr "Бриф"
 
 #: templates/components/process_block.html:35
 #: templates/components/process_flow_block.html:30
 #, fuzzy
 #| msgid "Бізнес"
 msgid "Цілі бізнесу"
-msgstr "Бизнес"
+msgstr "Цели бизнеса"
 
 #: templates/components/process_block.html:36
 #: templates/components/process_flow_block.html:31
 #, fuzzy
 #| msgid "Категорія"
 msgid "Аудиторія"
-msgstr "Категория"
+msgstr "Аудитория"
 
 #: templates/components/process_block.html:37
 #: templates/components/process_flow_block.html:32
 msgid "Технічні вимоги"
-msgstr ""
+msgstr "Технические требования"
 
 #: templates/components/process_block.html:58
 #: templates/components/process_flow_block.html:51
 #, fuzzy
 #| msgid "Контакти сайту"
 msgid "Карта сайту"
-msgstr "Контакты сайта"
+msgstr "Карта сайта"
 
 #: templates/components/process_block.html:59
 #: templates/components/tz_generator/holo.html:19
@@ -3024,15 +3024,15 @@ msgstr "Структура страниц"
 #, fuzzy
 #| msgid "Заявка на консультацію"
 msgid "Логіка навігації"
-msgstr "Заявка на консультацию"
+msgstr "Логика навигации"
 
 #: templates/components/process_block.html:61
 msgid "Сценарії користувача"
-msgstr ""
+msgstr "Сценарии пользователя"
 
 #: templates/components/process_block.html:62
 msgid "Ієрархія контенту"
-msgstr ""
+msgstr "Иерархия контента"
 
 #: templates/components/process_block.html:83
 #, fuzzy
@@ -3042,11 +3042,11 @@ msgstr "Адаптивный дизайн"
 
 #: templates/components/process_block.html:84
 msgid "UI/UX макети"
-msgstr ""
+msgstr "UI/UX макеты"
 
 #: templates/components/process_block.html:85
 msgid "Фірмовий стиль"
-msgstr ""
+msgstr "Фирменный стиль"
 
 #: templates/components/process_block.html:86
 #, fuzzy
@@ -3074,7 +3074,7 @@ msgstr "Интеграция в рабочий процесс"
 
 #: templates/components/process_block.html:110
 msgid "Логіка форм і сценаріїв"
-msgstr ""
+msgstr "Логика форм и сценариев"
 
 #: templates/components/process_block.html:111
 #, fuzzy
@@ -3096,7 +3096,7 @@ msgstr "Сроки выполнения:"
 
 #: templates/components/process_block.html:134
 msgid "Збір фідбеку"
-msgstr ""
+msgstr "Сбор фидбека"
 
 #: templates/components/process_block.html:135
 #, fuzzy
@@ -3124,11 +3124,11 @@ msgstr "Предыдущий проект"
 
 #: templates/components/process_block.html:159
 msgid "Запуск на сервер"
-msgstr ""
+msgstr "Запуск на сервер"
 
 #: templates/components/process_block.html:160
 msgid "Домен і SSL"
-msgstr ""
+msgstr "Домен и SSL"
 
 #: templates/components/process_block.html:161
 #, fuzzy
@@ -3144,57 +3144,57 @@ msgstr "Инструкции"
 
 #: templates/components/process_flow_block.html:5
 msgid "PROCESS"
-msgstr ""
+msgstr "PROCESS"
 
 #: templates/components/process_flow_block.html:6
 #, fuzzy
 #| msgid "СТВОРЕНІ НАМИ"
 msgid "ЯК МИ СТВОРЮЄМО САЙТ"
-msgstr "СОЗДАННЫЕ НАМИ"
+msgstr "КАК МЫ СОЗДАЁМ САЙТ"
 
 #: templates/components/process_flow_block.html:7
 msgid "Покроковий процес співпраці — від ідеї до запуску"
-msgstr ""
+msgstr "Пошаговый процесс сотрудничества — от идеи до запуска"
 
 #: templates/components/process_flow_block.html:52
 msgid "Структура сторінок, логіка навігації та сценарії користувача"
-msgstr ""
+msgstr "Структура страниц, логика навигации и сценарии пользователя"
 
 #: templates/components/process_flow_block.html:66
 #, fuzzy
 #| msgid "Розробка з нуля"
 msgid "Розробка дизайну"
-msgstr "Разработка с нуля"
+msgstr "Разработка дизайна"
 
 #: templates/components/process_flow_block.html:67
 msgid "UI/UX макети, фірмовий стиль та адаптивні прототипи"
-msgstr ""
+msgstr "UI/UX макеты, фирменный стиль и адаптивные прототипы"
 
 #: templates/components/process_flow_block.html:80
 msgid "Приклад верстки"
-msgstr ""
+msgstr "Пример вёрстки"
 
 #: templates/components/process_flow_block.html:81
 msgid "Чистий HTML/CSS, швидкість завантаження та кросбраузерність"
-msgstr ""
+msgstr "Чистый HTML/CSS, скорость загрузки и кроссбраузерность"
 
 #: templates/components/process_flow_block.html:94
 #, fuzzy
 #| msgid "Відправити"
 msgid "Збір правок"
-msgstr "Отправить"
+msgstr "Сбор правок"
 
 #: templates/components/process_flow_block.html:95
 msgid "Тестування, фідбек та фінальне полірування деталей"
-msgstr ""
+msgstr "Тестирование, фидбек и финальная полировка деталей"
 
 #: templates/components/process_flow_block.html:109
 msgid "Деплой"
-msgstr ""
+msgstr "Деплой"
 
 #: templates/components/process_flow_block.html:110
 msgid "Запуск на сервер, домен, SSL та передача проєкту"
-msgstr ""
+msgstr "Запуск на сервер, домен, SSL и передача проекта"
 
 #: templates/components/tz_generator/clients.html:4
 msgid "ТЗ, за якими вже запущені реальні проєкти"
@@ -4074,27 +4074,27 @@ msgstr ""
 
 #: templates/pages/calculator.html:26
 msgid "Швидка та якісна розробка під ключ для проєктів будь-якої складності."
-msgstr ""
+msgstr "Быстрая и качественная разработка под ключ для проектов любой сложности."
 
 #: templates/pages/calculator.html:30
 #, fuzzy
 #| msgid "Продумана архітектура та логіка продукту"
 msgid "Продумана архітектура та логіка продукту."
-msgstr "Продуманная архитектура и логика продукта"
+msgstr "Продуманная архитектура и логика продукта."
 
 #: templates/pages/calculator.html:34
 #, fuzzy
 #| msgid "Продумана архітектура та логіка продукту"
 msgid "Пожиттєва гарантія на наші програмні продукти."
-msgstr "Продуманная архитектура и логика продукта"
+msgstr "Пожизненная гарантия на наши программные продукты."
 
 #: templates/pages/calculator.html:38
 msgid "Жодних щомісячних або прихованих платежів (повна прозорість)."
-msgstr ""
+msgstr "Никаких ежемесячных или скрытых платежей (полная прозрачность)."
 
 #: templates/pages/calculator.html:42 templates/pages/calculator.html:45
 msgid "Покупка частинами monobank | Universal Bank"
-msgstr ""
+msgstr "Покупка частями monobank | Universal Bank"
 
 #: templates/pages/calculator.html:58
 msgid "5 простих питань"
@@ -6079,3 +6079,36 @@ msgstr "Три ориентира Soft — старт разговора. Точ
 
 msgid "Адмінка"
 msgstr "Админка"
+
+msgid "Що далі: після брифу надішлемо орієнтир по сценарію та інтеграціях — без публічного прайса."
+msgstr "Что дальше: после брифа пришлём ориентир по сценарию и интеграциям — без публичного прайса."
+
+msgid "після оплати код і токен — у замовника"
+msgstr "после оплаты код и токен — у заказчика"
+
+msgid "гарантія 1 рік на багфікс"
+msgstr "гарантия 1 год на багфикс"
+
+msgid "Інше / не визначився"
+msgstr "Другое / не определился"
+
+msgid "Бот студії"
+msgstr "Бот студии"
+
+msgid "Демо: меню бота → заявка → CRM"
+msgstr "Демо: меню бота → заявка → CRM"
+
+msgid "Меню бота"
+msgstr "Меню бота"
+
+msgid "Вітаю. Оберіть дію в меню — зберу заявку і передам менеджеру."
+msgstr "Здравствуйте. Выберите действие в меню — соберу заявку и передам менеджеру."
+
+msgid "Заявку надіслано. Менеджер відповість у робочі години."
+msgstr "Заявка отправлена. Менеджер ответит в рабочие часы."
+
+msgid "онлайн"
+msgstr "онлайн"
+
+msgid "Покупка частинами monobank"
+msgstr "Покупка частями monobank"
