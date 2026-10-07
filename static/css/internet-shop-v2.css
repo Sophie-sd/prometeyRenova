@@ -547,6 +547,20 @@ body.pl-shop-body .main-footer .container {
     );
 }
 
+
+.pl-shop__clients-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(28px, 4vw, 48px);
+    padding: 0 20px;
+}
+
+.pl-shop__clients-cta .pl-shop__btn-arrow {
+    color: var(--pl-acc);
+    font-size: 16px;
+    line-height: 1;
+}
+
 .pl-shop__clients-stories-wrapper {
     position: relative;
     width: 100%;
@@ -3361,6 +3375,10 @@ body.pl-shop-body .main-footer .container {
 
     .pl-shop__clients-label {
         margin-bottom: 14px;
+    }
+
+    .pl-shop__clients-cta {
+        margin-top: 28px;
     }
 
     .pl-shop__hero-stage {
