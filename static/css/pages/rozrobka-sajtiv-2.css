@@ -393,6 +393,7 @@
 }
 
 .pl-rs__calc-card {
+    box-shadow: 0 0 120px rgba(208, 83, 0, 0.22), 0 24px 80px rgba(0, 0, 0, 0.55);
     position: relative;
     overflow: hidden;
     border-radius: 20px;
@@ -528,6 +529,7 @@
 
     .pl-rs__calc { padding: 72px 0 64px; }
     .pl-rs__calc-card {
+    box-shadow: 0 0 120px rgba(208, 83, 0, 0.22), 0 24px 80px rgba(0, 0, 0, 0.55);
         min-height: 590px;
         padding: 70px 40px;
         display: flex;
@@ -561,8 +563,8 @@
 
     .pl-rs__float--tl { left: 0; top: 36px; }
     .pl-rs__float--tr { right: 0; top: 0; }
-    .pl-rs__float--bl { left: 90px; bottom: 0; }
-    .pl-rs__float--br { right: 40px; bottom: 40px; }
+    .pl-rs__float--bl { left: 72px; bottom: 8px; }
+    .pl-rs__float--br { right: 28px; bottom: 48px; }
 
     .pl-rs__prices {
         /* Soft offer lock still in DOM for a11y + currency tests;
@@ -593,7 +595,7 @@
 }
 
 
-/* —— Mobile ≤767 (Figma 34:4144 @ 393×3516) —— */
+/* —— Mobile ≤767 (Figma 1:332 @ 393×3516) —— */
 @media (max-width: 767px) {
     .pl-rs__section {
         padding: 40px 0 8px;
@@ -616,7 +618,7 @@
         letter-spacing: -1.2px;
     }
 
-    /* Services: stacked rows (34:4218) */
+    /* Services: stacked rows (mobile 1:332) */
     .pl-rs__products {
         gap: 12px;
     }
@@ -664,7 +666,7 @@
         font-size: 13px;
     }
 
-    /* Portfolio UPPER (34:4314) — near-full-width scroll cards */
+    /* Portfolio UPPER (1:164) — near-full-width scroll cards */
     .pl-rs__section--work {
         padding-top: 48px;
         padding-bottom: 12px;
@@ -715,7 +717,7 @@
         margin-top: 20px;
     }
 
-    /* Admin stack (34:4271) */
+    /* Admin stack (1:120) */
     .pl-rs__admin {
         gap: 20px;
     }
@@ -776,12 +778,13 @@
         opacity: 0.7;
     }
 
-    /* CTA card (34:4376) — no Client Logos 34:4338 */
+    /* CTA card (1:239) — no Client Logos 34:4338 */
     .pl-rs__calc {
         padding: 40px 0 32px;
     }
 
     .pl-rs__calc-card {
+    box-shadow: 0 0 120px rgba(208, 83, 0, 0.22), 0 24px 80px rgba(0, 0, 0, 0.55);
         min-height: 0;
         padding: 36px 20px;
         border-radius: 16px;
