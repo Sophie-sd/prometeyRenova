@@ -946,10 +946,8 @@ msgstr "Название профиля"
 
 #: apps/core/proposal_models.py:160
 #: templates/components/pb_step_heading.html:26
-#, fuzzy
-#| msgid "Що входить:"
 msgid "Що входить"
-msgstr "Что входит:"
+msgstr "Что входит"
 
 #: apps/core/proposal_models.py:161
 #, fuzzy
@@ -1096,18 +1094,10 @@ msgid "Портфоліо | Створені нами сайти під ключ
 msgstr "Портфолио | Созданные нами сайты под ключ - PrometeyLabs"
 
 #: apps/core/views.py:78
-#, fuzzy
-#| msgid ""
-#| "PrometeyLabs - розробка сайтів під ключ, Telegram боти, налаштування реклами"
-#| " Google Ads, ведення соцмереж, навчання веб-розробки. Конкурентні ціни, "
-#| "сучасні технології."
 msgid ""
 "Портфоліо PrometeyLabs - приклади створених сайтів під ключ, Telegram ботів,"
 " налаштованої реклами. Подивіться на наші роботи та оцініть якість."
-msgstr ""
-"PrometeyLabs - разработка сайтов под ключ, Telegram боты, настройка рекламы "
-"Google Ads, ведение соцсетей, обучение веб-разработке. Конкурентные цены, "
-"современные технологии."
+msgstr "Портфолио PrometeyLabs — примеры созданных сайтов под ключ, Telegram-ботов, настроенной рекламы. Посмотрите наши работы и оцените качество."
 
 #: apps/core/views.py:88
 msgid "Розрахувати вартість сайту | Калькулятор ціни - PrometeyLabs"
@@ -1134,23 +1124,14 @@ msgstr ""
 "рекламы или обучения. Киев, Украина."
 
 #: apps/core/views.py:103 templates/pages/offer.html:5
-#, fuzzy
-#| msgid "Публічна оферта на надання послуг | PrometeyLabs"
 msgid "Публічний договір (оферта) про надання послуг | PrometeyLabs"
-msgstr "Публичная оферта на предоставление услуг | PrometeyLabs"
+msgstr "Публичный договор (оферта) об оказании услуг | PrometeyLabs"
 
 #: apps/core/views.py:104 templates/pages/offer.html:6
-#, fuzzy
-#| msgid ""
-#| "Публічна оферта на надання послуг від PrometeyLabs. Офіційні умови надання "
-#| "послуг веб-розробки, мобільних застосунків та маркетингу."
 msgid ""
 "Публічний договір (оферта) про надання ІТ-послуг від PrometeyLabs. Офіційні "
 "умови надання послуг веб-розробки, мобільних застосунків та маркетингу."
-msgstr ""
-"Публичная оферта на предоставление услуг от PrometeyLabs. Официальные "
-"условия предоставления услуг веб-разработки, мобильных приложений и "
-"маркетинга."
+msgstr "Публичный договор (оферта) об оказании ИТ-услуг от PrometeyLabs. Официальные условия оказания услуг веб-разработки, мобильных приложений и маркетинга."
 
 #: apps/core/views.py:113 templates/pages/privacy.html:5
 msgid "Політика конфіденційності | PrometeyLabs"
@@ -1165,22 +1146,14 @@ msgstr ""
 "персональные данные в соответствии с законодательством Украины и GDPR."
 
 #: apps/core/views.py:123 templates/pages/cookies.html:5
-#, fuzzy
-#| msgid "Політика щодо файлів cookie | PrometeyLabs"
 msgid "Політика використання файлів cookie | PrometeyLabs"
-msgstr "Политика в отношении файлов cookie | PrometeyLabs"
+msgstr "Политика использования файлов cookie | PrometeyLabs"
 
 #: apps/core/views.py:124
-#, fuzzy
-#| msgid ""
-#| "Політика щодо файлів cookie від PrometeyLabs. Дізнайтеся, які файли cookie "
-#| "ми використовуємо та як керувати налаштуваннями."
 msgid ""
 "Політика використання файлів cookie від PrometeyLabs. Дізнайтеся, які файли "
 "cookie ми використовуємо та як керувати налаштуваннями."
-msgstr ""
-"Политика в отношении файлов cookie от PrometeyLabs. Узнайте, какие файлы "
-"cookie мы используем и как управлять настройками."
+msgstr "Политика использования файлов cookie от PrometeyLabs. Узнайте, какие файлы cookie мы используем и как управлять настройками."
 
 #: apps/core/views.py:133 templates/pages/refund.html:5
 msgid "Політика повернення коштів | PrometeyLabs"
@@ -1226,10 +1199,8 @@ msgid "Інтернет-магазини під ключ — PrometeyLabs"
 msgstr "Интернет-магазины под ключ — PrometeyLabs"
 
 #: apps/core/views.py:192
-#, fuzzy
-#| msgid "Інтернет-магазини під ключ — PrometeyLabs"
 msgid "Інтернет-магазини під ключ — швидка розробка e-commerce | PrometeyLabs"
-msgstr "Интернет-магазины под ключ — PrometeyLabs"
+msgstr "Интернет-магазины под ключ — быстрая разработка e-commerce | PrometeyLabs"
 
 #: apps/core/views.py:194
 msgid ""
@@ -1238,18 +1209,13 @@ msgid ""
 msgstr ""
 
 #: apps/core/views.py:197
-#, fuzzy
-#| msgid "Інтернет-магазини під ключ — PrometeyLabs"
 msgid "Інтернет-магазини, що завантажуються швидше — PrometeyLabs"
-msgstr "Интернет-магазины под ключ — PrometeyLabs"
+msgstr "Интернет-магазины, которые загружаются быстрее — PrometeyLabs"
 
 #: apps/core/views.py:208
-#, fuzzy
-#| msgid ""
-#| "Корпоративний сайт під ключ — створимо за 7 днів | PrometeyLabs"
 msgid ""
 "Корпоративні сайти та лендінги під ключ — швидка розробка | PrometeyLabs"
-msgstr "Корпоративный сайт под ключ — создадим за 7 дней | PrometeyLabs"
+msgstr "Корпоративные сайты и лендинги под ключ — быстрая разработка | PrometeyLabs"
 
 #: apps/core/views.py:210
 msgid ""
@@ -1258,11 +1224,8 @@ msgid ""
 msgstr ""
 
 #: apps/core/views.py:213
-#, fuzzy
-#| msgid ""
-#| "Корпоративний сайт під ключ — створимо за 7 днів | PrometeyLabs"
 msgid "Корпоративні сайти, що домінують у пошуку — PrometeyLabs"
-msgstr "Корпоративный сайт под ключ — создадим за 7 дней | PrometeyLabs"
+msgstr "Корпоративные сайты, которые доминируют в поиске — PrometeyLabs"
 
 #: apps/core/views.py:239
 msgid ""
@@ -2108,8 +2071,6 @@ msgid "Інтернет-магазини"
 msgstr "Интернет-магазины"
 
 #: templates/components/burger_menu.html:41
-#, fuzzy
-#| msgid "Корпоративні сайти"
 msgid "Корпоративні сайти та лендінги"
 msgstr "Корпоративные сайты и лендинги"
 
@@ -2274,14 +2235,10 @@ msgid "послуги"
 msgstr "услуги"
 
 #: templates/components/header.html:30
-#, fuzzy
-#| msgid "Інтернет-магазини"
 msgid "інтернет-магазини"
 msgstr "интернет-магазины"
 
 #: templates/components/header.html:33
-#, fuzzy
-#| msgid "Корпоративні сайти"
 msgid "корпоративні сайти та лендінги"
 msgstr "корпоративные сайты и лендинги"
 
@@ -2439,16 +2396,12 @@ msgstr "Подробнее об автоматизации AI"
 
 # ===== home.html — services =====
 #: templates/components/home/redesign_services_piano.html:2
-#, fuzzy
-#| msgid "Портфоліо - PrometeyLabs"
 msgid "Послуги PrometeyLabs"
-msgstr "Портфолио - PrometeyLabs"
+msgstr "Услуги PrometeyLabs"
 
 #: templates/components/home/redesign_services_piano.html:22
-#, fuzzy
-#| msgid "Дізнатись більше"
 msgid "Наведіть, щоб дізнатися більше"
-msgstr "Узнать больше"
+msgstr "Наведите, чтобы узнать больше"
 
 #: templates/components/home/redesign_why.html:5
 msgid "ЧОМУ ВАРТО ОБРАТИ"
@@ -2970,8 +2923,6 @@ msgid "Більше інформації"
 msgstr "Больше информации"
 
 #: templates/components/process_block.html:2
-#, fuzzy
-#| msgid "Повернення коштів"
 msgid "Процес створення сайту"
 msgstr "Процесс создания сайта"
 
@@ -2987,15 +2938,11 @@ msgstr "Бриф"
 
 #: templates/components/process_block.html:35
 #: templates/components/process_flow_block.html:30
-#, fuzzy
-#| msgid "Бізнес"
 msgid "Цілі бізнесу"
 msgstr "Цели бизнеса"
 
 #: templates/components/process_block.html:36
 #: templates/components/process_flow_block.html:31
-#, fuzzy
-#| msgid "Категорія"
 msgid "Аудиторія"
 msgstr "Аудитория"
 
@@ -3015,8 +2962,6 @@ msgid "Структура сторінок"
 msgstr "Структура страниц"
 
 #: templates/components/process_block.html:60
-#, fuzzy
-#| msgid "Заявка на консультацію"
 msgid "Логіка навігації"
 msgstr "Логика навигации"
 
@@ -3041,16 +2986,12 @@ msgid "Фірмовий стиль"
 msgstr "Фирменный стиль"
 
 #: templates/components/process_block.html:86
-#, fuzzy
-#| msgid "Реальні проєкти"
 msgid "Адаптивні прототипи"
-msgstr "Реальные проекты"
+msgstr "Адаптивные прототипы"
 
 #: templates/components/process_block.html:87
-#, fuzzy
-#| msgid "Заявка на консультацію"
 msgid "Візуальна концепція"
-msgstr "Заявка на консультацию"
+msgstr "Визуальная концепция"
 
 #: templates/components/process_block.html:108
 msgid "Функціональна модель"
@@ -3065,16 +3006,12 @@ msgid "Логіка форм і сценаріїв"
 msgstr "Логика форм и сценариев"
 
 #: templates/components/process_block.html:111
-#, fuzzy
-#| msgid "Зв'язок з нами"
 msgid "Звʼязок між сторінками"
-msgstr "Связь с нами"
+msgstr "Связь между страницами"
 
 #: templates/components/process_block.html:112
-#, fuzzy
-#| msgid "просування"
 msgid "Тестування UX"
-msgstr "продвижение"
+msgstr "Тестирование UX"
 
 #: templates/components/process_block.html:133
 msgid "Фінальне виконання правок"
@@ -3085,22 +3022,16 @@ msgid "Збір фідбеку"
 msgstr "Сбор фидбека"
 
 #: templates/components/process_block.html:135
-#, fuzzy
-#| msgid "Списання по підписках"
 msgid "Тестування на пристроях"
-msgstr "Списания по подпискам"
+msgstr "Тестирование на устройствах"
 
 #: templates/components/process_block.html:136
-#, fuzzy
-#| msgid "Обробка заявок"
 msgid "Доробка деталей"
-msgstr "Обработка заявок"
+msgstr "Доработка деталей"
 
 #: templates/components/process_block.html:137
-#, fuzzy
-#| msgid "Головне зображення"
 msgid "Фінальне погодження"
-msgstr "Главное изображение"
+msgstr "Финальное согласование"
 
 #: templates/components/process_block.html:158
 msgid "Деплой і передача прав"
@@ -3115,16 +3046,12 @@ msgid "Домен і SSL"
 msgstr "Домен и SSL"
 
 #: templates/components/process_block.html:161
-#, fuzzy
-#| msgid "Переглянути портфоліо"
 msgid "Передача доступів"
-msgstr "Просмотреть портфолио"
+msgstr "Передача доступов"
 
 #: templates/components/process_block.html:162
-#, fuzzy
-#| msgid "Інструкції"
 msgid "Інструкції для клієнта"
-msgstr "Инструкции"
+msgstr "Инструкции для клиента"
 
 #: templates/components/process_flow_block.html:5
 msgid "PROCESS"
@@ -3143,8 +3070,6 @@ msgid "Структура сторінок, логіка навігації та
 msgstr "Структура страниц, логика навигации и сценарии пользователя"
 
 #: templates/components/process_flow_block.html:66
-#, fuzzy
-#| msgid "Розробка з нуля"
 msgid "Розробка дизайну"
 msgstr "Разработка дизайна"
 
@@ -3161,8 +3086,6 @@ msgid "Чистий HTML/CSS, швидкість завантаження та �
 msgstr "Чистый HTML/CSS, скорость загрузки и кроссбраузерность"
 
 #: templates/components/process_flow_block.html:94
-#, fuzzy
-#| msgid "Відправити"
 msgid "Збір правок"
 msgstr "Сбор правок"
 
@@ -4059,14 +3982,10 @@ msgid "Швидка та якісна розробка під ключ для п
 msgstr "Быстрая и качественная разработка под ключ для проектов любой сложности."
 
 #: templates/pages/calculator.html:30
-#, fuzzy
-#| msgid "Продумана архітектура та логіка продукту"
 msgid "Продумана архітектура та логіка продукту."
 msgstr "Продуманная архитектура и логика продукта."
 
 #: templates/pages/calculator.html:34
-#, fuzzy
-#| msgid "Продумана архітектура та логіка продукту"
 msgid "Пожиттєва гарантія на наші програмні продукти."
 msgstr "Пожизненная гарантия на наши программные продукты."
 
@@ -4250,14 +4169,10 @@ msgstr ""
 "удобным способом:"
 
 #: templates/pages/contacts.html:32
-#, fuzzy
-#| msgid "Зв'язок"
 msgid "Звʼязок"
 msgstr "Связь"
 
 #: templates/pages/contacts.html:45
-#, fuzzy
-#| msgid "Соціальні мережі"
 msgid "Соцмережі"
 msgstr "Социальные сети"
 
@@ -4286,34 +4201,20 @@ msgid "Надіслати повідомлення"
 msgstr "Отправить сообщение"
 
 #: templates/pages/cookies-ru.html:5
-#, fuzzy
-#| msgid "Политика в отношении файлов cookie | PrometeyLabs"
 msgid "Политика использования файлов cookie | PrometeyLabs"
-msgstr "Политика в отношении файлов cookie | PrometeyLabs"
+msgstr "Политика использования файлов cookie | PrometeyLabs"
 
 #: templates/pages/cookies-ru.html:6
-#, fuzzy
-#| msgid ""
-#| "Политика в отношении файлов cookie PrometeyLabs. Узнайте, какие файлы cookie"
-#| " мы используем и как управлять настройками."
 msgid ""
 "Политика использования файлов cookie PrometeyLabs. Узнайте, какие файлы "
 "cookie мы используем и как управлять настройками."
-msgstr ""
-"Политика в отношении файлов cookie PrometeyLabs. Узнайте, какие файлы cookie"
-" мы используем и как управлять настройками."
+msgstr "Политика использования файлов cookie PrometeyLabs. Узнайте, какие файлы cookie мы используем и как управлять настройками."
 
 #: templates/pages/cookies.html:6
-#, fuzzy
-#| msgid ""
-#| "Політика щодо файлів cookie PrometeyLabs. Дізнайтеся, які файли cookie ми "
-#| "використовуємо та як керувати налаштуваннями."
 msgid ""
 "Політика використання файлів cookie PrometeyLabs. Дізнайтеся, які файли "
 "cookie ми використовуємо та як керувати налаштуваннями."
-msgstr ""
-"Политика в отношении файлов cookie PrometeyLabs. Узнайте, какие файлы cookie"
-" мы используем и как управлять настройками."
+msgstr "Политика использования файлов cookie PrometeyLabs. Узнайте, какие файлы cookie мы используем и как управлять настройками."
 
 #: templates/pages/developer.html:29
 msgid "Мрієте стати веб-розробником?"
@@ -4691,23 +4592,14 @@ msgstr ""
 " о правах на контент и защите авторских прав."
 
 #: templates/pages/offer-ru.html:5
-#, fuzzy
-#| msgid "Публичная оферта на оказание услуг | PrometeyLabs"
 msgid "Публичный договор (оферта) об оказании услуг | PrometeyLabs"
-msgstr "Публичная оферта на предоставление услуг | PrometeyLabs"
+msgstr "Публичный договор (оферта) об оказании услуг | PrometeyLabs"
 
 #: templates/pages/offer-ru.html:6
-#, fuzzy
-#| msgid ""
-#| "Публичная оферта на оказание услуг от PrometeyLabs. Официальные условия "
-#| "оказания услуг веб-разработки, мобильных приложений и маркетинга."
 msgid ""
 "Публичный договор (оферта) об оказании ИТ-услуг от PrometeyLabs. Официальные"
 " условия оказания услуг веб-разработки, мобильных приложений и маркетинга."
-msgstr ""
-"Публичная оферта на предоставление услуг от PrometeyLabs. Официальные "
-"условия предоставления услуг веб-разработки, мобильных приложений и "
-"маркетинга."
+msgstr "Публичный договор (оферта) об оказании ИТ-услуг от PrometeyLabs. Официальные условия оказания услуг веб-разработки, мобильных приложений и маркетинга."
 
 # ===== home.html — services =====
 #: templates/pages/portfolio.html:5 templates/pages/portfolio_beta.html:5
@@ -4805,10 +4697,8 @@ msgid "Прототип анімованого блоку процесу ств�
 msgstr ""
 
 #: templates/pages/process_flow_prototype.html:30
-#, fuzzy
-#| msgid "Переглянути всі статті"
 msgid "Переграти анімацію"
-msgstr "Просмотреть все статьи"
+msgstr "Переиграть анимацию"
 
 #: templates/pages/refund-ru.html:5
 msgid "Политика возврата денежных средств | PrometeyLabs"
@@ -4831,10 +4721,8 @@ msgid "Прототип редизайну блоку послуг зі скля
 msgstr ""
 
 #: templates/pages/services_piano_prototype.html:31
-#, fuzzy
-#| msgid "Логотип"
 msgid "Прототип"
-msgstr "Логотип"
+msgstr "Прототип"
 
 #: templates/pages/thank_you.html:5
 msgid "Дякуємо за вашу заявку"
@@ -5102,10 +4990,8 @@ msgid "Оплата пройшла успішно. Ми вже отримали 
 msgstr "Оплата прошла успешно. Мы уже получили подтверждение."
 
 #: templates/proposal/base_proposal.html:21
-#, fuzzy
-#| msgid "Перейти до оплати"
 msgid "Перейти до змісту"
-msgstr "Перейти к оплате"
+msgstr "Перейти к содержанию"
 
 #: templates/proposal/base_proposal.html:48
 msgid "Документ конфіденційний. Не для публічного поширення."
