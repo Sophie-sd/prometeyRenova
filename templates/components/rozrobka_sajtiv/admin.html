@@ -1,9 +1,17 @@
-{% load i18n %}
-<section class="pl-rs__section" aria-labelledby="pl-rs-admin-title">
+{% load i18n static %}
+<section class="pl-rs__section pl-rs__section--admin" aria-labelledby="pl-rs-admin-title">
     <div class="pl-rs__inner pl-rs__admin">
+        <div class="pl-rs__admin-copy">
+            <h2 id="pl-rs-admin-title" class="pl-rs__h2 pl-rs__h2--admin">{% trans "Адмінка залишається у вас" %}</h2>
+            <p class="pl-rs__note">{% trans "Тексти, ціни, заявки і банери правите самі. Розробник не потрібен на кожну кому." %}</p>
+        </div>
         <div class="pl-rs__screen" aria-hidden="true">
+            <img class="pl-rs__screen-rings pl-rs__screen-rings--a" src="{% static 'img/rozrobka-figma/rings-hero.svg' %}" alt="" width="183" height="183" decoding="async">
+            <img class="pl-rs__screen-rings pl-rs__screen-rings--b" src="{% static 'img/rozrobka-figma/rings-hero.svg' %}" alt="" width="183" height="183" decoding="async">
             <div class="pl-rs__screen-bar">
-                <span></span><span></span><span></span>
+                <span class="pl-rs__dot pl-rs__dot--acc"></span>
+                <span class="pl-rs__dot"></span>
+                <span class="pl-rs__dot"></span>
                 <em>cms</em>
             </div>
             <div class="pl-rs__screen-body">
@@ -13,16 +21,11 @@
                     <li>{% trans "Ціни" %}</li>
                 </ul>
                 <div class="pl-rs__screen-rows">
-                    <p><i></i>{% trans "Головна" %}<b>{% trans "Опубліковано" %}</b></p>
-                    <p><i></i>{% trans "Послуги" %}<b>{% trans "Опубліковано" %}</b></p>
-                    <p><i></i>{% trans "Ціни" %}<b>{% trans "Опубліковано" %}</b></p>
+                    <p><span>{% trans "Головна" %}</span><b>{% trans "Опубліковано" %}</b></p>
+                    <p><span>{% trans "Послуги" %}</span><b>{% trans "Опубліковано" %}</b></p>
+                    <p><span>{% trans "Ціни" %}</span><b>{% trans "Опубліковано" %}</b></p>
                 </div>
             </div>
-        </div>
-        <div class="pl-rs__admin-copy">
-            <p class="pl-rs__eyebrow">{% trans "Адмінка" %}</p>
-            <h2 id="pl-rs-admin-title" class="pl-rs__h2">{% trans "Адмінка залишається у вас" %}</h2>
-            <p class="pl-rs__note">{% trans "Тексти, ціни, заявки і банери правите самі. Розробник не потрібен на кожну кому." %}</p>
         </div>
     </div>
 </section>

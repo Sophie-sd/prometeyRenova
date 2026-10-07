@@ -1,47 +1,47 @@
-{% load i18n %}
-<section class="pl-rs__section" aria-labelledby="pl-rs-products-title">
+{% load i18n static %}
+<section class="pl-rs__section pl-rs__section--services" aria-labelledby="pl-rs-products-title">
     <div class="pl-rs__inner">
-        <h2 id="pl-rs-products-title" class="pl-rs__h2">{% trans "Що збираємо під ключ" %}</h2>
+        <h2 id="pl-rs-products-title" class="pl-rs__h2 pl-rs__h2--center">{% trans "Що збираємо під ключ" %}</h2>
         <div class="pl-rs__products">
             <a class="pl-rs__product" href="{% url 'calculator' %}">
+                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="170" height="170" decoding="async" aria-hidden="true">
                 <span class="pl-rs__idx">01</span>
-                <span class="pl-rs__product-main">
-                    <span class="pl-rs__product-name">{% trans "Лендінги" %}</span>
-                    <span class="pl-rs__product-text">{% trans "Одна сторінка під рекламу: офер, форма, швидкий запуск." %}</span>
-                </span>
+                <span class="pl-rs__product-name">{% trans "Лендінги" %}</span>
+                <span class="pl-rs__product-text">{% trans "Одна сторінка під рекламу: офер, форма, швидкий запуск." %}</span>
                 <span class="pl-rs__product-meta">{% trans "від" %} <span class="pl-rs__amount" data-pl-rs-amount data-eur="250" data-usd="270">250</span><span data-pl-rs-sign>€</span></span>
+                <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
             </a>
             <a class="pl-rs__product" href="{% url 'corporate_website' %}">
+                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="170" height="170" decoding="async" aria-hidden="true">
                 <span class="pl-rs__idx">02</span>
-                <span class="pl-rs__product-main">
-                    <span class="pl-rs__product-name">{% trans "Корпоративні сайти" %}</span>
-                    <span class="pl-rs__product-text">{% trans "Структура компанії, послуги і SEO-основа." %}</span>
-                </span>
+                <span class="pl-rs__product-name">{% trans "Корпоративні сайти" %}</span>
+                <span class="pl-rs__product-text">{% trans "Структура компанії, послуги і SEO-основа." %}</span>
                 <span class="pl-rs__product-meta">{% trans "від" %} <span class="pl-rs__amount" data-pl-rs-amount data-eur="500" data-usd="540">500</span><span data-pl-rs-sign>€</span></span>
+                <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
             </a>
             <a class="pl-rs__product" href="{% url 'internet_shop' %}">
+                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="170" height="170" decoding="async" aria-hidden="true">
                 <span class="pl-rs__idx">03</span>
-                <span class="pl-rs__product-main">
-                    <span class="pl-rs__product-name">{% trans "Інтернет-магазини" %}</span>
-                    <span class="pl-rs__product-text">{% trans "Каталог, оплата, доставка, замовлення в адмінці." %}</span>
-                </span>
+                <span class="pl-rs__product-name">{% trans "Інтернет-магазини" %}</span>
+                <span class="pl-rs__product-text">{% trans "Каталог, оплата, доставка, замовлення в адмінці." %}</span>
                 <span class="pl-rs__product-meta">{% trans "від" %} <span class="pl-rs__amount" data-pl-rs-amount data-eur="800" data-usd="865">800</span><span data-pl-rs-sign>€</span></span>
+                <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
             </a>
             <a class="pl-rs__product" href="{% url 'calculator' %}">
+                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="170" height="170" decoding="async" aria-hidden="true">
                 <span class="pl-rs__idx">04</span>
-                <span class="pl-rs__product-main">
-                    <span class="pl-rs__product-name">{% trans "Платформи" %}</span>
-                    <span class="pl-rs__product-text">{% trans "Кабінети, ролі й інтеграції — коли сайту вже мало." %}</span>
-                </span>
+                <span class="pl-rs__product-name">{% trans "Платформи" %}</span>
+                <span class="pl-rs__product-text">{% trans "Кабінети, ролі й інтеграції — коли сайту вже мало." %}</span>
                 <span class="pl-rs__product-meta">{% trans "індивідуально" %}</span>
+                <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
             </a>
             <a class="pl-rs__product" href="{% url 'telegram_bot' %}">
+                <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="170" height="170" decoding="async" aria-hidden="true">
                 <span class="pl-rs__idx">05</span>
-                <span class="pl-rs__product-main">
-                    <span class="pl-rs__product-name">{% trans "Telegram-боти" %}</span>
-                    <span class="pl-rs__product-text">{% trans "Заявки і CRM у чаті поруч із сайтом." %}</span>
-                </span>
+                <span class="pl-rs__product-name">{% trans "Telegram-боти" %}</span>
+                <span class="pl-rs__product-text">{% trans "Заявки і CRM у чаті поруч із сайтом." %}</span>
                 <span class="pl-rs__product-meta">{% trans "окремий бриф" %}</span>
+                <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
             </a>
         </div>
     </div>

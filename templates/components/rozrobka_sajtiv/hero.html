@@ -1,6 +1,58 @@
-{% load i18n %}
+{% load i18n static %}
 <section class="pl-rs__hero" aria-labelledby="pl-rs-h1">
-    <div class="pl-rs__inner pl-rs__hero-grid">
+    <div class="pl-rs__hero-bg" aria-hidden="true"></div>
+    <div class="pl-rs__inner pl-rs__hero-stage">
+        <div class="pl-rs__floats" aria-hidden="true">
+            <article class="pl-rs__float pl-rs__float--tl">
+                <img class="pl-rs__float-rings" src="{% static 'img/rozrobka-figma/rings-hero.svg' %}" alt="" width="181" height="181" decoding="async">
+                <p class="pl-rs__float-title">{% trans "Лендінги" %}</p>
+                <div class="pl-rs__float-price">
+                    <span class="pl-rs__float-label">{% trans "від" %}</span>
+                    <span class="pl-rs__float-num"><span data-pl-rs-float data-eur="250" data-usd="270">250</span><span data-pl-rs-sign>€</span></span>
+                </div>
+                <p class="pl-rs__float-chip">
+                    <img src="{% static 'img/rozrobka-figma/ellipse.svg' %}" alt="" width="6" height="6" decoding="async">
+                    <span>{% trans "3–5 днів" %}</span>
+                </p>
+            </article>
+            <article class="pl-rs__float pl-rs__float--tr">
+                <img class="pl-rs__float-rings" src="{% static 'img/rozrobka-figma/rings-hero.svg' %}" alt="" width="181" height="181" decoding="async">
+                <p class="pl-rs__float-title">{% trans "Корпоративні" %}</p>
+                <div class="pl-rs__float-price">
+                    <span class="pl-rs__float-label">{% trans "від" %}</span>
+                    <span class="pl-rs__float-num"><span data-pl-rs-float data-eur="500" data-usd="540">500</span><span data-pl-rs-sign>€</span></span>
+                </div>
+                <p class="pl-rs__float-chip">
+                    <img src="{% static 'img/rozrobka-figma/ellipse.svg' %}" alt="" width="6" height="6" decoding="async">
+                    <span>{% trans "7–10 днів" %}</span>
+                </p>
+            </article>
+            <article class="pl-rs__float pl-rs__float--bl">
+                <img class="pl-rs__float-rings" src="{% static 'img/rozrobka-figma/rings-hero.svg' %}" alt="" width="181" height="181" decoding="async">
+                <p class="pl-rs__float-title">{% trans "Магазини" %}</p>
+                <div class="pl-rs__float-price">
+                    <span class="pl-rs__float-label">{% trans "від" %}</span>
+                    <span class="pl-rs__float-num"><span data-pl-rs-float data-eur="800" data-usd="865">800</span><span data-pl-rs-sign>€</span></span>
+                </div>
+                <p class="pl-rs__float-chip">
+                    <img src="{% static 'img/rozrobka-figma/ellipse.svg' %}" alt="" width="6" height="6" decoding="async">
+                    <span>{% trans "7–10 днів" %}</span>
+                </p>
+            </article>
+            <article class="pl-rs__float pl-rs__float--br">
+                <img class="pl-rs__float-rings" src="{% static 'img/rozrobka-figma/rings-hero.svg' %}" alt="" width="181" height="181" decoding="async">
+                <p class="pl-rs__float-title">{% trans "Платформи" %}</p>
+                <div class="pl-rs__float-price">
+                    <span class="pl-rs__float-label">{% trans "від" %}</span>
+                    <span class="pl-rs__float-num pl-rs__float-num--soft">{% trans "індивідуально" %}</span>
+                </div>
+                <p class="pl-rs__float-chip">
+                    <img src="{% static 'img/rozrobka-figma/ellipse.svg' %}" alt="" width="6" height="6" decoding="async">
+                    <span>{% trans "окремий бриф" %}</span>
+                </p>
+            </article>
+        </div>
+
         <div class="pl-rs__hero-copy">
             <div class="pl-rs__kicker">
                 <p class="pl-rs__eyebrow">{% trans "Soft · договір" %}</p>
@@ -11,6 +63,10 @@
             </div>
             <h1 id="pl-rs-h1" class="pl-rs__h1">{% trans "Розробка сайтів будь-якої складності під ключ" %}</h1>
             <p class="pl-rs__lead">{% trans "Лендінги, корпоративні сайти, інтернет-магазини, платформи будь-якої складності. Прозора співпраця: фіксуємо бюджет і строки у договорі. Безкоштовна підтримка та 5 років гарантії на код." %}</p>
+            <button type="button" class="pl-rs__cta mobile-touch-target" data-modal="call-request-modal">
+                <span>{% trans "Отримати консультацію" %}</span>
+                <img src="{% static 'img/rozrobka-figma/arrow-hero.svg' %}" alt="" width="24" height="24" decoding="async">
+            </button>
         </div>
 
         <div class="pl-rs__prices" role="list" aria-label="{% trans "Орієнтир ціни" %}">
@@ -32,9 +88,6 @@
         </div>
 
         <div class="pl-rs__actions">
-            <button type="button" class="pl-rs__cta mobile-touch-target" data-modal="call-request-modal">
-                {% trans "Отримати консультацію" %}
-            </button>
             <div class="pl-rs__links">
                 <a class="pl-rs__link mobile-touch-target" href="{% url 'calculator' %}">{% trans "Розрахувати вартість" %}</a>
                 <a class="pl-rs__link mobile-touch-target" href="{{ site_contact.telegram_url }}" target="_blank" rel="noopener noreferrer">{% trans "Написати в Telegram" %}</a>
