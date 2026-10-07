@@ -456,65 +456,166 @@
     color: #fff;
 }
 
-/* —— Mobile ≤767 hero (Figma 1:332 @ 393) —— */
+/* —— Mobile ≤767 hero (Figma 1:332 / Services Overview 1:343) —— */
 @media (max-width: 767px) {
     .pl-rs__inner {
-        width: min(1332px, calc(100% - 24px));
+        width: min(1332px, calc(100% - 32px));
     }
 
     .pl-rs__hero {
-        padding: calc(64px + env(safe-area-inset-top, 0px)) 0 20px;
+        padding: calc(64px + env(safe-area-inset-top, 0px)) 0 24px;
     }
 
     .pl-rs__hero-stage {
-        gap: 16px;
+        gap: 60px;
+        align-items: stretch;
+    }
+
+    .pl-rs__hero-copy {
+        align-items: center;
+        text-align: center;
+        max-width: none;
+    }
+
+    .pl-rs__kicker {
+        width: 100%;
+        max-width: 316px;
+        margin-bottom: 16px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .pl-rs__h1 {
-        font-size: clamp(26px, 7.2vw, 36px);
-        max-width: 15ch;
-    }
-
-    .pl-rs__lead {
-        margin-top: 12px;
-        font-size: 13px;
-        line-height: 1.4;
-    }
-
-    .pl-rs__prices {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 6px;
-    }
-
-    .pl-rs__price {
-        min-height: 78px;
-        padding: 8px 6px;
-        border-radius: 14px;
-    }
-
-    .pl-rs__price-from {
-        font-size: 9px;
-        letter-spacing: 0.1em;
-    }
-
-    .pl-rs__price-num {
-        font-size: 22px;
-    }
-
-    .pl-rs__price-name {
-        font-size: 10px;
-        line-height: 1.2;
-    }
-
-    .pl-rs__cta {
-        margin-top: 16px;
+        font-size: 34px;
+        letter-spacing: -1.7px;
+        text-align: center;
         max-width: none;
         width: 100%;
     }
 
-    /* Floats only ≥1100 — reinforce on mobile */
+    .pl-rs__lead {
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 316px;
+        font-size: 12px;
+        line-height: 1.2;
+        letter-spacing: -0.6px;
+        text-align: center;
+    }
+
+    .pl-rs__cta {
+        margin-top: 60px;
+        max-width: none;
+        width: 100%;
+        height: 44px;
+        min-height: 44px;
+        padding: 12px 18px;
+        border-radius: 100px;
+        background: #d05300;
+    }
+
+    /* Soft € pl-rs__prices + secondary links: keep DOM, hide visually (floats grid SSOT) */
+    .pl-rs__prices,
+    .pl-rs__actions {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    /* Service Cards 1:349 — 2×2 grid (reuse .pl-rs__float; Soft € lock, no 1500) */
     .pl-rs__floats {
-        display: none !important;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        width: 100%;
+        min-height: 328px;
+        position: relative;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .pl-rs__float {
+        position: relative;
+        width: auto;
+        height: auto;
+        min-height: 157px;
+        padding: 16px;
+        border-radius: 20px;
+        transform: none;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .pl-rs__float--tl,
+    .pl-rs__float--tr,
+    .pl-rs__float--bl,
+    .pl-rs__float--br {
+        transform: none;
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+    }
+
+    .pl-rs__float-rings {
+        right: -48px;
+        bottom: -40px;
+        width: 160px;
+        height: 160px;
+        opacity: 0.9;
+    }
+
+    .pl-rs__float-title {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: -0.42px;
+        line-height: 1.2;
+    }
+
+    .pl-rs__float-price {
+        gap: 6px;
+        margin-top: auto;
+    }
+
+    .pl-rs__float-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        color: #a1a1aa;
+    }
+
+    .pl-rs__float-num {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.6px;
+    }
+
+    .pl-rs__float-num--soft {
+        font-size: 12px;
+        letter-spacing: -0.3px;
+        line-height: 1.2;
+        white-space: normal;
+        text-align: right;
+        max-width: 7.5em;
+    }
+
+    .pl-rs__float-chip {
+        font-size: 10px;
+        letter-spacing: 0.2px;
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .pl-rs__float-chip img {
+        width: 6px;
+        height: 6px;
     }
 }
 
@@ -523,15 +624,12 @@
         padding-top: calc(56px + env(safe-area-inset-top, 0px));
     }
 
-    .pl-rs__lead {
-        font-size: 12px;
+    .pl-rs__hero-stage {
+        gap: 40px;
     }
 
-    .pl-rs__price {
-        min-height: 70px;
-        padding: 6px;
+    .pl-rs__cta {
+        margin-top: 40px;
     }
-
-    .pl-rs__price-num { font-size: 20px; }
 }
 

@@ -4,6 +4,23 @@
         <img class="pl-rs__hero-bg-img" src="{% static 'img/rozrobka-figma/hero-bg.webp' %}" alt="" width="1600" height="639" decoding="async" fetchpriority="high">
     </div>
     <div class="pl-rs__inner pl-rs__hero-stage">
+        {# Copy + CTA first (mobile Figma 1:343); floats follow as 2×2 grid ≤767; desktop ≥1100 absolute #}
+        <div class="pl-rs__hero-copy">
+            <div class="pl-rs__kicker">
+                <p class="pl-rs__eyebrow">{% trans "Soft · договір" %}</p>
+                <div class="pl-rs__cur" role="group" aria-label="{% trans "Валюта орієнтира" %}">
+                    <button type="button" class="pl-rs__cur-btn is-on" data-currency="eur" aria-pressed="true" aria-label="{% trans "Євро" %}">€</button>
+                    <button type="button" class="pl-rs__cur-btn" data-currency="usd" aria-pressed="false" aria-label="{% trans "Долар США" %}">$</button>
+                </div>
+            </div>
+            <h1 id="pl-rs-h1" class="pl-rs__h1">{% trans "Розробка сайтів будь-якої складності під ключ" %}</h1>
+            <p class="pl-rs__lead">{% trans "Лендінги, корпоративні сайти, інтернет-магазини, платформи будь-якої складності. Прозора співпраця: фіксуємо бюджет і строки у договорі. Безкоштовна підтримка та 5 років гарантії на код." %}</p>
+            <button type="button" class="pl-rs__cta mobile-touch-target" data-modal="call-request-modal">
+                <span>{% trans "Отримати консультацію" %}</span>
+                <img src="{% static 'img/rozrobka-figma/arrow-hero.svg' %}" alt="" width="24" height="24" decoding="async">
+            </button>
+        </div>
+
         <div class="pl-rs__floats" aria-hidden="true">
             <article class="pl-rs__float pl-rs__float--tl">
                 <img class="pl-rs__float-rings" src="{% static 'img/rozrobka-figma/rings-hero.svg' %}" alt="" width="181" height="181" decoding="async">
@@ -55,22 +72,7 @@
             </article>
         </div>
 
-        <div class="pl-rs__hero-copy">
-            <div class="pl-rs__kicker">
-                <p class="pl-rs__eyebrow">{% trans "Soft · договір" %}</p>
-                <div class="pl-rs__cur" role="group" aria-label="{% trans "Валюта орієнтира" %}">
-                    <button type="button" class="pl-rs__cur-btn is-on" data-currency="eur" aria-pressed="true" aria-label="{% trans "Євро" %}">€</button>
-                    <button type="button" class="pl-rs__cur-btn" data-currency="usd" aria-pressed="false" aria-label="{% trans "Долар США" %}">$</button>
-                </div>
-            </div>
-            <h1 id="pl-rs-h1" class="pl-rs__h1">{% trans "Розробка сайтів будь-якої складності під ключ" %}</h1>
-            <p class="pl-rs__lead">{% trans "Лендінги, корпоративні сайти, інтернет-магазини, платформи будь-якої складності. Прозора співпраця: фіксуємо бюджет і строки у договорі. Безкоштовна підтримка та 5 років гарантії на код." %}</p>
-            <button type="button" class="pl-rs__cta mobile-touch-target" data-modal="call-request-modal">
-                <span>{% trans "Отримати консультацію" %}</span>
-                <img src="{% static 'img/rozrobka-figma/arrow-hero.svg' %}" alt="" width="24" height="24" decoding="async">
-            </button>
-        </div>
-
+        {# Soft € lock + secondary CTAs: keep in DOM for tests; visually hidden on mobile when floats grid shows #}
         <div class="pl-rs__prices" role="list" aria-label="{% trans "Орієнтир ціни" %}">
             <article class="pl-rs__price" role="listitem">
                 <p class="pl-rs__price-from">{% trans "від" %}</p>

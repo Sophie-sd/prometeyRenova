@@ -602,71 +602,116 @@
     }
 
     .pl-rs__section--services {
-        padding-top: 40px;
+        padding-top: 48px;
     }
 
     .pl-rs__h2 {
-        font-size: clamp(26px, 7vw, 34px);
-        margin-bottom: 20px;
-        letter-spacing: -0.04em;
+        font-size: 34px;
+        margin-bottom: 40px;
+        letter-spacing: -1.7px;
+        font-weight: 500;
+    }
+
+    .pl-rs__h2--center {
+        text-align: center;
     }
 
     .pl-rs__h2--work,
     .pl-rs__h2--admin,
     .pl-rs__h2--calc {
-        font-size: clamp(28px, 7.5vw, 36px);
-        letter-spacing: -1.2px;
+        font-size: 34px;
+        letter-spacing: -1.7px;
     }
 
-    /* Services: stacked rows (mobile 1:332) */
+    /* Services list 1:406 — rows ~95px, title left, price top-right, outline pill */
     .pl-rs__products {
-        gap: 12px;
+        gap: 14px;
     }
 
     .pl-rs__product {
-        grid-template-columns: 40px minmax(0, 1fr);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
         grid-template-areas:
-            "idx name"
-            "idx text"
-            "idx meta"
-            "idx pill";
+            "name meta"
+            "text pill";
         gap: 4px 12px;
-        padding: 14px 14px;
-        min-height: 0;
-        border-radius: 16px;
+        align-items: center;
+        height: 95px;
+        min-height: 95px;
+        max-height: 95px;
+        padding: 16px;
+        border-radius: 20px;
+        overflow: hidden;
     }
 
     .pl-rs__idx {
-        font-size: clamp(32px, 9vw, 48px);
+        display: none;
     }
 
     .pl-rs__product-name {
-        font-size: 15px;
+        grid-area: name;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: -0.42px;
+        line-height: 1.2;
+        align-self: start;
+        max-width: 146px;
     }
 
-    .pl-rs__product-text,
-    .pl-rs__product-meta {
+    .pl-rs__product-text {
+        grid-area: text;
         font-size: 12px;
+        line-height: 1.2;
+        letter-spacing: -0.6px;
+        color: #a1a1aa;
         white-space: normal;
+        align-self: start;
+        max-width: 146px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .pl-rs__product-meta {
+        grid-area: meta;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: -0.6px;
+        color: #a1a1aa;
+        text-align: right;
+        white-space: nowrap;
+        align-self: start;
+        justify-self: end;
     }
 
     .pl-rs__product-glow {
-        width: 100px;
-        height: 100px;
-        opacity: 0.55;
+        width: 170px;
+        height: 170px;
+        right: -24px;
+        top: 46px;
+        transform: none;
+        opacity: 0.8;
     }
 
     .pl-rs__product .pl-rs__pill {
-        min-width: 0;
-        width: 100%;
-        max-width: 160px;
-        height: 40px;
-        min-height: 40px;
-        padding: 10px 16px;
-        font-size: 13px;
+        grid-area: pill;
+        justify-self: end;
+        align-self: center;
+        min-width: 124px;
+        width: auto;
+        height: 44px;
+        min-height: 44px;
+        margin-top: 0;
+        padding: 12px 22px;
+        font-size: 14px;
+        letter-spacing: -0.42px;
+        border-radius: 100px;
+        border: 1px solid #fff;
+        background: transparent;
     }
 
-    /* Portfolio UPPER (1:164) — near-full-width scroll cards */
+    /* Portfolio UPPER 1:502 — keep; logos 1:526 DO NOT implement */
     .pl-rs__section--work {
         padding-top: 48px;
         padding-bottom: 12px;
@@ -684,8 +729,8 @@
 
     .pl-rs__work-track {
         gap: 12px;
-        margin-inline: -12px;
-        padding-inline: 12px;
+        margin-inline: -16px;
+        padding-inline: 16px;
     }
 
     .pl-rs__work-card {
@@ -695,7 +740,7 @@
 
     .pl-rs__work-shot {
         height: min(220px, 56vw);
-        border-radius: 16px;
+        border-radius: 20px;
     }
 
     .pl-rs__work-name {
@@ -717,25 +762,27 @@
         margin-top: 20px;
     }
 
-    /* Admin stack (1:120) */
+    /* Admin 1:459 */
     .pl-rs__admin {
-        gap: 20px;
+        gap: 40px;
     }
 
     .pl-rs__h2--admin {
-        margin-bottom: 16px;
-        max-width: none;
+        margin-bottom: 20px;
+        max-width: 308px;
     }
 
     .pl-rs__admin-copy .pl-rs__note {
-        font-size: 14px;
-        letter-spacing: -0.4px;
-        max-width: none;
+        font-size: 12px;
+        letter-spacing: -0.6px;
+        max-width: 237px;
+        line-height: 1.2;
     }
 
     .pl-rs__screen {
-        min-height: 0;
-        border-radius: 16px;
+        min-height: 240px;
+        height: 240px;
+        border-radius: 20px;
     }
 
     .pl-rs__screen-bar {
@@ -744,72 +791,108 @@
     }
 
     .pl-rs__screen-bar em {
-        font-size: 14px;
+        font-size: 12px;
+        letter-spacing: -0.6px;
     }
 
     .pl-rs__screen-body {
-        grid-template-columns: 1fr;
+        grid-template-columns: 88px minmax(0, 1fr);
         min-height: 0;
     }
 
     .pl-rs__screen-nav {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
+        flex-wrap: nowrap;
         gap: 0;
-        padding: 8px 4px;
-        border-right: 0;
-        border-bottom: 2px solid transparent;
-        border-image: linear-gradient(90deg, #d05300, transparent) 1;
+        padding: 8px 4px 8px 12px;
+        border-right: 2px solid transparent;
+        border-bottom: 0;
+        border-image: linear-gradient(180deg, #d05300, transparent) 1;
     }
 
     .pl-rs__screen-nav li {
-        padding: 8px 12px;
-        font-size: 13px;
+        padding: 10px 8px;
+        font-size: 12px;
+        letter-spacing: -0.6px;
     }
 
     .pl-rs__screen-rows p {
-        padding: 14px 16px;
-        font-size: 14px;
+        padding: 12px 14px;
+        font-size: 12px;
+        letter-spacing: -0.6px;
     }
 
     .pl-rs__screen-rings {
-        width: 140px;
-        height: 140px;
-        opacity: 0.7;
+        width: 160px;
+        height: 160px;
+        opacity: 0.75;
     }
 
-    /* CTA card (1:239) — no Client Logos 34:4338 */
+    /* Calc CTA 1:564 — stacked full-width buttons, radius 20, pad ~40/16 */
     .pl-rs__calc {
         padding: 40px 0 32px;
     }
 
     .pl-rs__calc-card {
-    box-shadow: 0 0 120px rgba(208, 83, 0, 0.22), 0 24px 80px rgba(0, 0, 0, 0.55);
+        box-shadow: 0 0 120px rgba(208, 83, 0, 0.22), 0 24px 80px rgba(0, 0, 0, 0.55);
         min-height: 0;
-        padding: 36px 20px;
-        border-radius: 16px;
+        padding: 40px 16px;
+        border-radius: 20px;
     }
 
     .pl-rs__calc-body {
-        gap: 20px;
-        max-width: none;
+        gap: 60px;
+        max-width: 330px;
+        width: 100%;
+    }
+
+    .pl-rs__h2--calc {
+        margin-bottom: 0;
+        max-width: 302px;
     }
 
     .pl-rs__note--center {
-        font-size: 14px;
-        letter-spacing: -0.4px;
-        max-width: 32em;
+        font-size: 12px;
+        letter-spacing: -0.6px;
+        max-width: 228px;
+        line-height: 1.2;
+        margin-top: 20px;
     }
 
     .pl-rs__calc-actions {
         width: 100%;
-        max-width: 280px;
+        max-width: none;
+        gap: 14px;
+    }
+
+    .pl-rs__cta--calc {
+        width: 100%;
+        max-width: none;
+        height: 44px;
+        min-height: 44px;
+        justify-content: space-between;
+        padding: 12px 18px;
+        border-radius: 100px;
+        background: #d05300;
+    }
+
+    .pl-rs__pill--calc {
+        width: 100%;
+        height: 44px;
+        min-height: 44px;
+        padding: 12px 22px;
+        border-radius: 100px;
+        border: 1px solid #fff;
+        font-size: 14px;
+        letter-spacing: -0.42px;
+        justify-content: center;
     }
 
     .pl-rs__calc-rings {
         width: min(280px, 70vw);
         height: min(280px, 70vw);
-        opacity: 0.75;
+        opacity: 0.8;
     }
 }
 
