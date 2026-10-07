@@ -72,8 +72,12 @@ class HomeView(BasePageView):
     og_title = _('PrometeyLabs - Розробка сайтів під ключ')
 
     def get_context_data(self, **kwargs):
+        from django.utils import translation
         context = super().get_context_data(**kwargs)
         context['home_clients'] = homepage_clients()
+        if translation.get_language() == 'ru':
+            context['lang_suggest_always'] = True
+            context['lang_suggest_uk_url'] = '/'
         return context
 
 
@@ -139,9 +143,13 @@ class RozrobkaSajtivView(BasePageView):
     )
 
     def get_context_data(self, **kwargs):
+        from django.utils import translation
         context = super().get_context_data(**kwargs)
         context['home_clients'] = homepage_clients()
         context['portfolio_strip'] = homepage_portfolio_strip()
+        if translation.get_language() == 'ru':
+            context['lang_suggest_always'] = True
+            context['lang_suggest_uk_url'] = '/rozrobka-sajtiv/'
         return context
 
 
@@ -265,7 +273,6 @@ class InternetShopV2View(BasePageView):
 
 class CorporateWebsiteV2View(BasePageView):
     """Сторінка корпоративних сайтів та лендінгів. Старий /corporate-website/ редіректить сюди."""
-    template_name = 'pages/corporate-website-v2.html'
     page_title = _('Корпоративні сайти та лендінги під ключ — ціна і строки | PrometeyLabs')
     meta_description = _(
         'Розробка корпоративних сайтів та лендінгів з нативною архітектурою. '
@@ -273,9 +280,25 @@ class CorporateWebsiteV2View(BasePageView):
     )
     og_title = _('Корпоративні сайти, що домінують у пошуку — PrometeyLabs')
 
+    def get_template_names(self):
+        from django.utils import translation
+        if translation.get_language() == 'ru':
+            return ['pages/corporate-website-v2-ru.html']
+        return ['pages/corporate-website-v2.html']
+
     def get_context_data(self, **kwargs):
+        from django.utils import translation
         context = super().get_context_data(**kwargs)
         context['home_clients'] = homepage_clients()
+        if translation.get_language() == 'ru':
+            context['page_title'] = 'Корпоративные сайты и лендинги под ключ — цена и сроки | PrometeyLabs'
+            context['meta_description'] = (
+                'Разработка корпоративных сайтов и лендингов с нативной архитектурой. '
+                '100/100 Core Web Vitals, техническое SEO, пожизненная гарантия на код.'
+            )
+            context['og_title'] = 'Корпоративные сайты, которые доминируют в поиске — PrometeyLabs'
+            context['lang_suggest_always'] = True
+            context['lang_suggest_uk_url'] = '/corporate-website-v2/'
         return context
 
 

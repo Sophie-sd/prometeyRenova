@@ -1,0 +1,234 @@
+<section id="calculator" class="pl-corp__calc pl-corp__section" aria-labelledby="pl-corp-calc-title">
+    <div class="pl-corp__calc-inner pl-corp__inner pl-corp__inner--narrow">
+        <div class="pl-corp__calc-head" data-reveal>
+            <h2 id="pl-corp-calc-title" class="pl-corp__title pl-corp__title--brief">
+                Получите просчёт стоимости
+            </h2>
+            <p class="pl-corp__calc-subtitle">
+                Высокая скорость, чистый код. Сайт, который работает на результат.
+            </p>
+        </div>
+
+        <form
+            id="pl-corp-quiz-form"
+            class="pl-corp__quiz"
+            method="post"
+            action="{% url 'form_submit' %}"
+            data-form-type="site_request"
+            data-source-label="Корпоративний сайт v2"
+            data-reveal
+        >
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="site_request">
+            <input type="hidden" name="source_page" value="corporate-website-v2">
+            <input type="hidden" name="details" id="pl-corp-quiz-details">
+
+            <div class="pl-corp__quiz-header">
+                <div class="pl-corp__quiz-progress" aria-hidden="true">
+                    <div class="pl-corp__quiz-progress-bar" data-quiz-progress></div>
+                </div>
+                <p class="pl-corp__quiz-progress-label">Крок <span data-quiz-step-num>1</span> з 5</p>
+            </div>
+
+            <div class="pl-corp__quiz-stage">
+            <div class="pl-corp__quiz-step pl-corp__quiz-step--active" data-step="1">
+                <p class="pl-corp__quiz-question">Какой у вас бизнес?</p>
+                <ul class="pl-corp__quiz-options">
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_business" value="Послуги (B2C / B2B)">
+                            <span class="pl-corp__quiz-option-text">Послуги (B2C / B2B)</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_business" value="Виробництво / опт">
+                            <span class="pl-corp__quiz-option-text">Виробництво / опт</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_business" value="Торговля">
+                            <span class="pl-corp__quiz-option-text">Торговля</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_business" value="Другое / не определился">
+                            <span class="pl-corp__quiz-option-text">Другое / не определился</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-corp__quiz-step" data-step="2">
+                <p class="pl-corp__quiz-question">Какая основная бизнес-цель вашего проекта?</p>
+                <ul class="pl-corp__quiz-options">
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_goal" value="Сбор заявок и контактов">
+                            <span class="pl-corp__quiz-option-text">Сбор заявок и контактов</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_goal" value="Прямые онлайн-продажи">
+                            <span class="pl-corp__quiz-option-text">Прямые онлайн-продажи</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_goal" value="Презентация бренда или услуг">
+                            <span class="pl-corp__quiz-option-text">Презентация бренда или услуг</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_goal" value="Масштабування">
+                            <span class="pl-corp__quiz-option-text">Масштабування</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-corp__quiz-step" data-step="3">
+                <p class="pl-corp__quiz-question">Сколько страниц нужно?</p>
+                <ul class="pl-corp__quiz-options">
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_pages" value="1 страница (лендинг)">
+                            <span class="pl-corp__quiz-option-text">1 страница (лендинг)</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_pages" value="до 10 страниц">
+                            <span class="pl-corp__quiz-option-text">до 10 страниц</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_pages" value="11–20 страниц">
+                            <span class="pl-corp__quiz-option-text">11–20 страниц</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_pages" value="21+ страниц">
+                            <span class="pl-corp__quiz-option-text">21+ страниц</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-corp__quiz-step" data-step="4">
+                <p class="pl-corp__quiz-question">Что нужно дополнительно?</p>
+                <ul class="pl-corp__quiz-options">
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_options" value="Рекламные услуги">
+                            <span class="pl-corp__quiz-option-text">Рекламные услуги</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_options" value="SEO розвиток сайту">
+                            <span class="pl-corp__quiz-option-text">SEO розвиток сайту</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_options" value="CRM и автоматизация">
+                            <span class="pl-corp__quiz-option-text">CRM и автоматизация</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_options" value="Мультиязычность">
+                            <span class="pl-corp__quiz-option-text">Мультиязычность</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-corp__quiz-step" data-step="5">
+                <p class="pl-corp__quiz-question">Когда нужен запуск?</p>
+                <ul class="pl-corp__quiz-options">
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_timeline" value="Как можно скорее (до 7 дней)">
+                            <span class="pl-corp__quiz-option-text">Как можно скорее (до 7 дней)</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_timeline" value="В течение 2 недель">
+                            <span class="pl-corp__quiz-option-text">В течение 2 недель</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_timeline" value="В течение месяца">
+                            <span class="pl-corp__quiz-option-text">В течение месяца</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-corp__quiz-option mobile-touch-target">
+                            <input type="radio" name="q_timeline" value="Сроки гибкие">
+                            <span class="pl-corp__quiz-option-text">Сроки гибкие</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pl-corp__quiz-step pl-corp__quiz-step--contact" data-step="contact">
+                <p class="pl-corp__quiz-question">Майже готово!</p>
+                <p class="pl-corp__quiz-hint">Оставьте контакты — и мы покажем рекомендованный пакет по вашим ответам.</p>
+
+                <div class="pl-corp__quiz-fields pl-corp__quiz-fields--contact">
+                    <div class="pl-corp__quiz-field">
+                        <label class="pl-corp__quiz-field-label" for="pl-corp-quiz-name">Ваше имя</label>
+                        <input
+                            type="text"
+                            id="pl-corp-quiz-name"
+                            name="name"
+                            class="pl-corp__quiz-input mobile-touch-target"
+                            autocomplete="given-name"
+                            inputmode="text"
+                            required
+                            placeholder="Имя"
+                        >
+                    </div>
+                    <div class="pl-corp__quiz-field">
+                        <label class="pl-corp__quiz-field-label" for="pl-corp-quiz-phone">Telegram або телефон <span class="pl-corp__quiz-required" aria-hidden="true">*</span></label>
+                        <input
+                            type="text"
+                            id="pl-corp-quiz-phone"
+                            name="phone"
+                            class="pl-corp__quiz-input mobile-touch-target"
+                            autocomplete="tel"
+                            inputmode="tel"
+                            required
+                            placeholder="@username  або  +38 (0__) ___-__-__"
+                        >
+                    </div>
+                    <button
+                        type="submit"
+                        class="pl-corp__btn pl-corp__btn--primary pl-corp__quiz-reveal mobile-touch-target"
+                        data-quiz-reveal
+                    >
+                        Отримати розрахунок →
+                    </button>
+                </div>
+            </div>
+
+            </div>
+
+            <div class="pl-corp__quiz-nav">
+                <button type="button" class="pl-corp__btn pl-corp__btn--ghost pl-corp__quiz-prev pl-corp__quiz-nav-slot--hidden mobile-touch-target" aria-hidden="true" tabindex="-1">← Назад</button>
+                <button type="button" class="pl-corp__btn pl-corp__btn--ghost pl-corp__quiz-skip mobile-touch-target">Пропустити</button>
+                <button type="button" class="pl-corp__btn pl-corp__btn--primary pl-corp__quiz-next mobile-touch-target" disabled>Далее →</button>
+            </div>
+        </form>
+    </div>
+</section>
