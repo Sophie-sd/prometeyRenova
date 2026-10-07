@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: PrometeyLabs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-01 14:05+0300\n"
-"PO-Revision-Date: 2026-10-07 16:25+0300\n"
+"PO-Revision-Date: 2026-10-07 18:05+0300\n"
 "Last-Translator: PrometeyLabs <info@prometeylabs.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -5851,6 +5851,7 @@ msgstr "Лендинги, корпоративные сайты, интерне�
 msgid "Орієнтир ціни"
 msgstr "Ориентир цены"
 
+#: apps/core/fx.py
 #: templates/pages/rozrobka-sajtiv.html
 msgid "від"
 msgstr "от"
