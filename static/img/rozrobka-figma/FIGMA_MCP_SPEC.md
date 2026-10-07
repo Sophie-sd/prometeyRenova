@@ -47,3 +47,24 @@ fileKey: `nqf46nnD1zrTI7fvk3BAAd`
 3. Тексти/ціни Soft лишаються gettext з Renova; метрики/layout/кольори — з Figma.
 4. Django + BEM CSS, без Tailwind.
 5. Пуш лише `git push sophie main` з `/Users/sofiadmitrenko/prometeyRenova`. Без GitHub/gh/API.
+
+## Mobile (34:4144 @ 393×3516)
+
+> MCP `get_design_context` / screenshots **skipped this pass** (Figma MCP unavailable). Layout tokens below from prior MCP cache + frame ids.
+
+| Секція | nodeId | Дія |
+|--------|--------|-----|
+| Mobile root | 34:4144 | огляд 393×3516 |
+| Header | 34:4146 | імплемент (site chrome) |
+| Overview / hero | 34:4155 | імплемент — prices grid visible; floats hidden |
+| Services | 34:4218 | імплемент — stacked rows |
+| Admin | 34:4271 | імплемент — stack |
+| Portfolio UPPER | 34:4314 | **KEEP** — near-full-width scroll cards |
+| Client Logos | 34:4338 | **REMOVE** if present (не в шаблоні Soft) |
+| CTA | 34:4376 | імплемент |
+
+### Mobile notes
+
+- Breakpoint Soft: `≤767` mobile-first; floats only `≥1100`.
+- Soft offer lock: `pl-rs__prices` + currency лишаються в DOM (gettext 250/500/800 €).
+- CSS: `rozrobka-sajtiv.css` + `rozrobka-sajtiv-2.css` (cache `?v=6`).
