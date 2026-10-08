@@ -6,6 +6,11 @@
     var form = document.getElementById('pl-corp-quiz-form');
     if (!form) return;
 
+    var isRu = (document.documentElement.lang || '').toLowerCase().indexOf('ru') === 0
+        || /^\/ru\//.test(location.pathname);
+    var PHONE_MSG_EMPTY = isRu ? 'Внесите номер телефона' : 'Внесіть номер телефону';
+    var PHONE_MSG_INVALID = isRu ? 'Введите корректный номер телефона' : 'Введіть коректний номер телефону';
+
     var PKG_MAP = {
         starter: {
             label: 'СТАРТОВИЙ',
@@ -330,7 +335,8 @@
         if (progressBar) progressBar.style.width = progress + '%';
         if (stepNumEl) stepNumEl.textContent = String(stepNum);
 
-        var showPrev = idx > 0 && !isResult;
+        /* No "Back" on the final contact/result step */
+        var showPrev = idx > 0 && isQuestion;
         var showNext = isQuestion;
         var showSkip = isQuestion;
 
@@ -410,7 +416,35 @@
         phoneInput.addEventListener('input', clearPhoneError);
     }
 
-    if (revealBtn) revealBtn.addEventListener('click', prepareSubmit);
+    /* Phone mask keeps a non-removable "+38" prefix, so native `required`
+       passes on an empty number — check digits before letting the form submit. */
+    function getPhoneError() {
+        if (!phoneInput) return '';
+        var raw = phoneInput.value.trim();
+        var digits = countDigits(raw);
+        var national = raw.indexOf('+38') === 0 ? digits - 2 : digits;
+        if (national <= 0 && raw.replace(/^\+38/, '').trim().length === 0) return PHONE_MSG_EMPTY;
+        if (digits < 7) return PHONE_MSG_INVALID;
+        return '';
+    }
+
+    function handleRevealClick(e) {
+        var phoneError = getPhoneError();
+        if (phoneError) {
+            e.preventDefault();
+            showPhoneError(phoneError);
+            if (nameInput && !nameInput.checkValidity()) {
+                nameInput.reportValidity();
+            } else if (phoneInput) {
+                phoneInput.focus();
+            }
+            return;
+        }
+        clearPhoneError();
+        prepareSubmit();
+    }
+
+    if (revealBtn) revealBtn.addEventListener('click', handleRevealClick);
     if (prevResultBtn) prevResultBtn.addEventListener('click', goPrev);
     if (skipBtn) skipBtn.addEventListener('click', goSkip);
     if (nextBtn) nextBtn.addEventListener('click', goNext);

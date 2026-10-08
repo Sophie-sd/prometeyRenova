@@ -32,6 +32,15 @@
     const nextBtn      = form.querySelector('.is-quiz__next-btn');
     const navDiv       = form.querySelector('.is-quiz__nav');
     const detailsInput = document.getElementById('quiz-details');
+    const submitBtn    = form.querySelector('.is-quiz__submit');
+    const nameInput    = form.querySelector('#quiz-name');
+    const phoneInput   = form.querySelector('#quiz-phone');
+
+    const isRu = (document.documentElement.lang || '').toLowerCase().indexOf('ru') === 0
+        || /^\/ru\//.test(location.pathname);
+    const PHONE_MSG_EMPTY   = isRu ? 'Внесите номер телефона' : 'Внесіть номер телефону';
+    const PHONE_MSG_INVALID = isRu ? 'Введите корректный номер телефона' : 'Введіть коректний номер телефону';
+    const PHONE_ERROR_ID    = 'quiz-phone-error';
 
     const QUESTION_STEPS = steps.filter(s => !s.classList.contains('is-quiz__step--contact')).length;
     let currentIdx = 0;
@@ -178,6 +187,57 @@
         });
         detailsInput.value = parts.join('\n');
     }
+
+    /* ── Телефон на контактному кроці ──────────────────────────
+       Маска тримає префікс "+38", тож native `required` не спрацьовує
+       на порожньому номері — перевіряємо цифри самі. */
+    function getPhoneError() {
+        if (!phoneInput) return '';
+        const raw = phoneInput.value.trim();
+        const digits = raw.replace(/\D/g, '');
+        const national = raw.indexOf('+38') === 0 ? digits.slice(2) : digits;
+        if (!national.length) return PHONE_MSG_EMPTY;
+        if (digits.length < 7) return PHONE_MSG_INVALID;
+        return '';
+    }
+
+    function showPhoneError(message) {
+        if (!phoneInput) return;
+        let err = document.getElementById(PHONE_ERROR_ID);
+        if (!err) {
+            err = document.createElement('p');
+            err.id = PHONE_ERROR_ID;
+            err.className = 'is-quiz__field-error';
+            err.setAttribute('role', 'alert');
+            phoneInput.parentElement.appendChild(err);
+        }
+        err.textContent = message;
+        phoneInput.classList.add('error');
+        phoneInput.setAttribute('aria-invalid', 'true');
+        phoneInput.setAttribute('aria-describedby', PHONE_ERROR_ID);
+    }
+
+    function clearPhoneError() {
+        if (!phoneInput) return;
+        const err = document.getElementById(PHONE_ERROR_ID);
+        if (err) err.remove();
+        phoneInput.classList.remove('error');
+        phoneInput.removeAttribute('aria-invalid');
+        phoneInput.removeAttribute('aria-describedby');
+    }
+
+    submitBtn?.addEventListener('click', (e) => {
+        const phoneError = getPhoneError();
+        if (!phoneError) {
+            clearPhoneError();
+            return;
+        }
+        e.preventDefault();
+        showPhoneError(phoneError);
+        if (nameInput && !nameInput.checkValidity()) nameInput.reportValidity();
+        else phoneInput.focus();
+    });
+    phoneInput?.addEventListener('input', clearPhoneError);
 
     /* ── Ініціалізація ──────────────────────────────────────── */
     showStep(0);

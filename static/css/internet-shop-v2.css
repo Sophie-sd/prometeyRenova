@@ -3170,6 +3170,20 @@ body.pl-shop-body .main-footer .container {
     border-color: rgba(var(--pl-acc-rgb), 0.65);
 }
 
+.pl-shop__quiz-input.error,
+.pl-shop__quiz-input.error:focus,
+.pl-shop__quiz-input.error:focus-visible {
+    border-color: #ff4d4f;
+}
+
+.pl-shop__quiz-field-error {
+    margin: 6px 0 0;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #ff4d4f;
+}
+
 .pl-shop__quiz-submit {
     width: 100%;
     min-height: 48px;

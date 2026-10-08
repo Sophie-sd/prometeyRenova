@@ -184,14 +184,14 @@
 @media(min-width:1024px){.is-hero__title{font-size:clamp(54px,7vw,84px)}}
 </style>
 <!-- Page CSS — loaded non-blocking (full styles, after critical CSS above) -->
-<link rel="preload" href="{% static 'css/internet-shop.css' %}?v=16" as="style">
-<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=16" media="print" data-async-css>
-<noscript><link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=16"></noscript>
+<link rel="preload" href="{% static 'css/internet-shop.css' %}?v=17" as="style">
+<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=17" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=17"></noscript>
 {% endblock %}
 
 {% block extra_js %}
 <script src="{% static 'js/internet-shop-parallax.js' %}" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/internet-shop-quiz.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-quiz.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}
 
 {% block content %}

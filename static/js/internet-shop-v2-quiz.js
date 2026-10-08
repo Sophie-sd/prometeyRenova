@@ -222,24 +222,62 @@
             && !step.classList.contains('pl-shop__quiz-step--result');
     }
 
-    function validateContactFields() {
-        var valid = true;
+    var PHONE_MSG_EMPTY = isRu ? 'Внесите номер телефона' : 'Внесіть номер телефону';
+    var PHONE_MSG_INVALID = isRu ? 'Введите корректный номер телефона' : 'Введіть коректний номер телефону';
+    var PHONE_ERROR_ID = 'pl-shop-quiz-phone-error';
 
-        if (nameInput) {
-            if (!nameInput.checkValidity()) {
+    /* Phone mask keeps a non-removable "+38" prefix, so the field is never
+       truly empty and native `required` passes — validate digits ourselves. */
+    function getPhoneError() {
+        if (!phoneInput) return '';
+        var raw = phoneInput.value.trim();
+        var digits = raw.replace(/\D/g, '');
+        var national = raw.indexOf('+38') === 0 ? digits.slice(2) : digits;
+        if (!national.length) return PHONE_MSG_EMPTY;
+        if (digits.length < 7) return PHONE_MSG_INVALID;
+        return '';
+    }
+
+    function showPhoneError(message) {
+        if (!phoneInput) return;
+        var field = phoneInput.parentElement;
+        var err = document.getElementById(PHONE_ERROR_ID);
+        if (!err) {
+            err = document.createElement('p');
+            err.id = PHONE_ERROR_ID;
+            err.className = 'pl-shop__quiz-field-error';
+            err.setAttribute('role', 'alert');
+            field.appendChild(err);
+        }
+        err.textContent = message;
+        phoneInput.classList.add('error');
+        phoneInput.setAttribute('aria-invalid', 'true');
+        phoneInput.setAttribute('aria-describedby', PHONE_ERROR_ID);
+    }
+
+    function clearPhoneError() {
+        if (!phoneInput) return;
+        var err = document.getElementById(PHONE_ERROR_ID);
+        if (err) err.remove();
+        phoneInput.classList.remove('error');
+        phoneInput.removeAttribute('aria-invalid');
+        phoneInput.removeAttribute('aria-describedby');
+    }
+
+    function handleRevealClick(e) {
+        var phoneError = getPhoneError();
+        if (phoneError) {
+            e.preventDefault();
+            showPhoneError(phoneError);
+            if (nameInput && !nameInput.checkValidity()) {
                 nameInput.reportValidity();
-                valid = false;
+            } else if (phoneInput) {
+                phoneInput.focus();
             }
+            return;
         }
-
-        if (phoneInput) {
-            if (!phoneInput.checkValidity()) {
-                phoneInput.reportValidity();
-                valid = false;
-            }
-        }
-
-        return valid;
+        clearPhoneError();
+        prepareSubmit();
     }
 
     function compileDetails() {
@@ -296,7 +334,8 @@
         if (progressBar) progressBar.style.width = progress + '%';
         if (stepNumEl) stepNumEl.textContent = String(stepNum);
 
-        var showPrev = idx > 0;
+        /* No "Back" on the final contact/result step */
+        var showPrev = idx > 0 && isQuestion;
         var showNext = isQuestion;
         var showSkip = isQuestion;
 
@@ -370,7 +409,8 @@
         if (nextBtn) nextBtn.disabled = false;
     });
 
-    if (revealBtn) revealBtn.addEventListener('click', prepareSubmit);
+    if (revealBtn) revealBtn.addEventListener('click', handleRevealClick);
+    if (phoneInput) phoneInput.addEventListener('input', clearPhoneError);
     if (skipBtn) skipBtn.addEventListener('click', goSkip);
     if (nextBtn) nextBtn.addEventListener('click', goNext);
     if (prevBtn) prevBtn.addEventListener('click', goPrev);

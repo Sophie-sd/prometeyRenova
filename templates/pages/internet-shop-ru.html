@@ -157,14 +157,14 @@
 <!-- BG parallax images — only desktop preloaded; mobile bg loads via CSS without competing with hero LCP <img> -->
 <link rel="preload" as="image" href="{% static 'images/shop_page_hero_desc.webp' %}" media="(min-width: 768px)" fetchpriority="low">
 <!-- Page CSS — loaded non-blocking to eliminate render-blocking resource -->
-<link rel="preload" href="{% static 'css/internet-shop.css' %}?v=16" as="style">
-<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=16" media="print" data-async-css>
-<noscript><link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=16"></noscript>
+<link rel="preload" href="{% static 'css/internet-shop.css' %}?v=17" as="style">
+<link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=17" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="{% static 'css/internet-shop.css' %}?v=17"></noscript>
 {% endblock %}
 
 {% block extra_js %}
 <script src="{% static 'js/internet-shop-parallax.js' %}" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/internet-shop-quiz.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-quiz.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}
 
 {% block content %}

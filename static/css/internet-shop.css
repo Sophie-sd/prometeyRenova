@@ -1085,6 +1085,19 @@
     margin-top: 8px;
 }
 
+.is-quiz .form-input.error,
+.is-quiz .form-input.error:focus {
+    border-color: #ff4d4f;
+}
+
+.is-quiz__field-error {
+    margin: 6px 0 0;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #ff4d4f;
+}
+
 /* Напівпрозорі поля у секції бриф */
 .is-brief .form-input {
     background: rgba(255, 255, 255, 0.07);
