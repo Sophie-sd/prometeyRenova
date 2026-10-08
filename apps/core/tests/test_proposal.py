@@ -755,6 +755,44 @@ class ProposalSeedTests(TestCase):
         self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
         self.assertNotContains(kp, 'Рекомендовано')
 
+    def test_jewelry_seed_provisions_one_classic_shop(self):
+        call_command('seed_proposal_jewelry')
+        call_command('seed_proposal_jewelry')
+        proposal = Proposal.objects.get(slug='shop-jewelry-9d2b')
+        self.assertEqual(proposal.kind, Proposal.DemoKind.SHOP)
+        self.assertEqual(proposal.issued_on.isoformat(), '2026-10-08')
+        names = list(
+            proposal.packages.order_by('order').values_list(
+                'name', 'price', 'duration', 'is_recommended',
+            )
+        )
+        self.assertEqual(names, [
+            ('BASE', Decimal('1200.00'), 'до 30 днів', False),
+            ('PREMIUM', Decimal('2500.00'), '30 днів', True),
+            ('PLATINUM', Decimal('4200.00'), '30–45 днів', False),
+        ])
+        self.assertIn('1 рік', proposal.guarantee_html)
+        for word in ('пожиттєв', 'Пожиттєв', 'ПОЖИТТЄВ'):
+            self.assertNotIn(word, proposal.guarantee_html)
+        self.assertTrue(proposal.hero_image)
+        self.assertTrue(proposal.hero_public_url)
+        self.assertEqual(DemoShop.objects.filter(proposal=proposal).count(), 1)
+        shop = DemoShop.objects.get(proposal=proposal)
+        self.assertEqual(shop.name, 'Demo Shop')
+        call_command('seed_proposal_lingerie', no_demo=True)
+        self.assertTrue(Proposal.objects.filter(slug='shop-lingerie-a7f3').exists())
+        self.assertEqual(proposal.packages.count(), 3)
+
+        client = Client()
+        kp = client.get(reverse('proposal_detail', kwargs={'slug': proposal.slug}))
+        self.assertEqual(kp.status_code, 200)
+        self.assertContains(kp, 'Рекомендовано')
+        self.assertContains(kp, 'Переглянути демо магазину')
+        self.assertContains(kp, 'не версія вашого сайту')
+        self.assertContains(kp, shop.get_absolute_url())
+        self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
+        self.assertNotContains(kp, 'пожиттєв')
+
     def test_sanvit_seed_is_corporate_catalog_with_one_corp_demo(self):
         from apps.demoshop.services.provision import provision_demo_shop
 

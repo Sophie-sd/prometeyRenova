@@ -128,4 +128,7 @@ python manage.py seed_proposal_catalog_b
 echo "📄 Seeding DEVISU corporate proposal + classic demo-corp..."
 python manage.py seed_proposal_devisu
 
+echo "📄 Seeding jewelry shop proposal + classic demo-shop..."
+python manage.py seed_proposal_jewelry
+
 echo "✅ Build complete!"
