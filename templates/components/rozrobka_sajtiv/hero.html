@@ -16,6 +16,8 @@
                 <span>{% trans "Отримати консультацію" %}</span>
                 <img src="{% static 'img/rozrobka-figma/arrow-hero.svg' %}" alt="" width="24" height="24" decoding="async">
             </button>
+            {# Mobile-only secondary CTA (≤767); primary stays «Отримати консультацію». #}
+            <a class="pl-rs__cta-alt mobile-touch-target" href="{% url 'calculator' %}">{% trans "Розрахувати вартість" %}</a>
         </div>
 
         <div class="pl-rs__floats" aria-hidden="true">
@@ -95,14 +97,6 @@
                 <p class="pl-rs__scope-in">{% trans "У сумі: узгоджений MVP за брифом у діапазоні" %}</p>
                 <p class="pl-rs__scope-out">{% trans "Не входить: нові модулі після здачі, сторонні ліцензії" %}</p>
             </article>
-        </div>
-
-        <div class="pl-rs__actions">
-            <div class="pl-rs__links">
-                <a class="pl-rs__link pl-rs__link--muted mobile-touch-target" href="{% url 'calculator' %}">{% trans "Розрахувати вартість" %}</a>
-                <a class="pl-rs__link pl-rs__link--muted mobile-touch-target" href="{{ site_contact.telegram_url }}" target="_blank" rel="noopener noreferrer">{% trans "Написати в Telegram" %}</a>
-                <a class="pl-rs__link pl-rs__link--muted mobile-touch-target" href="{{ site_contact.get_tel_href|default:'tel:+380639520565' }}">{% trans "Зателефонувати прямо зараз" %}</a>
-            </div>
         </div>
     </div>
 </section>

@@ -638,10 +638,6 @@
         border: 0;
     }
 
-    .pl-rs__actions {
-        max-width: 420px;
-    }
-
     .pl-rs__hero-copy {
         z-index: 2;
     }
@@ -972,7 +968,7 @@
 
 @media (prefers-reduced-motion: reduce) {
     .pl-rs__cta,
-    .pl-rs__link,
+    .pl-rs__cta-alt,
     .pl-rs__product,
     .pl-rs__work-shot img,
     .pl-rs__work-btn,

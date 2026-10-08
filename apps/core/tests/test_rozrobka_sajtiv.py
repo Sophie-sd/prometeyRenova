@@ -60,12 +60,20 @@ class RozrobkaSajtivPageTests(TestCase):
         soft_hits = [s for s in ('SOFT', 'Soft ·', 'Soft —', 'орієнтири Soft') if s in html]
         self.assertEqual(soft_hits, [], soft_hits)
         self.assertIn('rozrobka-sajtiv.js', html)
-        self.assertIn('href="/calculator/"', root)
-        self.assertIn('Розрахувати вартість', root)
-        self.assertIn('Написати в Telegram', root)
-        self.assertIn('https://t.me/prometeylabs', root)
-        self.assertIn('Зателефонувати прямо зараз', root)
-        self.assertIn('tel:+380639520565', root)
+        # Hero: 3-row link list removed; mobile-only secondary calc CTA instead.
+        self.assertNotIn('pl-rs__links', root)
+        self.assertNotIn('pl-rs__link--muted', root)
+        self.assertNotIn('Написати в Telegram', root)
+        self.assertNotIn('Зателефонувати прямо зараз', root)
+        self.assertIn(
+            '<a class="pl-rs__cta-alt mobile-touch-target" href="/calculator/">Розрахувати вартість</a>',
+            root,
+        )
+        # Telegram / phone remain in the closing calc block.
+        self.assertIn('Написати в Telegram', html)
+        self.assertIn('https://t.me/prometeylabs', html)
+        self.assertIn('Зателефонувати прямо зараз', html)
+        self.assertIn('tel:+380639520565', html)
         self.assertIn('href="/corporate-website-v2/#scale"', root)
         self.assertIn('href="/corporate-website-v2/#economy"', root)
         self.assertIn('href="/internet-shop-v2/#pakety"', root)
@@ -115,8 +123,12 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertIn('€', root)
         self.assertIn('id="fx-switch-soft"', root)
         self.assertNotIn('data-currency="usd"', root)
-        self.assertIn('href="/ru/calculator/"', root)
-        self.assertIn('tel:+380639520565', root)
+        self.assertIn(
+            '<a class="pl-rs__cta-alt mobile-touch-target" href="/ru/calculator/">Рассчитать стоимость</a>',
+            root,
+        )
+        self.assertNotIn('pl-rs__links', root)
+        self.assertIn('tel:+380639520565', html)
         self.assertEqual(html.count('<h1'), 1)
 
     def test_seo_head(self):
