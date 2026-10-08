@@ -20,13 +20,39 @@
     <div class="pl-shop__inner">
         <div class="pl-shop__hero-row">
             <div class="pl-shop__hero-copy">
-                <h1 id="pl-shop-hero-title" class="pl-shop__title pl-shop__title--hero">
-                    Інтернет-магазини, що завантажуються <span class="pl-shop__accent">швидше, ніж клієнт встигає клікнути.</span>
-                </h1>
-                <div class="pl-shop__hero-actions">
-                    <a href="#zayavka" class="pl-shop__btn pl-shop__btn--primary mobile-touch-target">Розрахувати пропозицію</a>
-                    <button type="button" class="pl-shop__btn pl-shop__btn--ghost mobile-touch-target" data-modal="call-request-modal">Замовити консультацію</button>
-                </div>
+                <h1 id="pl-shop-hero-title" class="pl-shop__title pl-shop__title--hero">Створення інтернет-магазину під ключ</h1>
+                {# Plain text price: no fx hooks — must not change with €/₴ switcher. #}
+                <p class="pl-shop__hero-line">Від 800€. Запуск за 3 тижні. 1 рік підтримки безкоштовно.</p>
+                <p class="pl-shop__hero-lead">Дизайн, код і інтеграції. Без плагінів і без щомісячної абонплати. Магазин залишається вашим.</p>
+
+                <form
+                    id="pl-shop-hero-form"
+                    class="pl-shop__hero-form"
+                    method="post"
+                    action="{% url 'form_submit' %}"
+                    data-form-type="site_request"
+                    data-source-label="Інтернет-магазин v2 · перший екран"
+                    aria-label="Заявка на розрахунок вартості"
+                >
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="site_request">
+                    <input type="hidden" name="source_page" value="internet-shop-v2">
+                    <input type="hidden" name="details" value="Сторінка: Інтернет-магазин v2 · Форма на першому екрані">
+                    <div class="pl-shop__hero-form-field">
+                        <label class="pl-shop__quiz-field-label" for="pl-shop-hero-name">Ім’я</label>
+                        <input type="text" id="pl-shop-hero-name" name="name" class="pl-shop__quiz-input mobile-touch-target" autocomplete="given-name" inputmode="text" required placeholder="Ваше ім’я">
+                    </div>
+                    <div class="pl-shop__hero-form-field">
+                        <label class="pl-shop__quiz-field-label" for="pl-shop-hero-phone">Телефон</label>
+                        <input type="tel" id="pl-shop-hero-phone" name="phone" class="pl-shop__quiz-input mobile-touch-target" autocomplete="tel" inputmode="tel" required placeholder="+38(___)__-__-___">
+                    </div>
+                    <button type="submit" class="pl-shop__btn pl-shop__btn--primary pl-shop__hero-form-submit mobile-touch-target">Дізнатися вартість</button>
+                </form>
+
+                <p class="pl-shop__hero-contacts">
+                    <a href="{{ site_contact.get_tel_href }}" class="pl-shop__hero-contact">{{ site_contact.phone_display }}</a>
+                    <a href="{{ site_contact.telegram_url }}" class="pl-shop__hero-contact" target="_blank" rel="noopener noreferrer">Telegram</a>
+                </p>
             </div>
 
             <div class="pl-shop__hero-stage">

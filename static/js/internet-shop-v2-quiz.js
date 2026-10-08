@@ -167,7 +167,7 @@
         if (features.length >= 2 && features.length <= 3) score.premium += 1;
         if (features.length >= 4) score.platinum += 2;
 
-        if (timeline === 'Якнайшвидше (до 2 тижнів)' || timeline === 'Как можно скорее (до 2 недель)') score.base += 2;
+        if (timeline === 'Якнайшвидше (близько 3 тижнів)' || timeline === 'Как можно скорее (около 3 недель)') score.base += 2;
         if (timeline === 'Протягом місяця' || timeline === 'В течение месяца') score.premium += 2;
         if (timeline === '1–3 місяці' || timeline === '1–3 месяца') score.platinum += 1;
         if (timeline === 'Терміни гнучкі' || timeline === 'Сроки гибкие') score.platinum += 1;

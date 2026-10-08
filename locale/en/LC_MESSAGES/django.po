@@ -1293,20 +1293,12 @@ msgid "Інтернет-магазини під ключ — PrometeyLabs"
 msgstr "E-commerce stores"
 
 #: apps/core/views.py:192
-#, fuzzy
-#| msgid "Інтернет-магазини"
-msgid "Інтернет-магазини під ключ — швидка розробка e-commerce | PrometeyLabs"
-msgstr "E-commerce stores"
+msgid "Створення інтернет-магазину під ключ від 800€ | PrometeyLabs"
+msgstr "Turnkey online store development from 800€ | PrometeyLabs"
 
 #: apps/core/views.py:194
-msgid "Розробка інтернет-магазинів з нативною архітектурою без конструкторів. Міграція з Prom та OLX, SEO, 1 рік гарантії на код."
-msgstr ""
-
-#: apps/core/views.py:197
-#, fuzzy
-#| msgid "Інтернет-магазини"
-msgid "Інтернет-магазини, що завантажуються швидше — PrometeyLabs"
-msgstr "E-commerce stores"
+msgid "Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. Запуск за 3 тижні, 1 рік підтримки безкоштовно."
+msgstr "Turnkey online store from 800 €: design, code and integrations with no plugins and no monthly fees. Launch in 3 weeks, 1 year of free support."
 
 #: apps/core/views.py:208
 #, fuzzy

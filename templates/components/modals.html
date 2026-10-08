@@ -2,6 +2,7 @@
 {% load static %}
 <!-- Модальні вікна згідно STYLE.MDC -->
 
+{% if not hide_developer_modal %}
 <!-- Модалка "Стати розробником" -->
 <div class="modal" id="developer-modal" role="dialog" aria-labelledby="developer-modal-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
@@ -39,6 +40,7 @@
         </form>
     </div>
 </div>
+{% endif %}
 
 <!-- Модалка "Результат тесту" -->
 <div class="modal" id="test-result-modal" role="dialog" aria-labelledby="result-modal-title" aria-hidden="true">

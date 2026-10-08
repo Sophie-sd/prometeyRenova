@@ -4,13 +4,39 @@
 
 {% block body_attrs %} class="pl-shop-body" data-modal-source-page="internet-shop-v2-ru-modal"{% endblock %}
 
-{% block title %}Интернет-магазины под ключ — быстрая разработка e-commerce | PrometeyLabs{% endblock %}
-{% block description %}Разработка интернет-магазинов с нативной архитектурой без конструкторов. Миграция с Prom и OLX, SEO, 1 год гарантии на код. PrometeyLabs — e-commerce под ключ.{% endblock %}
-{% block og_title %}Интернет-магазины, которые загружаются быстрее — PrometeyLabs{% endblock %}
+{% block title %}Создание интернет-магазина под ключ от 800€ | PrometeyLabs{% endblock %}
+{% block description %}Создание интернет-магазина под ключ от 800 €: дизайн, код и интеграции без плагинов и абонплаты. Запуск за 3 недели, 1 год поддержки бесплатно.{% endblock %}
+{% block og_title %}Создание интернет-магазина под ключ от 800€ | PrometeyLabs{% endblock %}
+{% block og_description %}Создание интернет-магазина под ключ от 800 €: дизайн, код и интеграции без плагинов и абонплаты. Запуск за 3 недели, 1 год поддержки бесплатно.{% endblock %}
 
 {% block extra_head %}
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.prometeylabs.com/ru/internet-shop-v2/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Создание интернет-магазина под ключ",
+  "description": "Создание интернет-магазина под ключ от 800 €: дизайн, код и интеграции без плагинов и абонплаты. Запуск за 3 недели, 1 год поддержки бесплатно.",
+  "serviceType": "E-commerce website development",
+  "provider": {
+    "@type": "Organization",
+    "name": "PrometeyLabs",
+    "url": "https://www.prometeylabs.com",
+    "email": "info@prometeylabs.com",
+    "telephone": "+380639520565"
+  },
+  "areaServed": "UA",
+  "url": "https://www.prometeylabs.com/ru/internet-shop-v2/",
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "EUR",
+    "lowPrice": "800",
+    "highPrice": "1400",
+    "offerCount": "1"
+  }
+}
+</script>
 <link rel="preload" href="{% static 'fonts/v2/space-grotesk-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{% static 'fonts/v2/jetbrains-mono-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{% static 'fonts/v2/jetbrains-mono-cyrillic.woff2' %}" as="font" type="font/woff2" crossorigin>
@@ -29,7 +55,7 @@
 <link rel="preload" href="{% static 'css/internet-shop-v2-anim.css' %}?v=10" as="style">
 <link rel="stylesheet" href="{% static 'css/internet-shop-v2-anim.css' %}?v=10" media="print" data-async-css>
 <noscript><link rel="stylesheet" href="{% static 'css/internet-shop-v2-anim.css' %}?v=10"></noscript>
-<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=118">
+<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=119">
 {% endblock %}
 
 {% block content %}
@@ -48,6 +74,6 @@
 
 {% block extra_js %}
 <script src="{% static 'js/internet-shop-v2-admin-mock.js' %}?v=4" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/internet-shop-v2-quiz.js' %}?v=12" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-v2-quiz.js' %}?v=13" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/internet-shop-v2.js' %}?v=23" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

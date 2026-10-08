@@ -241,7 +241,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     {# because `.main-navigation` has `transform: translate3d(0,0,0)`, which #}
     {# turns any descendant `position: fixed` into `position: absolute`. #}
     {% get_current_language as CURRENT_LANG %}
-    {% if CURRENT_LANG == 'ru' or lang_suggest_always %}
+    {% if not hide_lang_suggest and CURRENT_LANG == 'ru' or not hide_lang_suggest and lang_suggest_always %}
     <div class="lang-suggest" id="lang-suggest" hidden
          role="region" aria-live="polite" aria-label="{% trans 'Пропозиція змінити мову' %}"
          {% if lang_suggest_always %}data-always="true"{% endif %}
@@ -301,7 +301,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     })();
     </script>
     {% get_current_language as CURRENT_LANG %}
-    {% if CURRENT_LANG == 'ru' %}
+    {% if CURRENT_LANG == 'ru' and not hide_lang_suggest %}
     <script src="{% static 'js/lang-suggest.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
     {% endif %}
     {% endblock %}

@@ -242,12 +242,12 @@ class InternetShopView(BasePageView):
 
 class InternetShopV2View(BasePageView):
     """Нова landing-сторінка інтернет-магазинів (v2) — паралельно до /internet-shop/."""
-    page_title = _('Інтернет-магазини під ключ — швидка розробка e-commerce | PrometeyLabs')
+    page_title = _('Створення інтернет-магазину під ключ від 800€ | PrometeyLabs')
     meta_description = _(
-        'Розробка інтернет-магазинів з нативною архітектурою без конструкторів. '
-        'Міграція з Prom та OLX, SEO, 1 рік гарантії на код.'
+        'Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. '
+        'Запуск за 3 тижні, 1 рік підтримки безкоштовно.'
     )
-    og_title = _('Інтернет-магазини, що завантажуються швидше — PrometeyLabs')
+    og_title = _('Створення інтернет-магазину під ключ від 800€ | PrometeyLabs')
 
     def get_template_names(self):
         from django.utils import translation
@@ -260,14 +260,15 @@ class InternetShopV2View(BasePageView):
         context = super().get_context_data(**kwargs)
         context['home_clients'] = homepage_clients()
         if translation.get_language() == 'ru':
-            context['page_title'] = 'Интернет-магазины под ключ — быстрая разработка e-commerce | PrometeyLabs'
+            context['page_title'] = 'Создание интернет-магазина под ключ от 800€ | PrometeyLabs'
             context['meta_description'] = (
-                'Разработка интернет-магазинов с нативной архитектурой без конструкторов. '
-                'Миграция с Prom и OLX, SEO, 1 год гарантии на код.'
+                'Создание интернет-магазина под ключ от 800 €: дизайн, код и интеграции без плагинов и абонплаты. '
+                'Запуск за 3 недели, 1 год поддержки бесплатно.'
             )
-            context['og_title'] = 'Интернет-магазины, которые загружаются быстрее — PrometeyLabs'
-            context['lang_suggest_always'] = True
-            context['lang_suggest_uk_url'] = '/internet-shop-v2/'
+            context['og_title'] = 'Создание интернет-магазина под ключ от 800€ | PrometeyLabs'
+        # Ads landing: no «стати розробником» popup and no RU→UA language toast over the hero.
+        context['hide_developer_modal'] = True
+        context['hide_lang_suggest'] = True
         return context
 
 
