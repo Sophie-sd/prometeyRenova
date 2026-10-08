@@ -62,6 +62,8 @@ class StaticViewSitemap(AbsoluteSitemap):
         'tz_generator': (0.9, 'weekly'),
         'telegram_bot': (0.9, 'weekly'),
         'rozrobka_sajtiv': (0.9, 'weekly'),
+        'rozrobka_lendingu': (0.8, 'weekly'),
+        'rozrobka_veb_platform': (0.8, 'weekly'),
         'calculator': (0.8, 'weekly'),
         'contacts': (0.8, 'monthly'),
         'developer': (0.6, 'monthly'),

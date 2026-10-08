@@ -1,9 +1,10 @@
 {% load i18n static fx_tags %}
+{# Each tile → its own service landing (i18n-aware reverse; /ru/ keeps RU). Message match: tile name ≈ destination H1. #}
 <section class="pl-rs__section pl-rs__section--services" aria-labelledby="pl-rs-products-title">
     <div class="pl-rs__inner">
         <h2 id="pl-rs-products-title" class="pl-rs__h2 pl-rs__h2--center">{% trans "Що збираємо під ключ" %}</h2>
         <div class="pl-rs__products">
-            <a class="pl-rs__product" href="{% url 'calculator' %}">
+            <a class="pl-rs__product" href="{% url 'rozrobka_lendingu' %}" data-pl-rs-service="landing">
                 <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
                 <div class="pl-rs__product-top">
                     <div class="pl-rs__product-head">
@@ -17,7 +18,7 @@
                     <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
                 </div>
             </a>
-            <a class="pl-rs__product" href="{% url 'corporate_website' %}">
+            <a class="pl-rs__product" href="{% url 'corporate_website_v2' %}" data-pl-rs-service="corporate">
                 <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
                 <div class="pl-rs__product-top">
                     <div class="pl-rs__product-head">
@@ -31,7 +32,7 @@
                     <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
                 </div>
             </a>
-            <a class="pl-rs__product" href="{% url 'internet_shop' %}">
+            <a class="pl-rs__product" href="{% url 'internet_shop_v2' %}" data-pl-rs-service="shop">
                 <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
                 <div class="pl-rs__product-top">
                     <div class="pl-rs__product-head">
@@ -45,7 +46,7 @@
                     <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
                 </div>
             </a>
-            <a class="pl-rs__product pl-rs__product--wide" href="{% url 'calculator' %}">
+            <a class="pl-rs__product pl-rs__product--wide" href="{% url 'rozrobka_veb_platform' %}" data-pl-rs-service="platform">
                 <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
                 <div class="pl-rs__product-top">
                     <div class="pl-rs__product-head">
@@ -59,7 +60,7 @@
                     <span class="pl-rs__pill">{% trans "Детальніше" %}</span>
                 </div>
             </a>
-            <a class="pl-rs__product pl-rs__product--wide" href="{% url 'telegram_bot' %}">
+            <a class="pl-rs__product pl-rs__product--wide" href="{% url 'telegram_bot' %}" data-pl-rs-service="telegram">
                 <img class="pl-rs__product-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
                 <div class="pl-rs__product-top">
                     <div class="pl-rs__product-head">

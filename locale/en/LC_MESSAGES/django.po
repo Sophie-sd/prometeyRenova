@@ -6015,8 +6015,6 @@ msgstr ""
 #~ msgid "Оберіть варіанти — наприкінці залиште контакт і завантажте PDF."
 #~ msgstr "Pick options — leave a contact at the end and download the PDF."
 
-#~ msgid "Лендінг"
-#~ msgstr "Landing"
 
 #~ msgid "Інше"
 #~ msgstr "Other"
@@ -6942,3 +6940,183 @@ msgstr "Four anchors — conversation start. Exact sum and timeline are fixed af
 
 msgid "Розробка сайтів будь-якої складності під ключ: лендінги 250–400 €, корпоративні 500–700 €, магазини 800–1 400 €, платформи 1 500–5 000 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію."
 msgstr "Turnkey websites of any complexity: landings 250–400 €, corporate 500–700 €, shops 800–1 400 €, platforms 1 500–5 000 €. Budget and timeline in the contract, free support, 5-year code warranty. Get a consultation."
+
+msgid "Розробка лендінгу під ключ"
+msgstr "Turnkey landing page development"
+
+msgid "Розробка лендінгу"
+msgstr "Landing page development"
+
+msgid "Навігація"
+msgstr "Breadcrumbs"
+
+msgid "Розробка сайтів"
+msgstr "Website development"
+
+msgid "Одна сторінка під рекламу: офер, форма заявки, швидкий запуск. Фіксуємо бюджет і строки у договорі. Безкоштовна підтримка та 5 років гарантії на код."
+msgstr "One page built for ads: offer, lead form, fast launch. Budget and timeline fixed in the contract. Free support and a 5-year code warranty."
+
+msgid "Лендінг"
+msgstr "Landing page"
+
+msgid "Що входить у лендінг"
+msgstr "What the landing page includes"
+
+msgid "Офер і структура"
+msgstr "Offer and structure"
+
+msgid "Перший екран, переваги і відповіді на заперечення — під один запит з реклами."
+msgstr "First screen, benefits and answers to objections — built around one ad query."
+
+msgid "Форма заявки"
+msgstr "Lead form"
+
+msgid "Заявки приходять на пошту й у Telegram — без зайвих полів і втрат."
+msgstr "Leads arrive by email and in Telegram — no extra fields, nothing lost."
+
+msgid "Швидкість і адаптив"
+msgstr "Speed and mobile"
+
+msgid "Чистий код без конструкторів: сторінка швидко відкривається на телефоні."
+msgstr "Clean code, no site builders: the page opens fast on a phone."
+
+msgid "Ваша адмінка"
+msgstr "Your admin panel"
+
+msgid "Тексти, ціни і заявки правите самі — розробник не потрібен."
+msgstr "Edit texts, prices and leads yourself — no developer needed."
+
+msgid "Як працюємо"
+msgstr "How we work"
+
+msgid "Збираємо офер, аудиторію і мету реклами за одну розмову."
+msgstr "We capture the offer, audience and ad goal in one call."
+
+msgid "Макет"
+msgstr "Design"
+
+msgid "Показуємо дизайн першого екрана і структуру до верстки."
+msgstr "We show the first-screen design and structure before coding."
+
+msgid "Верстка і форма"
+msgstr "Build and form"
+
+msgid "Збираємо сторінку, підключаємо форму і перевіряємо на телефонах."
+msgstr "We build the page, connect the form and test it on phones."
+
+msgid "Запуск"
+msgstr "Launch"
+
+msgid "Публікуємо на вашому домені й передаємо доступи до адмінки."
+msgstr "We publish on your domain and hand over admin access."
+
+msgid "Розробка веб-платформ під ключ"
+msgstr "Turnkey web platform development"
+
+msgid "Розробка веб-платформ"
+msgstr "Web platform development"
+
+msgid "Кабінети, ролі й інтеграції — коли сайту вже мало. Фіксуємо бюджет і строки MVP у договорі. Безкоштовна підтримка та 5 років гарантії на код."
+msgstr "Accounts, roles and integrations — when a website is no longer enough. MVP budget and timeline fixed in the contract. Free support and a 5-year code warranty."
+
+msgid "Платформа · MVP"
+msgstr "Platform · MVP"
+
+msgid "Що входить у платформу"
+msgstr "What the platform includes"
+
+msgid "Кабінети й ролі"
+msgstr "Accounts and roles"
+
+msgid "Клієнти, менеджери й адміністратори — кожен бачить лише своє."
+msgstr "Clients, managers and admins — everyone sees only their own data."
+
+msgid "CRM, оплата, пошта і Telegram — дані без ручного перенесення."
+msgstr "CRM, payments, email and Telegram — no manual data transfer."
+
+msgid "Адмінка і звіти"
+msgstr "Admin and reports"
+
+msgid "Заявки, замовлення, статуси й експорт — в одній панелі."
+msgstr "Leads, orders, statuses and export — in one panel."
+
+msgid "MVP за брифом"
+msgstr "MVP per brief"
+
+msgid "Запускаємо ядро в межах діапазону, нові модулі — окремим етапом."
+msgstr "We launch the core within the range; new modules come as a separate stage."
+
+msgid "Бриф і обсяг MVP"
+msgstr "Brief and MVP scope"
+
+msgid "Фіксуємо ролі, сценарії й інтеграції першого релізу."
+msgstr "We lock roles, scenarios and integrations for the first release."
+
+msgid "Показуємо ключові екрани кабінетів до розробки."
+msgstr "We show the key account screens before development."
+
+msgid "Розробка й інтеграції"
+msgstr "Development and integrations"
+
+msgid "Збираємо модулі, підключаємо CRM, оплату й сповіщення."
+msgstr "We build modules and connect CRM, payments and notifications."
+
+msgid "Запуск і підтримка"
+msgstr "Launch and support"
+
+msgid "Публікуємо, передаємо доступи й супроводжуємо після здачі."
+msgstr "We publish, hand over access and support you after delivery."
+
+msgid "Демо адмінки: розділи"
+msgstr "Admin demo: sections"
+
+msgid "Олена · Лендінг"
+msgstr "Olena · Landing"
+
+msgid "Нова"
+msgstr "New"
+
+msgid "Максим · Магазин"
+msgstr "Maksym · Shop"
+
+msgid "Вчора"
+msgstr "Yesterday"
+
+msgid "Ірина · Корп. сайт"
+msgstr "Iryna · Corporate"
+
+msgid "Закрита"
+msgstr "Closed"
+
+msgid "Редагувати"
+msgstr "Edit"
+
+msgid "Інші формати"
+msgstr "Other formats"
+
+msgid "Орієнтир вище — старт розмови. Точну суму і строк фіксуємо після брифу в договорі."
+msgstr "The range above is a conversation start. Exact sum and timeline are fixed after the brief in the contract."
+
+msgid "Розробка лендінгу під ключ — 250–400 €, запуск за 3–7 днів | PrometeyLabs"
+msgstr "Turnkey landing page development — 250–400 €, launch in 3–7 days | PrometeyLabs"
+
+msgid "Розробка лендінгу під ключ під рекламу: офер, форма заявки, адаптив і швидке завантаження. 250–400 €, запуск за 3–7 днів, бюджет і строки у договорі, 5 років гарантії на код."
+msgstr "Turnkey landing page for ads: offer, lead form, mobile layout and fast loading. 250–400 €, launch in 3–7 days, budget and timeline in the contract, 5-year code warranty."
+
+msgid "Розробка лендінгу під ключ | PrometeyLabs"
+msgstr "Turnkey landing page development | PrometeyLabs"
+
+msgid "розробка лендінгу, створення лендінгу, лендінг під ключ, лендінг ціна, односторінковий сайт, PrometeyLabs"
+msgstr "landing page development, landing page design, turnkey landing page, landing page price, one-page website, PrometeyLabs"
+
+msgid "Розробка веб-платформ під ключ — 1 500–5 000 € | PrometeyLabs"
+msgstr "Turnkey web platform development — 1 500–5 000 € | PrometeyLabs"
+
+msgid "Розробка веб-платформ під ключ: особисті кабінети, ролі, інтеграції з CRM та оплатою. MVP 1 500–5 000 € за 14–30 днів, бюджет і строки у договорі, 5 років гарантії на код."
+msgstr "Turnkey web platforms: user accounts, roles, CRM and payment integrations. MVP 1 500–5 000 € in 14–30 days, budget and timeline in the contract, 5-year code warranty."
+
+msgid "Розробка веб-платформ під ключ | PrometeyLabs"
+msgstr "Turnkey web platform development | PrometeyLabs"
+
+msgid "розробка веб-платформи, розробка веб-сервісу, особистий кабінет, MVP, веб-застосунок під ключ, PrometeyLabs"
+msgstr "web platform development, web service development, user account portal, MVP, turnkey web app, PrometeyLabs"

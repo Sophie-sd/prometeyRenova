@@ -24,6 +24,8 @@ urlpatterns = [
     path('tz-dlia-saitu/', tz_views.TzGeneratorView.as_view(), name='tz_generator'),
     path('telegram-bot/', views.TelegramBotView.as_view(), name='telegram_bot'),
     path('rozrobka-sajtiv/', views.RozrobkaSajtivView.as_view(), name='rozrobka_sajtiv'),
+    path('rozrobka-lendingu/', views.RozrobkaLendinguView.as_view(), name='rozrobka_lendingu'),
+    path('rozrobka-veb-platform/', views.RozrobkaVebPlatformView.as_view(), name='rozrobka_veb_platform'),
     path('internet-shop-ru/', views.InternetShopRuView.as_view(), name='internet_shop_ru'),
     path(
         'corporate-website/',

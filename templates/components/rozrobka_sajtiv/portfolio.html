@@ -1,5 +1,6 @@
 {% load i18n static %}
 {# Upper Portfolio Section only — Figma 1:164. Lower logo-gallery 1:198 DO NOT implement. #}
+{# Screens = same full-page shots + scroll-on-hover as /portfolio/ (data-pf-screen / data-pf-shot → js/portfolio-screen-scroll.js). #}
 <section class="pl-rs__section pl-rs__section--work" aria-labelledby="pl-rs-work-title" data-pl-rs-portfolio>
     <div class="pl-rs__inner">
         <div class="pl-rs__work-head">
@@ -18,13 +19,15 @@
             {% if portfolio_strip %}
                 {% for project in portfolio_strip %}
                 <article class="pl-rs__work-card">
-                    <a class="pl-rs__work-shot" href="{% url 'portfolio' %}">
-                        {% if project.get_home_image_src %}
-                        <img src="{{ project.get_home_image_src }}" alt="{{ project.get_card_alt }}" width="358" height="234" loading="lazy" decoding="async">
-                        {% else %}
-                        <img src="{% static 'img/rozrobka-figma/card-feder.webp' %}" alt="{{ project.get_card_alt }}" width="358" height="234" loading="lazy" decoding="async">
-                        {% endif %}
+                    {% if project.get_home_image_src %}
+                    <a class="pl-rs__work-shot pl-rs__work-shot--screen" href="{% url 'portfolio' %}" data-pf-screen>
+                        <img src="{{ project.get_home_image_src }}" alt="{{ project.get_card_alt }}" width="358" height="234" loading="lazy" decoding="async" data-pf-shot>
                     </a>
+                    {% else %}
+                    <a class="pl-rs__work-shot" href="{% url 'portfolio' %}">
+                        <img src="{% static 'img/rozrobka-figma/card-feder.webp' %}" alt="{{ project.get_card_alt }}" width="358" height="234" loading="lazy" decoding="async">
+                    </a>
+                    {% endif %}
                     <div class="pl-rs__work-foot">
                         <p class="pl-rs__work-name">{{ project.get_localized_title }}</p>
                         <a class="pl-rs__pill pl-rs__pill--work" href="{% url 'portfolio' %}">{% trans "Детальніше" %}</a>

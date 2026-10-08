@@ -1,0 +1,2 @@
+{% load fx_tags %}
+<span id="fx-soft-{{ key }}"{% if oob %} hx-swap-oob="outerHTML"{% endif %}>{% fx_amount amount %}</span>

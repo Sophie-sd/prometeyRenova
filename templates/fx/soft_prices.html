@@ -12,3 +12,7 @@
 {% include 'fx/soft_range.html' with key='prod-corp' low=500 high=700 oob=oob %}
 {% include 'fx/soft_range.html' with key='prod-shop' low=800 high=1400 oob=oob %}
 {% include 'fx/soft_range.html' with key='prod-platform' low=1500 high=5000 oob=oob %}
+{# Demo CMS «Ціни» tab (admin.html) — lower bounds of the same ranges. #}
+{% include 'fx/soft_amount.html' with key='cms-landing' amount=250 oob=oob %}
+{% include 'fx/soft_amount.html' with key='cms-corp' amount=500 oob=oob %}
+{% include 'fx/soft_amount.html' with key='cms-shop' amount=800 oob=oob %}

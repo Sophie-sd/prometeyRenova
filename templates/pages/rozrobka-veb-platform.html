@@ -1,0 +1,145 @@
+{% extends 'pages/soft-service-base.html' %}
+{% load static i18n fx_tags %}
+{# Soft tile 04 «Платформи» → this page. Message match: tile «Платформи · 1 500–5 000 € · Кабінети, ролі й інтеграції» ↔ H1/title/offer card. #}
+
+{% block svc_jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "{% filter escapejs %}{% trans "Розробка веб-платформ під ключ" %}{% endfilter %}",
+  "serviceType": "{% filter escapejs %}{% trans "Розробка веб-платформ" %}{% endfilter %}",
+  "provider": {"@type": "Organization", "name": "PrometeyLabs", "url": "https://www.prometeylabs.com"},
+  "areaServed": "UA",
+  "url": "https://www.prometeylabs.com{% url 'rozrobka_veb_platform' %}",
+  "offers": {
+    "@type": "AggregateOffer",
+    "lowPrice": "1500",
+    "highPrice": "5000",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+{% endblock %}
+
+{% block svc_hero %}
+<section class="pl-rs__hero pl-rs__hero--svc" aria-labelledby="pl-rs-h1">
+    <div class="pl-rs__hero-bg" aria-hidden="true">
+        <img class="pl-rs__hero-bg-img" src="{% static 'img/rozrobka-figma/hero-bg.webp' %}" alt="" width="1983" height="793" decoding="async" fetchpriority="high">
+    </div>
+    <div class="pl-rs__inner pl-rs__hero-stage">
+        <div class="pl-rs__hero-copy">
+            <nav class="pl-rs__crumbs" aria-label="{% trans "Навігація" %}">
+                <a href="{% url 'rozrobka_sajtiv' %}">{% trans "Розробка сайтів" %}</a>
+                <span class="pl-rs__crumbs-sep" aria-hidden="true">/</span>
+                <span aria-current="page">{% trans "Платформи" %}</span>
+            </nav>
+            <div class="pl-rs__kicker">
+                <p class="pl-rs__eyebrow">{% trans "Договір" %}</p>
+                {% currency_switcher "dark" "soft" %}
+            </div>
+            <h1 id="pl-rs-h1" class="pl-rs__h1">{% trans "Розробка веб-платформ під ключ" %}</h1>
+            <p class="pl-rs__lead">{% trans "Кабінети, ролі й інтеграції — коли сайту вже мало. Фіксуємо бюджет і строки MVP у договорі. Безкоштовна підтримка та 5 років гарантії на код." %}</p>
+            <button type="button" class="pl-rs__cta mobile-touch-target" data-modal="call-request-modal">
+                <span>{% trans "Отримати консультацію" %}</span>
+                <img src="{% static 'img/rozrobka-figma/arrow-hero.svg' %}" alt="" width="24" height="24" decoding="async">
+            </button>
+        </div>
+
+        <article class="pl-rs__offer" aria-label="{% trans "Орієнтир ціни" %}">
+            <img class="pl-rs__offer-rings" src="{% static 'img/rozrobka-figma/rings-hero.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
+            <div class="pl-rs__offer-main">
+                <p class="pl-rs__offer-title">{% trans "Платформа · MVP" %}</p>
+                <p class="pl-rs__offer-num">{% include 'fx/soft_range.html' with key='float-platform' low=1500 high=5000 %}</p>
+                <p class="pl-rs__float-chip">
+                    <img src="{% static 'img/rozrobka-figma/ellipse.svg' %}" alt="" width="6" height="6" decoding="async">
+                    <span>{% trans "14–30 днів" %}</span>
+                </p>
+            </div>
+            <ul class="pl-rs__offer-scope">
+                <li class="pl-rs__offer-in">{% trans "У сумі: узгоджений MVP за брифом у діапазоні" %}</li>
+                <li class="pl-rs__offer-out">{% trans "Не входить: нові модулі після здачі, сторонні ліцензії" %}</li>
+            </ul>
+        </article>
+
+        <div class="pl-rs__actions">
+            <div class="pl-rs__links">
+                <a class="pl-rs__link pl-rs__link--muted mobile-touch-target" href="{% url 'calculator' %}">{% trans "Розрахувати вартість" %}</a>
+                <a class="pl-rs__link pl-rs__link--muted mobile-touch-target" href="{{ site_contact.telegram_url }}" target="_blank" rel="noopener noreferrer">{% trans "Написати в Telegram" %}</a>
+                <a class="pl-rs__link pl-rs__link--muted mobile-touch-target" href="{{ site_contact.get_tel_href|default:'tel:+380639520565' }}">{% trans "Зателефонувати прямо зараз" %}</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block svc_body %}
+<section class="pl-rs__section pl-rs__section--feats" aria-labelledby="pl-rs-feats-title">
+    <div class="pl-rs__inner">
+        <h2 id="pl-rs-feats-title" class="pl-rs__h2 pl-rs__h2--center">{% trans "Що входить у платформу" %}</h2>
+        <ul class="pl-rs__feats">
+            <li class="pl-rs__feat">
+                <img class="pl-rs__feat-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
+                <div class="pl-rs__feat-top">
+                    <h3 class="pl-rs__feat-name">{% trans "Кабінети й ролі" %}</h3>
+                    <span class="pl-rs__feat-idx" aria-hidden="true">01</span>
+                </div>
+                <p class="pl-rs__feat-text">{% trans "Клієнти, менеджери й адміністратори — кожен бачить лише своє." %}</p>
+            </li>
+            <li class="pl-rs__feat">
+                <img class="pl-rs__feat-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
+                <div class="pl-rs__feat-top">
+                    <h3 class="pl-rs__feat-name">{% trans "Інтеграції" %}</h3>
+                    <span class="pl-rs__feat-idx" aria-hidden="true">02</span>
+                </div>
+                <p class="pl-rs__feat-text">{% trans "CRM, оплата, пошта і Telegram — дані без ручного перенесення." %}</p>
+            </li>
+            <li class="pl-rs__feat">
+                <img class="pl-rs__feat-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
+                <div class="pl-rs__feat-top">
+                    <h3 class="pl-rs__feat-name">{% trans "Адмінка і звіти" %}</h3>
+                    <span class="pl-rs__feat-idx" aria-hidden="true">03</span>
+                </div>
+                <p class="pl-rs__feat-text">{% trans "Заявки, замовлення, статуси й експорт — в одній панелі." %}</p>
+            </li>
+            <li class="pl-rs__feat">
+                <img class="pl-rs__feat-glow" src="{% static 'img/rozrobka-figma/rings-services.svg' %}" alt="" width="181" height="181" decoding="async" aria-hidden="true">
+                <div class="pl-rs__feat-top">
+                    <h3 class="pl-rs__feat-name">{% trans "MVP за брифом" %}</h3>
+                    <span class="pl-rs__feat-idx" aria-hidden="true">04</span>
+                </div>
+                <p class="pl-rs__feat-text">{% trans "Запускаємо ядро в межах діапазону, нові модулі — окремим етапом." %}</p>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="pl-rs__section pl-rs__section--steps" aria-labelledby="pl-rs-steps-title">
+    <div class="pl-rs__inner">
+        <h2 id="pl-rs-steps-title" class="pl-rs__h2">{% trans "Як працюємо" %}</h2>
+        <ol class="pl-rs__steps">
+            <li class="pl-rs__step">
+                <span class="pl-rs__step-num" aria-hidden="true">01</span>
+                <h3 class="pl-rs__step-name">{% trans "Бриф і обсяг MVP" %}</h3>
+                <p class="pl-rs__step-text">{% trans "Фіксуємо ролі, сценарії й інтеграції першого релізу." %}</p>
+            </li>
+            <li class="pl-rs__step">
+                <span class="pl-rs__step-num" aria-hidden="true">02</span>
+                <h3 class="pl-rs__step-name">{% trans "Прототип" %}</h3>
+                <p class="pl-rs__step-text">{% trans "Показуємо ключові екрани кабінетів до розробки." %}</p>
+            </li>
+            <li class="pl-rs__step">
+                <span class="pl-rs__step-num" aria-hidden="true">03</span>
+                <h3 class="pl-rs__step-name">{% trans "Розробка й інтеграції" %}</h3>
+                <p class="pl-rs__step-text">{% trans "Збираємо модулі, підключаємо CRM, оплату й сповіщення." %}</p>
+            </li>
+            <li class="pl-rs__step">
+                <span class="pl-rs__step-num" aria-hidden="true">04</span>
+                <h3 class="pl-rs__step-name">{% trans "Запуск і підтримка" %}</h3>
+                <p class="pl-rs__step-text">{% trans "Публікуємо, передаємо доступи й супроводжуємо після здачі." %}</p>
+            </li>
+        </ol>
+        {% include 'components/rozrobka_sajtiv/siblings.html' with current='platform' %}
+    </div>
+</section>
+{% endblock %}
