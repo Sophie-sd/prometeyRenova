@@ -6,10 +6,8 @@
 
 ## Services
 
-- Лендінг: 250–400 €, 3–7 днів — https://www.prometeylabs.com/rozrobka-lendingu/
 - Корпоративний сайт: 500–700 € — https://www.prometeylabs.com/corporate-website-v2/
 - Інтернет-магазин: 800–1400 € — https://www.prometeylabs.com/internet-shop-v2/
-- Веб-платформа (MVP: кабінети, ролі, інтеграції): 1500–5000 €, 14–30 днів — https://www.prometeylabs.com/rozrobka-veb-platform/
 - Telegram-бот: індивідуальний кошторис після брифу (публічного прайсу немає) — https://www.prometeylabs.com/telegram-bot/
 - Soft hub (лендінг від 250 € / корп від 500 € / магазин від 800 €) — https://www.prometeylabs.com/rozrobka-sajtiv/
 

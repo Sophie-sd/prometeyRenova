@@ -1,4 +1,4 @@
-/* Soft pages (/rozrobka-sajtiv/ + service landings): portfolio carousel + demo CMS tabs.
+/* Soft /rozrobka-sajtiv/: portfolio carousel + demo CMS tabs.
    Currency is HTMX + pl_currency. Screen scroll-on-hover lives in js/portfolio-screen-scroll.js. */
 (function () {
     'use strict';

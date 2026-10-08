@@ -153,65 +153,6 @@ class RozrobkaSajtivView(BasePageView):
         return context
 
 
-class _SoftServiceLandingView(BasePageView):
-    """Soft service landing (same visual system as /rozrobka-sajtiv/).
-
-    One page per Soft tile so each tile / ad group has its own message-matched
-    final URL. Copy lives in the template (gettext); RU/EN via i18n_patterns.
-    """
-
-    uk_path = ''
-    url_name = ''
-
-    def get_context_data(self, **kwargs):
-        from django.utils import translation
-        context = super().get_context_data(**kwargs)
-        context['portfolio_strip'] = homepage_portfolio_strip()
-        context['svc_url_name'] = self.url_name
-        if translation.get_language() == 'ru':
-            context['lang_suggest_always'] = True
-            context['lang_suggest_uk_url'] = self.uk_path
-        return context
-
-
-class RozrobkaLendinguView(_SoftServiceLandingView):
-    """Soft tile 01 «Лендінги» → /rozrobka-lendingu/."""
-
-    template_name = 'pages/rozrobka-lendingu.html'
-    uk_path = '/rozrobka-lendingu/'
-    url_name = 'rozrobka_lendingu'
-    page_title = _('Розробка лендінгу під ключ — 250–400 €, запуск за 3–7 днів | PrometeyLabs')
-    meta_description = _(
-        'Розробка лендінгу під ключ під рекламу: офер, форма заявки, адаптив і швидке '
-        'завантаження. 250–400 €, запуск за 3–7 днів, бюджет і строки у договорі, '
-        '5 років гарантії на код.'
-    )
-    og_title = _('Розробка лендінгу під ключ | PrometeyLabs')
-    keywords = _(
-        'розробка лендінгу, створення лендінгу, лендінг під ключ, лендінг ціна, '
-        'односторінковий сайт, PrometeyLabs'
-    )
-
-
-class RozrobkaVebPlatformView(_SoftServiceLandingView):
-    """Soft tile 04 «Платформи» → /rozrobka-veb-platform/."""
-
-    template_name = 'pages/rozrobka-veb-platform.html'
-    uk_path = '/rozrobka-veb-platform/'
-    url_name = 'rozrobka_veb_platform'
-    page_title = _('Розробка веб-платформ під ключ — 1 500–5 000 € | PrometeyLabs')
-    meta_description = _(
-        'Розробка веб-платформ під ключ: особисті кабінети, ролі, інтеграції з CRM та '
-        'оплатою. MVP 1 500–5 000 € за 14–30 днів, бюджет і строки у договорі, '
-        '5 років гарантії на код.'
-    )
-    og_title = _('Розробка веб-платформ під ключ | PrometeyLabs')
-    keywords = _(
-        'розробка веб-платформи, розробка веб-сервісу, особистий кабінет, MVP, '
-        'веб-застосунок під ключ, PrometeyLabs'
-    )
-
-
 class OfferView(BasePageView):
     page_title = _('Публічний договір (оферта) про надання послуг | PrometeyLabs')
     meta_description = _('Публічний договір (оферта) про надання ІТ-послуг від PrometeyLabs. Офіційні умови надання послуг веб-розробки, мобільних застосунків та маркетингу.')

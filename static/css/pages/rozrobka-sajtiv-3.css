@@ -1,5 +1,4 @@
-/* Soft — interactive layer: portfolio screen-scroll, CMS tabs.
-   Service landings (/rozrobka-lendingu/, /rozrobka-veb-platform/) → rozrobka-sajtiv-svc.css. */
+/* Soft — interactive layer: portfolio screen-scroll, CMS tabs. */
 
 /* —— «Наші роботи»: same scroll-on-hover as /portfolio/ (css/portfolio-screen.css +
    js/portfolio-screen-scroll.js). JS sets --pf-scroll-y / --pf-scroll-ms on [data-pf-screen]
