@@ -21,7 +21,10 @@
                 <article class="pl-rs__work-card">
                     {% if project.get_home_image_src %}
                     <a class="pl-rs__work-shot pl-rs__work-shot--screen" href="{% url 'portfolio' %}" data-pf-screen>
-                        <img src="{{ project.get_home_image_src }}" alt="{{ project.get_card_alt }}" width="358" height="234" loading="lazy" decoding="async" data-pf-shot>
+                        {# srcset: 720w variant of the same full-page shot (~2× card width) — same look, ~3× lighter. #}
+                        {% with shot_srcset=project.get_home_image_srcset %}
+                        <img src="{{ project.get_home_image_src }}"{% if shot_srcset %} srcset="{{ shot_srcset }}" sizes="358px"{% endif %} alt="{{ project.get_card_alt }}" width="358" height="234" loading="lazy" decoding="async" data-pf-shot>
+                        {% endwith %}
                     </a>
                     {% else %}
                     <a class="pl-rs__work-shot" href="{% url 'portfolio' %}">

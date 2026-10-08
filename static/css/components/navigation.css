@@ -333,7 +333,7 @@
     width: 26px;
     height: 2px;
     background: var(--color-white);
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: top 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background-color 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     left: 50%;
     transform: translateX(-50%);
 }
@@ -558,7 +558,7 @@
     color: var(--color-brand-orange);
     opacity: 0;
 
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, left 0.3s ease;
 }
 
 .mobile-nav-link:hover::before {
@@ -666,7 +666,7 @@
 
     opacity: 0;
     transform: translateY(20px);
-    transition: all 0.5s ease 0.4s;
+    transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
 }
 
 .mobile-menu.active .mobile-menu-footer {
@@ -759,7 +759,7 @@
     text-decoration: none;
     text-transform: uppercase;
 
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .mobile-lang-btn:hover,
@@ -955,9 +955,9 @@
 .lang-suggest__yes {
     flex: 1;
     padding: 13px 22px;
-    background: var(--color-brand-orange, #E65100);
+    background: #c44e00; /* AA contrast with #fff (was #E65100 = 3.8:1) */
     color: #fff;
-    border: 2px solid var(--color-brand-orange, #E65100);
+    border: 2px solid #c44e00;
     border-radius: 10px;
     font-size: 14px;
     font-weight: 700;

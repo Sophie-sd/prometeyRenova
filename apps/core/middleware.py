@@ -79,8 +79,6 @@ class CSPMiddleware:
             f"'self' 'nonce-{nonce}' 'strict-dynamic' 'unsafe-eval' "
             "https://www.googletagmanager.com "
             "https://connect.facebook.net "
-            "https://scripts.clixtell.com "
-            "https://tracker.clixtell.com "
             "https://www.google.com "
             "https://www.google-analytics.com "
             "https://googleads.g.doubleclick.net "

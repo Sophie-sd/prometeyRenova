@@ -24,11 +24,12 @@
 <meta name="twitter:title" content="{{ rs_tw_title }}">
 <meta name="twitter:description" content="{{ rs_tw_desc }}">
 <meta name="twitter:image" content="https://www.prometeylabs.com/static/images/og-image.jpg">
+{# Fonts: Inter 500–800 (all used; one variable file per subset) + JetBrains Mono 600 (eyebrow, € / ₴ switch). Space Grotesk was only a never-rendered fallback after Inter → dropped. #}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@500;700&display=swap" as="style">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@500;700&display=swap" media="print" data-async-css>
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@500;700&display=swap"></noscript>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@600&display=swap" as="style">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@600&display=swap" media="print" data-async-css>
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@600&display=swap"></noscript>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -72,10 +73,11 @@
 </script>
 {% endblock %}
 
+{# currency.css is merged into rozrobka-sajtiv.css → one render-blocking request instead of four. #}
+{% block currency_css %}{% endblock %}
+
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv.css' %}?v=12">
-<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv-2.css' %}?v=12">
-<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv-3.css' %}?v=12">
+<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv.css' %}?v=13">
 {% endblock %}
 
 {% block extra_js %}

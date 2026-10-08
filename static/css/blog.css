@@ -45,7 +45,7 @@ body {
     border-right: none;
     font-size: 16px;
     outline: none;
-    transition: all 0.3s ease-out;
+    transition: border-color 0.3s ease-out, box-shadow 0.3s ease-out;
     background: var(--color-black);
     color: var(--color-white);
 }
@@ -61,7 +61,7 @@ body {
     border: 3px solid var(--color-brand-orange);
     color: var(--color-white);
     cursor: pointer;
-    transition: all 0.3s ease-out;
+    transition: background-color 0.3s ease-out, border-color 0.3s ease-out, color 0.3s ease-out, transform 0.3s ease-out;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,7 +101,7 @@ body {
     background: var(--color-black);
     border: 3px solid var(--color-brand-orange);
     padding: var(--space-sm);
-    transition: all 0.4s ease-out;
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out, box-shadow 0.4s ease-out, border-color 0.4s ease-out, background-color 0.4s ease-out;
     cursor: pointer;
     position: relative;
     min-height: 300px;
@@ -235,7 +235,7 @@ body {
 .read-more-link {
     text-decoration: none;
     font-weight: 600;
-    transition: all 0.3s ease-out;
+    transition: transform 0.3s ease-out, color 0.3s ease-out;
     display: inline-block;
 }
 
@@ -580,7 +580,7 @@ body {
     padding: var(--space-sm);
     border: 3px solid var(--color-brand-orange);
     border-radius: 12px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(230, 81, 0, 0.15);
@@ -666,7 +666,7 @@ body {
     text-decoration: none;
     font-weight: 600;
     font-size: 14px;
-    transition: all 0.3s ease-out;
+    transition: color 0.3s ease-out, transform 0.3s ease-out;
     display: inline-block;
     align-self: flex-start;
 }
@@ -685,7 +685,7 @@ body {
 
 .back-link {
     text-decoration: none;
-    transition: all 0.3s ease-out;
+    transition: transform 0.3s ease-out, color 0.3s ease-out;
     display: inline-block;
     color: var(--color-brand-orange);
 }
@@ -717,7 +717,7 @@ body {
     border-right: none;
     font-size: 16px;
     outline: none;
-    transition: all 0.3s ease-out;
+    transition: border-color 0.3s ease-out, box-shadow 0.3s ease-out;
     background: var(--color-black);
     color: var(--color-white);
 }
@@ -732,7 +732,7 @@ body {
     border: 3px solid var(--color-brand-orange);
     color: var(--color-white);
     cursor: pointer;
-    transition: all 0.3s ease-out;
+    transition: background-color 0.3s ease-out, border-color 0.3s ease-out, color 0.3s ease-out, transform 0.3s ease-out;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -775,7 +775,7 @@ body {
     text-decoration: none;
     text-align: center;
     font-weight: 600;
-    transition: all 0.3s ease-out;
+    transition: background-color 0.3s ease-out, border-color 0.3s ease-out, box-shadow 0.3s ease-out, color 0.3s ease-out;
     border: 2px solid var(--color-brand-orange);
 }
 
@@ -808,7 +808,7 @@ body {
     border-radius: 20px;
     font-size: 14px;
     font-weight: 600;
-    transition: all 0.3s ease-out;
+    transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out, color 0.3s ease-out, transform 0.3s ease-out;
     text-align: center;
 }
 
@@ -1119,7 +1119,7 @@ body {
     padding: var(--space-md);
     border: 3px solid var(--color-brand-orange);
     border-radius: 12px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(230, 81, 0, 0.15);

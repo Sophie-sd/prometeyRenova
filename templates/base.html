@@ -7,8 +7,12 @@
     <meta charset="UTF-8">
     <!-- Google Tag Manager — first user input only (no timer).
          Lab/PSI never waits 6s for gtag/FB; real sessions still fire on
-         pointer/scroll/key. Tag Assistant / GTM Preview loads immediately.
-         Conversion pages call _loadGTM() explicitly. -->
+         pointer/scroll/key. The input handler only schedules the load
+         (requestIdleCallback, 1s timeout / setTimeout fallback) so GTM never
+         runs inside the interaction task (INP). dataLayer pushes made before
+         GTM arrives are queued and replayed by GTM on load.
+         Tag Assistant / GTM Preview loads immediately.
+         Conversion pages call _loadGTM() explicitly (synchronous). -->
     <script nonce="{{ csp_nonce }}">
     window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
     function _loadGTM(){if(window._gtmL)return;window._gtmL=1;var j=document.createElement('script');j.async=true;j.setAttribute('nonce','{{ csp_nonce }}');j.nonce='{{ csp_nonce }}';j.src='https://www.googletagmanager.com/gtm.js?id=GTM-K2FVPPTK';document.head.appendChild(j);}
@@ -23,7 +27,14 @@
         || /(^|;\s*)gtm_auth=/.test(c)
         || /(^|;\s*)gtm_preview=/.test(c);
       if(preview){_loadGTM();return;}
-      ['pointerdown','scroll','click','touchstart','keydown','mousemove'].forEach(function(e){window.addEventListener(e,_loadGTM,{once:true,passive:true});});
+      var ev=['pointerdown','scroll','click','touchstart','keydown','mousemove'];
+      function sched(){
+        if(window._gtmS)return;window._gtmS=1;
+        ev.forEach(function(e){window.removeEventListener(e,sched,{passive:true});});
+        if(window.requestIdleCallback){window.requestIdleCallback(_loadGTM,{timeout:1000});}
+        else{setTimeout(_loadGTM,1);}
+      }
+      ev.forEach(function(e){window.addEventListener(e,sched,{once:true,passive:true});});
     })();
     </script>
     <!-- End Google Tag Manager -->
@@ -84,7 +95,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .lang-btn{padding:6px 12px;border-radius:var(--radius-sm);text-decoration:none;font-weight:500;font-size:14px;color:#fff;border:1px solid rgba(255,255,255,.3)}
 .lang-btn.active{background:var(--color-brand-orange-active);border-color:var(--color-brand-orange-active)}
 .burger-menu{display:none;width:40px;height:40px;position:relative;cursor:pointer;background:transparent;border:none;padding:0;z-index:var(--z-burger-button)}
-.burger-line{position:absolute;width:26px;height:2px;background:var(--color-white);left:50%;transform:translateX(-50%);transition:all .4s cubic-bezier(.68,-.55,.265,1.55)}
+.burger-line{position:absolute;width:26px;height:2px;background:var(--color-white);left:50%;transform:translateX(-50%);transition:top .4s cubic-bezier(.68,-.55,.265,1.55),transform .4s cubic-bezier(.68,-.55,.265,1.55),opacity .4s cubic-bezier(.68,-.55,.265,1.55),background-color .4s cubic-bezier(.68,-.55,.265,1.55)}
 .burger-line:nth-child(1){top:10px}
 .burger-line:nth-child(2){top:19px}
 .burger-line:nth-child(3){top:28px}
@@ -127,10 +138,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </style>
 
     <!-- CSS Base Bundle — non-blocking (preload + media-print swap on load) -->
-    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=31" as="style">
-    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=31" media="print" data-async-css>
-    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=31"></noscript>
-    <link rel="stylesheet" href="{% static 'css/components/currency.css' %}?v=3">
+    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=32" as="style">
+    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=32" media="print" data-async-css>
+    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=32"></noscript>
+    {% block currency_css %}<link rel="stylesheet" href="{% static 'css/components/currency.css' %}?v=3">{% endblock %}
 
     {# Fonts, canonical, robots — before page CSS so preload starts with the blocking sheet. #}
     {% block extra_head %}{% endblock %}

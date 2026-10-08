@@ -60,7 +60,7 @@
 .thank-you-btn {
     min-width: 140px;
     padding: 12px 24px;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: transform var(--transition-normal) var(--easing-default), box-shadow var(--transition-normal) var(--easing-default), background-color var(--transition-normal) var(--easing-default), color var(--transition-normal) var(--easing-default);
 }
 
 .thank-you-btn:hover {

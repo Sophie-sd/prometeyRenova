@@ -96,7 +96,7 @@
     text-decoration: none;
     font-weight: 600;
     color: var(--color-brand-orange);
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: color var(--transition-normal) var(--easing-default), transform var(--transition-normal) var(--easing-default);
     display: inline-flex;
     align-items: center;
     gap: 4px;

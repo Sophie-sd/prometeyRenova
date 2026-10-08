@@ -35,7 +35,7 @@
     font-size: var(--font-base);
     color: var(--color-black);
     background: var(--color-white);
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: border-color var(--transition-normal) var(--easing-default), box-shadow var(--transition-normal) var(--easing-default), background-color var(--transition-normal) var(--easing-default), color var(--transition-normal) var(--easing-default);
     font-family: inherit;
 }
 
@@ -127,7 +127,7 @@
     color: var(--color-black);
     background: var(--color-white);
     cursor: pointer;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: border-color var(--transition-normal) var(--easing-default), box-shadow var(--transition-normal) var(--easing-default), background-color var(--transition-normal) var(--easing-default), color var(--transition-normal) var(--easing-default);
 }
 
 .form-select:focus {

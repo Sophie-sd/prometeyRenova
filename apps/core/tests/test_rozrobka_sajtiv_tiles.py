@@ -91,4 +91,36 @@ class SoftCmsTabsAndScreensTests(TestCase):
     def test_portfolio_screen_scroll_hooks(self):
         html = self.client.get('/rozrobka-sajtiv/').content.decode()
         self.assertIn('js/portfolio-screen-scroll.js', html)
-        self.assertIn('rozrobka-sajtiv-3.css', html)
+        # Screen-scroll layer now lives in the single merged stylesheet.
+        self.assertIn('css/pages/rozrobka-sajtiv.css', html)
+
+
+class SoftSingleStylesheetTests(TestCase):
+    """Perf: one render-blocking page stylesheet (currency.css merged in), no stale -2/-3 links."""
+
+    def setUp(self):
+        _rates()
+
+    def test_one_page_stylesheet_ua_ru(self):
+        for path in ('/rozrobka-sajtiv/', '/ru/rozrobka-sajtiv/'):
+            with self.subTest(path=path):
+                html = self.client.get(path).content.decode()
+                self.assertEqual(html.count('css/pages/rozrobka-sajtiv.css'), 1)
+                self.assertNotIn('rozrobka-sajtiv-2.css', html)
+                self.assertNotIn('rozrobka-sajtiv-3.css', html)
+                self.assertNotIn('css/components/currency.css', html)
+                self.assertNotIn('Space+Grotesk', html)
+
+    def test_merged_css_contains_currency_css_verbatim(self):
+        from pathlib import Path
+
+        from django.conf import settings
+
+        static = Path(settings.BASE_DIR) / 'static' / 'css'
+        merged = (static / 'pages' / 'rozrobka-sajtiv.css').read_text(encoding='utf-8')
+        currency = (static / 'components' / 'currency.css').read_text(encoding='utf-8').rstrip()
+        self.assertIn(currency, merged)
+
+    def test_other_pages_keep_global_currency_css(self):
+        html = self.client.get('/').content.decode()
+        self.assertIn('css/components/currency.css', html)

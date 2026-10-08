@@ -828,6 +828,18 @@ class PortfolioProject(models.Model):
             or resolve_portfolio_image_url(self, 'card_image')
         )
 
+    def get_home_image_srcset(self) -> str:
+        """srcset (720w + оригінал) для того ж static-знімка, що й get_home_image_src."""
+        from .portfolio_images import (
+            resolve_static_portfolio_srcset,
+            resolve_static_portfolio_url,
+        )
+
+        for field_name in ('home_story_image', 'card_image'):
+            if resolve_static_portfolio_url(self, field_name):
+                return resolve_static_portfolio_srcset(self, field_name)
+        return ''
+
     def get_card_image_src(self) -> str:
         from .portfolio_images import resolve_portfolio_image_url
 

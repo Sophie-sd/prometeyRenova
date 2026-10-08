@@ -1404,7 +1404,7 @@ img, video {
     width: 26px;
     height: 2px;
     background: var(--color-white);
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: top 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background-color 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1629,7 +1629,7 @@ img, video {
     color: var(--color-brand-orange);
     opacity: 0;
 
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, left 0.3s ease;
 }
 
 .mobile-nav-link:hover::before {
@@ -1737,7 +1737,7 @@ img, video {
 
     opacity: 0;
     transform: translateY(20px);
-    transition: all 0.5s ease 0.4s;
+    transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
 }
 
 .mobile-menu.active .mobile-menu-footer {
@@ -1830,7 +1830,7 @@ img, video {
     text-decoration: none;
     text-transform: uppercase;
 
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .mobile-lang-btn:hover,
@@ -2340,7 +2340,7 @@ body.menu-open .contact-widget {
     font-size: var(--font-base);
     color: var(--color-black);
     background: var(--color-white);
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: border-color var(--transition-normal) var(--easing-default), box-shadow var(--transition-normal) var(--easing-default), background-color var(--transition-normal) var(--easing-default), color var(--transition-normal) var(--easing-default);
     font-family: inherit;
 }
 
@@ -2432,7 +2432,7 @@ body.menu-open .contact-widget {
     color: var(--color-black);
     background: var(--color-white);
     cursor: pointer;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: border-color var(--transition-normal) var(--easing-default), box-shadow var(--transition-normal) var(--easing-default), background-color var(--transition-normal) var(--easing-default), color var(--transition-normal) var(--easing-default);
 }
 
 .form-select:focus {
@@ -2910,7 +2910,7 @@ body.modal-open .main-footer {
     font-size: 16px;
     color: #aaaaaa;
     text-decoration: none;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: color var(--transition-normal) var(--easing-default), padding-left var(--transition-normal) var(--easing-default);
     position: relative;
     padding-left: 0;
     padding-bottom: 5px;
@@ -2927,7 +2927,7 @@ body.modal-open .main-footer {
     position: absolute;
     left: -10px;
     opacity: 0;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: opacity var(--transition-normal) var(--easing-default), left var(--transition-normal) var(--easing-default);
     color: var(--color-brand-orange);
 }
 
@@ -2951,7 +2951,7 @@ body.modal-open .main-footer {
     color: #aaaaaa;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 50%;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: color var(--transition-normal) var(--easing-default), background-color var(--transition-normal) var(--easing-default), transform var(--transition-normal) var(--easing-default);
     text-decoration: none;
 }
 
@@ -3028,7 +3028,7 @@ body.modal-open .main-footer {
     color: var(--color-white);
     font-size: 15px;
     font-family: inherit;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: border-color var(--transition-normal) var(--easing-default), background-color var(--transition-normal) var(--easing-default);
     border-radius: 0;
 }
 
@@ -3787,7 +3787,7 @@ body.modal-open .main-footer {
     align-items: center;
     justify-content: center;
 
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .mobile-video-play-button:hover {
@@ -4353,9 +4353,10 @@ body.modal-open .main-footer {
 }
 
 .lang-suggest__yes {
-    background: var(--color-brand-orange, #E65100);
+    /* #c44e00: white 12.5px text = 4.7:1 (WCAG AA); brand #E65100 was 3.8:1 */
+    background: #c44e00;
     color: #fff;
-    border: 1.5px solid var(--color-brand-orange, #E65100);
+    border: 1.5px solid #c44e00;
 }
 
 .lang-suggest__yes:hover,

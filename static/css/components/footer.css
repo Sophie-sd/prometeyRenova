@@ -49,7 +49,7 @@ body.modal-open .main-footer {
     font-size: 16px;
     color: #aaaaaa;
     text-decoration: none;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: color var(--transition-normal) var(--easing-default), padding-left var(--transition-normal) var(--easing-default);
     position: relative;
     padding-left: 0;
     padding-bottom: 5px;
@@ -66,7 +66,7 @@ body.modal-open .main-footer {
     position: absolute;
     left: -10px;
     opacity: 0;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: opacity var(--transition-normal) var(--easing-default), left var(--transition-normal) var(--easing-default);
     color: var(--color-brand-orange);
 }
 
@@ -90,7 +90,7 @@ body.modal-open .main-footer {
     color: #aaaaaa;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 50%;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: color var(--transition-normal) var(--easing-default), background-color var(--transition-normal) var(--easing-default), transform var(--transition-normal) var(--easing-default);
     text-decoration: none;
 }
 
@@ -167,7 +167,7 @@ body.modal-open .main-footer {
     color: var(--color-white);
     font-size: 15px;
     font-family: inherit;
-    transition: all var(--transition-normal) var(--easing-default);
+    transition: border-color var(--transition-normal) var(--easing-default), background-color var(--transition-normal) var(--easing-default);
     border-radius: 0;
 }
 

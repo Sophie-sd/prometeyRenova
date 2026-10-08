@@ -67,36 +67,37 @@
             </article>
         </div>
 
-        {# Accessible price strip (visually replaced by floats on mobile/desktop); kept for a11y + HTMX #}
+        {# Accessible price strip (visually replaced by floats on mobile/desktop); kept for a11y + HTMX. #}
+        {# <div role="listitem"> (not <article>): ARIA listitem is not allowed on <article> (axe aria-allowed-role). #}
         <div class="pl-rs__prices" role="list" aria-label="{% trans "Орієнтир ціни" %}">
-            <article class="pl-rs__price" role="listitem">
+            <div class="pl-rs__price" role="listitem">
                 <p class="pl-rs__price-num">{% include 'fx/soft_range.html' with key='strip-landing' low=250 high=400 %}</p>
                 <p class="pl-rs__price-name">{% trans "Лендінги" %}</p>
                 <p class="pl-rs__price-time">{% trans "3–7 днів" %}</p>
                 <p class="pl-rs__scope-in">{% trans "У сумі: макет, верстка, форма, адаптив" %}</p>
                 <p class="pl-rs__scope-out">{% trans "Не входить: реклама, тексти з нуля, сторонні API" %}</p>
-            </article>
-            <article class="pl-rs__price pl-rs__price--mid" role="listitem">
+            </div>
+            <div class="pl-rs__price pl-rs__price--mid" role="listitem">
                 <p class="pl-rs__price-num">{% include 'fx/soft_range.html' with key='strip-corp' low=500 high=700 %}</p>
                 <p class="pl-rs__price-name">{% trans "Корпоративні" %}</p>
                 <p class="pl-rs__price-time">{% trans "7–14 днів" %}</p>
                 <p class="pl-rs__scope-in">{% trans "У сумі: структура сторінок, CMS-основа, адаптив, базова SEO" %}</p>
                 <p class="pl-rs__scope-out">{% trans "Не входить: наповнення контентом, реклама, складні інтеграції" %}</p>
-            </article>
-            <article class="pl-rs__price" role="listitem">
+            </div>
+            <div class="pl-rs__price" role="listitem">
                 <p class="pl-rs__price-num">{% include 'fx/soft_range.html' with key='strip-shop' low=800 high=1400 %}</p>
                 <p class="pl-rs__price-name">{% trans "Магазини" %}</p>
                 <p class="pl-rs__price-time">{% trans "14–21 день" %}</p>
                 <p class="pl-rs__scope-in">{% trans "У сумі: каталог, кошик, оплата/доставка-основа, адмінка замовлень" %}</p>
                 <p class="pl-rs__scope-out">{% trans "Не входить: наповнення товарів, маркетинг, кастомні інтеграції" %}</p>
-            </article>
-            <article class="pl-rs__price" role="listitem">
+            </div>
+            <div class="pl-rs__price" role="listitem">
                 <p class="pl-rs__price-num">{% include 'fx/soft_range.html' with key='strip-platform' low=1500 high=5000 %}</p>
                 <p class="pl-rs__price-name">{% trans "Платформи" %}</p>
                 <p class="pl-rs__price-time">{% trans "14–30 днів" %}</p>
                 <p class="pl-rs__scope-in">{% trans "У сумі: узгоджений MVP за брифом у діапазоні" %}</p>
                 <p class="pl-rs__scope-out">{% trans "Не входить: нові модулі після здачі, сторонні ліцензії" %}</p>
-            </article>
+            </div>
         </div>
     </div>
 </section>

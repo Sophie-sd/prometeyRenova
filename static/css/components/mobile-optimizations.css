@@ -184,7 +184,7 @@
     align-items: center;
     justify-content: center;
 
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .mobile-video-play-button:hover {

@@ -42,7 +42,7 @@
     --card-border-width: 3px;
     --card-padding: var(--space-sm);
     --card-hover-lift: -5px;
-    --card-transition: all 0.4s ease-out;
+    --card-transition: border-color 0.4s ease-out, box-shadow 0.4s ease-out, transform 0.4s ease-out, background-color 0.4s ease-out, opacity 0.4s ease-out;
     
     /* ===== VIDEO ===== */
     --video-z-index: var(--z-background, -1);
