@@ -54,7 +54,8 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertIn('14–30 днів', root)
         self.assertIn('У сумі:', root)
         self.assertIn('Не входить:', root)
-        self.assertIn('5 років гарантії', root)
+        self.assertIn('1 рік гарантії на код', root)
+        self.assertNotIn('5 років', root)
         self.assertNotIn('індивідуально', root)
         self.assertNotIn('окремий бриф', root)
         soft_hits = [s for s in ('SOFT', 'Soft ·', 'Soft —', 'орієнтири Soft') if s in html]

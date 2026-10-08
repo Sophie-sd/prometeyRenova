@@ -134,7 +134,7 @@ class RozrobkaSajtivView(BasePageView):
     meta_description = _(
         'Розробка сайтів будь-якої складності під ключ: лендінги від 250 €, '
         'корпоративні від 500 €, магазини від 800 €. Бюджет і строки у договорі, '
-        'безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію.'
+        'безкоштовна підтримка, 1 рік гарантії на код. Отримати консультацію.'
     )
     og_title = _('Розробка сайтів під ключ | PrometeyLabs')
     keywords = _(
@@ -245,7 +245,7 @@ class InternetShopV2View(BasePageView):
     page_title = _('Інтернет-магазини під ключ — швидка розробка e-commerce | PrometeyLabs')
     meta_description = _(
         'Розробка інтернет-магазинів з нативною архітектурою без конструкторів. '
-        'Міграція з Prom та OLX, SEO, пожиттєва гарантія на код.'
+        'Міграція з Prom та OLX, SEO, 1 рік гарантії на код.'
     )
     og_title = _('Інтернет-магазини, що завантажуються швидше — PrometeyLabs')
 
@@ -263,7 +263,7 @@ class InternetShopV2View(BasePageView):
             context['page_title'] = 'Интернет-магазины под ключ — быстрая разработка e-commerce | PrometeyLabs'
             context['meta_description'] = (
                 'Разработка интернет-магазинов с нативной архитектурой без конструкторов. '
-                'Миграция с Prom и OLX, SEO, пожизненная гарантия на код.'
+                'Миграция с Prom и OLX, SEO, 1 год гарантии на код.'
             )
             context['og_title'] = 'Интернет-магазины, которые загружаются быстрее — PrometeyLabs'
             context['lang_suggest_always'] = True
@@ -276,7 +276,7 @@ class CorporateWebsiteV2View(BasePageView):
     page_title = _('Корпоративні сайти та лендінги під ключ — ціна і строки | PrometeyLabs')
     meta_description = _(
         'Розробка корпоративних сайтів та лендінгів з нативною архітектурою. '
-        '100/100 Core Web Vitals, технічне SEO, пожиттєва гарантія на код.'
+        '100/100 Core Web Vitals, технічне SEO, 1 рік гарантії на код.'
     )
     og_title = _('Корпоративні сайти, що домінують у пошуку — PrometeyLabs')
 
@@ -294,7 +294,7 @@ class CorporateWebsiteV2View(BasePageView):
             context['page_title'] = 'Корпоративные сайты и лендинги под ключ — цена и сроки | PrometeyLabs'
             context['meta_description'] = (
                 'Разработка корпоративных сайтов и лендингов с нативной архитектурой. '
-                '100/100 Core Web Vitals, техническое SEO, пожизненная гарантия на код.'
+                '100/100 Core Web Vitals, техническое SEO, 1 год гарантии на код.'
             )
             context['og_title'] = 'Корпоративные сайты, которые доминируют в поиске — PrometeyLabs'
             context['lang_suggest_always'] = True

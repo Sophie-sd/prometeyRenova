@@ -1299,9 +1299,7 @@ msgid "Інтернет-магазини під ключ — швидка роз
 msgstr "E-commerce stores"
 
 #: apps/core/views.py:194
-msgid ""
-"Розробка інтернет-магазинів з нативною архітектурою без конструкторів. "
-"Міграція з Prom та OLX, SEO, пожиттєва гарантія на код."
+msgid "Розробка інтернет-магазинів з нативною архітектурою без конструкторів. Міграція з Prom та OLX, SEO, 1 рік гарантії на код."
 msgstr ""
 
 #: apps/core/views.py:197
@@ -1318,9 +1316,7 @@ msgid ""
 msgstr "Corporate website or service website"
 
 #: apps/core/views.py:210
-msgid ""
-"Розробка корпоративних сайтів та лендінгів з нативною архітектурою. 100/100 "
-"Core Web Vitals, технічне SEO, пожиттєва гарантія на код."
+msgid "Розробка корпоративних сайтів та лендінгів з нативною архітектурою. 100/100 Core Web Vitals, технічне SEO, 1 рік гарантії на код."
 msgstr ""
 
 #: apps/core/views.py:213
@@ -2683,8 +2679,8 @@ msgstr ""
 "We offer payment in installments — without overpayments or hidden terms."
 
 #: templates/components/home/redesign_why.html:58
-msgid "5-річна"
-msgstr "5-year"
+msgid "Річна"
+msgstr "1-year"
 
 #: templates/components/home/redesign_why.html:58
 msgid "гарантія"
@@ -4203,10 +4199,8 @@ msgid "Продумана архітектура та логіка продук�
 msgstr "Thoughtful architecture and product logic"
 
 #: templates/pages/calculator.html:34
-#, fuzzy
-#| msgid "Продумана архітектура та логіка продукту"
-msgid "Пожиттєва гарантія на наші програмні продукти."
-msgstr "Thoughtful architecture and product logic"
+msgid "1 рік гарантії на наші програмні продукти."
+msgstr "1-year warranty on our software products."
 
 #: templates/pages/calculator.html:38
 msgid "Жодних щомісячних або прихованих платежів (повна прозорість)."
@@ -6797,8 +6791,8 @@ msgid "Розробка сайтів будь-якої складності пі
 msgstr "Turnkey websites of any complexity"
 
 #: templates/pages/rozrobka-sajtiv.html
-msgid "Лендінги, корпоративні сайти, інтернет-магазини, платформи будь-якої складності. Прозора співпраця: фіксуємо бюджет і строки у договорі. Безкоштовна підтримка та 5 років гарантії на код."
-msgstr "Landings, corporate sites, online stores, and platforms of any complexity. Transparent cooperation: we fix the budget and timeline in the contract. Free support and a 5-year code warranty."
+msgid "Лендінги, корпоративні сайти, інтернет-магазини, платформи будь-якої складності. Прозора співпраця: фіксуємо бюджет і строки у договорі. Безкоштовна підтримка та 1 рік гарантії на код."
+msgstr "Landings, corporate sites, online stores, and platforms of any complexity. Transparent cooperation: we fix the budget and timeline in the contract. Free support and a 1-year code warranty."
 
 #: templates/pages/rozrobka-sajtiv.html
 msgid "Орієнтир ціни"
@@ -6865,8 +6859,8 @@ msgid "Розробка сайтів під ключ в Україні | Promete
 msgstr "Turnkey website development in Ukraine | PrometeyLabs"
 
 #: templates/pages/rozrobka-sajtiv.html
-msgid "Розробка сайтів будь-якої складності під ключ: лендінги від 250 €, корпоративні від 500 €, магазини від 800 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію."
-msgstr "Turnkey websites of any complexity: landings from 250 €, corporate sites from 500 €, stores from 800 €. Budget and timeline fixed in the contract, free support, 5-year code warranty. Get a consultation."
+msgid "Розробка сайтів будь-якої складності під ключ: лендінги від 250 €, корпоративні від 500 €, магазини від 800 €. Бюджет і строки у договорі, безкоштовна підтримка, 1 рік гарантії на код. Отримати консультацію."
+msgstr "Turnkey websites of any complexity: landings from 250 €, corporate sites from 500 €, stores from 800 €. Budget and timeline fixed in the contract, free support, 1-year code warranty. Get a consultation."
 
 #: templates/pages/rozrobka-sajtiv.html
 msgid "розробка сайтів, сайт під ключ, лендінг, корпоративний сайт, інтернет-магазин, PrometeyLabs"
@@ -6937,8 +6931,8 @@ msgstr "Not included: new modules after handoff, third-party licenses"
 msgid "Чотири орієнтири — старт розмови. Точну суму і строк фіксуємо після брифу в договорі."
 msgstr "Four anchors — conversation start. Exact sum and timeline are fixed after the brief in the contract."
 
-msgid "Розробка сайтів будь-якої складності під ключ: лендінги 250–400 €, корпоративні 500–700 €, магазини 800–1 400 €, платформи 1 500–5 000 €. Бюджет і строки у договорі, безкоштовна підтримка, 5 років гарантії на код. Отримати консультацію."
-msgstr "Turnkey websites of any complexity: landings 250–400 €, corporate 500–700 €, shops 800–1 400 €, platforms 1 500–5 000 €. Budget and timeline in the contract, free support, 5-year code warranty. Get a consultation."
+msgid "Розробка сайтів будь-якої складності під ключ: лендінги 250–400 €, корпоративні 500–700 €, магазини 800–1 400 €, платформи 1 500–5 000 €. Бюджет і строки у договорі, безкоштовна підтримка, 1 рік гарантії на код. Отримати консультацію."
+msgstr "Turnkey websites of any complexity: landings 250–400 €, corporate 500–700 €, shops 800–1 400 €, platforms 1 500–5 000 €. Budget and timeline in the contract, free support, 1-year code warranty. Get a consultation."
 
 msgid "Лендінг"
 msgstr "Landing page"
