@@ -6039,3 +6039,31 @@ msgstr "Закрыта"
 msgid "Редагувати"
 msgstr "Редактировать"
 
+
+#: templates/components/rozrobka_sajtiv/portfolio.html
+msgid "Наші роботи"
+msgstr "Наши работы"
+
+#: templates/components/rozrobka_sajtiv/portfolio.html
+msgid "Навігація портфоліо"
+msgstr "Навигация по портфолио"
+
+#: templates/components/rozrobka_sajtiv/portfolio.html
+msgid "Попередні роботи"
+msgstr "Предыдущие работы"
+
+#: templates/components/rozrobka_sajtiv/portfolio.html
+msgid "Наступні роботи"
+msgstr "Следующие работы"
+
+#: templates/components/rozrobka_sajtiv/portfolio.html
+msgid "Дивитись портфоліо"
+msgstr "Смотреть портфолио"
+
+#: apps/core/templatetags/fx_tags.py
+msgid "Гривня"
+msgstr "Гривна"
+
+#: apps/core/templatetags/fx_tags.py
+msgid "Долар"
+msgstr "Доллар"
