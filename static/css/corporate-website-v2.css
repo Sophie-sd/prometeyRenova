@@ -3083,3 +3083,209 @@ body.pl-corp-body .modal .modal-content .form-submit {
         top: -230px;
     }
 }
+
+/* =========================================================
+   HERO DESKTOP 2-COLUMN (≥1024): H1 spans as the anchor,
+   left = lead + price/timeline spec lines, right = CTAs +
+   guarantee + advantages checklist. Mobile untouched.
+   ========================================================= */
+@media (min-width: 1024px) {
+    .pl-corp__hero-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 1px minmax(0, 460px);
+        grid-template-areas:
+            "title title title"
+            "lead  rule  card"
+            "proof rule  card";
+        grid-template-rows: auto auto 1fr;
+        column-gap: 56px;
+        row-gap: 0;
+        width: min(100% - 2 * var(--pl-gutter), 1120px);
+        text-align: left;
+        align-items: start;
+    }
+
+    .pl-corp__hero-inner::before {
+        content: "";
+        grid-area: rule;
+        align-self: stretch;
+        width: 1px;
+        margin-top: 8px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.22) 30%, rgba(255, 255, 255, 0.22) 70%, rgba(255, 255, 255, 0));
+    }
+
+    .pl-corp__hero-copy {
+        display: contents;
+    }
+
+    .pl-corp__hero-title,
+    .pl-corp__hero-title--ru {
+        grid-area: title;
+        justify-self: center;
+        max-width: 1040px;
+        margin-bottom: 48px;
+        font-size: 64px;
+        letter-spacing: -3.2px;
+        text-align: center;
+    }
+
+    .pl-corp__hero-lead {
+        grid-area: lead;
+        max-width: 520px;
+        margin-top: 4px;
+        font-size: 18px;
+        line-height: 1.4;
+        letter-spacing: -0.36px;
+        color: var(--pl-gray);
+        text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .pl-corp__hero-copy .pl-corp__hero-proof {
+        grid-area: proof;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        max-width: 520px;
+        margin-top: 22px;
+    }
+
+    .pl-corp__hero-proof-item {
+        padding: 13px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        font-size: 18px;
+        letter-spacing: -0.36px;
+        text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .pl-corp__hero-proof-item:last-child {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .pl-corp__hero-card {
+        grid-area: card;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        max-width: none;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    .pl-corp__hero-card .pl-corp__btn {
+        padding-inline: 16px;
+        font-size: 15px;
+    }
+
+    .pl-corp__hero-guarantee {
+        grid-column: 1 / -1;
+        order: 2;
+        justify-content: flex-start;
+        margin-top: 4px;
+        font-size: 15px;
+    }
+
+    .pl-corp__hero-offers,
+    .pl-corp__hero-offers--more {
+        grid-column: 1 / -1;
+        order: 3;
+        gap: 10px;
+        margin-top: 0;
+    }
+
+    .pl-corp__hero-offers {
+        margin-top: 10px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .pl-corp__hero-offers--more {
+        order: 4;
+        display: flex;
+    }
+
+    .pl-corp__hero-offer,
+    .pl-corp__hero-offer--desktop {
+        position: relative;
+        display: block;
+        min-height: 0;
+        padding: 0 0 0 26px;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        font-size: 15px;
+        line-height: 1.4;
+        color: var(--pl-gray);
+        text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
+    }
+
+    .pl-corp__hero-offer::before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 0;
+        width: 14px;
+        height: 14px;
+        background: var(--pl-acc);
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+}
+
+@media (min-width: 1024px) and (max-height: 860px) {
+    .pl-corp__hero-title,
+    .pl-corp__hero-title--ru {
+        margin-bottom: 36px;
+        font-size: 58px;
+        letter-spacing: -2.9px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .pl-corp__hero {
+        padding-top: 176px;
+    }
+
+    .pl-corp__hero-title--ru {
+        max-width: 1120px;
+        font-size: 60px;
+        letter-spacing: -3px;
+    }
+}
+
+@media (min-width: 1024px) and (max-height: 860px) {
+    .pl-corp__hero {
+        padding-top: 136px;
+    }
+
+    .pl-corp__hero-bg {
+        top: -300px;
+    }
+}
+
+@media (min-width: 1024px) {
+    /* soft dark scrim between the planet glow and the 2-column copy (contrast) */
+    .pl-corp__hero::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background: radial-gradient(ellipse 52% 46% at 50% 44%, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.35) 55%, rgba(0, 0, 0, 0) 80%);
+        pointer-events: none;
+    }
+
+    .pl-corp__hero-offers.pl-corp__hero-offers--more {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+    }
+}
+
+@media (min-width: 1024px) and (max-height: 860px) {
+    .pl-corp__hero-bg {
+        top: -180px;
+    }
+}
