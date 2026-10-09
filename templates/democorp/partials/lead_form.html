@@ -1,35 +1,40 @@
-{% load i18n demotenant %}
+{% load i18n static demotenant %}
 {% tenant_text blocks_map registry "cta" "note" as cta_note %}
 <form class="dc-lead-form" data-qa="lead-form"
+      action="{% url 'democorp:lead' slug=site.slug %}" method="post"
       hx-post="{% url 'democorp:lead' slug=site.slug %}"
       hx-target="closest .dc-lead-form-wrap"
       hx-swap="innerHTML">
     {% csrf_token %}
     <input type="text" name="honeypot" class="dc-lead-form__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
     {% if product %}<input type="hidden" name="product_slug" value="{{ product.slug }}">{% endif %}
-    <div class="dc-field">
-        {{ lead_form.name.label_tag }}
-        {{ lead_form.name }}
-    </div>
     <div class="dc-lead-form__row">
-        <div class="dc-field">
-            {{ lead_form.phone.label_tag }}
+        <div class="dc-field{% if lead_form.name.errors %} is-invalid{% endif %}">
+            <img class="dc-field__icon" src="{% static 'democorp/img/profile.svg' %}" alt="" width="12" height="15">
+            <label class="dc-sr" for="{{ lead_form.name.id_for_label }}">{{ lead_form.name.label }}</label>
+            {{ lead_form.name }}
+        </div>
+        <div class="dc-field{% if lead_form.phone.errors %} is-invalid{% endif %}">
+            <img class="dc-field__icon" src="{% static 'democorp/img/call.svg' %}" alt="" width="14" height="14">
+            <label class="dc-sr" for="{{ lead_form.phone.id_for_label }}">{{ lead_form.phone.label }}</label>
             {{ lead_form.phone }}
         </div>
-        <div class="dc-field">
-            {{ lead_form.email.label_tag }}
-            {{ lead_form.email }}
-        </div>
     </div>
-    <div class="dc-field">
-        {{ lead_form.message.label_tag }}
+    <div class="dc-field{% if lead_form.email.errors %} is-invalid{% endif %}">
+        <img class="dc-field__icon" src="{% static 'democorp/img/message.svg' %}" alt="" width="15" height="14">
+        <label class="dc-sr" for="{{ lead_form.email.id_for_label }}">{{ lead_form.email.label }}</label>
+        {{ lead_form.email }}
+    </div>
+    <div class="dc-field dc-field--area{% if lead_form.message.errors %} is-invalid{% endif %}">
+        <img class="dc-field__icon" src="{% static 'democorp/img/edit.svg' %}" alt="" width="14" height="14">
+        <label class="dc-sr" for="{{ lead_form.message.id_for_label }}">{{ lead_form.message.label }}</label>
         {{ lead_form.message }}
     </div>
-    {% if lead_form.errors %}<p class="dc-lead-form__error">{% trans "Перевірте поля форми." %}</p>{% endif %}
-    <button type="submit" class="dc-btn dc-btn--primary">
-        {% if product %}{% trans "Хочу такий сайт" %}{% else %}{% tenant_text blocks_map registry "cta" "submit_label" %}{% endif %}
-    </button>
-    {% if cta_note %}
-    <p class="dc-lead-form__note">{{ cta_note }}</p>
-    {% endif %}
+    {% if lead_form.errors %}<p class="dc-lead-form__error" role="alert">{% trans "Перевірте поля форми." %}</p>{% endif %}
+    <div class="dc-lead-form__submit">
+        <button type="submit" class="dc-btn dc-btn--primary">
+            {% if product %}{% tenant_text blocks_map registry "catalog" "buy_cta_label" %}{% else %}{% tenant_text blocks_map registry "cta" "submit_label" %}{% endif %}
+        </button>
+        {% if cta_note %}<p class="dc-lead-form__note">{{ cta_note }}</p>{% endif %}
+    </div>
 </form>

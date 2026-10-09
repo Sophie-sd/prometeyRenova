@@ -7,23 +7,25 @@ from apps.core.proposal_models import Proposal
 from apps.demotenant.models_abstract import AbstractDemoTenant
 
 DEFAULT_THEME_COLORS = {
-    'color_primary': '#100D0C',
-    'color_primary_hover': '#181412',
-    'color_accent': '#C99A44',
-    'color_surface': '#100D0C',
-    'color_text': '#FCF2EE',
+    'color_primary': '#0D0D0D',
+    'color_primary_hover': '#141414',
+    'color_accent': '#D05300',
+    'color_surface': '#0D0D0D',
+    'color_text': '#FFFFFF',
 }
 
 LEGACY_THEME_COLORS = {
     '#12313F', '#0D2530', '#C98A3B', '#F4EFE4', '#1A1A1A',
     '#1A3A63', '#142D4D', '#2F7BD1', '#FFFFFF',
+    # dark luxury (bark / gold) — до Figma-редизайну 2026-10
+    '#100D0C', '#181412', '#C99A44', '#FCF2EE',
 }
 
 
 class CorpSite(AbstractDemoTenant):
     class StylePreset(models.TextChoices):
-        EDITORIAL = 'editorial', _('Dark luxury (bark / gold)')
-        CLEAN = 'clean', _('Dark luxury (slot contrast)')
+        EDITORIAL = 'editorial', _('Темний: прозорі картки')
+        CLEAN = 'clean', _('Темний: контрастні картки')
 
     TOKEN_MAP = {
         'color_primary': '--dc-primary',

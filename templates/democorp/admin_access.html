@@ -4,8 +4,8 @@
 {% block title %}{% trans "Вхід в адмінку" %}{% endblock %}
 
 {% block content %}
-<section class="dc-section dc-container">
-    <h1>{% trans "Адмінка вашого сайту" %}</h1>
+<section class="dc-container dc-page-head">
+    <h1 class="dc-h1">{% trans "Адмінка вашого сайту" %}</h1>
     <p>{% trans "Керуйте текстами, фото, кольорами, процесом роботи, галереєю, відгуками та заявками." %}</p>
     <p><strong>{% trans "Логін" %}:</strong> {{ tenant.demo_login }}</p>
     <p><strong>{% trans "Пароль" %}:</strong> {{ tenant.demo_password }}</p>

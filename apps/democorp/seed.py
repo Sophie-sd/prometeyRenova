@@ -102,7 +102,7 @@ def _reset_legacy_theme(site) -> None:
 def _seed_hero(site, *, reset: bool, refresh_images: bool = False) -> None:
     if site.hero_image and not reset and not refresh_images:
         return
-    image = _atelier_image('hero/hero.webp', 'PrometeyLabs', size=(1200, 1600))
+    image = _atelier_image('hero/hero-glow.webp', 'PrometeyLabs', size=(1440, 811))
     site.hero_image = image
     site.save(update_fields=['hero_image'])
 
@@ -163,7 +163,7 @@ def _seed_testimonials(site, *, reset: bool) -> None:
     if reset:
         site.testimonials.all().delete()
     for order, data in enumerate(TESTIMONIALS):
-        CorpTestimonial.objects.get_or_create(
+        item, _created = CorpTestimonial.objects.get_or_create(
             tenant=site, order=order,
             defaults={
                 'author_name': data['author_name'], 'role': data['role'],
@@ -174,6 +174,9 @@ def _seed_testimonials(site, *, reset: bool) -> None:
                 'rating': data['rating'],
             },
         )
+        if not item.avatar and data.get('avatar'):
+            item.avatar = _atelier_image(data['avatar'], data['author_name'], size=(120, 120))
+            item.save(update_fields=['avatar'])
 
 
 def _seed_partners(site, *, reset: bool, refresh_images: bool = False) -> None:

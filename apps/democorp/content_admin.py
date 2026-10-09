@@ -57,8 +57,8 @@ class CorpSettingsForm(forms.ModelForm):
                 _('Основний текст і кнопка'),
             ),
             'color_accent': (
-                _('Золото'),
-                _('Акценти й лінії'),
+                _('Акцент'),
+                _('Кнопки, «Крок N», рейтинг, виділення в заголовку'),
             ),
         }
         for name, (label, help_text) in color_ui.items():

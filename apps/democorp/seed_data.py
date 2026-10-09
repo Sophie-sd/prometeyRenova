@@ -66,35 +66,35 @@ GALLERY = [
 
 TESTIMONIALS = [
     {
-        'author_name': 'Олена К.', 'role': 'Клініка, Львів', 'rating': 5,
+        'author_name': 'Олена К.', 'role': 'Клініка, Львів', 'rating': 5, 'avatar': 'avatars/avatar-1.webp',
         'text': 'Люди записуються з сайту. Я більше не пояснюю послуги в Direct по десять разів.',
         'text_en': 'People book from the site. I no longer explain services in Direct ten times.',
         'text_cs': 'Lidé se objednávají z webu. Už desetkrát nevysvětluju služby v Directu.',
         'text_ru': 'Люди записываются с сайта. Я больше не объясняю услуги в Direct по десять раз.',
     },
     {
-        'author_name': 'Ігор М.', 'role': 'Виробництво, Київ', 'rating': 5,
+        'author_name': 'Ігор М.', 'role': 'Виробництво, Київ', 'rating': 5, 'avatar': 'avatars/avatar-2.webp',
         'text': 'Партнери дивляться «Про нас» і одразу пишуть. З телефону все зрозуміло.',
         'text_en': 'Partners look at About and write right away. Everything is clear on the phone.',
         'text_cs': 'Partneři se podívají na O nás a hned napíšou. V telefonu je vše jasné.',
         'text_ru': 'Партнёры смотрят «О нас» и сразу пишут. С телефона всё понятно.',
     },
     {
-        'author_name': 'Марина Т.', 'role': 'Агентство', 'rating': 5,
+        'author_name': 'Марина Т.', 'role': 'Агентство', 'rating': 5, 'avatar': 'avatars/avatar-3.webp',
         'text': 'Шість сторінок замість трьох зошитів у Instagram. Заявки в одній адмінці.',
         'text_en': 'Six pages instead of three notebooks in Instagram. Requests in one admin.',
         'text_cs': 'Šest stránek místo tří sešitů na Instagramu. Poptávky v jednom adminu.',
         'text_ru': 'Шесть страниц вместо трёх тетрадей в Instagram. Заявки в одной админке.',
     },
     {
-        'author_name': 'Дмитро В.', 'role': 'Будівельна компанія', 'rating': 5,
+        'author_name': 'Дмитро В.', 'role': 'Будівельна компанія', 'rating': 5, 'avatar': 'avatars/avatar-4.webp',
         'text': 'Тексти міняю сама за хвилину. Реклама менше зливається — сторінка не відлякує.',
         'text_en': 'I change the texts myself in a minute. Ads waste less money — the page does not scare people away.',
         'text_cs': 'Texty měním sama za minutu. Reklama míň utíká — stránka lidi neodrazuje.',
         'text_ru': 'Тексты меняю сама за минуту. Реклама меньше сливается — страница не отпугивает.',
     },
     {
-        'author_name': 'Софія Л.', 'role': 'Школа, Харків', 'rating': 5,
+        'author_name': 'Софія Л.', 'role': 'Школа, Харків', 'rating': 5, 'avatar': 'avatars/avatar-5.webp',
         'text': 'Батьки розуміють програми з першого екрана. Запис іде вам, а не губиться в Direct.',
         'text_en': 'Parents understand the programmes from the first screen. Booking comes to you, not lost in Direct.',
         'text_cs': 'Rodiče pochopí programy z první obrazovky. Zápis jde vám, neztratí se v Directu.',

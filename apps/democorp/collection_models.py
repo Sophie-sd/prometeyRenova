@@ -73,6 +73,10 @@ class CorpTestimonial(models.Model):
     )
     author_name = models.CharField(max_length=150, verbose_name=_('Автор'))
     role = models.CharField(max_length=150, blank=True, verbose_name=_('Роль / компанія'))
+    avatar = models.ImageField(
+        upload_to='democorp/avatars/', blank=True, null=True, verbose_name=_('Фото (аватар)'),
+        help_text=_('Кружечок у картці рейтингу на головній. Порожньо = не показується'),
+    )
     text = models.TextField(verbose_name=_('Текст'))
     text_ru = models.TextField(blank=True, verbose_name=_('Текст (RU)'))
     text_en = models.TextField(blank=True, verbose_name=_('Текст (EN)'))

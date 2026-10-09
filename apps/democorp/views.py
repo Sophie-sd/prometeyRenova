@@ -64,12 +64,12 @@ def home(request, slug):
         site,
         process_steps=site.production_steps.all(),
         testimonials=reviews,
-        featured_review=reviews[0] if reviews else None,
-        mosaic_reviews=reviews[1:],
+        rating_avatars=[review for review in reviews if review.avatar],
         featured_products=(
             site.products.filter(is_active=True, is_featured=True)[:8] if site.has_catalog else []
         ),
         reviews_visible=is_visible(blocks_map, 'home', 'reviews_visible'),
+        rating_visible=is_visible(blocks_map, 'home', 'rating_visible'),
         partners_visible=is_visible(blocks_map, 'home', 'partners_visible'),
     )
     return render(request, 'democorp/home.html', context)

@@ -1,29 +1,29 @@
-"""Форми лід-заявок корпоративного сайту (контакти + «Купити» на PDP)."""
+"""Форми лід-заявок корпоративного сайту (контакти + «Хочу такий сайт» на сторінці прикладу)."""
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from .lead_models import CorpLead
 
-_INPUT_ATTRS = {
-    'name': {'autocomplete': 'name', 'class': 'dc-input'},
-    'phone': {'autocomplete': 'tel', 'inputmode': 'tel', 'class': 'dc-input'},
-    'email': {'autocomplete': 'email', 'class': 'dc-input'},
+_LABELS = {
+    'name': _('Імʼя'),
+    'phone': _('Номер телефону'),
+    'email': _('Email'),
+    'message': _('Повідомлення'),
 }
+
+
+def _attrs(name, **extra):
+    return {'class': 'dc-input', 'placeholder': _LABELS[name], **extra}
 
 
 class CorpLeadForm(forms.ModelForm):
     class Meta:
         model = CorpLead
         fields = ('name', 'phone', 'email', 'message')
-        labels = {
-            'name': _('Імʼя'),
-            'phone': _('Телефон'),
-            'email': _('Email'),
-            'message': _('Повідомлення'),
-        }
+        labels = _LABELS
         widgets = {
-            'name': forms.TextInput(attrs=_INPUT_ATTRS['name']),
-            'phone': forms.TextInput(attrs=_INPUT_ATTRS['phone']),
-            'email': forms.EmailInput(attrs=_INPUT_ATTRS['email']),
-            'message': forms.Textarea(attrs={'rows': 4, 'class': 'dc-input'}),
+            'name': forms.TextInput(attrs=_attrs('name', autocomplete='name')),
+            'phone': forms.TextInput(attrs=_attrs('phone', autocomplete='tel', inputmode='tel')),
+            'email': forms.EmailInput(attrs=_attrs('email', autocomplete='email')),
+            'message': forms.Textarea(attrs=_attrs('message', rows=4)),
         }

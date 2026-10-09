@@ -1,0 +1,13 @@
+{% load i18n democorp_tags %}
+{% get_current_language as CURRENT_LANG %}
+<form class="dc-lang{% if extra_class %} {{ extra_class }}{% endif %}" action="{% url 'set_language' %}" method="post" aria-label="{% trans 'Мова' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+    {% get_available_languages as LANGUAGES %}
+    {% for code, name in LANGUAGES %}
+    {% if code != 'ru' %}
+    <button type="submit" name="language" value="{{ code }}" class="dc-lang__item"{% if code == CURRENT_LANG %} aria-current="true"{% endif %}>{{ code|lang_label }}</button>
+    {% endif %}
+    {% endfor %}
+    {% if CURRENT_LANG == 'ru' %}<span class="dc-lang__item" aria-current="true">RU</span>{% endif %}
+</form>

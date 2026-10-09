@@ -4,71 +4,52 @@
 {% block title %}{% tenant_text blocks_map registry "production" "title" %} — {% tenant_text blocks_map registry "header" "company_name" %}{% endblock %}
 
 {% block content %}
-<section class="dc-page-header dc-container">
+{% tenant_text blocks_map registry "production" "step_label" as step_label %}
+<section class="dc-container dc-page-head">
     <p class="dc-breadcrumbs"><a href="{% url 'democorp:home' slug=site.slug %}">{% trans "Головна" %}</a> / {% tenant_text blocks_map registry "production" "title" %}</p>
-    <h1>{% tenant_text blocks_map registry "production" "title" %}</h1>
-    <p>{% tenant_text blocks_map registry "production" "intro" %}</p>
+    <h1 class="dc-h1">{% tenant_text blocks_map registry "production" "title" %}</h1>
+    <p class="dc-page-head__lede">{% tenant_text blocks_map registry "production" "intro" %}</p>
 </section>
 
 {% if process_steps %}
-<section class="dc-section" id="process-steps">
-    <div class="dc-container process-rail">
-        <div class="dc-process">
-            <div class="process-rail__bar dc-process__bar" aria-hidden="true"><span class="process-rail__fill"></span></div>
-            <div class="dc-process__grid">
-                {% for step in process_steps %}
-                <article class="process-rail__item dc-process__step" data-reveal>
-                    <span class="dc-process__dot" aria-hidden="true"></span>
-                    <p class="process-rail__num dc-process__num stats__value">0{{ forloop.counter }}</p>
-                    <h3 class="dc-process__title">{{ step.localized_title }}</h3>
-                    {% if step.localized_description %}
-                    <p class="dc-process__desc">{{ step.localized_description }}</p>
-                    {% endif %}
-                </article>
-                {% endfor %}
+<section class="dc-section dc-section--tight dc-container" id="process-steps">
+    <ol class="dc-steps">
+        {% for step in process_steps %}
+        <li class="dc-card dc-step">
+            <p class="dc-step__num">{{ step_label }} {{ forloop.counter }}</p>
+            <div class="dc-step__body">
+                <h2 class="dc-step__title">{{ step.localized_title }}</h2>
+                {% if step.localized_description %}<p class="dc-step__desc">{{ step.localized_description }}</p>{% endif %}
             </div>
-        </div>
+        </li>
+        {% endfor %}
+    </ol>
+</section>
+{% endif %}
+
+{% if gallery_images %}
+<section class="dc-section dc-section--tight dc-container" id="gallery">
+    <div class="dc-gallery">
+        {% for image in gallery_images %}
+        <figure class="dc-gallery__item">
+            <img src="{{ image.image|puburl }}" alt="{{ image.localized_caption }}" width="1200" height="900" loading="lazy">
+            {% if image.localized_caption %}<figcaption>{{ image.localized_caption }}</figcaption>{% endif %}
+        </figure>
+        {% endfor %}
     </div>
 </section>
 {% endif %}
 
-<section class="dc-section" id="gallery">
-    <div class="dc-container">
-        <div class="dc-gallery dc-gallery--cols-{{ gallery_images|length|ideal_cols:2 }}">
-            {% for image in gallery_images %}
-            <figure class="dc-gallery__item">
-                <div class="dc-gallery__frame">
-                    <div class="dc-gallery__media">
-                        <img src="{{ image.image|puburl }}" alt="{{ image.localized_caption }}" width="1200" height="900" loading="lazy">
-                    </div>
-                </div>
-                {% if image.localized_caption %}
-                <figcaption class="dc-gallery__caption">{{ image.localized_caption }}</figcaption>
-                {% endif %}
-            </figure>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
 {% if certificates_visible and certificates %}
-<section class="dc-section" id="certificates">
-    <div class="dc-container">
-        <h2 data-reveal>{% trans "Ще екрани" %}</h2>
-        <div class="dc-gallery dc-gallery--cols-{{ certificates|length|ideal_cols:2 }}">
-            {% for cert in certificates %}
-            <figure class="dc-gallery__item">
-                <div class="dc-gallery__frame">
-                    <div class="dc-gallery__media">
-                        <img src="{{ cert.image|puburl }}" alt="{{ cert.localized_caption }}" width="1200" height="900" loading="lazy">
-                    </div>
-                </div>
-                {% if cert.localized_caption %}
-                <figcaption class="dc-gallery__caption">{{ cert.localized_caption }}</figcaption>
-                {% endif %}
-            </figure>
-            {% endfor %}
-        </div>
+<section class="dc-section dc-section--tight dc-container" id="certificates">
+    <h2 class="dc-h2">{% trans "Ще екрани" %}</h2>
+    <div class="dc-gallery">
+        {% for cert in certificates %}
+        <figure class="dc-gallery__item">
+            <img src="{{ cert.image|puburl }}" alt="{{ cert.localized_caption }}" width="1200" height="900" loading="lazy">
+            {% if cert.localized_caption %}<figcaption>{{ cert.localized_caption }}</figcaption>{% endif %}
+        </figure>
+        {% endfor %}
     </div>
 </section>
 {% endif %}
