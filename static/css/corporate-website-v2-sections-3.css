@@ -1,0 +1,60 @@
+
+/* ===== BRIEF / CALCULATOR section shell — quiz styles in corporate-website-v2-quiz.css ===== */
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 767px) {
+    .pl-corp__inner {
+        padding-left: max(16px, env(safe-area-inset-left, 0px));
+        padding-right: max(16px, env(safe-area-inset-right, 0px));
+    }
+
+    .pl-corp__economy-grid {
+        flex-direction: column;
+    }
+
+    .pl-corp__economy-banner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+        padding: 22px 18px;
+    }
+
+    .pl-corp__economy-banner-text {
+        flex: 0 0 auto;
+        width: 100%;
+        font-size: clamp(17px, 4.5vw, 22px);
+    }
+
+    .pl-corp__economy-stats {
+        width: 100%;
+        display: flex;
+        gap: 12px;
+    }
+
+    .pl-corp__economy-stat {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 16px 14px;
+    }
+
+    .pl-corp__economy-stat-val {
+        font-size: clamp(22px, 6vw, 30px);
+    }
+
+    .pl-corp__economy-stat-val span {
+        font-size: 15px;
+    }
+
+    .pl-corp__economy-stat-label {
+        font-size: 12px;
+        line-height: 1.35;
+    }
+
+    .pl-corp__admin-row {
+        flex-direction: column;
+    }
+
+    .pl-corp__admin-copy {
+        order: -1;
+    }
+}
