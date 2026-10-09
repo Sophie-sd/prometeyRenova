@@ -972,15 +972,34 @@ body.pl-shop-body .main-footer .container,
     margin-top: 10px;
 }
 
-/* Platinum: shop + marketing bundle (full-width card, 4 themes) */
-.pl-shop__pkg-offer {
+/* Card heading: descriptive eyebrow (= JSON-LD Offer name) + package name */
+.pl-shop__pkg-heading {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+}
+
+.pl-shop__pkg-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    color: var(--pl-acc);
+}
+
+.pl-shop__pkg-heading .pl-shop__pkg-name {
+    display: block;
+}
+
+/* Platinum: shop + marketing text inside the regular card */
+.pl-shop__pkg-pitch {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .pl-shop__pkg-lead {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.03em;
@@ -988,66 +1007,17 @@ body.pl-shop-body .main-footer .container,
 }
 
 .pl-shop__pkg-note {
-    font-size: 12px;
-    line-height: 1.3;
-    letter-spacing: -0.02em;
-    color: var(--pl-gray);
-}
-
-.pl-shop__pkg-groups {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 10px;
-}
-
-.pl-shop__pkg-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    background: linear-gradient(160deg, rgba(255, 102, 0, 0.08) 0%, rgba(20, 20, 20, 0.6) 55%);
-}
-
-.pl-shop__pkg-group-head {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.pl-shop__pkg-group-num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 34px;
-    height: 24px;
-    padding: 0 8px;
-    border: 1px solid rgba(255, 102, 0, 0.5);
-    border-radius: var(--pl-radius-pill);
-    color: var(--pl-acc);
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-}
-
-.pl-shop__pkg-group-title {
-    font-size: 22px;
-    font-weight: 500;
-    line-height: 1.1;
-    letter-spacing: -0.04em;
-    color: var(--pl-text);
-}
-
-.pl-shop__pkg-group-desc {
-    font-size: 12px;
     line-height: 1.3;
     letter-spacing: -0.02em;
     color: var(--pl-gray);
 }
 
-.pl-shop__pkg-group .pl-shop__pkg-list {
-    margin-top: 4px;
+.pl-shop__pkg-theme-name {
+    display: block;
+    margin-bottom: 2px;
+    font-weight: 600;
+    color: var(--pl-text);
 }
 
 .pl-shop__pkg-compare {
@@ -2219,26 +2189,6 @@ body.pl-shop-body .main-footer .container,
         grid-column: 1 / -1;
     }
 
-    .pl-shop__pkg-overview--wide {
-        flex-direction: row;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 30px;
-    }
-
-    .pl-shop__pkg-offer {
-        flex: 0 1 380px;
-    }
-
-    .pl-shop__pkg-groups {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .pl-shop__pkg-card--platinum .pl-shop__pkg-cta {
-        align-self: flex-end;
-        width: min(100%, 430px);
-    }
-
     .pl-shop__hero-bg img {
         max-height: none;
     }
@@ -2480,50 +2430,18 @@ body.pl-shop-body .main-footer .container,
     }
 
     .pl-shop__pkg-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 20px;
         margin-top: 20px;
+    }
+
+    .pl-shop__pkg-card--platinum {
+        grid-column: auto;
     }
 
     .pl-shop__pkg-card {
         min-height: 576px;
         padding: 30px;
-    }
-
-    .pl-shop__pkg-card--platinum {
-        min-height: 0;
-        gap: 30px;
-    }
-
-    .pl-shop__pkg-overview--wide {
-        gap: 60px;
-    }
-
-    .pl-shop__pkg-offer {
-        flex-basis: 430px;
-    }
-
-    .pl-shop__pkg-lead {
-        font-size: 20px;
-    }
-
-    .pl-shop__pkg-note {
-        font-size: 14px;
-    }
-
-    .pl-shop__pkg-groups {
-        gap: 20px;
-    }
-
-    .pl-shop__pkg-group {
-        padding: 30px;
-    }
-
-    .pl-shop__pkg-group-title {
-        font-size: 28px;
-    }
-
-    .pl-shop__pkg-group-desc {
-        font-size: 14px;
     }
 
     .pl-shop__glow--premium {
@@ -2559,6 +2477,31 @@ body.pl-shop-body .main-footer .container,
 
     .pl-shop__pkg-cta {
         margin-top: 30px;
+    }
+
+    .pl-shop__pkg-pitch {
+        gap: 8px;
+    }
+
+    .pl-shop__pkg-eyebrow {
+        font-size: 14px;
+    }
+
+    .pl-shop__pkg-list--themes {
+        gap: 12px;
+    }
+
+    .pl-shop__pkg-list--themes li {
+        font-size: 14px;
+        line-height: 1.3;
+    }
+
+    .pl-shop__pkg-lead {
+        font-size: 18px;
+    }
+
+    .pl-shop__pkg-note {
+        font-size: 13px;
     }
 
     .pl-shop__pkg-compare {

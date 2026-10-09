@@ -26,8 +26,8 @@ SPEC = {
         'business': ['CRM', 'Telegram-сповіщення', 'Ролі менеджерів в адмінці', 'Онлайн-оплати',
                      'Інтеграції доставки'],
         'scale_keep': 'ШІ-адміністратор сайту',
-        'plat_desc': 'Магазин, рекламні кабінети і пів року контенту',
-        'plat_lead': 'Магазин і запуск реклами. Не лише сайт.',
+        'plat_desc': 'Інтернет-магазин з CRM, рекламними кабінетами, SEO і пів року контенту',
+        'plat_lead': 'Від вітрини до перших рекламних кампаній — одним пакетом.',
         'plat_note': 'У ціні сам магазин і запуск послуг. Рекламний бюджет оплачується окремо.',
         'plat_groups': ['Магазин', 'Продажі', 'Реклама', 'Пошук і контент'],
         'offers': ['Магазин', 'Магазин з інтеграціями', 'Магазин і маркетинг'],
@@ -54,8 +54,8 @@ SPEC = {
         'business': ['CRM', 'Telegram-уведомления', 'Роли менеджеров в админке', 'Онлайн-оплаты',
                      'Интеграции доставки'],
         'scale_keep': 'ИИ-администратор сайта',
-        'plat_desc': 'Магазин, рекламные кабинеты и полгода контента',
-        'plat_lead': 'Магазин и запуск рекламы. Не только сайт.',
+        'plat_desc': 'Интернет-магазин с CRM, рекламными кабинетами, SEO и полгода контента',
+        'plat_lead': 'От витрины до первых рекламных кампаний — одним пакетом.',
         'plat_note': 'В цене сам магазин и запуск услуг. Рекламный бюджет оплачивается отдельно.',
         'plat_groups': ['Магазин', 'Продажи', 'Реклама', 'Поиск и контент'],
         'offers': ['Магазин', 'Магазин с интеграциями', 'Магазин и маркетинг'],
@@ -115,6 +115,8 @@ class ShopV2SpecTests(TestCase):
             self.assertEqual([(o['@type'], o['name'], o['price'], o['priceCurrency']) for o in offers],
                              [('Offer', name, price, 'EUR') for name, price in zip(s['offers'], ('800', '1500', '7000'))],
                              url)
+            for o in offers:
+                self.assertTrue(o.get('description'), url)
             self.assertNotIn('highPrice', html, url)
             self.assertNotIn('AggregateOffer', html, url)
             # 7 000 € must not leak into title / H1 / meta
@@ -190,7 +192,7 @@ class ShopV2SpecTests(TestCase):
             self.assertIn(f'<p class="pl-shop__pkg-desc">{s["plat_desc"]}</p>', plat)
             self.assertIn(f'<p class="pl-shop__pkg-lead">{s["plat_lead"]}</p>', plat)
             self.assertIn(f'<p class="pl-shop__pkg-note">{s["plat_note"]}</p>', plat)
-            self.assertEqual(re.findall(r'<span class="pl-shop__pkg-group-title">([^<]+)</span>', plat),
+            self.assertEqual(re.findall(r'<strong class="pl-shop__pkg-theme-name">([^<]+)</strong>', plat),
                              s['plat_groups'], url)
             self.assertEqual(plat.count('data-calc-pkg='), 1, url)
             self.assertIn(f'>{s["button"]}</a>', plat)
@@ -198,6 +200,11 @@ class ShopV2SpecTests(TestCase):
             low = html.lower()
             for bad in s['reviews'] + ('кінематограф', 'кинематограф'):
                 self.assertNotIn(bad, low, f'{url}: {bad}')
+            # visible card eyebrows = JSON-LD Offer names (message match page <-> schema)
+            pak = _between(html, 'id="pakety"', '</section>')
+            self.assertEqual(re.findall(r'<span class="pl-shop__pkg-eyebrow">([^<]+)</span>', pak), s['offers'], url)
+            self.assertNotIn('Не лише сайт', html)
+            self.assertNotIn('Не только сайт', html)
             matrix = _between(html, 'class="pl-shop__pkg-matrix-table"', '</table>')
             groups = re.findall(r'<th scope="rowgroup" colspan="4">([^<]+)</th>', matrix)
             self.assertEqual(groups, s['plat_groups'], url)

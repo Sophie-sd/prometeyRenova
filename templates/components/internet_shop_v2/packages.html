@@ -35,7 +35,7 @@
             <article class="pl-shop__pkg-card">
                 <div class="pl-shop__pkg-overview">
                     <div class="pl-shop__pkg-details">
-                        <h3 class="pl-shop__pkg-name">Base</h3>
+                        <h3 class="pl-shop__pkg-heading"><span class="pl-shop__pkg-eyebrow">Магазин</span> <span class="pl-shop__pkg-name">Base</span></h3>
                         <p class="pl-shop__pkg-desc">Базовий інтернет-магазин з усім необхідним для старту онлайн-продажів</p>
                     </div>
                     {% include 'fx/pkg_price.html' with key='base' amount=800 %}
@@ -61,8 +61,8 @@
                 </picture>
                 <div class="pl-shop__pkg-overview">
                     <div class="pl-shop__pkg-details">
-                        <h3 class="pl-shop__pkg-name">Premium</h3>
-                        <p class="pl-shop__pkg-desc">Магазин під ключ для активних продажів, автоматизації та зростання</p>
+                        <h3 class="pl-shop__pkg-heading"><span class="pl-shop__pkg-eyebrow">Магазин з інтеграціями</span> <span class="pl-shop__pkg-name">Premium</span></h3>
+                        <p class="pl-shop__pkg-desc">Інтернет-магазин з онлайн-оплатами, доставкою, CRM і Telegram-сповіщеннями</p>
                     </div>
                     {% include 'fx/pkg_price.html' with key='premium' amount=1500 %}
                 </div>
@@ -79,57 +79,24 @@
             </article>
 
             <article class="pl-shop__pkg-card pl-shop__pkg-card--platinum">
-                <div class="pl-shop__pkg-overview pl-shop__pkg-overview--wide">
+                <div class="pl-shop__pkg-overview">
                     <div class="pl-shop__pkg-details">
-                        <h3 class="pl-shop__pkg-name">Platinum</h3>
-                        <p class="pl-shop__pkg-desc">Магазин, рекламні кабінети і пів року контенту</p>
+                        <h3 class="pl-shop__pkg-heading"><span class="pl-shop__pkg-eyebrow">Магазин і маркетинг</span> <span class="pl-shop__pkg-name">Platinum</span></h3>
+                        <p class="pl-shop__pkg-desc">Інтернет-магазин з CRM, рекламними кабінетами, SEO і пів року контенту</p>
                     </div>
-                    <div class="pl-shop__pkg-offer">
-                        {% include 'fx/pkg_price.html' with key='platinum' amount=7000 %}
-                        <p class="pl-shop__pkg-lead">Магазин і запуск реклами. Не лише сайт.</p>
-                        <p class="pl-shop__pkg-note">У ціні сам магазин і запуск послуг. Рекламний бюджет оплачується окремо.</p>
-                    </div>
+                    {% include 'fx/pkg_price.html' with key='platinum' amount=7000 %}
                 </div>
-                <div class="pl-shop__pkg-groups">
-                    <div class="pl-shop__pkg-group">
-                        <h4 class="pl-shop__pkg-group-head"><span class="pl-shop__pkg-group-num" aria-hidden="true">01</span><span class="pl-shop__pkg-group-title">Магазин</span></h4>
-                        <p class="pl-shop__pkg-group-desc">Повноцінний магазин на нашому коді — під вашу нішу і ринки.</p>
-                        <ul class="pl-shop__pkg-list">
-                            <li>Дизайн вітрини під нішу</li>
-                            <li>Адмінка з ролями</li>
-                            <li>Розгортання на домені клієнта</li>
-                            <li>До 10 мовних версій</li>
-                        </ul>
-                    </div>
-                    <div class="pl-shop__pkg-group">
-                        <h4 class="pl-shop__pkg-group-head"><span class="pl-shop__pkg-group-num" aria-hidden="true">02</span><span class="pl-shop__pkg-group-title">Продажі</span></h4>
-                        <p class="pl-shop__pkg-group-desc">Інструменти, щоб заявки не губилися і оброблялися швидше.</p>
-                        <ul class="pl-shop__pkg-list">
-                            <li>Персональна CRM і ШІ-помічник продажів</li>
-                            <li>Чат ШІ-менеджера в адмінці</li>
-                            <li>Telegram-бот для замовлень</li>
-                            <li>ШІ-адміністратор сайту</li>
-                        </ul>
-                    </div>
-                    <div class="pl-shop__pkg-group">
-                        <h4 class="pl-shop__pkg-group-head"><span class="pl-shop__pkg-group-num" aria-hidden="true">03</span><span class="pl-shop__pkg-group-title">Реклама</span></h4>
-                        <p class="pl-shop__pkg-group-desc">Запускаємо рекламу і ведемо її перші три місяці.</p>
-                        <ul class="pl-shop__pkg-list">
-                            <li>Створення і підключення кабінетів Meta, Google і TikTok</li>
-                            <li>До 5 кампаній</li>
-                            <li>Супровід 3 місяці</li>
-                            <li>Бюджет кампаній не входить у 7 000 €</li>
-                        </ul>
-                    </div>
-                    <div class="pl-shop__pkg-group">
-                        <h4 class="pl-shop__pkg-group-head"><span class="pl-shop__pkg-group-num" aria-hidden="true">04</span><span class="pl-shop__pkg-group-title">Пошук і контент</span></h4>
-                        <p class="pl-shop__pkg-group-desc">Трафік із пошуку, який росте поступово, а не за тиждень.</p>
-                        <ul class="pl-shop__pkg-list">
-                            <li>SEO під Україну і зовнішні ринки</li>
-                            <li>Статті й контент 6 місяців</li>
-                            <li>Тексти і медіа для сторінок магазину</li>
-                        </ul>
-                    </div>
+                <div class="pl-shop__pkg-pitch">
+                    <p class="pl-shop__pkg-lead">Від вітрини до перших рекламних кампаній — одним пакетом.</p>
+                    <p class="pl-shop__pkg-note">У ціні сам магазин і запуск послуг. Рекламний бюджет оплачується окремо.</p>
+                </div>
+                <div class="pl-shop__pkg-features">
+                    <ul class="pl-shop__pkg-list pl-shop__pkg-list--themes">
+                        <li><span><strong class="pl-shop__pkg-theme-name">Магазин</strong>Дизайн вітрини під нішу, адмінка з ролями, розгортання на домені клієнта, до 10 мовних версій</span></li>
+                        <li><span><strong class="pl-shop__pkg-theme-name">Продажі</strong>Персональна CRM і ШІ-помічник продажів, чат ШІ-менеджера в адмінці, Telegram-бот для замовлень, ШІ-адміністратор сайту</span></li>
+                        <li><span><strong class="pl-shop__pkg-theme-name">Реклама</strong>Створення і підключення кабінетів Meta, Google і TikTok, до 5 кампаній, супровід 3 місяці</span></li>
+                        <li><span><strong class="pl-shop__pkg-theme-name">Пошук і контент</strong>SEO під Україну і зовнішні ринки, статті й контент 6 місяців, тексти і медіа для сторінок магазину</span></li>
+                    </ul>
                 </div>
                 <a href="#zayavka" class="pl-shop__btn pl-shop__btn--light pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="platinum">Дізнатися вартість</a>
             </article>
