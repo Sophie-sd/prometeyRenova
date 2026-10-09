@@ -11,7 +11,7 @@
 
     var PKG_MAP_UK = {
         base: {
-            label: 'Старт',
+            label: 'Base',
             price: 'від 800\u00a0€',
             term: '3–4 тижні',
             features: [
@@ -21,7 +21,7 @@
             ]
         },
         premium: {
-            label: 'Бізнес',
+            label: 'Premium',
             price: 'від 1\u00a0500\u00a0€',
             term: '5–8 тижнів',
             features: [
@@ -31,7 +31,7 @@
             ]
         },
         platinum: {
-            label: 'Масштаб',
+            label: 'Platinum',
             price: 'від 7\u00a0000\u00a0€',
             term: '2–4 місяці',
             features: [
@@ -44,7 +44,7 @@
 
     var PKG_MAP_RU = {
         base: {
-            label: 'Старт',
+            label: 'Base',
             price: 'от 800\u00a0€',
             term: '3–4 недели',
             features: [
@@ -54,7 +54,7 @@
             ]
         },
         premium: {
-            label: 'Бизнес',
+            label: 'Premium',
             price: 'от 1\u00a0500\u00a0€',
             term: '5–8 недель',
             features: [
@@ -64,7 +64,7 @@
             ]
         },
         platinum: {
-            label: 'Масштаб',
+            label: 'Platinum',
             price: 'от 7\u00a0000\u00a0€',
             term: '2–4 месяца',
             features: [

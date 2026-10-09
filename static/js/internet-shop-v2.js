@@ -58,95 +58,6 @@
         }
     }
 
-    function prepareHeroChartDraw(chartWrap, line) {
-        if (!line) return;
-
-        requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-                var len = line.getTotalLength();
-                if (!len || len < 50) len = 2800;
-
-                line.style.strokeDasharray = len + ' ' + len;
-                line.style.strokeDashoffset = String(len);
-                if (chartWrap) chartWrap.classList.remove('is-drawn');
-            });
-        });
-    }
-
-    function playHeroChartDraw(chartWrap, line) {
-        if (!line) return;
-
-        requestAnimationFrame(function () {
-            line.style.strokeDashoffset = '0';
-            if (chartWrap) chartWrap.classList.add('is-drawn');
-
-            line.addEventListener('transitionend', function onDrawEnd(e) {
-                if (e.propertyName !== 'stroke-dashoffset') return;
-                line.removeEventListener('transitionend', onDrawEnd);
-                line.style.strokeDasharray = 'none';
-                line.style.strokeDashoffset = '0';
-            });
-        });
-    }
-
-    function initHeroSequence() {
-        var img = root.querySelector('[data-hero-img]');
-        if (!img) return;
-
-        var chartWrap = root.querySelector('[data-hero-chart-wrap]');
-        var line = root.querySelector('[data-hero-line]');
-        var chips = root.querySelectorAll('[data-hero-chip]');
-
-        prepareHeroChartDraw(chartWrap, line);
-
-        function finish() {
-            img.style.opacity = '1';
-            if (chartWrap) chartWrap.style.opacity = '1';
-            playHeroChartDraw(chartWrap, line);
-            chips.forEach(function (c) {
-                c.style.opacity = '1';
-                c.style.transform = 'none';
-            });
-        }
-
-        if (reduceMotion) {
-            finish();
-            return;
-        }
-
-        img.style.opacity = '0';
-        img.style.transition = 'opacity .7s cubic-bezier(.2,.7,.2,1)';
-        if (chartWrap) {
-            chartWrap.style.opacity = '0';
-            chartWrap.style.transition = 'opacity .6s ease';
-        }
-        chips.forEach(function (c) {
-            c.style.opacity = '0';
-            c.style.transform = 'translateY(12px) scale(.96)';
-            c.style.transition = 'opacity .5s ease, transform .5s cubic-bezier(.2,.7,.2,1)';
-        });
-
-        requestAnimationFrame(function () {
-            setTimeout(function () { img.style.opacity = '1'; }, 140);
-            setTimeout(function () {
-                if (chartWrap) chartWrap.style.opacity = '1';
-                playHeroChartDraw(chartWrap, line);
-            }, 420);
-            setTimeout(function () {
-                if (chips[0]) {
-                    chips[0].style.opacity = '1';
-                    chips[0].style.transform = 'none';
-                }
-            }, 1200);
-            setTimeout(function () {
-                if (chips[1]) {
-                    chips[1].style.opacity = '1';
-                    chips[1].style.transform = 'none';
-                }
-            }, 1520);
-        });
-    }
-
     function initCalcPkgLinks() {
         root.querySelectorAll('[data-calc-pkg]').forEach(function (link) {
             link.addEventListener('click', function () {
@@ -205,7 +116,7 @@
             var setWidth = (lastStory.offsetLeft + lastStory.offsetWidth + gap) - firstStory.offsetLeft;
 
             container.style.setProperty('--marquee-distance', setWidth + 'px');
-            container.setAttribute('aria-label', 'Наші клієнти — автоматична демонстрація');
+            container.setAttribute('aria-label', /^ru/i.test(document.documentElement.lang || '') ? 'Наши клиенты — автоматическая демонстрация' : 'Наші клієнти — автоматична демонстрація');
             // Не перезаписуємо role: контейнер уже має role="list" у шаблоні.
             // role="marquee" — невалідна ARIA-роль і ламає list/listitem.
 
@@ -275,27 +186,8 @@
                 var isOpen = btn.getAttribute('aria-expanded') === 'true';
                 btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
                 extra.hidden = isOpen;
-                btn.textContent = isOpen ? 'Читати далі' : 'Згорнути';
+                btn.textContent = btn.getAttribute(isOpen ? 'data-label-open' : 'data-label-close') || btn.textContent;
             });
-        });
-    }
-
-    function initPkgStagger() {
-        var grid = root.querySelector('[data-pkg-stagger]');
-        if (!grid) return;
-
-        var cards = grid.querySelectorAll('.pl-shop__pkg-card');
-        cards.forEach(function (card, cardIndex) {
-            card.style.setProperty('--pkg-i', String(cardIndex));
-            var mainList = card.querySelector('.pl-shop__pkg-features > .pl-shop__pkg-list');
-            if (!mainList) return;
-            mainList.querySelectorAll('li').forEach(function (item, itemIndex) {
-                item.style.setProperty('--pkg-li', String(itemIndex));
-            });
-        });
-
-        observeReveal(grid, function () {
-            grid.classList.add('is-revealed');
         });
     }
 
@@ -329,7 +221,7 @@
             var suffix = el.getAttribute('data-count-suffix') || '';
             var unitSpan = el.querySelector('span');
             var duration = target >= 1000 ? 1600 : 1100;
-            var delay = 720 + index * 140;
+            var delay = index * 140;
             var startTime = null;
 
             function updateDisplay(value) {
@@ -366,22 +258,7 @@
         var block = root.querySelector('[data-svoboda-reveal]');
         if (!block) return;
 
-        block.querySelectorAll('.pl-shop__card').forEach(function (card, cardIndex) {
-            card.style.setProperty('--sv-i', String(cardIndex));
-            card.querySelectorAll('.pl-shop__list-item').forEach(function (item, itemIndex) {
-                item.style.setProperty('--sv-li', String(itemIndex));
-            });
-        });
-
-        block.querySelectorAll('.pl-shop__stat').forEach(function (stat, statIndex) {
-            stat.style.setProperty('--sv-stat', String(statIndex));
-            stat.querySelectorAll('.pl-shop__stat-num').forEach(function (numEl) {
-                numEl.style.setProperty('--sv-stat', String(statIndex));
-            });
-        });
-
         observeReveal(block, function () {
-            block.classList.add('is-revealed');
             if (reduceMotion) {
                 setSvobodaStatFinalValues(block);
             } else {
@@ -425,10 +302,8 @@
 
     function init() {
         initReveal();
-        initPkgStagger();
         initPkgReadMore();
         initSvobodaReveal();
-        initHeroSequence();
         initCalcPkgLinks();
         initClientsMarquee();
         initPkgCompareTabs();

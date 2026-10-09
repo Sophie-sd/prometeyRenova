@@ -12,9 +12,9 @@
     };
 
     var TITLE_MAP = {
-        orders: 'admin · Замовлення',
-        products: 'admin · Товари',
-        analytics: 'admin · Аналітика'
+        orders: 'Адмін / Замовлення',
+        products: 'Адмін / Товари',
+        analytics: 'Адмін / Аналітика'
     };
 
     var state = {
@@ -34,46 +34,46 @@
             {
                 id: '10427',
                 customer: 'Андрій М.',
-                sum: '₴3 480',
+                sum: '₴3 099',
                 status: 'pending',
                 phone: '+380 50 987 65 43',
                 email: 'andriy.m@email.com',
                 items: [
-                    { name: 'Куртка зимова', qty: 1, price: '₴2 890' },
+                    { name: 'Куртка зимова', qty: 1, price: '₴2 509' },
                     { name: 'Шарф', qty: 1, price: '₴590' }
                 ]
             },
             {
                 id: '10426',
                 customer: 'Ірина В.',
-                sum: '₴890',
-                status: 'paid',
+                sum: '₴1 999',
+                status: 'shipped',
                 phone: '+380 93 456 78 90',
                 email: 'iryna.v@email.com',
                 items: [
-                    { name: 'Сумка шкіряна', qty: 1, price: '₴890' }
+                    { name: 'Сумка шкіряна', qty: 1, price: '₴1 999' }
                 ]
             },
             {
                 id: '10425',
-                customer: 'Максим Т.',
-                sum: '₴2 150',
-                status: 'shipped',
+                customer: 'Максим Е.',
+                sum: '₴2 489',
+                status: 'paid',
                 phone: '+380 66 234 56 78',
                 email: 'max.t@email.com',
                 items: [
-                    { name: 'Годинник Casio', qty: 1, price: '₴2 150' }
+                    { name: 'Годинник Casio', qty: 1, price: '₴2 489' }
                 ]
             },
             {
                 id: '10424',
                 customer: 'Софія Л.',
-                sum: '₴560',
+                sum: '₴690',
                 status: 'pending',
                 phone: '+380 97 345 67 89',
                 email: 'sofia.l@email.com',
                 items: [
-                    { name: 'Футболка oversize', qty: 2, price: '₴280' }
+                    { name: 'Футболка oversize', qty: 2, price: '₴345' }
                 ]
             }
         ],
@@ -162,9 +162,9 @@
         STATUS_META.pending.label = 'В обработке';
         STATUS_META.shipped.label = 'Отправлено';
 
-        TITLE_MAP.orders = 'admin · Заказы';
-        TITLE_MAP.products = 'admin · Товары';
-        TITLE_MAP.analytics = 'admin · Аналитика';
+        TITLE_MAP.orders = 'Админ / Заказы';
+        TITLE_MAP.products = 'Админ / Товары';
+        TITLE_MAP.analytics = 'Админ / Аналитика';
 
         state.orders = [
             {
@@ -182,46 +182,46 @@
             {
                 id: '10427',
                 customer: 'Андрей М.',
-                sum: '₴3 480',
+                sum: '₴3 099',
                 status: 'pending',
                 phone: '+380 50 987 65 43',
                 email: 'andriy.m@email.com',
                 items: [
-                    { name: 'Куртка зимняя', qty: 1, price: '₴2 890' },
+                    { name: 'Куртка зимняя', qty: 1, price: '₴2 509' },
                     { name: 'Шарф', qty: 1, price: '₴590' }
                 ]
             },
             {
                 id: '10426',
                 customer: 'Ирина В.',
-                sum: '₴890',
-                status: 'paid',
+                sum: '₴1 999',
+                status: 'shipped',
                 phone: '+380 93 456 78 90',
                 email: 'iryna.v@email.com',
                 items: [
-                    { name: 'Сумка кожаная', qty: 1, price: '₴890' }
+                    { name: 'Сумка кожаная', qty: 1, price: '₴1 999' }
                 ]
             },
             {
                 id: '10425',
-                customer: 'Максим Т.',
-                sum: '₴2 150',
-                status: 'shipped',
+                customer: 'Максим Е.',
+                sum: '₴2 489',
+                status: 'paid',
                 phone: '+380 66 234 56 78',
                 email: 'max.t@email.com',
                 items: [
-                    { name: 'Часы Casio', qty: 1, price: '₴2 150' }
+                    { name: 'Часы Casio', qty: 1, price: '₴2 489' }
                 ]
             },
             {
                 id: '10424',
                 customer: 'София Л.',
-                sum: '₴560',
+                sum: '₴690',
                 status: 'pending',
                 phone: '+380 97 345 67 89',
                 email: 'sofia.l@email.com',
                 items: [
-                    { name: 'Футболка oversize', qty: 2, price: '₴280' }
+                    { name: 'Футболка oversize', qty: 2, price: '₴345' }
                 ]
             }
         ];
@@ -388,16 +388,17 @@
                 escapeHtml(value) + '</div></div>';
         }
 
-        function renderBars() {
-            return '<div class="pl-shop__admin-metric">' +
+        function renderChartMetric() {
+            var src = mock.getAttribute('data-chart-src');
+            var srcMobile = mock.getAttribute('data-chart-src-mobile');
+            var chart = src
+                ? '<picture class="pl-shop__admin-chart" aria-hidden="true">' +
+                    (srcMobile ? '<source media="(max-width: 767px)" srcset="' + escapeHtml(srcMobile) + '">' : '') +
+                    '<img src="' + escapeHtml(src) + '" alt="" width="160" height="94" decoding="async"></picture>'
+                : '';
+            return '<div class="pl-shop__admin-metric pl-shop__admin-metric--chart">' +
                 '<div class="pl-shop__admin-metric-label">' + (isRu ? 'Конверсия' : 'Конверсія') + '</div>' +
-                '<div class="pl-shop__admin-bars" aria-hidden="true">' +
-                '<span class="pl-shop__admin-bar-col"></span>' +
-                '<span class="pl-shop__admin-bar-col"></span>' +
-                '<span class="pl-shop__admin-bar-col"></span>' +
-                '<span class="pl-shop__admin-bar-col pl-shop__admin-bar-col--acc"></span>' +
-                '<span class="pl-shop__admin-bar-col pl-shop__admin-bar-col--acc"></span>' +
-                '</div></div>';
+                chart + '</div>';
         }
 
         function renderAnalyticsBars() {
@@ -426,14 +427,16 @@
             var metrics = renderMetrics(
                 renderMetric(isRu ? 'Заказов сегодня' : 'Замовлень сьогодні', '47') +
                 renderMetric(isRu ? 'Выручка' : 'Виручка', '₴84k', 'pl-shop__admin-metric-val--acc') +
-                renderBars()
+                renderChartMetric()
             );
 
             var rows = '';
             state.orders.forEach(function (order, i) {
                 rows += '<div class="pl-shop__admin-table-row pl-shop__admin-table-row--clickable" role="button" tabindex="0" data-admin-order="' +
                     escapeHtml(order.id) + '" style="--admin-row-i:' + i + '">' +
-                    '<span class="pl-shop__admin-col-order">#' + escapeHtml(order.id) + ' · ' + escapeHtml(order.customer) + '</span>' +
+                    '<span class="pl-shop__admin-col-order"><span class="pl-shop__admin-order-id">#' + escapeHtml(order.id) + '</span>' +
+                    '<span class="pl-shop__admin-order-dot" aria-hidden="true"></span>' +
+                    '<span class="pl-shop__admin-order-name">' + escapeHtml(order.customer) + '</span></span>' +
                     '<span class="pl-shop__admin-col-sum">' + escapeHtml(order.sum) + '</span>' +
                     '<span class="pl-shop__admin-col-status">' + renderStatusButton(order) + '</span>' +
                     '</div>';
@@ -573,7 +576,7 @@
 
         function updateChrome(viewState) {
             if (viewState.view === 'order-detail') {
-                titleEl.textContent = (isRu ? 'admin · Заказы #' : 'admin · Замовлення #') + viewState.id;
+                titleEl.textContent = (isRu ? 'Админ / Заказы #' : 'Адмін / Замовлення #') + viewState.id;
                 if (backBtn) backBtn.hidden = false;
                 tabBtns.forEach(function (btn) {
                     btn.setAttribute('aria-disabled', 'true');
@@ -585,8 +588,8 @@
             if (viewState.view === 'product-detail') {
                 var product = getProduct(viewState.id);
                 titleEl.textContent = product
-                    ? 'admin · ' + product.name
-                    : (isRu ? 'admin · Товар' : 'admin · Товар');
+                    ? (isRu ? 'Админ / ' : 'Адмін / ') + product.name
+                    : (isRu ? 'Админ / Товар' : 'Адмін / Товар');
                 if (backBtn) backBtn.hidden = false;
                 tabBtns.forEach(function (btn) {
                     btn.setAttribute('aria-disabled', 'true');

@@ -1,24 +1,22 @@
-<section id="garantiya" class="pl-shop__section pl-shop__section--dark" aria-labelledby="pl-shop-garant-title">
+{% load static %}
+<section id="garantiya" class="pl-shop__section pl-shop__garant" aria-labelledby="pl-shop-garant-title">
     <div class="pl-shop__inner">
-        <div class="pl-shop__garant-layout" data-reveal>
-            <div class="pl-shop__garant-copy">
-                <div class="pl-shop__section-head pl-shop__section-head--left">
-                    <h2 id="pl-shop-garant-title" class="pl-shop__title pl-shop__title--section">Мы создаём — мы и отвечаем.</h2>
-                    <p class="pl-shop__text pl-shop__text--muted pl-shop__garant-lead">Большинство агентств продают сайт и оставляют вас один на один с багами. Мы пишем настолько чистый код, что даём на него <span class="pl-shop__accent pl-shop__accent--strong">1 год гарантии</span>. Если что-то перестанет работать из‑за нашей архитектуры — исправим бесплатно.</p>
+        <h2 id="pl-shop-garant-title" class="pl-shop__title pl-shop__garant-title" data-reveal>Мы создаём — мы и отвечаем.</h2>
+        <div class="pl-shop__garant-grid" data-reveal>
+            <article class="pl-shop__card pl-shop__card--glass pl-shop__garant-box">
+                <p class="pl-shop__garant-box-title">1 год бесплатной поддержки</p>
+                <div class="pl-shop__garant-quote">
+                    <img class="pl-shop__garant-quote-icon" src="{% static 'images/internet_shop_v2/figma/icon-quote.svg' %}" alt="" width="35" height="33" loading="lazy" aria-hidden="true">
+                    <p class="pl-shop__garant-box-desc">Технические вопросы, мелкие правки и консультации в течение первого года — без доплат</p>
                 </div>
-            </div>
-            <div class="pl-shop__garant-rail">
-                <article class="pl-shop__garant-box pl-shop__garant-box--year">
-                    <div class="pl-shop__garant-num">1 год</div>
-                    <p class="pl-shop__garant-box-title">1 год бесплатной поддержки</p>
-                    <p class="pl-shop__garant-box-desc">Технические вопросы, мелкие правки и консультации в течение первого года — без доплат.</p>
-                </article>
-                <article class="pl-shop__garant-box pl-shop__garant-box--life">
-                    <div class="pl-shop__garant-num">1 год</div>
-                    <p class="pl-shop__garant-box-title">Гарантия на код без плагинов</p>
-                    <p class="pl-shop__garant-box-desc">Чистый код без плагинов и зависимостей — технические баги по нашей вине исправляем бесплатно в течение года.</p>
-                </article>
-            </div>
+            </article>
+            <article class="pl-shop__card pl-shop__card--glass pl-shop__garant-box">
+                <p class="pl-shop__garant-box-title">Гарантия на код без плагинов</p>
+                <div class="pl-shop__garant-quote">
+                    <img class="pl-shop__garant-quote-icon" src="{% static 'images/internet_shop_v2/figma/icon-quote.svg' %}" alt="" width="35" height="33" loading="lazy" aria-hidden="true">
+                    <p class="pl-shop__garant-box-desc">Чистый код без плагинов и зависимостей — технические баги по нашей вине исправляем бесплатно в течение года</p>
+                </div>
+            </article>
         </div>
     </div>
 </section>

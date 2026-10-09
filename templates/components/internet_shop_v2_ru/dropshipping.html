@@ -1,26 +1,21 @@
 {% load static %}
-<section id="dropshipping" class="pl-shop__section pl-shop__dropshipping" aria-labelledby="pl-shop-drop-title">
+<section id="dropshipping" class="pl-shop__section pl-shop__drop" aria-labelledby="pl-shop-drop-title">
     <div class="pl-shop__inner">
-        <div class="pl-shop__section-head pl-shop__section-head--left" data-reveal>
-            <p class="pl-shop__eyebrow">Отдельный продукт</p>
-            <h2 id="pl-shop-drop-title" class="pl-shop__title pl-shop__title--section">
-                Дропшиппинг-платформа<br>
-                {% include 'fx/drop_price.html' %}
-            </h2>
-            <p class="pl-shop__text pl-shop__text--muted">
-                Разрабатываем дропшиппинг-платформы с парсингом поставщиков, синхронизацией остатков и проброской заказов напрямую к поставщику — под ключ.
-            </p>
-        </div>
-
-        <ul class="pl-shop__drop-list" data-reveal>
-            <li>Парсинг поставщиков</li>
-            <li>Обновление цен и остатков</li>
-            <li>Передача заказов</li>
-            <li>Учёт маржи</li>
-        </ul>
-
-        <div class="pl-shop__section-cta" data-reveal>
-            <a href="#zayavka" class="pl-shop__btn pl-shop__btn--primary mobile-touch-target">Заказать дропшиппинг-платформу</a>
-        </div>
+        <article class="pl-shop__card pl-shop__card--glass pl-shop__drop-card" data-reveal>
+            <div class="pl-shop__drop-copy">
+                <p class="pl-shop__badge pl-shop__badge--neutral">Отдельный продукт</p>
+                <h2 id="pl-shop-drop-title" class="pl-shop__title pl-shop__drop-title">Дропшиппинг-платформа<br>{% include 'fx/drop_price.html' %}</h2>
+                <p class="pl-shop__subtitle">Разрабатываем дропшиппинг-платформы с парсингом поставщиков, синхронизацией остатков и передачей заказов напрямую поставщику — под ключ.</p>
+            </div>
+            <div class="pl-shop__drop-side">
+                <ul class="pl-shop__pkg-list pl-shop__drop-list">
+                    <li>Парсинг поставщиков</li>
+                    <li>Обновление цен и остатков</li>
+                    <li>Передача заказов</li>
+                    <li>Учёт маржи</li>
+                </ul>
+                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--accent pl-shop__btn--block">Заказать дропшиппинг-платформу</a>
+            </div>
+        </article>
     </div>
 </section>
