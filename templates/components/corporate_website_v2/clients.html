@@ -1,25 +1,18 @@
-<section class="pl-corp__clients-block" aria-labelledby="pl-corp-clients-title">
+<section class="pl-corp__section pl-corp__clients" aria-labelledby="pl-corp-clients-title">
     <div class="pl-corp__inner">
-        <p class="pl-corp__clients-label" id="pl-corp-clients-title">Бізнеси, що вже працюють на нашому коді</p>
+        <h2 class="pl-corp__title pl-corp__clients-title" id="pl-corp-clients-title">Бізнеси, що вже працюють на нашому коді</h2>
     </div>
-
-    <div class="pl-corp__clients-wrap">
-        <div class="pl-corp__clients-stories-wrapper">
-            <div class="pl-corp__clients-stories-container projects-stories-container" role="list">
-                {% for client in home_clients %}
-                {% include 'components/client_home_story.html' with client=client is_clone=False %}
-                {% endfor %}
-                {% for client in home_clients %}
-                {% include 'components/client_home_story.html' with client=client is_clone=True %}
-                {% endfor %}
-            </div>
+    <div class="pl-corp__clients-track">
+        <div class="pl-corp__clients-stories-container" role="list">
+            {% for client in home_clients %}
+            {% include 'components/client_home_story.html' with client=client is_clone=False %}
+            {% endfor %}
+            {% for client in home_clients %}
+            {% include 'components/client_home_story.html' with client=client is_clone=True %}
+            {% endfor %}
         </div>
     </div>
-
-    <div class="pl-corp__clients-cta">
-        <a href="{% url 'portfolio' %}" class="pl-corp__btn pl-corp__btn--ghost mobile-touch-target" aria-label="Переглянути всі проєкти у портфоліо">
-            <span>Переглянути портфоліо</span>
-            <span class="pl-corp__btn-arrow" aria-hidden="true">↗</span>
-        </a>
+    <div class="pl-corp__inner">
+        <a href="{% url 'portfolio' %}" class="pl-corp__clients-link">Переглянути портфоліо <span aria-hidden="true">↗</span></a>
     </div>
 </section>

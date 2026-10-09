@@ -1,10 +1,15 @@
-<section id="calculator" class="pl-corp__calc pl-corp__section" aria-labelledby="pl-corp-calc-title">
-    <div class="pl-corp__calc-inner pl-corp__inner pl-corp__inner--narrow">
-        <div class="pl-corp__calc-head" data-reveal>
-            <h2 id="pl-corp-calc-title" class="pl-corp__title pl-corp__title--brief">
+{% load static %}
+<section id="calculator" class="pl-corp__section pl-corp__quiz-section" aria-labelledby="pl-corp-calc-title">
+    <picture class="pl-corp__quiz-bg" aria-hidden="true">
+        <source media="(max-width: 767px)" srcset="{% static 'images/corporate_website_v2/figma/bg-calc-m.webp' %}" width="393" height="341">
+        <img src="{% static 'images/corporate_website_v2/figma/bg-calc-1440.webp' %}" srcset="{% static 'images/corporate_website_v2/figma/bg-calc-960.webp' %} 960w, {% static 'images/corporate_website_v2/figma/bg-calc-1440.webp' %} 1440w" sizes="100vw" alt="" width="1440" height="869" loading="lazy" decoding="async">
+    </picture>
+    <div class="pl-corp__inner pl-corp__quiz-inner">
+        <div class="pl-corp__quiz-head" data-reveal>
+            <h2 id="pl-corp-calc-title" class="pl-corp__title pl-corp__title--center">
                 Получите просчёт стоимости
             </h2>
-            <p class="pl-corp__calc-subtitle">
+            <p class="pl-corp__text pl-corp__quiz-sub">
                 Высокая скорость, чистый код. Сайт, который работает на результат.
             </p>
         </div>
@@ -27,7 +32,7 @@
                 <div class="pl-corp__quiz-progress" aria-hidden="true">
                     <div class="pl-corp__quiz-progress-bar" data-quiz-progress></div>
                 </div>
-                <p class="pl-corp__quiz-progress-label">Крок <span data-quiz-step-num>1</span> з 5</p>
+                <p class="pl-corp__quiz-progress-label">Шаг <span data-quiz-step-num>1</span> из 5</p>
             </div>
 
             <div class="pl-corp__quiz-stage">
@@ -36,26 +41,30 @@
                 <ul class="pl-corp__quiz-options">
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
-                            <input type="radio" name="q_business" value="Послуги (B2C / B2B)">
-                            <span class="pl-corp__quiz-option-text">Послуги (B2C / B2B)</span>
+                            <input type="radio" name="q_business" value="Услуги (B2C / B2B)">
+                            <span class="pl-corp__quiz-option-text">Услуги (B2C / B2B)</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
-                            <input type="radio" name="q_business" value="Виробництво / опт">
-                            <span class="pl-corp__quiz-option-text">Виробництво / опт</span>
+                            <input type="radio" name="q_business" value="Производство / опт">
+                            <span class="pl-corp__quiz-option-text">Производство / опт</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_business" value="Торговля">
                             <span class="pl-corp__quiz-option-text">Торговля</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_business" value="Другое / не определился">
                             <span class="pl-corp__quiz-option-text">Другое / не определился</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                 </ul>
@@ -68,24 +77,28 @@
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_goal" value="Сбор заявок и контактов">
                             <span class="pl-corp__quiz-option-text">Сбор заявок и контактов</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_goal" value="Прямые онлайн-продажи">
                             <span class="pl-corp__quiz-option-text">Прямые онлайн-продажи</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_goal" value="Презентация бренда или услуг">
                             <span class="pl-corp__quiz-option-text">Презентация бренда или услуг</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
-                            <input type="radio" name="q_goal" value="Масштабування">
-                            <span class="pl-corp__quiz-option-text">Масштабування</span>
+                            <input type="radio" name="q_goal" value="Масштабирование">
+                            <span class="pl-corp__quiz-option-text">Масштабирование</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                 </ul>
@@ -98,24 +111,28 @@
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_pages" value="1 страница (лендинг)">
                             <span class="pl-corp__quiz-option-text">1 страница (лендинг)</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_pages" value="до 10 страниц">
                             <span class="pl-corp__quiz-option-text">до 10 страниц</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_pages" value="11–20 страниц">
                             <span class="pl-corp__quiz-option-text">11–20 страниц</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_pages" value="21+ страниц">
                             <span class="pl-corp__quiz-option-text">21+ страниц</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                 </ul>
@@ -128,24 +145,28 @@
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_options" value="Рекламные услуги">
                             <span class="pl-corp__quiz-option-text">Рекламные услуги</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
-                            <input type="radio" name="q_options" value="SEO розвиток сайту">
-                            <span class="pl-corp__quiz-option-text">SEO розвиток сайту</span>
+                            <input type="radio" name="q_options" value="SEO-развитие сайта">
+                            <span class="pl-corp__quiz-option-text">SEO-развитие сайта</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_options" value="CRM и автоматизация">
                             <span class="pl-corp__quiz-option-text">CRM и автоматизация</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_options" value="Мультиязычность">
                             <span class="pl-corp__quiz-option-text">Мультиязычность</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                 </ul>
@@ -158,31 +179,35 @@
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_timeline" value="Как можно скорее (до 7 дней)">
                             <span class="pl-corp__quiz-option-text">Как можно скорее (до 7 дней)</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_timeline" value="В течение 2 недель">
                             <span class="pl-corp__quiz-option-text">В течение 2 недель</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_timeline" value="В течение месяца">
                             <span class="pl-corp__quiz-option-text">В течение месяца</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                     <li>
                         <label class="pl-corp__quiz-option mobile-touch-target">
                             <input type="radio" name="q_timeline" value="Сроки гибкие">
                             <span class="pl-corp__quiz-option-text">Сроки гибкие</span>
+                            <span class="pl-corp__quiz-option-tick" aria-hidden="true"></span>
                         </label>
                     </li>
                 </ul>
             </div>
 
             <div class="pl-corp__quiz-step pl-corp__quiz-step--contact" data-step="contact">
-                <p class="pl-corp__quiz-question">Майже готово!</p>
+                <p class="pl-corp__quiz-question">Почти готово!</p>
                 <p class="pl-corp__quiz-hint">Оставьте контакты — и мы покажем рекомендованный пакет по вашим ответам.</p>
 
                 <div class="pl-corp__quiz-fields pl-corp__quiz-fields--contact">
@@ -200,7 +225,7 @@
                         >
                     </div>
                     <div class="pl-corp__quiz-field">
-                        <label class="pl-corp__quiz-field-label" for="pl-corp-quiz-phone">Telegram або телефон <span class="pl-corp__quiz-required" aria-hidden="true">*</span></label>
+                        <label class="pl-corp__quiz-field-label" for="pl-corp-quiz-phone">Telegram или телефон <span class="pl-corp__quiz-required" aria-hidden="true">*</span></label>
                         <input
                             type="text"
                             id="pl-corp-quiz-phone"
@@ -209,15 +234,15 @@
                             autocomplete="tel"
                             inputmode="tel"
                             required
-                            placeholder="@username  або  +38 (0__) ___-__-__"
+                            placeholder="@username  или  +38 (0__) ___-__-__"
                         >
                     </div>
                     <button
                         type="submit"
-                        class="pl-corp__btn pl-corp__btn--primary pl-corp__quiz-reveal mobile-touch-target"
+                        class="pl-corp__btn pl-corp__btn--accent pl-corp__quiz-reveal mobile-touch-target"
                         data-quiz-reveal
                     >
-                        Отримати розрахунок →
+                        Получить расчёт →
                     </button>
                 </div>
             </div>
@@ -225,9 +250,9 @@
             </div>
 
             <div class="pl-corp__quiz-nav">
-                <button type="button" class="pl-corp__btn pl-corp__btn--ghost pl-corp__quiz-prev pl-corp__quiz-nav-slot--hidden mobile-touch-target" aria-hidden="true" tabindex="-1">← Назад</button>
-                <button type="button" class="pl-corp__btn pl-corp__btn--ghost pl-corp__quiz-skip mobile-touch-target">Пропустить</button>
-                <button type="button" class="pl-corp__btn pl-corp__btn--primary pl-corp__quiz-next mobile-touch-target" disabled>Далее →</button>
+                <button type="button" class="pl-corp__btn pl-corp__btn--outline pl-corp__quiz-prev pl-corp__quiz-nav-slot--hidden mobile-touch-target" aria-hidden="true" tabindex="-1">← Назад</button>
+                <button type="button" class="pl-corp__btn pl-corp__btn--outline pl-corp__quiz-skip mobile-touch-target">Пропустить</button>
+                <button type="button" class="pl-corp__btn pl-corp__btn--accent pl-corp__quiz-next mobile-touch-target" disabled><span>Далее</span><img class="pl-corp__quiz-next-icon" src="{% static 'images/corporate_website_v2/figma/icon-arrow-right.svg' %}" alt="" width="18" height="12"></button>
             </div>
         </form>
     </div>

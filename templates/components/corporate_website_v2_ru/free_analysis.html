@@ -1,37 +1,22 @@
-<section id="free-analysis" class="pl-corp__free-analysis pl-corp__section" aria-labelledby="pl-corp-free-analysis-title">
+{% load static %}
+<section id="free-analysis" class="pl-corp__lead-cta" aria-labelledby="pl-corp-free-analysis-title">
     <div class="pl-corp__inner">
-        <div class="pl-corp__free-analysis-card" data-reveal>
-            <h2 id="pl-corp-free-analysis-title" class="pl-corp__free-analysis-title">
-                Бесплатный анализ вашего бизнеса
-            </h2>
-            <p class="pl-corp__free-analysis-desc">
-                Оставьте номер телефона — подготовим короткий анализ и позвоним с рекомендациями.
-            </p>
-            <form
-                class="pl-corp__free-analysis-form"
-                method="post"
-                action="{% url 'form_submit' %}"
-                data-form-type="call_request"
-            >
+        <div class="pl-corp__lead-cta-row" data-reveal>
+            <div class="pl-corp__lead-cta-copy">
+                <h2 id="pl-corp-free-analysis-title" class="pl-corp__lead-cta-title"><span class="pl-corp__accent">Бесплатный</span> анализ вашего бизнеса</h2>
+                <p class="pl-corp__lead-cta-text">Оставьте номер телефона — подготовим короткий анализ и позвоним с рекомендациями</p>
+            </div>
+            <form class="pl-corp__lead-cta-form" method="post" action="{% url 'form_submit' %}" data-form-type="call_request">
                 {% csrf_token %}
                 <input type="hidden" name="form_type" value="call_request">
                 <input type="hidden" name="source_page" value="corporate-website-v2-free-analysis">
                 <input type="hidden" name="name" value="Бесплатный анализ">
-                <div class="pl-corp__free-analysis-row">
-                    <input
-                        type="tel"
-                        name="phone"
-                        class="pl-corp__free-analysis-input mobile-touch-target"
-                        autocomplete="tel"
-                        inputmode="tel"
-                        placeholder="+38(___)__-__-___"
-                        required
-                        aria-label="Номер телефону"
-                    >
-                    <button type="submit" class="pl-corp__btn pl-corp__btn--primary pl-corp__free-analysis-submit mobile-touch-target">
-                        Получить консультацию
-                    </button>
-                </div>
+                <label class="pl-corp__field">
+                    <img class="pl-corp__field-icon" src="{% static 'images/corporate_website_v2/figma/icon-call.svg' %}" alt="" width="14" height="14">
+                    <span class="pl-corp__sr-only">Номер телефона</span>
+                    <input type="tel" name="phone" class="pl-corp__field-input mobile-touch-target" autocomplete="tel" inputmode="tel" placeholder="Номер телефона" required>
+                </label>
+                <button type="submit" class="pl-corp__btn pl-corp__btn--accent mobile-touch-target">Получить консультацию</button>
             </form>
         </div>
     </div>
