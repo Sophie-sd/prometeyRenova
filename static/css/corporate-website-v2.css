@@ -3083,3 +3083,23 @@ body.pl-corp-body .modal .modal-content .form-submit {
         top: -230px;
     }
 }
+
+/* Desktop: two hero CTAs side by side, auto width by content */
+@media (min-width: 1024px) {
+    .pl-corp__hero-card {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 600px;
+    }
+
+    .pl-corp__hero-card > .pl-corp__hero-offers,
+    .pl-corp__hero-card > .pl-corp__hero-guarantee {
+        flex: 0 0 100%;
+    }
+
+    .pl-corp__hero-card .pl-corp__btn {
+        width: auto;
+        padding-inline: 30px;
+    }
+}
