@@ -3103,3 +3103,47 @@ body.pl-corp-body .modal .modal-content .form-submit {
         padding-inline: 30px;
     }
 }
+
+/* Desktop: hero advantage cells side by side, auto width, centred like the CTA row */
+@media (min-width: 1024px) {
+    .pl-corp__hero-card > .pl-corp__hero-offers {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .pl-corp__hero-card .pl-corp__hero-offer {
+        flex: 0 1 auto;
+        min-height: 40px;
+        padding: 8px 18px;
+        font-size: 13px;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 1024px) {
+    .pl-corp__hero-card {
+        max-width: 720px;
+    }
+
+    .pl-corp__hero-card .pl-corp__hero-offer {
+        padding: 8px 14px;
+        font-size: 12.5px;
+        white-space: nowrap;
+    }
+}
+
+/* Desktop: use the height freed by the compact cells to lower the H1 (less top-heavy) */
+@media (min-width: 1024px) {
+    .pl-corp__hero {
+        padding-top: 190px;
+    }
+}
+
+@media (min-width: 1024px) and (max-height: 860px) {
+    .pl-corp__hero {
+        padding-top: 150px;
+    }
+}
