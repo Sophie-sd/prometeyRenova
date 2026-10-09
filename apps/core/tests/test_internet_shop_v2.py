@@ -25,7 +25,13 @@ SPEC = {
                   'Адмінка', '1 рік підтримки', 'Каталог до 100 товарів'],
         'business': ['CRM', 'Telegram-сповіщення', 'Ролі менеджерів в адмінці', 'Онлайн-оплати',
                      'Інтеграції доставки'],
-        'scale_keep': 'Автономний ШІ-адміністратор сайту',
+        'scale_keep': 'ШІ-адміністратор сайту',
+        'plat_desc': 'Магазин, рекламні кабінети і пів року контенту',
+        'plat_lead': 'Магазин і запуск реклами. Не лише сайт.',
+        'plat_note': 'У ціні сам магазин і запуск послуг. Рекламний бюджет оплачується окремо.',
+        'plat_groups': ['Магазин', 'Продажі', 'Реклама', 'Пошук і контент'],
+        'offers': ['Магазин', 'Магазин з інтеграціями', 'Магазин і маркетинг'],
+        'reviews': ('відгук', 'google maps'),
         'garant_h2': 'Ми створюємо — ми й відповідаємо.',
         'garant': ['1 рік безкоштовної підтримки', 'Гарантія на код без плагінів'],
         'drop': ['Парсинг постачальників', 'Оновлення цін і залишків', 'Передача замовлень', 'Облік маржі'],
@@ -47,7 +53,13 @@ SPEC = {
                   'Админка', '1 год поддержки', 'Каталог до 100 товаров'],
         'business': ['CRM', 'Telegram-уведомления', 'Роли менеджеров в админке', 'Онлайн-оплаты',
                      'Интеграции доставки'],
-        'scale_keep': 'Автономный ИИ-администратор сайта',
+        'scale_keep': 'ИИ-администратор сайта',
+        'plat_desc': 'Магазин, рекламные кабинеты и полгода контента',
+        'plat_lead': 'Магазин и запуск рекламы. Не только сайт.',
+        'plat_note': 'В цене сам магазин и запуск услуг. Рекламный бюджет оплачивается отдельно.',
+        'plat_groups': ['Магазин', 'Продажи', 'Реклама', 'Поиск и контент'],
+        'offers': ['Магазин', 'Магазин с интеграциями', 'Магазин и маркетинг'],
+        'reviews': ('отзыв', 'google maps'),
         'garant_h2': 'Мы создаём — мы и отвечаем.',
         'garant': ['1 год бесплатной поддержки', 'Гарантия на код без плагинов'],
         'drop': ['Парсинг поставщиков', 'Обновление цен и остатков', 'Передача заказов', 'Учёт маржи'],
@@ -99,9 +111,16 @@ class ShopV2SpecTests(TestCase):
             self.assertEqual(len(service), 1, url)
             self.assertEqual(service[0]['name'], s['name_ld'])
             self.assertEqual(service[0]['url'], 'https://www.prometeylabs.com' + url)
-            offer = service[0]['offers']
-            self.assertEqual((offer['@type'], offer['priceCurrency'], offer['lowPrice'], offer['highPrice']),
-                             ('AggregateOffer', 'EUR', '800', '1400'))
+            offers = service[0]['offers']
+            self.assertEqual([(o['@type'], o['name'], o['price'], o['priceCurrency']) for o in offers],
+                             [('Offer', name, price, 'EUR') for name, price in zip(s['offers'], ('800', '1500', '7000'))],
+                             url)
+            self.assertNotIn('highPrice', html, url)
+            self.assertNotIn('AggregateOffer', html, url)
+            # 7 000 € must not leak into title / H1 / meta
+            head_bits = [s['title'], desc, og, re.search(r'<h1[^>]*>(.*?)</h1>', html, re.S).group(1)]
+            for bit in head_bits:
+                self.assertNotRegex(bit, r'7[\s\u00a0]?000', url)
 
     def test_hero_copy_form_and_contacts(self):
         for url, s in SPEC.items():
@@ -163,6 +182,25 @@ class ShopV2SpecTests(TestCase):
             self.assertIn(f'id="fx-pkg-base" class="pl-shop__pkg-price">{s["from"]} 800 €', pak)
             self.assertIn(f'id="fx-pkg-premium" class="pl-shop__pkg-price">{s["from"]} 1\u00a0500 €', pak)
             self.assertIn(f'id="fx-pkg-platinum" class="pl-shop__pkg-price">{s["from"]} 7\u00a0000 €', pak)
+
+    def test_platinum_is_shop_plus_marketing_and_no_review_services(self):
+        for url, s in SPEC.items():
+            html = self._get(url)
+            plat = _between(html, 'pl-shop__pkg-card--platinum', '</article>')
+            self.assertIn(f'<p class="pl-shop__pkg-desc">{s["plat_desc"]}</p>', plat)
+            self.assertIn(f'<p class="pl-shop__pkg-lead">{s["plat_lead"]}</p>', plat)
+            self.assertIn(f'<p class="pl-shop__pkg-note">{s["plat_note"]}</p>', plat)
+            self.assertEqual(re.findall(r'<span class="pl-shop__pkg-group-title">([^<]+)</span>', plat),
+                             s['plat_groups'], url)
+            self.assertEqual(plat.count('data-calc-pkg='), 1, url)
+            self.assertIn(f'>{s["button"]}</a>', plat)
+            self.assertNotIn('pl-shop__pkg-read-more', plat)
+            low = html.lower()
+            for bad in s['reviews'] + ('кінематограф', 'кинематограф'):
+                self.assertNotIn(bad, low, f'{url}: {bad}')
+            matrix = _between(html, 'class="pl-shop__pkg-matrix-table"', '</table>')
+            groups = re.findall(r'<th scope="rowgroup" colspan="4">([^<]+)</th>', matrix)
+            self.assertEqual(groups, s['plat_groups'], url)
 
     def test_guarantee_two_points_and_banned_strings(self):
         for url, s in SPEC.items():

@@ -133,9 +133,9 @@ class ShopV2MarkupTests(SimpleTestCase):
         from django.conf import settings
 
         page = (Path(settings.BASE_DIR) / 'templates/pages/internet-shop-v2.html').read_text()
-        self.assertIn('fonts/v2/space-grotesk-latin.woff2', page)
+        self.assertIn('fonts/v2/inter-latin.woff2', page)
         self.assertNotIn('fonts.googleapis.com', page)
         self.assertNotIn('imagesrcset', page)
-        self.assertIn('data-async-css', page)
+        self.assertNotIn('internet-shop-v2-anim.css', page)
         js = (Path(settings.BASE_DIR) / 'static/js/internet-shop-v2.js').read_text()
         self.assertNotIn("setAttribute('role', 'marquee')", js)

@@ -28,13 +28,26 @@
   },
   "areaServed": "UA",
   "url": "https://www.prometeylabs.com/internet-shop-v2/",
-  "offers": {
-    "@type": "AggregateOffer",
-    "priceCurrency": "EUR",
-    "lowPrice": "800",
-    "highPrice": "1400",
-    "offerCount": "1"
-  }
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Магазин",
+      "price": "800",
+      "priceCurrency": "EUR"
+    },
+    {
+      "@type": "Offer",
+      "name": "Магазин з інтеграціями",
+      "price": "1500",
+      "priceCurrency": "EUR"
+    },
+    {
+      "@type": "Offer",
+      "name": "Магазин і маркетинг",
+      "price": "7000",
+      "priceCurrency": "EUR"
+    }
+  ]
 }
 </script>
 <link rel="preload" href="{% static 'fonts/v2/inter-cyrillic.woff2' %}" as="font" type="font/woff2" crossorigin>
@@ -48,7 +61,7 @@
 {% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=200">
+<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=201">
 {% endblock %}
 
 {% block content %}
@@ -67,6 +80,6 @@
 
 {% block extra_js %}
 <script src="{% static 'js/internet-shop-v2-admin-mock.js' %}?v=5" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/internet-shop-v2-quiz.js' %}?v=15" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-v2-quiz.js' %}?v=16" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/internet-shop-v2.js' %}?v=24" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}
