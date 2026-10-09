@@ -3147,3 +3147,59 @@ body.pl-corp-body .modal .modal-content .form-submit {
         padding-top: 150px;
     }
 }
+
+/* =========================================================
+   HERO CONTRAST (WCAG AA ≥ 4.5:1 against the planet glow)
+   ========================================================= */
+.pl-corp__hero-card {
+    background: var(--pl-grad), rgba(0, 0, 0, 0.62);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+}
+
+.pl-corp__hero-offer {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.16);
+    color: #f2f2f2;
+}
+
+.pl-corp__hero-lead {
+    color: #e6e6e6;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.75);
+}
+
+.pl-corp__hero-proof-item,
+.pl-corp__hero-guarantee {
+    color: #fff;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.75);
+}
+
+.pl-corp__hero-proof-price {
+    color: #ff8a3d;
+}
+
+@media (min-width: 1024px) {
+    .pl-corp__hero-lead {
+        font-size: 18px;
+        letter-spacing: -0.36px;
+        color: #e6e6e6;
+    }
+
+    .pl-corp__hero-proof-item {
+        font-size: 18px;
+        letter-spacing: -0.36px;
+    }
+
+    .pl-corp__hero-card {
+        max-width: 800px;
+    }
+
+    .pl-corp__hero-card .pl-corp__hero-offer {
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+
+    .pl-corp__hero-guarantee {
+        font-size: 15px;
+    }
+}
