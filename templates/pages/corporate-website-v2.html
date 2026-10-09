@@ -5,8 +5,11 @@
 {% block body_attrs %} class="pl-corp-body" data-modal-source-page="corporate-website-v2-modal"{% endblock %}
 
 {% block title %}Корпоративні сайти та лендінги під ключ — ціна і строки | PrometeyLabs{% endblock %}
-{% block description %}Розробка корпоративних сайтів та лендінгів з нативною архітектурою. Core Web Vitals у зеленій зоні, технічне SEO, 1 рік гарантії на код. PrometeyLabs — сайти під ключ.{% endblock %}
+{% block description %}Корпоративні сайти та лендінги під ключ: лендінг 250–400 € за 3–7 днів, корпоративний сайт 500–700 € за 7–14 днів. Технічне SEO, швидке завантаження, 1 рік гарантії на код.{% endblock %}
 {% block og_title %}Корпоративні сайти, що домінують у пошуку — PrometeyLabs{% endblock %}
+
+{% block og_description %}Корпоративні сайти та лендінги під ключ: лендінг 250–400 € за 3–7 днів, корпоративний сайт 500–700 € за 7–14 днів. Технічне SEO, швидке завантаження, 1 рік гарантії на код.{% endblock %}
+{% block og_image %}https://www.prometeylabs.com{% static 'images/corporate_website_v2/og-corp-v2.jpg' %}{% endblock %}
 
 {% block extra_head %}
 <meta name="robots" content="index, follow">
@@ -69,7 +72,7 @@
 {% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/corporate-website-v2.css' %}?v=32">
+<link rel="stylesheet" href="{% static 'css/corporate-website-v2.css' %}?v=33">
 {% endblock %}
 
 {% block content %}
@@ -90,5 +93,5 @@
 <script src="{% static 'js/corporate-website-v2-admin-demo.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/corporate-website-v2-quiz.js' %}?v=10" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/corporate-website-v2-tech.js' %}?v=6" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/corporate-website-v2.js' %}?v=10" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/corporate-website-v2.js' %}?v=11" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

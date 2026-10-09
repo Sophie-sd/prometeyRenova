@@ -374,12 +374,24 @@
         }
     }
 
+    function initFabGuard() {
+        var card = document.querySelector('.pl-corp__hero-card');
+        if (!card || !('IntersectionObserver' in window)) return;
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                document.body.classList.toggle('pl-corp-fab-off', entry.isIntersecting);
+            });
+        }, { threshold: 0 });
+        io.observe(card);
+    }
+
     function init() {
         initReveal();
         initHeroSequence();
         initClientsMarquee();
         initScaleDiagram();
         initModalA11y();
+        initFabGuard();
     }
 
     if (document.readyState === 'loading') {
