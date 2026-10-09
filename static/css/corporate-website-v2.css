@@ -3066,3 +3066,20 @@ body.pl-corp-body .modal .modal-content .form-submit {
         gap: 28px;
     }
 }
+
+/* Hero planet: Figma 2:346 sits at x=-2 / y=-36 in a 1440 frame (rim ~975px, under the
+   form that ends at 871). Our fold fixes lifted the CTA card (~85px at 900h, ~170px on
+   short laptops), so lift the planet by the same amount to keep the Figma composition
+   (rim right under the CTA card) and match Figma's +34px horizontal offset. */
+@media (min-width: 1024px) {
+    .pl-corp__hero-bg {
+        top: -120px;
+        transform: translateX(calc(-50% + 34px));
+    }
+}
+
+@media (min-width: 1024px) and (max-height: 860px) {
+    .pl-corp__hero-bg {
+        top: -230px;
+    }
+}
