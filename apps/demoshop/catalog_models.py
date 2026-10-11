@@ -87,6 +87,10 @@ class ShopProduct(models.Model):
     gift_promo_text_cs = models.CharField(
         max_length=200, blank=True, verbose_name=_('Подарунок до замовлення (CS)'),
     )
+    material = models.CharField(
+        max_length=100, blank=True, verbose_name=_('Матеріал'),
+        help_text=_('Напр.: ocel, nerez, hliník, dřevo+ocel'),
+    )
     is_active = models.BooleanField(default=True, verbose_name=_('Активний'))
     is_featured = models.BooleanField(default=False, verbose_name=_('Хіт'))
     order = models.PositiveIntegerField(default=0, verbose_name=_('Порядок'))

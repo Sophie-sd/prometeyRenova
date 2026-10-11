@@ -67,6 +67,11 @@ class DemoShop(models.Model):
         verbose_name=_('Активний'),
         help_text=_('Вимкнено — вітрина й адмінка клієнта повертають 404'),
     )
+    quote_mode = models.BooleanField(
+        default=False,
+        verbose_name=_('Режим запиту ціни (B2B)'),
+        help_text=_('Приховує ціни та кошик, показує "Poptat cenu" замість "До кошика"'),
+    )
     console_key = models.CharField(
         max_length=32,
         unique=True,

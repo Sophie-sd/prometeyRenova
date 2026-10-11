@@ -23,6 +23,7 @@ urlpatterns = [
     path('<str:shop_slug>/cart/set-qty/', views.cart_set_qty, name='cart_set_qty'),
     path('<str:shop_slug>/checkout/', views.checkout, name='checkout'),
     path('<str:shop_slug>/order-success/<int:order_id>/', views.order_success, name='order_success'),
+    path('<str:shop_slug>/quote/submit/', views.submit_quote, name='submit_quote'),
     path('<str:shop_slug>/api/np/cities/', views.np_cities, name='np_cities'),
     path('<str:shop_slug>/api/np/warehouses/', views.np_warehouses, name='np_warehouses'),
     path('<str:shop_slug>/admin-access/', views.admin_access, name='admin_access'),

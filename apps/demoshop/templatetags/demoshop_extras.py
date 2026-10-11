@@ -81,6 +81,19 @@ _CATEGORY_IMAGES = {
     'accessories': 'demoshop/seed/products/city-backpack.webp',
     'новинки': 'demoshop/seed/products/portable-speaker.webp',
     'new-arrivals': 'demoshop/seed/products/portable-speaker.webp',
+    # Metal furniture B2B categories (Czech)
+    'cat-metal-0': 'demoshop/seed/placeholder-metal.svg',
+    'cat-metal-1': 'demoshop/seed/placeholder-metal.svg',
+    'cat-metal-2': 'demoshop/seed/placeholder-metal.svg',
+    'cat-metal-3': 'demoshop/seed/placeholder-metal.svg',
+    'cat-metal-4': 'demoshop/seed/placeholder-metal.svg',
+    'cat-metal-5': 'demoshop/seed/placeholder-metal.svg',
+    'lavice': 'demoshop/seed/placeholder-metal.svg',
+    'stoly': 'demoshop/seed/placeholder-metal.svg',
+    'regály': 'demoshop/seed/placeholder-metal.svg',
+    'skříně': 'demoshop/seed/placeholder-metal.svg',
+    'vozíky': 'demoshop/seed/placeholder-metal.svg',
+    'zdravotnický': 'demoshop/seed/placeholder-metal.svg',
 }
 
 

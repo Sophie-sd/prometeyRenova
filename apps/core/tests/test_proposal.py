@@ -1009,3 +1009,94 @@ class ProposalSeedTests(TestCase):
         self.assertContains(kp, site.get_absolute_url())
         self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
         self.assertNotContains(kp, 'Рекомендовано')
+
+    def test_metal_furniture_seed_provisions_one_b2b_shop(self):
+        call_command('seed_proposal_metal_furniture')
+        call_command('seed_proposal_metal_furniture')
+        proposals = Proposal.objects.filter(slug__startswith='kovovy-nabytek-')
+        self.assertEqual(proposals.count(), 1)
+        proposal = proposals.first()
+        self.assertEqual(proposal.slug, 'kovovy-nabytek-7c1e')
+        self.assertEqual(proposal.client_name, 'Kovový nábytek')
+        self.assertEqual(proposal.kind, Proposal.DemoKind.SHOP)
+        self.assertFalse(proposal.corp_catalog)
+        self.assertEqual(proposal.issued_on.isoformat(), '2026-10-11')
+        self.assertIn('Webová platforma pro kovový nábytek', proposal.title)
+        self.assertIn('Webová platforma pro kovový nábytek', proposal.title_cs)
+        names_prices = list(
+            proposal.packages.order_by('order').values_list(
+                'name', 'price', 'currency', 'is_recommended',
+            )
+        )
+        self.assertEqual(names_prices, [
+            ('BASE', Decimal('1600.00'), '€', False),
+            ('PREMIUM', Decimal('2200.00'), '€', True),
+            ('PLATINUM', Decimal('2800.00'), '€', False),
+        ])
+        durations = list(
+            proposal.packages.order_by('order').values_list('duration_cs', flat=True)
+        )
+        self.assertEqual(durations, [
+            '20–22 pracovních dnů',
+            '22–25 pracovních dnů',
+            '25–28 pracovních dnů',
+        ])
+        self.assertIn('1 rok záruky', proposal.guarantee_html)
+        self.assertIn('1 rok záruky', proposal.guarantee_html_cs)
+        for word in ('пожиттєв', 'Пожиттєв', 'ПОЖИТТЄВ', 'AV4', 'av4', '\u0410\u043d\u0434\u0440\u0456\u0439'):
+            self.assertNotIn(word, proposal.guarantee_html)
+            self.assertNotIn(word, proposal.title)
+            self.assertNotIn(word, proposal.lead)
+        for payment_term in ('Monobank', 'PrivatBank', 'Нова Пошта', 'розстрочка'):
+            self.assertNotIn(payment_term, proposal.intro_html_cs)
+        self.assertIn('bankovní převod', proposal.intro_html_cs)
+        self.assertTrue(proposal.hero_image)
+        self.assertTrue(proposal.hero_public_url)
+        self.assertEqual(proposal.modules.count(), 6)
+        self.assertEqual(proposal.highlights.count(), 4)
+        self.assertEqual(proposal.arch_nodes.count(), 5)
+        self.assertTrue(
+            proposal.specs.filter(title__icontains='Poptávka ceny').exists()
+        )
+        self.assertTrue(
+            proposal.specs.filter(body__icontains='všech 162 produktů').exists()
+        )
+        self.assertEqual(DemoShop.objects.filter(proposal=proposal).count(), 1)
+        shop = DemoShop.objects.get(proposal=proposal)
+        self.assertEqual(shop.slug, 'metal-furniture-demo-7c1e')
+        self.assertEqual(shop.name, 'Ocelový nábytek · demo')
+        self.assertTrue(shop.quote_mode)
+        call_command('seed_proposal_jewelry', no_demo=True)
+        self.assertTrue(Proposal.objects.filter(slug='shop-jewelry-9d2b').exists())
+
+        client = Client()
+        kp = client.get(reverse('proposal_detail', kwargs={'slug': proposal.slug}))
+        self.assertEqual(kp.status_code, 200)
+        self.assertContains(kp, 'Рекомендовано')
+        self.assertContains(kp, 'Переглянути демо магазину')
+        self.assertContains(kp, 'не версія вашого сайту')
+        self.assertContains(kp, shop.get_absolute_url())
+        self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
+        self.assertNotContains(kp, 'пожиттєв')
+        self.assertNotContains(kp, 'AV4')
+        self.assertNotContains(kp, 'av4')
+        self.assertNotContains(kp, '\u0410\u043d\u0434\u0440\u0456\u0439')
+        for payment_term in ('Monobank', 'PrivatBank', 'Нова Пошта', 'розстрочка'):
+            self.assertNotContains(kp, payment_term)
+
+        demo = client.get(reverse('demoshop:home', kwargs={'shop_slug': shop.slug}))
+        self.assertEqual(demo.status_code, 200)
+        self.assertContains(demo, 'noindex')
+        self.assertEqual(demo['X-Robots-Tag'], 'noindex, nofollow')
+        self.assertNotContains(demo, 'GTM-K2FVPPTK')
+        self.assertNotContains(demo, 'googletagmanager.com')
+        self.assertNotContains(demo, 'AV4')
+        self.assertNotContains(demo, 'av4')
+        self.assertNotContains(demo, '\u0410\u043d\u0434\u0440\u0456\u0439')
+
+        sitemap = client.get('/sitemap.xml')
+        self.assertEqual(sitemap.status_code, 200)
+        body = sitemap.content.decode()
+        self.assertNotIn('/proposal/', body)
+        self.assertNotIn(proposal.slug, body)
+        self.assertNotIn(shop.slug, body)

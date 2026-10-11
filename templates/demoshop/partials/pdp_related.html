@@ -14,7 +14,11 @@
             {% endif %}
         </span>
         <span class="ds-sr-only">{{ product.localized_name }}</span>
+        {% if shop.quote_mode %}
+        <span class="ds-related__quote">{% trans "Cena na dotaz" %}</span>
+        {% else %}
         <span class="ds-related__price">{{ product.price|money }} {% currency_symbol %}</span>
+        {% endif %}
     </a>
     {% endfor %}
 </div>

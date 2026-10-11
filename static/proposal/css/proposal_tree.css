@@ -60,6 +60,9 @@
     letter-spacing: -0.01em;
     text-align: center;
     transition: color var(--motion-soft) var(--ease-out);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .prop-tree__node--accent,
@@ -97,6 +100,9 @@
     text-transform: uppercase;
     color: var(--prop-muted-faint);
     text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .prop-intro {

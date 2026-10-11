@@ -146,6 +146,7 @@
 {% endif %}
 
 {% block_image shop 'home' 'about_image' as ds_about_image %}
+{% if not shop.quote_mode or ds_about_image %}
 <section class="ds-about" data-ds-about>
     <div class="ds-about__stage">
         <div class="ds-about__media">
@@ -179,6 +180,7 @@
         </div>
     </div>
 </section>
+{% endif %}
 
 {% if on_sale %}
 <section class="ds-hits ds-hits--promo ds-section">

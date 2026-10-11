@@ -825,4 +825,111 @@
 }
 .ds-link-more:hover { text-decoration: underline; }
 
+/* Quote mode (B2B) */
+.ds-card__quote-label {
+    padding: var(--ds-sp-2) 0;
+}
+.ds-card__quote-text {
+    font-size: var(--ds-fs-base);
+    font-weight: 600;
+    color: var(--ds-text-muted);
+}
+.ds-pdp-quote-label {
+    padding: var(--ds-sp-4) 0;
+    border-bottom: 1px solid var(--ds-border);
+    margin-bottom: var(--ds-sp-4);
+}
+.ds-pdp-quote-text {
+    font-size: var(--ds-fs-lg);
+    margin: 0 0 var(--ds-sp-2);
+}
+.ds-pdp-quote-hint {
+    font-size: var(--ds-fs-sm);
+    color: var(--ds-text-muted);
+    margin: 0;
+}
+.ds-pdp-quote-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-sp-4);
+}
+.ds-pdp-quote-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-sp-2);
+}
+.ds-pdp-quote-row label {
+    font-size: var(--ds-fs-sm);
+    font-weight: 600;
+    color: var(--ds-text);
+}
+.ds-pdp-quote-row input,
+.ds-pdp-quote-row textarea {
+    padding: var(--ds-sp-3);
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius-md);
+    font-family: inherit;
+    font-size: var(--ds-fs-base);
+}
+.ds-pdp-quote-row input:focus,
+.ds-pdp-quote-row textarea:focus {
+    outline: none;
+    border-color: var(--ds-accent);
+}
+.ds-quote-response {
+    margin-top: var(--ds-sp-3);
+}
+.ds-quote-success {
+    padding: var(--ds-sp-3);
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    border-radius: var(--ds-radius-md);
+    color: #2e7d32;
+    font-size: var(--ds-fs-sm);
+    margin: 0;
+}
+.ds-quote-error {
+    padding: var(--ds-sp-3);
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    border-radius: var(--ds-radius-md);
+    color: #c62828;
+    font-size: var(--ds-fs-sm);
+    margin: 0;
+}
+
+/* Material filter chips */
+.ds-filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ds-sp-2);
+}
+.ds-filter-chip {
+    display: inline-block;
+    padding: var(--ds-sp-2) var(--ds-sp-3);
+    background: var(--ds-surface);
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius-pill);
+    font-size: var(--ds-fs-sm);
+    font-weight: 500;
+    color: var(--ds-text);
+    text-decoration: none;
+    transition: all var(--ds-duration-ui) var(--ds-ease-out);
+}
+.ds-filter-chip:hover {
+    background: var(--ds-primary-hover);
+    border-color: var(--ds-accent);
+}
+.ds-filter-chip.is-active {
+    background: var(--ds-accent);
+    color: var(--ds-white);
+    border-color: var(--ds-accent);
+}
+
+@media (max-width: 767px) {
+    .ds-pdp-quote-form {
+        gap: var(--ds-sp-3);
+    }
+}
+
 /* Reviews homepage — demoshop_reviews.css */
