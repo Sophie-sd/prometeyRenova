@@ -70,7 +70,7 @@ class DemoShop(models.Model):
     quote_mode = models.BooleanField(
         default=False,
         verbose_name=_('Режим запиту ціни (B2B)'),
-        help_text=_('Приховує ціни та кошик, показує "Poptat cenu" замість "До кошика"'),
+        help_text=_('Приховує ціни та кошик, показує "Запитати ціну" замість "До кошика"'),
     )
     console_key = models.CharField(
         max_length=32,

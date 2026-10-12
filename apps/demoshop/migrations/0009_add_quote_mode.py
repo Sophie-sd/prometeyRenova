@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             name='quote_mode',
             field=models.BooleanField(
                 default=False,
-                help_text='Приховує ціни та кошик, показує "Poptat cenu" замість "До кошика"',
+                help_text='Приховує ціни та кошик, показує "Запитати ціну" замість "До кошика"',
                 verbose_name='Режим запиту ціни (B2B)',
             ),
         ),

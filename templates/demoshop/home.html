@@ -33,7 +33,7 @@
                          {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}>
                     {% else %}
                     <img class="ds-hero__bg"
-                         src="{% static 'demoshop/seed/hero/slide-1-wide.webp' %}"
+                         src="{% if shop.quote_mode %}{% static 'demoshop/seed/hero-metal.svg' %}{% else %}{% static 'demoshop/seed/hero/slide-1-wide.webp' %}{% endif %}"
                          alt=""
                          width="2560"
                          height="1440"

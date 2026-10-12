@@ -24,7 +24,7 @@
             {% if shop.quote_mode %}
             <div class="ds-pdp-quote-label">
                 <p class="ds-pdp-quote-text"><strong>{{ cs.quote_price }}</strong></p>
-                <p class="ds-pdp-quote-hint">{% trans "Pro přesnou cenu a dodací lhůtu vyplňte formulář níže" %}</p>
+                <p class="ds-pdp-quote-hint">Щоб дізнатися точну ціну й термін постачання, заповніть форму нижче</p>
             </div>
             {% else %}
             <div class="ds-pdp-price-row">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="ds-pdp-quote-row">
                     <label for="quote-name">{{ cs.your_name }}:</label>
-                    <input type="text" id="quote-name" name="name" placeholder="{% trans "Jan Novák" %}" required>
+                    <input type="text" id="quote-name" name="name" placeholder="Іван Коваленко" required>
                 </div>
                 <div class="ds-pdp-quote-row">
                     <label for="quote-email">{{ cs.email }}:</label>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="ds-pdp-quote-row">
                     <label for="quote-note">{{ cs.message }}:</label>
-                    <textarea id="quote-note" name="message" rows="3" placeholder="{% trans "Dodací lhůta, požadavky na provedení..." %}"></textarea>
+                    <textarea id="quote-note" name="message" rows="3" placeholder="Термін постачання, вимоги до виконання…"></textarea>
                 </div>
                 <button type="submit" class="ds-btn ds-btn--primary ds-pdp-buy__cta">{{ cs.request_quote }}</button>
                 <div id="quote-response" class="ds-quote-response"></div>

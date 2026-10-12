@@ -402,6 +402,6 @@ def submit_quote(request, shop_slug):
     
     # Demo: не відправляємо email, просто повертаємо успіх
     return HttpResponse(
-        '<p class="ds-quote-success">Děkujeme, poptávka byla odeslána (demo – nic se neodesílá).</p>',
+        '<p class="ds-quote-success">Дякуємо, запит надіслано (демо — нічого не відправляється).</p>',
     )
 

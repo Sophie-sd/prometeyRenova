@@ -1017,12 +1017,12 @@ class ProposalSeedTests(TestCase):
         self.assertEqual(proposals.count(), 1)
         proposal = proposals.first()
         self.assertEqual(proposal.slug, 'kovovy-nabytek-7c1e')
-        self.assertEqual(proposal.client_name, 'Kovový nábytek')
+        self.assertEqual(proposal.client_name, 'Металеві меблі')
         self.assertEqual(proposal.kind, Proposal.DemoKind.SHOP)
         self.assertFalse(proposal.corp_catalog)
         self.assertEqual(proposal.issued_on.isoformat(), '2026-10-11')
-        self.assertIn('Webová platforma pro kovový nábytek', proposal.title)
-        self.assertIn('Webová platforma pro kovový nábytek', proposal.title_cs)
+        for field in ('title', 'title_ru', 'title_cs', 'title_en'):
+            self.assertEqual(getattr(proposal, field), 'Веб-платформа для металевих меблів')
         names_prices = list(
             proposal.packages.order_by('order').values_list(
                 'name', 'price', 'currency', 'is_recommended',
@@ -1037,34 +1037,34 @@ class ProposalSeedTests(TestCase):
             proposal.packages.order_by('order').values_list('duration_cs', flat=True)
         )
         self.assertEqual(durations, [
-            '20–22 pracovních dnů',
-            '22–25 pracovních dnů',
-            '25–28 pracovních dnů',
+            '20–22 робочих дні',
+            '22–25 робочих днів',
+            '25–28 робочих днів',
         ])
-        self.assertIn('1 rok záruky', proposal.guarantee_html)
-        self.assertIn('1 rok záruky', proposal.guarantee_html_cs)
+        self.assertIn('1 рік гарантії на код', proposal.guarantee_html)
+        self.assertIn('1 рік гарантії на код', proposal.guarantee_html_cs)
         for word in ('пожиттєв', 'Пожиттєв', 'ПОЖИТТЄВ', 'AV4', 'av4', '\u0410\u043d\u0434\u0440\u0456\u0439'):
             self.assertNotIn(word, proposal.guarantee_html)
             self.assertNotIn(word, proposal.title)
             self.assertNotIn(word, proposal.lead)
         for payment_term in ('Monobank', 'PrivatBank', 'Нова Пошта', 'розстрочка'):
             self.assertNotIn(payment_term, proposal.intro_html_cs)
-        self.assertIn('bankovní převod', proposal.intro_html_cs)
+        self.assertIn('банківський переказ', proposal.intro_html_cs)
         self.assertTrue(proposal.hero_image)
         self.assertTrue(proposal.hero_public_url)
         self.assertEqual(proposal.modules.count(), 6)
         self.assertEqual(proposal.highlights.count(), 4)
         self.assertEqual(proposal.arch_nodes.count(), 5)
         self.assertTrue(
-            proposal.specs.filter(title__icontains='Poptávka ceny').exists()
+            proposal.specs.filter(title__icontains='Запит ціни').exists()
         )
         self.assertTrue(
-            proposal.specs.filter(body__icontains='všech 162 produktů').exists()
+            proposal.specs.filter(body__icontains='162 товарів').exists()
         )
         self.assertEqual(DemoShop.objects.filter(proposal=proposal).count(), 1)
         shop = DemoShop.objects.get(proposal=proposal)
         self.assertEqual(shop.slug, 'metal-furniture-demo-7c1e')
-        self.assertEqual(shop.name, 'Ocelový nábytek · demo')
+        self.assertEqual(shop.name, 'Металеві меблі · демо')
         self.assertTrue(shop.quote_mode)
         call_command('seed_proposal_jewelry', no_demo=True)
         self.assertTrue(Proposal.objects.filter(slug='shop-jewelry-9d2b').exists())
@@ -1083,6 +1083,10 @@ class ProposalSeedTests(TestCase):
         self.assertNotContains(kp, '\u0410\u043d\u0434\u0440\u0456\u0439')
         for payment_term in ('Monobank', 'PrivatBank', 'Нова Пошта', 'розстрочка'):
             self.assertNotContains(kp, payment_term)
+        for word in ('грн', '₴', 'Webová', 'Poptat'):
+            self.assertNotContains(kp, word)
+        self.assertContains(kp, 'Веб-платформа для металевих меблів')
+        self.assertContains(kp, '1 рік гарантії на код')
 
         demo = client.get(reverse('demoshop:home', kwargs={'shop_slug': shop.slug}))
         self.assertEqual(demo.status_code, 200)
@@ -1090,6 +1094,8 @@ class ProposalSeedTests(TestCase):
         self.assertEqual(demo['X-Robots-Tag'], 'noindex, nofollow')
         self.assertNotContains(demo, 'GTM-K2FVPPTK')
         self.assertNotContains(demo, 'googletagmanager.com')
+        self.assertContains(demo, 'Металеві меблі для бізнесу')
+        self.assertContains(demo, 'demoshop/seed/hero-metal.svg')
         self.assertNotContains(demo, 'AV4')
         self.assertNotContains(demo, 'av4')
         self.assertNotContains(demo, '\u0410\u043d\u0434\u0440\u0456\u0439')

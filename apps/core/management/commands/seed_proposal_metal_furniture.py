@@ -1,7 +1,7 @@
 """
 Management command: seed_proposal_metal_furniture
 
-Idempotent заливка КП «Kovový nábytek» (PDF 11.10.2026, Czech client)
+Idempotent заливка КП «Металеві меблі» (11.10.2026, українською)
 + B2B demo-shop (quote mode, no prices/cart). Це не версія сайту клієнта, а стандартне демо.
 """
 from datetime import date
@@ -52,26 +52,26 @@ RECS_LEAD_RU = (
 HIGHLIGHTS = [
     {'order': 0, 'title': 'Django / HTMX'},
     {'order': 1, 'title': 'PageSpeed 90+'},
-    {'order': 2, 'title': 'B2B katalog'},
-    {'order': 3, 'title': 'Poptávka ceny'},
+    {'order': 2, 'title': 'B2B-каталог'},
+    {'order': 3, 'title': 'Запит ціни'},
 ]
 
 ARCH_NODES = [
-    {'order': 0, 'title': 'Catalog', 'caption': 'Materiál · typ', 'is_accent': False},
-    {'order': 1, 'title': 'Filter', 'caption': 'Ocel · nerez', 'is_accent': True},
-    {'order': 2, 'title': 'Card', 'caption': 'Foto · popis', 'is_accent': False},
-    {'order': 3, 'title': 'Quote', 'caption': 'Poptávka ceny', 'is_accent': False},
-    {'order': 4, 'title': 'Admin', 'caption': 'Produkty · poptávky', 'is_accent': False},
+    {'order': 0, 'title': 'Каталог', 'caption': 'Матеріал · тип', 'is_accent': False},
+    {'order': 1, 'title': 'Фільтр', 'caption': 'Сталь · нержавійка', 'is_accent': True},
+    {'order': 2, 'title': 'Картка', 'caption': 'Фото · опис', 'is_accent': False},
+    {'order': 3, 'title': 'Запит', 'caption': 'Запит ціни', 'is_accent': False},
+    {'order': 4, 'title': 'Адмінка', 'caption': 'Товари · запити', 'is_accent': False},
 ]
 
-# Етапи з content.py CS['stages']
-STAGES_CS = [
-    ('Úvodní příprava', '2–3 dny', 'Projdeme podklady, upřesníme rozsah (jazyky, platby, poptávky) a připravíme strukturu webu.'),
-    ('Design', '4–6 dnů', 'Návrh klíčových stránek pro počítač i mobil. Vy připomínkujete a schvalujete.'),
-    ('Vývoj webu a administrace', '8–10 dnů', 'Stavíme web a administraci podle schváleného návrhu.'),
-    ('Přenos obsahu', '3–4 dny', 'Import produktů, fotografií a textů, nastavení přesměrování starých adres.'),
-    ('Testování', '2–3 dny', 'Kontrola na zkušební adrese na počítači i mobilu. Vy si vše vyzkoušíte.'),
-    ('Spuštění', '1–2 dny', 'Přepnutí domény, kontrola po spuštění a předání administrace.'),
+# Етапи (довідково, загалом 20–28 робочих днів)
+STAGES_UK = [
+    ('Підготовка', '2–3 дні', 'Переглядаємо матеріали, уточнюємо обсяг (мови, оплата, запити) і готуємо структуру сайту.'),
+    ('Дизайн', '4–6 днів', 'Макети ключових сторінок для комп’ютера й телефона. Ви коментуєте й затверджуєте.'),
+    ('Розробка сайту й адмінки', '8–10 днів', 'Будуємо сайт і адмінку за затвердженим макетом.'),
+    ('Перенесення контенту', '3–4 дні', 'Імпорт товарів, фото й текстів, налаштування перенаправлень зі старих адрес.'),
+    ('Тестування', '2–3 дні', 'Перевірка на тестовій адресі на комп’ютері й телефоні. Ви все пробуєте самі.'),
+    ('Запуск', '1–2 дні', 'Перемикання домену, перевірка після запуску і передача адмінки.'),
 ]
 
 MODULES = [
@@ -366,8 +366,16 @@ GUARANTEE_HTML = """
 
 GUARANTEE_HTML_RU = """
 <p>Ми впевнені в якості нашої інженерної бази. Оскільки сайт створюється на чистому коді без нестабільних сторонніх плагінів, він не потребує постійних ризикованих оновлень, які ламають верстку.</p>
-<p>Ми надаємо <strong>1 рік гарантійної підтримки</strong> з моменту повної оплати та передачі доступів: технічні баги, допущені з нашої вини, виправляємо безкоштовно (публічна оферта, п. 8.1).</p>
+<p>Ми надаємо <strong>1 рік гарантії на код</strong> з моменту повної оплати та передачі доступів: технічні баги, допущені з нашої вини, виправляємо безкоштовно (публічна оферта, п. 8.1).</p>
 """.strip()
+
+
+# --- Ukrainian-primary: усі мовні версії показують український текст ---
+TITLE, LEAD, RECS_LEAD = TITLE_RU, LEAD_RU, RECS_LEAD_RU
+INTRO_HTML, GUARANTEE_HTML = INTRO_HTML_RU, GUARANTEE_HTML_RU
+for _row in (*MODULES, *PACKAGES, *SPECS):
+    for _k in [k for k in _row if k.endswith('_ru')]:
+        _row[_k[:-3]] = _row[_k]
 
 
 def _with_langs(payload: dict, text_keys: tuple[str, ...]) -> dict:
@@ -378,8 +386,9 @@ def _with_langs(payload: dict, text_keys: tuple[str, ...]) -> dict:
         en_key = f'{key}_en'
         # _ru gets Ukrainian (already provided in payload)
         # _cs and _en get Czech from base field
-        out.setdefault(cs_key, out.get(key, ''))
-        out.setdefault(en_key, out.get(key, ''))
+        out[cs_key] = out.get(key, '')
+        out[en_key] = out.get(key, '')
+        out[ru_key] = out.get(key, '')
     return out
 
 
@@ -436,7 +445,7 @@ class Command(BaseCommand):
         ShopBlock.objects.filter(shop=shop, page='home').delete()
         
         # Оновлюємо назву магазину на Czech neutral brand
-        shop.name = 'Ocelový nábytek · demo'
+        shop.name = 'Металеві меблі · демо'
         shop.save(update_fields=['name'])
         
         # Оновлюємо shop_name блок у header (Czech бренд)
@@ -445,9 +454,9 @@ class Command(BaseCommand):
             page='header',
             key='shop_name',
             defaults={
-                'value_text': 'Ocelový nábytek · demo',
-                'value_text_cs': 'Ocelový nábytek · demo',
-                'value_text_en': 'Steel Furniture · demo',
+                'value_text': 'Металеві меблі · демо',
+                'value_text_cs': 'Металеві меблі · демо',
+                'value_text_en': 'Металеві меблі · демо',
                 'value_text_ru': 'Стальная мебель · демо',
                 'block_type': 'text',
             }
@@ -459,33 +468,30 @@ class Command(BaseCommand):
             page='catalog',
             key='catalog_title',
             defaults={
-                'value_text': 'Katalog produktů',
-                'value_text_cs': 'Katalog produktů',
-                'value_text_en': 'Product catalog',
-                'value_text_ru': 'Каталог продуктов',
+                'value_text': 'Каталог товарів',
+                'value_text_cs': 'Каталог товарів',
+                'value_text_en': 'Каталог товарів',
+                'value_text_ru': 'Каталог товарів',
                 'block_type': 'text',
             }
         )
         
         # Створюємо Czech B2B hero banner з metal placeholder
-        hero_metal = Path(settings.BASE_DIR) / 'static' / 'demoshop' / 'seed' / 'hero-metal.svg'
         slide = ShopHeroSlide(
             shop=shop,
-            title='Kovový nábytek pro firmy, dílny a zdravotnictví',
-            title_ru='Kovový nábytek pro firmy, dílny a zdravotnictví',  # All: Czech
-            title_en='Kovový nábytek pro firmy, dílny a zdravotnictví',
-            title_cs='Kovový nábytek pro firmy, dílny a zdravotnictví',
+            title='Металеві меблі для бізнесу, майстерень і медицини',
+            title_ru='Металеві меблі для бізнесу, майстерень і медицини',  # All: Czech
+            title_en='Металеві меблі для бізнесу, майстерень і медицини',
+            title_cs='Металеві меблі для бізнесу, майстерень і медицини',
             subtitle='',
-            cta_label='Prohlédnout katalog',
-            cta_label_ru='Prohlédnout katalog',  # All: Czech
-            cta_label_en='Prohlédnout katalog',
-            cta_label_cs='Prohlédnout katalog',
+            cta_label='Переглянути каталог',
+            cta_label_ru='Переглянути каталог',  # All: Czech
+            cta_label_en='Переглянути каталог',
+            cta_label_cs='Переглянути каталог',
             order=0,
             is_active=True,
         )
-        if hero_metal.is_file():
-            with hero_metal.open('rb') as f:
-                slide.image.save('hero-metal.svg', File(f), save=False)
+        # Без завантаження в media: шаблон бере static hero-metal.svg (надійно на Render)
         slide.save()
         
         # Створюємо контент для секції "Про нас" (щоб не було порожніх блоків)
@@ -494,10 +500,10 @@ class Command(BaseCommand):
             page='home',
             key='about_title',
             defaults={
-                'value_text': 'Průmyslový nábytek pro firmy',
-                'value_text_ru': 'Průmyslový nábytek pro firmy',  # All: Czech
-                'value_text_en': 'Průmyslový nábytek pro firmy',
-                'value_text_cs': 'Průmyslový nábytek pro firmy',
+                'value_text': 'Промислові меблі для бізнесу',
+                'value_text_ru': 'Промислові меблі для бізнесу',  # All: Czech
+                'value_text_en': 'Промислові меблі для бізнесу',
+                'value_text_cs': 'Промислові меблі для бізнесу',
                 'block_type': 'text',
             }
         )
@@ -506,10 +512,10 @@ class Command(BaseCommand):
             page='home',
             key='about_text',
             defaults={
-                'value_text': 'Vyrábíme kovový nábytek pro kanceláře, dílny a zdravotnická zařízení. Vysoce kvalitní ocel a individuální přístup ke každé zakázce.',
-                'value_text_ru': 'Vyrábíme kovový nábytek pro kanceláře, dílny a zdravotnická zařízení. Vysoce kvalitní ocel a individuální přístup ke každé zakázce.',  # All: Czech
-                'value_text_en': 'Vyrábíme kovový nábytek pro kanceláře, dílny a zdravotnická zařízení. Vysoce kvalitní ocel a individuální přístup ke každé zakázce.',
-                'value_text_cs': 'Vyrábíme kovový nábytek pro kanceláře, dílny a zdravotnická zařízení. Vysoce kvalitní ocel a individuální přístup ke každé zakázce.',
+                'value_text': 'Виготовляємо металеві меблі для офісів, майстерень і медичних закладів. Якісна сталь та індивідуальний підхід до кожного замовлення.',
+                'value_text_ru': 'Виготовляємо металеві меблі для офісів, майстерень і медичних закладів. Якісна сталь та індивідуальний підхід до кожного замовлення.',  # All: Czech
+                'value_text_en': 'Виготовляємо металеві меблі для офісів, майстерень і медичних закладів. Якісна сталь та індивідуальний підхід до кожного замовлення.',
+                'value_text_cs': 'Виготовляємо металеві меблі для офісів, майстерень і медичних закладів. Якісна сталь та індивідуальний підхід до кожного замовлення.',
                 'block_type': 'text',
             }
         )
@@ -534,12 +540,12 @@ class Command(BaseCommand):
         
         # Категорії металевих меблів (Czech primary)
         categories_data = [
-            ('Lavice', 'Лавки', 'Benches', 'Lavice', ''),
-            ('Stoly', 'Столи', 'Tables', 'Stoly', ''),
-            ('Regály', 'Стелажі', 'Shelves', 'Regály', ''),
-            ('Skříně', 'Шафи', 'Cabinets', 'Skříně', ''),
-            ('Vozíky', 'Візки', 'Carts', 'Vozíky', ''),
-            ('Zdravotnický nábytek', 'Медичні меблі', 'Medical Furniture', 'Zdravotnický nábytek', ''),
+            ('Лавки', 'Лавки', 'Benches', 'Lavice', ''),
+            ('Столи', 'Столи', 'Tables', 'Stoly', ''),
+            ('Стелажі', 'Стелажі', 'Shelves', 'Regály', ''),
+            ('Шафи', 'Шафи', 'Cabinets', 'Skříně', ''),
+            ('Візки', 'Візки', 'Carts', 'Vozíky', ''),
+            ('Медичні меблі', 'Медичні меблі', 'Medical Furniture', 'Zdravotnický nábytek', ''),
         ]
         
         for idx, (name_cs, name_uk, name_en, name_cs2, icon) in enumerate(categories_data):
@@ -563,7 +569,7 @@ class Command(BaseCommand):
                 'name': 'Металева лавка RAL 7024',
                 'slug': 'metal-bench-ral7024',
                 'cat_slug': 'cat-metal-0',
-                'material': 'ocel',
+                'material': 'сталь',
                 'featured': True,
             },
             {
@@ -571,7 +577,7 @@ class Command(BaseCommand):
                 'name': 'Нержавіючий стіл 120x60',
                 'slug': 'stainless-table-120x60',
                 'cat_slug': 'cat-metal-1',
-                'material': 'nerez',
+                'material': 'нержавійка',
                 'featured': True,
             },
             {
@@ -579,7 +585,7 @@ class Command(BaseCommand):
                 'name': 'Стелаж сталь/дерево 180см',
                 'slug': 'shelf-steel-wood-180',
                 'cat_slug': 'cat-metal-2',
-                'material': 'dřevo+ocel',
+                'material': 'дерево + сталь',
                 'featured': True,
             },
             {
@@ -587,7 +593,7 @@ class Command(BaseCommand):
                 'name': 'Металева шафа RAL 9006',
                 'slug': 'metal-cabinet-ral9006',
                 'cat_slug': 'cat-metal-3',
-                'material': 'ocel',
+                'material': 'сталь',
                 'featured': False,
             },
             {
@@ -595,7 +601,7 @@ class Command(BaseCommand):
                 'name': 'Візок метал 3 полиці',
                 'slug': 'cart-metal-3shelves',
                 'cat_slug': 'cat-metal-4',
-                'material': 'ocel',
+                'material': 'сталь',
                 'featured': True,
             },
             {
@@ -603,7 +609,7 @@ class Command(BaseCommand):
                 'name': 'Медичний візок нержавійка',
                 'slug': 'medical-cart-stainless',
                 'cat_slug': 'cat-metal-5',
-                'material': 'nerez',
+                'material': 'нержавійка',
                 'featured': True,
             },
             {
@@ -611,7 +617,7 @@ class Command(BaseCommand):
                 'name': 'Алюмінієва лавка вулична',
                 'slug': 'outdoor-bench-alu',
                 'cat_slug': 'cat-metal-0',
-                'material': 'hliník',
+                'material': 'алюміній',
                 'featured': False,
             },
             {
@@ -619,26 +625,26 @@ class Command(BaseCommand):
                 'name': 'Робочий стіл нержавійка 150x70',
                 'slug': 'work-table-stainless-150',
                 'cat_slug': 'cat-metal-1',
-                'material': 'nerez',
+                'material': 'нержавійка',
                 'featured': False,
             },
         ]
         
         placeholder_svg = Path(settings.BASE_DIR) / 'static' / 'demoshop' / 'seed' / 'placeholder-metal.svg'
         
+        desc_uk_tpl = 'Промислові меблі, матеріал: {}. Щоб дізнатися індивідуальну ціну й термін постачання, натисніть «Запитати ціну».'
         for pdata in products_data:
             cat = ShopCategory.objects.filter(shop=shop, slug=pdata['cat_slug']).first()
-            desc_cs = f"Průmyslový nábytek z materiálu {pdata['material']}. Pro individuální cenu a dodací lhůtu použijte tlačítko «Poptat cenu»."
-            desc_uk = f"Промислові меблі з матеріалу {pdata['material']}. Для індивідуальної ціни та термінів використовуйте кнопку «Запитати ціну»."
+            desc_cs = desc_uk_tpl.format(pdata['material'])
             
             product, created = ShopProduct.objects.update_or_create(
                 shop=shop,
                 slug=pdata['slug'],
                 defaults={
-                    'name': pdata['name_cs'],  # Base: Czech
-                    'name_ru': pdata['name_cs'],  # All langs: Czech
-                    'name_en': pdata['name_cs'],
-                    'name_cs': pdata['name_cs'],
+                    'name': pdata['name'],
+                    'name_ru': pdata['name'],
+                    'name_en': pdata['name'],
+                    'name_cs': pdata['name'],
                     'category': cat,
                     'price': Decimal('0.00'),  # No prices in B2B quote mode
                     'is_featured': pdata['featured'],
@@ -669,7 +675,7 @@ class Command(BaseCommand):
         if shop is None:
             shop = DemoShop(
                 proposal=proposal,
-                name='Ocelový nábytek · demo',
+                name='Металеві меблі · демо',
                 slug=DEMO_TENANT_SLUG,
                 quote_mode=True,  # B2B: hide prices, show "Poptat cenu"
             )
@@ -683,8 +689,8 @@ class Command(BaseCommand):
             if not shop.quote_mode:
                 shop.quote_mode = True
                 updated_fields.append('quote_mode')
-            if shop.name != 'Ocelový nábytek · demo':
-                shop.name = 'Ocelový nábytek · demo'
+            if shop.name != 'Металеві меблі · демо':
+                shop.name = 'Металеві меблі · демо'
                 updated_fields.append('name')
             if updated_fields:
                 shop.save(update_fields=updated_fields)
@@ -706,7 +712,7 @@ class Command(BaseCommand):
         proposal, created = Proposal.objects.update_or_create(
             slug=SLUG,
             defaults={
-                'client_name': 'Kovový nábytek',
+                'client_name': 'Металеві меблі',
                 'title': TITLE,
                 'title_ru': TITLE_RU,
                 'title_en': TITLE,
@@ -728,10 +734,10 @@ class Command(BaseCommand):
                 'guarantee_html_ru': GUARANTEE_HTML_RU,
                 'guarantee_html_en': GUARANTEE_HTML,
                 'guarantee_html_cs': GUARANTEE_HTML,
-                'cta_label': 'Prodiskutovat projekt',
+                'cta_label': 'Обговорити проєкт',
                 'cta_label_ru': 'Обговорити проєкт',
-                'cta_label_en': 'Discuss project',
-                'cta_label_cs': 'Prodiskutovat projekt',
+                'cta_label_en': 'Обговорити проєкт',
+                'cta_label_cs': 'Обговорити проєкт',
                 'kind': Proposal.DemoKind.SHOP,
                 'corp_catalog': False,
                 'is_published': True,
