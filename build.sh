@@ -143,4 +143,7 @@ python manage.py seed_proposal_ascania
 echo "📄 Seeding Kovrik.ua corporate proposal + classic demo-corp..."
 python manage.py seed_proposal_kovrik
 
+echo "📄 Seeding 18+ shop proposal + standard demo-shop..."
+python manage.py seed_proposal_intim_shop
+
 echo "✅ Build complete!"
