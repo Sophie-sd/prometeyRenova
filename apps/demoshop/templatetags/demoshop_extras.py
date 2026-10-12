@@ -7,22 +7,6 @@ register = template.Library()
 
 
 @register.simple_tag
-def product_img(product):
-    """URL головного фото: static_image (меблі) або media/puburl; '' якщо немає."""
-    from django.templatetags.static import static
-
-    from apps.core.public_files import public_file_url
-
-    path = (getattr(product, 'static_image', '') or '').strip()
-    if path:
-        return static(path)
-    main = product.main_image
-    if main:
-        return public_file_url(main.image) or ''
-    return ''
-
-
-@register.simple_tag
 def block_text(shop, page, key, default=''):
     return get_text(getattr(shop, 'blocks_map', {}), page, key, default)
 
@@ -97,24 +81,6 @@ _CATEGORY_IMAGES = {
     'accessories': 'demoshop/seed/products/city-backpack.webp',
     'новинки': 'demoshop/seed/products/portable-speaker.webp',
     'new-arrivals': 'demoshop/seed/products/portable-speaker.webp',
-    # Metal furniture B2B categories (Czech)
-    'cat-metal-0': 'demoshop/seed/placeholder-metal.svg',
-    'cat-metal-1': 'demoshop/seed/placeholder-metal.svg',
-    'cat-metal-2': 'demoshop/seed/placeholder-metal.svg',
-    'cat-metal-3': 'demoshop/seed/placeholder-metal.svg',
-    'cat-metal-4': 'demoshop/seed/placeholder-metal.svg',
-    'cat-metal-5': 'demoshop/seed/placeholder-metal.svg',
-    'room-living': 'demoshop/seed/furniture/sofa.svg',
-    'room-bedroom': 'demoshop/seed/furniture/bed.svg',
-    'room-kitchen': 'demoshop/seed/furniture/dining.svg',
-    'room-office': 'demoshop/seed/furniture/desk.svg',
-    'room-kids': 'demoshop/seed/furniture/kidsbed.svg',
-    'lavice': 'demoshop/seed/placeholder-metal.svg',
-    'stoly': 'demoshop/seed/placeholder-metal.svg',
-    'regály': 'demoshop/seed/placeholder-metal.svg',
-    'skříně': 'demoshop/seed/placeholder-metal.svg',
-    'vozíky': 'demoshop/seed/placeholder-metal.svg',
-    'zdravotnický': 'demoshop/seed/placeholder-metal.svg',
 }
 
 

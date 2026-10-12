@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#F9F3ED">
 <meta name="csrf-token" content="{{ csrf_token }}">
-<title>{% block title %}{{ shop.name }}{% endblock %}{% if not shop.quote_mode %} — Demo Shop{% endif %}</title>
+<title>{% block title %}{{ shop.name }}{% endblock %} — Demo Shop</title>
 <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
 <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
 <link rel="icon" type="image/png" sizes="48x48" href="{% static 'images/favicon-48x48.png' %}">
@@ -21,18 +21,15 @@
 <link rel="stylesheet" href="{% static 'demotenant/css/lang.css' %}?v=1">
 <link rel="stylesheet" href="{% url 'demoshop:theme_css' shop_slug=shop.slug %}">
 
-{% if shop.furniture_mode %}<link rel="stylesheet" href="{% static 'demoshop/css/demoshop_furniture.css' %}?v=1">{% endif %}
 {% block extra_css %}{% endblock %}
 </head>
-<body class="ds-body{% block body_class %}{% endblock %}{% if shop.furniture_mode %} ds-body--furniture{% endif %}"
+<body class="ds-body{% block body_class %}{% endblock %}"
       hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
       data-shop-id="{{ shop.pk }}"
       data-wishlist-url="{% url 'demoshop:wishlist' shop_slug=shop.slug %}"
       data-np-cities-url="{% url 'demoshop:np_cities' shop_slug=shop.slug %}"
       data-np-warehouses-url="{% url 'demoshop:np_warehouses' shop_slug=shop.slug %}">
-<a class="ds-skip" href="#ds-main">
-    {% if shop.quote_mode %}{{ cs.skip_to_content }}{% else %}{% trans "Перейти до змісту" %}{% endif %}
-</a>
+<a class="ds-skip" href="#ds-main">{% trans "Перейти до змісту" %}</a>
 <div class="ds-page">
     {% include 'demoshop/partials/header.html' %}
     {% block pre_main %}{% endblock %}

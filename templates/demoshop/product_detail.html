@@ -21,23 +21,14 @@
             {% endif %}
             <h1 class="ds-pdp-info__title">{{ product.localized_name }}</h1>
 
-            {% if shop.quote_mode %}
-            <div class="ds-pdp-quote-label">
-                <p class="ds-pdp-quote-text"><strong>{{ cs.quote_price }}</strong></p>
-                <p class="ds-pdp-quote-hint">Щоб дізнатися точну ціну й термін постачання, заповніть форму нижче</p>
-            </div>
-            {% elif variant_groups %}
-            {% include 'demoshop/partials/_furniture_price.html' %}
-            {% else %}
             <div class="ds-pdp-price-row">
                 <span class="ds-pdp-price">{{ product.price|money }} {% currency_symbol %}</span>
                 {% if product.old_price %}
                 <span class="ds-pdp-price-old">{{ product.old_price|money }} {% currency_symbol %}</span>
                 {% endif %}
             </div>
-            {% endif %}
 
-            {% if not shop.quote_mode and product.sale_timer_active %}
+            {% if product.sale_timer_active %}
             <div class="ds-pdp-promo">
                 <p class="ds-pdp-promo__label">
                     <svg class="ds-pdp-promo__flame" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -55,7 +46,7 @@
             </div>
             {% endif %}
 
-            {% if not shop.quote_mode and product.has_gift_promo %}
+            {% if product.has_gift_promo %}
             <div class="ds-gift-banner">
                 <span class="ds-gift-banner__icon" aria-hidden="true">🎁</span>
                 <p class="ds-gift-banner__text">{{ product.localized_gift_promo_text }}</p>
@@ -66,44 +57,12 @@
             </div>
             {% endif %}
 
-            {% if shop.quote_mode %}
-            <form class="ds-pdp-quote-form"
-                  hx-post="{% url 'demoshop:submit_quote' shop_slug=shop.slug %}"
-                  hx-swap="innerHTML"
-                  hx-target="#quote-response">
-                {% csrf_token %}
-                <input type="hidden" name="product_slug" value="{{ product.slug }}">
-                <div class="ds-pdp-quote-row">
-                    <label for="quote-qty">{{ cs.quantity }}:</label>
-                    <input type="number" id="quote-qty" name="qty" value="1" min="1" max="9999" inputmode="numeric" required>
-                </div>
-                <div class="ds-pdp-quote-row">
-                    <label for="quote-name">{{ cs.your_name }}:</label>
-                    <input type="text" id="quote-name" name="name" placeholder="Іван Коваленко" required>
-                </div>
-                <div class="ds-pdp-quote-row">
-                    <label for="quote-email">{{ cs.email }}:</label>
-                    <input type="email" id="quote-email" name="email" placeholder="{% trans "jan@firma.cz" %}" required>
-                </div>
-                <div class="ds-pdp-quote-row">
-                    <label for="quote-phone">{{ cs.phone }}:</label>
-                    <input type="tel" id="quote-phone" name="phone" placeholder="{% trans "+420 xxx xxx xxx" %}">
-                </div>
-                <div class="ds-pdp-quote-row">
-                    <label for="quote-note">{{ cs.message }}:</label>
-                    <textarea id="quote-note" name="message" rows="3" placeholder="Термін постачання, вимоги до виконання…"></textarea>
-                </div>
-                <button type="submit" class="ds-btn ds-btn--primary ds-pdp-buy__cta">{{ cs.request_quote }}</button>
-                <div id="quote-response" class="ds-quote-response"></div>
-            </form>
-            {% else %}
             <form class="ds-pdp-buy"
                   hx-post="{% url 'demoshop:cart_add' shop_slug=shop.slug %}"
                   hx-target="#ds-drawer-root"
                   hx-swap="innerHTML"
                   data-qa="cart-add">
                 <input type="hidden" name="product_id" value="{{ product.pk }}">
-                {% if variant_groups %}{% include 'demoshop/partials/_furniture_variants.html' %}{% endif %}
                 <div class="ds-pdp-buy__row">
                     <div class="ds-qty-stepper" data-ds-qty>
                         <button type="button" data-ds-qty-step="-1" aria-label="{% trans "Менше" %}">−</button>
@@ -120,12 +79,6 @@
                 </div>
                 <button type="submit" class="ds-btn ds-btn--primary ds-pdp-buy__cta">{% trans "Додати в кошик" %}</button>
             </form>
-            {% endif %}
-
-            {% if shop.furniture_mode %}
-            {% include 'demoshop/partials/_furniture_specs.html' %}
-            {% include 'demoshop/partials/_furniture_leads.html' %}
-            {% endif %}
 
             {% block_text shop 'pdp' 'delivery_text' as ds_pdp_delivery %}
             <div class="ds-pdp-tabs" data-ds-tabs>
@@ -135,17 +88,13 @@
                             role="tab"
                             id="ds-pdp-tab-desc"
                             aria-controls="ds-pdp-panel-desc"
-                            aria-selected="true">
-                        {% if shop.quote_mode %}{{ cs.description }}{% else %}{% trans "Опис" %}{% endif %}
-                    </button>
+                            aria-selected="true">{% trans "Опис" %}</button>
                     <button type="button"
                             class="ds-pdp-tabs__tab"
                             role="tab"
                             id="ds-pdp-tab-ship"
                             aria-controls="ds-pdp-panel-ship"
-                            aria-selected="false">
-                        {% if shop.quote_mode %}{{ cs.delivery }}{% else %}{% trans "Доставка" %}{% endif %}
-                    </button>
+                            aria-selected="false">{% trans "Доставка" %}</button>
                 </div>
                 <div class="ds-pdp-tabs__panel ds-prose"
                      role="tabpanel"
@@ -170,9 +119,7 @@
 
     {% if related %}
     <section class="ds-pdp-related" aria-labelledby="ds-pdp-related-title">
-        <h2 class="ds-pdp-related__title" id="ds-pdp-related-title">
-            {% if shop.quote_mode %}{{ cs.similar_products }}{% else %}{% trans "Схожі товари" %}{% endif %}
-        </h2>
+        <h2 class="ds-pdp-related__title" id="ds-pdp-related-title">{% trans "Схожі товари" %}</h2>
         {% include 'demoshop/partials/pdp_related.html' with products=related %}
     </section>
     {% endif %}

@@ -2,7 +2,7 @@
 Management command: seed_proposal_furniture_shop
 
 Idempotent заливка закритого КП «Розробка інтернет-магазину меблів під ключ»
-(PDF 12.10.2026, українською) + демо-магазин меблів (ціни й кошик, furniture_mode).
+(PDF 12.10.2026, українською) + стандартний демо-магазин (provision_demo_shop).
 Це не версія сайту клієнта, а стандартне демо.
 """
 from datetime import date
@@ -26,7 +26,6 @@ from apps.core.proposal_models import (
 from apps.core.proposal_visual_models import ProposalArchNode, ProposalHighlight
 
 from . import _furniture_shop_data as data
-from . import _furniture_shop_catalog as catalog
 
 SLUG = data.SLUG
 DEMO_TENANT_SLUG = data.DEMO_TENANT_SLUG
@@ -52,7 +51,7 @@ def _attach_hero(proposal: Proposal) -> None:
 
 
 class Command(BaseCommand):
-    help = 'Seed furniture shop proposal + furniture demo-shop (idempotent)'
+    help = 'Seed furniture shop proposal + standard demo-shop (idempotent)'
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -78,24 +77,27 @@ class Command(BaseCommand):
         ))
 
     def _provision_demo(self, proposal: Proposal) -> None:
+        """Стандартний демо-магазин (як у всіх КП) через provision_demo_shop()."""
         from apps.demoshop.models import DemoShop
         from apps.demoshop.services.provision import provision_demo_shop
 
         shop = DemoShop.objects.filter(proposal=proposal).first()
+        # Legacy custom furniture demo -> drop it and recreate as standard shop
+        if shop is not None and (shop.furniture_mode or shop.quote_mode):
+            owner = shop.owner_user
+            shop.delete()
+            if owner is not None:
+                owner.delete()
+            shop = None
         if shop is None:
-            shop = DemoShop(proposal=proposal, name=data.DEMO_NAME, slug=DEMO_TENANT_SLUG)
-        shop.slug = DEMO_TENANT_SLUG
-        shop.name = data.DEMO_NAME
-        shop.quote_mode = False
-        shop.furniture_mode = True
-        for field, value in catalog.THEME.items():
-            setattr(shop, field, value)
-        shop.save()
-
+            shop = DemoShop(proposal=proposal, name='Demo Shop', slug=DEMO_TENANT_SLUG)
+            shop.save()
         shop = provision_demo_shop(proposal)
-        count = catalog.seed_catalog(shop)
+        if shop.name != 'Demo Shop':
+            shop.name = 'Demo Shop'
+            shop.save(update_fields=['name'])
         self.stdout.write(self.style.SUCCESS(
-            f'Demo: {shop.get_absolute_url()} (slug={shop.slug}, products={count})'
+            f'Demo: {shop.get_absolute_url()} (slug={shop.slug})'
         ))
 
     def _seed_rows(self):

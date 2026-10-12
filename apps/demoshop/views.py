@@ -3,26 +3,24 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import timezone, translation
+from django.utils import translation, timezone
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_GET, require_POST
 
 from apps.demotenant.views_common import make_admin_login_view
 
 from . import cart as cart_service
-from . import furniture
 from .catalog_models import ShopCategory, ShopProduct
 from .content import get_blocks_map
 from .models import DemoShop
 from .order_models import ShopOrder, ShopOrderItem
-from .quote_labels import LABELS_CS
 from .services import novaposhta as np_service
 from .theme import render_theme_css
 
 CATALOG_PAGE_SIZE = 12
 
 
-def _get_active_shop(shop_slug: str, request=None) -> DemoShop:
+def _get_active_shop(shop_slug: str) -> DemoShop:
     shop = get_object_or_404(DemoShop, slug=shop_slug, is_active=True)
     shop.blocks_map = get_blocks_map(shop)
     return shop
@@ -46,16 +44,13 @@ def _base_context(request, shop, **extra):
         'cart_count': _cart_count(request, shop),
         'nav_categories': _nav_categories(shop),
     }
-    # Inject Czech labels for quote_mode tenants (no LANGUAGES/locale change)
-    if shop.quote_mode:
-        ctx['cs'] = LABELS_CS
     ctx.update(extra)
     return ctx
 
 
 @require_GET
 def home(request, shop_slug):
-    shop = _get_active_shop(shop_slug, request)
+    shop = _get_active_shop(shop_slug)
     now = timezone.now()
     featured = list(
         ShopProduct.objects.filter(shop=shop, is_active=True, is_featured=True)
@@ -83,7 +78,7 @@ def home(request, shop_slug):
 
 @require_GET
 def hits(request, shop_slug):
-    shop = _get_active_shop(shop_slug, request)
+    shop = _get_active_shop(shop_slug)
     products = ShopProduct.objects.filter(shop=shop, is_active=True, is_featured=True).select_related('category').prefetch_related('images')
     return render(request, 'demoshop/hits.html', _base_context(
         request, shop, products=products,
@@ -92,7 +87,7 @@ def hits(request, shop_slug):
 
 @require_GET
 def promotions(request, shop_slug):
-    shop = _get_active_shop(shop_slug, request)
+    shop = _get_active_shop(shop_slug)
     now = timezone.now()
     products = ShopProduct.objects.filter(
         shop=shop, is_active=True, sale_end_date__gt=now, old_price__isnull=False,
@@ -104,10 +99,9 @@ def promotions(request, shop_slug):
 
 @require_GET
 def catalog(request, shop_slug):
-    shop = _get_active_shop(shop_slug, request)
+    shop = _get_active_shop(shop_slug)
     query = request.GET.get('q', '')
     category_slug = request.GET.get('category', '')
-    material = request.GET.get('material', '')
     sort = request.GET.get('sort', 'popularity')
 
     products = ShopProduct.objects.filter(shop=shop, is_active=True).select_related('category').prefetch_related('images')
@@ -116,10 +110,6 @@ def catalog(request, shop_slug):
         products = products.filter(name__icontains=query)
     if category_slug:
         products = products.filter(category__slug=category_slug)
-    if material:
-        products = products.filter(material__iexact=material)
-    if shop.furniture_mode:
-        products = furniture.filter_products(products, request.GET)
 
     if sort == 'price_asc':
         products = products.order_by('price', 'id')
@@ -137,42 +127,21 @@ def catalog(request, shop_slug):
 
     categories = ShopCategory.objects.filter(shop=shop, is_active=True).order_by('order')
     current_category = get_object_or_404(categories, slug=category_slug) if category_slug else None
-    
-    # Доступні матеріали для цього магазину
-    materials = (
-        ShopProduct.objects.filter(shop=shop, is_active=True)
-        .exclude(material='')
-        .values_list('material', flat=True)
-        .distinct()
-        .order_by('material')
-    )
-
-    furniture_groups = []
-    if shop.furniture_mode:
-        furniture_groups = furniture.filter_groups(
-            ShopProduct.objects.filter(shop=shop, is_active=True),
-            request.GET,
-            request.path,
-        )
 
     return render(request, 'demoshop/catalog.html', _base_context(
         request, shop,
-        furniture_groups=furniture_groups,
-        furniture_hidden=furniture.active_params(request.GET) if shop.furniture_mode else [],
         page_obj=page_obj,
         categories=categories,
         current_category=current_category,
         query=query,
         current_sort=sort,
-        current_material=material,
-        materials=materials,
         total=paginator.count,
     ))
 
 
 @require_GET
 def product_detail(request, shop_slug, product_slug):
-    shop = _get_active_shop(shop_slug, request)
+    shop = _get_active_shop(shop_slug)
     product = get_object_or_404(
         ShopProduct.objects.filter(shop=shop, is_active=True).select_related('category').prefetch_related('images'),
         slug=product_slug,
@@ -183,19 +152,9 @@ def product_detail(request, shop_slug, product_slug):
 
     reviews = product.reviews.filter(is_approved=True).order_by('-created_at')
 
-    extra = {}
-    if shop.furniture_mode and furniture.has_variants(product):
-        selection = furniture.selection_from(request.GET, product)
-        extra = {
-            'variant_groups': furniture.option_groups(product, selection),
-            'variant_price': furniture.resolve(product, selection)['unit_price'],
-            'variant_label': furniture.resolve(product, selection)['label'],
-        }
-
     return render(request, 'demoshop/product_detail.html', _base_context(
         request, shop,
         product=product,
-        **extra,
         related=related,
         reviews=reviews,
     ))
@@ -203,7 +162,7 @@ def product_detail(request, shop_slug, product_slug):
 
 @require_GET
 def wishlist(request, shop_slug):
-    shop = _get_active_shop(shop_slug, request)
+    shop = _get_active_shop(shop_slug)
     ids_str = request.GET.get('ids', '')
     ids = [int(x) for x in ids_str.split(',') if x.isdigit()]
 
@@ -224,7 +183,7 @@ def wishlist(request, shop_slug):
 
 @require_GET
 def cart_view(request, shop_slug):
-    shop = _get_active_shop(shop_slug, request)
+    shop = _get_active_shop(shop_slug)
     lines, total = cart_service.cart_lines(request.session, shop.pk)
 
     if request.headers.get('HX-Request'):
@@ -241,22 +200,15 @@ def cart_view(request, shop_slug):
 
 @require_POST
 def cart_add(request, shop_slug):
-    shop = _get_active_shop(shop_slug, request)
+    shop = _get_active_shop(shop_slug)
     product_id = request.POST.get('product_id')
     qty = int(request.POST.get('qty', 1))
 
     product = get_object_or_404(ShopProduct, pk=product_id, shop=shop, is_active=True)
-    line_key = str(product.pk)
-    variant_label = ''
-    if shop.furniture_mode and furniture.has_variants(product):
-        selection = furniture.selection_from(request.POST, product)
-        line_key = furniture.cart_key(product, selection)
-        variant_label = furniture.resolve(product, selection)['label']
-    cart_service.cart_add(request.session, shop.pk, line_key, qty)
+    cart_service.cart_add(request.session, shop.pk, product.pk, qty)
 
     response = render(request, 'demoshop/partials/_cart_confirm.html', {
         'product': product,
-        'variant_label': variant_label,
         'cart_count': _cart_count(request, shop),
         'shop': shop,
     })
@@ -266,7 +218,7 @@ def cart_add(request, shop_slug):
 
 @require_POST
 def cart_remove(request, shop_slug):
-    shop = _get_active_shop(shop_slug, request)
+    shop = _get_active_shop(shop_slug)
     product_id = request.POST.get('product_id')
 
     cart_service.cart_remove(request.session, shop.pk, product_id)
@@ -278,7 +230,7 @@ def cart_remove(request, shop_slug):
 
 @require_POST
 def cart_set_qty(request, shop_slug):
-    shop = _get_active_shop(shop_slug, request)
+    shop = _get_active_shop(shop_slug)
     product_id = request.POST.get('product_id')
     qty = int(request.POST.get('qty', 1))
 
@@ -290,7 +242,7 @@ def cart_set_qty(request, shop_slug):
 
 
 def checkout(request, shop_slug):
-    shop = _get_active_shop(shop_slug, request)
+    shop = _get_active_shop(shop_slug)
     lines, total = cart_service.cart_lines(request.session, shop.pk)
     if not lines:
         messages.info(request, _('Кошик порожній.'))
@@ -357,11 +309,8 @@ def checkout(request, shop_slug):
             ShopOrderItem.objects.create(
                 order=order,
                 product=line['product'],
-                product_name=(
-                    f"{line['product'].localized_name} ({line['variant_label']})"
-                    if line['variant_label'] else line['product'].localized_name
-                )[:200],
-                price=line['unit_price'],
+                product_name=line['product'].localized_name,
+                price=line['product'].price,
                 qty=line['qty'],
             )
         cart_service.clear_cart(request.session, shop.pk)
@@ -374,7 +323,7 @@ def checkout(request, shop_slug):
 
 @require_GET
 def order_success(request, shop_slug, order_id):
-    shop = _get_active_shop(shop_slug, request)
+    shop = _get_active_shop(shop_slug)
     order = get_object_or_404(ShopOrder.objects.prefetch_related('items'), pk=order_id, shop=shop)
     return render(request, 'demoshop/order_success.html', _base_context(
         request, shop, order=order,
@@ -383,21 +332,21 @@ def order_success(request, shop_slug, order_id):
 
 @require_GET
 def np_cities(request, shop_slug):
-    _get_active_shop(shop_slug, request)
+    _get_active_shop(shop_slug)
     q = request.GET.get('q', '')
     return JsonResponse({'results': np_service.search_cities(q)})
 
 
 @require_GET
 def np_warehouses(request, shop_slug):
-    _get_active_shop(shop_slug, request)
+    _get_active_shop(shop_slug)
     city_ref = request.GET.get('city_ref', '')
     return JsonResponse({'results': np_service.warehouses_for_city(city_ref)})
 
 
 @require_GET
 def admin_access(request, shop_slug):
-    shop = _get_active_shop(shop_slug, request)
+    shop = _get_active_shop(shop_slug)
     return render(request, 'demoshop/admin_access.html', _base_context(request, shop))
 
 
@@ -411,30 +360,3 @@ def theme_css(request, shop_slug):
     response = HttpResponse(css, content_type='text/css')
     response['Cache-Control'] = 'public, max-age=300'
     return response
-
-
-@require_POST
-def submit_quote(request, shop_slug):
-    """Demo quote form submission (B2B mode)."""
-    shop = _get_active_shop(shop_slug, request)
-    if not shop.quote_mode:
-        return HttpResponse('Not available', status=403)
-    
-    # Валідація базових полів
-    name = request.POST.get('name', '').strip()
-    email = request.POST.get('email', '').strip()
-    phone = request.POST.get('phone', '').strip()
-    product_slug = request.POST.get('product_slug', '').strip()
-    message = request.POST.get('message', '').strip()
-    
-    if not name or not (email or phone):
-        return HttpResponse(
-            '<p class="ds-quote-error">Vyplňte prosím jméno a kontakt (email nebo telefon).</p>',
-            status=400,
-        )
-    
-    # Demo: не відправляємо email, просто повертаємо успіх
-    return HttpResponse(
-        '<p class="ds-quote-success">Дякуємо, запит надіслано (демо — нічого не відправляється).</p>',
-    )
-

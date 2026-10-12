@@ -6,7 +6,7 @@
 """
 from django.urls import path
 
-from . import views, views_furniture
+from . import views
 
 app_name = 'demoshop'
 
@@ -16,9 +16,6 @@ urlpatterns = [
     path('<str:shop_slug>/catalog/', views.catalog, name='catalog'),
     path('<str:shop_slug>/promotions/', views.promotions, name='promotions'),
     path('<str:shop_slug>/product/<str:product_slug>/', views.product_detail, name='product_detail'),
-    path('<str:shop_slug>/product/<str:product_slug>/price/', views_furniture.price_switch, name='furniture_price'),
-    path('<str:shop_slug>/furniture/quick-buy/', views_furniture.quick_buy, name='furniture_quick_buy'),
-    path('<str:shop_slug>/furniture/consult/', views_furniture.consult, name='furniture_consult'),
     path('<str:shop_slug>/wishlist/', views.wishlist, name='wishlist'),
     path('<str:shop_slug>/cart/', views.cart_view, name='cart'),
     path('<str:shop_slug>/cart/add/', views.cart_add, name='cart_add'),
@@ -26,7 +23,6 @@ urlpatterns = [
     path('<str:shop_slug>/cart/set-qty/', views.cart_set_qty, name='cart_set_qty'),
     path('<str:shop_slug>/checkout/', views.checkout, name='checkout'),
     path('<str:shop_slug>/order-success/<int:order_id>/', views.order_success, name='order_success'),
-    path('<str:shop_slug>/quote/submit/', views.submit_quote, name='submit_quote'),
     path('<str:shop_slug>/api/np/cities/', views.np_cities, name='np_cities'),
     path('<str:shop_slug>/api/np/warehouses/', views.np_warehouses, name='np_warehouses'),
     path('<str:shop_slug>/admin-access/', views.admin_access, name='admin_access'),

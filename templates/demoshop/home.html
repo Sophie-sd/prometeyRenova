@@ -33,7 +33,7 @@
                          {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}>
                     {% else %}
                     <img class="ds-hero__bg"
-                         src="{% if shop.furniture_mode %}{% static 'demoshop/seed/hero-furniture.svg' %}{% elif shop.quote_mode %}{% static 'demoshop/seed/hero-metal.svg' %}{% else %}{% static 'demoshop/seed/hero/slide-1-wide.webp' %}{% endif %}"
+                         src="{% static 'demoshop/seed/hero/slide-1-wide.webp' %}"
                          alt=""
                          width="2560"
                          height="1440"
@@ -146,7 +146,6 @@
 {% endif %}
 
 {% block_image shop 'home' 'about_image' as ds_about_image %}
-{% if not shop.quote_mode or ds_about_image %}
 <section class="ds-about" data-ds-about>
     <div class="ds-about__stage">
         <div class="ds-about__media">
@@ -180,7 +179,6 @@
         </div>
     </div>
 </section>
-{% endif %}
 
 {% if on_sale %}
 <section class="ds-hits ds-hits--promo ds-section">
@@ -207,10 +205,6 @@
 </section>
 {% endif %}
 </div>
-
-{% if shop.furniture_mode %}
-{% include 'demoshop/partials/_furniture_consult_section.html' %}
-{% endif %}
 
 {% if reviews %}
 <section class="ds-section ds-container">

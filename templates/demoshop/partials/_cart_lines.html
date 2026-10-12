@@ -3,26 +3,24 @@
 <div class="ds-cart-grid">
     <div class="ds-cart-lines">
         {% for line in cart_lines %}
-        <div class="ds-cart-line" id="cart-line-{{ line.key|slugify }}">
-            {% product_img line.product as ds_img %}
-            <img class="ds-cart-line__img" src="{{ ds_img }}" alt="">
+        <div class="ds-cart-line" id="cart-line-{{ line.product.pk }}">
+            <img class="ds-cart-line__img" src="{{ line.product.main_image.image|puburl }}" alt="">
             <div class="ds-cart-line__info">
                 <h3 class="ds-cart-line__name">{{ line.product.localized_name }}</h3>
-                {% if line.variant_label %}<p class="ds-cart-line__variant">{{ line.variant_label }}</p>{% endif %}
-                <p>{{ line.unit_price|money }} {% currency_symbol %} / {% trans "шт" %}</p>
+                <p>{{ line.product.price|money }} {% currency_symbol %} / {% trans "шт" %}</p>
             </div>
             <div class="ds-cart-line__qty">
                 <form hx-post="{% url 'demoshop:cart_set_qty' shop_slug=shop.slug %}" hx-trigger="change from:find input" hx-swap="none">
-                    <input type="hidden" name="product_id" value="{{ line.key }}">
-                    <label class="ds-sr-only" for="qty-{{ line.key|slugify }}">{% trans "Кількість" %}</label>
-                    <input class="ds-search-input ds-qty-input" type="number" id="qty-{{ line.key|slugify }}" name="qty" value="{{ line.qty }}" min="1" max="99">
+                    <input type="hidden" name="product_id" value="{{ line.product.pk }}">
+                    <label class="ds-sr-only" for="qty-{{ line.product.pk }}">{% trans "Кількість" %}</label>
+                    <input class="ds-search-input ds-qty-input" type="number" id="qty-{{ line.product.pk }}" name="qty" value="{{ line.qty }}" min="1" max="99">
                 </form>
             </div>
             <div class="ds-cart-line__total">
                 {{ line.line_total|money }} {% currency_symbol %}
             </div>
             <form class="ds-cart-line__remove" hx-post="{% url 'demoshop:cart_remove' shop_slug=shop.slug %}" hx-swap="none">
-                <input type="hidden" name="product_id" value="{{ line.key }}">
+                <input type="hidden" name="product_id" value="{{ line.product.pk }}">
                 <button type="submit" class="ds-btn ds-btn--outline ds-btn--sm">{% trans "Видалити" %}</button>
             </form>
         </div>

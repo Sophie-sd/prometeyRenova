@@ -1,4 +1,4 @@
-{% load custom_filters demoshop_extras i18n %}
+{% load custom_filters i18n %}
 {% with images=product.images.all %}
 <section class="ds-pdp-gallery" data-ds-gallery aria-label="{% trans "Фото товару" %}">
     <div class="ds-pdp-gallery__main">
@@ -13,15 +13,6 @@
              loading="eager"
              decoding="async">
         {% endwith %}
-        {% elif product.static_image %}
-        {% product_img product as ds_img %}
-        <img class="ds-pdp-gallery__image"
-             src="{{ ds_img }}"
-             alt="{{ product.localized_name }}"
-             width="800"
-             height="800"
-             loading="eager"
-             decoding="async">
         {% else %}
         <span class="ds-pdp-gallery__placeholder" aria-hidden="true"></span>
         {% endif %}
