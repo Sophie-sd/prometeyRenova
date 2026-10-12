@@ -630,7 +630,9 @@ class Command(BaseCommand):
             },
         ]
         
-        placeholder_svg = Path(settings.BASE_DIR) / 'static' / 'demoshop' / 'seed' / 'placeholder-metal.svg'
+        # Стандартний набір фото КП-магазинів: static/demoshop/seed/products/<slug>.webp
+        from apps.demoshop.services.seed import SEED_SLUGS
+        from apps.demoshop.services.images import load_seed_image
         
         desc_uk_tpl = 'Промислові меблі, матеріал: {}. Щоб дізнатися індивідуальну ціну й термін постачання, натисніть «Запитати ціну».'
         for pdata in products_data:
@@ -656,11 +658,16 @@ class Command(BaseCommand):
                 }
             )
             
-            # Attach placeholder image if not exists
-            if placeholder_svg.is_file() and not product.images.exists():
-                with placeholder_svg.open('rb') as f:
-                    img = ShopProductImage(product=product, order=0)
-                    img.image.save(f'metal-{pdata["slug"]}.svg', File(f), save=True)
+            # Standard KP shop photo set (same as provision/seed_demo_shop); re-run replaces images
+            asset_slug = SEED_SLUGS[products_data.index(pdata) % len(SEED_SLUGS)]
+            main = product.images.filter(is_main=True).first() or product.images.first()
+            if not (main and asset_slug in main.image.name):
+                product.images.all().delete()
+                ShopProductImage.objects.create(
+                    product=product,
+                    image=load_seed_image(f'products/{asset_slug}.webp', fallback_label=product.name),
+                    alt=product.name, is_main=True, order=0,
+                )
         
         self.stdout.write(self.style.SUCCESS(
             f'Seeded {len(products_data)} B2B metal furniture products'
