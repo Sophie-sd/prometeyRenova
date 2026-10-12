@@ -140,4 +140,7 @@ python manage.py seed_proposal_furniture_shop
 echo "📄 Seeding Ascania FMCG corporate proposal + classic demo-corp..."
 python manage.py seed_proposal_ascania
 
+echo "📄 Seeding Kovrik.ua corporate proposal + classic demo-corp..."
+python manage.py seed_proposal_kovrik
+
 echo "✅ Build complete!"
