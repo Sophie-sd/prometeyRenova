@@ -1,0 +1,273 @@
+/* Меблевий демо-магазин: редакційна типографіка, варіанти, лідформи.
+   Підключається лише при DemoShop.furniture_mode; усе під .ds-body--furniture. */
+
+.ds-body--furniture {
+    --ds-furn-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --ds-furn-oak: #C19A6B;
+    --ds-furn-oak-deep: #9C7549;
+    --ds-furn-line: rgba(31, 27, 23, 0.16);
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Редакційні заголовки */
+.ds-body--furniture .ds-hero__title,
+.ds-body--furniture .ds-section__title,
+.ds-body--furniture .ds-pdp-info__title,
+.ds-body--furniture .ds-cat-card__name,
+.ds-body--furniture .ds-about__title {
+    font-family: var(--ds-furn-serif);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+}
+
+.ds-body--furniture .ds-hero__title {
+    font-size: clamp(2.25rem, 4.4vw, 4rem);
+    max-width: 16ch;
+}
+
+.ds-body--furniture .ds-eyebrow {
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: var(--ds-fs-xs);
+}
+
+.ds-body--furniture .ds-card__name {
+    font-family: var(--ds-furn-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+/* Перемикачі варіантів */
+.ds-body--furniture .ds-furn-variants {
+    display: grid;
+    gap: var(--ds-sp-4);
+    margin-block: var(--ds-sp-4) var(--ds-sp-5);
+}
+
+.ds-furn-group {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+}
+
+.ds-furn-group__title {
+    padding: 0;
+    margin-bottom: var(--ds-sp-2);
+    font-size: var(--ds-fs-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ds-text-muted);
+}
+
+.ds-furn-group__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ds-sp-2);
+}
+
+.ds-furn-opt {
+    position: relative;
+    display: inline-flex;
+}
+
+.ds-furn-opt__input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.ds-furn-opt__face {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ds-sp-2);
+    min-height: 44px;
+    padding: 0 var(--ds-sp-4);
+    border: 1px solid var(--ds-furn-line);
+    border-radius: var(--ds-radius-pill);
+    background: var(--ds-white);
+    color: var(--ds-text);
+    font-size: var(--ds-fs-sm);
+    transition: border-color var(--ds-duration-ui) var(--ds-ease-out),
+        background-color var(--ds-duration-ui) var(--ds-ease-out),
+        color var(--ds-duration-ui) var(--ds-ease-out);
+}
+
+.ds-furn-opt__input:checked + .ds-furn-opt__face {
+    background: var(--ds-accent);
+    border-color: var(--ds-accent);
+    color: var(--ds-white);
+}
+
+.ds-furn-opt__input:focus-visible + .ds-furn-opt__face {
+    outline: 2px solid var(--ds-accent);
+    outline-offset: 2px;
+}
+
+@media (hover: hover) {
+    .ds-furn-opt__input:not(:checked):hover + .ds-furn-opt__face {
+        border-color: var(--ds-accent);
+    }
+}
+
+.ds-furn-opt__delta {
+    font-size: var(--ds-fs-xs);
+    opacity: 0.75;
+}
+
+.ds-swatch {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(31, 27, 23, 0.25);
+    flex: none;
+}
+.ds-swatch--oak { background: #C19A6B; }
+.ds-swatch--walnut { background: #6E4B32; }
+.ds-swatch--ash { background: #D8CFC0; }
+.ds-swatch--ivory { background: #EFE7DC; }
+.ds-swatch--graphite { background: #3A3633; }
+.ds-swatch--sage { background: #A7AD98; }
+.ds-swatch--oxblood { background: #6B2D2D; }
+
+/* Ціна, що перемикається */
+.ds-furn-price__label {
+    margin: var(--ds-sp-1) 0 0;
+    font-size: var(--ds-fs-sm);
+    color: var(--ds-text-muted);
+}
+
+/* Характеристики */
+.ds-furn-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--ds-sp-3);
+    margin: var(--ds-sp-5) 0;
+    padding-block: var(--ds-sp-4);
+    border-block: 1px solid var(--ds-furn-line);
+}
+.ds-furn-specs dt {
+    font-size: var(--ds-fs-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ds-text-muted);
+}
+.ds-furn-specs dd {
+    margin: var(--ds-sp-1) 0 0;
+    font-weight: 600;
+}
+
+/* Лідформи */
+.ds-furn-leads {
+    display: grid;
+    gap: var(--ds-sp-3);
+    margin-block: var(--ds-sp-5);
+}
+
+.ds-furn-lead__toggle {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    list-style: none;
+    cursor: pointer;
+    min-height: 48px;
+}
+.ds-furn-lead__toggle::-webkit-details-marker { display: none; }
+.ds-furn-lead__toggle::marker { content: ""; }
+
+.ds-furn-lead[open] .ds-furn-lead__toggle {
+    border-color: var(--ds-accent);
+    color: var(--ds-accent);
+}
+
+.ds-furn-lead__form {
+    display: grid;
+    gap: var(--ds-sp-3);
+    padding-top: var(--ds-sp-4);
+}
+
+.ds-furn-field {
+    display: grid;
+    gap: var(--ds-sp-1);
+    font-size: var(--ds-fs-sm);
+}
+.ds-furn-field input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 var(--ds-sp-4);
+    border: 1px solid var(--ds-furn-line);
+    border-radius: var(--ds-radius-sm);
+    background: var(--ds-white);
+    color: var(--ds-text);
+    font: inherit;
+    font-size: 16px; /* iOS Safari: без авто-зуму при фокусі */
+    -webkit-appearance: none;
+    appearance: none;
+}
+.ds-furn-field input:focus-visible {
+    outline: 2px solid var(--ds-accent);
+    outline-offset: 1px;
+}
+
+.ds-furn-result-slot:empty { display: none; }
+.ds-furn-result {
+    margin: 0;
+    padding: var(--ds-sp-3) var(--ds-sp-4);
+    border-radius: var(--ds-radius-sm);
+    font-size: var(--ds-fs-sm);
+}
+.ds-furn-result--ok {
+    background: rgba(107, 122, 74, 0.14);
+    color: var(--ds-text);
+}
+.ds-furn-result--error {
+    background: rgba(107, 45, 45, 0.1);
+    color: var(--ds-accent);
+}
+
+/* Секція консультації на головній: асиметрія 60/40 */
+.ds-furn-consult__grid {
+    display: grid;
+    gap: var(--ds-sp-6);
+    padding: clamp(24px, 5vw, 64px);
+    border-radius: 24px;
+    background: var(--ds-surface-soft);
+}
+.ds-furn-consult__text {
+    max-width: 44ch;
+    margin: var(--ds-sp-3) 0 0;
+    line-height: 1.55;
+}
+@media (min-width: 900px) {
+    .ds-furn-consult__grid {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        align-items: center;
+        column-gap: clamp(32px, 5vw, 80px);
+    }
+}
+
+/* Кошик */
+.ds-body--furniture .ds-cart-line__variant {
+    margin: 0 0 var(--ds-sp-1);
+    font-size: var(--ds-fs-sm);
+    color: var(--ds-text-muted);
+}
+.ds-body--furniture .ds-cart-toast__variant {
+    margin: 0;
+    font-size: var(--ds-fs-xs);
+    color: var(--ds-text-muted);
+}
+
+/* Фільтри: чипи не вилазять за шторку */
+.ds-furn-filter { margin-bottom: var(--ds-sp-6); }
+.ds-furn-filter .ds-filter-chips { flex-wrap: wrap; }
+.ds-furn-filter .ds-filter-chip { min-height: 44px; display: inline-flex; align-items: center; }
+
+@media (prefers-reduced-motion: reduce) {
+    .ds-furn-opt__face { transition: none; }
+}

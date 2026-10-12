@@ -91,6 +91,18 @@ class ShopProduct(models.Model):
         max_length=100, blank=True, verbose_name=_('Матеріал'),
         help_text=_('Напр.: ocel, nerez, hliník, dřevo+ocel'),
     )
+    room = models.CharField(max_length=40, blank=True, verbose_name=_('Кімната'))
+    color = models.CharField(max_length=40, blank=True, verbose_name=_('Колір'))
+    width_cm = models.PositiveSmallIntegerField(
+        blank=True, null=True, verbose_name=_('Ширина, см'),
+    )
+    static_image = models.CharField(
+        max_length=200, blank=True, verbose_name=_('Static-зображення'),
+        help_text=_('Шлях у static/, напр. demoshop/seed/furniture/sofa.svg'),
+    )
+    variant_options = models.JSONField(
+        default=dict, blank=True, verbose_name=_('Варіанти (оббивка, колір, розмір)'),
+    )
     is_active = models.BooleanField(default=True, verbose_name=_('Активний'))
     is_featured = models.BooleanField(default=False, verbose_name=_('Хіт'))
     order = models.PositiveIntegerField(default=0, verbose_name=_('Порядок'))

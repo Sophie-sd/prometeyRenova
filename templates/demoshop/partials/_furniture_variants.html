@@ -1,0 +1,26 @@
+{% load demoshop_extras i18n %}
+<div class="ds-furn-variants"
+     hx-get="{% url 'demoshop:furniture_price' shop_slug=shop.slug product_slug=product.slug %}"
+     hx-trigger="change"
+     hx-target="#ds-furn-price"
+     hx-swap="outerHTML"
+     hx-include="closest form"
+     data-qa="furniture-variants">
+    {% for group in variant_groups %}
+    <fieldset class="ds-furn-group">
+        <legend class="ds-furn-group__title">{{ group.title }}</legend>
+        <div class="ds-furn-group__items">
+            {% for item in group.items %}
+            <label class="ds-furn-opt">
+                <input class="ds-furn-opt__input" type="radio" name="{{ group.param }}" value="{{ item.index }}"{% if item.checked %} checked{% endif %}>
+                <span class="ds-furn-opt__face">
+                    {% if item.code %}<span class="ds-swatch ds-swatch--{{ item.code }}" aria-hidden="true"></span>{% endif %}
+                    <span class="ds-furn-opt__label">{{ item.label }}</span>
+                    {% if item.delta %}<span class="ds-furn-opt__delta">+{{ item.delta|money }} {% currency_symbol %}</span>{% endif %}
+                </span>
+            </label>
+            {% endfor %}
+        </div>
+    </fieldset>
+    {% endfor %}
+</div>

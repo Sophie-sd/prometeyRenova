@@ -1,0 +1,25 @@
+{% load demoshop_extras i18n %}
+<section class="ds-furn-consult ds-section ds-container" aria-labelledby="ds-furn-consult-title">
+    <div class="ds-furn-consult__grid">
+        <div class="ds-furn-consult__copy">
+            <p class="ds-eyebrow">{% trans "Підбір інтерʼєру" %}</p>
+            <h2 class="ds-section__title" id="ds-furn-consult-title">{% trans "Консультація дизайнера" %}</h2>
+            <p class="ds-furn-consult__text">{% trans "Підкажемо поєднання тканин, кольорів і габаритів під ваш простір. Також розрахуємо індивідуальне виготовлення." %}</p>
+        </div>
+        <form class="ds-furn-lead__form ds-furn-consult__form"
+              hx-post="{% url 'demoshop:furniture_consult' shop_slug=shop.slug %}"
+              hx-target="#ds-furn-consult-result-home"
+              hx-swap="innerHTML">
+            <label class="ds-furn-field">
+                <span>{% trans "Імʼя" %}</span>
+                <input type="text" name="name" autocomplete="name" maxlength="120" required>
+            </label>
+            <label class="ds-furn-field">
+                <span>{% trans "Телефон" %}</span>
+                <input type="tel" name="phone" autocomplete="tel" inputmode="tel" maxlength="32" placeholder="+380" required>
+            </label>
+            <button type="submit" class="ds-btn ds-btn--primary">{% trans "Записатися на консультацію" %}</button>
+            <div id="ds-furn-consult-result-home" class="ds-furn-result-slot"></div>
+        </form>
+    </div>
+</section>

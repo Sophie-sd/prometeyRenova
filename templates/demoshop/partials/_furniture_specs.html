@@ -1,0 +1,8 @@
+{% load i18n %}
+{% if product.material or product.color or product.width_cm %}
+<dl class="ds-furn-specs" data-qa="furniture-specs">
+    {% if product.material %}<div><dt>{% trans "Матеріал" %}</dt><dd>{{ product.material }}</dd></div>{% endif %}
+    {% if product.color %}<div><dt>{% trans "Колір" %}</dt><dd>{{ product.color }}</dd></div>{% endif %}
+    {% if product.width_cm %}<div><dt>{% trans "Ширина" %}</dt><dd>{{ product.width_cm }} {% trans "см" %}</dd></div>{% endif %}
+</dl>
+{% endif %}

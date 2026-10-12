@@ -134,4 +134,7 @@ python manage.py seed_proposal_jewelry
 echo "📄 Seeding metal furniture proposal + B2B quote demo-shop..."
 python manage.py seed_proposal_metal_furniture
 
+echo "📄 Seeding furniture shop proposal + furniture demo-shop..."
+python manage.py seed_proposal_furniture_shop
+
 echo "✅ Build complete!"

@@ -204,8 +204,8 @@
             <p class="prop-eyebrow">{% trans "06 / Investment" %}</p>
             <h2 id="prop-packages-title" class="prop-section__title"><span class="prop-mask"><span>{% trans "Кошторис та пакети" %}</span></span></h2>
         </div>
-        {# EUR-only KP (metal furniture): no UAH switcher #}
-        {% if proposal.slug != "kovovy-nabytek-7c1e" %}{% currency_switcher "dark" "proposal" %}{% endif %}
+        {# EUR-only KP (metal + furniture shop): no UAH switcher #}
+        {% if proposal.slug != "kovovy-nabytek-7c1e" and proposal.slug != "internet-mahazyn-mebliv-5b2d" %}{% currency_switcher "dark" "proposal" %}{% endif %}
     </header>
     <div class="prop-packages-grid">
         {% for package in packages %}

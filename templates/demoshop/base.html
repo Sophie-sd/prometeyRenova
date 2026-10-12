@@ -21,9 +21,10 @@
 <link rel="stylesheet" href="{% static 'demotenant/css/lang.css' %}?v=1">
 <link rel="stylesheet" href="{% url 'demoshop:theme_css' shop_slug=shop.slug %}">
 
+{% if shop.furniture_mode %}<link rel="stylesheet" href="{% static 'demoshop/css/demoshop_furniture.css' %}?v=1">{% endif %}
 {% block extra_css %}{% endblock %}
 </head>
-<body class="ds-body{% block body_class %}{% endblock %}"
+<body class="ds-body{% block body_class %}{% endblock %}{% if shop.furniture_mode %} ds-body--furniture{% endif %}"
       hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
       data-shop-id="{{ shop.pk }}"
       data-wishlist-url="{% url 'demoshop:wishlist' shop_slug=shop.slug %}"

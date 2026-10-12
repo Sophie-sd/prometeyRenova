@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-hidden="true">
+  <rect width="800" height="800" fill="#F3ECE2"/>
+  <rect y="600" width="800" height="200" fill="#D9C9B1"/>
+  <rect y="598" width="800" height="3" fill="#9C7549" opacity="0.25"/>
+  <ellipse cx="400" cy="640" rx="260" ry="22" fill="#3A2E27" opacity="0.14"/>
+  <rect x="280" y="420" width="240" height="170" rx="10" fill="#C19A6B" opacity="1"/>
+  <rect x="292" y="436" width="216" height="64" rx="6" fill="#fff" opacity="0.14"/>
+  <rect x="292" y="512" width="216" height="64" rx="6" fill="#fff" opacity="0.14"/>
+  <rect x="380" y="462" width="40" height="8" rx="4" fill="#3A2E27" opacity="1"/>
+  <rect x="380" y="538" width="40" height="8" rx="4" fill="#3A2E27" opacity="1"/>
+  <rect x="290" y="590" width="18" height="36" rx="4" fill="#9C7549" opacity="1"/>
+  <rect x="492" y="590" width="18" height="36" rx="4" fill="#9C7549" opacity="1"/>
+  <rect x="350" y="350" width="100" height="70" rx="12" fill="#6B2D2D" opacity="0.9"/>
+
+</svg>

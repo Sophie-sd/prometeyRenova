@@ -3,13 +3,14 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import timezone
+from django.utils import timezone, translation
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_GET, require_POST
 
 from apps.demotenant.views_common import make_admin_login_view
 
 from . import cart as cart_service
+from . import furniture
 from .catalog_models import ShopCategory, ShopProduct
 from .content import get_blocks_map
 from .models import DemoShop
@@ -117,6 +118,8 @@ def catalog(request, shop_slug):
         products = products.filter(category__slug=category_slug)
     if material:
         products = products.filter(material__iexact=material)
+    if shop.furniture_mode:
+        products = furniture.filter_products(products, request.GET)
 
     if sort == 'price_asc':
         products = products.order_by('price', 'id')
@@ -144,8 +147,18 @@ def catalog(request, shop_slug):
         .order_by('material')
     )
 
+    furniture_groups = []
+    if shop.furniture_mode:
+        furniture_groups = furniture.filter_groups(
+            ShopProduct.objects.filter(shop=shop, is_active=True),
+            request.GET,
+            request.path,
+        )
+
     return render(request, 'demoshop/catalog.html', _base_context(
         request, shop,
+        furniture_groups=furniture_groups,
+        furniture_hidden=furniture.active_params(request.GET) if shop.furniture_mode else [],
         page_obj=page_obj,
         categories=categories,
         current_category=current_category,
@@ -170,9 +183,19 @@ def product_detail(request, shop_slug, product_slug):
 
     reviews = product.reviews.filter(is_approved=True).order_by('-created_at')
 
+    extra = {}
+    if shop.furniture_mode and furniture.has_variants(product):
+        selection = furniture.selection_from(request.GET, product)
+        extra = {
+            'variant_groups': furniture.option_groups(product, selection),
+            'variant_price': furniture.resolve(product, selection)['unit_price'],
+            'variant_label': furniture.resolve(product, selection)['label'],
+        }
+
     return render(request, 'demoshop/product_detail.html', _base_context(
         request, shop,
         product=product,
+        **extra,
         related=related,
         reviews=reviews,
     ))
@@ -223,10 +246,17 @@ def cart_add(request, shop_slug):
     qty = int(request.POST.get('qty', 1))
 
     product = get_object_or_404(ShopProduct, pk=product_id, shop=shop, is_active=True)
-    cart_service.cart_add(request.session, shop.pk, product.pk, qty)
+    line_key = str(product.pk)
+    variant_label = ''
+    if shop.furniture_mode and furniture.has_variants(product):
+        selection = furniture.selection_from(request.POST, product)
+        line_key = furniture.cart_key(product, selection)
+        variant_label = furniture.resolve(product, selection)['label']
+    cart_service.cart_add(request.session, shop.pk, line_key, qty)
 
     response = render(request, 'demoshop/partials/_cart_confirm.html', {
         'product': product,
+        'variant_label': variant_label,
         'cart_count': _cart_count(request, shop),
         'shop': shop,
     })
@@ -327,8 +357,11 @@ def checkout(request, shop_slug):
             ShopOrderItem.objects.create(
                 order=order,
                 product=line['product'],
-                product_name=line['product'].localized_name,
-                price=line['product'].price,
+                product_name=(
+                    f"{line['product'].localized_name} ({line['variant_label']})"
+                    if line['variant_label'] else line['product'].localized_name
+                )[:200],
+                price=line['unit_price'],
                 qty=line['qty'],
             )
         cart_service.clear_cart(request.session, shop.pk)

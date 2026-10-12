@@ -26,6 +26,8 @@
                 <p class="ds-pdp-quote-text"><strong>{{ cs.quote_price }}</strong></p>
                 <p class="ds-pdp-quote-hint">Щоб дізнатися точну ціну й термін постачання, заповніть форму нижче</p>
             </div>
+            {% elif variant_groups %}
+            {% include 'demoshop/partials/_furniture_price.html' %}
             {% else %}
             <div class="ds-pdp-price-row">
                 <span class="ds-pdp-price">{{ product.price|money }} {% currency_symbol %}</span>
@@ -101,6 +103,7 @@
                   hx-swap="innerHTML"
                   data-qa="cart-add">
                 <input type="hidden" name="product_id" value="{{ product.pk }}">
+                {% if variant_groups %}{% include 'demoshop/partials/_furniture_variants.html' %}{% endif %}
                 <div class="ds-pdp-buy__row">
                     <div class="ds-qty-stepper" data-ds-qty>
                         <button type="button" data-ds-qty-step="-1" aria-label="{% trans "Менше" %}">−</button>
@@ -117,6 +120,11 @@
                 </div>
                 <button type="submit" class="ds-btn ds-btn--primary ds-pdp-buy__cta">{% trans "Додати в кошик" %}</button>
             </form>
+            {% endif %}
+
+            {% if shop.furniture_mode %}
+            {% include 'demoshop/partials/_furniture_specs.html' %}
+            {% include 'demoshop/partials/_furniture_leads.html' %}
             {% endif %}
 
             {% block_text shop 'pdp' 'delivery_text' as ds_pdp_delivery %}

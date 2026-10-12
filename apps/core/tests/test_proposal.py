@@ -1106,3 +1106,149 @@ class ProposalSeedTests(TestCase):
         self.assertNotIn('/proposal/', body)
         self.assertNotIn(proposal.slug, body)
         self.assertNotIn(shop.slug, body)
+
+    def test_furniture_shop_seed_provisions_one_shop_with_variants(self):
+        call_command('seed_proposal_furniture_shop')
+        call_command('seed_proposal_furniture_shop')
+        proposals = Proposal.objects.filter(slug__startswith='internet-mahazyn-mebliv-')
+        self.assertEqual(proposals.count(), 1)
+        proposal = proposals.first()
+        self.assertEqual(proposal.slug, 'internet-mahazyn-mebliv-5b2d')
+        self.assertEqual(proposal.kind, Proposal.DemoKind.SHOP)
+        self.assertTrue(proposal.is_published)
+        self.assertEqual(proposal.issued_on.isoformat(), '2026-10-12')
+        title = 'Розробка інтернет-магазину меблів під ключ'
+        for field in ('title', 'title_ru', 'title_cs', 'title_en'):
+            self.assertEqual(getattr(proposal, field), title)
+        self.assertEqual(proposal.modules.count(), 6)
+        packages = list(proposal.packages.values_list(
+            'name', 'price', 'currency', 'duration', 'is_recommended',
+        ))
+        self.assertEqual(packages, [(
+            'Інтернет-магазин меблів «під ключ»', Decimal('1200.00'), '€', '30 днів', True,
+        )])
+        self.assertIn('1 рік гарантії на код', proposal.guarantee_html)
+        self.assertIn('Ціль — Google PageSpeed 90+', proposal.intro_html)
+
+        self.assertEqual(DemoShop.objects.filter(proposal=proposal).count(), 1)
+        shop = DemoShop.objects.get(proposal=proposal)
+        self.assertEqual(shop.slug, 'furniture-shop-demo-5b2d')
+        self.assertTrue(shop.furniture_mode)
+        self.assertFalse(shop.quote_mode)
+        self.assertEqual(shop.products.count(), 12)
+        self.assertEqual(shop.categories.count(), 5)
+        self.assertEqual(DemoShop.objects.filter(furniture_mode=True).count(), 1)
+
+        client = Client()
+        kp = client.get(reverse('proposal_detail', kwargs={'slug': proposal.slug}))
+        self.assertEqual(kp.status_code, 200)
+        self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
+        self.assertContains(kp, '1 200')
+        self.assertContains(kp, '30 днів')
+        self.assertContains(kp, '1 рік гарантії на код')
+        self.assertContains(kp, 'Рекомендовано')
+        self.assertContains(kp, shop.get_absolute_url())
+        for word in (
+            'пожиттєв', 'Пожиттєв', 'ПОЖИТТЄВ', '₴', 'грн', 'AV4', 'av4',
+            '\u0410\u043d\u0434\u0440\u0456\u0439', 'Monobank', 'Privat', 'розстрочк',
+        ):
+            self.assertNotContains(kp, word)
+        self.assertNotIn('currency-switcher', kp.content.decode())
+
+        demo_url = reverse('demoshop:home', kwargs={'shop_slug': shop.slug})
+        demo = client.get(demo_url)
+        self.assertEqual(demo.status_code, 200)
+        self.assertContains(demo, 'noindex')
+        self.assertEqual(demo['X-Robots-Tag'], 'noindex, nofollow')
+        self.assertContains(demo, 'demoshop/seed/hero-furniture.svg')
+        self.assertContains(demo, 'Вітальня')
+        self.assertNotContains(demo, '\u0410\u043d\u0434\u0440\u0456\u0439')
+
+        catalog_url = reverse('demoshop:catalog', kwargs={'shop_slug': shop.slug})
+        catalog = client.get(catalog_url)
+        self.assertEqual(catalog.status_code, 200)
+        self.assertContains(catalog, 'Ширина')
+        self.assertContains(catalog, 'Матеріал')
+        self.assertContains(catalog, 'Колір')
+        self.assertContains(catalog, 'Кімната')
+        self.assertContains(catalog, 'demoshop/seed/furniture/sofa.svg')
+        by_room = client.get(catalog_url, {'room': 'kids'})
+        self.assertContains(by_room, 'Дитяче ліжко')
+        self.assertNotContains(by_room, 'Диван «Норд»')
+        by_width = client.get(catalog_url, {'width': 'xl'})
+        self.assertContains(by_width, 'Шафа «Ліра»')
+        self.assertNotContains(by_width, 'Диван «Норд»')
+
+        sofa = shop.products.get(slug='divan-nord')
+        pdp_url = reverse(
+            'demoshop:product_detail', kwargs={'shop_slug': shop.slug, 'product_slug': sofa.slug},
+        )
+        pdp = client.get(pdp_url)
+        self.assertEqual(pdp.status_code, 200)
+        self.assertContains(pdp, 'Купити в 1 клік')
+        self.assertContains(pdp, 'Консультація дизайнера')
+        self.assertContains(pdp, 'furniture-variants')
+        self.assertNotContains(pdp, 'onclick=')
+
+        price_url = reverse(
+            'demoshop:furniture_price', kwargs={'shop_slug': shop.slug, 'product_slug': sofa.slug},
+        )
+        base = client.get(price_url, {'u': 0, 'c': 0, 's': 0})
+        self.assertEqual(base.status_code, 200)
+        self.assertContains(base, '32\xa0900')
+        leather = client.get(price_url, {'u': 2, 'c': 0, 's': 1})
+        self.assertEqual(leather.status_code, 200)
+        self.assertContains(leather, '50\xa0900')
+        self.assertNotContains(leather, '32\xa0900')
+        clamped = client.get(price_url, {'u': 99, 'c': 'x', 's': -3})
+        self.assertContains(clamped, '32\xa0900')
+
+        add = client.post(
+            reverse('demoshop:cart_add', kwargs={'shop_slug': shop.slug}),
+            {'product_id': sofa.pk, 'qty': 1, 'u': 2, 'c': 1, 's': 1},
+        )
+        self.assertEqual(add.status_code, 200)
+        cart = client.get(reverse('demoshop:cart', kwargs={'shop_slug': shop.slug}))
+        self.assertContains(cart, 'Шкіра')
+        self.assertContains(cart, 'Шавлія')
+        self.assertContains(cart, '50\xa0900')
+
+        quick = client.post(
+            reverse('demoshop:furniture_quick_buy', kwargs={'shop_slug': shop.slug}),
+            {'name': 'Олена', 'phone': '+380501234567', 'product_slug': sofa.slug},
+        )
+        self.assertEqual(quick.status_code, 200)
+        self.assertContains(quick, 'furniture-quick-ok')
+        consult = client.post(
+            reverse('demoshop:furniture_consult', kwargs={'shop_slug': shop.slug}),
+            {'name': 'Олена', 'phone': '+380501234567'},
+        )
+        self.assertEqual(consult.status_code, 200)
+        self.assertContains(consult, 'furniture-consult-ok')
+        bad = client.post(
+            reverse('demoshop:furniture_consult', kwargs={'shop_slug': shop.slug}),
+            {'name': '', 'phone': '1'},
+        )
+        self.assertNotContains(bad, 'furniture-consult-ok')
+
+        sitemap = client.get('/sitemap.xml').content.decode()
+        self.assertNotIn(proposal.slug, sitemap)
+        self.assertNotIn(shop.slug, sitemap)
+
+    def test_furniture_endpoints_closed_for_other_shops(self):
+        call_command('seed_proposal_jewelry')
+        shop = DemoShop.objects.get(proposal__slug='shop-jewelry-9d2b')
+        self.assertFalse(shop.furniture_mode)
+        client = Client()
+        product = shop.products.first()
+        url = reverse(
+            'demoshop:furniture_price',
+            kwargs={'shop_slug': shop.slug, 'product_slug': product.slug},
+        )
+        self.assertEqual(client.get(url).status_code, 404)
+        consult = reverse('demoshop:furniture_consult', kwargs={'shop_slug': shop.slug})
+        self.assertEqual(client.post(consult, {'name': 'x', 'phone': '380501234567'}).status_code, 404)
+        pdp = client.get(product.get_absolute_url())
+        self.assertNotContains(pdp, 'furniture-variants')
+        self.assertNotContains(pdp, 'Купити в 1 клік')
+        self.assertNotContains(client.get(shop.get_absolute_url()), 'demoshop_furniture.css')

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2560 1440" width="2560" height="1440" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9DFD0"/><stop offset="1" stop-color="#F1E9DD"/></linearGradient>
+    <linearGradient id="shade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1F1B17" stop-opacity="0.55"/><stop offset="0.7" stop-color="#1F1B17" stop-opacity="0.05"/></linearGradient>
+  </defs>
+  <rect width="2560" height="1440" fill="url(#wall)"/>
+  <rect y="1040" width="2560" height="400" fill="#D3BF9F"/>
+  <rect y="1036" width="2560" height="6" fill="#9C7549" opacity="0.35"/>
+  <rect x="1500" y="220" width="620" height="520" fill="#F7F2E9" stroke="#9C7549" stroke-width="10"/>
+  <rect x="1510" y="230" width="600" height="500" fill="#E3D8C6"/>
+  <rect x="1790" y="230" width="8" height="500" fill="#9C7549" opacity="0.5"/>
+  <ellipse cx="1700" cy="1080" rx="760" ry="48" fill="#1F1B17" opacity="0.16"/>
+  <rect x="1120" y="720" width="1160" height="300" rx="46" fill="#CFC4B2"/>
+  <rect x="1080" y="820" width="140" height="260" rx="52" fill="#CFC4B2"/>
+  <rect x="2180" y="820" width="140" height="260" rx="52" fill="#CFC4B2"/>
+  <rect x="1180" y="860" width="1000" height="170" rx="36" fill="#FFFFFF" opacity="0.2"/>
+  <rect x="1180" y="600" width="1000" height="200" rx="52" fill="#CFC4B2"/>
+  <rect x="1220" y="660" width="260" height="70" rx="30" fill="#6B2D2D"/>
+  <rect x="1160" y="1050" width="46" height="90" rx="10" fill="#9C7549"/>
+  <rect x="2194" y="1050" width="46" height="90" rx="10" fill="#9C7549"/>
+  <rect x="1330" y="1090" width="680" height="46" rx="16" fill="#C19A6B"/>
+  <rect x="1380" y="1136" width="40" height="150" rx="10" fill="#9C7549"/>
+  <rect x="1920" y="1136" width="40" height="150" rx="10" fill="#9C7549"/>
+  <rect x="2380" y="420" width="12" height="640" fill="#3A2E27"/>
+  <path d="M2300 420 L2472 420 L2430 300 L2342 300 Z" fill="#F1E3C8"/>
+  <rect x="2330" y="1050" width="120" height="14" rx="7" fill="#3A2E27"/>
+  <rect width="2560" height="1440" fill="url(#shade)"/>
+</svg>

@@ -6,7 +6,7 @@
 """
 from django.urls import path
 
-from . import views
+from . import views, views_furniture
 
 app_name = 'demoshop'
 
@@ -16,6 +16,9 @@ urlpatterns = [
     path('<str:shop_slug>/catalog/', views.catalog, name='catalog'),
     path('<str:shop_slug>/promotions/', views.promotions, name='promotions'),
     path('<str:shop_slug>/product/<str:product_slug>/', views.product_detail, name='product_detail'),
+    path('<str:shop_slug>/product/<str:product_slug>/price/', views_furniture.price_switch, name='furniture_price'),
+    path('<str:shop_slug>/furniture/quick-buy/', views_furniture.quick_buy, name='furniture_quick_buy'),
+    path('<str:shop_slug>/furniture/consult/', views_furniture.consult, name='furniture_consult'),
     path('<str:shop_slug>/wishlist/', views.wishlist, name='wishlist'),
     path('<str:shop_slug>/cart/', views.cart_view, name='cart'),
     path('<str:shop_slug>/cart/add/', views.cart_add, name='cart_add'),

@@ -83,7 +83,7 @@
             <div class="ds-summary-lines">
                 {% for line in cart_lines %}
                 <div class="ds-summary-line">
-                    <span>{{ line.product.localized_name }} × {{ line.qty }}</span>
+                    <span>{{ line.product.localized_name }}{% if line.variant_label %} ({{ line.variant_label }}){% endif %} × {{ line.qty }}</span>
                     <span>{{ line.line_total|money }} {% currency_symbol %}</span>
                 </div>
                 {% endfor %}

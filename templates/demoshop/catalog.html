@@ -13,6 +13,9 @@
                 <button type="button" class="ds-filter-sidebar__close" data-ds-filter-close aria-label="{% if shop.quote_mode %}{{ cs.close_filters }}{% else %}{% trans "Закрити фільтри" %}{% endif %}">×</button>
             </div>
             <form action="." method="get" id="ds-filter-form">
+{% if shop.furniture_mode %}
+{% include 'demoshop/partials/_furniture_filters.html' %}
+{% else %}
                 <p class="ds-filter-sidebar__title">{% if shop.quote_mode %}{{ cs.categories }}{% else %}{% trans "Категорії" %}{% endif %}</p>
                 <div class="ds-filter-list">
                     <a class="ds-filter-link {% if not current_category %}is-active{% endif %}" href="{% url 'demoshop:catalog' shop_slug=shop.slug %}">
@@ -26,12 +29,14 @@
                     {% endfor %}
                 </div>
 
+{% endif %}
+
                 <div class="ds-mt-8">
                     <p class="ds-filter-sidebar__title">{% if shop.quote_mode %}{{ cs.search }}{% else %}{% trans "Пошук" %}{% endif %}</p>
                     <input id="ds-search-input" class="ds-search-input" type="search" name="q" value="{{ query }}" placeholder="{% if shop.quote_mode %}{{ cs.search_placeholder }}{% else %}{% trans "Назва товару…" %}{% endif %}">
                 </div>
                 
-                {% if materials %}
+                {% if materials and not shop.furniture_mode %}
                 <div class="ds-mt-8">
                     <p class="ds-filter-sidebar__title">{% if shop.quote_mode %}{{ cs.material }}{% else %}{% trans "Матеріал" %}{% endif %}</p>
                     <div class="ds-filter-chips">

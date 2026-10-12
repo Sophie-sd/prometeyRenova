@@ -1,0 +1,9 @@
+{% load i18n %}
+{% if ok %}
+<p class="ds-furn-result ds-furn-result--ok" role="status" data-qa="furniture-{{ kind }}-ok">
+    {% if kind == 'quick' %}{% trans "Дякуємо! Заявку на швидке замовлення прийнято. Менеджер зателефонує протягом 15 хвилин (демо: нічого не надсилається)." %}
+    {% else %}{% trans "Дякуємо! Дизайнер зв’яжеться з вами для безкоштовної консультації (демо: нічого не надсилається)." %}{% endif %}
+</p>
+{% else %}
+<p class="ds-furn-result ds-furn-result--error" role="alert">{% trans "Вкажіть імʼя та телефон: щонайменше 9 цифр." %}</p>
+{% endif %}

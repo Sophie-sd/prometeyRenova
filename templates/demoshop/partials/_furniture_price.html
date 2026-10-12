@@ -1,0 +1,7 @@
+{% load demoshop_extras i18n %}
+<div class="ds-furn-price" id="ds-furn-price" data-qa="furniture-price" aria-live="polite">
+    <div class="ds-pdp-price-row">
+        <span class="ds-pdp-price">{{ variant_price|money }} {% currency_symbol %}</span>
+    </div>
+    {% if variant_label %}<p class="ds-furn-price__label">{{ variant_label }}</p>{% endif %}
+</div>

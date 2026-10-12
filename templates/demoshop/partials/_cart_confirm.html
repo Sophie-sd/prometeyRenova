@@ -8,14 +8,16 @@
 </a>
 <div class="ds-cart-toast" data-ds-cart-toast>
     <div class="ds-cart-toast__card" role="status">
-        {% if product.main_image %}
-        <img class="ds-cart-toast__img" src="{{ product.main_image.image|puburl }}" alt="" width="56" height="56">
+        {% product_img product as ds_img %}
+        {% if ds_img %}
+        <img class="ds-cart-toast__img" src="{{ ds_img }}" alt="" width="56" height="56">
         {% else %}
         <span class="ds-cart-toast__img" aria-hidden="true"></span>
         {% endif %}
         <div class="ds-cart-toast__copy">
             <p class="ds-cart-toast__kicker">{% trans "Додано в кошик" %}</p>
             <p class="ds-cart-toast__name">{{ product.localized_name }}</p>
+            {% if variant_label %}<p class="ds-cart-toast__variant">{{ variant_label }}</p>{% endif %}
             <a class="ds-cart-toast__go" href="{% url 'demoshop:cart' shop_slug=shop.slug %}">{% trans "До кошика" %}</a>
         </div>
         <button type="button" class="ds-cart-toast__x" data-ds-toast-close aria-label="{% trans "Закрити" %}">×</button>

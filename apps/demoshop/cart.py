@@ -3,6 +3,7 @@
 Ізоляція за shop_id критична: користувач може відкрити два різні демо-магазини
 в одній сесії браузера (два таби), кошики не повинні змішуватись.
 """
+from . import furniture
 from .catalog_models import ShopProduct
 
 
@@ -64,15 +65,31 @@ def cart_lines(session, shop_id: int):
     cart = get_cart(session, shop_id)
     if not cart:
         return [], 0
-    products = ShopProduct.objects.filter(shop_id=shop_id, pk__in=cart.keys(), is_active=True)
+    parsed = {key: furniture.parse_cart_key(key) for key in cart}
+    ids = {pid for pid, _sel in parsed.values() if pid.isdigit()}
+    products = ShopProduct.objects.filter(shop_id=shop_id, pk__in=ids, is_active=True)
     products_by_id = {str(p.pk): p for p in products}
     lines = []
     total = 0
-    for product_id, qty in cart.items():
-        product = products_by_id.get(str(product_id))
+    for key, qty in cart.items():
+        pid, selection = parsed[key]
+        product = products_by_id.get(pid)
         if not product:
             continue
-        line_total = product.price * qty
+        variant_label = ''
+        unit_price = product.price
+        if selection and furniture.has_variants(product):
+            resolved = furniture.resolve(product, selection)
+            unit_price = resolved['unit_price']
+            variant_label = resolved['label']
+        line_total = unit_price * qty
         total += line_total
-        lines.append({'product': product, 'qty': qty, 'line_total': line_total})
+        lines.append({
+            'key': key,
+            'product': product,
+            'qty': qty,
+            'unit_price': unit_price,
+            'variant_label': variant_label,
+            'line_total': line_total,
+        })
     return lines, total
