@@ -673,3 +673,17 @@
     .hf-hero__content::before { height: 220px; transform: translate(-50%, -10px); }
     .hf-hero__title { filter: drop-shadow(0 3px 14px rgba(0, 0, 0, .55)) drop-shadow(0 1px 2px rgba(0, 0, 0, .35)); }
 }
+
+/* ===== Hero v6: легка прозорість заголовка (~.82), м'якша тінь і скрим ===== */
+.hf-hero__content::before {
+    background: radial-gradient(closest-side, rgba(0, 0, 0, .28), rgba(0, 0, 0, .1) 60%, rgba(0, 0, 0, 0));
+}
+.hf-hero__title {
+    background: linear-gradient(180deg, rgba(255, 255, 255, .84) 0%, rgba(251, 247, 243, .82) 45%, rgba(236, 220, 208, .8) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, .35));
+}
+@media (max-width: 767px) {
+    .hf-hero__title { filter: drop-shadow(0 3px 12px rgba(0, 0, 0, .35)); }
+}
