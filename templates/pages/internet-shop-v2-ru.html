@@ -64,7 +64,8 @@
 {% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=204">
+<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=205">
+<link rel="stylesheet" href="{% static 'css/components/clients-marquee.css' %}?v=1">
 {% endblock %}
 
 {% block content %}
@@ -84,5 +85,6 @@
 {% block extra_js %}
 <script src="{% static 'js/internet-shop-v2-admin-mock.js' %}?v=5" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/internet-shop-v2-quiz.js' %}?v=17" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/internet-shop-v2.js' %}?v=24" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/components/clients-marquee.js' %}?v=1" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-v2.js' %}?v=25" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

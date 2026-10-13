@@ -550,15 +550,7 @@ body.pl-shop-body .main-footer .container,
     transform: translate3d(0, 0, 0);
 }
 
-.pl-shop__clients-stories-container.marquee-active {
-    animation: pl-shop-marquee 40s linear infinite;
-    will-change: transform;
-}
-
-@keyframes pl-shop-marquee {
-    from { transform: translate3d(0, 0, 0); }
-    to { transform: translate3d(calc(-1 * var(--marquee-distance, 0px)), 0, 0); }
-}
+/* Анімація стрічки: static/css/components/clients-marquee.css ([data-clients-marquee]). */
 
 .pl-shop__clients .project-story-wrap {
     flex: 0 0 auto;
@@ -2769,10 +2761,6 @@ body.pl-shop-body .main-footer .container,
         animation-iteration-count: 1;
         transition-duration: 0.01ms;
         scroll-behavior: auto;
-    }
-
-    .pl-shop__clients-stories-container.marquee-active {
-        animation: none;
     }
 
     .pl-shop__clients-track {
