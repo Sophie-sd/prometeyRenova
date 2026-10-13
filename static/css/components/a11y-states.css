@@ -1,0 +1,68 @@
+/* =====================================================================
+   A11y interaction states (WCAG AA ≥ 4.5:1) — site-wide, loaded LAST.
+   Змінює лише :hover / :focus-visible / :active (нормальний стан не чіпаємо).
+   Канон:
+   • «світлі» кнопки (білий фон + помаранчевий текст) → білий фон + #111;
+   • «скляні/ghost» над фото → білий фон + #111;
+   • помаранчеві заливки (білий текст) → темніший бренд #B8410C + білий текст (5.3:1).
+   !important свідомо: перекриває специфічні page-CSS лише в інтерактивних станах.
+   Демо (demoshop/demolanding/democorp) цей файл НЕ підключають.
+   ===================================================================== */
+
+/* 1) Light + ghost → solid white / near-black text */
+:is(.hf-btn--light, .hf-btn--ghost, .pl-shop__btn--light, .pl-corp__btn--light,
+    .ctf-form__btn, .tgf-btn--light, .btn.btn-primary, .pl-tz__sticky-btn):is(:hover, :focus-visible, :active) {
+    background: #fff !important;
+    background-color: #fff !important;
+    color: #111 !important;
+    border-color: #fff !important;
+    -webkit-text-fill-color: #111 !important;
+}
+:is(.hf-btn--light, .hf-btn--ghost, .pl-shop__btn--light, .pl-corp__btn--light,
+    .ctf-form__btn, .tgf-btn--light, .btn.btn-primary):is(:hover, :focus-visible, :active) :is(span, b, strong) {
+    color: #111 !important;
+}
+
+/* 2) Orange fills / buttons that turn orange on hover → darker brand orange + white */
+:is(.hf-btn--brand, .pl-shop__btn--accent, .pl-corp__btn--accent, .pl-rs__cta, .calc-cta-btn,
+    .btn.btn-secondary, .btn.footer-submit-btn, .search-button, .lang-suggest__yes, .lang-btn,
+    .prop-cta--fill):is(:hover, :focus-visible, :active) {
+    background: #b8410c !important;
+    background-color: #b8410c !important;
+    border-color: #b8410c !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+:is(.hf-btn--brand, .pl-shop__btn--accent, .pl-corp__btn--accent, .pl-rs__cta, .calc-cta-btn,
+    .btn.btn-secondary, .btn.footer-submit-btn, .prop-cta--fill):is(:hover, :focus-visible, :active) :is(span, b, strong) {
+    color: #fff !important;
+}
+/* footer submit inherits .btn-primary → orange variant wins */
+.btn.btn-primary.footer-submit-btn:is(:hover, :focus-visible, :active) {
+    background: #b8410c !important; color: #fff !important; -webkit-text-fill-color: #fff !important; border-color: #b8410c !important;
+}
+
+/* 3) Currency switcher */
+.fx-btn--current, .fx-btn--current:is(:hover, :focus-visible, :active) {
+    background-color: #b8410c !important;
+    color: #fff !important;
+}
+.fx-btn:not(.fx-btn--current):is(:hover, :focus-visible) { color: #111 !important; background-color: #fff !important; }
+
+/* 4) Text-like controls on dark */
+.nav-dropdown__toggle:is(:hover, :focus-visible) { color: #fff !important; background-color: rgba(0, 0, 0, .55) !important; border-radius: 8px; }
+.prop-cta:not(.prop-cta--fill):is(:hover, :focus-visible) { color: #ff9a62 !important; background-color: #140b06 !important; }
+.pl-rs__screen-tab:is(:hover, :focus-visible) { color: #fff !important; background-color: #7a2c08 !important; }
+
+/* Видимий фокус для клавіатури */
+:is(.hf-btn, .pl-shop__btn, .pl-corp__btn, .ctf-form__btn, .tgf-btn, .btn, .pl-rs__cta, .calc-cta-btn, .prop-cta, .fx-btn, .lang-btn):focus-visible {
+    outline: 2px solid #fff !important;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 5px rgba(184, 65, 12, .65);
+}
+
+/* lang-suggest: brightness-фільтр на hover опускав контраст до 4.3:1 */
+.lang-suggest__yes:is(:hover, :focus-visible) { filter: none !important; background: #b8410c !important; border-color: #b8410c !important; }
+
+/* Нормальний стан теж <4.5:1 (білий 16px на #E65100 = 3.8:1) → AA-варіант бренду, як у lang-suggest (#c44e00) */
+.calc-cta-btn { background-color: #c44e00 !important; }
