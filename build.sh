@@ -149,4 +149,7 @@ python manage.py seed_proposal_intim_shop
 echo "📄 Seeding 3DS corporate proposal + classic demo-corp..."
 python manage.py seed_proposal_3ds
 
+echo "📄 Seeding cosmetics shop proposal + standard demo-shop..."
+python manage.py seed_proposal_cosmetics_shop
+
 echo "✅ Build complete!"
