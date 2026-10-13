@@ -7,279 +7,35 @@
 {% block og_title %}{{ og_title }}{% endblock %}
 
 {% block page_css %}
-<!-- Critical: приховати piano-елементи, що інакше блимають видимими на мілісекунди
-     до завантаження async CSS (services_piano_block.css/_mob.css). Навмисно БЕЗ
-     #svc-piano-префіксу — нижча специфічність, тож справжні ID-правила з тих
-     файлів коректно перевизначають це після завантаження (flip/hover не ламаються). -->
-<style>
-.svc-piano__mob-face--back{display:none}
-.svc-piano__rise{opacity:0;visibility:hidden;pointer-events:none}
-</style>
+{# Головна за Figma 7uoVJKPxBEi4MiARfaDeZV (Desktop 1:27 / Mobile 1:413). #}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="{% static 'css/home.css' %}?v=8" as="style">
-<link rel="stylesheet" href="{% static 'css/home.css' %}?v=8" media="print" data-async-css>
-<link rel="preload" href="{% static 'css/components/marquee-why-choose.css' %}" as="style">
-<link rel="stylesheet" href="{% static 'css/components/marquee-why-choose.css' %}" media="print" data-async-css>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Unbounded:wght@400;500;600&family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" as="style" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Unbounded:wght@400;500;600&family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" media="print" data-async-css crossorigin>
-<link rel="preload" href="{% static 'css/home-redesign/home-redesign-v2.css' %}?v=2" as="style">
-<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v2.css' %}?v=2" media="print" data-async-css>
-<link rel="preload" href="{% static 'css/home-redesign/home-redesign-v3.css' %}?v=2" as="style">
-<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v3.css' %}?v=2" media="print" data-async-css>
-<link rel="preload" href="{% static 'css/home-redesign/home-redesign-final.css' %}" as="style">
-<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-final.css' %}" media="print" data-async-css>
-<link rel="preload" href="{% static 'css/home-redesign/home-redesign-bridge.css' %}?v=7" as="style">
-<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-bridge.css' %}?v=7" media="print" data-async-css>
-<link rel="preload" href="{% static 'css/process_block.css' %}?v=45" as="style">
-<link rel="stylesheet" href="{% static 'css/process_block.css' %}?v=45" media="print" data-async-css>
-<link rel="preload" href="{% static 'css/services_piano_block.css' %}?v=48" as="style">
-<link rel="stylesheet" href="{% static 'css/services_piano_block.css' %}?v=48" media="print" data-async-css>
-<link rel="preload" href="{% static 'css/services_piano_block_mob.css' %}?v=14" as="style">
-<link rel="stylesheet" href="{% static 'css/services_piano_block_mob.css' %}?v=14" media="print" data-async-css>
-<link rel="preload" href="{% static 'css/services_piano_video.css' %}?v=34" as="style">
-<link rel="stylesheet" href="{% static 'css/services_piano_video.css' %}?v=34" media="print" data-async-css>
-<noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" crossorigin>
+<link rel="preload" as="image" href="{% static 'images/home-figma/hero-bg.webp' %}" imagesrcset="{% static 'images/home-figma/hero-bg-800.webp' %} 800w, {% static 'images/home-figma/hero-bg.webp' %} 1586w" imagesizes="(max-width: 767px) 1276px, 1586px">
+{# home.css — лише заради стилів сервісних модалок (service_modals.html) #}
 <link rel="stylesheet" href="{% static 'css/home.css' %}?v=8">
-<link rel="stylesheet" href="{% static 'css/components/marquee-why-choose.css' %}">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Unbounded:wght@400;500;600&family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v2.css' %}?v=2">
-<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-v3.css' %}?v=2">
-<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-final.css' %}">
-<link rel="stylesheet" href="{% static 'css/home-redesign/home-redesign-bridge.css' %}?v=7">
-<link rel="stylesheet" href="{% static 'css/process_block.css' %}?v=45">
-<link rel="stylesheet" href="{% static 'css/services_piano_block.css' %}?v=48">
-<link rel="stylesheet" href="{% static 'css/services_piano_block_mob.css' %}?v=14">
-<link rel="stylesheet" href="{% static 'css/services_piano_video.css' %}?v=34">
-</noscript>
+<link rel="stylesheet" href="{% static 'css/home-figma/home-figma.css' %}?v=3">
 {% endblock %}
 
 {% block content %}
-<!-- Hero Section з фоновим відео -->
-<section class="hero-section full-height">
-    <!-- Єдине фонове відео (SHARED між hero, piano та CTA). Джерело обирається
-         <source media>, щоб не тягнути обидва варіанти одночасно (perf). -->
-    <video class="video-background" autoplay muted loop playsinline preload="auto"
-        data-shared-video="main" data-video-role="leader">
-        <source src="{% static 'videos/mobile/mainmobile.mp4' %}" type="video/mp4" media="(max-width: 767px)">
-        <source src="{% static 'videos/desktop/main.mp4' %}" type="video/mp4">
-    </video>
-
-    <!-- Overlay для кращої читабельності -->
-    <div class="video-overlay"></div>
-
-    <div class="hero-content">
-        <div class="container">
-            <div class="hero-text text-center">
-                <h1 class="text-mega color-brand-orange mb-lg">PrometeyLabs</h1>
-                <p class="text-large color-white mb-xl">
-                    <span class="hero-services">{% trans "сайти" %}</span> ·
-                    <span class="hero-services">{% trans "мобільні застосунки" %}</span> ·
-                    <span class="hero-services">{% trans "telegram боти" %}</span> ·
-                    <span class="hero-services">{% trans "реклама" %}</span> ·
-                    <span class="hero-services">{% trans "ведення соціальних мереж" %}</span> ·
-                    <span class="hero-services">{% trans "навчання" %}</span>
-                </p>
-
-                <!-- CTA Buttons -->
-                <div class="hero-buttons">
-                    <a href="https://t.me/prometeylabs" class="btn btn-primary mobile-touch-target" target="_blank"
-                        rel="noopener">
-                        {% trans "Написати в телеграм" %}
-                    </a>
-                    <a href="{% url 'calculator' %}" class="btn btn-secondary mobile-touch-target">
-                        {% trans "Розрахувати вартість онлайн" %}
-                    </a>
-                    <button type="button" class="btn btn-secondary mobile-touch-target" data-modal="call-request-modal">
-                        {% trans "Залишити заявку" %}
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="services-marquee" aria-label="{% trans 'Наші послуги' %}">
-    <div class="marquee-track">
-        <div class="marquee-content">
-            <span class="marquee-item">{% trans "Сайти під ключ" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Корпоративні сайти" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Інтернет-магазини" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Мобільні застосунки" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Telegram-боти" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Веб-додатки" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">CRM</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Реклама та просування" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "UX/UI дизайн" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Навчання IT та AI" %}</span>
-            <span class="marquee-separator">•</span>
-        </div>
-        <div class="marquee-content" aria-hidden="true">
-            <span class="marquee-item">{% trans "Сайти під ключ" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Корпоративні сайти" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Інтернет-магазини" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Мобільні застосунки" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Telegram-боти" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Веб-додатки" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">CRM</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Реклама та просування" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "UX/UI дизайн" %}</span>
-            <span class="marquee-separator">•</span>
-            <span class="marquee-item">{% trans "Навчання IT та AI" %}</span>
-            <span class="marquee-separator">•</span>
-        </div>
-    </div>
-</section>
-
-<div class="home-redesign vf" id="home-redesign-why">
-    {% include 'components/home/redesign_why.html' %}
-</div>
-
-<div class="home-redesign vf" id="home-redesign">
-    <div class="v3-bg-glow v3-glow-a" aria-hidden="true"></div>
-    <div class="v3-bg-glow v3-glow-b" aria-hidden="true"></div>
-    <div class="v3-bg-grid" aria-hidden="true"></div>
-
-    {% include 'components/home/home_process_intro.html' %}
-    {% include 'components/process_block.html' %}
-</div>
-
-{% include 'components/home/redesign_services_piano.html' %}
-
-<div class="home-redesign vf home-redesign--tail">
-    {% include 'components/home/redesign_clients.html' %}
-</div>
-
-{% include 'components/home/redesign_cta.html' %}
-<!-- Модальні вікна послуг -->
-<div class="modal" id="service-web-modal" role="dialog" aria-labelledby="service-web-title" aria-hidden="true">
-    <div class="modal-backdrop"></div>
-    <div class="modal-content service-modal-content">
-        <button class="modal-close" type="button" aria-label="{% trans 'Закрити' %}">&times;</button>
-        <div class="modal-header">
-            <h3 class="text-medium color-brand-orange mb-sm" id="service-web-title">{% trans "Web-розробка" %}</h3>
-        </div>
-        <div class="service-modal-body">
-            <ul class="service-list">
-                <li><strong>{% trans "Сайти під ключ" %}</strong>{% trans "Landing, корпоративні, багатосторінкові з SEO" %}</li>
-                <li><strong>E-commerce</strong>{% trans "Каталог, оплати, доставки, інтеграції з маркетплейсами" %}</li>
-                <li><strong>{% trans "Веб-додатки / SaaS" %}</strong>{% trans "Особисті кабінети, підписки, аналітика, білінг" %}</li>
-                <li><strong>{% trans "Telegram-боти" %}</strong>{% trans "Автоматизація, продажі, інтеграції з CRM та платіжними системами" %} — <a href="{% url 'telegram_bot' %}">{% trans "замовити бота" %}</a></li>
-                <li><strong>{% trans "Оновлення проєктів" %}</strong>{% trans "Редизайн, прискорення, безпека, перенесення" %}</li>
-            </ul>
-            <h4 class="service-subtitle">{% trans "Робота включає:" %}</h4>
-            <p class="service-text">{% trans "Прототипування → UI/UX → верстка → бекенд → інтеграції → адмін-панель → деплой → SEO → аналітика → тестування → запуск" %}</p>
-            <h4 class="service-subtitle">{% trans "Технології:" %}</h4>
-            <p class="service-text">React, Next.js, Vue, Node.js, Django, PostgreSQL, MongoDB, Docker, AWS, Firebase, WordPress</p>
-        </div>
+<div class="hf">
+    {% include 'components/home_figma/hero.html' %}
+    {% include 'components/home_figma/why.html' %}
+    {% include 'components/home_figma/process.html' %}
+    {% include 'components/home_figma/services.html' %}
+    <div class="hf-finale">
+        <img class="hf-finale__bg" src="{% static 'images/home-figma/clients-bg.webp' %}" width="1671" height="941" alt="" loading="lazy" decoding="async">
+        {% include 'components/home_figma/clients.html' %}
+        {% include 'components/home_figma/cta.html' %}
     </div>
 </div>
-
-<div class="modal" id="service-mobile-modal" role="dialog" aria-labelledby="service-mobile-title" aria-hidden="true">
-    <div class="modal-backdrop"></div>
-    <div class="modal-content service-modal-content">
-        <button class="modal-close" type="button" aria-label="{% trans 'Закрити' %}">&times;</button>
-        <div class="modal-header">
-            <h3 class="text-medium color-brand-orange mb-sm" id="service-mobile-title">{% trans "Мобільні застосунки" %}</h3>
-        </div>
-        <div class="service-modal-body">
-            <ul class="service-list">
-                <li><strong>{% trans "Розробка з нуля" %}</strong>{% trans "iOS/Android додатки для e-commerce, CRM, фінанси, освіта" %}</li>
-                <li><strong>{% trans "Оплати та підписки" %}</strong>{% trans "Apple Pay, Google Pay, in-app покупки, регулярні підписки" %}</li>
-                <li><strong>{% trans "Push та аналітика" %}</strong>{% trans "Персоналізовані повідомлення, трекінг, метрики утримання" %}</li>
-                <li><strong>{% trans "Адмін-панель" %}</strong>{% trans "Керування контентом, користувачами, інтеграції з API" %}</li>
-                <li><strong>{% trans "Оновлення" %}</strong>{% trans "Редизайн, прискорення, адаптація під нові версії iOS/Android" %}</li>
-            </ul>
-            <h4 class="service-subtitle">{% trans "Робота включає:" %}</h4>
-            <p class="service-text">{% trans "UX-прототип → дизайн → кросплатформенна розробка → інтеграції → push та аналітика → тестування → публікація App Store/Google Play → підтримка" %}</p>
-            <h4 class="service-subtitle">{% trans "Технології:" %}</h4>
-            <p class="service-text">React Native, Flutter, Swift, Kotlin, Firebase, REST/GraphQL API, PostgreSQL, MongoDB</p>
-        </div>
-    </div>
-</div>
-
-<div class="modal" id="service-smm-modal" role="dialog" aria-labelledby="service-smm-title" aria-hidden="true">
-    <div class="modal-backdrop"></div>
-    <div class="modal-content service-modal-content">
-        <button class="modal-close" type="button" aria-label="{% trans 'Закрити' %}">&times;</button>
-        <div class="modal-header">
-            <h3 class="text-medium color-brand-orange mb-sm" id="service-smm-title">{% trans "Реклама та ведення соціальних мереж" %}</h3>
-        </div>
-        <div class="service-modal-body">
-            <h4 class="service-subtitle">{% trans "Реклама:" %}</h4>
-            <p class="service-text">{% trans "Google Ads (пошук, торгові, YouTube) • Meta Ads (трафік, ліди, Direct) • TikTok Ads (нативні інтеграції, Spark Ads) • SEO (аудит, оптимізація, контент)" %}</p>
-            <p class="service-text">{% trans "Налаштування кабінетів, аналіз конкурентів, формування бюджету, запуск кампаній, прозора звітність, регулярна оптимізація." %}</p>
-            <h4 class="service-subtitle">{% trans "SMM: Instagram / TikTok / Facebook" %}</h4>
-            <p class="service-text">{% trans "Контент-стратегія • Контент-план • Продакшн (рілси, сторіз, UGC) • Модерація • Інтеграції та колаборації • Конкурси • Запуск реклами • Щомісячна аналітика" %}</p>
-            <h4 class="service-subtitle">{% trans "Контент:" %}</h4>
-            <ul class="service-list">
-                <li><strong>{% trans "Брендинг" %}</strong>{% trans "Логотипи, гайдлайни, візитки, шаблони, презентації, банери" %}</li>
-                <li><strong>{% trans "Фото/Відео/AI" %}</strong>{% trans "Пости, каруселі, сторіз, Reels/Shorts, AI-відео, AI-аватари, субтитри" %}</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<div class="modal" id="service-ai-modal" role="dialog" aria-labelledby="service-ai-title" aria-hidden="true">
-    <div class="modal-backdrop"></div>
-    <div class="modal-content service-modal-content">
-        <button class="modal-close" type="button" aria-label="{% trans 'Закрити' %}">&times;</button>
-        <div class="modal-header">
-            <h3 class="text-medium color-brand-orange mb-sm" id="service-ai-title">{% trans "Автоматизація AI" %}</h3>
-        </div>
-        <div class="service-modal-body">
-            <p class="service-text">{% trans "Вбудовуємо штучний інтелект у ваш сайт і бізнес-процеси: автоматизація запитів, інтелектуальні асистенти та інтеграції з CRM і месенджерами — під ключ." %}</p>
-            <h4 class="service-subtitle">{% trans "Що входить:" %}</h4>
-            <ul class="service-list">
-                <li><strong>{% trans "AI-консультант на сайті" %}</strong>{% trans "Відповіді клієнтам 24/7, збір заявок, FAQ" %}</li>
-                <li><strong>{% trans "Обробка заявок" %}</strong>{% trans "Класифікація, маршрутизація, сповіщення менеджерам" %}</li>
-                <li><strong>{% trans "Інтеграції" %}</strong>{% trans "CRM, Telegram, email, платіжні та зовнішні API" %}</li>
-                <li><strong>{% trans "Автоматизація рутини" %}</strong>{% trans "Звіти, нагадування, оновлення даних без ручної роботи" %}</li>
-                <li><strong>{% trans "Налаштування під ТЗ" %}</strong>{% trans "Промпти, сценарії та обмеження під ваш бізнес" %}</li>
-            </ul>
-            <h4 class="service-subtitle">{% trans "Результат:" %}</h4>
-            <p class="service-text">{% trans "Менше рутини для команди, швидша реакція на клієнтів і масштабування support без пропорційного зростання витрат." %}</p>
-        </div>
-    </div>
-</div>
+{% include 'components/home/service_modals.html' %}
 {% endblock %}
 
 {% block base_js %}
-<!--
-    ВАЖЛИВО: home-bundle.js — це агрегат MobileCore + PrometeyApp + VideoSystem + Home.
-    Він замінює окремі core-скрипти з base.html. Будь-які правки у static/js/base.js
-    або static/js/mobile-core.js мають бути синхронізовані з static/js/home-bundle.js,
-    інакше фіча (напр. contact-widget) буде працювати всюди, крім головної.
-    gclid-capture.js підключається окремо, щоб заявки з головної отримували gclid/UTM
-    (див. home-bundle.js::submitForm).
--->
+{# home-bundle.js — агрегат MobileCore + PrometeyApp + VideoSystem + Home (модалки, форми, gclid). #}
 <script src="{% static 'js/core/gclid-capture.js' %}" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/core/ec-phone.js' %}" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/core/phone-mask.js' %}" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/home-bundle.js' %}?v=4" nonce="{{ csp_nonce }}" defer></script>
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'js/process_block_anim.js' %}?v=45" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/process_block_popover.js' %}?v=43" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/process_block.js' %}?v=43" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/services_piano_mob_scroll.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/services_piano_block.js' %}?v=14" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

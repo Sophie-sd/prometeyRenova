@@ -6128,9 +6128,6 @@ msgstr ""
 #~ msgid "Програмування та AI від нуля до працевлаштування"
 #~ msgstr "Programming & AI from zero to employment"
 
-#~ msgid "Наші клієнти"
-#~ msgstr "Our Clients"
-
 #~ msgid ""
 #~ "Програмування та AI від нуля до реальних проєктів. Практика на сучасних "
 #~ "технологіях, портфоліо та можливість працевлаштування в PrometeyLabs."
@@ -6676,9 +6673,6 @@ msgstr ""
 #~ msgid "Безкоштовно"
 #~ msgstr "Free"
 
-#~ msgid "Онлайн"
-#~ msgstr "Online"
-
 #~ msgid "Місця:"
 #~ msgstr "Spots:"
 
@@ -6953,3 +6947,178 @@ msgstr "Closed"
 msgid "Редагувати"
 msgstr "Edit"
 
+msgid "Чому варто обрати"
+msgstr "Why choose"
+
+msgid "Базові терміни виконання"
+msgstr "Standard delivery times"
+
+msgid "Прозорі строки, яких ми дотримуємося"
+msgstr "Transparent timelines we stick to"
+
+msgid ""
+"Точний час розробки залежить від складності дизайну, інтеграцій та "
+"функціоналу — визначаємо на консультації"
+msgstr ""
+"Exact development time depends on design complexity, integrations and "
+"functionality — we define it during the consultation"
+
+msgid "Справедлива вартість та гнучкі умови оплати"
+msgstr "Fair pricing and flexible payment terms"
+
+msgid "Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов"
+msgstr "We split payment into stages — no overpayments or hidden terms"
+
+msgid "Гарантія включає"
+msgstr "The warranty includes"
+
+msgid "Річна гарантія на наші продукти"
+msgstr "1-year warranty on our products"
+
+msgid ""
+"Не включає: нові функції, оновлення дизайну, інтеграції з новими сервісами"
+msgstr ""
+"Not included: new features, design updates, integrations with new services"
+
+msgid "AI-автоматизація"
+msgstr "AI automation"
+
+msgid "Впровадження ШІ у ваші бізнес-задачі"
+msgstr "Bringing AI into your business tasks"
+
+msgid ""
+"Результат: повна автоматизація взаємодії з клієнтами, оптимізація витрат та "
+"вихід на новий рівень цифрового сервісу"
+msgstr ""
+"Result: fully automated customer interaction, lower costs and a new level of"
+" digital service"
+
+msgid "Як ми створюємо сайт"
+msgstr "How we build a website"
+
+msgid "Виконання правок"
+msgstr "Revisions"
+
+msgid "Telegram - консультація"
+msgstr "Telegram consultation"
+
+msgid "Відповідь протягом робочого дня"
+msgstr "Reply within one business day"
+
+msgid "Наші клієнти"
+msgstr "Our clients"
+
+msgid "Веброзробка"
+msgstr "Web development"
+
+msgid ""
+"Сайти під ключ, лендінги, інтернет-магазини, вебзастосунки та Telegram-боти."
+msgstr ""
+"Turnkey websites, landing pages, online stores, web apps and Telegram bots."
+
+msgid ""
+"iOS та Android-застосунки із сучасним дизайном і зручним користувацьким "
+"досвідом"
+msgstr "iOS and Android apps with modern design and a smooth user experience"
+
+msgid "Реклама та SMM"
+msgstr "Advertising & SMM"
+
+msgid ""
+"Google Ads, Meta Ads, TikTok Ads, SMM і створення контенту для соціальних "
+"мереж"
+msgstr ""
+"Google Ads, Meta Ads, TikTok Ads, SMM and social media content creation"
+
+msgid ""
+"Інтеграція штучного інтелекту в сайти, CRM та бізнес-процеси — від AI-"
+"консультантів до автоматизації рутинних завдань."
+msgstr ""
+"AI integration into websites, CRM and business processes — from AI "
+"assistants to automating routine tasks."
+
+msgid "Онлайн"
+msgstr "Online"
+
+msgid "Вітаю. Оберіть дію в меню — зберу заявку і передам менеджеру"
+msgstr ""
+"Hello. Choose an action in the menu — I will take your request and pass it "
+"to a manager"
+
+msgid "Ім'я та телефон — передам у CRM команди"
+msgstr "Name and phone — I'll pass them to the team's CRM"
+
+msgid "Олена, +380 63 123 45 67"
+msgstr "Olena, +380 63 123 45 67"
+
+msgid ""
+"Збирає контакти, фільтрує запити й передає менеджеру замість нічного "
+"листування в чаті"
+msgstr ""
+"Collects contacts, filters requests and hands them to a manager instead of "
+"late-night chat replies"
+
+msgid ""
+"Каталог, кошик і статуси доставки в чаті. Для магазину можна поєднати з "
+"окремим сайтом"
+msgstr ""
+"Catalogue, cart and delivery statuses in chat. For a store it can be "
+"combined with a separate website"
+
+msgid "Типові відповіді 24/7 і кнопка «людина», коли сценарій закінчується"
+msgstr "Standard answers 24/7 and a “human” button when the script runs out"
+
+msgid ""
+"Слот, підтвердження, нагадування — менше ручних дзвінків для салону, школи "
+"чи сервісу"
+msgstr ""
+"Slot, confirmation, reminder — fewer manual calls for a salon, school or "
+"service"
+
+msgid "MVP / Заявки"
+msgstr "MVP / Leads"
+
+msgid "Меню, фільтр запитів і заявка менеджеру"
+msgstr "Menu, request filter and a lead to the manager"
+
+msgid "Запис і статуси з передачею в CRM чи таблицю"
+msgstr "Bookings and statuses synced to CRM or a spreadsheet"
+
+msgid "Каталог/Оплата"
+msgstr "Catalogue/Payment"
+
+msgid "Оплата в чаті чи Mini App — лише якщо це треба вам"
+msgstr "Payment in chat or a Mini App — only if you need it"
+
+msgid ""
+"Підключаємо те, що підтвердимо на оцінці: CRM, оплата, таблиці, склад, сайт."
+" Не обіцяємо сервіси, яких команда не впроваджувала"
+msgstr ""
+"We connect what we confirm at the estimate: CRM, payments, spreadsheets, "
+"inventory, website. We don’t promise services the team hasn’t implemented"
+
+msgid "Це можна купити частинами,"
+msgstr "You can pay for it in instalments,"
+
+msgid "до 15 платежів"
+msgstr "up to 15 payments"
+
+msgctxt "portfolio"
+msgid ""
+"Наше портфоліо веб-сайтів під ключ. Приклади сучасних веб-рішень для різних "
+"сфер бізнесу."
+msgstr ""
+"Our portfolio of turnkey websites. Examples of modern web solutions for "
+"different industries."
+
+msgctxt "portfolio"
+msgid "Створені нами сайти під ключ"
+msgstr "Turnkey websites we have built"
+
+msgctxt "portfolio"
+msgid "Проєкти портфоліо"
+msgstr "Portfolio projects"
+
+msgctxt "portfolio"
+msgid "Проєкти портфоліо скоро з’являться."
+msgstr "Portfolio projects coming soon."

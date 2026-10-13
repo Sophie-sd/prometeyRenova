@@ -1,7 +1,7 @@
 {% load i18n fx_tags %}
-<ul id="fx-home-prices" class="v2-why-list"{% if oob %} hx-swap-oob="outerHTML"{% endif %}>
-    <li><span class="v2-li-key">{% trans "Лендінги:" %}</span><span class="v2-li-val">{% fx_range 250 400 %}</span></li>
-    <li><span class="v2-li-key">{% trans "Корпоративні сайти:" %}</span><span class="v2-li-val">{% fx_range 500 700 %}</span></li>
-    <li><span class="v2-li-key">{% trans "E-commerce:" %}</span><span class="v2-li-val">{% fx_range 800 1400 %}</span></li>
-    <li><span class="v2-li-key">{% trans "Веб-додатки:" %}</span><span class="v2-li-val">{% fx_range 1500 5000 %}</span></li>
+<ul id="fx-home-prices" class="hf-rows"{% if oob %} hx-swap-oob="outerHTML"{% endif %}>
+    <li class="hf-row"><span class="hf-row__key">{% trans "Лендінги" %}</span><span class="hf-row__val">{% fx_range 250 400 %}</span></li>
+    <li class="hf-row"><span class="hf-row__key">{% trans "Корпоративні сайти" %}</span><span class="hf-row__val">{% fx_range 500 700 %}</span></li>
+    <li class="hf-row"><span class="hf-row__key">{% trans "Інтернет-магазини" %}</span><span class="hf-row__val">{% fx_from 800 %}</span></li>
+    <li class="hf-row"><span class="hf-row__key">{% trans "Веб-додатки / SaaS" %}</span><span class="hf-row__val">{% fx_range 1500 5000 %}</span></li>
 </ul>
