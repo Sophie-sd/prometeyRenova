@@ -15,7 +15,6 @@ PAGES = (
     '/rozrobka-sajtiv/', '/ru/rozrobka-sajtiv/', '/en/rozrobka-sajtiv/',
     '/corporate-website-v2/', '/ru/corporate-website-v2/', '/en/corporate-website-v2/',
     '/internet-shop-v2/', '/ru/internet-shop-v2/', '/en/internet-shop-v2/',
-    '/internet-shop/', '/ru/internet-shop/', '/en/internet-shop/',
     '/calculator/', '/ru/calculator/',
 )
 
@@ -81,3 +80,18 @@ class WarrantyOneYearTests(TestCase):
     def test_telegram_bot_states_offer_one_year(self):
         html = self.client.get('/telegram-bot/').content.decode()
         self.assertIn('1 рік на багфікс', html)
+
+
+class OldInternetShopRedirectTests(TestCase):
+    def test_old_shop_urls_redirect_to_v2(self):
+        cases = {
+            '/internet-shop/': '/internet-shop-v2/',
+            '/ru/internet-shop/': '/ru/internet-shop-v2/',
+            '/en/internet-shop/': '/en/internet-shop-v2/',
+            '/internet-shop-ru/': '/ru/internet-shop-v2/',
+            '/internet-shop/?utm_source=x': '/internet-shop-v2/?utm_source=x',
+        }
+        for src, dst in cases.items():
+            r = self.client.get(src)
+            self.assertEqual(r.status_code, 301, src)
+            self.assertEqual(r['Location'], dst, src)

@@ -18,13 +18,25 @@ urlpatterns = [
     path('refund/', views.RefundPolicyView.as_view(), name='refund'),
     path('intellectual-property/', views.IntellectualPropertyView.as_view(), name='intellectual_property'),
     path('monobank-chastynamy/', views.MonobankChastView.as_view(), name='monobank_chastynamy'),
-    path('internet-shop/', views.InternetShopView.as_view(), name='internet_shop'),
+    path(
+        'internet-shop/',
+        RedirectView.as_view(
+            pattern_name='internet_shop_v2',
+            permanent=True,
+            query_string=True,
+        ),
+        name='internet_shop',
+    ),
     path('internet-shop-v2/', views.InternetShopV2View.as_view(), name='internet_shop_v2'),
     path('corporate-website-v2/', views.CorporateWebsiteV2View.as_view(), name='corporate_website_v2'),
     path('tz-dlia-saitu/', tz_views.TzGeneratorView.as_view(), name='tz_generator'),
     path('telegram-bot/', views.TelegramBotView.as_view(), name='telegram_bot'),
     path('rozrobka-sajtiv/', views.RozrobkaSajtivView.as_view(), name='rozrobka_sajtiv'),
-    path('internet-shop-ru/', views.InternetShopRuView.as_view(), name='internet_shop_ru'),
+    path(
+        'internet-shop-ru/',
+        RedirectView.as_view(url='/ru/internet-shop-v2/', permanent=True, query_string=True),
+        name='internet_shop_ru',
+    ),
     path(
         'corporate-website/',
         RedirectView.as_view(

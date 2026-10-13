@@ -209,39 +209,8 @@ class MonobankChastView(BasePageView):
     template_name = 'pages/monobank-chastynamy.html'
 
 
-class InternetShopView(BasePageView):
-    """
-    Serves the internet-shop landing page.
-    URL `/internet-shop/` → Ukrainian template, UA UI.
-    URL `/ru/internet-shop/` → Russian template, RU UI (i18n_patterns activates `ru`,
-    so all `{% trans %}` in shared components like header/footer render in Russian).
-    No redirect — the URL the user visits stays canonical.
-    """
-    page_title = _('Розробка інтернет-магазинів під ключ | PrometeyLabs')
-    meta_description = _('Розробка інтернет-магазинів під ключ від PrometeyLabs. Кастомний код, зручна адмінка, інтеграції з платіжними системами та Новою Поштою. Міграція з Prom, Rozetka.')
-    og_title = _('Інтернет-магазини під ключ — PrometeyLabs')
-
-    def get_template_names(self):
-        from django.utils import translation
-        if translation.get_language() == 'ru':
-            return ['pages/internet-shop-ru.html']
-        return ['pages/internet-shop.html']
-
-    def get_context_data(self, **kwargs):
-        from django.utils import translation
-        context = super().get_context_data(**kwargs)
-        if translation.get_language() == 'ru':
-            # Russian-specific overrides for SEO meta + lang-suggest popup
-            context['page_title'] = 'Разработка интернет-магазинов под ключ | PrometeyLabs'
-            context['meta_description'] = 'Разработка интернет-магазина под ключ от PrometeyLabs. Создание интернет-магазина с нуля, заказать интернет-магазин. Кастомный код, интеграции с платёжными системами, дропшиппинг-платформы.'
-            context['og_title'] = 'Интернет-магазин под ключ — PrometeyLabs'
-            context['lang_suggest_always'] = True
-            context['lang_suggest_uk_url'] = '/internet-shop/'
-        return context
-
-
 class InternetShopV2View(BasePageView):
-    """Нова landing-сторінка інтернет-магазинів (v2) — паралельно до /internet-shop/."""
+    """Нова landing-сторінка інтернет-магазинів (v2) — старий /internet-shop/ 301-редіректить сюди."""
     page_title = _('Створення інтернет-магазину під ключ від 800€ | PrometeyLabs')
     meta_description = _(
         'Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. '
@@ -302,17 +271,6 @@ class CorporateWebsiteV2View(BasePageView):
             context['lang_suggest_uk_url'] = '/corporate-website-v2/'
         return context
 
-
-class InternetShopRuView(BasePageView):
-    """
-    Legacy URL `/internet-shop-ru/` — kept for backward compatibility but 301-redirects
-    to the canonical `/ru/internet-shop/` so RU language stays active site-wide.
-    """
-    template_name = 'pages/internet-shop-ru.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        from django.shortcuts import redirect
-        return redirect('/ru/internet-shop/', permanent=True)
 
 class ThankYouView(BasePageView):
     template_name = 'pages/thank_you.html'
