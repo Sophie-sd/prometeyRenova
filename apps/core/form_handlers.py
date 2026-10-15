@@ -2,6 +2,8 @@
 Допоміжні функції для обробки форм
 """
 import re
+
+from apps.core.phone import normalize_phone
 import socket
 from smtplib import SMTPException, SMTPAuthenticationError, SMTPConnectError
 from django.http import JsonResponse
@@ -17,11 +19,8 @@ EMAIL_TIMEOUT = 10
 
 
 def validate_phone(phone):
-    """Валідація номера телефону — мінімум 7 цифр, будь-який формат."""
-    if not phone:
-        return False
-    digits = re.sub(r'\D', '', phone)
-    return len(digits) >= 7
+    """Валідація номера: UA +380 рівно 9 цифр, інші країни — за довжиною коду (див. apps.core.phone)."""
+    return normalize_phone(phone) is not None
 
 
 def validate_name(name):

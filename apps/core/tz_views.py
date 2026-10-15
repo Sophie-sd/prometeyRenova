@@ -20,6 +20,7 @@ from apps.core.form_handlers import (
     validate_phone,
 )
 from apps.core.mixins import BasePageView
+from apps.core.phone import normalize_phone
 from apps.core.views import _dispatch_async
 
 logger = logging.getLogger(__name__)
@@ -76,6 +77,7 @@ def handle_tz_submission(request):
         return create_form_response(False, _('Введіть коректне імʼя'))
     if not validate_phone(phone):
         return create_form_response(False, _('Введіть коректний номер телефону'))
+    phone = normalize_phone(phone)  # E.164
     if not _validate_email(email):
         return create_form_response(False, _('Введіть коректний email'))
 

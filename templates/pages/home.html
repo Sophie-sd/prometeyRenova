@@ -37,7 +37,7 @@
 {# home-bundle.js — агрегат MobileCore + PrometeyApp + VideoSystem + Home (модалки, форми, gclid). #}
 <script src="{% static 'js/core/gclid-capture.js' %}" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/core/ec-phone.js' %}" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/core/phone-mask.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/core/phone-mask.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/components/clients-marquee.js' %}?v=1" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/home-bundle.js' %}?v=4" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

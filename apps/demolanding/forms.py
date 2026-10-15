@@ -1,6 +1,8 @@
 """Форма заявки лендінгу. Honeypot перевіряється у view (тихий success, не 400)."""
 from django import forms
 
+from apps.core.phone_forms import PhoneCleanMixin
+
 from .lead_models import LandingLead
 
 
@@ -8,7 +10,7 @@ class TelInput(forms.TextInput):
     input_type = 'tel'
 
 
-class LandingLeadForm(forms.ModelForm):
+class LandingLeadForm(PhoneCleanMixin, forms.ModelForm):
     class Meta:
         model = LandingLead
         fields = ('name', 'phone', 'email', 'message')

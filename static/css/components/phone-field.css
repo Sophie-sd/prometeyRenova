@@ -1,0 +1,56 @@
+/* Shared phone field states (static/js/core/phone-mask.js). AA contrast on any background. */
+@keyframes phoneMaskAutofill { from { opacity: 1; } to { opacity: 1; } }
+input[data-phone-mask="on"]:-webkit-autofill { animation: phoneMaskAutofill 1ms; }
+
+input[data-phone-mask="on"] { font-variant-numeric: tabular-nums; }
+
+input.is-phone-invalid[aria-invalid="true"],
+input.is-phone-invalid[aria-invalid="true"]:focus,
+input.is-phone-invalid[aria-invalid="true"]:hover {
+    border-color: #f04438 !important;
+    box-shadow: 0 0 0 3px rgba(240, 68, 56, 0.28) !important;
+    outline-color: #f04438;
+}
+
+.phone-field-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4em;
+    flex-basis: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0.4rem 0 0;
+    padding: 0.45rem 0.7rem;
+    border-radius: 8px;
+    border-left: 3px solid #d92d20;
+    background: #fef3f2;           /* #b42318 on #fef3f2 ≈ 6.3:1 */
+    color: #b42318;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: left;
+    animation: phoneFieldErrorIn 0.18s ease-out;
+}
+.phone-field-error::before {
+    content: "!";
+    flex: 0 0 auto;
+    width: 1.15em;
+    height: 1.15em;
+    margin-top: 0.05em;
+    border-radius: 50%;
+    background: #d92d20;
+    color: #fff;
+    font-size: 0.8em;
+    font-weight: 700;
+    line-height: 1.15em;
+    text-align: center;
+}
+.phone-field-error[hidden] { display: none; }
+
+@keyframes phoneFieldErrorIn {
+    from { opacity: 0; transform: translateY(-3px); }
+    to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .phone-field-error { animation: none; }
+}

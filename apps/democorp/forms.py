@@ -1,5 +1,7 @@
 """Форми лід-заявок корпоративного сайту (контакти + «Хочу такий сайт» на сторінці прикладу)."""
 from django import forms
+
+from apps.core.phone_forms import PhoneCleanMixin
 from django.utils.translation import gettext_lazy as _
 
 from .lead_models import CorpLead
@@ -16,7 +18,7 @@ def _attrs(name, **extra):
     return {'class': 'dc-input', 'placeholder': _LABELS[name], **extra}
 
 
-class CorpLeadForm(forms.ModelForm):
+class CorpLeadForm(PhoneCleanMixin, forms.ModelForm):
     class Meta:
         model = CorpLead
         fields = ('name', 'phone', 'email', 'message')

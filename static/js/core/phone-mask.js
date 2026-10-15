@@ -1,485 +1,531 @@
 /**
- * PHONE-MASK.JS - Маска введення телефону для українських номерів
- * Формат: +38(___)__-__-___
- * Префікс +38 не можна видалити
- * Номер має починатися з 0 після +38
+ * PHONE-MASK.JS — єдина маска телефону для всього сайту (vanilla, без залежностей).
+ *
+ * - Україна за замовчуванням: +380 (XX) XXX-XX-XX, рівно 9 національних цифр.
+ * - Інші країни: вводяться з «+» (або 00), перевіряється довжина за кодом країни.
+ * - Автозаповнення (input/change/animationstart), вставка будь-якого формату,
+ *   backspace/delete посередині без стрибків каретки, мобільні клавіатури.
+ * - Доступні інлайн-помилки (aria-invalid, aria-describedby), UA/RU/EN.
+ * - Блокує submit форми з невалідним номером (capture-фаза, до htmx/base.js).
+ * - Реініт після htmx:afterSwap / htmx:afterSettle / htmx:load.
+ * Дзеркало серверної логіки: apps/core/phone.py
+ *
+ * Публічний API (сумісний зі старим): new PhoneMask(input) → .formatValue(v),
+ * .validate() → {valid, message, cleaned}, .getCleanedValue() → E.164,
+ * .ensurePrefix(), .destroy(). Статичні: PhoneMask.parse(raw), PhoneMask.initAll(root),
+ * PhoneMask.check(input), PhoneMask.showError(input, msg), PhoneMask.clearError(input).
  */
+(function (global) {
+    'use strict';
 
-class PhoneMask {
-    constructor(input) {
+    var UA = '380';
+    var UA_LEN = 9;
+    var COUNTRY_LENGTHS = {
+        '380': [9, 9], '1': [10, 10], '7': [10, 10],
+        '30': [10, 10], '31': [9, 9], '32': [8, 9], '33': [9, 9], '34': [9, 9],
+        '36': [8, 9], '39': [6, 11], '40': [9, 9], '41': [9, 9], '43': [7, 13],
+        '44': [10, 10], '45': [8, 8], '46': [7, 10], '47': [8, 8], '48': [9, 9],
+        '49': [7, 12], '90': [10, 10],
+        '351': [9, 9], '353': [7, 9], '358': [5, 12], '359': [8, 9],
+        '370': [8, 8], '371': [8, 8], '372': [7, 8], '373': [8, 8], '375': [9, 9],
+        '420': [9, 9], '421': [9, 9], '971': [8, 9], '972': [8, 9], '995': [9, 9]
+    };
+    var GENERIC = [8, 15];
+    var SELECTOR = 'input[type="tel"], input[name="phone"], input[autocomplete="tel"]';
+    var PLACEHOLDER = '+380 (__) ___-__-__';
+
+    var MESSAGES = {
+        uk: {
+            required: 'Введіть номер телефону',
+            short: 'Номер неповний: після +380 потрібно 9 цифр',
+            long: 'Забагато цифр: після +380 має бути рівно 9',
+            shortIntl: 'Номер неповний для коду +{cc}',
+            longIntl: 'Забагато цифр для коду +{cc}',
+            invalid: 'Введіть коректний номер телефону',
+            hint: 'Формат: +380 (67) 123-45-67'
+        },
+        ru: {
+            required: 'Введите номер телефона',
+            short: 'Номер неполный: после +380 нужно 9 цифр',
+            long: 'Слишком много цифр: после +380 должно быть ровно 9',
+            shortIntl: 'Номер неполный для кода +{cc}',
+            longIntl: 'Слишком много цифр для кода +{cc}',
+            invalid: 'Введите корректный номер телефона',
+            hint: 'Формат: +380 (67) 123-45-67'
+        },
+        en: {
+            required: 'Enter your phone number',
+            short: 'Incomplete number: 9 digits are needed after +380',
+            long: 'Too many digits: exactly 9 are needed after +380',
+            shortIntl: 'Incomplete number for country code +{cc}',
+            longIntl: 'Too many digits for country code +{cc}',
+            invalid: 'Enter a valid phone number',
+            hint: 'Format: +380 (67) 123-45-67'
+        }
+    };
+
+    function lang() {
+        var l = ((document.documentElement && document.documentElement.lang) || 'uk').toLowerCase().slice(0, 2);
+        if (l === 'ua') l = 'uk';
+        return MESSAGES[l] ? l : 'uk';
+    }
+    function msg(key, cc) {
+        return MESSAGES[lang()][key].replace('{cc}', cc || '');
+    }
+
+    function splitCountry(d) {
+        for (var size = 3; size >= 1; size--) {
+            var code = d.slice(0, size);
+            if (COUNTRY_LENGTHS[code]) return { cc: code, nat: d.slice(size) };
+        }
+        return { cc: null, nat: d };
+    }
+
+    /**
+     * Розбір довільного рядка.
+     * → {empty, cc, nat, digits, partialPrefix, e164, error}
+     */
+    function parse(raw) {
+        var s = String(raw == null ? '' : raw).trim();
+        var digits = s.replace(/\D/g, '');
+        var res = { empty: false, cc: UA, nat: '', digits: digits, partialPrefix: '', e164: '', error: '' };
+        var hasLetters = /[^\d\s()+\-.]/.test(s);
+        if (!digits) {
+            res.empty = true;
+            res.error = 'required';
+            if (s.charAt(0) === '+') res.partialPrefix = '+';
+            return res;
+        }
+        var intl = s.charAt(0) === '+' || digits.slice(0, 2) === '00';
+        if (digits.slice(0, 2) === '00') digits = digits.slice(2);
+
+        if (digits.indexOf(UA) === 0) {
+            res.nat = digits.slice(3);
+        } else if (UA.indexOf(digits) === 0) {
+            // «3», «38» — користувач набирає код країни; показуємо як є
+            res.partialPrefix = '+' + digits;
+            res.error = 'short';
+            return res;
+        } else if (intl) {
+            var sp = splitCountry(digits);
+            res.cc = sp.cc;
+            res.nat = sp.nat;
+        } else if (digits.slice(0, 2) === '80' && digits.length === 11) {
+            res.nat = digits.slice(2);
+        } else {
+            res.nat = digits;
+        }
+
+        if (res.cc === UA) {
+            if (res.nat.charAt(0) === '0') res.nat = res.nat.slice(1);
+            if (res.nat.length < UA_LEN) res.error = res.nat.length ? 'short' : 'required';
+            else if (res.nat.length > UA_LEN) res.error = 'long';
+            else res.e164 = '+' + UA + res.nat;
+        } else {
+            var range = res.cc ? COUNTRY_LENGTHS[res.cc] : GENERIC;
+            var len = res.cc ? res.nat.length : digits.length;
+            if (len < range[0]) res.error = res.cc ? 'shortIntl' : 'invalid';
+            else if (len > range[1]) res.error = res.cc ? 'longIntl' : 'invalid';
+            else res.e164 = '+' + (res.cc || '') + res.nat;
+        }
+        if (hasLetters && res.e164) { res.e164 = ''; res.error = 'invalid'; }
+        return res;
+    }
+
+    function format(p) {
+        if (p.empty) return p.partialPrefix || '';
+        if (p.partialPrefix) return p.partialPrefix;
+        var n = p.nat;
+        if (p.cc === UA) {
+            var out = '+380';
+            if (!n) return out + ' ';
+            out += ' (' + n.slice(0, 2);
+            if (n.length > 2) out += ') ' + n.slice(2, 5);
+            if (n.length > 5) out += '-' + n.slice(5, 7);
+            if (n.length > 7) out += '-' + n.slice(7, 9);
+            if (n.length > 9) out += n.slice(9);
+            return out;
+        }
+        if (!p.cc) return '+' + p.digits.replace(/^00/, '');
+        var groups = n.match(/\d{1,3}/g) || [];
+        if (groups.length > 1 && groups[groups.length - 1].length === 1) {
+            var last = groups.pop();
+            groups[groups.length - 1] += last;
+        }
+        return '+' + p.cc + (groups.length ? ' ' + groups.join(' ') : ' ');
+    }
+
+    function maxNat(cc) {
+        if (cc === UA) return UA_LEN;
+        return cc && COUNTRY_LENGTHS[cc] ? COUNTRY_LENGTHS[cc][1] : GENERIC[1];
+    }
+
+    function countDigits(str) { return (str.match(/\d/g) || []).length; }
+
+    /** Позиція каретки, після якої лишається рівно k цифр. */
+    function caretForDigitsAfter(value, k) {
+        if (k <= 0) return value.length;
+        var seen = 0;
+        for (var i = value.length - 1; i >= 0; i--) {
+            if (/\d/.test(value.charAt(i))) {
+                seen++;
+                if (seen === k) {
+                    // каретка одразу після попередньої цифри
+                    var j = i - 1;
+                    while (j >= 0 && !/\d/.test(value.charAt(j))) j--;
+                    return j + 1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    function isVisible(el) {
+        return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+    }
+
+    var uid = 0;
+
+    // ===== Error UI =====
+    function errorHost(input) {
+        var parent = input.parentElement;
+        if (!parent) return null;
+        var calc = parent.querySelector('.calc-field__error');
+        if (calc) return { el: calc, legacy: true };
+        return null;
+    }
+
+    function showError(input, message) {
+        if (!input.id) input.id = 'phone-input-' + (++uid);
+        var errId = input.id + '-phone-error';
+        var host = errorHost(input);
+        var el = document.getElementById(errId);
+        if (host) {
+            el = host.el;
+            if (!el.id) el.id = errId;
+            errId = el.id;
+            el.textContent = message;
+            el.classList.add('show');
+        } else {
+            if (!el) {
+                el = document.createElement('p');
+                el.id = errId;
+                el.className = 'phone-field-error';
+                el.setAttribute('role', 'alert');
+                el.setAttribute('aria-live', 'assertive');
+                var parent = input.parentElement;
+                // Обгортка-рядок (іконка + інпут) → помилка під обгорткою
+                var anchor = input;
+                if (parent && parent.tagName !== 'FORM' && parent.children.length <= 3 &&
+                    /field|input-wrap|form-group/i.test(parent.className || '')) {
+                    anchor = parent;
+                }
+                anchor.insertAdjacentElement('afterend', el);
+            }
+            el.textContent = message;
+            el.hidden = false;
+        }
+        input.classList.add('is-phone-invalid');
+        input.setAttribute('aria-invalid', 'true');
+        var described = (input.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+        if (described.indexOf(errId) === -1) described.push(errId);
+        input.setAttribute('aria-describedby', described.join(' '));
+    }
+
+    function clearError(input) {
+        var errId = input.id ? input.id + '-phone-error' : '';
+        var host = errorHost(input);
+        if (host) {
+            host.el.textContent = '';
+            host.el.classList.remove('show');
+            if (host.el.id) errId = host.el.id;
+        }
+        var el = errId && document.getElementById(errId);
+        if (el && !host) el.remove();
+        input.classList.remove('is-phone-invalid');
+        input.removeAttribute('aria-invalid');
+        var described = (input.getAttribute('aria-describedby') || '').split(/\s+/)
+            .filter(function (x) { return x && x !== errId; });
+        if (described.length) input.setAttribute('aria-describedby', described.join(' '));
+        else input.removeAttribute('aria-describedby');
+    }
+
+    function check(input) {
+        var value = (input.value || '').trim();
+        var p = parse(value);
+        var required = input.required || input.hasAttribute('required') || input.getAttribute('aria-required') === 'true';
+        if (p.empty || (p.cc === UA && !p.nat && !p.partialPrefix)) {
+            if (!required) return { valid: true, message: '', cleaned: '', empty: true };
+            return { valid: false, message: msg('required'), cleaned: '' };
+        }
+        if (p.e164) return { valid: true, message: '', cleaned: p.e164 };
+        return { valid: false, message: msg(p.error || 'invalid', p.cc), cleaned: '' };
+    }
+
+    // ===== Mask =====
+    function PhoneMask(input) {
+        if (!(this instanceof PhoneMask)) return new PhoneMask(input);
+        if (input.__phoneMask) return input.__phoneMask;
+        input.__phoneMask = this;
         this.input = input;
-        this.prefix = '+38';
-        
+        this.prefix = '+380';
+        this._touched = false;
+        this._prev = { value: input.value, start: 0, end: 0 };
+        this._handlers = {};
         this.init();
     }
 
-    init() {
-        // КРИТИЧНО: Встановлюємо +38 завжди при ініціалізації
-        this.ensurePrefix();
-        
-        // Прибираємо placeholder оскільки +38 завжди в полі
-        if (this.input.placeholder) {
-            this.input.setAttribute('data-original-placeholder', this.input.placeholder);
-            this.input.placeholder = '';
+    PhoneMask.prototype.init = function () {
+        var input = this.input;
+        var self = this;
+        if (input.type === 'text' || !input.getAttribute('type')) input.type = 'tel';
+        input.setAttribute('inputmode', 'tel');
+        if (!input.getAttribute('autocomplete') || input.getAttribute('autocomplete') === 'off') {
+            input.setAttribute('autocomplete', 'tel');
         }
-        
-        // Додаємо +38 якщо поле порожнє при фокусі
-        this.input.addEventListener('focus', () => this.handleFocus());
-        
-        // Обробка введення
-        this.input.addEventListener('input', (e) => this.handleInput(e));
-        
-        // Заборона видалення +38
-        this.input.addEventListener('keydown', (e) => this.handleKeyDown(e));
-        
-        // Обробка вставки (paste)
-        this.input.addEventListener('paste', (e) => this.handlePaste(e));
-        
-        // Форматування при втраті фокусу
-        this.input.addEventListener('blur', () => this.formatOnBlur());
-        
-        // Обробка виділення тексту - не дозволяти виділяти +38
-        this.input.addEventListener('select', () => this.handleSelect());
-        
-        // Обробка reset форми - відновлюємо +38 після reset
-        const form = this.input.closest('form');
+        input.setAttribute('data-phone-mask', 'on');
+        var ph = input.getAttribute('placeholder') || '';
+        if (!ph || /^\+?38\s*\(?[_0]/.test(ph)) input.setAttribute('placeholder', PLACEHOLDER);
+        if (input.maxLength > 0 && input.maxLength < 24) input.removeAttribute('maxlength');
+
+        var on = function (type, fn, target) {
+            var t = target || input;
+            t.addEventListener(type, fn);
+            self._handlers[type + (target ? ':form' : '')] = { t: t, type: type, fn: fn };
+        };
+        on('keydown', function (e) { self.onKeyDown(e); });
+        on('beforeinput', function () { self.remember(); });
+        on('input', function (e) { self.onInput(e); });
+        on('change', function () { self.reformat(true); self.liveValidate(); });
+        on('animationstart', function (e) {
+            if (e.animationName === 'phoneMaskAutofill') { self.reformat(true); self.liveValidate(); }
+        });
+        on('focus', function () { self.remember(); });
+        on('blur', function () { self.onBlur(); });
+        var form = input.form;
         if (form) {
-            form.addEventListener('reset', () => {
-                // Використовуємо setTimeout щоб спрацювало після стандартного reset
-                setTimeout(() => {
-                    this.ensurePrefix();
-                }, 0);
-            });
+            on('reset', function () {
+                setTimeout(function () { self._touched = false; clearError(input); }, 0);
+            }, form);
         }
-        
-        // MutationObserver для відстеження змін значення ззовні
-        this.setupValueObserver();
-    }
-    
-    /**
-     * Гарантує наявність префіксу +38 в полі
-     */
-    ensurePrefix() {
-        const currentValue = this.input.value || '';
-        
-        // Якщо поле порожнє або не починається з +38, встановлюємо +38
-        if (!currentValue.trim() || !currentValue.startsWith('+38')) {
-            this.input.value = this.prefix;
-            this.setCursorPosition(this.prefix.length);
-        } else {
-            // Якщо є значення з +38, форматуємо його
-            this.formatValue(currentValue);
-        }
-    }
-    
-    /**
-     * Налаштовує відстеження змін значення ззовні
-     */
-    setupValueObserver() {
-        // Відстежуємо зміни значення через setInterval
-        let lastValue = this.input.value;
-        let isActive = true;
-        
-        // Перевіряємо зміни значення через setInterval (більш надійно ніж MutationObserver для input.value)
-        this.valueCheckInterval = setInterval(() => {
-            if (!isActive) return;
-            
-            const currentValue = this.input.value;
-            
-            // Якщо значення змінилося ззовні і не починається з +38
-            if (currentValue !== lastValue) {
-                lastValue = currentValue;
-                
-                // Якщо значення порожнє або не починається з +38, відновлюємо префікс
-                if (!currentValue || !currentValue.trim() || !currentValue.startsWith('+38')) {
-                    this.ensurePrefix();
-                    lastValue = this.input.value;
-                }
-            }
-        }, 100);
-        
-        // Зупиняємо перевірку при blur (не перезапускаємо, щоб уникнути накопичення інтервалів)
-        const blurHandler = () => {
-            isActive = false;
-        };
-        
-        // Відновлюємо перевірку при focus
-        const focusHandler = () => {
-            isActive = true;
-            lastValue = this.input.value;
-        };
-        
-        this.input.addEventListener('blur', blurHandler);
-        this.input.addEventListener('focus', focusHandler);
-        
-        // Зберігаємо обробники для можливості очищення
-        this._valueObserverHandlers = { blur: blurHandler, focus: focusHandler };
-    }
+        if (input.value) this.reformat(true);
+    };
 
-    handleFocus() {
-        // Переконуємось що +38 завжди присутнє при фокусі
-        const currentValue = this.input.value;
-        if (!currentValue || currentValue.trim() === '' || !currentValue.startsWith('+38')) {
-            this.input.value = this.prefix;
-            this.setCursorPosition(this.prefix.length);
-        } else {
-            // Якщо +38 є, переконуємось що курсор не перед ним
-            const cursorPos = this.input.selectionStart;
-            if (cursorPos < this.prefix.length) {
-                this.setCursorPosition(this.prefix.length);
-            }
-        }
-    }
+    PhoneMask.prototype.remember = function () {
+        var i = this.input;
+        this._prev = { value: i.value, start: i.selectionStart || 0, end: i.selectionEnd || 0 };
+    };
 
-    handleInput(e) {
-        let value = this.input.value;
-        
-        // Зберігаємо позицію курсора та виділення
-        const cursorPos = this.input.selectionStart;
-        const selectionEnd = this.input.selectionEnd;
-        
-        // Підраховуємо скільки цифр було перед курсором (включаючи префікс 38)
-        const textBeforeCursor = value.substring(0, cursorPos);
-        const allDigitsBeforeCursor = textBeforeCursor.replace(/[^\d]/g, '').length;
-        
-        // Рахуємо тільки цифри після префіксу 38 (включаючи 0 якщо є)
-        // Якщо є префікс 38, то віднімаємо 2, інакше залишаємо як є
-        const digitsAfterPrefix = allDigitsBeforeCursor >= 2 ? allDigitsBeforeCursor - 2 : 0;
-        
-        // Видаляємо все крім цифр та +
-        let cleaned = value.replace(/[^\d+]/g, '');
-        
-        // КРИТИЧНО: Переконуємось що ЗАВЖДИ починається з +38
-        if (!cleaned.startsWith('+38')) {
-            if (cleaned.startsWith('38')) {
-                cleaned = '+' + cleaned;
-            } else if (cleaned.startsWith('8')) {
-                cleaned = '+38' + cleaned.substring(1);
-            } else if (cleaned.match(/^\d/)) {
-                cleaned = '+38' + cleaned;
-            } else if (cleaned.startsWith('+')) {
-                // Якщо є + але не +38, замінюємо на +38
-                cleaned = '+38' + cleaned.substring(1).replace(/[^\d]/g, '');
-            } else {
-                cleaned = '+38' + cleaned.replace(/[^\d]/g, '');
-            }
-        }
-        
-        // Обмежуємо довжину (максимум 12 цифр після +38, тобто +38 + 10 цифр номера)
-        const digits = cleaned.replace(/\D/g, '');
-        if (digits.length > 12) {
-            cleaned = '+38' + digits.substring(2, 12); // Беремо тільки цифри після 38
-        }
-        
-        // Форматуємо значення
-        this.formatValue(cleaned);
-        
-        // КРИТИЧНО: Переконуємось що +38 завжди присутнє після форматування
-        setTimeout(() => {
-            if (!this.input.value.startsWith('+38')) {
-                this.input.value = this.prefix + (this.input.value || '');
-                this.formatValue(this.input.value);
-            }
-            
-            // Розраховуємо нову позицію курсора на основі кількості цифр після префіксу
-            // Враховуємо форматування: +38(0XX)XX-XX-XXX
-            const newCursorPos = this.calculateCursorPosition(digitsAfterPrefix);
-            this.setCursorPosition(newCursorPos);
-        }, 0);
-    }
-    
-    /**
-     * Розраховує позицію курсора після форматування на основі кількості цифр після префіксу 38
-     * @param {number} digitsAfterPrefix - кількість цифр після префіксу 38 (0-10)
-     * @returns {number} - нова позиція курсора
-     */
-    calculateCursorPosition(digitsAfterPrefix) {
-        // Префікс +38 завжди присутній (3 символи)
-        if (digitsAfterPrefix === 0) {
-            // Тільки префікс +38, курсор після нього
-            return 3;
-        }
-        
-        // Після +38 йде дужка "(" і перші цифри
-        if (digitsAfterPrefix <= 3) {
-            // +38(0, +38(0X, +38(0XX
-            // +38 + ( + цифри
-            return 3 + 1 + digitsAfterPrefix; // +38 + ( + цифри
-        }
-        
-        // Після 3 цифр йде дужка ")"
-        if (digitsAfterPrefix <= 5) {
-            // +38(0XX)X, +38(0XX)XX
-            // +38 + ( + 3 цифри + ) + решта
-            return 3 + 1 + 3 + 1 + (digitsAfterPrefix - 3); // +38 + ( + 3 + ) + решта
-        }
-        
-        // Після 5 цифр йде дефіс "-"
-        if (digitsAfterPrefix <= 7) {
-            // +38(0XX)XX-X, +38(0XX)XX-XX
-            // +38 + ( + 3 + ) + 2 + - + решта
-            return 3 + 1 + 3 + 1 + 2 + 1 + (digitsAfterPrefix - 5); // +38 + ( + 3 + ) + 2 + - + решта
-        }
-        
-        // Після 7 цифр йде другий дефіс "-"
-        if (digitsAfterPrefix <= 9) {
-            // +38(0XX)XX-XX-X, +38(0XX)XX-XX-XX
-            // +38 + ( + 3 + ) + 2 + - + 2 + - + решта
-            return 3 + 1 + 3 + 1 + 2 + 1 + 2 + 1 + (digitsAfterPrefix - 7); // +38 + ( + 3 + ) + 2 + - + 2 + - + решта
-        }
-        
-        // Після 9 цифр (максимум 10)
-        if (digitsAfterPrefix <= 10) {
-            // +38(0XX)XX-XX-XXX
-            // +38 + ( + 3 + ) + 2 + - + 2 + - + решта (3 цифри для повного номера)
-            if (digitsAfterPrefix <= 9) {
-                // +38(0XX)XX-XX-XX (9 цифр після префіксу)
-                return 3 + 1 + 3 + 1 + 2 + 1 + 2 + 1 + (digitsAfterPrefix - 7); // +38 + ( + 3 + ) + 2 + - + 2 + - + решта
-            } else {
-                // +38(0XX)XX-XX-XXX (10 цифр після префіксу - повний номер)
-                return 3 + 1 + 3 + 1 + 2 + 1 + 2 + 1 + 3; // +38 + ( + 3 + ) + 2 + - + 2 + - + 3
-            }
-        }
-        
-        // Максимум - в кінці
-        return this.input.value.length;
-    }
+    PhoneMask.prototype.setCaret = function (pos) {
+        var i = this.input;
+        if (document.activeElement !== i) return;
+        try { i.setSelectionRange(pos, pos); } catch (e) { /* type=tel не підтримує в старих браузерах */ }
+    };
 
-    handleKeyDown(e) {
-        const cursorPos = this.input.selectionStart;
-        const selectionEnd = this.input.selectionEnd;
-        const value = this.input.value;
-        
-        // Заборона видалення +38
-        if (e.key === 'Backspace' || e.key === 'Delete') {
-            // Якщо виділення включає +38 або курсор перед +38, блокуємо видалення
-            if (cursorPos < this.prefix.length || (selectionEnd > 0 && selectionEnd <= this.prefix.length)) {
-                e.preventDefault();
-                // Переконуємось що +38 завжди присутнє
-                if (!value.startsWith('+38')) {
-                    this.input.value = this.prefix + (value.substring(this.prefix.length) || '');
-                }
-                this.setCursorPosition(this.prefix.length);
-                return;
-            }
-            
-            // Якщо користувач намагається видалити частину +38, блокуємо
-            if (cursorPos > 0 && cursorPos <= this.prefix.length) {
-                e.preventDefault();
-                this.setCursorPosition(this.prefix.length);
+    PhoneMask.prototype.apply = function (raw, digitsAfter) {
+        var p = parse(raw);
+        var next = format(p);
+        this.input.value = next;
+        this.setCaret(digitsAfter == null ? next.length : caretForDigitsAfter(next, digitsAfter));
+        this._prev = { value: next, start: this.input.selectionStart || 0, end: this.input.selectionEnd || 0 };
+        return p;
+    };
+
+    PhoneMask.prototype.reformat = function (toEnd) {
+        var v = this.input.value;
+        if (!v) return;
+        this.apply(v, toEnd ? null : 0);
+    };
+
+    PhoneMask.prototype.onInput = function (e) {
+        var i = this.input;
+        var raw = i.value;
+        var caret = i.selectionStart == null ? raw.length : i.selectionStart;
+        var after = countDigits(raw.slice(caret));
+        var type = (e && e.inputType) || '';
+        var p = parse(raw);
+        // Ручний набір: не даємо перевищити довжину номера
+        if ((type === 'insertText' || type === 'insertCompositionText') && !p.partialPrefix && !p.empty) {
+            var over = p.cc ? p.nat.length - maxNat(p.cc) : p.digits.length - GENERIC[1];
+            var prevP = parse(this._prev.value);
+            var prevOver = prevP.cc ? prevP.nat.length - maxNat(prevP.cc) : prevP.digits.length - GENERIC[1];
+            if (over > 0 && over > prevOver) {
+                i.value = this._prev.value;
+                this.setCaret(this._prev.start);
                 return;
             }
         }
-        
-        // Заборона вставки курсору перед +38
-        if (e.key === 'ArrowLeft' && cursorPos <= this.prefix.length) {
-            e.preventDefault();
-            this.setCursorPosition(this.prefix.length);
-        }
-        
-        // Заборона вирізання +38
-        if ((e.ctrlKey || e.metaKey) && e.key === 'x') {
-            if (cursorPos < this.prefix.length || selectionEnd <= this.prefix.length) {
-                e.preventDefault();
-            }
-        }
-        
-        // Заборона виділення +38 через Shift+ArrowLeft
-        if (e.shiftKey && e.key === 'ArrowLeft' && cursorPos <= this.prefix.length) {
-            e.preventDefault();
-            this.setCursorPosition(this.prefix.length);
-        }
-    }
-
-    handlePaste(e) {
-        // Do NOT call e.preventDefault() — browsers flag paste-blocking as a UX issue.
-        // Allow the native paste, then reformat in the next microtask.
-        const pastedText = (e.clipboardData ?? window.clipboardData).getData('text');
-
-        setTimeout(() => {
-            let cleaned = pastedText.replace(/[^\d+]/g, '');
-
-            if (!cleaned.startsWith('+38')) {
-                if (cleaned.startsWith('38')) {
-                    cleaned = '+' + cleaned;
-                } else if (cleaned.startsWith('8')) {
-                    cleaned = '+38' + cleaned.substring(1);
-                } else if (/^\d/.test(cleaned)) {
-                    cleaned = '+38' + cleaned;
-                } else {
-                    cleaned = '+38' + cleaned.replace(/[^\d]/g, '');
-                }
-            }
-
-            const digits = cleaned.replace(/\D/g, '');
-            if (digits.length > 12) {
-                cleaned = '+38' + digits.substring(2, 12);
-            }
-
-            this.formatValue(cleaned);
-            this.setCursorPosition(Math.max(this.prefix.length, this.input.value.length));
-        }, 0);
-    }
-
-    formatValue(value) {
-        // Якщо value порожнє або undefined, встановлюємо +38
-        if (!value || typeof value !== 'string') {
-            this.input.value = this.prefix;
+        if (!/\d/.test(raw)) {
+            // Лише «+» або порожньо/букви
+            i.value = raw.trim().charAt(0) === '+' ? '+' : '';
+            this._prev = { value: i.value, start: i.value.length, end: i.value.length };
+            if (this._touched) this.liveValidate();
             return;
         }
-        
-        // Видаляємо все крім цифр та +
-        let digits = value.replace(/[^\d]/g, '');
-        
-        // КРИТИЧНО: Переконуємось що ЗАВЖДИ починається з 38
-        if (!digits.startsWith('38')) {
-            if (digits.startsWith('8')) {
-                digits = '38' + digits.substring(1);
-            } else {
-                digits = '38' + digits;
+        var bulk = type === 'insertFromPaste' || type === 'insertFromDrop' || type === 'insertReplacementText' || !type;
+        this.apply(raw, bulk && after === 0 ? null : after);
+        this.liveValidate();
+    };
+
+    PhoneMask.prototype.liveValidate = function () {
+        var r = check(this.input);
+        if (r.valid) { clearError(this.input); return; }
+        // Помилку показуємо лише після blur/submit, а потім оновлюємо наживо
+        if (this._touched) showError(this.input, r.message);
+    };
+
+    PhoneMask.prototype.onBlur = function () {
+        var i = this.input;
+        var p = parse(i.value);
+        // Лише префікс без цифр номера → очищаємо (працює placeholder і required)
+        if (p.empty || (p.cc === UA && !p.nat && !p.partialPrefix)) i.value = '';
+        else if (i.value) this.apply(i.value, null);
+        if (!i.value && !this._touched) { clearError(i); return; }
+        this._touched = true;
+        this.liveValidate();
+    };
+
+    PhoneMask.prototype.onKeyDown = function (e) {
+        var i = this.input;
+        var v = i.value;
+        var s = i.selectionStart, end = i.selectionEnd;
+        this.remember();
+        if (e.key !== 'Backspace' && e.key !== 'Delete') return;
+        if (s == null || s !== end || e.ctrlKey || e.metaKey || e.altKey) return;
+        var p = parse(v);
+        var isUA = p.cc === UA && !p.partialPrefix && !p.empty;
+        var prefixLen = isUA ? 4 : 0; // "+380"
+        if (e.key === 'Backspace') {
+            if (isUA && s <= prefixLen + 2 && s > 0 && (!p.nat || s <= prefixLen)) {
+                // Видалення в межах «+380»: порожній номер → очищаємо, інакше не ламаємо код
+                e.preventDefault();
+                if (!p.nat) { i.value = ''; this.remember(); this.liveValidate(); }
+                else this.setCaret(prefixLen + 2);
+                return;
+            }
+            if (s > 0 && !/\d/.test(v.charAt(s - 1))) {
+                // Перед кареткою роздільник → видаляємо попередню цифру
+                var j = s - 1;
+                while (j >= 0 && !/\d/.test(v.charAt(j))) j--;
+                if (j < 0 || (isUA && j < prefixLen)) { e.preventDefault(); return; }
+                e.preventDefault();
+                var after = countDigits(v.slice(s));
+                this.apply(v.slice(0, j) + v.slice(j + 1), after);
+                this.liveValidate();
+            }
+        } else if (e.key === 'Delete') {
+            if (isUA && s < prefixLen) { e.preventDefault(); return; }
+            if (s < v.length && !/\d/.test(v.charAt(s))) {
+                var k = s;
+                while (k < v.length && !/\d/.test(v.charAt(k))) k++;
+                if (k >= v.length) return;
+                e.preventDefault();
+                var after2 = countDigits(v.slice(k + 1));
+                this.apply(v.slice(0, k) + v.slice(k + 1), after2);
+                this.liveValidate();
             }
         }
-        
-        // Обмежуємо до 12 цифр (38 + 10 цифр номера)
-        if (digits.length > 12) {
-            digits = digits.substring(0, 12);
-        }
-        
-        // Зберігаємо мінімум +38 навіть якщо немає цифр
-        if (digits.length < 2) {
-            digits = '38';
-        }
-        
-        // Форматуємо: +38(0XX)XX-XX-XXX
-        // ЗАВЖДИ починаємо з +38
-        // digits містить: 38 + 10 цифр номера (0 + ще 9) = 12 цифр максимум
-        let formatted = '';
-        if (digits.length <= 2) {
-            formatted = '+' + digits; // +38
-        } else if (digits.length <= 5) {
-            // +38(0XX) - 3-5 цифр (38 + 1-3 цифри після)
-            formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2);
-        } else if (digits.length <= 7) {
-            // +38(0XX)XX - 6-7 цифр (38 + 4-5 цифр після)
-            formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5);
-        } else if (digits.length <= 9) {
-            // +38(0XX)XX-XX - 8-9 цифр (38 + 6-7 цифр після)
-            formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7);
-        } else if (digits.length <= 11) {
-            // +38(0XX)XX-XX-XX - 10-11 цифр (38 + 8-9 цифр після)
-            formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7, 9) + '-' + digits.substring(9);
-        } else {
-            // +38(0XX)XX-XX-XXX - 12 цифр (38 + 10 цифр після) - ПОВНИЙ НОМЕР
-            formatted = '+' + digits.substring(0, 2) + '(' + digits.substring(2, 5) + ')' + digits.substring(5, 7) + '-' + digits.substring(7, 9) + '-' + digits.substring(9, 12);
-        }
-        
-        // КРИТИЧНО: Переконуємось що +38 завжди присутнє
-        if (!formatted.startsWith('+38')) {
-            formatted = this.prefix;
-        }
-        
-        this.input.value = formatted;
-        
-        // Додаткова перевірка після встановлення значення
-        if (!this.input.value.startsWith('+38')) {
-            this.input.value = this.prefix;
+    };
+
+    // ---- Сумісний API ----
+    PhoneMask.prototype.formatValue = function (value) {
+        this.input.value = value ? format(parse(value)) : '';
+        this._prev.value = this.input.value;
+    };
+    PhoneMask.prototype.ensurePrefix = function () { this.reformat(true); };
+    PhoneMask.prototype.formatOnBlur = function () { this.onBlur(); };
+    PhoneMask.prototype.validate = function () { return check(this.input); };
+    PhoneMask.prototype.getCleanedValue = function () {
+        var r = check(this.input);
+        return r.cleaned || (this.input.value || '').replace(/[^\d+]/g, '');
+    };
+    PhoneMask.prototype.showError = function (m) { this._touched = true; showError(this.input, m || check(this.input).message); };
+    PhoneMask.prototype.clearError = function () { clearError(this.input); };
+    PhoneMask.prototype.destroy = function () {
+        var h = this._handlers;
+        Object.keys(h).forEach(function (k) { h[k].t.removeEventListener(h[k].type, h[k].fn); });
+        this._handlers = {};
+        delete this.input.__phoneMask;
+        this.input.removeAttribute('data-phone-mask');
+    };
+
+    function shouldMask(input) {
+        if (!input || input.tagName !== 'INPUT') return false;
+        if (input.getAttribute('data-phone-mask') === 'off') return false;
+        if (input.type === 'hidden') return false;
+        return true;
+    }
+
+    function initAll(root) {
+        var scope = root && root.querySelectorAll ? root : document;
+        var list = [];
+        if (scope.matches && scope.matches(SELECTOR)) list.push(scope);
+        Array.prototype.push.apply(list, scope.querySelectorAll(SELECTOR));
+        list.forEach(function (input) { if (shouldMask(input)) new PhoneMask(input); });
+    }
+
+    // Блокуємо submit з невалідним телефоном (capture → раніше за htmx та обробники форм)
+    function guardSubmit(e) {
+        var form = e.target;
+        if (!form || form.tagName !== 'FORM') return;
+        var inputs = form.querySelectorAll('input[data-phone-mask="on"]');
+        var firstBad = null;
+        Array.prototype.forEach.call(inputs, function (input) {
+            if (input.disabled || !isVisible(input)) return;
+            var r = check(input);
+            if (!r.valid) {
+                if (input.__phoneMask) input.__phoneMask._touched = true;
+                showError(input, r.message);
+                if (!firstBad) firstBad = input;
+            } else {
+                clearError(input);
+                if (r.cleaned && input.__phoneMask) input.__phoneMask.reformat(true);
+            }
+        });
+        if (firstBad) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            try { firstBad.focus({ preventScroll: false }); } catch (err) { firstBad.focus(); }
         }
     }
 
-    formatOnBlur() {
-        const value = this.input.value;
-        // Переконуємось що +38 завжди присутнє
-        if (!value || value.trim() === '' || !value.startsWith('+38')) {
-            this.input.value = this.prefix;
-        } else {
-            this.formatValue(value);
-        }
-    }
-    
-    handleSelect() {
-        // Не дозволяємо виділяти +38
-        const selectionStart = this.input.selectionStart;
-        const selectionEnd = this.input.selectionEnd;
-        
-        if (selectionStart < this.prefix.length || selectionEnd <= this.prefix.length) {
-            // Якщо виділення включає +38, змінюємо виділення
-            setTimeout(() => {
-                if (selectionStart < this.prefix.length) {
-                    this.input.setSelectionRange(this.prefix.length, Math.max(this.prefix.length, selectionEnd));
-                }
-            }, 0);
-        }
+    function boot() {
+        initAll(document);
+        document.addEventListener('submit', guardSubmit, true);
+        ['htmx:afterSwap', 'htmx:afterSettle', 'htmx:load'].forEach(function (ev) {
+            document.addEventListener(ev, function (e) {
+                initAll((e.detail && e.detail.elt) || e.target || document);
+            });
+        });
+        // Серверна валідація форм з телефоном (400/422) → показуємо фрагмент з помилкою
+        document.addEventListener('htmx:beforeSwap', function (e) {
+            var d = e.detail || {};
+            var st = d.xhr && d.xhr.status;
+            var elt = d.requestConfig && d.requestConfig.elt;
+            if ((st === 400 || st === 422) && elt && elt.tagName === 'FORM' &&
+                elt.querySelector('input[data-phone-mask="on"]')) {
+                d.shouldSwap = true;
+                d.isError = false;
+            }
+        });
     }
 
-    setCursorPosition(position) {
-        // Використовуємо setTimeout для коректної встановки позиції
-        setTimeout(() => {
-            this.input.setSelectionRange(position, position);
-        }, 0);
+    PhoneMask.parse = parse;
+    PhoneMask.format = function (raw) { return format(parse(raw)); };
+    PhoneMask.normalize = function (raw) { return parse(raw).e164 || null; };
+    PhoneMask.check = check;
+    PhoneMask.showError = function (input, m) {
+        if (input.__phoneMask) input.__phoneMask._touched = true;
+        showError(input, m || check(input).message);
+    };
+    PhoneMask.clearError = clearError;
+    PhoneMask.initAll = initAll;
+    PhoneMask.messages = MESSAGES;
+
+    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+        global.PhoneMask = PhoneMask;
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+        else boot();
     }
-
-    /**
-     * Валідація номера телефону
-     * @returns {Object} {valid: boolean, message: string}
-     */
-    validate() {
-        const value = this.input.value;
-
-        if (!value || value.trim() === '' || value === this.prefix) {
-            return {
-                valid: false,
-                message: window.I18N?.phoneRequired || 'Введіть номер телефону'
-            };
-        }
-
-        const digits = value.replace(/\D/g, '');
-        if (digits.length < 7) {
-            return {
-                valid: false,
-                message: window.I18N?.phoneInvalid || 'Введіть коректний номер телефону'
-            };
-        }
-
-        return {
-            valid: true,
-            message: '',
-            cleaned: value.replace(/[^\d+]/g, '')
-        };
-    }
-
-    /**
-     * Отримати очищене значення для відправки
-     * @returns {string}
-     */
-    getCleanedValue() {
-        const value = this.input.value;
-        return value.replace(/[^\d+]/g, '');
-    }
-    
-    /**
-     * Очищення ресурсів (викликати при видаленні об'єкта)
-     */
-    destroy() {
-        if (this.valueCheckInterval) {
-            clearInterval(this.valueCheckInterval);
-            this.valueCheckInterval = null;
-        }
-        
-        // Видаляємо обробники подій
-        if (this._valueObserverHandlers) {
-            this.input.removeEventListener('blur', this._valueObserverHandlers.blur);
-            this.input.removeEventListener('focus', this._valueObserverHandlers.focus);
-            this._valueObserverHandlers = null;
-        }
-    }
-}
-
-// Експорт для використання в інших модулях
-if (typeof window !== 'undefined') {
-    window.PhoneMask = PhoneMask;
-}
-
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = PhoneMask;
-}
-
+    if (typeof module !== 'undefined' && module.exports) module.exports = PhoneMask;
+})(typeof window !== 'undefined' ? window : globalThis);

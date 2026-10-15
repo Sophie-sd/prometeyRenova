@@ -102,7 +102,7 @@ class FormValidationTests(TestCase):
         self.assertTrue(json_data['success'])
 
     def test_form_with_local_phone_seven_digits(self):
-        """Тест форми з локальним номером (7 цифр)"""
+        """Неповний номер (7 цифр) відхиляється: UA потребує 9 національних цифр"""
         data = {
             'form_type': 'footer-consultation',
             'name': 'Іван Петренко',
@@ -111,7 +111,7 @@ class FormValidationTests(TestCase):
         response = self.client.post(self.submit_url, data)
         self.assertEqual(response.status_code, 200)
         json_data = json.loads(response.content)
-        self.assertTrue(json_data['success'])
+        self.assertFalse(json_data['success'])
 
     def test_form_missing_required_fields(self):
         """Тест форми без обов'язкових полів"""

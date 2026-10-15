@@ -234,6 +234,10 @@
        truly empty and native `required` passes — validate digits ourselves. */
     function getPhoneError() {
         if (!phoneInput) return '';
+        if (window.PhoneMask && window.PhoneMask.check) {
+            var r = window.PhoneMask.check(phoneInput);
+            return r.valid ? '' : r.message;
+        }
         var raw = phoneInput.value.trim();
         var digits = raw.replace(/\D/g, '');
         var national = raw.indexOf('+38') === 0 ? digits.slice(2) : digits;
@@ -244,6 +248,10 @@
 
     function showPhoneError(message) {
         if (!phoneInput) return;
+        if (window.PhoneMask && window.PhoneMask.showError) {
+            window.PhoneMask.showError(phoneInput, message);
+            return;
+        }
         var field = phoneInput.parentElement;
         var err = document.getElementById(PHONE_ERROR_ID);
         if (!err) {
@@ -261,6 +269,7 @@
 
     function clearPhoneError() {
         if (!phoneInput) return;
+        if (window.PhoneMask && window.PhoneMask.clearError) window.PhoneMask.clearError(phoneInput);
         var err = document.getElementById(PHONE_ERROR_ID);
         if (err) err.remove();
         phoneInput.classList.remove('error');

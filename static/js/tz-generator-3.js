@@ -233,6 +233,7 @@
             return /[a-zA-Zа-яА-ЯіІїЇєЄёЁґҐ]/.test(v);
         }
         function validPhone(v) {
+            if (window.PhoneMask && window.PhoneMask.normalize) return !!window.PhoneMask.normalize(v);
             return (v || '').replace(/\D/g, '').length >= 7;
         }
         function validEmail(v) {
@@ -287,7 +288,7 @@
                 return;
             }
             if (!validPhone(phoneInput.value)) {
-                setError('Введіть коректний номер телефону');
+                setError(window.PhoneMask ? window.PhoneMask.check(phoneInput).message || 'Введіть коректний номер телефону' : 'Введіть коректний номер телефону');
                 phoneInput.focus();
                 return;
             }

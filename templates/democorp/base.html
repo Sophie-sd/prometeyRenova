@@ -13,6 +13,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="{% static 'images/favicon-48x48.png' %}">
 <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/logo.png' %}">
 <link rel="stylesheet" href="{% static 'democorp/css/demo.css' %}?v=1">
+<link rel="stylesheet" href="{% static 'css/components/phone-field.css' %}?v=1">
 <link rel="stylesheet" href="{% url 'democorp:theme_css' slug=site.slug %}">
 {% block extra_css %}{% endblock %}
 </head>
@@ -30,6 +31,7 @@
 </div>
 {% include 'democorp/partials/sales_chrome.html' %}
 <script src="{% static 'js/vendor/htmx.min.js' %}" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/core/phone-mask.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'demotenant/js/motion/drawer.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'democorp/js/demo.js' %}?v=1" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'democorp/js/sales.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>

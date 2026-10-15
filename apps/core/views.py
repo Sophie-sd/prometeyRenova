@@ -13,6 +13,7 @@ from .form_handlers import (
     send_test_result_email
 )
 from .keycrm_service import sync_submission_to_keycrm
+from .phone import normalize_phone
 import logging
 import threading
 from django.utils.translation import gettext_lazy as _
@@ -309,6 +310,7 @@ def handle_form_submission(request):
         # Валідація телефону
         if not validate_phone(phone):
             return create_form_response(False, _('Введіть коректний номер телефону'))
+        phone = normalize_phone(phone)  # E.164
         
         # Обробка різних типів форм
         handlers = {
@@ -510,7 +512,8 @@ def handle_test_submission(request):
             return create_form_response(False, _('Введіть коректне ім\'я (мінімум 2 символи, хоча б одна літера)'))
         
         if not validate_phone(phone):
-            return create_form_response(False, _('Введіть коректний номер телефону (мінімум 10 цифр)'))
+            return create_form_response(False, _('Введіть коректний номер телефону'))
+        phone = normalize_phone(phone)  # E.164
         
         # Отримуємо відповіді на тест
         answers = {}

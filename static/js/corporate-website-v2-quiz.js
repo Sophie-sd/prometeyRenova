@@ -239,6 +239,10 @@
 
     function showPhoneError(message) {
         if (!phoneInput) return;
+        if (window.PhoneMask && window.PhoneMask.showError) {
+            window.PhoneMask.showError(phoneInput, message);
+            return;
+        }
         phoneInput.classList.add('error');
         var existing = phoneInput.parentElement.querySelector('.pl-corp__quiz-field-error');
         if (existing) existing.remove();
@@ -251,6 +255,7 @@
 
     function clearPhoneError() {
         if (!phoneInput) return;
+        if (window.PhoneMask && window.PhoneMask.clearError) window.PhoneMask.clearError(phoneInput);
         phoneInput.classList.remove('error');
         var existing = phoneInput.parentElement.querySelector('.pl-corp__quiz-field-error');
         if (existing) existing.remove();
@@ -420,6 +425,10 @@
        passes on an empty number — check digits before letting the form submit. */
     function getPhoneError() {
         if (!phoneInput) return '';
+        if (window.PhoneMask && window.PhoneMask.check) {
+            var r = window.PhoneMask.check(phoneInput);
+            return r.valid ? '' : r.message;
+        }
         var raw = phoneInput.value.trim();
         var digits = countDigits(raw);
         var national = raw.indexOf('+38') === 0 ? digits - 2 : digits;
