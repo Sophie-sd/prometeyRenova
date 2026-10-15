@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <section id="calculator" class="pl-corp__section pl-corp__quiz-section" aria-labelledby="pl-corp-calc-title">
     <picture class="pl-corp__quiz-bg" aria-hidden="true">
         <source media="(max-width: 767px)" srcset="{% static 'images/corporate_website_v2/figma/bg-calc-m.webp' %}" width="393" height="341">
@@ -225,7 +225,7 @@
                         >
                     </div>
                     <div class="pl-corp__quiz-field">
-                        <label class="pl-corp__quiz-field-label" for="pl-corp-quiz-phone">Телефон <span class="pl-corp__quiz-required" aria-hidden="true">*</span></label>
+                        <label class="pl-corp__quiz-field-label" for="pl-corp-quiz-phone">{% trans "Телефон" %} <span class="pl-corp__quiz-required" aria-hidden="true">*</span></label>
                         <input
                             type="tel"
                             id="pl-corp-quiz-phone"

@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <section id="free-analysis" class="pl-corp__lead-cta" aria-labelledby="pl-corp-free-analysis-title">
     <div class="pl-corp__inner">
         <div class="pl-corp__lead-cta-row" data-reveal>
@@ -13,8 +13,8 @@
                 <input type="hidden" name="name" value="Безкоштовний аналіз">
                 <label class="pl-corp__field">
                     <img class="pl-corp__field-icon" src="{% static 'images/corporate_website_v2/figma/icon-call.svg' %}" alt="" width="14" height="14">
-                    <span class="pl-corp__sr-only">Номер телефону</span>
-                    <input type="tel" name="phone" class="pl-corp__field-input mobile-touch-target" autocomplete="tel" inputmode="tel" placeholder="Номер телефону" required>
+                    <span class="pl-corp__sr-only">{% trans "Номер телефону" %}</span>
+                    <input type="tel" name="phone" class="pl-corp__field-input mobile-touch-target" autocomplete="tel" inputmode="tel" placeholder="{% trans "Номер телефону" %}" required>
                 </label>
                 <button type="submit" class="pl-corp__btn pl-corp__btn--accent mobile-touch-target">Отримати консультацію</button>
             </form>

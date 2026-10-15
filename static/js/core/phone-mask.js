@@ -254,7 +254,9 @@
         var value = (input.value || '').trim();
         var p = parse(value);
         var required = input.required || input.hasAttribute('required') || input.getAttribute('aria-required') === 'true';
+        var rejected = input.__phoneMask && input.__phoneMask._rejected;
         if (p.empty || (p.cc === UA && !p.nat && !p.partialPrefix)) {
+            if (rejected) return { valid: false, message: msg('invalid'), cleaned: '' };
             if (!required) return { valid: true, message: '', cleaned: '', empty: true };
             return { valid: false, message: msg('required'), cleaned: '' };
         }
@@ -305,7 +307,7 @@
         var form = input.form;
         if (form) {
             on('reset', function () {
-                setTimeout(function () { self._touched = false; clearError(input); }, 0);
+                setTimeout(function () { self._touched = false; self._rejected = false; clearError(input); }, 0);
             }, form);
         }
         if (input.value) this.reformat(true);
@@ -340,12 +342,17 @@
     PhoneMask.prototype.onInput = function (e) {
         var i = this.input;
         var raw = i.value;
+        // Букви/сторонні символи вирізаються маскою — запам'ятовуємо, щоб показати помилку
+        if (/[^\d\s()+\-.]/.test(raw)) { this._rejected = true; this._touched = true; }
+        else if (/\d/.test(raw)) this._rejected = false;
         var caret = i.selectionStart == null ? raw.length : i.selectionStart;
         var after = countDigits(raw.slice(caret));
         var type = (e && e.inputType) || '';
         var p = parse(raw);
         // Ручний набір: не даємо перевищити довжину номера
-        if ((type === 'insertText' || type === 'insertCompositionText') && !p.partialPrefix && !p.empty) {
+        var singleKey = (type === 'insertText' || type === 'insertCompositionText') &&
+            (e && typeof e.data === 'string' && e.data.length === 1);
+        if (singleKey && !p.partialPrefix && !p.empty) {
             var over = p.cc ? p.nat.length - maxNat(p.cc) : p.digits.length - GENERIC[1];
             var prevP = parse(this._prev.value);
             var prevOver = prevP.cc ? prevP.nat.length - maxNat(prevP.cc) : prevP.digits.length - GENERIC[1];
@@ -380,7 +387,7 @@
         // Лише префікс без цифр номера → очищаємо (працює placeholder і required)
         if (p.empty || (p.cc === UA && !p.nat && !p.partialPrefix)) i.value = '';
         else if (i.value) this.apply(i.value, null);
-        if (!i.value && !this._touched) { clearError(i); return; }
+        if (!i.value && !this._touched && !this._rejected) { clearError(i); return; }
         this._touched = true;
         this.liveValidate();
     };
