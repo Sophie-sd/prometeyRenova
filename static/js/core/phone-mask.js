@@ -2,7 +2,7 @@
  * PHONE-MASK.JS — єдина маска телефону для всього сайту (vanilla, без залежностей).
  *
  * - Україна за замовчуванням: +380 (XX) XXX-XX-XX, рівно 9 національних цифр.
- * - Інші країни: вводяться з «+» (або 00), перевіряється довжина за кодом країни.
+ * - Лише українські номери: будь-який інший код країни (+1, +44, 0048…) відхиляється.
  * - Автозаповнення (input/change/animationstart), вставка будь-якого формату,
  *   backspace/delete посередині без стрибків каретки, мобільні клавіатури.
  * - Доступні інлайн-помилки (aria-invalid, aria-describedby), UA/RU/EN.
@@ -20,17 +20,7 @@
 
     var UA = '380';
     var UA_LEN = 9;
-    var COUNTRY_LENGTHS = {
-        '380': [9, 9], '1': [10, 10], '7': [10, 10],
-        '30': [10, 10], '31': [9, 9], '32': [8, 9], '33': [9, 9], '34': [9, 9],
-        '36': [8, 9], '39': [6, 11], '40': [9, 9], '41': [9, 9], '43': [7, 13],
-        '44': [10, 10], '45': [8, 8], '46': [7, 10], '47': [8, 8], '48': [9, 9],
-        '49': [7, 12], '90': [10, 10],
-        '351': [9, 9], '353': [7, 9], '358': [5, 12], '359': [8, 9],
-        '370': [8, 8], '371': [8, 8], '372': [7, 8], '373': [8, 8], '375': [9, 9],
-        '420': [9, 9], '421': [9, 9], '971': [8, 9], '972': [8, 9], '995': [9, 9]
-    };
-    var GENERIC = [8, 15];
+    var MAX_FOREIGN = 15;
     var SELECTOR = 'input[type="tel"], input[name="phone"], input[autocomplete="tel"]';
     var PLACEHOLDER = '+380 (__) ___-__-__';
 
@@ -39,8 +29,7 @@
             required: 'Введіть номер телефону',
             short: 'Номер неповний: після +380 потрібно 9 цифр',
             long: 'Забагато цифр: після +380 має бути рівно 9',
-            shortIntl: 'Номер неповний для коду +{cc}',
-            longIntl: 'Забагато цифр для коду +{cc}',
+            foreign: 'Приймаємо лише українські номери +380',
             invalid: 'Введіть коректний номер телефону',
             hint: 'Формат: +380 (67) 123-45-67'
         },
@@ -48,8 +37,7 @@
             required: 'Введите номер телефона',
             short: 'Номер неполный: после +380 нужно 9 цифр',
             long: 'Слишком много цифр: после +380 должно быть ровно 9',
-            shortIntl: 'Номер неполный для кода +{cc}',
-            longIntl: 'Слишком много цифр для кода +{cc}',
+            foreign: 'Принимаем только украинские номера +380',
             invalid: 'Введите корректный номер телефона',
             hint: 'Формат: +380 (67) 123-45-67'
         },
@@ -57,8 +45,7 @@
             required: 'Enter your phone number',
             short: 'Incomplete number: 9 digits are needed after +380',
             long: 'Too many digits: exactly 9 are needed after +380',
-            shortIntl: 'Incomplete number for country code +{cc}',
-            longIntl: 'Too many digits for country code +{cc}',
+            foreign: 'We only accept Ukrainian numbers (+380)',
             invalid: 'Enter a valid phone number',
             hint: 'Format: +380 (67) 123-45-67'
         }
@@ -71,14 +58,6 @@
     }
     function msg(key, cc) {
         return MESSAGES[lang()][key].replace('{cc}', cc || '');
-    }
-
-    function splitCountry(d) {
-        for (var size = 3; size >= 1; size--) {
-            var code = d.slice(0, size);
-            if (COUNTRY_LENGTHS[code]) return { cc: code, nat: d.slice(size) };
-        }
-        return { cc: null, nat: d };
     }
 
     /**
@@ -107,27 +86,21 @@
             res.error = 'short';
             return res;
         } else if (intl) {
-            var sp = splitCountry(digits);
-            res.cc = sp.cc;
-            res.nat = sp.nat;
+            // Лише українські номери: будь-який інший код країни відхиляємо
+            res.cc = null;
+            res.nat = digits;
+            res.error = 'foreign';
+            return res;
         } else if (digits.slice(0, 2) === '80' && digits.length === 11) {
             res.nat = digits.slice(2);
         } else {
             res.nat = digits;
         }
 
-        if (res.cc === UA) {
-            if (res.nat.charAt(0) === '0') res.nat = res.nat.slice(1);
-            if (res.nat.length < UA_LEN) res.error = res.nat.length ? 'short' : 'required';
-            else if (res.nat.length > UA_LEN) res.error = 'long';
-            else res.e164 = '+' + UA + res.nat;
-        } else {
-            var range = res.cc ? COUNTRY_LENGTHS[res.cc] : GENERIC;
-            var len = res.cc ? res.nat.length : digits.length;
-            if (len < range[0]) res.error = res.cc ? 'shortIntl' : 'invalid';
-            else if (len > range[1]) res.error = res.cc ? 'longIntl' : 'invalid';
-            else res.e164 = '+' + (res.cc || '') + res.nat;
-        }
+        if (res.nat.charAt(0) === '0') res.nat = res.nat.slice(1);
+        if (res.nat.length < UA_LEN) res.error = res.nat.length ? 'short' : 'required';
+        else if (res.nat.length > UA_LEN) res.error = 'long';
+        else res.e164 = '+' + UA + res.nat;
         if (hasLetters && res.e164) { res.e164 = ''; res.error = 'invalid'; }
         return res;
     }
@@ -146,19 +119,11 @@
             if (n.length > 9) out += n.slice(9);
             return out;
         }
-        if (!p.cc) return '+' + p.digits.replace(/^00/, '');
-        var groups = n.match(/\d{1,3}/g) || [];
-        if (groups.length > 1 && groups[groups.length - 1].length === 1) {
-            var last = groups.pop();
-            groups[groups.length - 1] += last;
-        }
-        return '+' + p.cc + (groups.length ? ' ' + groups.join(' ') : ' ');
+        // Іноземний номер: показуємо як ввели, без форматування (помилка 'foreign')
+        return '+' + p.digits.replace(/^00/, '');
     }
 
-    function maxNat(cc) {
-        if (cc === UA) return UA_LEN;
-        return cc && COUNTRY_LENGTHS[cc] ? COUNTRY_LENGTHS[cc][1] : GENERIC[1];
-    }
+    function maxNat(cc) { return cc === UA ? UA_LEN : MAX_FOREIGN; }
 
     function countDigits(str) { return (str.match(/\d/g) || []).length; }
 
@@ -353,9 +318,9 @@
         var singleKey = (type === 'insertText' || type === 'insertCompositionText') &&
             (e && typeof e.data === 'string' && e.data.length === 1);
         if (singleKey && !p.partialPrefix && !p.empty) {
-            var over = p.cc ? p.nat.length - maxNat(p.cc) : p.digits.length - GENERIC[1];
+            var over = p.cc ? p.nat.length - maxNat(p.cc) : p.digits.length - MAX_FOREIGN;
             var prevP = parse(this._prev.value);
-            var prevOver = prevP.cc ? prevP.nat.length - maxNat(prevP.cc) : prevP.digits.length - GENERIC[1];
+            var prevOver = prevP.cc ? prevP.nat.length - maxNat(prevP.cc) : prevP.digits.length - MAX_FOREIGN;
             if (over > 0 && over > prevOver) {
                 i.value = this._prev.value;
                 this.setCaret(this._prev.start);

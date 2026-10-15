@@ -5316,3 +5316,7 @@ msgstr "Редагувати"
 msgid "Корпоративний сайт"
 msgstr "Корпоративний сайт"
 
+
+#: apps/core/form_handlers.py apps/core/phone_forms.py
+msgid "Приймаємо лише українські номери +380"
+msgstr ""

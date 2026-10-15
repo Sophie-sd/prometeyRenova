@@ -18,6 +18,7 @@ from apps.core.form_handlers import (
     save_form_submission,
     validate_name,
     validate_phone,
+    phone_error_message,
 )
 from apps.core.mixins import BasePageView
 from apps.core.phone import normalize_phone
@@ -76,7 +77,7 @@ def handle_tz_submission(request):
     if not validate_name(name):
         return create_form_response(False, _('Введіть коректне імʼя'))
     if not validate_phone(phone):
-        return create_form_response(False, _('Введіть коректний номер телефону'))
+        return create_form_response(False, phone_error_message(phone))
     phone = normalize_phone(phone)  # E.164
     if not _validate_email(email):
         return create_form_response(False, _('Введіть коректний email'))

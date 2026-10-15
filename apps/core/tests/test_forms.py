@@ -90,7 +90,7 @@ class FormValidationTests(TestCase):
         self.assertIn('номер телефону', json_data['message'].lower())
 
     def test_form_with_international_phone(self):
-        """Тест форми з міжнародним номером телефону"""
+        """Іноземні номери відхиляються: приймаємо лише +380"""
         data = {
             'form_type': 'footer-consultation',
             'name': 'Іван Петренко',
@@ -99,7 +99,8 @@ class FormValidationTests(TestCase):
         response = self.client.post(self.submit_url, data)
         self.assertEqual(response.status_code, 200)
         json_data = json.loads(response.content)
-        self.assertTrue(json_data['success'])
+        self.assertFalse(json_data['success'])
+        self.assertIn('+380', json_data['message'])
 
     def test_form_with_local_phone_seven_digits(self):
         """Неповний номер (7 цифр) відхиляється: UA потребує 9 національних цифр"""

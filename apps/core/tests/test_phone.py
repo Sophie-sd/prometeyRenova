@@ -27,14 +27,13 @@ class NormalizePhoneTests(TestCase):
                 self.assertIsNone(e164)
                 self.assertEqual(code, err)
 
-    def test_other_countries_by_length(self):
-        self.assertEqual(normalize_phone('+44 20 7946 0958'), '+442079460958')
-        self.assertEqual(normalize_phone('+48 123 456 789'), '+48123456789')
-        self.assertEqual(normalize_phone('0048123456789'), '+48123456789')
-        self.assertEqual(normalize_phone('+1 (212) 555-0100'), '+12125550100')
-        self.assertIsNone(normalize_phone('+48 123 456'))         # PL short
-        self.assertIsNone(normalize_phone('+48 123 456 7890'))    # PL long
-        self.assertIsNone(normalize_phone('+999 1234'))           # unknown, too short
+    def test_foreign_numbers_rejected(self):
+        for raw in ('+44 20 7946 0958', '+48 123 456 789', '0048123456789', '+1 (212) 555-0100',
+                    '+49 30 1234567', '+7 912 345 67 89', '+999 1234'):
+            with self.subTest(raw=raw):
+                self.assertEqual(parse_phone(raw), (None, 'foreign'))
+        # без «+»/00 трактуємо як український національний → невірна довжина
+        self.assertEqual(parse_phone('48123456789'), (None, 'long'))
 
     def test_form_clean_helper(self):
         self.assertEqual(clean_phone_value('067 123 45 67'), '+380671234567')
@@ -43,6 +42,9 @@ class NormalizePhoneTests(TestCase):
             clean_phone_value('067 123', required=False)
         with self.assertRaises(forms.ValidationError):
             clean_phone_value('', required=True)
+        with self.assertRaises(forms.ValidationError) as ctx:
+            clean_phone_value('+48 123 456 789')
+        self.assertEqual(ctx.exception.code, 'foreign_phone')
 
 
 class FormSubmitPhoneTests(TestCase):
@@ -53,5 +55,12 @@ class FormSubmitPhoneTests(TestCase):
         self.assertIn('номер', bad.json()['message'].lower())
         long_ = self.client.post(url, {'form_type': 'call_request', 'name': 'Іван', 'phone': '+380 67 123 45 678'})
         self.assertFalse(long_.json()['success'])
+        for foreign in ('+44 20 7946 0958', '+1 202 555 0143', '0048123456789'):
+            r = self.client.post(url, {'form_type': 'call_request', 'name': 'Іван', 'phone': foreign})
+            self.assertFalse(r.json()['success'])
+            self.assertEqual(r.json()['message'], 'Приймаємо лише українські номери +380')
+        en = self.client.post('/en' + url, {'form_type': 'call_request', 'name': 'Ivan', 'phone': '+44 20 7946 0958'},
+                              HTTP_ACCEPT_LANGUAGE='en')
+        self.assertFalse(en.json()['success'])
         letters = self.client.post(url, {'form_type': 'call_request', 'name': 'Іван', 'phone': 'abcdefghij'})
         self.assertFalse(letters.json()['success'])

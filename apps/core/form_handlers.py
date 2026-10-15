@@ -18,8 +18,20 @@ logger = logging.getLogger(__name__)
 EMAIL_TIMEOUT = 10
 
 
+def phone_error_message(phone):
+    """Локалізоване повідомлення про помилку телефону або '' якщо номер валідний."""
+    from django.utils.translation import gettext
+    from apps.core.phone import parse_phone
+    e164, code = parse_phone(phone)
+    if e164:
+        return ''
+    if code == 'foreign':
+        return gettext('Приймаємо лише українські номери +380')
+    return gettext('Введіть коректний номер телефону')
+
+
 def validate_phone(phone):
-    """Валідація номера: UA +380 рівно 9 цифр, інші країни — за довжиною коду (див. apps.core.phone)."""
+    """Валідація номера: лише UA +380 і рівно 9 цифр (див. apps.core.phone)."""
     return normalize_phone(phone) is not None
 
 

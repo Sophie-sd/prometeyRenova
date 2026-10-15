@@ -6246,3 +6246,7 @@ msgstr "Проекты портфолио"
 msgctxt "portfolio"
 msgid "Проєкти портфоліо скоро з’являться."
 msgstr "Проекты портфолио скоро появятся."
+
+#: apps/core/form_handlers.py apps/core/phone_forms.py
+msgid "Приймаємо лише українські номери +380"
+msgstr "Принимаем только украинские номера +380"

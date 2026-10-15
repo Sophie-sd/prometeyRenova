@@ -8,7 +8,7 @@ from .mixins import (
     portfolio_page_projects,
 )
 from .form_handlers import (
-    validate_phone, validate_name, create_form_response, get_form_type_from_path,
+    validate_phone, phone_error_message, validate_name, create_form_response, get_form_type_from_path,
     create_form_data, send_form_email, save_form_submission,
     send_test_result_email
 )
@@ -309,7 +309,7 @@ def handle_form_submission(request):
         
         # Валідація телефону
         if not validate_phone(phone):
-            return create_form_response(False, _('Введіть коректний номер телефону'))
+            return create_form_response(False, phone_error_message(phone))
         phone = normalize_phone(phone)  # E.164
         
         # Обробка різних типів форм
@@ -512,7 +512,7 @@ def handle_test_submission(request):
             return create_form_response(False, _('Введіть коректне ім\'я (мінімум 2 символи, хоча б одна літера)'))
         
         if not validate_phone(phone):
-            return create_form_response(False, _('Введіть коректний номер телефону'))
+            return create_form_response(False, phone_error_message(phone))
         phone = normalize_phone(phone)  # E.164
         
         # Отримуємо відповіді на тест
