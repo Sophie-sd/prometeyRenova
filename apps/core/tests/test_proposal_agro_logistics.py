@@ -21,8 +21,9 @@ class AgroLogisticsProposalTests(TestCase):
         self.assertEqual(package.duration, '21–30 днів')
         self.assertFalse(package.is_recommended)
         self.assertIn('150 €', proposal.specs.filter(kind='payment').last().title)
-        self.assertIn('1 рік', proposal.guarantee_html)
-        self.assertNotIn('ожиттєв', proposal.guarantee_html)
+        self.assertIn('пожиттєву гарантію на код', proposal.guarantee_html)
+        self.assertIn('1 рік безкоштовної підтримки', proposal.guarantee_html)
+        self.assertNotIn('гарантійної підтримки', proposal.guarantee_html)
 
     def test_page_noindex_with_single_corp_demo(self):
         call_command('seed_proposal_agro_logistics', verbosity=0)
