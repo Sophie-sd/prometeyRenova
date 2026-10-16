@@ -5,25 +5,25 @@
     /* Home (hf-hero) */
     .hf-hero__actions { margin-top: clamp(28px, calc(100svh - 520px), 340px); }
 
-    /* Corporate website */
-    .pl-corp__hero { padding-top: clamp(84px, 15svh, 120px); }
-    .pl-corp__hero-inner { gap: clamp(14px, 3.4svh, 40px); }
-    .pl-corp__hero-copy { gap: clamp(10px, 2.6svh, 30px); }
-    .pl-corp__hero-copy .pl-corp__hero-proof { margin-top: clamp(-10px, calc(-1svh + 2px), 0px); }
-    .pl-corp__hero-title { font-size: clamp(40px, 7.4svh, 70px); letter-spacing: -0.05em; }
-    .pl-corp__hero-card { max-width: 760px; gap: clamp(8px, 1.4svh, 14px); padding: clamp(10px, 1.8svh, 16px) 23px clamp(12px, 2svh, 20px); }
-    .pl-corp__hero-offers { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(8px, 1.3svh, 14px); }
-    .pl-corp__hero-offer { min-height: clamp(36px, 5.4svh, 50px); }
+    /* Corporate website — original (HEAD) markup & layout: stacked offers, 520px card.
+       Fit via spacing / type only (owner 16.10: no layout change). */
+    .pl-corp__hero { padding-top: clamp(80px, 13svh, 120px); padding-bottom: clamp(16px, 3svh, 40px); }
+    .pl-corp__hero-inner { gap: clamp(12px, 2.6svh, 40px); }
+    .pl-corp__hero-copy { gap: clamp(8px, 2svh, 30px); }
+    .pl-corp__hero-title { font-size: clamp(38px, 6.6svh, 70px); letter-spacing: -0.05em; }
+    .pl-corp__hero-card { gap: clamp(8px, 1.3svh, 14px); padding: clamp(10px, 1.6svh, 16px); }
+    .pl-corp__hero-offers { gap: clamp(8px, 1.3svh, 14px); }
+    .pl-corp__hero-offer { min-height: clamp(36px, 5svh, 50px); padding-top: 6px; padding-bottom: 6px; }
+    .pl-corp__hero-card .pl-corp__btn { min-height: clamp(42px, 5.6svh, 50px); height: auto; }
 
-    /* Internet shop */
-    .pl-shop__hero { padding-top: clamp(88px, 17svh, 180px); }
-    .pl-shop__hero-inner { gap: clamp(12px, 2.6svh, 30px); }
-    .pl-shop__hero-head { gap: clamp(8px, 2.4svh, 30px); }
-    .pl-shop__title--hero { font-size: clamp(40px, 7.4svh, 70px); }
-    .pl-shop__hero-card { max-width: 640px; width: 100%; gap: clamp(10px, 2.2svh, 30px); padding-top: clamp(12px, 2svh, 20px); padding-bottom: clamp(12px, 2svh, 20px); }
-    .pl-shop__hero-form { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(8px, 1.4svh, 14px); }
-    .pl-shop__hero-form > :not(.pl-shop__field) { grid-column: 1 / -1; }
-    .pl-shop__field, .pl-shop__hero-submit { min-height: clamp(42px, 6svh, 50px); height: auto; }
+    /* Internet shop — original (HEAD) markup & layout: stacked form fields, 520px card. */
+    .pl-shop__hero { padding-top: clamp(80px, 14svh, 180px); padding-bottom: clamp(16px, 3svh, 40px); }
+    .pl-shop__hero-inner { gap: clamp(12px, 2.4svh, 30px); }
+    .pl-shop__hero-head { gap: clamp(8px, 2svh, 30px); }
+    .pl-shop__title--hero { font-size: clamp(38px, 6.6svh, 70px); }
+    .pl-shop__hero-card { gap: clamp(8px, 1.6svh, 20px); padding: clamp(10px, 1.6svh, 14px); }
+    .pl-shop__hero-form { gap: clamp(8px, 1.2svh, 14px); }
+    .pl-shop__field, .pl-shop__hero-submit { height: clamp(42px, 5.6svh, 50px); min-height: 0; }
 
     /* Contacts (info column; the form is page content, stacked below at 1024) */
     .ctf__inner { padding-top: clamp(96px, 17svh, 120px); }
