@@ -873,7 +873,10 @@
 @media (min-width: 768px) {
     .pf-snaps .pf-snap,
     .pf-snaps .pf-snap--flip {
-        max-height: var(--pfg-frame-max);
+        width: var(--pfg-row);
+        /* one deterministic height, no aspect-ratio vs max-height fight */
+        aspect-ratio: auto;
+        height: min(calc(min(1330px, 100cqw - 110px) * 787 / 1330), var(--pfg-frame-max));
     }
 
     .pf-snaps .pf-snap__asset.is-shrinking,
@@ -1113,3 +1116,8 @@ html, html.pf-snap-on, body { scroll-snap-type: none !important; }
 .pf-snap, .pf-snap.is-snap-target { scroll-snap-align: none !important; }
 /* 2026-10-16: no hidden-overflow scroll boxes under the cursor (trackpad latch) */
 .pfg-hero, .pfg-hero__bg, .pfg-filter { overflow: clip !important; }
+
+/* 2026-10-16 trackpad pull-back fix (owner bisect): no max-height fight with aspect-ratio
+   (width capped instead, above), and the giant glow is clipped by the list both ways. */
+.pf-snaps { overflow: clip; container-type: inline-size; }
+.pf-snaps .pf-snap::before { contain: strict; }
