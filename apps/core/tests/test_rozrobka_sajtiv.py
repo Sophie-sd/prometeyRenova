@@ -42,8 +42,13 @@ class RozrobkaSajtivPageTests(TestCase):
         html = self.client.get('/rozrobka-sajtiv/').content.decode()
         root = _landing_markup(html)
         self.assertIn('rozrobka-sajtiv.css', html)
-        self.assertIn('Розробка сайтів будь-якої складності під ключ', html)
-        self.assertIn('Отримати консультацію', root)
+        self.assertIn('Розробка і створення сайтів під ключ від 250 €</h1>', html)
+        # Doc 16.10, task 4.1: first-screen form (site_request) + title + button.
+        self.assertIn('data-form-type="site_request"', root)
+        self.assertIn('Розрахуємо вартість вашого сайту', root)
+        self.assertIn('Отримати розрахунок', root)
+        self.assertIn('Ціна і строк у договорі · Адмінка залишається у вас · 50+ запущених проєктів · Відповідаємо протягом 15 хвилин', root)
+        self.assertIn('Ціни на розробку сайтів під ключ', root)
         self.assertIn('250–400 €', root)
         self.assertIn('500–700 €', root)
         self.assertIn('800–1\u00a0400 €', root)
@@ -54,22 +59,20 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertIn('14–30 днів', root)
         self.assertIn('У сумі:', root)
         self.assertIn('Не входить:', root)
-        self.assertIn('1 рік гарантії на код', root)
+        self.assertIn('Пожиттєва гарантія на код, рік підтримки безкоштовно, адмінка залишається у вас.', root)
+        self.assertNotIn('1 рік гарантії', html)
         self.assertNotIn('5 років', root)
         self.assertNotIn('індивідуально', root)
         self.assertNotIn('окремий бриф', root)
         soft_hits = [s for s in ('SOFT', 'Soft ·', 'Soft —', 'орієнтири Soft') if s in html]
         self.assertEqual(soft_hits, [], soft_hits)
         self.assertIn('rozrobka-sajtiv.js', html)
-        # Hero: 3-row link list removed; mobile-only secondary calc CTA instead.
+        # Hero (doc 16.10, task 4.1): secondary links under the form = Telegram · phone; no /calculator/ CTA.
         self.assertNotIn('pl-rs__links', root)
         self.assertNotIn('pl-rs__link--muted', root)
-        self.assertNotIn('Написати в Telegram', root)
+        self.assertIn('Написати в Telegram</a> · <a href="tel:+380639520565">+38 (063) 952-05-65</a>', root)
         self.assertNotIn('Зателефонувати прямо зараз', root)
-        self.assertIn(
-            '<a class="pl-rs__cta-alt mobile-touch-target" href="/calculator/">Розрахувати вартість</a>',
-            root,
-        )
+        self.assertNotIn('pl-rs__cta-alt', root)
         # Telegram / phone remain in the closing calc block.
         self.assertIn('Написати в Telegram', html)
         self.assertIn('https://t.me/prometeylabs', html)
@@ -82,7 +85,7 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertIn('href="/telegram-bot/#pakety"', root)
         self.assertEqual(html.count('<h1'), 1)
         self.assertEqual(html.count('</h1>'), 1)
-        self.assertIn('data-modal="call-request-modal"', root)
+        self.assertNotIn('data-modal="call-request-modal"', root)  # doc 4.1: hero buttons → form
         self.assertIn('pl-rs__product--wide', root)
         self.assertIn('pl-rs__products', root)
 
@@ -119,15 +122,15 @@ class RozrobkaSajtivPageTests(TestCase):
     def test_ru_mirror_has_euro_and_no_dollar_switcher(self):
         html = self.client.get('/ru/rozrobka-sajtiv/').content.decode()
         root = _landing_markup(html)
-        self.assertIn('Разработка сайтов любой сложности под ключ', html)
-        self.assertIn('Получить консультацию', root)
+        self.assertIn('Разработка и создание сайтов под ключ от 250 €</h1>', html)
+        self.assertIn('Рассчитаем стоимость вашего сайта', root)
+        self.assertIn('Получить расчёт', root)
+        self.assertIn('Пожизненная гарантия на код, год поддержки бесплатно, админка остаётся у вас.', root)
+        self.assertIn('Цена и срок в договоре · Админка остаётся у вас · 50+ запущенных проектов · Отвечаем в течение 15 минут', root)
         self.assertIn('€', root)
         self.assertIn('id="fx-switch-soft"', root)
         self.assertNotIn('data-currency="usd"', root)
-        self.assertIn(
-            '<a class="pl-rs__cta-alt mobile-touch-target" href="/ru/calculator/">Рассчитать стоимость</a>',
-            root,
-        )
+        self.assertNotIn('pl-rs__cta-alt', root)
         self.assertNotIn('pl-rs__links', root)
         self.assertIn('tel:+380639520565', html)
         self.assertEqual(html.count('<h1'), 1)
@@ -145,7 +148,7 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertIn('https://www.prometeylabs.com/static/images/og-image.jpg', html)
         self.assertIn('twitter:card', html)
         self.assertIn('property="og:image"', html)
-        self.assertNotIn('від 250 €', html)
+        self.assertIn('пожиттєва гарантія на код і рік підтримки безкоштовно. Отримати консультацію.', html)
 
     def test_ru_canonical(self):
         html = self.client.get('/ru/rozrobka-sajtiv/').content.decode()

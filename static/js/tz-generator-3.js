@@ -1,6 +1,7 @@
 /* tz-generator-3.js — marquee strip, quiz engine + submit + upsell, FAQ, sticky CTA */
 (function () {
     'use strict';
+    var __tzEn = /^en/i.test(document.documentElement.lang || '');
 
     var root = document.getElementById('tzRoot');
     if (!root) return;
@@ -283,17 +284,17 @@
             setError('');
 
             if (!validName(nameInput.value)) {
-                setError('Введіть коректне ім\u2019я');
+                setError(__tzEn ? 'Enter a valid name' : 'Введіть коректне ім\u2019я');
                 nameInput.focus();
                 return;
             }
             if (!validPhone(phoneInput.value)) {
-                setError(window.PhoneMask ? window.PhoneMask.check(phoneInput).message || 'Введіть коректний номер телефону' : 'Введіть коректний номер телефону');
+                setError(window.PhoneMask ? window.PhoneMask.check(phoneInput).message || (__tzEn ? 'Enter a valid phone number' : 'Введіть коректний номер телефону') : (__tzEn ? 'Enter a valid phone number' : 'Введіть коректний номер телефону'));
                 phoneInput.focus();
                 return;
             }
             if (!validEmail(emailInput.value)) {
-                setError('Введіть коректний email');
+                setError(__tzEn ? 'Enter a valid email' : 'Введіть коректний email');
                 emailInput.focus();
                 return;
             }
@@ -334,11 +335,11 @@
                     if (data.success) {
                         showSuccess(data);
                     } else {
-                        setError(data.message || 'Помилка при відправці. Спробуйте ще раз.');
+                        setError(data.message || (__tzEn ? 'Sending failed. Please try again.' : 'Помилка при відправці. Спробуйте ще раз.'));
                     }
                 })
                 .catch(function () {
-                    setError('Помилка мережі. Спробуйте ще раз.');
+                    setError(__tzEn ? 'Network error. Please try again.' : 'Помилка мережі. Спробуйте ще раз.');
                 })
                 .finally(function () {
                     if (submitBtn) {

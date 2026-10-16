@@ -285,7 +285,14 @@ class ProposalSeedTests(TestCase):
         ])
         self.assertIn('пожиттєву гарантію', proposal.guarantee_html)
         self.assertEqual(proposal.modules.count(), 6)
-        self.assertIn('seal-on-dark.webp', proposal.hero_public_url)
+        # seed copies static/proposal/img/seal-on-dark.webp into media as proposals/<slug>/hero*.webp
+        self.assertTrue(proposal.hero_image)
+        self.assertIn('/proposals/shop-agro-prom-a7f3/hero', proposal.hero_public_url)
+        from pathlib import Path
+        from django.conf import settings as dj_settings
+        seal = Path(dj_settings.BASE_DIR) / 'static' / 'proposal' / 'img' / 'seal-on-dark.webp'
+        with proposal.hero_image.open('rb') as fh:
+            self.assertEqual(fh.read(), seal.read_bytes())
         self.assertFalse(DemoShop.objects.filter(proposal=proposal).exists())
         self.assertFalse(
             Proposal.objects.filter(
@@ -771,9 +778,9 @@ class ProposalSeedTests(TestCase):
             ('PREMIUM', Decimal('2500.00'), '30 днів', True),
             ('PLATINUM', Decimal('4200.00'), '30–45 днів', False),
         ])
-        self.assertIn('1 рік', proposal.guarantee_html)
-        for word in ('пожиттєв', 'Пожиттєв', 'ПОЖИТТЄВ'):
-            self.assertNotIn(word, proposal.guarantee_html)
+        self.assertIn('пожиттєву гарантію на код', proposal.guarantee_html)
+        self.assertIn('1 рік безкоштовної підтримки', proposal.guarantee_html)
+        self.assertNotIn('гарантійної підтримки', proposal.guarantee_html)
         self.assertTrue(proposal.hero_image)
         self.assertTrue(proposal.hero_public_url)
         self.assertEqual(DemoShop.objects.filter(proposal=proposal).count(), 1)
@@ -791,7 +798,8 @@ class ProposalSeedTests(TestCase):
         self.assertContains(kp, 'не версія вашого сайту')
         self.assertContains(kp, shop.get_absolute_url())
         self.assertEqual(kp['X-Robots-Tag'], 'noindex, nofollow')
-        self.assertNotContains(kp, 'пожиттєв')
+        self.assertContains(kp, 'пожиттєву гарантію на код')
+        self.assertContains(kp, '1 рік безкоштовної підтримки')
 
     def test_sanvit_seed_is_corporate_catalog_with_one_corp_demo(self):
         from apps.demoshop.services.provision import provision_demo_shop

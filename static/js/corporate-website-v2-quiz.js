@@ -8,8 +8,9 @@
 
     var isRu = (document.documentElement.lang || '').toLowerCase().indexOf('ru') === 0
         || /^\/ru\//.test(location.pathname);
-    var PHONE_MSG_EMPTY = isRu ? 'Внесите номер телефона' : 'Внесіть номер телефону';
-    var PHONE_MSG_INVALID = isRu ? 'Введите корректный номер телефона' : 'Введіть коректний номер телефону';
+    var isEn = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
+    var PHONE_MSG_EMPTY = isRu ? 'Внесите номер телефона' : isEn ? 'Enter your phone number' : 'Внесіть номер телефону';
+    var PHONE_MSG_INVALID = isRu ? 'Введите корректный номер телефона' : isEn ? 'Enter a valid phone number' : 'Введіть коректний номер телефону';
 
     var PKG_MAP = {
         starter: {
@@ -43,6 +44,41 @@
             ]
         }
     };
+
+    if (isEn) {
+        PKG_MAP.starter.label = 'STARTER';
+        PKG_MAP.starter.term = '5–7 days';
+        PKG_MAP.starter.features = ['1-page landing page for your brand', 'Basic SEO and a lead form', 'Telegram or CRM integration', 'Responsive mobile version'];
+        PKG_MAP.corporate.label = 'CORPORATE';
+        PKG_MAP.corporate.term = '2–3 weeks';
+        PKG_MAP.corporate.features = ['5–9 pages, a blog for SEO', 'Advanced SEO and Core Web Vitals', 'CRM + Google Ads included', 'Catalogue of services or products'];
+        PKG_MAP.premium.label = 'BUSINESS PREMIUM';
+        PKG_MAP.premium.term = '3–6 weeks';
+        PKG_MAP.premium.features = ['10+ pages, multilingual', '1C / Bitrix24 integration', 'Turnkey marketing: Google, Meta, TikTok', 'SEO promotion and advanced functionality'];
+    }
+    var EN2UA = {
+        "Services (B2C / B2B)": "Послуги (B2C / B2B)",
+        "Manufacturing / wholesale": "Виробництво / опт",
+        "Retail": "Торгівля",
+        "Other / not sure yet": "Інше / не визначився",
+        "Collecting leads and contacts": "Збір заявок та контактів",
+        "Direct online sales": "Прямі онлайн-продажі",
+        "Presenting your brand or services": "Презентація бренду або послуг",
+        "Scaling": "Масштабування",
+        "1 page (landing page)": "1 сторінка (лендінг)",
+        "Up to 10 pages": "до 10 сторінок",
+        "11–20 pages": "11–20 сторінок",
+        "21+ pages": "21+ сторінок",
+        "Advertising services": "Рекламні послуги",
+        "SEO growth for the site": "SEO розвиток сайту",
+        "CRM and automation": "CRM та автоматизація",
+        "Multilingual": "Мультимовність",
+        "As soon as possible (within 7 days)": "Якнайшвидше (до 7 днів)",
+        "Within 2 weeks": "Протягом 2 тижнів",
+        "Within a month": "Протягом місяця",
+        "Flexible timeline": "Терміни гнучкі"
+    };
+    function ua(v) { return EN2UA[v] || v; }
 
     var steps = Array.from(form.querySelectorAll('.pl-corp__quiz-step'));
     var stage = form.querySelector('.pl-corp__quiz-stage');
@@ -162,11 +198,11 @@
 
     function recommendPackage() {
         var score = { starter: 0, corporate: 0, premium: 0 };
-        var business = getCheckedValue('q_business');
-        var goal = getCheckedValue('q_goal');
-        var pages = getCheckedValue('q_pages');
-        var option = getCheckedValue('q_options');
-        var timeline = getCheckedValue('q_timeline');
+        var business = ua(getCheckedValue('q_business'));
+        var goal = ua(getCheckedValue('q_goal'));
+        var pages = ua(getCheckedValue('q_pages'));
+        var option = ua(getCheckedValue('q_options'));
+        var timeline = ua(getCheckedValue('q_timeline'));
 
         if (pages === '1 сторінка (лендинг)') score.starter += 4;
         if (pages === 'до 10 сторінок') score.corporate += 4;
@@ -282,11 +318,11 @@
 
         if (contact.charAt(0) === '@') {
             if (digits < 7) {
-                showPhoneError('Додайте номер телефону разом із Telegram або вкажіть телефон для звʼязку.');
+                showPhoneError(isEn ? 'Add a phone number along with your Telegram, or enter a phone number we can call.' : 'Додайте номер телефону разом із Telegram або вкажіть телефон для звʼязку.');
                 valid = false;
             }
         } else if (digits < 7) {
-            showPhoneError('Введіть коректний номер телефону або Telegram з номером.');
+            showPhoneError(isEn ? 'Enter a valid phone number or a Telegram handle with a number.' : 'Введіть коректний номер телефону або Telegram з номером.');
             valid = false;
         }
 

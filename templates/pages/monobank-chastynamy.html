@@ -2,9 +2,9 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %}Покупка частинами monobank | Universal Bank | PrometeyLabs{% endblock %}
-{% block description %}Юридична інформація щодо послуги Покупка частинами від monobank | Universal Bank.{% endblock %}
-{% block keywords %}покупка частинами, monobank, розстрочка, Universal Bank{% endblock %}
+{% block title %}{% trans "Покупка частинами monobank | Universal Bank | PrometeyLabs" %}{% endblock %}
+{% block description %}{% trans "Юридична інформація щодо послуги Покупка частинами від monobank | Universal Bank." %}{% endblock %}
+{% block keywords %}{% trans "покупка частинами, monobank, розстрочка, Universal Bank" %}{% endblock %}
 
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/legal-pages.css' %}">
@@ -14,7 +14,7 @@
 <article class="legal-article">
     <header class="legal-header">
         <div class="legal-header-inner">
-            <h1 class="legal-title">Покупка частинами monobank | Universal Bank</h1>
+            <h1 class="legal-title">{% if request.LANGUAGE_CODE == 'en' %}{% trans "Покупка частинами monobank | Universal Bank" %}{% else %}Покупка частинами monobank | Universal Bank{% endif %}</h1>
         </div>
     </header>
 
@@ -22,23 +22,23 @@
         <div class="container">
             <div class="legal-wrapper">
                 <section class="legal-section">
-                    <h2>Надавач послуг</h2>
+                    <h2>{% trans "Надавач послуг" %}</h2>
                     <div class="legal-subsection">
-                        <p>АТ «УНІВЕРСАЛ БАНК» ліцензія НБУ No92 від 20.01.1994, номер у держреєстрі банків No 226.</p>
+                        <p>{% trans "АТ «УНІВЕРСАЛ БАНК» ліцензія НБУ No92 від 20.01.1994, номер у держреєстрі банків No 226." %}</p>
                     </div>
                 </section>
 
                 <section class="legal-section">
-                    <h2>Характеристики продукту</h2>
+                    <h2>{% trans "Характеристики продукту" %}</h2>
                     <div class="legal-subsection">
                         <ul>
-                            <li>Мінімальна сума розстрочки: 1 грн</li>
-                            <li>Максимальна сума розстрочки: 400 000 грн</li>
-                            <li>Реальна річна процентна ставка: 0,000001%</li>
-                            <li>Доступний строк, платежів: 3 - 25</li>
-                            <li>Порядок погашення: щомісячні платежі рівними частинами</li>
-                            <li>Перший платіж у момент оформлення покупки</li>
-                            <li>Інформація про істотні характеристики продукту та попередження розміщені на сайті продукту <a href="https://chast.monobank.ua" target="_blank" rel="noopener noreferrer">chast.monobank.ua</a></li>
+                            <li>{% trans "Мінімальна сума розстрочки: 1 грн" %}</li>
+                            <li>{% trans "Максимальна сума розстрочки: 400 000 грн" %}</li>
+                            <li>{% trans "Реальна річна процентна ставка: 0,000001%" %}</li>
+                            <li>{% trans "Доступний строк, платежів: 3 - 25" %}</li>
+                            <li>{% trans "Порядок погашення: щомісячні платежі рівними частинами" %}</li>
+                            <li>{% trans "Перший платіж у момент оформлення покупки" %}</li>
+                            <li>{% trans "Інформація про істотні характеристики продукту та попередження розміщені на сайті продукту" %} <a href="https://chast.monobank.ua" target="_blank" rel="noopener noreferrer">chast.monobank.ua</a></li>
                         </ul>
                     </div>
                 </section>

@@ -1,28 +1,28 @@
-{% load static %}
+{% load i18n %}{% load static %}
 <section id="economy" class="pl-corp__section pl-corp__dev" aria-labelledby="pl-corp-economy-title">
     <div class="pl-corp__inner">
-        <h2 id="pl-corp-economy-title" class="pl-corp__title pl-corp__title--center pl-corp__dev-title" data-reveal>Що входить у розробку під ключ</h2>
+        <h2 id="pl-corp-economy-title" class="pl-corp__title pl-corp__title--center pl-corp__dev-title" data-reveal>{% trans "Що входить у розробку під ключ" %}</h2>
 
         <div class="pl-corp__dev-grid">
             <article class="pl-corp__dev-card" data-reveal>
-                <p class="pl-corp__tag pl-corp__tag--bad"><span class="pl-corp__tag-dot" aria-hidden="true"></span>Стандартні CMS · WordPress / Tilda / Wix</p>
-                <h3 class="pl-corp__dev-card-title">Повільна сторінка після кліку</h3>
+                <p class="pl-corp__tag pl-corp__tag--bad"><span class="pl-corp__tag-dot" aria-hidden="true"></span>{% trans "Стандартні CMS · WordPress / Tilda / Wix" %}</p>
+                <h3 class="pl-corp__dev-card-title">{% trans "Повільна сторінка після кліку" %}</h3>
                 <ul class="pl-corp__dev-list">
-                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--cross" src="{% static 'images/corporate_website_v2/figma/icon-cross.svg' %}" alt="" width="16" height="16">Перевантажені плагінами — низькі оцінки швидкості</li>
-                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--cross" src="{% static 'images/corporate_website_v2/figma/icon-cross.svg' %}" alt="" width="16" height="16">Гірший досвід після кліку з реклами</li>
-                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--cross" src="{% static 'images/corporate_website_v2/figma/icon-cross.svg' %}" alt="" width="16" height="16">Постійні «дірки» у безпеці через сторонній код</li>
-                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--cross" src="{% static 'images/corporate_website_v2/figma/icon-cross.svg' %}" alt="" width="16" height="16">Залежність від оновлень, які ламають сайт</li>
+                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--cross" src="{% static 'images/corporate_website_v2/figma/icon-cross.svg' %}" alt="" width="16" height="16">{% trans "Перевантажені плагінами — низькі оцінки швидкості" %}</li>
+                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--cross" src="{% static 'images/corporate_website_v2/figma/icon-cross.svg' %}" alt="" width="16" height="16">{% trans "Гірший досвід після кліку з реклами" %}</li>
+                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--cross" src="{% static 'images/corporate_website_v2/figma/icon-cross.svg' %}" alt="" width="16" height="16">{% trans "Постійні «дірки» у безпеці через сторонній код" %}</li>
+                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--cross" src="{% static 'images/corporate_website_v2/figma/icon-cross.svg' %}" alt="" width="16" height="16">{% trans "Залежність від оновлень, які ламають сайт" %}</li>
                 </ul>
             </article>
 
             <article class="pl-corp__dev-card" data-reveal>
-                <p class="pl-corp__tag pl-corp__tag--good"><span class="pl-corp__tag-dot" aria-hidden="true"></span>Наша архітектура · чистий код</p>
-                <h3 class="pl-corp__dev-card-title">Google враховує швидкість сторінки в оцінці якості цільової сторінки</h3>
+                <p class="pl-corp__tag pl-corp__tag--good"><span class="pl-corp__tag-dot" aria-hidden="true"></span>{% trans "Наша архітектура · чистий код" %}</p>
+                <h3 class="pl-corp__dev-card-title">{% trans "Google враховує швидкість сторінки в оцінці якості цільової сторінки" %}</h3>
                 <ul class="pl-corp__dev-list">
-                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--check" src="{% static 'images/corporate_website_v2/figma/icon-check.svg' %}" alt="" width="9" height="14">Дизайн, у якому впізнають ваш бренд, і верстка без вигляду конструктора</li>
-                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--check" src="{% static 'images/corporate_website_v2/figma/icon-check.svg' %}" alt="" width="9" height="14">Форми збору заявок, календар, онлайн-запис чи будь-які інтеграції</li>
-                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--check" src="{% static 'images/corporate_website_v2/figma/icon-check.svg' %}" alt="" width="9" height="14">Адмінка, де тексти, фото і кольори міняєте самі, без залучення програмістів</li>
-                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--check" src="{% static 'images/corporate_website_v2/figma/icon-check.svg' %}" alt="" width="9" height="14">Запуск із доменом і захищеним з’єднанням, доступи передаємо вам</li>
+                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--check" src="{% static 'images/corporate_website_v2/figma/icon-check.svg' %}" alt="" width="9" height="14">{% trans "Дизайн, у якому впізнають ваш бренд, і верстка без вигляду конструктора" %}</li>
+                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--check" src="{% static 'images/corporate_website_v2/figma/icon-check.svg' %}" alt="" width="9" height="14">{% trans "Форми збору заявок, календар, онлайн-запис чи будь-які інтеграції" %}</li>
+                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--check" src="{% static 'images/corporate_website_v2/figma/icon-check.svg' %}" alt="" width="9" height="14">{% trans "Адмінка, де тексти, фото і кольори міняєте самі, без залучення програмістів" %}</li>
+                    <li class="pl-corp__dev-item"><img class="pl-corp__dev-icon pl-corp__dev-icon--check" src="{% static 'images/corporate_website_v2/figma/icon-check.svg' %}" alt="" width="9" height="14">{% trans "Запуск із доменом і захищеним з’єднанням, доступи передаємо вам" %}</li>
                 </ul>
             </article>
 
@@ -31,15 +31,15 @@
                     <source media="(max-width: 767px)" srcset="{% static 'images/corporate_website_v2/figma/glow-effect-mobile.svg' %}">
                     <img src="{% static 'images/corporate_website_v2/figma/glow-effect.svg' %}" alt="" width="626" height="541" loading="lazy">
                 </picture>
-                <h3 class="pl-corp__dev-promo-title">Швидке завантаження — частина досвіду після кліку, який оцінює Google</h3>
+                <h3 class="pl-corp__dev-promo-title">{% trans "Швидке завантаження — частина досвіду після кліку, який оцінює Google" %}</h3>
                 <div class="pl-corp__dev-metrics">
                     <div class="pl-corp__dev-metric">
                         <strong class="pl-corp__dev-metric-val">0</strong>
-                        <span class="pl-corp__dev-metric-label">сторонніх плагінів і конструкторів</span>
+                        <span class="pl-corp__dev-metric-label">{% trans "сторонніх плагінів і конструкторів" %}</span>
                     </div>
                     <div class="pl-corp__dev-metric">
                         <strong class="pl-corp__dev-metric-val">100</strong>
-                        <span class="pl-corp__dev-metric-label">Performance у Lighthouse (мобільний) — замір нашого проєкту, 09.10.2026</span>
+                        <span class="pl-corp__dev-metric-label">{% trans "Performance у Lighthouse (мобільний) — замір нашого проєкту, 09.10.2026" %}</span>
                     </div>
                 </div>
             </article>

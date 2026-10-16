@@ -3,6 +3,7 @@
 
     var isRu = (document.documentElement.lang || '').toLowerCase().indexOf('ru') === 0
         || /\/ru\//.test(location.pathname);
+    var isEn = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
 
     var STATUS_CYCLE = ['paid', 'pending', 'shipped'];
     var STATUS_META = {
@@ -306,6 +307,57 @@
 
     applyRuLocale();
 
+    function applyEnLocale() {
+        if (!isEn) return;
+
+        STATUS_META.paid.label = 'Paid';
+        STATUS_META.pending.label = 'Processing';
+        STATUS_META.shipped.label = 'Shipped';
+
+        TITLE_MAP.orders = 'Admin / Orders';
+        TITLE_MAP.products = 'Admin / Products';
+        TITLE_MAP.analytics = 'Admin / Analytics';
+
+        var names = {
+            'Кросівки Nike Air': 'Nike Air sneakers',
+            'Шкарпетки бавовняні': 'Cotton socks',
+            'Куртка зимова': 'Winter jacket',
+            'Шарф': 'Scarf',
+            'Сумка шкіряна': 'Leather bag',
+            'Годинник Casio': 'Casio watch',
+            'Футболка oversize': 'Oversized T-shirt'
+        };
+        var customers = {
+            'Олена К.': 'Olena K.', 'Андрій М.': 'Andrii M.', 'Ірина В.': 'Iryna V.',
+            'Максим Е.': 'Maksym E.', 'Софія Л.': 'Sofiia L.'
+        };
+        var categories = { 'Взуття': 'Footwear', 'Одяг': 'Clothing', 'Аксесуари': 'Accessories' };
+        var visibility = { 'Активний': 'Active', 'Мало на складі': 'Low stock' };
+        var descs = {
+            'Кросівки Nike Air': 'Category bestseller. Syncs with Prom and Rozetka with no manual updates.',
+            'Куртка зимова': 'A premium item with a high average order value. Stock updates after every order.',
+            'Сумка шкіряна': 'Steady sales from organic traffic. The SEO product card is optimised for Google Shopping.',
+            'Годинник Casio': 'Stock is critically low — the system has already sent the manager a push notification.',
+            'Футболка oversize': 'No. 1 by orders over the last 30 days. Auto-boost in the catalogue is on.',
+            'Шкарпетки бавовняні': 'Cart upsell. Bundle pricing and a discount from 3 pairs work automatically.'
+        };
+        function tr(map, v) { return map[v] || v; }
+
+        state.orders.forEach(function (o) {
+            o.customer = tr(customers, o.customer);
+            (o.items || []).forEach(function (it) { it.name = tr(names, it.name); });
+        });
+        state.products.forEach(function (pr) {
+            if (descs[pr.name]) pr.desc = descs[pr.name];
+            pr.name = tr(names, pr.name);
+            pr.category = tr(categories, pr.category);
+            pr.visibilityLabel = tr(visibility, pr.visibilityLabel);
+        });
+        state.analyticsTop.forEach(function (a) { a.name = tr(names, a.name); });
+    }
+
+    applyEnLocale();
+
     function initAdminMock() {
         var mock = document.querySelector('[data-admin-mock]');
         if (!mock) return;
@@ -352,16 +404,16 @@
         function syncProductVisibility(product) {
             if (product.stock <= 0) {
                 product.visibility = 'out';
-                product.visibilityLabel = isRu ? 'Нет в наличии' : 'Немає в наявності';
+                product.visibilityLabel = isRu ? 'Нет в наличии' : isEn ? 'Out of stock' : 'Немає в наявності';
                 return;
             }
             if (product.stock <= 5) {
                 product.visibility = 'low';
-                product.visibilityLabel = isRu ? 'Мало на складе' : 'Мало на складі';
+                product.visibilityLabel = isRu ? 'Мало на складе' : isEn ? 'Low stock' : 'Мало на складі';
                 return;
             }
             product.visibility = 'active';
-            product.visibilityLabel = isRu ? 'Активный' : 'Активний';
+            product.visibilityLabel = isRu ? 'Активный' : isEn ? 'Active' : 'Активний';
         }
 
         function nextStatus(current) {
@@ -373,7 +425,7 @@
             var meta = STATUS_META[order.status];
             return '<button type="button" class="pl-shop__status ' + meta.className +
                 '" data-admin-status="' + escapeHtml(order.id) +
-                '" aria-label="' + (isRu ? 'Изменить статус заказа #' : 'Змінити статус замовлення #') + escapeHtml(order.id) + '">' +
+                '" aria-label="' + (isRu ? 'Изменить статус заказа #' : isEn ? 'Change order status #' : 'Змінити статус замовлення #') + escapeHtml(order.id) + '">' +
                 escapeHtml(meta.label) + '</button>';
         }
 
@@ -397,14 +449,14 @@
                     '<img src="' + escapeHtml(src) + '" alt="" width="160" height="94" decoding="async"></picture>'
                 : '';
             return '<div class="pl-shop__admin-metric pl-shop__admin-metric--chart">' +
-                '<div class="pl-shop__admin-metric-label">' + (isRu ? 'Конверсия' : 'Конверсія') + '</div>' +
+                '<div class="pl-shop__admin-metric-label">' + (isRu ? 'Конверсия' : isEn ? 'Conversion' : 'Конверсія') + '</div>' +
                 chart + '</div>';
         }
 
         function renderAnalyticsBars() {
             var heights = [35, 55, 42, 78, 100];
             var html = '<div class="pl-shop__admin-metric pl-shop__admin-metric--wide">' +
-                '<div class="pl-shop__admin-metric-label">' + (isRu ? 'Продажи за неделю' : 'Продажі за тиждень') + '</div>' +
+                '<div class="pl-shop__admin-metric-label">' + (isRu ? 'Продажи за неделю' : isEn ? 'Sales this week' : 'Продажі за тиждень') + '</div>' +
                 '<div class="pl-shop__admin-bars pl-shop__admin-bars--tall" aria-hidden="true">';
             heights.forEach(function (h, i) {
                 var acc = i >= 3 ? ' pl-shop__admin-bar-col--acc' : '';
@@ -425,8 +477,8 @@
 
         function renderOrdersView() {
             var metrics = renderMetrics(
-                renderMetric(isRu ? 'Заказов сегодня' : 'Замовлень сьогодні', '47') +
-                renderMetric(isRu ? 'Выручка' : 'Виручка', '₴84k', 'pl-shop__admin-metric-val--acc') +
+                renderMetric(isRu ? 'Заказов сегодня' : isEn ? 'Orders today' : 'Замовлень сьогодні', '47') +
+                renderMetric(isRu ? 'Выручка' : isEn ? 'Revenue' : 'Виручка', '₴84k', 'pl-shop__admin-metric-val--acc') +
                 renderChartMetric()
             );
 
@@ -446,27 +498,27 @@
                 '<div class="pl-shop__admin-table-wrap">' +
                 '<div class="pl-shop__admin-table">' +
                 renderTableHead([
-                    { className: 'pl-shop__admin-col-order', label: isRu ? 'Заказы' : 'Замовлення' },
-                    { className: 'pl-shop__admin-col-sum', label: isRu ? 'Сумма' : 'Сума' },
-                    { className: 'pl-shop__admin-col-status', label: isRu ? 'Статус' : 'Статус' }
+                    { className: 'pl-shop__admin-col-order', label: isRu ? 'Заказы' : isEn ? 'Orders' : 'Замовлення' },
+                    { className: 'pl-shop__admin-col-sum', label: isRu ? 'Сумма' : isEn ? 'Total' : 'Сума' },
+                    { className: 'pl-shop__admin-col-status', label: isRu ? 'Статус' : isEn ? 'Status' : 'Статус' }
                 ]) + rows + '</div></div>';
         }
 
         function renderProductsView() {
             var metrics = renderMetrics(
-                renderMetric(isRu ? 'SKU в каталоге' : 'SKU в каталозі', '1 248') +
-                renderMetric(isRu ? 'На складе' : 'На складі', '892', 'pl-shop__admin-metric-val--acc') +
-                renderMetric(isRu ? 'Новых за неделю' : 'Нових за тиждень', '12')
+                renderMetric(isRu ? 'SKU в каталоге' : isEn ? 'SKUs in catalogue' : 'SKU в каталозі', '1 248') +
+                renderMetric(isRu ? 'На складе' : isEn ? 'In stock' : 'На складі', '892', 'pl-shop__admin-metric-val--acc') +
+                renderMetric(isRu ? 'Новых за неделю' : isEn ? 'New this week' : 'Нових за тиждень', '12')
             );
 
             var rows = '';
             state.products.forEach(function (product, i) {
                 rows += '<div class="pl-shop__admin-table-row pl-shop__admin-table-row--clickable" role="button" tabindex="0" data-admin-product="' +
-                    escapeHtml(product.sku) + '" aria-label="' + (isRu ? 'Открыть карточку товара ' : 'Відкрити картку товару ') + escapeHtml(product.name) +
+                    escapeHtml(product.sku) + '" aria-label="' + (isRu ? 'Открыть карточку товара ' : isEn ? 'Open product card ' : 'Відкрити картку товару ') + escapeHtml(product.name) +
                     '" style="--admin-row-i:' + i + '">' +
                     '<span class="pl-shop__admin-col-order">' + escapeHtml(product.name) + '</span>' +
                     '<span class="pl-shop__admin-col-sum">' + escapeHtml(product.price) + '</span>' +
-                    '<span class="pl-shop__admin-col-status pl-shop__admin-col-stock">' + escapeHtml(String(product.stock)) + (isRu ? ' шт.</span>' : ' од.</span>') +
+                    '<span class="pl-shop__admin-col-status pl-shop__admin-col-stock">' + escapeHtml(String(product.stock)) + (isRu ? ' шт.</span>' : isEn ? ' pcs</span>' : ' од.</span>') +
                     '</div>';
             });
 
@@ -474,17 +526,17 @@
                 '<div class="pl-shop__admin-table-wrap">' +
                 '<div class="pl-shop__admin-table">' +
                 renderTableHead([
-                    { className: 'pl-shop__admin-col-order', label: isRu ? 'Товар' : 'Товар' },
-                    { className: 'pl-shop__admin-col-sum', label: isRu ? 'Цена' : 'Ціна' },
-                    { className: 'pl-shop__admin-col-status', label: isRu ? 'Остаток' : 'Залишок' }
+                    { className: 'pl-shop__admin-col-order', label: isRu ? 'Товар' : isEn ? 'Product' : 'Товар' },
+                    { className: 'pl-shop__admin-col-sum', label: isRu ? 'Цена' : isEn ? 'Price' : 'Ціна' },
+                    { className: 'pl-shop__admin-col-status', label: isRu ? 'Остаток' : isEn ? 'Stock' : 'Залишок' }
                 ]) + rows + '</div></div>';
         }
 
         function renderAnalyticsView() {
             var metrics = renderMetrics(
-                renderMetric(isRu ? 'Посетители' : 'Відвідувачі', '2 840') +
-                renderMetric(isRu ? 'Конверсия' : 'Конверсія', '3.2%', 'pl-shop__admin-metric-val--acc') +
-                renderMetric(isRu ? 'Средний чек' : 'Середній чек', '₴1 840')
+                renderMetric(isRu ? 'Посетители' : isEn ? 'Visitors' : 'Відвідувачі', '2 840') +
+                renderMetric(isRu ? 'Конверсия' : isEn ? 'Conversion' : 'Конверсія', '3.2%', 'pl-shop__admin-metric-val--acc') +
+                renderMetric(isRu ? 'Средний чек' : isEn ? 'Average order' : 'Середній чек', '₴1 840')
             );
 
             var rows = '';
@@ -500,9 +552,9 @@
                 '<div class="pl-shop__admin-table-wrap">' +
                 '<div class="pl-shop__admin-table">' +
                 renderTableHead([
-                    { className: 'pl-shop__admin-col-order', label: isRu ? 'Топ товар' : 'Топ товар' },
-                    { className: 'pl-shop__admin-col-sum', label: isRu ? 'Продажи' : 'Продажі' },
-                    { className: 'pl-shop__admin-col-status', label: isRu ? 'Выручка' : 'Виручка' }
+                    { className: 'pl-shop__admin-col-order', label: isRu ? 'Топ товар' : isEn ? 'Top product' : 'Топ товар' },
+                    { className: 'pl-shop__admin-col-sum', label: isRu ? 'Продажи' : isEn ? 'Sales' : 'Продажі' },
+                    { className: 'pl-shop__admin-col-status', label: isRu ? 'Выручка' : isEn ? 'Revenue' : 'Виручка' }
                 ]) + rows + '</div></div>';
         }
 
@@ -527,7 +579,7 @@
                 '</div>' +
                 '<div class="pl-shop__admin-detail-items">' + itemsHtml + '</div>' +
                 '<div class="pl-shop__admin-detail-total">' +
-                '<span>' + (isRu ? 'Итого' : 'Разом') + '</span><strong>' + escapeHtml(order.sum) + '</strong>' +
+                '<span>' + (isRu ? 'Итого' : isEn ? 'Total' : 'Разом') + '</span><strong>' + escapeHtml(order.sum) + '</strong>' +
                 '</div></div>';
         }
 
@@ -548,25 +600,25 @@
                 '</div>' +
                 '<div class="pl-shop__admin-detail-specs">' +
                 '<div class="pl-shop__admin-detail-spec" style="--admin-row-i:0">' +
-                '<span class="pl-shop__admin-detail-spec-label">' + (isRu ? 'Цена' : 'Ціна') + '</span>' +
+                '<span class="pl-shop__admin-detail-spec-label">' + (isRu ? 'Цена' : isEn ? 'Price' : 'Ціна') + '</span>' +
                 '<strong class="pl-shop__admin-detail-spec-val">' + escapeHtml(product.price) + '</strong></div>' +
                 '<div class="pl-shop__admin-detail-spec" style="--admin-row-i:1">' +
-                '<span class="pl-shop__admin-detail-spec-label">' + (isRu ? 'Остаток' : 'Залишок') + '</span>' +
+                '<span class="pl-shop__admin-detail-spec-label">' + (isRu ? 'Остаток' : isEn ? 'Stock' : 'Залишок') + '</span>' +
                 '<strong class="pl-shop__admin-detail-spec-val" data-admin-stock-val="' + escapeHtml(product.sku) + '">' +
-                escapeHtml(String(product.stock)) + (isRu ? ' шт.</strong></div>' : ' од.</strong></div>') +
+                escapeHtml(String(product.stock)) + (isRu ? ' шт.</strong></div>' : isEn ? ' pcs</strong></div>' : ' од.</strong></div>') +
                 '<div class="pl-shop__admin-detail-spec" style="--admin-row-i:2">' +
-                '<span class="pl-shop__admin-detail-spec-label">' + (isRu ? 'Продажи / 30 дн' : 'Продажі / 30 дн') + '</span>' +
+                '<span class="pl-shop__admin-detail-spec-label">' + (isRu ? 'Продажи / 30 дн' : isEn ? 'Sales / 30 days' : 'Продажі / 30 дн') + '</span>' +
                 '<strong class="pl-shop__admin-detail-spec-val pl-shop__admin-detail-spec-val--acc">' +
                 escapeHtml(String(product.sales30)) + '</strong></div>' +
                 '</div>' +
                 '<p class="pl-shop__admin-detail-desc">' + escapeHtml(product.desc) + '</p>' +
                 '<div class="pl-shop__admin-stock-control">' +
-                '<span class="pl-shop__admin-stock-label">' + (isRu ? 'Обновить остаток' : 'Оновити залишок') + '</span>' +
+                '<span class="pl-shop__admin-stock-label">' + (isRu ? 'Обновить остаток' : isEn ? 'Update stock' : 'Оновити залишок') + '</span>' +
                 '<div class="pl-shop__admin-stock-actions">' +
                 '<button type="button" class="pl-shop__admin-stock-btn" data-admin-stock-minus="' + escapeHtml(product.sku) +
-                '" aria-label="' + (isRu ? 'Уменьшить остаток' : 'Зменшити залишок') + '">−</button>' +
+                '" aria-label="' + (isRu ? 'Уменьшить остаток' : isEn ? 'Decrease stock' : 'Зменшити залишок') + '">−</button>' +
                 '<button type="button" class="pl-shop__admin-stock-btn pl-shop__admin-stock-btn--plus" data-admin-stock-plus="' +
-                escapeHtml(product.sku) + '" aria-label="' + (isRu ? 'Увеличить остаток' : 'Збільшити залишок') + '">+</button>' +
+                escapeHtml(product.sku) + '" aria-label="' + (isRu ? 'Увеличить остаток' : isEn ? 'Increase stock' : 'Збільшити залишок') + '">+</button>' +
                 '</div></div></div>';
         }
 
@@ -576,7 +628,7 @@
 
         function updateChrome(viewState) {
             if (viewState.view === 'order-detail') {
-                titleEl.textContent = (isRu ? 'Админ / Заказы #' : 'Адмін / Замовлення #') + viewState.id;
+                titleEl.textContent = (isRu ? 'Админ / Заказы #' : isEn ? 'Admin / Orders #' : 'Адмін / Замовлення #') + viewState.id;
                 if (backBtn) backBtn.hidden = false;
                 tabBtns.forEach(function (btn) {
                     btn.setAttribute('aria-disabled', 'true');
@@ -588,8 +640,8 @@
             if (viewState.view === 'product-detail') {
                 var product = getProduct(viewState.id);
                 titleEl.textContent = product
-                    ? (isRu ? 'Админ / ' : 'Адмін / ') + product.name
-                    : (isRu ? 'Админ / Товар' : 'Адмін / Товар');
+                    ? (isRu ? 'Админ / ' : isEn ? 'Admin / ' : 'Адмін / ') + product.name
+                    : (isRu ? 'Админ / Товар' : isEn ? 'Admin / Product' : 'Адмін / Товар');
                 if (backBtn) backBtn.hidden = false;
                 tabBtns.forEach(function (btn) {
                     btn.setAttribute('aria-disabled', 'true');
@@ -677,7 +729,7 @@
             var meta = STATUS_META[order.status];
             btn.className = 'pl-shop__status ' + meta.className;
             btn.textContent = meta.label;
-            btn.setAttribute('aria-label', (isRu ? 'Изменить статус заказа #' : 'Змінити статус замовлення #') + orderId);
+            btn.setAttribute('aria-label', (isRu ? 'Изменить статус заказа #' : isEn ? 'Change order status #' : 'Змінити статус замовлення #') + orderId);
             if (!reduceMotion) {
                 btn.classList.add('pl-shop__status--changing');
                 setTimeout(function () {
@@ -690,7 +742,7 @@
             syncProductVisibility(product);
             var stockEl = panel.querySelector('[data-admin-stock-val="' + product.sku + '"]');
             if (stockEl) {
-                stockEl.textContent = product.stock + (isRu ? ' шт.' : ' од.');
+                stockEl.textContent = product.stock + (isRu ? ' шт.' : isEn ? ' pcs' : ' од.');
                 if (!reduceMotion) {
                     stockEl.classList.add('pl-shop__admin-stock-val--changing');
                     setTimeout(function () {

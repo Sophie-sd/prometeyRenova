@@ -23,6 +23,11 @@
     var MAX_FOREIGN = 15;
     var SELECTOR = 'input[type="tel"], input[name="phone"], input[autocomplete="tel"]';
     var PLACEHOLDER = '+380 (__) ___-__-__';
+    var INTL = 'INTL';
+    var INTL_MIN = 8;
+    // EN-версія: нейтральна міжнародна маска (порожній «+», вільний формат, без примусового +380)
+    function isIntl() { return lang() === 'en'; }
+    function placeholder() { return isIntl() ? '+' : PLACEHOLDER; }
 
     var MESSAGES = {
         uk: {
@@ -43,11 +48,11 @@
         },
         en: {
             required: 'Enter your phone number',
-            short: 'Incomplete number: 9 digits are needed after +380',
-            long: 'Too many digits: exactly 9 are needed after +380',
-            foreign: 'We only accept Ukrainian numbers (+380)',
+            short: 'Number is too short: include the country code',
+            long: 'Too many digits: an international number has at most 15',
+            foreign: 'Enter the number with a country code, e.g. +44',
             invalid: 'Enter a valid phone number',
-            hint: 'Format: +380 (67) 123-45-67'
+            hint: 'Format: +44 20 1234 5678'
         }
     };
 
@@ -64,8 +69,22 @@
      * Розбір довільного рядка.
      * → {empty, cc, nat, digits, partialPrefix, e164, error}
      */
+    function parseIntl(s) {
+        var digits = s.replace(/\D/g, '');
+        var res = { empty: false, cc: INTL, nat: '', digits: digits, partialPrefix: '', e164: '', error: '', raw: s };
+        if (!digits) { res.empty = true; res.error = 'required'; if (s.charAt(0) === '+') res.partialPrefix = '+'; return res; }
+        if (digits.slice(0, 2) === '00') digits = digits.slice(2);
+        res.nat = digits;
+        if (digits.length < INTL_MIN) res.error = 'short';
+        else if (digits.length > MAX_FOREIGN) res.error = 'long';
+        else res.e164 = '+' + digits;
+        if (/[^\d\s()+\-.]/.test(s) && res.e164) { res.e164 = ''; res.error = 'invalid'; }
+        return res;
+    }
+
     function parse(raw) {
         var s = String(raw == null ? '' : raw).trim();
+        if (isIntl()) return parseIntl(String(raw == null ? '' : raw).replace(/^\s+/, ''));  // keep trailing space while typing
         var digits = s.replace(/\D/g, '');
         var res = { empty: false, cc: UA, nat: '', digits: digits, partialPrefix: '', e164: '', error: '' };
         var hasLetters = /[^\d\s()+\-.]/.test(s);
@@ -108,6 +127,12 @@
     function format(p) {
         if (p.empty) return p.partialPrefix || '';
         if (p.partialPrefix) return p.partialPrefix;
+        if (p.cc === INTL) {
+            // Вільний формат: лишаємо пробіли/дужки/дефіси користувача, гарантуємо «+» на початку
+            var free = String(p.raw || '').replace(/[^\d\s()\-.]/g, '').replace(/^[\s()\-.]+/, '');
+            if (/^00/.test(free)) free = free.replace(/^00/, '');
+            return '+' + free.replace(/\s{2,}/g, ' ');
+        }
         var n = p.nat;
         if (p.cc === UA) {
             var out = '+380';
@@ -123,7 +148,7 @@
         return '+' + p.digits.replace(/^00/, '');
     }
 
-    function maxNat(cc) { return cc === UA ? UA_LEN : MAX_FOREIGN; }
+    function maxNat(cc) { return cc === UA ? UA_LEN : MAX_FOREIGN; }  // INTL → 15
 
     function countDigits(str) { return (str.match(/\d/g) || []).length; }
 
@@ -252,7 +277,7 @@
         }
         input.setAttribute('data-phone-mask', 'on');
         var ph = input.getAttribute('placeholder') || '';
-        if (!ph || /^\+?38\s*\(?[_0]/.test(ph)) input.setAttribute('placeholder', PLACEHOLDER);
+        if (!ph || /^\+?38\s*\(?[_0]/.test(ph)) input.setAttribute('placeholder', placeholder());
         if (input.maxLength > 0 && input.maxLength < 24) input.removeAttribute('maxlength');
 
         var on = function (type, fn, target) {
@@ -267,7 +292,10 @@
         on('animationstart', function (e) {
             if (e.animationName === 'phoneMaskAutofill') { self.reformat(true); self.liveValidate(); }
         });
-        on('focus', function () { self.remember(); });
+        on('focus', function () {
+            if (isIntl() && !input.value) { input.value = '+'; self.setCaret(1); }
+            self.remember();
+        });
         on('blur', function () { self.onBlur(); });
         var form = input.form;
         if (form) {

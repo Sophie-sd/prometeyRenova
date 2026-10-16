@@ -1,4 +1,4 @@
-"""Ціна старту магазину 800 €, дропшиппінг від 1 500 €, гарантія 1 рік (як в оферті 8.1)."""
+"""Ціна старту магазину 800 €, дропшиппінг від 1 500 €, гарантія: пожиттєва на код + 1 рік безкоштовної підтримки (doc 16.10, завдання 5)."""
 from decimal import Decimal
 
 from django.test import TestCase
@@ -8,7 +8,24 @@ from apps.core.fx_models import ExchangeRateSettings
 NBSP = '\u00a0'
 WARRANTY_BAD = (
     '5 років', '5 лет', '5-річна', '5-летняя', '5-year',
-    'пожиттєв', 'Пожиттєв', 'пожизнен', 'Пожизнен', 'довічн', 'lifetime',
+    'Річна гарантія', 'Годовая гарантия',
+)
+# Owner ruling 16.10: canon applies everywhere (UA/RU/EN), offer included.
+ONE_YEAR_WARRANTY_BAD = ('1 рік гарант', '1 год гарант', '1-year warranty', 'year warranty', '1-year code',
+                         'багфікс', 'багфикс')
+ONE_YEAR_CLEAN_PAGES = (
+    '/', '/ru/', '/en/',
+    '/rozrobka-sajtiv/', '/ru/rozrobka-sajtiv/', '/en/rozrobka-sajtiv/',
+    '/internet-shop-v2/', '/ru/internet-shop-v2/', '/en/internet-shop-v2/',
+    '/corporate-website-v2/', '/ru/corporate-website-v2/', '/en/corporate-website-v2/',
+    '/calculator/', '/ru/calculator/', '/en/calculator/',
+    '/telegram-bot/', '/ru/telegram-bot/', '/en/telegram-bot/',
+    '/offer/', '/ru/offer/',
+)
+PAGES = (
+    '/', '/ru/',
+    '/rozrobka-sajtiv/', '/ru/rozrobka-sajtiv/',
+    '/internet-shop-v2/', '/ru/internet-shop-v2/',
 )
 PAGES = (
     '/', '/ru/', '/en/',
@@ -52,8 +69,8 @@ class ShopPriceTests(TestCase):
         self.assertIn(f'від 77{NBSP}175 ₴', html)
 
 
-class WarrantyOneYearTests(TestCase):
-    def test_no_five_year_or_lifetime_claims(self):
+class WarrantyLifetimeTests(TestCase):
+    def test_no_five_year_or_annual_warranty_claims(self):
         for url in PAGES:
             response = self.client.get(url)
             self.assertEqual(response.status_code, 200, url)
@@ -61,25 +78,43 @@ class WarrantyOneYearTests(TestCase):
             for bad in WARRANTY_BAD:
                 self.assertNotIn(bad, html, f'{url}: {bad}')
 
-    def test_one_year_claims_present(self):
-        checks = {
-            '/rozrobka-sajtiv/': 'Безкоштовна підтримка та 1 рік гарантії на код.',
-            '/ru/rozrobka-sajtiv/': 'Бесплатная поддержка и 1 год гарантии на код.',
-            '/en/rozrobka-sajtiv/': 'Free support and a 1-year code warranty.',
-            '/corporate-website-v2/': '1 рік гарантії на код',
-            '/ru/corporate-website-v2/': '1 год гарантии на код',
-            '/internet-shop-v2/': '1 рік гарантії на код',
-            '/ru/internet-shop-v2/': '1 год гарантии на код',
-            '/': 'Річна',
-            '/ru/': 'Годовая',
-            '/en/': '1-year',
-        }
-        for url, text in checks.items():
-            self.assertIn(text, self.client.get(url).content.decode(), url)
+    def test_no_one_year_warranty_phrase(self):
+        for url in ONE_YEAR_CLEAN_PAGES:
+            html = self.client.get(url).content.decode()
+            for bad in ONE_YEAR_WARRANTY_BAD:
+                self.assertNotIn(bad, html, f'{url}: {bad}')
 
-    def test_telegram_bot_states_offer_one_year(self):
+    def test_lifetime_and_support_claims_present(self):
+        checks = {
+            '/rozrobka-sajtiv/': ('Пожиттєва гарантія на код, рік підтримки безкоштовно',
+                                  'пожиттєва гарантія на код і рік підтримки безкоштовно'),
+            '/ru/rozrobka-sajtiv/': ('Пожизненная гарантия на код, год поддержки бесплатно',
+                                     'пожизненная гарантия на код и год поддержки бесплатно'),
+            '/en/rozrobka-sajtiv/': ('Lifetime code warranty, 1 year of free support',),
+            '/corporate-website-v2/': ('Пожиттєва гарантія на код · 1 рік підтримки безкоштовно',
+                                       'Безкоштовна підтримка після запуску'),
+            '/ru/corporate-website-v2/': ('Пожизненная гарантия на код · 1 год поддержки бесплатно',
+                                          'Бесплатная поддержка после запуска'),
+            '/internet-shop-v2/': ('Пожиттєва гарантія на код', '1 рік безкоштовної підтримки'),
+            '/ru/internet-shop-v2/': ('Пожизненная гарантия на код', '1 год поддержки'),
+            '/': ('Пожиттєва гарантія на код і рік безкоштовної підтримки',),
+            '/ru/': ('Пожизненная гарантия на код и год бесплатной поддержки',),
+            '/en/': ('Lifetime',),
+        }
+        for url, texts in checks.items():
+            html = self.client.get(url).content.decode()
+            for text in texts:
+                self.assertIn(text, html, f'{url}: {text}')
+
+    def test_telegram_bot_and_offer_follow_canon(self):
         html = self.client.get('/telegram-bot/').content.decode()
-        self.assertIn('1 рік на багфікс', html)
+        self.assertIn('пожиттєва гарантія на код', html.lower())
+        self.assertIn('1 рік безкоштовної підтримки', html)
+        for url, life, sup in (('/offer/', 'пожиттєву гарантію на код', '1 (один) рік безкоштовної підтримки'),
+                               ('/ru/offer/', 'пожизненную гарантию на код', '1 (один) год бесплатной поддержки')):
+            html = self.client.get(url).content.decode()
+            self.assertIn(life, html, url)
+            self.assertIn(sup, html, url)
 
 
 class OldInternetShopRedirectTests(TestCase):

@@ -307,7 +307,7 @@
             var setWidth = (lastStory.offsetLeft + lastStory.offsetWidth + gap) - firstStory.offsetLeft;
 
             container.style.setProperty('--marquee-distance', setWidth + 'px');
-            container.setAttribute('aria-label', 'Наші клієнти — автоматична демонстрація');
+            container.setAttribute('aria-label', /^en/i.test(document.documentElement.lang || '') ? 'Our clients — automatic showcase' : 'Наші клієнти — автоматична демонстрація');
             // Не перезаписуємо role: контейнер уже має role="list" у шаблоні.
             // role="marquee" — невалідна ARIA-роль і ламає list/listitem.
 

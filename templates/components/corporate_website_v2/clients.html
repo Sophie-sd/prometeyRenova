@@ -1,6 +1,6 @@
-<section class="pl-corp__section pl-corp__clients" aria-labelledby="pl-corp-clients-title">
+{% load i18n %}<section class="pl-corp__section pl-corp__clients" aria-labelledby="pl-corp-clients-title">
     <div class="pl-corp__inner">
-        <h2 class="pl-corp__title pl-corp__clients-title" id="pl-corp-clients-title">Бізнеси, що вже працюють на нашому коді</h2>
+        <h2 class="pl-corp__title pl-corp__clients-title" id="pl-corp-clients-title">{% trans "Бізнеси, що вже працюють на нашому коді" %}</h2>
     </div>
     <div class="pl-corp__clients-track">
         <div class="pl-corp__clients-stories-container" role="list">
@@ -13,6 +13,6 @@
         </div>
     </div>
     <div class="pl-corp__inner">
-        <a href="{% url 'portfolio' %}" class="pl-corp__clients-link">Переглянути портфоліо <span aria-hidden="true">↗</span></a>
+        <a href="{% url 'portfolio' %}" class="pl-corp__clients-link">{% trans "Переглянути портфоліо" %} <span aria-hidden="true">↗</span></a>
     </div>
 </section>

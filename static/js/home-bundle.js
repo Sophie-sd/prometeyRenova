@@ -1238,6 +1238,7 @@ class PrometeyApp {
         this.setupNavigation();
         this.setupMobileMenu();
         this.setupModals();
+        this.setupBackGesture();
         this.setupPhoneMasks();
         this.setupForms();
         this.setupLanguageSwitcher();
@@ -1350,6 +1351,41 @@ class PrometeyApp {
         window.addEventListener('scroll', throttledScroll, { passive: true, capture: true });
     }
 
+    // Back gesture closes the open overlay (modal / mobile menu): one history entry per overlay
+    pushBackState() {
+        if (this._overlayPushed) return;
+        try {
+            history.pushState({ plOverlay: 1 }, '');
+            this._overlayPushed = true;
+        } catch (e) { /* ignore */ }
+    }
+
+    popBackState() {
+        if (!this._overlayPushed) return;
+        if (document.querySelector('.modal.active') || this.state.menuOpen) return;
+        this._overlayPushed = false;
+        const y = this.scrollPosition || 0;
+        try {
+            if (history.state && history.state.plOverlay) {
+                window.addEventListener('popstate', () => window.scrollTo(0, y), { once: true });
+                history.back();
+            }
+        } catch (e) { /* ignore */ }
+    }
+
+    setupBackGesture() {
+        window.addEventListener('popstate', () => {
+            if (!this._overlayPushed) return;
+            this._overlayPushed = false;
+            document.querySelectorAll('.modal.active').forEach((m) => {
+                const btn = m.querySelector('.modal-close');
+                if (btn) btn.click(); else this.closeModal(m.id);
+            });
+            if (this.state.menuOpen) this.closeMobileMenu();
+        });
+    }
+
+
     setupMobileMenu() {
         const { burgerBtn, mobileMenu, mobileMenuClose, mobileNavLinks } = this.elements;
 
@@ -1419,6 +1455,7 @@ class PrometeyApp {
         this.state.menuOpen = true;
 
         this.emit('menu:opened');
+        this.pushBackState();
     }
 
     closeMobileMenu() {
@@ -1434,10 +1471,10 @@ class PrometeyApp {
         this.restoreScrollPosition();
 
         this.emit('menu:closed');
+        this.popBackState();
     }
 
     setupModals() {
-        const isServiceModal = (el) => /^service-.+-modal$/.test(el?.id ?? '');
 
         const modalTriggers = document.querySelectorAll('[data-modal]');
         const closeButtons = document.querySelectorAll('.modal-close, .modal-close-specific');
@@ -1451,7 +1488,6 @@ class PrometeyApp {
         });
 
         closeButtons.forEach(button => {
-            if (isServiceModal(button.closest('.modal'))) return;
 
             button.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -1461,7 +1497,6 @@ class PrometeyApp {
         });
 
         document.querySelectorAll('.modal').forEach(modal => {
-            if (isServiceModal(modal)) return;
 
             modal.addEventListener('click', (e) => {
                 if (e.target === modal || e.target.classList.contains('modal-backdrop')) {
@@ -1509,6 +1544,7 @@ class PrometeyApp {
         }
 
         this.emit('modal:opened', { modalId });
+        this.pushBackState();
     }
 
     closeModal(modalId = null) {
@@ -1527,6 +1563,7 @@ class PrometeyApp {
         this.restoreScrollPosition();
 
         this.emit('modal:closed', { modalId: modal.id });
+        this.popBackState();
     }
 
     prefillModalForm(modal) {
@@ -2346,7 +2383,7 @@ function initMarqueeAnimation(container) {
     const setWidth = (lastStory.offsetLeft + lastStory.offsetWidth + gap) - firstStory.offsetLeft;
     
     container.style.setProperty('--marquee-distance', `${setWidth}px`);
-    container.setAttribute('aria-label', 'Наші проєкти - автоматична демонстрація');
+    container.setAttribute('aria-label', /^en/i.test(document.documentElement.lang || '') ? 'Our projects — automatic showcase' : 'Наші проєкти - автоматична демонстрація');
     // Навмисно НЕ перезаписуємо role: контейнер вже має role="list" з шаблону
     // (redesign_clients.html / clients.html), а "marquee" — невалідна ARIA-роль,
     // яка ламала зв'язок list/listitem для карток клієнтів (Coresync, SpeakUp...).

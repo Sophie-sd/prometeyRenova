@@ -5,6 +5,10 @@
 {% block title %}{% trans "Дякуємо за вашу заявку" %}{% endblock %}
 {% block description %}{% trans "Ваша заявка успішно отримана. Ми з вами скоро зв'яжемось." %}{% endblock %}
 
+{% block og_title %}{% trans "Дякуємо за вашу заявку" %} | PrometeyLabs{% endblock %}
+{% block og_description %}{% trans "Ваша заявка успішно отримана. Ми з вами скоро зв'яжемось." %}{% endblock %}
+{% block extra_head %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/thank-you.css' %}?v=2">
 {% endblock %}
@@ -39,6 +43,7 @@
 {% endblock %}
 
 {% block base_js %}
+<script src="{% static 'js/core/gclid-capture.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/core/ec-phone.js' %}" nonce="{{ csp_nonce }}"></script>
 <script nonce="{{ csp_nonce }}">
     window.dataLayer = window.dataLayer || [];

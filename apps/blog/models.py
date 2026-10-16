@@ -100,6 +100,9 @@ class BlogPost(models.Model):
     
     def get_reading_time_text(self):
         """Повертає текст часу читання"""
+        from django.utils import translation
+        if (translation.get_language() or '').startswith('en'):
+            return "1 minute" if self.reading_time == 1 else f"{self.reading_time} minutes"
         if self.reading_time == 1:
             return "1 хвилина"
         elif self.reading_time < 5:

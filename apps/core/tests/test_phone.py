@@ -35,6 +35,20 @@ class NormalizePhoneTests(TestCase):
         # без «+»/00 трактуємо як український національний → невірна довжина
         self.assertEqual(parse_phone('48123456789'), (None, 'long'))
 
+    def test_international_numbers_accepted_on_en_only(self):
+        from django.utils import translation
+        with translation.override('en'):
+            self.assertEqual(parse_phone('+44 20 7946 0958'), ('+442079460958', ''))
+            self.assertEqual(parse_phone('0048123456789'), ('+48123456789', ''))
+            self.assertEqual(parse_phone('+1 (212) 555-0100'), ('+12125550100', ''))
+            self.assertEqual(parse_phone('+380 67 123 45 67'), ('+380671234567', ''))
+            self.assertEqual(parse_phone('+999 1234'), (None, 'short'))
+            self.assertEqual(parse_phone('+1234567890123456'), (None, 'long'))
+            self.assertEqual(parse_phone('+44 abc 7946'), (None, 'chars'))
+        for lang in ('uk', 'ru'):
+            with translation.override(lang):
+                self.assertEqual(parse_phone('+44 20 7946 0958'), (None, 'foreign'))
+
     def test_form_clean_helper(self):
         self.assertEqual(clean_phone_value('067 123 45 67'), '+380671234567')
         self.assertEqual(clean_phone_value('', required=False), '')
@@ -61,6 +75,9 @@ class FormSubmitPhoneTests(TestCase):
             self.assertEqual(r.json()['message'], 'Приймаємо лише українські номери +380')
         en = self.client.post('/en' + url, {'form_type': 'call_request', 'name': 'Ivan', 'phone': '+44 20 7946 0958'},
                               HTTP_ACCEPT_LANGUAGE='en')
-        self.assertFalse(en.json()['success'])
+        self.assertTrue(en.json()['success'])  # EN: нейтральна міжнародна маска
+        en_short = self.client.post('/en' + url, {'form_type': 'call_request', 'name': 'Ivan', 'phone': '+44 20'},
+                                    HTTP_ACCEPT_LANGUAGE='en')
+        self.assertFalse(en_short.json()['success'])
         letters = self.client.post(url, {'form_type': 'call_request', 'name': 'Іван', 'phone': 'abcdefghij'})
         self.assertFalse(letters.json()['success'])

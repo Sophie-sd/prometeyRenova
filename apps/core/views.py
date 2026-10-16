@@ -7,6 +7,7 @@ from .mixins import (
     homepage_portfolio_strip,
     portfolio_page_projects,
 )
+from .portfolio_categories import portfolio_filter_context
 from .form_handlers import (
     validate_phone, phone_error_message, validate_name, create_form_response, get_form_type_from_path,
     create_form_data, send_form_email, save_form_submission,
@@ -89,7 +90,9 @@ class PortfolioView(BasePageView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['portfolio_projects'] = portfolio_page_projects()
+        projects = portfolio_page_projects()
+        context['portfolio_projects'] = projects
+        context.update(portfolio_filter_context(projects))
         return context
 
 
@@ -102,7 +105,11 @@ class DeveloperView(BasePageView):
     """Landing курсів тимчасово прихований — заявки через developer-modal на інших сторінках."""
 
     def dispatch(self, request, *args, **kwargs):
-        return redirect('home')
+        from django.urls import reverse
+        url = reverse('home')
+        qs = request.META.get('QUERY_STRING', '')
+        # Preserve gclid/utm_* for Ads attribution.
+        return redirect(f'{url}?{qs}' if qs else url)
 
 class ContactsView(BasePageView):
     template_name = 'pages/contacts.html'
@@ -135,7 +142,7 @@ class RozrobkaSajtivView(BasePageView):
     meta_description = _(
         'Розробка сайтів будь-якої складності під ключ: лендінги від 250 €, '
         'корпоративні від 500 €, магазини від 800 €. Бюджет і строки у договорі, '
-        'безкоштовна підтримка, 1 рік гарантії на код. Отримати консультацію.'
+        'пожиттєва гарантія на код і рік підтримки безкоштовно. Отримати консультацію.'
     )
     og_title = _('Розробка сайтів під ключ | PrometeyLabs')
     keywords = _(
@@ -215,7 +222,7 @@ class InternetShopV2View(BasePageView):
     page_title = _('Створення інтернет-магазину під ключ від 800€ | PrometeyLabs')
     meta_description = _(
         'Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. '
-        'Запуск за 3 тижні, 1 рік підтримки безкоштовно.'
+        'Запуск за 3 тижні, пожиттєва гарантія на код і 1 рік підтримки безкоштовно.'
     )
     og_title = _('Створення інтернет-магазину під ключ від 800€ | PrometeyLabs')
 
@@ -233,7 +240,7 @@ class InternetShopV2View(BasePageView):
             context['page_title'] = 'Создание интернет-магазина под ключ от 800€ | PrometeyLabs'
             context['meta_description'] = (
                 'Создание интернет-магазина под ключ от 800 €: дизайн, код и интеграции без плагинов и абонплаты. '
-                'Запуск за 3 недели, 1 год поддержки бесплатно.'
+                'Запуск за 3 недели, пожизненная гарантия на код и 1 год поддержки бесплатно.'
             )
             context['og_title'] = 'Создание интернет-магазина под ключ от 800€ | PrometeyLabs'
         # Ads landing: no «стати розробником» popup and no RU→UA language toast over the hero.
@@ -247,7 +254,7 @@ class CorporateWebsiteV2View(BasePageView):
     page_title = _('Корпоративні сайти та лендінги під ключ — ціна і строки | PrometeyLabs')
     meta_description = _(
         'Розробка корпоративних сайтів та лендінгів з нативною архітектурою. '
-        '100/100 Core Web Vitals, технічне SEO, 1 рік гарантії на код.'
+        '100/100 Core Web Vitals, технічне SEO, пожиттєва гарантія на код.'
     )
     og_title = _('Корпоративні сайти, що домінують у пошуку — PrometeyLabs')
 
@@ -265,7 +272,7 @@ class CorporateWebsiteV2View(BasePageView):
             context['page_title'] = 'Корпоративные сайты и лендинги под ключ — цена и сроки | PrometeyLabs'
             context['meta_description'] = (
                 'Разработка корпоративных сайтов и лендингов с нативной архитектурой. '
-                '100/100 Core Web Vitals, техническое SEO, 1 год гарантии на код.'
+                '100/100 Core Web Vitals, техническое SEO, пожизненная гарантия на код.'
             )
             context['og_title'] = 'Корпоративные сайты, которые доминируют в поиске — PrometeyLabs'
             context['lang_suggest_always'] = True

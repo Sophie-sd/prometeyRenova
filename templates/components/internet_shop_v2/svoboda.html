@@ -1,31 +1,31 @@
-{% load static %}
+{% load i18n %}{% load static %}
 <section id="svoboda" class="pl-shop__section pl-shop__svoboda" aria-labelledby="pl-shop-svoboda-title">
     <div class="pl-shop__inner">
-        <h2 id="pl-shop-svoboda-title" class="pl-shop__title" data-reveal>Переросли Prom та OLX?<br>Час грати за власними правилами</h2>
+        <h2 id="pl-shop-svoboda-title" class="pl-shop__title" data-reveal>{% trans "Переросли Prom та OLX?" %}<br>{% trans "Час грати за власними правилами" %}</h2>
 
         <div class="pl-shop__svoboda-grid" data-svoboda-reveal>
             <article class="pl-shop__card pl-shop__card--glass pl-shop__compare">
-                <p class="pl-shop__badge pl-shop__badge--bad"><span class="pl-shop__badge-dot" aria-hidden="true"></span>Оренда · Маркетплейси</p>
+                <p class="pl-shop__badge pl-shop__badge--bad"><span class="pl-shop__badge-dot" aria-hidden="true"></span>{% trans "Оренда · Маркетплейси" %}</p>
                 <div class="pl-shop__compare-body">
-                    <h3 class="pl-shop__card-title">Ви будуєте бізнес на чужій землі</h3>
+                    <h3 class="pl-shop__card-title">{% trans "Ви будуєте бізнес на чужій землі" %}</h3>
                     <ul class="pl-shop__list pl-shop__list--bad">
-                        <li class="pl-shop__list-item">Платите комісію за кожен крок і кожне замовлення</li>
-                        <li class="pl-shop__list-item">Губитеся серед сотень однакових конкурентів</li>
-                        <li class="pl-shop__list-item">Не контролюєте SEO і не володієте базою клієнтів</li>
-                        <li class="pl-shop__list-item">Втрачаєте клієнтів через чужі баги та правила</li>
+                        <li class="pl-shop__list-item">{% trans "Платите комісію за кожен крок і кожне замовлення" %}</li>
+                        <li class="pl-shop__list-item">{% trans "Губитеся серед сотень однакових конкурентів" %}</li>
+                        <li class="pl-shop__list-item">{% trans "Не контролюєте SEO і не володієте базою клієнтів" %}</li>
+                        <li class="pl-shop__list-item">{% trans "Втрачаєте клієнтів через чужі баги та правила" %}</li>
                     </ul>
                 </div>
             </article>
 
             <article class="pl-shop__card pl-shop__card--glass pl-shop__compare">
-                <p class="pl-shop__badge pl-shop__badge--good"><span class="pl-shop__badge-dot" aria-hidden="true"></span>Власність · Ваш магазин</p>
+                <p class="pl-shop__badge pl-shop__badge--good"><span class="pl-shop__badge-dot" aria-hidden="true"></span>{% trans "Власність · Ваш магазин" %}</p>
                 <div class="pl-shop__compare-body">
-                    <h3 class="pl-shop__card-title">Ви володієте активом, що зростає</h3>
+                    <h3 class="pl-shop__card-title">{% trans "Ви володієте активом, що зростає" %}</h3>
                     <ul class="pl-shop__list pl-shop__list--good">
-                        <li class="pl-shop__list-item">Повний контроль над базою клієнтів та даними</li>
-                        <li class="pl-shop__list-item">Чистий прибуток без комісій платформ</li>
-                        <li class="pl-shop__list-item">Дизайн і бренд, який запам'ятовують</li>
-                        <li class="pl-shop__list-item">SEO-позиції, що працюють лише на вас</li>
+                        <li class="pl-shop__list-item">{% trans "Повний контроль над базою клієнтів та даними" %}</li>
+                        <li class="pl-shop__list-item">{% trans "Чистий прибуток без комісій платформ" %}</li>
+                        <li class="pl-shop__list-item">{% trans "Дизайн і бренд, який запам'ятовують" %}</li>
+                        <li class="pl-shop__list-item">{% trans "SEO-позиції, що працюють лише на вас" %}</li>
                     </ul>
                 </div>
             </article>
@@ -36,22 +36,22 @@
                     <img src="{% static 'images/internet_shop_v2/figma/glow-import.svg' %}" alt="" width="626" height="476" loading="lazy" decoding="async">
                 </picture>
                 <div class="pl-shop__import-copy">
-                    <h3 class="pl-shop__card-title pl-shop__card-title--accent">Автоматичний імпорт товарів</h3>
-                    <p class="pl-shop__import-text">Перенесемо вашу базу за вас — швидко й без втрати позицій у Google. Парсинг з будь-якого сайту, міграція з Prom, Rozetka, Хорошоп, WooCommerce</p>
+                    <h3 class="pl-shop__card-title pl-shop__card-title--accent">{% trans "Автоматичний імпорт товарів" %}</h3>
+                    <p class="pl-shop__import-text">{% trans "Перенесемо вашу базу за вас — швидко й без втрати позицій у Google. Парсинг з будь-якого сайту, міграція з Prom, Rozetka, Хорошоп, WooCommerce" %}</p>
                 </div>
                 <div class="pl-shop__stats">
                     <div class="pl-shop__stat">
                         <p class="pl-shop__stat-num" data-count-to="100000" data-count-suffix="+">100 000+</p>
-                        <p class="pl-shop__stat-label">SKU за один прохід</p>
+                        <p class="pl-shop__stat-label">{% trans "SKU за один прохід" %}</p>
                     </div>
                     <div class="pl-shop__stat">
-                        <p class="pl-shop__stat-num" data-count-to="24" data-count-unit=" год">24<span> год</span></p>
-                        <p class="pl-shop__stat-label">на повну міграцію</p>
+                        <p class="pl-shop__stat-num" data-count-to="24" data-count-unit=" {% trans "год" %}">24<span> {% trans "год" %}</span></p>
+                        <p class="pl-shop__stat-label">{% trans "на повну міграцію" %}</p>
                     </div>
                 </div>
             </article>
         </div>
 
-        <a href="#zayavka" class="pl-shop__btn pl-shop__btn--accent pl-shop__btn--block pl-shop__svoboda-cta">Прорахувати проєкт</a>
+        <a href="#zayavka" class="pl-shop__btn pl-shop__btn--accent pl-shop__btn--block pl-shop__svoboda-cta">{% trans "Прорахувати проєкт" %}</a>
     </div>
 </section>

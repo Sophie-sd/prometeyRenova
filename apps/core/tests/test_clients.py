@@ -41,6 +41,10 @@ class ClientLogoFallbackTests(SimpleTestCase):
 
 
 class HomepageClientsTests(TestCase):
+    def setUp(self):
+        # Migration 0014 seeds the real homepage client set; these tests need a clean table.
+        Client.objects.all().delete()
+
     def test_homepage_clients_returns_only_active_in_order(self):
         make_client('Alpha', order=2)
         make_client('Beta', order=1)

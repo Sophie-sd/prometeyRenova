@@ -4,10 +4,10 @@
 
 {% block body_attrs %} class="pl-shop-body" data-modal-source-page="internet-shop-v2-modal"{% endblock %}
 
-{% block title %}Створення інтернет-магазину під ключ від 800€ | PrometeyLabs{% endblock %}
-{% block description %}Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. Запуск за 3 тижні, 1 рік підтримки безкоштовно.{% endblock %}
-{% block og_title %}Створення інтернет-магазину під ключ від 800€ | PrometeyLabs{% endblock %}
-{% block og_description %}Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. Запуск за 3 тижні, 1 рік підтримки безкоштовно.{% endblock %}
+{% block title %}{% trans "Створення інтернет-магазину під ключ від 800€ | PrometeyLabs" %}{% endblock %}
+{% block description %}{% trans "Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. Запуск за 3 тижні, пожиттєва гарантія на код і 1 рік підтримки безкоштовно." %}{% endblock %}
+{% block og_title %}{% trans "Створення інтернет-магазину під ключ від 800€ | PrometeyLabs" %}{% endblock %}
+{% block og_description %}{% trans "Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. Запуск за 3 тижні, пожиттєва гарантія на код і 1 рік підтримки безкоштовно." %}{% endblock %}
 
 {% block extra_head %}
 <meta name="robots" content="index, follow">
@@ -16,8 +16,8 @@
 {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "Створення інтернет-магазину під ключ",
-  "description": "Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. Запуск за 3 тижні, 1 рік підтримки безкоштовно.",
+  "name": "{% trans "Створення інтернет-магазину під ключ" %}",
+  "description": "{% trans "Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. Запуск за 3 тижні, пожиттєва гарантія на код і 1 рік підтримки безкоштовно." %}",
   "serviceType": "E-commerce website development",
   "provider": {
     "@type": "Organization",
@@ -31,22 +31,22 @@
   "offers": [
     {
       "@type": "Offer",
-      "name": "Магазин",
-      "description": "Інтернет-магазин під ключ: дизайн, мобільна версія, LiqPay і Mono, Нова Пошта, адмінка, каталог до 100 товарів",
+      "name": "{% trans "Магазин" %}",
+      "description": "{% trans "Інтернет-магазин під ключ: дизайн, мобільна версія, LiqPay і Mono, Нова Пошта, адмінка, каталог до 100 товарів" %}",
       "price": "800",
       "priceCurrency": "EUR"
     },
     {
       "@type": "Offer",
-      "name": "Магазин з інтеграціями",
-      "description": "Інтернет-магазин з онлайн-оплатами, інтеграціями доставки, CRM, Telegram-сповіщеннями, ролями менеджерів в адмінці, налаштуванням рекламного кабінету і стартовою кампанією",
+      "name": "{% trans "Магазин з інтеграціями" %}",
+      "description": "{% trans "Інтернет-магазин з онлайн-оплатами, інтеграціями доставки, CRM, Telegram-сповіщеннями, ролями менеджерів в адмінці, налаштуванням рекламного кабінету і стартовою кампанією" %}",
       "price": "1500",
       "priceCurrency": "EUR"
     },
     {
       "@type": "Offer",
-      "name": "Магазин і маркетинг",
-      "description": "Інтернет-магазин з CRM і ШІ-помічником продажів, рекламними кабінетами Meta, Google і TikTok, SEO і контентом на 6 місяців. Рекламний бюджет оплачується окремо",
+      "name": "{% trans "Магазин і маркетинг" %}",
+      "description": "{% trans "Інтернет-магазин з CRM і ШІ-помічником продажів, рекламними кабінетами Meta, Google і TikTok, SEO і контентом на 6 місяців. Рекламний бюджет оплачується окремо" %}",
       "price": "7000",
       "priceCurrency": "EUR"
     }
@@ -83,8 +83,8 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/internet-shop-v2-admin-mock.js' %}?v=5" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/internet-shop-v2-quiz.js' %}?v=17" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/components/clients-marquee.js' %}?v=1" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-v2-admin-mock.js' %}?v=6" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/internet-shop-v2-quiz.js' %}?v=18" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/components/clients-marquee.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/internet-shop-v2.js' %}?v=25" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

@@ -67,7 +67,7 @@ class SiteContactSettingsTests(TestCase):
         with translation.override('en'):
             self.assertEqual(
                 self.settings_obj.get_localized_address(),
-                'Kyiv, Taras Shevchenko Boulevard 46a',
+                '46a Taras Shevchenko Blvd, Kyiv',
             )
 
     def test_localized_address_ukrainian(self):

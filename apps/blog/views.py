@@ -39,6 +39,14 @@ def blog_list(request):
         'og_title': 'Блог про веб-розробку та курси програмування',
         'keywords': 'блог веб-розробка, курси програмування, створення сайтів, розробка сайтів під ключ, telegram боти, python django',
     }
+    from django.utils import translation
+    if (translation.get_language() or '').startswith('en'):
+        context.update({
+            'page_title': 'Blog on web development and programming courses',
+            'meta_description': 'Useful articles on web development, programming courses, turnkey websites and Telegram bots. Expert tips and learning materials.',
+            'og_title': 'Blog on web development and programming courses',
+            'keywords': 'web development blog, programming courses, website development, turnkey websites, telegram bots, python django',
+        })
     return render(request, 'pages/blog.html', context)
 
 

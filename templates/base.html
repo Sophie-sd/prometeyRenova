@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- Google Tag Manager — first user input only (no timer).
+    <!-- Google Tag Manager — first user input OR 2.5s after DOMContentLoaded (whichever first, loads once).
          Lab/PSI never waits 6s for gtag/FB; real sessions still fire on
          pointer/scroll/key. The input handler only schedules the load
          (requestIdleCallback, 1s timeout / setTimeout fallback) so GTM never
@@ -15,7 +15,7 @@
          Conversion pages call _loadGTM() explicitly (synchronous). -->
     <script nonce="{{ csp_nonce }}">
     window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-    function _loadGTM(){if(window._gtmL)return;window._gtmL=1;var j=document.createElement('script');j.async=true;j.setAttribute('nonce','{{ csp_nonce }}');j.nonce='{{ csp_nonce }}';j.src='https://www.googletagmanager.com/gtm.js?id=GTM-K2FVPPTK';document.head.appendChild(j);}
+    function _loadGTM(){if(window._gtmL||window._gtmBlocked)return;window._gtmL=1;var j=document.createElement('script');j.async=true;j.setAttribute('nonce','{{ csp_nonce }}');j.nonce='{{ csp_nonce }}';j.src='https://www.googletagmanager.com/gtm.js?id=GTM-K2FVPPTK';document.head.appendChild(j);}
     window._loadGTM=_loadGTM;
     (function(){
       var q=location.search||'';
@@ -26,15 +26,38 @@
         || /(?:^|[?&#])gtm_auth=/.test(q)
         || /(^|;\s*)gtm_auth=/.test(c)
         || /(^|;\s*)gtm_preview=/.test(c);
+      // Dev guard: on localhost GTM loads only in debug/preview, so test traffic never hits GA4/Ads.
+      var h=location.hostname;
+      if(!preview&&(h==='localhost'||h==='127.0.0.1')){window._gtmBlocked=1;}
       if(preview){_loadGTM();return;}
       var ev=['pointerdown','scroll','click','touchstart','keydown','mousemove'];
       function sched(){
         if(window._gtmS)return;window._gtmS=1;
+        if(window._gtmT){clearTimeout(window._gtmT);}
         ev.forEach(function(e){window.removeEventListener(e,sched,{passive:true});});
         if(window.requestIdleCallback){window.requestIdleCallback(_loadGTM,{timeout:1000});}
         else{setTimeout(_loadGTM,1);}
       }
       ev.forEach(function(e){window.addEventListener(e,sched,{once:true,passive:true});});
+      // Fallback timer: GTM loads ~2.5s after DOMContentLoaded even without input.
+      function timer(){if(!window._gtmS){window._gtmT=setTimeout(_loadGTM,2500);}}
+      if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',timer,{once:true});}else{timer();}
+    })();
+    // tg_click / phone_click: delegated capture-phase listener registered in <head>
+    // so the very first click (which usually navigates away) is never lost.
+    // Pushes are queued in dataLayer, then GTM is loaded synchronously. No preventDefault.
+    (function(){
+      var SEL="a[href^='https://t.me/'],a[href^='http://t.me/'],a[href^='tg:'],a[href^='tel:']";
+      function ck(n){var m=document.cookie.match(new RegExp('(?:^|;\\s*)'+n+'=([^;]*)'));try{return m?decodeURIComponent(m[1]):'';}catch(e){return '';}}
+      document.addEventListener('click',function(e){
+        var a=e.target&&e.target.closest&&e.target.closest(SEL);if(!a)return;
+        var h=(a.getAttribute('href')||'').toLowerCase();
+        var d={event:h.indexOf('tel:')===0?'phone_click':'tg_click',link_url:a.href,link_text:(a.textContent||'').trim().slice(0,80),page_path:location.pathname};
+        ['gclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k){var v=ck('_prm_'+k)||new URLSearchParams(location.search).get(k);if(v)d[k]=v;});
+        var lp=ck('_prm_landing_path');if(lp)d.landing_page=lp;
+        window.dataLayer.push(d);
+        _loadGTM();
+      },{capture:true,passive:true});
     })();
     </script>
     <!-- End Google Tag Manager -->
@@ -151,6 +174,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     {% block extra_css %}{% endblock %}
     <link rel="stylesheet" href="{% static 'css/components/a11y-states.css' %}?v=2">
     <link rel="stylesheet" href="{% static 'css/components/phone-field.css' %}?v=1">
+    <link rel="stylesheet" href="{% static 'css/components/footer-menu-figma.css' %}?v=7">
+    <link rel="stylesheet" href="{% static 'css/components/modal-mobile.css' %}?v=4">
 
     <!-- Activate non-blocking CSS as soon as it loads (eliminates FOUC, no defer wait) -->
     <script nonce="{{ csp_nonce }}">
@@ -190,6 +215,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         ]
     }
     </script>
+    <link rel="stylesheet" href="{% static 'css/components/hero-fit.css' %}?v=4">
 </head>
 
 <body{% block body_attrs %}{% endblock %}>
@@ -245,10 +271,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         </button>
     </div>
 
+    {# Thank-you page: no lead forms / floating CTA #}
+    {% if request.resolver_match.url_name != 'thank_you' %}
     {% include 'components/mobile_contact_fab.html' %}
 
     <!-- Modals -->
     {% include 'components/modals.html' %}
+    {% endif %}
 
     {# Lang-suggest toast — must live at <body> level (NOT inside <header>) #}
     {# because `.main-navigation` has `transform: translate3d(0,0,0)`, which #}
@@ -289,12 +318,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </script>
     {% block base_js %}
     <script src="{% static 'js/core/analytics.js' %}" nonce="{{ csp_nonce }}" defer></script>
-    <script src="{% static 'js/core/gclid-capture.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/core/gclid-capture.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/core/ec-phone.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/core/utils.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/mobile-core.js' %}" nonce="{{ csp_nonce }}" defer></script>
-    <script src="{% static 'js/core/phone-mask.js' %}?v=3" nonce="{{ csp_nonce }}" defer></script>
-    <script src="{% static 'js/base.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/core/phone-mask.js' %}?v=4" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/base.js' %}?v=mm2" nonce="{{ csp_nonce }}" defer></script>
     <!-- video-system.js: load only on pages that actually contain <video> (skips landings without media) -->
     <script nonce="{{ csp_nonce }}">
     (function(){
@@ -334,6 +363,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     {% endif %}
     {% block analytics %}{% endblock %}
 
+    <script src="{% static 'js/components/footer-menu-figma.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
 </body>
 
 </html>

@@ -1,56 +1,56 @@
-{% load static %}
+{% load i18n %}{% load static %}
 <section id="tech" class="pl-corp__section pl-corp__tech" aria-labelledby="pl-corp-tech-title">
     <div class="pl-corp__inner">
         <div class="pl-corp__tech-head" data-reveal>
-            <h2 id="pl-corp-tech-title" class="pl-corp__title pl-corp__tech-title">Технології, що працюють на ваш прибуток</h2>
-            <p class="pl-corp__text pl-corp__tech-desc">Жодних зайвих скриптів — тільки код, потрібний для роботи вашого бізнесу. Кожна деталь архітектури налаштована на максимальну релевантність реклами та органіки</p>
+            <h2 id="pl-corp-tech-title" class="pl-corp__title pl-corp__tech-title">{% trans "Технології, що працюють на ваш прибуток" %}</h2>
+            <p class="pl-corp__text pl-corp__tech-desc">{% trans "Жодних зайвих скриптів — тільки код, потрібний для роботи вашого бізнесу. Кожна деталь архітектури налаштована на максимальну релевантність реклами та органіки" %}</p>
         </div>
 
         <div class="pl-corp__tech-explorer" data-tech-explorer data-reveal>
-            <div class="pl-corp__tech-tabs" role="tablist" aria-label="Технології">
+            <div class="pl-corp__tech-tabs" role="tablist" aria-label="{% trans "Технології" %}">
                 <button type="button" class="pl-corp__tech-tab is-active mobile-touch-target" role="tab" id="pl-corp-tech-tab-0" data-tech-tab="0" aria-selected="true" aria-controls="pl-corp-tech-panel-0" tabindex="0">
                     <span class="pl-corp__tech-tab-icon" aria-hidden="true"><img src="{% static 'images/corporate_website_v2/figma/icon-search.svg' %}" alt="" width="18" height="18"></span>
-                    <span class="pl-corp__tech-tab-title">Технічне SEO «з коробки»</span>
+                    <span class="pl-corp__tech-tab-title">{% trans "Технічне SEO «з коробки»" %}</span>
                 </button>
                 <button type="button" class="pl-corp__tech-tab mobile-touch-target" role="tab" id="pl-corp-tech-tab-1" data-tech-tab="1" aria-selected="false" aria-controls="pl-corp-tech-panel-1" tabindex="-1">
                     <span class="pl-corp__tech-tab-icon" aria-hidden="true"><img src="{% static 'images/corporate_website_v2/figma/icon-mobile.svg' %}" alt="" width="11" height="15"></span>
-                    <span class="pl-corp__tech-tab-title">Мобільний перфекціонізм</span>
+                    <span class="pl-corp__tech-tab-title">{% trans "Мобільний перфекціонізм" %}</span>
                 </button>
                 <button type="button" class="pl-corp__tech-tab mobile-touch-target" role="tab" id="pl-corp-tech-tab-2" data-tech-tab="2" aria-selected="false" aria-controls="pl-corp-tech-panel-2" tabindex="-1">
                     <span class="pl-corp__tech-tab-icon" aria-hidden="true"><img src="{% static 'images/corporate_website_v2/figma/icon-shield.svg' %}" alt="" width="15" height="16"></span>
-                    <span class="pl-corp__tech-tab-title">Стійкість до навантажень</span>
+                    <span class="pl-corp__tech-tab-title">{% trans "Стійкість до навантажень" %}</span>
                 </button>
                 <button type="button" class="pl-corp__tech-tab mobile-touch-target" role="tab" id="pl-corp-tech-tab-3" data-tech-tab="3" aria-selected="false" aria-controls="pl-corp-tech-panel-3" tabindex="-1">
                     <span class="pl-corp__tech-tab-icon" aria-hidden="true"><img src="{% static 'images/corporate_website_v2/figma/icon-keyboard.svg' %}" alt="" width="18" height="13"></span>
-                    <span class="pl-corp__tech-tab-title">Архітектурна чистота</span>
+                    <span class="pl-corp__tech-tab-title">{% trans "Архітектурна чистота" %}</span>
                 </button>
             </div>
 
             <div class="pl-corp__tech-stage">
                 <div class="pl-corp__tech-panel is-active" role="tabpanel" id="pl-corp-tech-panel-0" data-tech-panel="0" aria-labelledby="pl-corp-tech-tab-0">
-                    <p class="pl-corp__tech-panel-label">Пошукова видимість</p>
+                    <p class="pl-corp__tech-panel-label">{% trans "Пошукова видимість" %}</p>
                     <div class="pl-corp__tech-viz pl-corp__tech-viz--chart" data-tech-chart-wrap aria-hidden="true">
                         <picture class="pl-corp__tech-chart" data-tech-chart-plot>
                             <source media="(max-width: 767px)" srcset="{% static 'images/corporate_website_v2/figma/chart-seo-mobile.svg' %}">
                             <img src="{% static 'images/corporate_website_v2/figma/chart-seo.svg' %}" alt="" width="752" height="222" loading="lazy">
                         </picture>
                     </div>
-                    <p class="pl-corp__tech-panel-text">Ми будуємо сайт так, щоб пошукові роботи «закохувалися» у вашу структуру з першого сканування — мікророзмітка, sitemap і чисті URL.</p>
+                    <p class="pl-corp__tech-panel-text">{% trans "Ми будуємо сайт так, щоб пошукові роботи «закохувалися» у вашу структуру з першого сканування — мікророзмітка, sitemap і чисті URL." %}</p>
                 </div>
 
                 <div class="pl-corp__tech-panel" role="tabpanel" id="pl-corp-tech-panel-1" data-tech-panel="1" aria-labelledby="pl-corp-tech-tab-1" aria-hidden="true">
-                    <p class="pl-corp__tech-panel-label">Будь-який пристрій</p>
+                    <p class="pl-corp__tech-panel-label">{% trans "Будь-який пристрій" %}</p>
                     <div class="pl-corp__tech-viz pl-corp__tech-viz--devices" aria-hidden="true">
                         <span class="pl-corp__tech-device pl-corp__tech-device--tv"><img src="{% static 'images/corporate_website_v2/figma/device-tv.svg' %}" alt="" width="144" height="110" loading="lazy"><span class="pl-corp__tech-device-screen"></span></span>
                         <span class="pl-corp__tech-device pl-corp__tech-device--laptop"><img src="{% static 'images/corporate_website_v2/figma/device-macbook.svg' %}" alt="" width="147" height="89" loading="lazy"><span class="pl-corp__tech-device-screen"></span></span>
                         <span class="pl-corp__tech-device pl-corp__tech-device--tablet"><img src="{% static 'images/corporate_website_v2/figma/device-ipad.svg' %}" alt="" width="60" height="75" loading="lazy"><span class="pl-corp__tech-device-screen"></span></span>
                         <span class="pl-corp__tech-device pl-corp__tech-device--phone"><img src="{% static 'images/corporate_website_v2/figma/device-phone.svg' %}" alt="" width="31" height="49" loading="lazy"><span class="pl-corp__tech-device-screen"></span></span>
                     </div>
-                    <p class="pl-corp__tech-panel-text">Код оптимізований під ідеальну роботу на будь-якому пристрої — незалежно від потужності процесора клієнта чи швидкості з'єднання.</p>
+                    <p class="pl-corp__tech-panel-text">{% trans "Код оптимізований під ідеальну роботу на будь-якому пристрої — незалежно від потужності процесора клієнта чи швидкості з'єднання." %}</p>
                 </div>
 
                 <div class="pl-corp__tech-panel" role="tabpanel" id="pl-corp-tech-panel-2" data-tech-panel="2" aria-labelledby="pl-corp-tech-tab-2" aria-hidden="true">
-                    <p class="pl-corp__tech-panel-label">Пік трафіку · сервер стабільний</p>
+                    <p class="pl-corp__tech-panel-label">{% trans "Пік трафіку · сервер стабільний" %}</p>
                     <div class="pl-corp__tech-viz pl-corp__tech-viz--bars" aria-hidden="true">
                         <span class="pl-corp__tech-bar pl-corp__tech-bar--1"></span>
                         <span class="pl-corp__tech-bar pl-corp__tech-bar--2"></span>
@@ -60,11 +60,11 @@
                         <span class="pl-corp__tech-bar pl-corp__tech-bar--6"></span>
                         <span class="pl-corp__tech-bar pl-corp__tech-bar--7"></span>
                     </div>
-                    <p class="pl-corp__tech-panel-text">Наш код не «прокисає». Сайт розрахований на піки трафіку з реклами (CDN, кешування) — без падіння сервера в пік кампанії.</p>
+                    <p class="pl-corp__tech-panel-text">{% trans "Наш код не «прокисає». Сайт розрахований на піки трафіку з реклами (CDN, кешування) — без падіння сервера в пік кампанії." %}</p>
                 </div>
 
                 <div class="pl-corp__tech-panel" role="tabpanel" id="pl-corp-tech-panel-3" data-tech-panel="3" aria-labelledby="pl-corp-tech-tab-3" aria-hidden="true">
-                    <p class="pl-corp__tech-panel-label">Тільки корисний код</p>
+                    <p class="pl-corp__tech-panel-label">{% trans "Тільки корисний код" %}</p>
                     <div class="pl-corp__tech-viz pl-corp__tech-viz--ring" aria-hidden="true">
                         <span class="pl-corp__tech-ring">
                             <svg viewBox="0 0 112 112" width="112" height="112">
@@ -74,12 +74,12 @@
                             <span class="pl-corp__tech-ring-val"><span data-tech-ring-num>0</span>%</span>
                         </span>
                         <ul class="pl-corp__tech-checklist">
-                            <li class="pl-corp__tech-check pl-corp__tech-check--yes"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Чистий код</li>
-                            <li class="pl-corp__tech-check"><img src="{% static 'images/corporate_website_v2/figma/icon-cross.svg' %}" alt="" width="12" height="12">Зайві плагіни</li>
-                            <li class="pl-corp__tech-check"><img src="{% static 'images/corporate_website_v2/figma/icon-cross.svg' %}" alt="" width="12" height="12">Баласт-скрипти</li>
+                            <li class="pl-corp__tech-check pl-corp__tech-check--yes"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>{% trans "Чистий код" %}</li>
+                            <li class="pl-corp__tech-check"><img src="{% static 'images/corporate_website_v2/figma/icon-cross.svg' %}" alt="" width="12" height="12">{% trans "Зайві плагіни" %}</li>
+                            <li class="pl-corp__tech-check"><img src="{% static 'images/corporate_website_v2/figma/icon-cross.svg' %}" alt="" width="12" height="12">{% trans "Баласт-скрипти" %}</li>
                         </ul>
                     </div>
-                    <p class="pl-corp__tech-panel-text">Жодних зайвих скриптів. Тільки той код, який потрібен для роботи вашого бізнесу — без баласту, що сповільнює сайт.</p>
+                    <p class="pl-corp__tech-panel-text">{% trans "Жодних зайвих скриптів. Тільки той код, який потрібен для роботи вашого бізнесу — без баласту, що сповільнює сайт." %}</p>
                 </div>
             </div>
         </div>

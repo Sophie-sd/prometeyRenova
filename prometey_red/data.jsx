@@ -36,8 +36,8 @@ const PROMETEY_DATA = {
     },
     {
       icon: "assets/icons/shield.svg",
-      titleAccent: "5-річна гарантія",
-      titleRest: "на наші продукти",
+      titleAccent: "Пожиттєва гарантія на код",
+      titleRest: "+ 1 рік безкоштовної підтримки",
       subtitle: "Гарантія включає:",
       list: [
         ["", "Виправлення технічних помилок"],

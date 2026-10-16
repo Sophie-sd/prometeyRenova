@@ -1,20 +1,20 @@
-{% load static %}
+{% load i18n %}{% load static %}
 <section id="garantiya" class="pl-shop__section pl-shop__garant" aria-labelledby="pl-shop-garant-title">
     <div class="pl-shop__inner">
-        <h2 id="pl-shop-garant-title" class="pl-shop__title pl-shop__garant-title" data-reveal>Ми створюємо — ми й відповідаємо.</h2>
+        <h2 id="pl-shop-garant-title" class="pl-shop__title pl-shop__garant-title" data-reveal>{% trans "Ми створюємо — ми й відповідаємо." %}</h2>
         <div class="pl-shop__garant-grid" data-reveal>
             <article class="pl-shop__card pl-shop__card--glass pl-shop__garant-box">
-                <p class="pl-shop__garant-box-title">1 рік безкоштовної підтримки</p>
+                <p class="pl-shop__garant-box-title">{% trans "1 рік безкоштовної підтримки" %}</p>
                 <div class="pl-shop__garant-quote">
                     <img class="pl-shop__garant-quote-icon" src="{% static 'images/internet_shop_v2/figma/icon-quote.svg' %}" alt="" width="35" height="33" loading="lazy" aria-hidden="true">
-                    <p class="pl-shop__garant-box-desc">Технічні питання, дрібні правки та консультації протягом першого року — без доплат</p>
+                    <p class="pl-shop__garant-box-desc">{% trans "Технічні питання, дрібні правки та консультації протягом першого року — без доплат" %}</p>
                 </div>
             </article>
             <article class="pl-shop__card pl-shop__card--glass pl-shop__garant-box">
-                <p class="pl-shop__garant-box-title">Гарантія на код без плагінів</p>
+                <p class="pl-shop__garant-box-title">{% trans "Пожиттєва гарантія на код" %}</p>
                 <div class="pl-shop__garant-quote">
                     <img class="pl-shop__garant-quote-icon" src="{% static 'images/internet_shop_v2/figma/icon-quote.svg' %}" alt="" width="35" height="33" loading="lazy" aria-hidden="true">
-                    <p class="pl-shop__garant-box-desc">Чистий код без плагінів і залежностей. 1 рік гарантії на код — технічні баги з нашої вини виправляємо безкоштовно</p>
+                    <p class="pl-shop__garant-box-desc">{% trans "Чистий код без плагінів і залежностей. Гарантія на код пожиттєва — технічні баги з нашої вини виправляємо безкоштовно, без обмеження строку" %}</p>
                 </div>
             </article>
         </div>

@@ -174,10 +174,13 @@
         document.addEventListener('click', (e) => {
             const link = e.target.closest && e.target.closest('a[href]');
             if (!link) return;
-            if (isPhone(link)) {
-                pushEvent('phone_click', link);
-            } else if (isMessenger(link)) {
+            // tel: and t.me/tg: clicks are pushed as phone_click / tg_click by the
+            // inline <head> listener in base.html (active before this deferred file).
+            if (isPhone(link)) return;
+            if (isMessenger(link)) {
                 decorateMessengerLink(link);
+                const h = (link.getAttribute('href') || '').toLowerCase();
+                if (/^(https?:\/\/t\.me\/|tg:)/.test(h)) return;
                 pushEvent('messenger_click', link);
             }
         }, { capture: true, passive: true });

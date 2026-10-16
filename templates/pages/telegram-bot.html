@@ -100,7 +100,7 @@
       "name": "{% trans "Що з підтримкою після запуску?" %}",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "{% trans "1 рік на техбаги з нашої вини — як в оферті. Нові функції й сторонні API в гарантію не входять." %}"
+        "text": "{% trans "Пожиттєва гарантія на код: техбаги з нашої вини виправляємо безкоштовно без обмеження строку. Плюс 1 рік безкоштовної підтримки, як в оферті. Нові функції й сторонні API в гарантію не входять." %}"
       }
     }
   ]
@@ -131,7 +131,7 @@
                 </div>
                 <p class="tgf-hero__meta">
                     {% trans "Що далі: після брифу надішлемо орієнтир по сценарію та інтеграціях — без публічного прайса." %}<br>
-                    <a href="{% url 'offer' %}">{% trans "Оферта" %}</a> · {% trans "після оплати код і токен — у замовника" %} · {% trans "гарантія 1 рік на багфікс" %}
+                    <a href="{% url 'offer' %}">{% trans "Оферта" %}</a> · {% trans "після оплати код і токен — у замовника" %} · {% trans "пожиттєва гарантія на код + 1 рік безкоштовної підтримки" %}
                 </p>
             </div>
         </div>
@@ -280,15 +280,15 @@
         <h2 class="tgf-h2 tgf-faq__title" id="tgf-faq-title">{% trans "Часті запитання" %}</h2>
         <div class="tgf-faq__list">
             <details class="tgf-faq__item"><summary>{% trans "Скільки коштує Telegram-бот під ключ у PrometeyLabs?" %}</summary><p>{% trans "Ціну рахуємо після брифу: сценарій, інтеграції, чи потрібні оплата або Mini App. Публічного прайсу немає — надішліть задачу й отримаєте кошторис." %}</p></details>
-            <details class="tgf-faq__item" open><summary>{% trans "Скільки триває розробка бота?" %}</summary><p>{% trans "Від сценарію й інтеграцій. Орієнтир — у кошторисі після брифу, не один дедлайн на всі боти." %}</p></details>
+            <details class="tgf-faq__item"><summary>{% trans "Скільки триває розробка бота?" %}</summary><p>{% trans "Від сценарію й інтеграцій. Орієнтир — у кошторисі після брифу, не один дедлайн на всі боти." %}</p></details>
             <details class="tgf-faq__item"><summary>{% trans "Що входить у вартість, а що оплачується окремо?" %}</summary><p>{% trans "У кошторисі: сценарій, розробка, тести, запуск. Хостинг, домен, платні API й токени ШІ — окремо, якщо потрібні." %}</p></details>
             <details class="tgf-faq__item"><summary>{% trans "Чи інтегруєте CRM, таблиці та оплату?" %}</summary><p>{% trans "Так — під ваш проєкт. На оцінці називаємо лише сервіси, з якими вже працювали." %}</p></details>
             <details class="tgf-faq__item"><summary>{% trans "Де хоститься бот і хто володіє кодом після оплати?" %}</summary><p>{% trans "Після повної оплати передаємо доступи, токен і код — як в оферті. Хостинг: ваш сервер або узгоджена інфраструктура." %}</p></details>
             <details class="tgf-faq__item"><summary>{% trans "Чи робите AI-відповіді в Telegram?" %}</summary><p>{% trans "Додаємо за запитом і з межами: бот не вигадує ціни чи наявність поза базою знань." %}</p></details>
             <details class="tgf-faq__item"><summary>{% trans "Як відбувається оплата проєкту?" %}</summary><p>{% trans "Етапами за договором. За потреби — покупка частинами monobank (окрема сторінка)." %} <a href="{% url 'monobank_chastynamy' %}">{% trans "Покупка частинами monobank" %}</a></p></details>
-            <details class="tgf-faq__item"><summary>{% trans "Що з підтримкою після запуску?" %}</summary><p>{% trans "1 рік на техбаги з нашої вини — як в оферті. Нові функції й сторонні API в гарантію не входять." %}</p></details>
+            <details class="tgf-faq__item"><summary>{% trans "Що з підтримкою після запуску?" %}</summary><p>{% trans "Пожиттєва гарантія на код: техбаги з нашої вини виправляємо безкоштовно без обмеження строку. Плюс 1 рік безкоштовної підтримки, як в оферті. Нові функції й сторонні API в гарантію не входять." %}</p></details>
         </div>
-        <p class="tgf-faq__legal">{% trans "Як у публічній оферті: 1 рік на багфікс з нашої вини. Не «пожиттєво» і не «5 років»." %} <a href="{% url 'offer' %}">{% trans "Оферта" %}</a></p>
+        <p class="tgf-faq__legal">{% trans "Як у публічній оферті: пожиттєва гарантія на код (баги з нашої вини виправляємо безкоштовно, без обмеження строку) і 1 рік безкоштовної підтримки." %} <a href="{% url 'offer' %}">{% trans "Оферта" %}</a></p>
     </section>
 
     <section class="tgf-lead tgf-wrap" id="pl-bot-form" aria-labelledby="pl-bot-form-title">
@@ -312,11 +312,11 @@
                     <label for="pl-bot-task">{% trans "Що має робити бот?" %}</label>
                     <select id="pl-bot-task" name="bot_task" class="form-input mobile-touch-target">
                         <option value="">{% trans "Оберіть задачу" %}</option>
-                        <option value="Заявки та кваліфікація ліда">{% trans "Заявки й кваліфікація ліда" %}</option>
-                        <option value="Запис на послуги">{% trans "Запис на послуги" %}</option>
-                        <option value="Замовлення / e-com">{% trans "Замовлення / e-com" %}</option>
-                        <option value="FAQ підтримки">{% trans "FAQ підтримки" %}</option>
-                        <option value="Ще не визначився">{% trans "Ще вирішую" %}</option>
+                        <option value="{% if request.LANGUAGE_CODE == 'en' %}{% trans "Заявки та кваліфікація ліда" %}{% else %}Заявки та кваліфікація ліда{% endif %}">{% trans "Заявки й кваліфікація ліда" %}</option>
+                        <option value="{% if request.LANGUAGE_CODE == 'en' %}{% trans "Запис на послуги" %}{% else %}Запис на послуги{% endif %}">{% trans "Запис на послуги" %}</option>
+                        <option value="{% if request.LANGUAGE_CODE == 'en' %}{% trans "Замовлення / e-com" %}{% else %}Замовлення / e-com{% endif %}">{% trans "Замовлення / e-com" %}</option>
+                        <option value="{% if request.LANGUAGE_CODE == 'en' %}{% trans "FAQ підтримки" %}{% else %}FAQ підтримки{% endif %}">{% trans "FAQ підтримки" %}</option>
+                        <option value="{% if request.LANGUAGE_CODE == 'en' %}{% trans "Ще не визначився" %}{% else %}Ще не визначився{% endif %}">{% trans "Ще вирішую" %}</option>
                     </select>
                 </div>
                 <div class="tgf-form__field">

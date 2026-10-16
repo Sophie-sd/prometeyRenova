@@ -4,11 +4,11 @@
 
 {% block body_attrs %} class="pl-corp-body" data-modal-source-page="corporate-website-v2-modal"{% endblock %}
 
-{% block title %}Корпоративні сайти та лендінги під ключ — ціна і строки | PrometeyLabs{% endblock %}
-{% block description %}Корпоративні сайти та лендінги під ключ: лендінг 250–400 € за 3–7 днів, корпоративний сайт 500–700 € за 7–14 днів. Технічне SEO, швидке завантаження, 1 рік гарантії на код.{% endblock %}
-{% block og_title %}Корпоративні сайти, що домінують у пошуку — PrometeyLabs{% endblock %}
+{% block title %}{% trans "Корпоративні сайти та лендінги під ключ — ціна і строки | PrometeyLabs" %}{% endblock %}
+{% block description %}{% trans "Корпоративні сайти та лендінги під ключ: лендінг 250–400 € за 3–7 днів, корпоративний сайт 500–700 € за 7–14 днів. Технічне SEO, швидке завантаження, пожиттєва гарантія на код." %}{% endblock %}
+{% block og_title %}{% trans "Корпоративні сайти, що домінують у пошуку — PrometeyLabs" %}{% endblock %}
 
-{% block og_description %}Корпоративні сайти та лендінги під ключ: лендінг 250–400 € за 3–7 днів, корпоративний сайт 500–700 € за 7–14 днів. Технічне SEO, швидке завантаження, 1 рік гарантії на код.{% endblock %}
+{% block og_description %}{% trans "Корпоративні сайти та лендінги під ключ: лендінг 250–400 € за 3–7 днів, корпоративний сайт 500–700 € за 7–14 днів. Технічне SEO, швидке завантаження, пожиттєва гарантія на код." %}{% endblock %}
 {% block og_image %}https://www.prometeylabs.com{% static 'images/corporate_website_v2/og-corp-v2.jpg' %}{% endblock %}
 
 {% block extra_head %}
@@ -18,8 +18,8 @@
 {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "Корпоративний сайт під ключ",
-  "description": "Корпоративні сайти та лендінги під ключ: дизайн, код, адмінка, інтеграції, технічне SEO та аналітика. 1 рік гарантії на код.",
+  "name": "{% trans "Корпоративний сайт під ключ" %}",
+  "description": "{% trans "Корпоративні сайти та лендінги під ключ: дизайн, код, адмінка, інтеграції, технічне SEO та аналітика. Пожиттєва гарантія на код і 1 рік підтримки безкоштовно." %}",
   "serviceType": "Corporate website development",
   "provider": {
     "@type": "Organization",
@@ -33,8 +33,8 @@
   "offers": [
     {
       "@type": "Offer",
-      "name": "Лендінг",
-      "description": "Односторінковий сайт із формою заявок, технічним SEO, аналітикою і трекінгом, доменом і захищеним з’єднанням. Запуск за 3–7 днів.",
+      "name": "{% trans "Лендінг" %}",
+      "description": "{% trans "Односторінковий сайт із формою заявок, технічним SEO, аналітикою і трекінгом, доменом і захищеним з’єднанням. Запуск за 3–7 днів." %}",
       "priceCurrency": "EUR",
       "price": "250",
       "priceSpecification": {
@@ -46,8 +46,8 @@
     },
     {
       "@type": "Offer",
-      "name": "Корпоративний сайт",
-      "description": "Багатосторінковий сайт з адмінкою, інтеграціями (CRM, ERP, оплати), технічним SEO і аналітикою. Запуск за 7–14 днів.",
+      "name": "{% trans "Корпоративний сайт" %}",
+      "description": "{% trans "Багатосторінковий сайт з адмінкою, інтеграціями (CRM, ERP, оплати), технічним SEO і аналітикою. Запуск за 7–14 днів." %}",
       "priceCurrency": "EUR",
       "price": "500",
       "priceSpecification": {
@@ -91,7 +91,7 @@
 
 {% block extra_js %}
 <script src="{% static 'js/corporate-website-v2-admin-demo.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/corporate-website-v2-quiz.js' %}?v=10" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/corporate-website-v2-quiz.js' %}?v=11" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/corporate-website-v2-tech.js' %}?v=6" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/corporate-website-v2.js' %}?v=11" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/corporate-website-v2.js' %}?v=12" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

@@ -8,6 +8,7 @@
 
     var isRu = (document.documentElement.lang || '').toLowerCase().indexOf('ru') === 0
         || /\/ru\//.test(location.pathname);
+    var isEn = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
 
     var PKG_MAP_UK = {
         base: {
@@ -79,7 +80,62 @@
         }
     };
 
-    var PKG_MAP = isRu ? PKG_MAP_RU : PKG_MAP_UK;
+    var PKG_MAP_EN = {
+        base: {
+            label: 'Base',
+            price: 'from \u20ac800',
+            term: '3–4 weeks',
+            features: [
+                'Core conversion-focused design for your niche',
+                'AI content and basic SEO preparation',
+                'Turnkey deployment on your domain'
+            ]
+        },
+        premium: {
+            label: 'Premium',
+            price: 'from \u20ac1,500',
+            term: '5–8 weeks',
+            features: [
+                'Custom UI/UX design from scratch',
+                'Integrations: payments, logistics, CRM',
+                'Content marketing and SEO articles',
+                'Ad account setup and a launch campaign'
+            ]
+        },
+        platinum: {
+            label: 'Platinum',
+            price: 'from \u20ac7,000',
+            term: '2–4 months',
+            features: [
+                'Store: niche design, admin panel with roles, up to 10 languages',
+                'Sales: CRM, AI assistant and a Telegram bot',
+                'Advertising: Meta, Google and TikTok accounts, up to 5 campaigns',
+                'Search & content: SEO and 6 months of articles'
+            ]
+        }
+    };
+
+    var PKG_MAP = isRu ? PKG_MAP_RU : isEn ? PKG_MAP_EN : PKG_MAP_UK;
+    var EN2UA = {
+        "Starting from scratch": "Старт з нуля",
+        "Moving from Prom / OLX": "Міграція з Prom / OLX",
+        "Scaling + turnkey marketing": "Масштабування + маркетинг під ключ",
+        "Not sure yet — I need a consultation": "Ще не визначився — потрібна консультація",
+        "Not decided yet": "Ще не визначився",
+        "Up to 100 products": "До 100 товарів",
+        "100–1,000 products": "100–1000 товарів",
+        "1,000–10,000 products": "1000–10 000 товарів",
+        "More than 10,000 products": "Більше 10 000 товарів",
+        "SEO + articles": "SEO + статті",
+        "AI admin + bot": "AI-адмінка + бот",
+        "Advertising & Promotion": "Реклама та просування",
+        "As soon as possible (about 3 weeks)": "Якнайшвидше (близько 3 тижнів)",
+        "Within a month": "Протягом місяця",
+        "1–3 months": "1–3 місяці",
+        "Flexible timeline": "Терміни гнучкі"
+    };
+    function ua(v) { return EN2UA[v] || v; }
+
 
     function applyQuizPrices() {
         var node = document.getElementById('fx-quiz-prices');
@@ -145,10 +201,10 @@
 
     function recommendPackage() {
         var score = { base: 0, premium: 0, platinum: 0 };
-        var start = getCheckedValue('q_start');
-        var products = getCheckedValue('q_products');
-        var features = getCheckedFeatures();
-        var timeline = getCheckedValue('q_timeline');
+        var start = ua(getCheckedValue('q_start'));
+        var products = ua(getCheckedValue('q_products'));
+        var features = getCheckedFeatures().map(ua);
+        var timeline = ua(getCheckedValue('q_timeline'));
 
         if (start === 'Старт з нуля' || start === 'Старт с нуля') score.base += 2;
         if (start === 'Міграція з Prom / OLX' || start === 'Миграция с Prom / OLX') score.premium += 2;
@@ -226,8 +282,8 @@
             && !step.classList.contains('pl-shop__quiz-step--result');
     }
 
-    var PHONE_MSG_EMPTY = isRu ? 'Внесите номер телефона' : 'Внесіть номер телефону';
-    var PHONE_MSG_INVALID = isRu ? 'Введите корректный номер телефона' : 'Введіть коректний номер телефону';
+    var PHONE_MSG_EMPTY = isRu ? 'Внесите номер телефона' : isEn ? 'Enter your phone number' : 'Внесіть номер телефону';
+    var PHONE_MSG_INVALID = isRu ? 'Введите корректный номер телефона' : isEn ? 'Enter a valid phone number' : 'Введіть коректний номер телефону';
     var PHONE_ERROR_ID = 'pl-shop-quiz-phone-error';
 
     /* Phone mask keeps a non-removable "+38" prefix, so the field is never

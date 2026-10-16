@@ -10,14 +10,21 @@
                 <p class="pl-rs__eyebrow">{% trans "Договір" %}</p>
                 {% currency_switcher "dark" "soft" %}
             </div>
-            <h1 id="pl-rs-h1" class="pl-rs__h1">{% trans "Розробка сайтів будь-якої складності під ключ" %}</h1>
-            <p class="pl-rs__lead">{% trans "Лендінги, корпоративні сайти, інтернет-магазини, платформи будь-якої складності. Прозора співпраця: фіксуємо бюджет і строки у договорі. Безкоштовна підтримка та 1 рік гарантії на код." %}</p>
-            <button type="button" class="pl-rs__cta mobile-touch-target" data-modal="call-request-modal">
-                <span>{% trans "Отримати консультацію" %}</span>
-                <img src="{% static 'img/rozrobka-figma/arrow-hero.svg' %}" alt="" width="24" height="24" decoding="async">
-            </button>
-            {# Mobile-only secondary CTA (≤767); primary stays «Отримати консультацію». #}
-            <a class="pl-rs__cta-alt mobile-touch-target" href="{% url 'calculator' %}">{% trans "Розрахувати вартість" %}</a>
+            <h1 id="pl-rs-h1" class="pl-rs__h1">{% trans "Розробка і створення сайтів під ключ від 250 €" %}</h1>
+            <p class="pl-rs__lead">{% trans "Лендінг від 250 € за 3–7 днів, корпоративний сайт від 500 €, інтернет-магазин від 800 €. Ціну й строк фіксуємо в договорі. Пожиттєва гарантія на код, рік підтримки безкоштовно, адмінка залишається у вас." %}</p>
+            {# Task 4.1 (doc 16.10): first-screen form = site_request like /internet-shop-v2/; no other URLs on the first screen. #}
+            <div class="pl-rs__hero-form-card">
+                <p class="pl-rs__hero-form-title">{% trans "Розрахуємо вартість вашого сайту" %}</p>
+                <form id="pl-rs-hero-form" class="plf-form pl-rs__hero-form" action="{% url 'form_submit' %}" method="post" data-form-type="site_request" data-source-label="{% trans "Розробка сайтів · перший екран" %}" aria-label="{% trans "Розрахуємо вартість вашого сайту" %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="site_request">
+                    <input type="hidden" name="source_page" value="rozrobka-sajtiv">
+                    <input type="hidden" name="details" value="{% trans "Сторінка: Розробка сайтів · Форма на першому екрані" %}">
+                    {% trans "Отримати розрахунок" as submit_label %}{% include 'components/figma_lead_fields.html' with p='pl-rs-hero' submit_label=submit_label %}
+                </form>
+                <p class="pl-rs__hero-links"><a href="https://t.me/prometeylabs" target="_blank" rel="noopener noreferrer">{% trans "Написати в Telegram" %}</a> · <a href="tel:+380639520565">+38 (063) 952-05-65</a></p>
+                <p class="pl-rs__hero-trust">{% trans "Ціна і строк у договорі · Адмінка залишається у вас · 50+ запущених проєктів · Відповідаємо протягом 15 хвилин" %}</p>
+            </div>
         </div>
 
         <div class="pl-rs__floats" aria-hidden="true">

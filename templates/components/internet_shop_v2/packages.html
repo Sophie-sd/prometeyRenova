@@ -1,10 +1,10 @@
-{% load static fx_tags %}
+{% load i18n %}{% load static fx_tags %}
 <section id="pakety" class="pl-shop__section pl-shop__packages" aria-labelledby="pl-shop-packages-title">
     <div class="pl-shop__inner">
         <div class="pl-shop__packages-head" data-reveal>
             <div class="pl-shop__intro">
-                <h2 id="pl-shop-packages-title" class="pl-shop__title">Оберіть пакет під масштаб<br>вашого інтернет-магазину</h2>
-                <p class="pl-shop__subtitle pl-shop__packages-subtitle">Базова якість однакова — пакет визначає масштаб ШІ, інтеграцій і маркетингу</p>
+                <h2 id="pl-shop-packages-title" class="pl-shop__title">{% trans "Оберіть пакет під масштаб" %}<br>{% trans "вашого інтернет-магазину" %}</h2>
+                <p class="pl-shop__subtitle pl-shop__packages-subtitle">{% trans "Базова якість однакова — пакет визначає масштаб ШІ, інтеграцій і маркетингу" %}</p>
             </div>
             <div class="pl-shop__currency">{% currency_switcher "dark" "shop" %}</div>
         </div>
@@ -14,18 +14,18 @@
                 <source media="(max-width: 767px)" srcset="{% static 'images/internet_shop_v2/figma/glow-foundation-mobile.svg' %}">
                 <img src="{% static 'images/internet_shop_v2/figma/glow-foundation.svg' %}" alt="" width="1147" height="459" loading="lazy" decoding="async">
             </picture>
-            <h3 id="pl-shop-foundation-title" class="pl-shop__card-title pl-shop__card-title--accent">У кожному пакеті — одна й та сама база</h3>
+            <h3 id="pl-shop-foundation-title" class="pl-shop__card-title pl-shop__card-title--accent">{% trans "У кожному пакеті — одна й та сама база" %}</h3>
             <div class="pl-shop__foundation-body">
                 <ul class="pl-shop__list pl-shop__list--good pl-shop__foundation-list">
-                    <li class="pl-shop__list-item">Google PageSpeed 90+ на чистому коді</li>
-                    <li class="pl-shop__list-item">Продуманий UI/UX під вашу нішу</li>
-                    <li class="pl-shop__list-item">Зрозуміла адмін-панель з першого дня</li>
-                    <li class="pl-shop__list-item">Розгортання під ключ на вашому домені</li>
+                    <li class="pl-shop__list-item">{% trans "Google PageSpeed 90+ на чистому коді" %}</li>
+                    <li class="pl-shop__list-item">{% trans "Продуманий UI/UX під вашу нішу" %}</li>
+                    <li class="pl-shop__list-item">{% trans "Зрозуміла адмін-панель з першого дня" %}</li>
+                    <li class="pl-shop__list-item">{% trans "Розгортання під ключ на вашому домені" %}</li>
                 </ul>
-                <p class="pl-shop__note"><img class="pl-shop__note-icon" src="{% static 'images/internet_shop_v2/figma/icon-danger.svg' %}" alt="" width="17" height="17" aria-hidden="true">Пакет відрізняє глибину ШІ, інтеграції та маркетинг — не якість фундаменту</p>
+                <p class="pl-shop__note"><img class="pl-shop__note-icon" src="{% static 'images/internet_shop_v2/figma/icon-danger.svg' %}" alt="" width="17" height="17" aria-hidden="true">{% trans "Пакет відрізняє глибину ШІ, інтеграції та маркетинг — не якість фундаменту" %}</p>
                 <a href="{% url 'monobank_chastynamy' %}" class="pl-shop__installment">
                     <img class="pl-shop__installment-icon" src="{% static 'images/internet_shop_v2/figma/mono-paw-15.webp' %}" alt="" width="54" height="54" loading="lazy" decoding="async">
-                    <span class="pl-shop__installment-text">Це можна купити частинами, <strong class="pl-shop__installment-strong">до 15 платежів</strong></span>
+                    <span class="pl-shop__installment-text">{% trans "Це можна купити частинами," %} <strong class="pl-shop__installment-strong">{% trans "до 15 платежів" %}</strong></span>
                 </a>
             </div>
         </aside>
@@ -35,24 +35,24 @@
             <article class="pl-shop__pkg-card">
                 <div class="pl-shop__pkg-overview">
                     <div class="pl-shop__pkg-details">
-                        <h3 class="pl-shop__pkg-heading"><span class="pl-shop__pkg-eyebrow">Магазин</span> <span class="pl-shop__pkg-name">Base</span></h3>
-                        <p class="pl-shop__pkg-desc">Базовий інтернет-магазин з усім необхідним для старту онлайн-продажів</p>
+                        <h3 class="pl-shop__pkg-heading"><span class="pl-shop__pkg-eyebrow">{% trans "Магазин" %}</span> <span class="pl-shop__pkg-name">Base</span></h3>
+                        <p class="pl-shop__pkg-desc">{% trans "Базовий інтернет-магазин з усім необхідним для старту онлайн-продажів" %}</p>
                     </div>
                     {% include 'fx/pkg_price.html' with key='base' amount=800 %}
                 </div>
                 <div class="pl-shop__pkg-features">
                     <ul class="pl-shop__pkg-list">
-                        <li>Дизайн</li>
-                        <li>Мобільна версія</li>
-                        <li>Базова SEO</li>
-                        <li>LiqPay і Mono</li>
-                        <li>Нова Пошта</li>
-                        <li>Адмінка</li>
-                        <li>1 рік підтримки</li>
-                        <li>Каталог до 100 товарів</li>
+                        <li>{% trans "Дизайн" %}</li>
+                        <li>{% trans "Мобільна версія" %}</li>
+                        <li>{% trans "Базова SEO" %}</li>
+                        <li>{% trans "LiqPay і Mono" %}</li>
+                        <li>{% trans "Нова Пошта" %}</li>
+                        <li>{% trans "Адмінка" %}</li>
+                        <li>{% trans "1 рік підтримки · пожиттєва гарантія на код" %}</li>
+                        <li>{% trans "Каталог до 100 товарів" %}</li>
                     </ul>
                 </div>
-                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--light pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="base">Дізнатися вартість</a>
+                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--light pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="base">{% trans "Дізнатися вартість" %}</a>
             </article>
 
             <article class="pl-shop__pkg-card pl-shop__pkg-card--featured">
@@ -61,48 +61,48 @@
                 </picture>
                 <div class="pl-shop__pkg-overview">
                     <div class="pl-shop__pkg-details">
-                        <h3 class="pl-shop__pkg-heading"><span class="pl-shop__pkg-eyebrow">Магазин з інтеграціями</span> <span class="pl-shop__pkg-name">Premium</span></h3>
-                        <p class="pl-shop__pkg-desc">Інтернет-магазин з онлайн-оплатами, доставкою, CRM, Telegram-сповіщеннями і налаштуванням рекламного кабінету</p>
+                        <h3 class="pl-shop__pkg-heading"><span class="pl-shop__pkg-eyebrow">{% trans "Магазин з інтеграціями" %}</span> <span class="pl-shop__pkg-name">Premium</span></h3>
+                        <p class="pl-shop__pkg-desc">{% trans "Інтернет-магазин з онлайн-оплатами, доставкою, CRM, Telegram-сповіщеннями і налаштуванням рекламного кабінету" %}</p>
                     </div>
                     {% include 'fx/pkg_price.html' with key='premium' amount=1500 %}
                 </div>
                 <div class="pl-shop__pkg-features">
                     <ul class="pl-shop__pkg-list">
                         <li>CRM</li>
-                        <li>Telegram-сповіщення</li>
-                        <li>Ролі менеджерів в адмінці</li>
-                        <li>Онлайн-оплати</li>
-                        <li>Інтеграції доставки</li>
-                        <li>Налаштування рекламного кабінету і стартова кампанія</li>
+                        <li>{% trans "Telegram-сповіщення" %}</li>
+                        <li>{% trans "Ролі менеджерів в адмінці" %}</li>
+                        <li>{% trans "Онлайн-оплати" %}</li>
+                        <li>{% trans "Інтеграції доставки" %}</li>
+                        <li>{% trans "Налаштування рекламного кабінету і стартова кампанія" %}</li>
                     </ul>
                 </div>
-                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--accent pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="premium">Дізнатися вартість</a>
+                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--accent pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="premium">{% trans "Дізнатися вартість" %}</a>
             </article>
 
             <article class="pl-shop__pkg-card pl-shop__pkg-card--platinum">
                 <div class="pl-shop__pkg-overview">
                     <div class="pl-shop__pkg-details">
-                        <h3 class="pl-shop__pkg-heading"><span class="pl-shop__pkg-eyebrow">Магазин і маркетинг</span> <span class="pl-shop__pkg-name">Platinum</span></h3>
-                        <p class="pl-shop__pkg-desc">Інтернет-магазин з CRM, рекламними кабінетами, SEO і пів року контенту</p>
+                        <h3 class="pl-shop__pkg-heading"><span class="pl-shop__pkg-eyebrow">{% trans "Магазин і маркетинг" %}</span> <span class="pl-shop__pkg-name">Platinum</span></h3>
+                        <p class="pl-shop__pkg-desc">{% trans "Інтернет-магазин з CRM, рекламними кабінетами, SEO і пів року контенту" %}</p>
                     </div>
                     {% include 'fx/pkg_price.html' with key='platinum' amount=7000 %}
                 </div>
                 <div class="pl-shop__pkg-pitch">
-                    <p class="pl-shop__pkg-lead">Від вітрини до перших рекламних кампаній — одним пакетом.</p>
-                    <p class="pl-shop__pkg-note">У ціні сам магазин і запуск послуг. Рекламний бюджет оплачується окремо.</p>
+                    <p class="pl-shop__pkg-lead">{% trans "Від вітрини до перших рекламних кампаній — одним пакетом." %}</p>
+                    <p class="pl-shop__pkg-note">{% trans "У ціні сам магазин і запуск послуг. Рекламний бюджет оплачується окремо." %}</p>
                 </div>
                 <div class="pl-shop__pkg-features">
                     <ul class="pl-shop__pkg-list pl-shop__pkg-list--themes">
-                        <li><span><strong class="pl-shop__pkg-theme-name">Магазин</strong>Дизайн вітрини під нішу, адмінка з ролями, розгортання на домені клієнта, до 10 мовних версій</span></li>
-                        <li><span><strong class="pl-shop__pkg-theme-name">Продажі</strong>Персональна CRM і ШІ-помічник продажів, чат ШІ-менеджера в адмінці, Telegram-бот для замовлень, ШІ-адміністратор сайту</span></li>
-                        <li><span><strong class="pl-shop__pkg-theme-name">Реклама</strong>Створення і підключення кабінетів Meta, Google і TikTok, до 5 кампаній, супровід 3 місяці</span></li>
-                        <li><span><strong class="pl-shop__pkg-theme-name">Пошук і контент</strong>SEO під Україну і зовнішні ринки, статті й контент 6 місяців, тексти і медіа для сторінок магазину</span></li>
+                        <li><span><strong class="pl-shop__pkg-theme-name">{% trans "Магазин" %}</strong>{% trans "Дизайн вітрини під нішу, адмінка з ролями, розгортання на домені клієнта, до 10 мовних версій" %}</span></li>
+                        <li><span><strong class="pl-shop__pkg-theme-name">{% trans "Продажі" %}</strong>{% trans "Персональна CRM і ШІ-помічник продажів, чат ШІ-менеджера в адмінці, Telegram-бот для замовлень, ШІ-адміністратор сайту" %}</span></li>
+                        <li><span><strong class="pl-shop__pkg-theme-name">{% trans "Реклама" %}</strong>{% trans "Створення і підключення кабінетів Meta, Google і TikTok, до 5 кампаній, супровід 3 місяці" %}</span></li>
+                        <li><span><strong class="pl-shop__pkg-theme-name">{% trans "Пошук і контент" %}</strong>{% trans "SEO під Україну і зовнішні ринки, статті й контент 6 місяців, тексти і медіа для сторінок магазину" %}</span></li>
                     </ul>
                 </div>
-                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--light pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="platinum">Дізнатися вартість</a>
+                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--light pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="platinum">{% trans "Дізнатися вартість" %}</a>
             </article>
         </div>
 
-        <button type="button" class="pl-shop__btn pl-shop__btn--outline pl-shop__pkg-compare" data-modal="pl-shop-pkg-compare-modal">Порівняти пакети</button>
+        <button type="button" class="pl-shop__btn pl-shop__btn--outline pl-shop__pkg-compare" data-modal="pl-shop-pkg-compare-modal">{% trans "Порівняти пакети" %}</button>
     </div>
 </section>
