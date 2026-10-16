@@ -1,5 +1,5 @@
 {% extends 'democorp/base.html' %}
-{% load custom_filters i18n demotenant %}
+{% load static custom_filters i18n demotenant %}
 
 {% block title %}{{ product.localized_name }} — {% tenant_text blocks_map registry "header" "company_name" %}{% endblock %}
 
@@ -11,7 +11,10 @@
 <section class="dc-section dc-section--tight dc-container dc-pdp">
     <div class="dc-pdp__gallery">
         {% for image in product.images.all %}
-        <img src="{{ image.image|puburl }}" alt="{{ product.localized_name }}" width="1440" height="900" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+        {# Full-page shot in a fixed frame + scroll-on-hover / touch ping-pong, shared with /portfolio/ (js/portfolio-screen-scroll.js). #}
+        <div class="dc-pdp__shot" data-pf-screen tabindex="0">
+            <img src="{{ image.image|puburl }}" alt="{{ product.localized_name }}" width="1440" height="900" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" decoding="async" data-pf-shot>
+        </div>
         {% endfor %}
     </div>
     <div class="dc-pdp__info">
@@ -23,4 +26,8 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/portfolio-screen-scroll.js' %}?v=screen4" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}
