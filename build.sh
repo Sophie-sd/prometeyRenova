@@ -158,4 +158,7 @@ python manage.py seed_proposal_farmlyga
 echo "📄 Seeding medical center corporate proposal + classic demo-corp..."
 python manage.py seed_proposal_medcenter
 
+echo "📄 Seeding agro & logistics corporate proposal + classic demo-corp..."
+python manage.py seed_proposal_agro_logistics
+
 echo "✅ Build complete!"
