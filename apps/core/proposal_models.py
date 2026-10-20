@@ -206,6 +206,7 @@ class Proposal(models.Model):
             'landing-page-k8r2': 'proposal/img/seal-on-dark.webp',
             'landing-autoservice-2587': 'proposal/img/seal-on-dark.webp',
             'corporate-construction-c3cd': 'proposal/img/seal-on-dark.webp',
+            'landing-plumber-c376': 'proposal/img/seal-on-dark.webp',
         }
         rel = by_slug.get(self.slug, 'proposal/img/seal-on-dark.webp')
         if (Path(settings.BASE_DIR) / 'static' / rel).is_file():

@@ -170,4 +170,7 @@ python manage.py seed_proposal_autoservice
 echo "📄 Seeding construction corporate proposal (650 €) + classic demo-corp..."
 python manage.py seed_proposal_construction
 
+echo "📄 Seeding plumber landing proposal (200 €) + standard demo-landing..."
+python manage.py seed_proposal_plumber
+
 echo "✅ Build complete!"
