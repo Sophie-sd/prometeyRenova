@@ -204,6 +204,7 @@ class Proposal(models.Model):
             'shop-jewelry-9d2b': 'proposal/img/seal-on-dark.webp',
             'corporate-agro-logistics-x7p3': 'proposal/img/seal-on-dark.webp',
             'landing-page-k8r2': 'proposal/img/seal-on-dark.webp',
+            'landing-autoservice-2587': 'proposal/img/seal-on-dark.webp',
         }
         rel = by_slug.get(self.slug, 'proposal/img/seal-on-dark.webp')
         if (Path(settings.BASE_DIR) / 'static' / rel).is_file():

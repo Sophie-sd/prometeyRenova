@@ -164,4 +164,7 @@ python manage.py seed_proposal_agro_logistics
 echo "📄 Seeding Landing Page proposal (300 €) + standard demo-landing..."
 python manage.py seed_proposal_landing_page
 
+echo "📄 Seeding autoservice landing proposal (250 €) + standard demo-landing..."
+python manage.py seed_proposal_autoservice
+
 echo "✅ Build complete!"
