@@ -161,4 +161,7 @@ python manage.py seed_proposal_medcenter
 echo "📄 Seeding agro & logistics corporate proposal + classic demo-corp..."
 python manage.py seed_proposal_agro_logistics
 
+echo "📄 Seeding Landing Page proposal (300 €) + standard demo-landing..."
+python manage.py seed_proposal_landing_page
+
 echo "✅ Build complete!"
