@@ -173,4 +173,7 @@ python manage.py seed_proposal_construction
 echo "📄 Seeding plumber landing proposal (200 €) + standard demo-landing..."
 python manage.py seed_proposal_plumber
 
+echo "📄 Seeding hangar corporate proposal (450–500 €) + classic demo-corp..."
+python manage.py seed_proposal_angary
+
 echo "✅ Build complete!"
