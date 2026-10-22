@@ -176,4 +176,7 @@ python manage.py seed_proposal_plumber
 echo "📄 Seeding hangar corporate proposal (450–500 €) + classic demo-corp..."
 python manage.py seed_proposal_angary
 
+echo "📄 Seeding bakinskybulvar.com corporate catalog proposal (800 €) + standard demo-shop..."
+python manage.py seed_proposal_bakinskybulvar
+
 echo "✅ Build complete!"
