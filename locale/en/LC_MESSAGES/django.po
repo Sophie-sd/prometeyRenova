@@ -5247,10 +5247,8 @@ msgid ""
 msgstr ""
 
 #: templates/proposal/detail.html:149
-msgid ""
-"Рекомендації підготовлені командою PrometeyLabs · 10+ років у розробці "
-"e-commerce"
-msgstr ""
+msgid "Рекомендації підготовлені командою PrometeyLabs"
+msgstr "Recommendations prepared by the PrometeyLabs team"
 
 #: templates/proposal/detail.html:164
 #, fuzzy

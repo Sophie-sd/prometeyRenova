@@ -4542,9 +4542,7 @@ msgid ""
 msgstr ""
 
 #: templates/proposal/detail.html:149
-msgid ""
-"Рекомендації підготовлені командою PrometeyLabs · 10+ років у розробці "
-"e-commerce"
+msgid "Рекомендації підготовлені командою PrometeyLabs"
 msgstr ""
 
 #: templates/proposal/detail.html:164
