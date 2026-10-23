@@ -29,7 +29,15 @@ SLUG = 'b2b-parts-platform-a7f3'
 
 RECS_LEAD = (
     'Архітектурні та імплементаційні рішення по ТЗ платформи автозапчастин '
-    '— з позиції команди з 10+ років у e-commerce.'
+    '— з позиції команди PrometeyLabs.'
+)
+RECS_LEAD_RU = (
+    'Архитектурные и имплементационные решения по ТЗ платформы автозапчастей '
+    '— с позиции команды PrometeyLabs.'
+)
+RECS_LEAD_EN = (
+    'Architecture and implementation decisions for the auto parts platform spec '
+    '— from the PrometeyLabs team.'
 )
 
 HIGHLIGHTS = [
@@ -398,8 +406,8 @@ class Command(BaseCommand):
                 'lead_en': 'Custom platform on Django / HTMX / PostgreSQL / Redis for wholesale and retail trade of auto parts.',
                 'lead_cs': 'Customizovaná platforma na Django / HTMX / PostgreSQL / Redis pro velkoobchodní a maloobchodní prodej autodílů.',
                 'recommendations_lead': RECS_LEAD,
-                'recommendations_lead_ru': translate_ua_to_ru(RECS_LEAD),
-                'recommendations_lead_en': '',
+                'recommendations_lead_ru': RECS_LEAD_RU,
+                'recommendations_lead_en': RECS_LEAD_EN,
                 'recommendations_lead_cs': '',
                 'issued_on': date(2026, 8, 20),
                 'intro_html': INTRO_HTML,

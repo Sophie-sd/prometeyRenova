@@ -5240,12 +5240,6 @@ msgstr "Keywords"
 msgid "Рекомендації від PrometeyLabs"
 msgstr "Contacts | PrometeyLabs"
 
-#: templates/proposal/detail.html:120
-msgid ""
-"Архітектурні та імплементаційні рішення по ТЗ платформи автозапчастин — з "
-"позиції команди з 10+ років у e-commerce."
-msgstr ""
-
 #: templates/proposal/detail.html:149
 msgid "Рекомендації підготовлені командою PrometeyLabs"
 msgstr "Recommendations prepared by the PrometeyLabs team"
