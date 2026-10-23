@@ -179,4 +179,7 @@ python manage.py seed_proposal_angary
 echo "📄 Seeding bakinskybulvar.com corporate catalog proposal (800 €) + standard demo-shop..."
 python manage.py seed_proposal_bakinskybulvar
 
+echo "📄 Seeding pet-supplies e-shop proposal (800–900 €) + standard demo-shop..."
+python manage.py seed_proposal_zootovary
+
 echo "✅ Build complete!"
