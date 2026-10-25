@@ -534,6 +534,16 @@ body.pl-shop-body .main-footer .container,
     max-width: 341px;
 }
 
+/* D13: SSR proof line under the clients heading */
+.pl-shop__clients-note {
+    max-width: 341px;
+    margin: 12px 0 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6), 0 0 2px rgba(0, 0, 0, 0.45);
+}
+
 .pl-shop__clients-track {
     width: 100%;
     margin-top: var(--pl-head-gap);
@@ -2299,6 +2309,13 @@ body.pl-shop-body .main-footer .container,
     .pl-shop__clients-title {
         max-width: 630px;
         margin: 0 auto;
+        text-align: center;
+    }
+
+    .pl-shop__clients-note {
+        max-width: 630px;
+        margin: 16px auto 0;
+        font-size: 18px;
         text-align: center;
     }
 

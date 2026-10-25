@@ -209,7 +209,7 @@
     --pl-rs-text: #f5f5f5;
     --pl-rs-muted: #a1a1aa;
     --pl-rs-caption: #a2a2a2;
-    --pl-rs-font: "Inter", "Space Grotesk", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --pl-rs-font: "Inter", "Inter Fallback", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
     --pl-rs-mono: "JetBrains Mono", ui-monospace, monospace;
     background: var(--pl-rs-bg);
     color: var(--pl-rs-text);
@@ -1571,6 +1571,39 @@
     }
 }
 
+
+/* D3 — tablet 768–1099: the hero floats are the only price block (duplicate .pl-rs__prices strip removed).
+   Flat 4-column row under the form; ≤767 (2×2) and ≥1100 (absolute floats) unchanged. */
+@media (min-width: 768px) and (max-width: 1099px) {
+    .pl-rs__floats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        width: 100%;
+        max-width: 980px;
+        margin: 8px auto 0;
+        position: relative;
+        z-index: 2;
+        pointer-events: none;
+    }
+    .pl-rs__float {
+        width: auto;
+        min-height: 190px;
+        padding: 14px;
+        gap: 8px;
+    }
+    .pl-rs__float--tl,
+    .pl-rs__float--tr,
+    .pl-rs__float--bl,
+    .pl-rs__float--br { transform: none; }
+    .pl-rs__float-rings { right: -48px; bottom: -40px; width: 160px; height: 160px; opacity: 0.9; }
+    .pl-rs__float-title { font-size: 15px; letter-spacing: -0.42px; }
+    .pl-rs__float-num { font-size: 18px; white-space: normal; }
+    .pl-rs__float-num--soft { font-size: 13px; line-height: 1.2; }
+    .pl-rs__float-chip { font-size: 11px; padding: 7px 10px; }
+    .pl-rs__scope-in,
+    .pl-rs__scope-out { font-size: 10px; line-height: 1.25; }
+}
 
 /* —— Mobile ≤767 (Figma 1:332 @ 393×3516) —— */
 @media (max-width: 767px) {

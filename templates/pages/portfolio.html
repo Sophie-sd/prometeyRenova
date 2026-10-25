@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="{% static 'css/portfolio-brand-snap.css' %}?v=snap22">
 <link rel="stylesheet" href="{% static 'css/portfolio-brand-snap2.css' %}?v=snap22">
 <link rel="stylesheet" href="{% static 'css/portfolio-screen.css' %}?v=screen5">
-<link rel="stylesheet" href="{% static 'css/portfolio-figma-page.css' %}?v=20">
+<link rel="stylesheet" href="{% static 'css/portfolio-figma-page.css' %}?v=21">
 {% endblock %}
 
 {% block content %}
@@ -35,6 +35,7 @@
     </div>
     {% if portfolio_projects %}
     <div class="pfg-filters" data-pf-filters>
+        {% if portfolio_copy.shops_note %}<p class="pfg-filters__note">{{ portfolio_copy.shops_note }}</p>{% endif %}
         <p class="pfg-filters__title" id="pfg-filters-title">{{ portfolio_copy.filters_title }}</p>
         <div class="pfg-filters__slot" data-pf-bar-slot>
         <div class="pfg-filters__bar" data-pf-bar>
