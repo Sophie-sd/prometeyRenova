@@ -2227,7 +2227,8 @@
 }
 
 /* Hero lead form card (task 4.1): plf-form tokens live on .plf/.plm, so define them here too. */
-.pl-rs__hero-form-card{--plf-white:#f5f5f5;--plf-gray:#a2a2a2;--plf-orange:#f60;--plf-orange-dark:#d05300;--plf-field:rgba(20,20,20,.55);--plf-field-border:rgba(162,162,162,.3);position:relative;z-index:3;box-sizing:border-box;width:100%;max-width:420px;margin:clamp(14px,2.4svh,24px) auto 0;padding:clamp(16px,2.2svh,22px) clamp(16px,2vw,22px);border-radius:24px;background:rgba(10,10,10,.72);border:1px solid rgba(162,162,162,.18);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);text-align:left}
+.pl-rs__hero-form-card{--plf-white:#f5f5f5;--plf-gray:#a2a2a2;--plf-orange:#f60;--plf-orange-dark:#d05300;--plf-field:rgba(20,20,20,.55);--plf-field-border:rgba(162,162,162,.3);position:relative;z-index:3;box-sizing:border-box;width:100%;max-width:420px;min-height:292px;margin:clamp(14px,2.4svh,24px) auto 0;padding:clamp(16px,2.2svh,22px) clamp(16px,2vw,22px);border-radius:24px;background:rgba(10,10,10,.72);border:1px solid rgba(162,162,162,.18);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);text-align:left}
+@media (max-width:767px){.pl-rs__hero-form-card{min-height:308px}}
 .pl-rs__hero-form-card *{box-sizing:border-box}
 .pl-rs__hero-form-title{margin:0 0 12px;font-size:16px;font-weight:600;line-height:1.25;color:#f5f5f5;text-align:center}
 .pl-rs__hero-form.plf-form{gap:10px}
