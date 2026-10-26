@@ -33,6 +33,7 @@
                     {% endif %}
                     <div class="pl-rs__work-foot">
                         <p class="pl-rs__work-name">{{ project.get_localized_title }}</p>
+                        <p class="pl-rs__work-meta">{{ project.get_category_label }}{% if project.get_localized_subtitle %} · {{ project.get_localized_subtitle }}{% endif %}</p>
                         <a class="pl-rs__pill pl-rs__pill--work" href="{% url 'portfolio' %}">{% trans "Детальніше" %}</a>
                     </div>
                 </article>

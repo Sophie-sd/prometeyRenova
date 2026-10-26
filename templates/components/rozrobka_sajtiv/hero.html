@@ -1,11 +1,12 @@
 {% load i18n static fx_tags %}
 <section class="pl-rs__hero" aria-labelledby="pl-rs-h1">
     <div class="pl-rs__hero-bg" aria-hidden="true">
-        <img class="pl-rs__hero-bg-img" src="{% static 'img/rozrobka-figma/hero-bg.webp' %}" alt="" width="1983" height="793" decoding="async" fetchpriority="high">
+        <img class="pl-rs__hero-bg-img" src="{% static 'img/rozrobka-figma/hero-bg.webp' %}" srcset="{% static 'img/rozrobka-figma/hero-bg-480w.webp' %} 480w, {% static 'img/rozrobka-figma/hero-bg-800w.webp' %} 800w, {% static 'img/rozrobka-figma/hero-bg.webp' %} 1983w" sizes="(max-width: 767px) 100vw, 100vw" alt="" width="1983" height="793" decoding="async" fetchpriority="high">
     </div>
     <div class="pl-rs__inner pl-rs__hero-stage">
         {# Copy + CTA first (mobile Figma 1:343); floats follow as 2×2 grid ≤767; desktop ≥1100 absolute #}
         <div class="pl-rs__hero-copy">
+            {% if ads_tz %}{% include 'components/ads/breadcrumbs.html' %}{% endif %}
             <div class="pl-rs__kicker">
                 <p class="pl-rs__eyebrow">{% trans "Договір" %}</p>
                 {% currency_switcher "dark" "soft" %}
