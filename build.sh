@@ -188,4 +188,7 @@ python manage.py seed_proposal_corporate_turnkey
 echo "📄 Seeding shoes & clothing e-shop proposal (950 € / ads 300 € / combo 1 250 €) + standard demo-shop..."
 python manage.py seed_proposal_vzuttia_odiah
 
+echo "📄 Seeding profremservice.com.ua corporate catalog proposal (700 – 720 €) + standard demo-corp..."
+python manage.py seed_proposal_profremservice
+
 echo "✅ Build complete!"
