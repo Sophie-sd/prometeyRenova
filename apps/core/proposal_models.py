@@ -211,6 +211,7 @@ class Proposal(models.Model):
             'corporate-bakinskybulvar-a22z': 'proposal/img/seal-on-dark.webp',
             'internet-mahazyn-zootovariv-cxpo': 'proposal/img/seal-on-dark.webp',
             'corporate-pid-klyuch-58wg': 'proposal/img/seal-on-dark.webp',
+            'internet-mahazyn-vzuttia-odiahu-37pz': 'proposal/img/seal-on-dark.webp',
         }
         rel = by_slug.get(self.slug, 'proposal/img/seal-on-dark.webp')
         if (Path(settings.BASE_DIR) / 'static' / rel).is_file():
