@@ -1,4 +1,8 @@
 """Context for ads landings: copy + breadcrumbs + JSON-LD from one source."""
+from pathlib import Path
+
+from django.conf import settings
+from django.templatetags.static import static
 from django.urls import reverse
 from django.utils import translation
 
@@ -40,12 +44,29 @@ def _crumbs(last_name, last_url):
     ]
 
 
+ADS_CARD_DIR = 'images/portfolio/screens/ads-cards'
+ADS_CARD_WIDTHS = (400, 800)
+
+
+def _ads_card_images(slug):
+    """Top-crop 280:180 thumbs (D10). Empty when not generated, so the card keeps the portfolio image."""
+    rels = [f'{ADS_CARD_DIR}/{slug}-{width}w.webp' for width in ADS_CARD_WIDTHS]
+    base = Path(settings.BASE_DIR) / 'static'
+    if not all((base / rel).is_file() for rel in rels):
+        return '', ''
+    srcset = ', '.join(f'{static(rel)} {width}w' for rel, width in zip(rels, ADS_CARD_WIDTHS))
+    return static(rels[-1]), srcset
+
+
 def shop_portfolio_projects():
     found = {
         project.slug: project
         for project in published_portfolio_queryset().filter(slug__in=SHOP_SLUGS)
     }
-    return [found[slug] for slug in SHOP_SLUGS if slug in found]
+    projects = [found[slug] for slug in SHOP_SLUGS if slug in found]
+    for project in projects:
+        project.ads_card_src, project.ads_card_srcset = _ads_card_images(project.slug)
+    return projects
 
 
 def _seo_only(name):

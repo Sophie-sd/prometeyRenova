@@ -70,6 +70,21 @@
     padding: 48px 0;
 }
 
+/* TZ blocks must paint above absolutely positioned hero / calc glows (z-index: 0). */
+.pl-ads-faq,
+.pl-ads-contacts,
+.pl-ads-process,
+.pl-ads-cases,
+.pl-ads-scope,
+.pl-ads-types,
+.pl-ads-guarantee,
+.pl-ads-cards,
+.pl-ads-tech,
+.pl-ads-price {
+    position: relative;
+    z-index: 1;
+}
+
 .pl-ads-faq__item {
     margin: 0 0 12px;
     padding: 14px 18px;
@@ -373,5 +388,24 @@
     .pl-ads-lead,
     .pl-ads-contacts__list {
         font-size: 16px;
+    }
+
+    /* 12 shop cards: two columns on phones keep the block short. */
+    .pl-ads-cases__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px 12px;
+    }
+
+    .pl-ads-case__img {
+        border-radius: 12px;
+    }
+
+    .pl-ads-case__name {
+        font-size: 15px;
+    }
+
+    .pl-ads-case__niche,
+    .pl-ads-case__tags {
+        font-size: 12px;
     }
 }
