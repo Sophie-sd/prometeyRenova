@@ -3,7 +3,7 @@
     <div class="pl-shop__inner">
         <div class="pl-shop__packages-head" data-reveal>
             <div class="pl-shop__intro">
-                <h2 id="pl-shop-packages-title" class="pl-shop__title">{% trans "Оберіть пакет під масштаб" %}<br>{% trans "вашого інтернет-магазину" %}</h2>
+                <h2 id="pl-shop-packages-title" class="pl-shop__title">{% if ads_tz %}{{ ads_copy.prices_h2 }}{% else %}{% trans "Оберіть пакет під масштаб" %}<br>{% trans "вашого інтернет-магазину" %}{% endif %}</h2>
                 <p class="pl-shop__subtitle pl-shop__packages-subtitle">{% trans "Базова якість однакова — пакет визначає масштаб ШІ, інтеграцій і маркетингу" %}</p>
             </div>
             <div class="pl-shop__currency">{% currency_switcher "dark" "shop" %}</div>
@@ -104,5 +104,6 @@
         </div>
 
         <button type="button" class="pl-shop__btn pl-shop__btn--outline pl-shop__pkg-compare" data-modal="pl-shop-pkg-compare-modal">{% trans "Порівняти пакети" %}</button>
+        {% if ads_tz %}{% include 'components/internet_shop_v2/scope.html' %}{% endif %}
     </div>
 </section>

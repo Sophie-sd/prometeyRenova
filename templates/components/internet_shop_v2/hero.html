@@ -5,9 +5,10 @@
         <img src="{% static 'images/internet_shop_v2/figma/bg-hero-v3-1440.webp' %}" srcset="{% static 'images/internet_shop_v2/figma/bg-hero-v3-960.webp' %} 960w, {% static 'images/internet_shop_v2/figma/bg-hero-v3-1440.webp' %} 1440w" sizes="100vw" alt="" width="1440" height="1440" fetchpriority="high" decoding="async">
     </picture>
     <div class="pl-shop__inner pl-shop__hero-inner">
+        {% if ads_tz %}{% include 'components/ads/breadcrumbs.html' %}{% endif %}
         <div class="pl-shop__hero-head">
             <h1 id="pl-shop-hero-title" class="pl-shop__title pl-shop__title--hero">{% trans "Створення інтернет-магазину під ключ" %}</h1>
-            <p class="pl-shop__hero-line">{% trans "Від 800€. Запуск за 3 тижні. 1 рік підтримки безкоштовно." %}</p>
+            <p class="pl-shop__hero-line">{% if ads_tz %}{{ ads_copy.line }}{% else %}{% trans "Від 800€. Запуск за 3 тижні. 1 рік підтримки безкоштовно." %}{% endif %}</p>
             <p class="pl-shop__hero-lead">{% trans "Дизайн, код і інтеграції. Без плагінів і без щомісячної абонплати. Магазин залишається вашим." %}</p>
         </div>
 
@@ -36,7 +37,9 @@
                     <input type="tel" id="pl-shop-hero-phone" name="phone" class="pl-shop__field-input" autocomplete="tel" inputmode="tel" required placeholder="{% trans "Номер телефону" %}">
                 </div>
                 <button type="submit" class="pl-shop__btn pl-shop__btn--light pl-shop__hero-submit">{% trans "Дізнатися вартість" %}</button>
+                {% if ads_tz %}<p class="pl-shop__hero-form-note">{{ ads_copy.form_note }}</p>{% endif %}
             </form>
+            {% if ads_tz %}<p class="pl-shop__hero-trust">{{ ads_copy.trust }}</p>{% endif %}
             <p class="pl-shop__hero-contacts">
                 <a href="{{ site_contact.get_tel_href }}" class="pl-shop__hero-contact">{{ site_contact.phone_display }}</a>
                 <a href="{{ site_contact.telegram_url }}" class="pl-shop__hero-contact" target="_blank" rel="noopener noreferrer">Telegram</a>

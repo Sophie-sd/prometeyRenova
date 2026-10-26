@@ -41,9 +41,9 @@ class ShopsNoteTests(TestCase):
         for path, note in (('/internet-shop-v2/', UK_NOTE), ('/ru/internet-shop-v2/', RU_NOTE)):
             with self.subTest(path=path):
                 html = self._html(path)
-                start = html.index('id="pl-shop-clients-title"')
+                start = html.index('id="pl-shop-cases-title"')
                 self.assertLess(start, html.index(note))
-                self.assertLess(html.index(note), html.index('pl-shop__clients-track'))
+                self.assertLess(html.index(note), html.index('pl-ads-cases__grid'))
 
 
 class RozrobkaHeroPricesOnceTests(TestCase):
@@ -75,3 +75,41 @@ class RozrobkaHeroPricesOnceTests(TestCase):
         self.assertIn('fonts/v2/inter-cyrillic.woff2', html)
         self.assertNotIn('{#', html)
         self.assertNotIn('#}', html)
+
+    def test_hero_form_card_reserves_height(self):
+        from pathlib import Path
+
+        css = Path('static/css/pages/rozrobka-sajtiv.css').read_text(encoding='utf-8')
+        self.assertIn('.pl-rs__hero-form-card{', css)
+        self.assertIn('min-height:292px', css)
+        self.assertIn('min-height:308px', css)
+
+    def test_lang_suggest_not_in_hero_form_flow(self):
+        html = self.client.get('/ru/rozrobka-sajtiv/').content.decode()
+        hero = html[html.index('class="pl-rs__hero"'):]
+        hero = hero[:hero.index('</section>')]
+        self.assertNotIn('id="lang-suggest"', hero)
+        self.assertNotIn('lang-suggest.js', hero)
+        if 'id="lang-suggest"' in html:
+            self.assertIn('class="lang-suggest"', html)
+            self.assertLess(html.index('</main>'), html.index('id="lang-suggest"'))
+
+    def test_no_standalone_facebook_or_doubleclick_scripts(self):
+        html = self.client.get('/rozrobka-sajtiv/').content.decode()
+        self.assertNotIn('connect.facebook.net', html)
+        self.assertNotIn('fbevents.js', html)
+        self.assertNotIn('googleads.g.doubleclick.net', html)
+        self.assertNotIn('www.googleadservices.com/pagead', html)
+        self.assertIn('gclid-capture.js', html)
+        self.assertIn('GTM-K2FVPPTK', html)
+        self.assertIn('function _loadGTM()', html)
+
+    def test_price_ranges_once_in_hero_floats(self):
+        html = self.client.get('/rozrobka-sajtiv/').content.decode()
+        hero = html[html.index('class="pl-rs__hero"'):]
+        hero = hero[:hero.index('</section>')]
+        self.assertEqual(hero.count('class="pl-rs__floats"'), 1)
+        self.assertEqual(hero.count('250–400 €'), 1)
+        self.assertEqual(hero.count('500–700 €'), 1)
+        self.assertEqual(hero.count('800–1\u00a0400 €'), 1)
+        self.assertEqual(hero.count('1\u00a0500–5\u00a0000 €'), 1)

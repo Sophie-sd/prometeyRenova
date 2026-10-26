@@ -75,8 +75,10 @@ class HomeView(BasePageView):
 
     def get_context_data(self, **kwargs):
         from django.utils import translation
+        from .ads_context import home_hreflang_context
         context = super().get_context_data(**kwargs)
         context['home_clients'] = homepage_clients()
+        context.update(home_hreflang_context())
         if translation.get_language() == 'ru':
             context['lang_suggest_always'] = True
             context['lang_suggest_uk_url'] = '/'
@@ -152,9 +154,11 @@ class RozrobkaSajtivView(BasePageView):
 
     def get_context_data(self, **kwargs):
         from django.utils import translation
+        from .ads_context import rs_ads_context
         context = super().get_context_data(**kwargs)
         context['home_clients'] = homepage_clients()
         context['portfolio_strip'] = homepage_portfolio_strip()
+        context.update(rs_ads_context())
         if translation.get_language() == 'ru':
             context['lang_suggest_always'] = True
             context['lang_suggest_uk_url'] = '/rozrobka-sajtiv/'
@@ -233,17 +237,10 @@ class InternetShopV2View(BasePageView):
         return ['pages/internet-shop-v2.html']
 
     def get_context_data(self, **kwargs):
-        from django.utils import translation
+        from .ads_context import shop_ads_context
         context = super().get_context_data(**kwargs)
         context['home_clients'] = homepage_clients()
-        if translation.get_language() == 'ru':
-            context['page_title'] = 'Создание интернет-магазина под ключ от 800€ | PrometeyLabs'
-            context['meta_description'] = (
-                'Создание интернет-магазина под ключ от 800 €: дизайн, код и интеграции без плагинов и абонплаты. '
-                'Запуск за 3 недели, пожизненная гарантия на код и 1 год поддержки бесплатно.'
-            )
-            context['og_title'] = 'Создание интернет-магазина под ключ от 800€ | PrometeyLabs'
-        # Ads landing: no «стати розробником» popup and no RU→UA language toast over the hero.
+        context.update(shop_ads_context())
         context['hide_developer_modal'] = True
         context['hide_lang_suggest'] = True
         return context
@@ -266,8 +263,10 @@ class CorporateWebsiteV2View(BasePageView):
 
     def get_context_data(self, **kwargs):
         from django.utils import translation
+        from .ads_context import corporate_ads_context
         context = super().get_context_data(**kwargs)
         context['home_clients'] = homepage_clients()
+        context.update(corporate_ads_context())
         if translation.get_language() == 'ru':
             context['page_title'] = 'Корпоративные сайты и лендинги под ключ — цена и сроки | PrometeyLabs'
             context['meta_description'] = (
@@ -349,12 +348,21 @@ def handle_site_request(request, name, phone):
     email = request.POST.get('email', '').strip()
     details = request.POST.get('details', '').strip()
     source_page = request.POST.get('source_page', '').strip()
+    website = (request.POST.get('website') or request.POST.get('site_url') or '').strip()[:300]
+    if website:
+        details = (details + '\n' if details else '') + 'Адреса сайту: ' + website
+
+    extra = {}
+    if source_page:
+        extra['source_page'] = source_page
+    if website:
+        extra['website'] = website
 
     form_data = create_form_data(
         _('Заявка на розробку сайту'), name, phone, request,
         email=email,
         details=details,
-        **(({'source_page': source_page}) if source_page else {}),
+        **extra,
     )
 
     submission_saved, submission_id, save_error = save_form_submission(

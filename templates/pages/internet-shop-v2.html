@@ -4,14 +4,15 @@
 
 {% block body_attrs %} class="pl-shop-body" data-modal-source-page="internet-shop-v2-modal"{% endblock %}
 
-{% block title %}{% trans "Створення інтернет-магазину під ключ від 800€ | PrometeyLabs" %}{% endblock %}
-{% block description %}{% trans "Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. Запуск за 3 тижні, пожиттєва гарантія на код і 1 рік підтримки безкоштовно." %}{% endblock %}
-{% block og_title %}{% trans "Створення інтернет-магазину під ключ від 800€ | PrometeyLabs" %}{% endblock %}
-{% block og_description %}{% trans "Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. Запуск за 3 тижні, пожиттєва гарантія на код і 1 рік підтримки безкоштовно." %}{% endblock %}
+{% block title %}{% if ads_tz %}{{ page_title }}{% else %}{% trans "Створення інтернет-магазину під ключ від 800€ | PrometeyLabs" %}{% endif %}{% endblock %}
+{% block description %}{% if ads_tz %}{{ meta_description }}{% else %}{% trans "Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. Запуск за 3 тижні, пожиттєва гарантія на код і 1 рік підтримки безкоштовно." %}{% endif %}{% endblock %}
+{% block og_title %}{% if ads_tz %}{{ page_title }}{% else %}{% trans "Створення інтернет-магазину під ключ від 800€ | PrometeyLabs" %}{% endif %}{% endblock %}
+{% block og_description %}{% if ads_tz %}{{ meta_description }}{% else %}{% trans "Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без плагінів і абонплати. Запуск за 3 тижні, пожиттєва гарантія на код і 1 рік підтримки безкоштовно." %}{% endif %}{% endblock %}
 
 {% block extra_head %}
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.prometeylabs.com/internet-shop-v2/">
+{% include 'components/ads/hreflang.html' %}
+{% include 'components/ads/json_ld.html' %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -66,18 +67,23 @@
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=206">
 <link rel="stylesheet" href="{% static 'css/components/clients-marquee.css' %}?v=1">
+<link rel="stylesheet" href="{% static 'css/ads-landing.css' %}?v=1">
 {% endblock %}
 
 {% block content %}
 <div id="plShopRoot" class="pl-shop pl-shop-page">
     {% include 'components/internet_shop_v2/hero.html' %}
+    {% if ads_tz %}{% include 'components/internet_shop_v2/cases.html' %}{% endif %}
     {% include 'components/internet_shop_v2/clients.html' %}
-    {% include 'components/internet_shop_v2/svoboda.html' %}
     {% include 'components/internet_shop_v2/packages.html' %}
+    {% if ads_tz %}{% include 'components/ads/process.html' with process_title=ads_copy.process_h2 %}{% endif %}
+    {% include 'components/internet_shop_v2/svoboda.html' %}
     {% include 'components/internet_shop_v2/dropshipping.html' %}
     {% include 'components/internet_shop_v2/admin.html' %}
     {% include 'components/internet_shop_v2/garantiya.html' %}
+    {% if ads_tz %}{% include 'components/ads/faq.html' %}{% endif %}
     {% include 'components/internet_shop_v2/brief.html' %}
+    {% if ads_tz %}{% include 'components/ads/contacts.html' %}{% endif %}
 </div>
 {% include 'components/internet_shop_v2/pkg_compare_modal.html' %}
 {% endblock %}
