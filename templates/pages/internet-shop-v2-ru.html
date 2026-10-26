@@ -4,14 +4,15 @@
 
 {% block body_attrs %} class="pl-shop-body" data-modal-source-page="internet-shop-v2-ru-modal"{% endblock %}
 
-{% block title %}Создание интернет-магазина под ключ от 800€ | PrometeyLabs{% endblock %}
-{% block description %}Создание интернет-магазина под ключ от 800 €: дизайн, код и интеграции без плагинов и абонплаты. Запуск за 3 недели, пожизненная гарантия на код и 1 год поддержки бесплатно.{% endblock %}
-{% block og_title %}Создание интернет-магазина под ключ от 800€ | PrometeyLabs{% endblock %}
-{% block og_description %}Создание интернет-магазина под ключ от 800 €: дизайн, код и интеграции без плагинов и абонплаты. Запуск за 3 недели, пожизненная гарантия на код и 1 год поддержки бесплатно.{% endblock %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block description %}{{ meta_description }}{% endblock %}
+{% block og_title %}{{ page_title }}{% endblock %}
+{% block og_description %}{{ meta_description }}{% endblock %}
 
 {% block extra_head %}
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.prometeylabs.com/ru/internet-shop-v2/">
+{% include 'components/ads/hreflang.html' %}
+{% include 'components/ads/json_ld.html' %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -66,18 +67,23 @@
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=206">
 <link rel="stylesheet" href="{% static 'css/components/clients-marquee.css' %}?v=1">
+<link rel="stylesheet" href="{% static 'css/ads-landing.css' %}?v=1">
 {% endblock %}
 
 {% block content %}
 <div id="plShopRoot" class="pl-shop pl-shop-page">
     {% include 'components/internet_shop_v2_ru/hero.html' %}
+    {% include 'components/internet_shop_v2/cases.html' %}
     {% include 'components/internet_shop_v2_ru/clients.html' %}
-    {% include 'components/internet_shop_v2_ru/svoboda.html' %}
     {% include 'components/internet_shop_v2_ru/packages.html' %}
+    {% include 'components/ads/process.html' with process_title=ads_copy.process_h2 %}
+    {% include 'components/internet_shop_v2_ru/svoboda.html' %}
     {% include 'components/internet_shop_v2_ru/dropshipping.html' %}
     {% include 'components/internet_shop_v2_ru/admin.html' %}
     {% include 'components/internet_shop_v2_ru/garantiya.html' %}
+    {% include 'components/ads/faq.html' %}
     {% include 'components/internet_shop_v2_ru/brief.html' %}
+    {% include 'components/ads/contacts.html' %}
 </div>
 {% include 'components/internet_shop_v2_ru/pkg_compare_modal.html' %}
 {% endblock %}
