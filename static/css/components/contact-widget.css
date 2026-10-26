@@ -14,6 +14,8 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 10px;
+    /* Closed panel is invisible: the container must not swallow page clicks */
+    pointer-events: none;
 }
 
 .contact-widget__panel {
@@ -68,6 +70,7 @@
 }
 
 .contact-widget__toggle {
+    pointer-events: auto;
     width: 67px;
     height: 67px;
     flex-shrink: 0;
@@ -143,4 +146,9 @@ body.menu-open .contact-widget {
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s ease;
+}
+
+body.modal-open .contact-widget__toggle,
+body.menu-open .contact-widget__toggle {
+    pointer-events: none;
 }

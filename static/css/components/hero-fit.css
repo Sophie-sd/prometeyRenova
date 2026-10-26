@@ -52,15 +52,3 @@
     .ctf__inner { padding-top: clamp(96px, 17svh, 120px); }
     .ctf__info { gap: clamp(24px, 5svh, 50px); }
 }
-
-
-/* Calculator (Renova): benefits + monobank banner must fit the first screen */
-@media (min-width: 1024px) {
-    .calculator-main { padding-top: clamp(80px, 11svh, 160px); }
-    .calculator-main > .container { padding-top: 0; }
-    .calc-hero { padding-top: clamp(0px, 1.5svh, 24px); }
-    .calc-hero .calc-hero__title { font-size: clamp(34px, 5.2svh, 57.6px); }
-    .calc-hero__benefits { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(8px, 1.2svh, 22px) 24px; }
-    .calc-monobank-banner { margin-top: clamp(12px, 2svh, 28px); max-width: clamp(360px, 52svh, 100%); }
-    .calc-hero .calc-benefit__text { font-size: clamp(14px, 2.1svh, 17px); }
-}

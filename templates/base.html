@@ -127,7 +127,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .modal{position:fixed;inset:0;z-index:var(--z-modal-backdrop);display:flex;opacity:0;visibility:hidden;pointer-events:none}
 .modal.active{opacity:1;visibility:visible;pointer-events:auto}
 .service-modal-content{background:#000;color:#fff}
-.contact-widget{position:fixed;bottom:80px;right:2%;z-index:10000}
+.contact-widget{position:fixed;bottom:80px;right:2%;z-index:10000;pointer-events:none}
+.contact-widget__toggle{pointer-events:auto}body.modal-open .contact-widget__toggle,body.menu-open .contact-widget__toggle{pointer-events:none}
 .contact-widget__panel{opacity:0;pointer-events:none;transform:scale(.85) translateY(8px)}
 .contact-widget__panel[aria-hidden="false"]{opacity:1;pointer-events:auto;transform:scale(1) translateY(0)}
 .nav-dropdown__menu{position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%) translateY(6px);opacity:0;visibility:hidden;pointer-events:none}
@@ -161,9 +162,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </style>
 
     <!-- CSS Base Bundle — non-blocking (preload + media-print swap on load) -->
-    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=32" as="style">
-    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=32" media="print" data-async-css>
-    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=32"></noscript>
+    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=33" as="style">
+    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=33" media="print" data-async-css>
+    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=33"></noscript>
     {% block currency_css %}<link rel="stylesheet" href="{% static 'css/components/currency.css' %}?v=3">{% endblock %}
 
     {# Fonts, canonical, robots — before page CSS so preload starts with the blocking sheet. #}
@@ -215,7 +216,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         ]
     }
     </script>
-    <link rel="stylesheet" href="{% static 'css/components/hero-fit.css' %}?v=7">
+    <link rel="stylesheet" href="{% static 'css/components/hero-fit.css' %}?v=8">
 </head>
 
 <body{% block body_attrs %}{% endblock %}>
