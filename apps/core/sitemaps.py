@@ -24,8 +24,9 @@ EN_MIRROR_NAMES = (
     'internet_shop_v2',
     'corporate_website_v2',
     'telegram_bot',
-    'rozrobka_sajtiv',
-    'contacts',
+        'rozrobka_sajtiv',
+        'dorobka_sajtu',
+        'contacts',
     'blog:blog_list',
 )
 
@@ -62,6 +63,7 @@ class StaticViewSitemap(AbsoluteSitemap):
         'tz_generator': (0.9, 'weekly'),
         'telegram_bot': (0.9, 'weekly'),
         'rozrobka_sajtiv': (0.9, 'weekly'),
+        'dorobka_sajtu': (0.9, 'weekly'),
         'calculator': (0.8, 'weekly'),
         'contacts': (0.8, 'monthly'),
         'developer': (0.6, 'monthly'),
@@ -91,6 +93,12 @@ class StaticViewSitemap(AbsoluteSitemap):
         for name in EN_MIRROR_NAMES:
             if name in self.PAGES and self._safe_reverse(name, 'en'):
                 out.append(('en', name))
+        for name in (
+            'home', 'internet_shop_v2', 'corporate_website_v2',
+            'rozrobka_sajtiv', 'dorobka_sajtu',
+        ):
+            if name in self.PAGES and self._safe_reverse(name, 'ru'):
+                out.append(('ru', name))
         return out
 
     def location(self, item):
@@ -101,7 +109,7 @@ class StaticViewSitemap(AbsoluteSitemap):
     def priority(self, item):
         lang, name = item
         pri = self.PAGES[name][0]
-        if lang == 'en' and pri > 0.5:
+        if lang in ('en', 'ru') and pri > 0.5:
             return round(pri - 0.1, 1)
         return pri
 
