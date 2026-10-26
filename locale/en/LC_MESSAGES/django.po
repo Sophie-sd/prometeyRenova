@@ -10111,3 +10111,7 @@ msgstr "Website development"
 #~ "The Contractor provides warranty support for 1 (one) year from the moment of "
 #~ "full payment and handover of access. The warranty covers only fixing "
 #~ "technical bugs caused by the Contractor."
+
+#: templates/components/ads/breadcrumbs.html:1
+msgid "Навігаційний ланцюжок"
+msgstr "Breadcrumb"

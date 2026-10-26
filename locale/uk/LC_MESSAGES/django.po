@@ -5422,3 +5422,7 @@ msgstr ""
 
 #~ msgid "By %(filter_title)s"
 #~ msgstr "%(filter_title)s"
+
+#: templates/components/ads/breadcrumbs.html:1
+msgid "Навігаційний ланцюжок"
+msgstr ""
