@@ -111,5 +111,5 @@ class RozrobkaHeroPricesOnceTests(TestCase):
         self.assertEqual(hero.count('class="pl-rs__floats"'), 1)
         self.assertEqual(hero.count('250–400 €'), 1)
         self.assertEqual(hero.count('500–700 €'), 1)
-        self.assertEqual(hero.count('800–1\u00a0400 €'), 1)
+        self.assertEqual(hero.count('<span id="fx-soft-float-shop">від 800 €</span>'), 1)
         self.assertEqual(hero.count('1\u00a0500–5\u00a0000 €'), 1)

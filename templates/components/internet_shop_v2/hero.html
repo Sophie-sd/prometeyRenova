@@ -1,4 +1,4 @@
-{% load i18n %}{% load static %}
+{% load i18n %}{% load static %}{% load calc_cta_tags %}
 <section id="top" class="pl-shop__hero" aria-labelledby="pl-shop-hero-title">
     <picture class="pl-shop__hero-bg" aria-hidden="true">
         <source media="(max-width: 767px)" srcset="{% static 'images/internet_shop_v2/figma/bg-hero-v3-mobile.webp' %}" width="393" height="1440">
@@ -13,6 +13,7 @@
         </div>
 
         <div class="pl-shop__hero-card">
+            {% calc_cta 'shop' %}{% calc_cta_sticky 'shop' %}
             <form
                 id="pl-shop-hero-form"
                 class="pl-shop__hero-form"
@@ -37,7 +38,8 @@
                     <input type="tel" id="pl-shop-hero-phone" name="phone" class="pl-shop__field-input" autocomplete="tel" inputmode="tel" required placeholder="{% trans "Номер телефону" %}">
                 </div>
                 <button type="submit" class="pl-shop__btn pl-shop__btn--light pl-shop__hero-submit">{% trans "Дізнатися вартість" %}</button>
-                {% if ads_tz %}<p class="pl-shop__hero-form-note">{{ ads_copy.form_note }}</p>{% endif %}
+                {% if ads_tz %}<p class="pl-shop__hero-form-note">{{ ads_copy.form_note }}</p>
+                <p class="pl-shop__hero-form-note pl-shop__hero-privacy">{{ ads_copy.privacy_before }} <a href="{% url 'privacy' %}" target="_blank" rel="noopener">{{ ads_copy.privacy_link }}</a>.</p>{% endif %}
             </form>
             {% if ads_tz %}<p class="pl-shop__hero-trust">{{ ads_copy.trust }}</p>{% endif %}
             <p class="pl-shop__hero-contacts">

@@ -1,4 +1,4 @@
-{% load i18n static fx_tags %}
+{% load i18n static fx_tags calc_cta_tags %}
 <section class="pl-rs__hero" aria-labelledby="pl-rs-h1">
     <div class="pl-rs__hero-bg" aria-hidden="true">
         <img class="pl-rs__hero-bg-img" src="{% static 'img/rozrobka-figma/hero-bg.webp' %}" srcset="{% static 'img/rozrobka-figma/hero-bg-480w.webp' %} 480w, {% static 'img/rozrobka-figma/hero-bg-800w.webp' %} 800w, {% static 'img/rozrobka-figma/hero-bg.webp' %} 1983w" sizes="(max-width: 767px) 100vw, 100vw" alt="" width="1983" height="793" decoding="async" fetchpriority="high">
@@ -13,6 +13,7 @@
             </div>
             <h1 id="pl-rs-h1" class="pl-rs__h1">{% trans "Розробка і створення сайтів під ключ від 250 €" %}</h1>
             <p class="pl-rs__lead">{% trans "Лендінг від 250 € за 3–7 днів, корпоративний сайт від 500 €, інтернет-магазин від 800 €. Ціну й строк фіксуємо в договорі. Пожиттєва гарантія на код, рік підтримки безкоштовно, адмінка залишається у вас." %}</p>
+            {% calc_cta 'rozrobka' %}{% calc_cta_sticky 'rozrobka' %}
             {# Task 4.1 (doc 16.10): first-screen form = site_request like /internet-shop-v2/; no other URLs on the first screen. #}
             <div class="pl-rs__hero-form-card">
                 <p class="pl-rs__hero-form-title">{% trans "Розрахуємо вартість вашого сайту" %}</p>
@@ -55,7 +56,7 @@
             <div class="pl-rs__float pl-rs__float--bl" role="listitem">
                 <img class="pl-rs__float-rings" src="{% static 'img/rozrobka-figma/rings-hero.svg' %}" alt="" width="181" height="181" decoding="async">
                 <p class="pl-rs__float-title">{% trans "Магазини" %}</p>
-                <p class="pl-rs__float-num">{% include 'fx/soft_range.html' with key='float-shop' low=800 high=1400 %}</p>
+                <p class="pl-rs__float-num">{% include 'fx/soft_from.html' with key='float-shop' amount=800 %}</p>
                 <p class="pl-rs__float-chip">
                     <img src="{% static 'img/rozrobka-figma/ellipse.svg' %}" alt="" width="6" height="6" decoding="async">
                     <span>{% trans "14–21 день" %}</span>
