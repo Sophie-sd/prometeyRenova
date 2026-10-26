@@ -1938,6 +1938,12 @@ msgstr ""
 msgid "Telegram-боти"
 msgstr ""
 
+msgid "Доробка сайтів"
+msgstr ""
+
+msgid "dorobka-sajtu/"
+msgstr ""
+
 #: templates/components/footer.html:11 templates/pages/home.html:91
 #: templates/pages/home.html:113
 msgid "Реклама та просування"

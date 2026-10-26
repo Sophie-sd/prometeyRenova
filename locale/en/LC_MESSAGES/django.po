@@ -2271,6 +2271,12 @@ msgstr "Mobile Apps"
 msgid "Telegram-боти"
 msgstr "Telegram Bots"
 
+msgid "Доробка сайтів"
+msgstr "Website improvements"
+
+msgid "dorobka-sajtu/"
+msgstr "dorobka-sajtu/"
+
 #: templates/components/footer.html:11 templates/pages/home.html:91
 #: templates/pages/home.html:113
 msgid "Реклама та просування"
