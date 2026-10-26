@@ -4,25 +4,21 @@
 
 {% block body_attrs %} class="pl-rs-body" data-modal-source-page="rozrobka-sajtiv"{% endblock %}
 
-{% block title %}{% trans "Розробка сайтів під ключ в Україні | PrometeyLabs" %}{% endblock %}
-{% block description %}{% trans "Розробка сайтів будь-якої складності під ключ: лендінги 250–400 €, корпоративні 500–700 €, магазини від 800 €, платформи 1 500–5 000 €. Бюджет і строки у договорі, пожиттєва гарантія на код і рік підтримки безкоштовно. Отримати консультацію." %}{% endblock %}
+{% block title %}{% if ads_tz %}{{ page_title }}{% else %}{% trans "Розробка сайтів під ключ в Україні | PrometeyLabs" %}{% endif %}{% endblock %}
+{% block description %}{% if ads_tz %}{{ meta_description }}{% else %}{% trans "Розробка сайтів будь-якої складності під ключ: лендінги 250–400 €, корпоративні 500–700 €, магазини від 800 €, платформи 1 500–5 000 €. Бюджет і строки у договорі, пожиттєва гарантія на код і рік підтримки безкоштовно. Отримати консультацію." %}{% endif %}{% endblock %}
 {% block keywords %}{% trans "розробка сайтів, сайт під ключ, лендінг, корпоративний сайт, інтернет-магазин, PrometeyLabs" %}{% endblock %}
-{% block og_title %}{% trans "Розробка сайтів під ключ | PrometeyLabs" %}{% endblock %}
-{% block og_description %}{% trans "Розробка сайтів будь-якої складності під ключ: лендінги 250–400 €, корпоративні 500–700 €, магазини від 800 €, платформи 1 500–5 000 €. Бюджет і строки у договорі, пожиттєва гарантія на код і рік підтримки безкоштовно. Отримати консультацію." %}{% endblock %}
+{% block og_title %}{{ page_title }}{% endblock %}
+{% block og_description %}{{ meta_description }}{% endblock %}
 {% block og_image %}https://www.prometeylabs.com/static/images/og-image.jpg{% endblock %}
 
 {% block extra_head %}
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.prometeylabs.com{% url 'rozrobka_sajtiv' %}">
-<link rel="alternate" hreflang="uk" href="https://www.prometeylabs.com/rozrobka-sajtiv/">
-<link rel="alternate" hreflang="ru" href="https://www.prometeylabs.com/ru/rozrobka-sajtiv/">
+{% include 'components/ads/hreflang.html' %}
 <link rel="alternate" hreflang="en" href="https://www.prometeylabs.com/en/rozrobka-sajtiv/">
-<link rel="alternate" hreflang="x-default" href="https://www.prometeylabs.com/rozrobka-sajtiv/">
-{% trans "Розробка сайтів під ключ | PrometeyLabs" as rs_tw_title %}
-{% trans "Розробка сайтів будь-якої складності під ключ: лендінги 250–400 €, корпоративні 500–700 €, магазини від 800 €, платформи 1 500–5 000 €. Бюджет і строки у договорі, пожиттєва гарантія на код і рік підтримки безкоштовно. Отримати консультацію." as rs_tw_desc %}
+{% include 'components/ads/json_ld.html' %}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ rs_tw_title }}">
-<meta name="twitter:description" content="{{ rs_tw_desc }}">
+<meta name="twitter:title" content="{{ page_title }}">
+<meta name="twitter:description" content="{{ meta_description }}">
 <meta name="twitter:image" content="https://www.prometeylabs.com/static/images/og-image.jpg">
 {# Fonts (D1/D2): self-hosted variable Inter + JetBrains Mono, font-display:optional + preload — no late swap, so H1/lead never re-wrap and the hero form card does not shift (CLS); no Google Fonts round-trip. #}
 <link rel="preload" href="{% static 'fonts/v2/inter-cyrillic.woff2' %}" as="font" type="font/woff2" crossorigin>
@@ -84,7 +80,8 @@
 {% block currency_css %}{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv.css' %}?v=15">
+<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv.css' %}?v=16">
+<link rel="stylesheet" href="{% static 'css/ads-landing.css' %}?v=1">
 {% endblock %}
 
 {% block extra_js %}
@@ -96,8 +93,13 @@
 <div id="plRsRoot" class="pl-rs">
     {% include 'components/rozrobka_sajtiv/hero.html' %}
     {% include 'components/rozrobka_sajtiv/products.html' %}
-    {% include 'components/rozrobka_sajtiv/admin.html' %}
+    {% if ads_tz %}{% include 'components/rozrobka_sajtiv/types.html' %}{% endif %}
     {% include 'components/rozrobka_sajtiv/portfolio.html' %}
+    {% if ads_tz %}{% include 'components/ads/process.html' %}{% endif %}
+    {% if ads_tz %}{% include 'components/rozrobka_sajtiv/guarantee.html' %}{% endif %}
+    {% include 'components/rozrobka_sajtiv/admin.html' %}
+    {% if ads_tz %}{% include 'components/ads/faq.html' %}{% endif %}
     {% include 'components/rozrobka_sajtiv/calc.html' %}
+    {% if ads_tz %}{% include 'components/ads/contacts.html' %}{% endif %}
 </div>
 {% endblock %}

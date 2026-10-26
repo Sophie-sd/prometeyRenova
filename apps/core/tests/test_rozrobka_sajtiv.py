@@ -137,7 +137,7 @@ class RozrobkaSajtivPageTests(TestCase):
 
     def test_seo_head(self):
         html = self.client.get('/rozrobka-sajtiv/').content.decode()
-        self.assertIn('Розробка сайтів під ключ в Україні | PrometeyLabs', html)
+        self.assertIn('Створити сайт під ключ — розробка сайтів від 250 € | PrometeyLabs', html)
         self.assertIn('250–400 €', html)
         self.assertIn('500–700 €', html)
         self.assertIn('rel="canonical" href="https://www.prometeylabs.com/rozrobka-sajtiv/"', html)
@@ -148,7 +148,7 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertIn('https://www.prometeylabs.com/static/images/og-image.jpg', html)
         self.assertIn('twitter:card', html)
         self.assertIn('property="og:image"', html)
-        self.assertIn('пожиттєва гарантія на код і рік підтримки безкоштовно. Отримати консультацію.', html)
+        self.assertIn('Ціна і строк у договорі, рік підтримки безкоштовно.', html)
 
     def test_ru_canonical(self):
         html = self.client.get('/ru/rozrobka-sajtiv/').content.decode()
