@@ -185,4 +185,7 @@ python manage.py seed_proposal_zootovary
 echo "📄 Seeding turnkey corporate site proposal (BASE 900 € / PREMIUM 1 600 € / PLATINUM 3 500 €) + classic demo-corp..."
 python manage.py seed_proposal_corporate_turnkey
 
+echo "📄 Seeding shoes & clothing e-shop proposal (950 € / ads 300 € / combo 1 250 €) + standard demo-shop..."
+python manage.py seed_proposal_vzuttia_odiah
+
 echo "✅ Build complete!"
