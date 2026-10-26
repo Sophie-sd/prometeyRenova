@@ -6,6 +6,10 @@
 {% block description %}{{ meta_description }}{% endblock %}
 {% block og_title %}{{ og_title }}{% endblock %}
 
+{% block extra_head %}
+{% include 'components/ads/hreflang.html' %}
+{% endblock %}
+
 {% block page_css %}
 {# Головна за Figma 7uoVJKPxBEi4MiARfaDeZV (Desktop 1:27 / Mobile 1:413). #}
 <link rel="preconnect" href="https://fonts.googleapis.com">
