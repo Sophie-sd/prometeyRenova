@@ -194,4 +194,7 @@ python manage.py seed_proposal_profremservice
 echo "📄 Seeding photographer portfolio + services catalog corporate proposal (650 €) + standard demo-corp..."
 python manage.py seed_proposal_fotograf
 
+echo "📄 Seeding auto goods e-shop proposal (800 €) + standard demo-shop..."
+python manage.py seed_proposal_avtotovary
+
 echo "✅ Build complete!"
