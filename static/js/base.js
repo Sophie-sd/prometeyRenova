@@ -579,6 +579,9 @@ class PrometeyApp {
             const data = await response.json();
 
             if (response.ok && data.success) {
+                // Calc sticky CTA: do not show it again in this session after a lead
+                try { sessionStorage.setItem('pl_lead_sent', '1'); } catch (e) { /* storage blocked */ }
+
                 // Enhanced Conversions: phone for GTM before thank-you redirect
                 if (data.redirect && window.ECPhone) {
                     window.ECPhone.saveFromRaw(formData.get('phone'));

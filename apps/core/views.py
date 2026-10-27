@@ -4,7 +4,6 @@ from django.utils import timezone
 from .mixins import (
     BasePageView,
     homepage_clients,
-    homepage_portfolio_strip,
     portfolio_page_projects,
 )
 from .portfolio_categories import portfolio_filter_context
@@ -155,9 +154,10 @@ class RozrobkaSajtivView(BasePageView):
     def get_context_data(self, **kwargs):
         from django.utils import translation
         from .ads_context import rs_ads_context
+        from .rozrobka_portfolio import rozrobka_portfolio_cards
         context = super().get_context_data(**kwargs)
-        context['home_clients'] = homepage_clients()
-        context['portfolio_strip'] = homepage_portfolio_strip()
+        # ТЗ 27.10.2026 п. 3.6: fixed 10 cases (3 landings, 4 corporate, 1 shop, 2 platforms)
+        context['rs_portfolio'] = rozrobka_portfolio_cards()
         context.update(rs_ads_context())
         if translation.get_language() == 'ru':
             context['lang_suggest_always'] = True
@@ -529,6 +529,9 @@ def handle_test_submission(request):
         if not validate_phone(phone):
             return create_form_response(False, phone_error_message(phone))
         phone = normalize_phone(phone)  # E.164
+
+        # Джерело для KeyCRM (вбудований тест на /rozrobka-sajtiv/ передає details)
+        details = request.POST.get('details', '').strip()[:500]
         
         # Отримуємо відповіді на тест
         answers = {}
@@ -563,6 +566,8 @@ def handle_test_submission(request):
             answers=answers,
             alt_services_checked=alt_services_checked
         )
+        if details:
+            form_data['details'] = details
         
         submission_saved, submission_id, save_error = save_form_submission(
             'test_result', form_data, email_success=False

@@ -1,11 +1,13 @@
 {% load i18n static fx_tags %}
-<section class="hf-why hf-wrap" id="why" aria-labelledby="hf-why-title">
+{# Reused on /rozrobka-sajtiv/ (ТЗ 27.10.2026 п. 3.2): why_title_id = Ads anchor on the H2, why_fx_slot = 2nd switcher of region "soft" there. #}
+{% with why_h2_id=why_title_id|default:"hf-why-title" %}
+<section class="hf-why hf-wrap" id="why" aria-labelledby="{{ why_h2_id }}">
     <div class="hf-why__intro">
         <div class="hf-why__text">
-            <h2 class="hf-h2 hf-why__title" id="hf-why-title">{% trans "Чому варто обрати" %}<br><span class="hf-accent">PrometeyLabs</span></h2>
+            <h2 class="hf-h2 hf-why__title" id="{{ why_h2_id }}">{% trans "Чому варто обрати" %}<br><span class="hf-accent">PrometeyLabs</span></h2>
             <p class="hf-why__lead">{% trans "Ми розробляємо сайти, якими справді легко керувати. Жодних обмежень шаблонних рішень — тільки чистий, оптимізований код та індивідуальна архітектура. Завдяки детальній розробці адміністративної частини, ви можете самостійно оновлювати весь контент сайту в кілька кліків, не залучаючи програмістів. Ми створюємо фундамент, який готовий до будь-яких інтеграцій та росту разом із вашим бізнесом." %}</p>
         </div>
-        <div class="hf-why__fx">{% currency_switcher "dark" "home" %}</div>
+        <div class="hf-why__fx">{% if why_fx_slot %}{% currency_switcher "dark" "soft" False why_fx_slot %}{% else %}{% currency_switcher "dark" "home" %}{% endif %}</div>
     </div>
 
     <div class="hf-why__cards">
@@ -56,3 +58,4 @@
              sizes="(max-width: 767px) 330px, 430px" width="860" height="1290" alt="" loading="lazy" decoding="async"></div>
     </div>
 </section>
+{% endwith %}

@@ -1,0 +1,8 @@
+{% load calc_cta_tags %}
+{% comment %} ТЗ 27.10.2026 п. 3.2: «Чому варто обрати PrometeyLabs» = the home component as is (home_figma/why.html + home-figma.css).
+   H2 id = pl-rs-products-title (Ads sitelinks «Ціни від 250 €» / «Що входить у ціну»); section id stays "why".
+   Its € / ₴ switcher is region "soft" (slot "why") so it stays in sync with the hero switcher. {% endcomment %}
+<div class="hf pl-rs-hf">
+    {% include 'components/home_figma/why.html' with why_title_id='pl-rs-products-title' why_fx_slot='why' %}
+    <div class="pl-rs__inner">{% calc_cta 'rozrobka' 'wide' 'why' %}</div>
+</div>

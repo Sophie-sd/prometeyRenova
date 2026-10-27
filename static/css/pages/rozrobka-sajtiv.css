@@ -2240,3 +2240,73 @@
 .pl-rs__hero-links a{color:#f5f5f5;text-decoration:none;white-space:nowrap}
 .pl-rs__hero-links a:hover{color:#f60}
 .pl-rs__hero-trust{margin:8px 0 0;font-size:11px;line-height:1.45;color:#a2a2a2;text-align:center}
+
+/* ==========================================================================
+   ТЗ 27.10.2026 — compact page (hero → why → form №1 → economy → strip → work → form №2 → FAQ → calc)
+   ========================================================================== */
+/* hero: callback promise under the form button (п. 3.1) */
+.pl-rs__hero-callback{margin:10px 0 0;font-size:13px;line-height:1.4;color:#f5f5f5;text-align:center}
+
+/* Ads sitelink anchors (п. 3.12 / 3.11): heading stays visible under the fixed header (80px) */
+#pl-rs-products-title,
+#pl-rs-admin-title,
+#pl-rs-work-title,
+#pl-rs-calc,
+#why,
+#economy,
+#faq {
+    scroll-margin-top: calc(var(--pl-header-offset, 80px) + 16px + env(safe-area-inset-top, 0px));
+}
+
+/* reused home «Чому варто обрати» (home-figma.css) on the black soft page */
+.pl-rs-hf { padding-bottom: 8px; }
+.pl-rs-hf .pl-calc-cta--wide { display: flex; justify-content: center; }
+.pl-rs-hf .pl-calc-cta--wide .pl-calc-cta__btn { min-width: min(420px, 100%); justify-content: center; }
+@media (max-width: 767px) {
+    .pl-rs-hf .pl-calc-cta--wide .pl-calc-cta__btn { width: 100%; min-width: 0; }
+}
+
+/* reused corp blocks (corporate-website-v2.css) */
+.pl-rs-corp { background: transparent; }
+.pl-rs-corp .pl-corp__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12px;
+    line-height: 1.35;
+    color: var(--pl-gray);
+    cursor: pointer;
+}
+.pl-rs-corp .pl-corp__consent-check {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--pl-orange, #d05300);
+}
+.pl-rs-corp .pl-corp__consent a { color: var(--pl-text); text-decoration: underline; text-underline-offset: 2px; }
+.pl-rs-strip .pl-corp__calc-promo-copy {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.pl-rs-strip .pl-corp__calc-promo-text {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.35;
+    color: var(--pl-gray);
+}
+.pl-rs-corp + .pl-rs__section--work { margin-top: 0; }
+
+/* sticky «Розрахуйте вартість онлайн» (п. 3.9): 12px side gap on mobile */
+@media (max-width: 767px) {
+    body.pl-rs-body { --pl-calc-sticky-side: 12px; }
+}
+
+/* ТЗ 27.10.2026 п. 3.6: name + type·niche stacked on the left, «Детальніше» on the right (no 3-column squeeze) */
+.pl-rs__work-copy{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
+.pl-rs__work-copy .pl-rs__work-name{max-width:none}
+.pl-rs__work-copy .pl-rs__work-meta{margin:0}
+@media (max-width:767px){.pl-rs__work-track{scroll-padding-inline:16px}} /* first card lines up with the H2 (snap respected the -16px bleed) */

@@ -9,8 +9,9 @@ from apps.core.calc_cta import CALC_CTA
 PAGES = (
     ('/', 'home', 'uk', '/calculator/?start=1'),
     ('/ru/', 'home', 'ru', '/ru/calculator/?start=1'),
-    ('/rozrobka-sajtiv/', 'rozrobka', 'uk', '/calculator/?start=1'),
-    ('/ru/rozrobka-sajtiv/', 'rozrobka', 'ru', '/ru/calculator/?start=1'),
+    # ТЗ 27.10.2026: rozrobka embeds the quiz → hero/sticky scroll to it on the same page
+    ('/rozrobka-sajtiv/', 'rozrobka', 'uk', '#pl-rs-calc'),
+    ('/ru/rozrobka-sajtiv/', 'rozrobka', 'ru', '#pl-rs-calc'),
     ('/internet-shop-v2/', 'shop', 'uk', '#zayavka'),
     ('/ru/internet-shop-v2/', 'shop', 'ru', '#zayavka'),
     ('/corporate-website-v2/', 'corp', 'uk', '#calculator'),
@@ -52,7 +53,7 @@ class CalcCtaLandingTests(TestCase):
                 self.assertEqual(len(sticky), 1, url)
                 self.assertEqual(unescape(sticky[0][0]), href)
                 self.assertEqual(unescape(sticky[0][1]), CALC_CTA[page][lang].get('sticky', CALC_CTA[page][lang]['label']))
-                self.assertLessEqual(len(unescape(sticky[0][1])), 26, url)
+                self.assertLessEqual(len(unescape(sticky[0][1])), 28, url)  # «Рассчитайте стоимость онлайн» = 28
                 self.assertIn('js/components/calc-cta.js', html)
 
     def test_on_page_quiz_anchor_exists(self):

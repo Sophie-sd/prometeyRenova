@@ -1,23 +1,2 @@
-{% load i18n %}{% load static i18n %}
-<section id="free-analysis" class="pl-corp__lead-cta" aria-labelledby="pl-corp-free-analysis-title">
-    <div class="pl-corp__inner">
-        <div class="pl-corp__lead-cta-row" data-reveal>
-            <div class="pl-corp__lead-cta-copy">
-                <h2 id="pl-corp-free-analysis-title" class="pl-corp__lead-cta-title"><span class="pl-corp__accent">{% trans "Безкоштовний" %}</span> {% trans "аналіз сайту та консультація" %}</h2>
-                <p class="pl-corp__lead-cta-text">{% trans "Залиште номер телефону — підготуємо короткий аналіз вашого сайту і зателефонуємо з рекомендаціями" %}</p>
-            </div>
-            <form class="pl-corp__lead-cta-form" method="post" action="{% url 'form_submit' %}" data-form-type="call_request">
-                {% csrf_token %}
-                <input type="hidden" name="form_type" value="call_request">
-                <input type="hidden" name="source_page" value="corporate-website-v2-free-analysis">
-                <input type="hidden" name="name" value="{% trans "Безкоштовний аналіз" %}">
-                <label class="pl-corp__field">
-                    <img class="pl-corp__field-icon" src="{% static 'images/corporate_website_v2/figma/icon-call.svg' %}" alt="" width="14" height="14">
-                    <span class="pl-corp__sr-only">{% trans "Номер телефону" %}</span>
-                    <input type="tel" name="phone" class="pl-corp__field-input mobile-touch-target" autocomplete="tel" inputmode="tel" placeholder="{% trans "Номер телефону" %}" required>
-                </label>
-                <button type="submit" class="pl-corp__btn pl-corp__btn--accent mobile-touch-target">{% trans "Отримати консультацію" %}</button>
-            </form>
-        </div>
-    </div>
-</section>
+{% load i18n %}{% trans "Безкоштовний" as accent %}{% trans "аналіз сайту та консультація" as title %}{% trans "Залиште номер телефону — підготуємо короткий аналіз вашого сайту і зателефонуємо з рекомендаціями" as text %}{% trans "Безкоштовний аналіз" as lead_name %}{% trans "Номер телефону" as phone_label %}{% trans "Отримати консультацію" as button %}
+{% include 'components/corporate_website_v2/_lead_cta.html' with section_id='free-analysis' title_id='pl-corp-free-analysis-title' form_type='call_request' source_page='corporate-website-v2-free-analysis' details='' extra_class='' consent=False %}

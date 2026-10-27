@@ -10115,3 +10115,87 @@ msgstr "Website development"
 #: templates/components/ads/breadcrumbs.html:1
 msgid "Навігаційний ланцюжок"
 msgstr "Breadcrumb"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Розробка сайтів під ключ. Створення сайтів від 250 €"
+msgstr "Turnkey website development. Websites from €250"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Замовте сайт для бізнесу: лендінг від 250 € за 3–7 днів, корпоративний сайт від 500 €, інтернет-магазин від 800 €. Ціну й строк фіксуємо в договорі. Пожиттєва гарантія на код, 1 рік безкоштовної підтримки, адмінка залишається у вас."
+msgstr "Order a business website: a landing page from €250 in 3–7 days, a corporate website from €500, an online store from €800. Price and deadline are fixed in the contract. Lifetime code warranty, 1 year of free support, and the admin panel stays yours."
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Менеджер передзвонить за 15 хвилин"
+msgstr "A manager will call you back within 15 minutes"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Ціна і строк у договорі · Адмінка залишається у вас · 50+ запущених проєктів"
+msgstr "Price and deadline in the contract · The admin panel stays yours · 50+ launched projects"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Наші роботи — сайти від веб-студії PrometeyLabs"
+msgstr "Our work — websites by the PrometeyLabs web studio"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "5 питань · 2 хвилини · безкоштовно, без зобов’язань. Точну суму і строк фіксуємо після брифу в договорі."
+msgstr "5 questions · 2 minutes · free, no obligation. The exact price and deadline are fixed in the contract after the brief."
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Сторінка: Розробка сайтів · Вбудований калькулятор"
+msgstr "Page: Website development · Embedded calculator"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Залиште контакти — менеджер передзвонить за 15 хвилин і назве вартість і строк."
+msgstr "Leave your contacts — a manager will call you back within 15 minutes with the price and deadline."
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Зручніше написати?"
+msgstr "Prefer to write?"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Створити сайт:"
+msgstr "Create a website:"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "безкоштовна консультація і розрахунок вартості"
+msgstr "free consultation and cost estimate"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Залиште номер телефону — розрахуємо вартість і строк вашого сайту та зателефонуємо з рекомендаціями. Менеджер передзвонить за 15 хвилин."
+msgstr "Leave your phone number — we will estimate the price and deadline of your website and call you with recommendations. A manager will call you back within 15 minutes."
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Сторінка: Розробка сайтів · Форма №1 (після «Чому варто обрати»)"
+msgstr "Page: Website development · Form #1 (after «Why choose»)"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Замовити сайт під ключ:"
+msgstr "Order a turnkey website:"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "обговоримо ваш проєкт безкоштовно"
+msgstr "let's discuss your project for free"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Залиште номер — підберемо тип сайту під вашу задачу, назвемо строк і вартість. Ціну й строк фіксуємо в договорі. Менеджер передзвонить за 15 хвилин."
+msgstr "Leave your number — we will pick the right type of website for your task and name the deadline and price. Price and deadline are fixed in the contract. A manager will call you back within 15 minutes."
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Сторінка: Розробка сайтів · Форма №2 (після «Наші роботи»)"
+msgstr "Page: Website development · Form #2 (after «Our work»)"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Безкоштовна консультація"
+msgstr "Free consultation"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Хочете зробити сайт, але не знаєте бюджет?"
+msgstr "Want a website but don't know the budget?"
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Дайте відповідь на 5 питань — це 2 хвилини, безкоштовно і без зобов’язань."
+msgstr "Answer 5 questions — it takes 2 minutes, free and with no obligation."
+
+#: rozrobka-sajtiv (ТЗ 27.10.2026)
+msgid "Розрахувати вартість онлайн →"
+msgstr "Calculate the cost online →"

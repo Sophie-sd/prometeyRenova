@@ -86,9 +86,10 @@ class WarrantyLifetimeTests(TestCase):
 
     def test_lifetime_and_support_claims_present(self):
         checks = {
-            '/rozrobka-sajtiv/': ('Пожиттєва гарантія на код, рік підтримки безкоштовно',
+            # ТЗ 27.10.2026: hero lead uses the canon wording; «Чому варто обрати» card comes from home
+            '/rozrobka-sajtiv/': ('Пожиттєва гарантія на код, 1 рік безкоштовної підтримки',
                                   'Пожиттєва гарантія на код і рік безкоштовної підтримки'),
-            '/ru/rozrobka-sajtiv/': ('Пожизненная гарантия на код, год поддержки бесплатно',
+            '/ru/rozrobka-sajtiv/': ('Пожизненная гарантия на код, 1 год бесплатной поддержки',
                                      'Пожизненная гарантия на код и год бесплатной поддержки'),
             '/en/rozrobka-sajtiv/': ('Lifetime code warranty, 1 year of free support',),
             '/corporate-website-v2/': ('Пожиттєва гарантія на код · 1 рік підтримки безкоштовно',

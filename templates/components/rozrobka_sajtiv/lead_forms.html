@@ -1,0 +1,10 @@
+{% load i18n %}
+{% comment %} ТЗ 27.10.2026 п. 3.4: phone-only lead forms = the /corporate-website-v2/ #free-analysis component (shared partial), texts per ТЗ.
+   POST /forms/submit/ (base.js), form_type=site_request → KeyCRM → /thank-you/. Hidden name: site_request requires one. {% endcomment %}
+{% if rs_form == 1 %}
+{% trans "Безкоштовна консультація" as lead_name %}{% trans "Номер телефону" as phone_label %}{% trans "Створити сайт:" as accent %}{% trans "безкоштовна консультація і розрахунок вартості" as title %}{% trans "Залиште номер телефону — розрахуємо вартість і строк вашого сайту та зателефонуємо з рекомендаціями. Менеджер передзвонить за 15 хвилин." as text %}{% trans "Отримати консультацію" as button %}{% trans "Сторінка: Розробка сайтів · Форма №1 (після «Чому варто обрати»)" as details %}
+{% include 'components/corporate_website_v2/_lead_cta.html' with section_id='rs-form-1' title_id='pl-rs-form1-title' extra_class='pl-rs-lead pl-rs-lead--1' form_type='site_request' source_page='rozrobka-sajtiv' consent=True %}
+{% else %}
+{% trans "Безкоштовна консультація" as lead_name %}{% trans "Номер телефону" as phone_label %}{% trans "Замовити сайт під ключ:" as accent %}{% trans "обговоримо ваш проєкт безкоштовно" as title %}{% trans "Залиште номер — підберемо тип сайту під вашу задачу, назвемо строк і вартість. Ціну й строк фіксуємо в договорі. Менеджер передзвонить за 15 хвилин." as text %}{% trans "Замовити дзвінок" as button %}{% trans "Сторінка: Розробка сайтів · Форма №2 (після «Наші роботи»)" as details %}
+{% include 'components/corporate_website_v2/_lead_cta.html' with section_id='rs-form-2' title_id='pl-rs-form2-title' extra_class='pl-rs-lead pl-rs-lead--2' form_type='site_request' source_page='rozrobka-sajtiv' consent=True %}
+{% endif %}

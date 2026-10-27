@@ -1,6 +1,9 @@
-/* Calc CTA: analytics (cta_calc_click), smooth scroll to the on-page quiz,
-   mobile sticky bar (≤767px) after the first screen; hidden while the quiz,
-   a lead form or the footer is on screen, while typing, or a modal/menu is open. */
+/* Calc CTA: analytics (cta_calc_click; the sticky may push its own event via
+   data-calc-event, e.g. sticky_cta_click), smooth scroll to the on-page quiz,
+   sticky bar after the first screen — mobile (≤767px), plus desktop when the bar
+   has data-calc-sticky-desktop; hidden while the quiz, a lead form or the footer
+   is on screen, while typing, when a modal/menu is open, and for the rest of the
+   session after a successful lead (sessionStorage flag set by base.js). */
 (function () {
     'use strict';
     if (window.__plCalcCta) return;
@@ -12,11 +15,20 @@
         var link = e.target && e.target.closest ? e.target.closest('[data-calc-cta]') : null;
         if (!link) return;
         window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            event: 'cta_calc_click',
-            page: link.getAttribute('data-calc-page') || '',
-            position: link.getAttribute('data-calc-cta') || 'hero'
-        });
+        var customEvent = link.getAttribute('data-calc-event');
+        if (customEvent) {
+            window.dataLayer.push({
+                event: customEvent,
+                page: link.getAttribute('data-calc-page') || '',
+                lang: (document.documentElement.lang || '').toLowerCase().indexOf('ru') === 0 ? 'ru' : 'uk'
+            });
+        } else {
+            window.dataLayer.push({
+                event: 'cta_calc_click',
+                page: link.getAttribute('data-calc-page') || '',
+                position: link.getAttribute('data-calc-cta') || 'hero'
+            });
+        }
         var sel = link.getAttribute('data-calc-scroll');
         if (!sel) return;
         var target = document.querySelector(sel);
@@ -25,6 +37,10 @@
         target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
         if (window.history && history.replaceState) history.replaceState(null, '', sel);
     });
+
+    function leadSent() {
+        try { return window.sessionStorage.getItem('pl_lead_sent') === '1'; } catch (err) { return false; }
+    }
 
     function initSticky() {
         var bar = document.querySelector('[data-calc-sticky]');
@@ -35,13 +51,15 @@
         var btn = bar.querySelector('a');
         var hero = document.querySelector('[data-calc-cta-hero]');
         var mq = window.matchMedia('(max-width: 767px)');
+        var desktop = bar.hasAttribute('data-calc-sticky-desktop');
         var pastHero = false;
         var typing = false;
         var blockers = new Set();
 
         function update() {
             var body = document.body;
-            var show = mq.matches && pastHero && blockers.size === 0 && !typing &&
+            var show = (mq.matches || desktop) && pastHero && blockers.size === 0 && !typing &&
+                !leadSent() &&
                 !body.classList.contains('modal-open') && !body.classList.contains('menu-open');
             bar.classList.toggle('is-visible', show);
             bar.setAttribute('aria-hidden', show ? 'false' : 'true');
@@ -69,7 +87,7 @@
             if (t) watch.push(t);
         }
         document.querySelectorAll('main form, form[data-form-type], footer, .footer, .site-footer').forEach(function (el) {
-            if (el.closest('.modal, [role="dialog"], [data-calc-sticky]')) return;
+            if (el.closest('.modal, [role="dialog"], [data-calc-sticky], .fx-switch')) return;
             if (watch.indexOf(el) === -1) watch.push(el);
         });
         var io = new IntersectionObserver(function (entries) {

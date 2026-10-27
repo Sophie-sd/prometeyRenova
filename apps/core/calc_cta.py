@@ -22,14 +22,21 @@ CALC_CTA = {
             'micro': '5 вопросов · 2 минуты · бесплатно, без обязательств',
         },
     },
+    # ТЗ 27.10.2026: тест вбудовано на сторінку (#pl-rs-calc); sticky — і на десктопі,
+    # без стрілки, з власною подією sticky_cta_click (не конверсія).
     'rozrobka': {
-        'target': 'calculator',
+        'target': '#pl-rs-calc',
+        'sticky_desktop': True,
+        'sticky_arrow': False,
+        'sticky_event': 'sticky_cta_click',
         'uk': {
-            'label': 'Розрахувати вартість сайту',
+            'label': 'Розрахувати вартість онлайн',
+            'sticky': 'Розрахуйте вартість онлайн',
             'micro': '5 питань · 2 хвилини · безкоштовно, без зобов’язань',
         },
         'ru': {
-            'label': 'Рассчитать стоимость сайта',
+            'label': 'Рассчитать стоимость онлайн',
+            'sticky': 'Рассчитайте стоимость онлайн',
             'micro': '5 вопросов · 2 минуты · бесплатно, без обязательств',
         },
     },
@@ -74,11 +81,15 @@ CALC_START_QUERY = '?start=1'
 
 
 def calc_cta_copy(page, lang):
-    """Return {'label', 'sticky', 'micro', 'target'} for page × lang (uk fallback)."""
+    """Return {'label', 'sticky', 'micro', 'target', 'sticky_*'} for page × lang (uk fallback)."""
     entry = CALC_CTA[page]
     lang = 'ru' if (lang or '').startswith('ru') else 'uk'
     data = dict(entry[lang])
     data['target'] = entry['target']
+    # sticky options (shared component): defaults = mobile-only bar with arrow, cta_calc_click
+    data['sticky_desktop'] = entry.get('sticky_desktop', False)
+    data['sticky_arrow'] = entry.get('sticky_arrow', True)
+    data['sticky_event'] = entry.get('sticky_event', '')
     # коротший текст для мобільного sticky (кнопка ~290px поруч із FAB) — без «…»
     data.setdefault('sticky', data['label'])
     return data

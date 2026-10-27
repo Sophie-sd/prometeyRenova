@@ -1,0 +1,4 @@
+{% load i18n %}
+{# ТЗ 27.10.2026 п. 3.4: CTA strip = the /corporate-website-v2/ #calc-promo component (shared partial) with other texts; scrolls to the embedded calculator. #}
+{% trans "Хочете зробити сайт, але не знаєте бюджет?" as title %}{% trans "Дайте відповідь на 5 питань — це 2 хвилини, безкоштовно і без зобов’язань." as text %}{% trans "Розрахувати вартість онлайн →" as button %}{% trans "Це можна купити частинами," as pay_text %}{% trans "до 15 платежів" as pay_strong %}
+{% include 'components/corporate_website_v2/_calc_promo.html' with section_id='rs-calc-strip' title_id='pl-rs-strip-title' href='#pl-rs-calc' scroll='#pl-rs-calc' cta_position='mid' cta_page='rozrobka' extra_class='pl-rs-strip' %}

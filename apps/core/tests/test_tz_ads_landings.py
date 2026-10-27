@@ -123,9 +123,13 @@ class AdsLandingSeoTests(TestCase):
 
     def test_rozrobka_prices_once_in_hero(self):
         html = self.client.get('/rozrobka-sajtiv/').content.decode()
-        hero = html[html.index('class="pl-rs__hero"'):html.index('</section>')]
-        self.assertEqual(hero.count('class="pl-rs__floats"'), 1)
-        self.assertEqual(hero.count('250–400 €'), 1)
+        # ТЗ 27.10.2026 п. 3.1: no price cards in the hero; ranges appear once, in «Чому варто обрати».
+        start = html.index('class="pl-rs__hero"')
+        hero = html[start:html.index('</section>', start)]
+        self.assertNotIn('pl-rs__floats', hero)
+        self.assertNotIn('250–400 €', hero)
+        main = html[start:html.index('id="faq"')]
+        self.assertEqual(main.count('250–400 €'), 1)
 
     def test_shop_dom_under_1500(self):
         html = self.client.get('/internet-shop-v2/').content.decode()
@@ -144,8 +148,12 @@ class AdsLandingSeoTests(TestCase):
 
     def test_rozrobka_types_and_faq(self):
         html = self.client.get('/rozrobka-sajtiv/').content.decode()
-        self.assertIn('Створити сайт для бізнесу: який тип обрати', html)
-        self.assertIn('Гарантія і підтримка', html)
+        # ТЗ 27.10.2026 п. 3.3: types / guarantee blocks removed; FAQ stays (п. 3.7)
+        self.assertNotIn('Створити сайт для бізнесу: який тип обрати', html)
+        self.assertNotIn('Гарантія і підтримка', html)
+        self.assertIn('id="faq"', html)
+        self.assertIn('Часті питання про розробку сайтів', html)
+        self.assertIn('"FAQPage"', html)
         self.assertIn('50+ запущених проєктів', html)
         self.assertNotIn('Відгуки клієнтів', html)
 

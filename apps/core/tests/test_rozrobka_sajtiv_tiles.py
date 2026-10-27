@@ -33,12 +33,14 @@ class SoftTileHashLinksTests(TestCase):
     def setUp(self):
         _rates()
 
-    def test_tile_hrefs_page_and_hash(self):
+    def test_tiles_removed_from_rozrobka(self):
+        """ТЗ 27.10.2026 п. 3.3: the price tiles block (and its hash links) is gone from /rozrobka-sajtiv/."""
         for prefix in ('', '/ru'):
             with self.subTest(prefix=prefix):
                 html = self.client.get(f'{prefix}/rozrobka-sajtiv/').content.decode()
-                expected = [f'{prefix}{page}#{anchor}' for page, anchor in EXPECTED_TILES]
-                self.assertEqual(TILE_HREF_RE.findall(html), expected)
+                self.assertEqual(TILE_HREF_RE.findall(html), [])
+                for page, anchor in EXPECTED_TILES:
+                    self.assertNotIn(f'href="{prefix}{page}#{anchor}"', html)
 
     def test_tile_targets_200_and_contain_anchor_id(self):
         for prefix in ('', '/ru'):
@@ -61,32 +63,14 @@ class SoftCmsTabsAndScreensTests(TestCase):
     def setUp(self):
         _rates()
 
-    def test_cms_tabs_markup(self):
-        html = self.client.get('/rozrobka-sajtiv/').content.decode()
-        self.assertIn('role="tablist"', html)
-        self.assertEqual(html.count('role="tab"'), 3)
-        self.assertEqual(html.count('role="tabpanel"'), 3)
-        self.assertEqual(html.count('aria-selected="true"'), 1)
-        self.assertEqual(html.count('data-pl-rs-cms-pane hidden'), 2)
-        for text in ('Олена · Лендінг', 'Нова', 'В роботі', 'Закрита', 'Редагувати'):
-            self.assertIn(text, html)
-        self.assertIn('id="fx-soft-cms-landing">250 €<', html)
-        self.assertIn('id="fx-soft-cms-corp">500 €<', html)
-        self.assertIn('id="fx-soft-cms-shop">800 €<', html)
-
-    def test_cms_tabs_ru(self):
-        html = self.client.get('/ru/rozrobka-sajtiv/').content.decode()
-        for text in ('Страницы', 'Елена · Лендинг', 'Новая', 'В работе', 'Закрыта', 'Редактировать', 'Лендинг'):
-            self.assertIn(text, html)
-
-    def test_fx_swap_updates_cms_prices(self):
-        response = self.client.post(
-            '/i18n/set_currency/',
-            {'currency': 'UAH', 'region': 'soft', 'next': '/rozrobka-sajtiv/'},
-            HTTP_HX_REQUEST='true',
-        )
-        body = response.content.decode()
-        self.assertIn('id="fx-soft-cms-landing" hx-swap-oob="outerHTML">10\u00a0000 ₴', body)
+    def test_cms_mockup_block_removed(self):
+        """ТЗ 27.10.2026 п. 3.3: «Адмінка залишається у вас» CMS mockup is not on the page (UA/RU)."""
+        for path in ('/rozrobka-sajtiv/', '/ru/rozrobka-sajtiv/'):
+            with self.subTest(path=path):
+                html = self.client.get(path).content.decode()
+                self.assertNotIn('data-pl-rs-cms-pane', html)
+                self.assertNotIn('fx-soft-cms-', html)
+                self.assertNotIn('pl-rs__section--admin', html)
 
     def test_portfolio_screen_scroll_hooks(self):
         html = self.client.get('/rozrobka-sajtiv/').content.decode()

@@ -53,10 +53,10 @@ class RozrobkaHeroPricesOnceTests(TestCase):
                 hero = hero[:hero.index('</section>')]
                 self.assertNotIn('pl-rs__prices', hero)
                 self.assertNotIn('fx-soft-strip-', html)
-                self.assertEqual(hero.count('class="pl-rs__float pl-rs__float--'), 4)
+                # ТЗ 27.10.2026 п. 3.1: price floats removed from the hero entirely
+                self.assertNotIn('pl-rs__float', hero)
                 for key in ('landing', 'corp', 'shop', 'platform'):
-                    self.assertEqual(hero.count('id="fx-soft-float-%s"' % key), 1)
-                self.assertNotIn('pl-rs__floats" aria-hidden', hero)
+                    self.assertNotIn('id="fx-soft-float-%s"' % key, html)
 
     def test_self_hosted_fonts_no_google(self):
         html = self.client.get('/rozrobka-sajtiv/').content.decode()
@@ -94,12 +94,13 @@ class RozrobkaHeroPricesOnceTests(TestCase):
         self.assertIn('GTM-K2FVPPTK', html)
         self.assertIn('function _loadGTM()', html)
 
-    def test_price_ranges_once_in_hero_floats(self):
+    def test_price_ranges_once_in_why_card(self):
+        """ТЗ 27.10.2026: ranges sit once in «Чому варто обрати» (#fx-home-prices), not in the hero."""
         html = self.client.get('/rozrobka-sajtiv/').content.decode()
-        hero = html[html.index('class="pl-rs__hero"'):]
-        hero = hero[:hero.index('</section>')]
-        self.assertEqual(hero.count('class="pl-rs__floats"'), 1)
-        self.assertEqual(hero.count('250–400 €'), 1)
-        self.assertEqual(hero.count('500–700 €'), 1)
-        self.assertEqual(hero.count('<span id="fx-soft-float-shop">від 800 €</span>'), 1)
-        self.assertEqual(hero.count('1\u00a0500–5\u00a0000 €'), 1)
+        start = html.index('class="pl-rs__hero"')
+        hero = html[start:html.index('</section>', start)]
+        self.assertNotIn('250–400 €', hero)
+        card = html[html.index('id="fx-home-prices"'):]
+        card = card[:card.index('</ul>')]
+        for text in ('250–400 €', '500–700 €', 'від 800 €', '1\u00a0500–5\u00a0000 €'):
+            self.assertEqual(card.count(text), 1, text)

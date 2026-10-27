@@ -124,7 +124,9 @@ class FxConvertTests(TestCase):
         self.assertEqual(response.cookies['pl_currency'].value, 'UAH')
         self.assertIn('10 000–16 000 ₴', body)
         self.assertIn('id="fx-switch-soft"', body)
-        self.assertIn('id="fx-soft-float-landing"', body)
+        # ТЗ 27.10.2026: soft = rozrobka hero switcher + «Чому варто обрати» price card (home_prices) + its switcher
+        self.assertIn('id="fx-home-prices"', body)
+        self.assertIn('id="fx-switch-soft-why"', body)
         self.assertIn('hx-swap-oob="outerHTML"', body)
 
     def test_htmx_rejects_unknown_region(self):

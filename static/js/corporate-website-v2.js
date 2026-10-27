@@ -1,7 +1,8 @@
 (function () {
     'use strict';
 
-    var root = document.getElementById('plCorpRoot');
+    /* #plCorpRoot on /corporate-website-v2/; [data-pl-corp-root] on pages that reuse corp blocks (/rozrobka-sajtiv/). */
+    var root = document.getElementById('plCorpRoot') || document.querySelector('[data-pl-corp-root]');
     if (!root) return;
 
     var reduceMotion = window.matchMedia &&

@@ -43,7 +43,7 @@ def fx_package(context, package):
 
 
 @register.inclusion_tag('components/currency_switcher.html', takes_context=True)
-def currency_switcher(context, variant='light', region='home', oob=False):
+def currency_switcher(context, variant='light', region='home', oob=False, slot=''):
     if variant not in _VARIANTS:
         variant = 'light'
     if region not in {'home', 'shop', 'proposal', 'soft'}:
@@ -68,6 +68,8 @@ def currency_switcher(context, variant='light', region='home', oob=False):
         'next': next_url,
         'variant': variant,
         'region': region,
+        # slot: second switcher of the same region on one page (unique DOM id)
+        'dom_id': f'{region}-{slot}' if slot else region,
         'oob': oob,
         'proposal_slug': getattr(proposal, 'slug', '') or '',
         'csrf_token': context.get('csrf_token'),

@@ -1,11 +1,1 @@
-{% load static %}
-<section id="calc-promo" class="pl-corp__section pl-corp__calc-promo" aria-labelledby="pl-corp-calc-promo-title">
-    <div class="pl-corp__inner pl-corp__calc-promo-row" data-reveal>
-        <h2 id="pl-corp-calc-promo-title" class="pl-corp__title pl-corp__calc-promo-title">Получите бесплатный расчёт стоимости вашего сайта</h2>
-        <a href="#calculator" class="pl-corp__btn pl-corp__btn--accent pl-corp__calc-promo-btn mobile-touch-target">Калькулятор расчёта</a>
-        <a href="{% url 'monobank_chastynamy' %}" class="pl-corp__calc-promo-pay">
-            <img src="{% static 'images/corporate_website_v2/figma/paw.webp' %}" alt="" width="88" height="88" loading="lazy" decoding="async">
-            <span>Это можно купить частями, <strong>до 15 платежей</strong></span>
-        </a>
-    </div>
-</section>
+{% include 'components/corporate_website_v2/_calc_promo.html' with section_id='calc-promo' title_id='pl-corp-calc-promo-title' title='Получите бесплатный расчёт стоимости вашего сайта' text='' href='#calculator' button='Калькулятор расчёта' scroll='' cta_position='' pay_text='Это можно купить частями,' pay_strong='до 15 платежей' extra_class='' %}

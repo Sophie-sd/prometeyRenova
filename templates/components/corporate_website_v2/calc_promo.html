@@ -1,11 +1,2 @@
-{% load i18n %}{% load static %}
-<section id="calc-promo" class="pl-corp__section pl-corp__calc-promo" aria-labelledby="pl-corp-calc-promo-title">
-    <div class="pl-corp__inner pl-corp__calc-promo-row" data-reveal>
-        <h2 id="pl-corp-calc-promo-title" class="pl-corp__title pl-corp__calc-promo-title">{% trans "Отримайте безкоштовний розрахунок вартості вашого сайту" %}</h2>
-        <a href="#calculator" class="pl-corp__btn pl-corp__btn--accent pl-corp__calc-promo-btn mobile-touch-target">{% trans "Калькулятор розрахунку" %}</a>
-        <a href="{% url 'monobank_chastynamy' %}" class="pl-corp__calc-promo-pay">
-            <img src="{% static 'images/corporate_website_v2/figma/paw.webp' %}" alt="" width="88" height="88" loading="lazy" decoding="async">
-            <span>{% trans "Це можна купити частинами," %} <strong>{% trans "до 15 платежів" %}</strong></span>
-        </a>
-    </div>
-</section>
+{% load i18n %}{% trans "Отримайте безкоштовний розрахунок вартості вашого сайту" as title %}{% trans "Калькулятор розрахунку" as button %}{% trans "Це можна купити частинами," as pay_text %}{% trans "до 15 платежів" as pay_strong %}
+{% include 'components/corporate_website_v2/_calc_promo.html' with section_id='calc-promo' title_id='pl-corp-calc-promo-title' text='' href='#calculator' scroll='' cta_position='' extra_class='' %}

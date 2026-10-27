@@ -80,26 +80,36 @@
 {% block currency_css %}{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv.css' %}?v=16">
+<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv.css' %}?v=18">
 <link rel="stylesheet" href="{% static 'css/ads-landing.css' %}?v=3">
+{# ТЗ 27.10.2026: reused blocks keep their own stylesheets (home «Чому варто обрати», corp «Що входить» / lead CTA / calc-promo). #}
+<link rel="stylesheet" href="{% static 'css/home-figma/home-figma.css' %}?v=12">
+<link rel="stylesheet" href="{% static 'css/corporate-website-v2.css' %}?v=43">
+<link rel="stylesheet" href="{% static 'css/components/calc-embed.css' %}?v=1">
 {% endblock %}
 
 {% block extra_js %}
 <script src="{% static 'js/rozrobka-sajtiv.js' %}?v=5" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/portfolio-screen-scroll.js' %}?v=screen4" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/corporate-website-v2.js' %}?v=16" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/calculator.js' %}?v=15" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}
 
 {% block content %}
-<div id="plRsRoot" class="pl-rs">
+{# ТЗ 27.10.2026 §2 — order: hero → why → form №1 → economy → CTA strip → portfolio → form №2 → FAQ → calculator. #}
+<div id="plRsRoot" class="pl-rs" data-pl-corp-root>
     {% include 'components/rozrobka_sajtiv/hero.html' %}
-    {% include 'components/rozrobka_sajtiv/products.html' %}
-    {% if ads_tz %}{% include 'components/rozrobka_sajtiv/types.html' %}{% endif %}
+    {% include 'components/rozrobka_sajtiv/why.html' %}
+    <div class="pl-corp pl-corp-page pl-rs-corp">
+        {% include 'components/rozrobka_sajtiv/lead_forms.html' with rs_form=1 %}
+        {% if LANGUAGE_CODE == 'ru' %}{% include 'components/corporate_website_v2_ru/economy.html' with economy_title_id='pl-rs-admin-title' %}{% else %}{% include 'components/corporate_website_v2/economy.html' with economy_title_id='pl-rs-admin-title' %}{% endif %}
+        {% include 'components/rozrobka_sajtiv/cta_strip.html' %}
+    </div>
     {% include 'components/rozrobka_sajtiv/portfolio.html' %}
-    {% if ads_tz %}{% include 'components/ads/process.html' %}{% endif %}
-    {% if ads_tz %}{% include 'components/rozrobka_sajtiv/guarantee.html' %}{% endif %}
-    {% include 'components/rozrobka_sajtiv/admin.html' %}
+    <div class="pl-corp pl-corp-page pl-rs-corp">
+        {% include 'components/rozrobka_sajtiv/lead_forms.html' with rs_form=2 %}
+    </div>
     {% if ads_tz %}{% include 'components/ads/faq.html' %}{% endif %}
     {% include 'components/rozrobka_sajtiv/calc.html' %}
-    {% if ads_tz %}{% include 'components/ads/contacts.html' %}{% endif %}
 </div>
 {% endblock %}
