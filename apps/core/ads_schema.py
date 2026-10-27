@@ -14,6 +14,12 @@ def dumps(obj):
 
 
 def breadcrumb_ld(items):
+    # Google requires `item` on every ListItem except the last one, so
+    # intermediate crumbs without a URL (e.g. «Послуги») stay visible only.
+    items = [
+        item for pos, item in enumerate(items, start=1)
+        if item.get('url') or pos == len(items)
+    ]
     elements = []
     for index, item in enumerate(items, start=1):
         entry = {
