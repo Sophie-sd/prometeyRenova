@@ -2260,6 +2260,8 @@
 
 /* reused home «Чому варто обрати» (home-figma.css) on the black soft page */
 .pl-rs-hf { padding-bottom: 8px; }
+/* бейдж ШІ-картки звисає на 136px нижче картки (як на головній) — не обрізати низ */
+@media (min-width: 1100px) { .pl-rs-hf { padding-bottom: 56px; } }
 .pl-rs-hf .pl-calc-cta--wide { display: flex; justify-content: center; }
 .pl-rs-hf .pl-calc-cta--wide .pl-calc-cta__btn { min-width: min(420px, 100%); justify-content: center; }
 @media (max-width: 767px) {
