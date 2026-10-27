@@ -30,6 +30,22 @@ PRESENTATIONS = {
 }
 
 _INLINE_SCRIPT = re.compile(rb'<script>(.*?)</script>', re.S)
+_HEAD_TAG = re.compile(rb'<(?:meta|link)\b[^>]*>|<title>.*?</title>', re.S)
+# Месенджери/соцмережі не дочитують 12-МБ сторінку → віддаємо їм легкий head з OG.
+_PREVIEW_BOTS = re.compile(
+    r'TelegramBot|facebookexternalhit|Facebot|Twitterbot|WhatsApp|Slackbot|'
+    r'LinkedInBot|Discordbot|Viber|SkypeUriPreview|vkShare|Pinterest|redditbot|Applebot',
+    re.I,
+)
+
+
+@lru_cache(maxsize=None)
+def _preview(filename: str) -> bytes:
+    raw = (PRESENTATIONS_DIR / filename).read_bytes()
+    head = raw[:raw.find(b'</head>')]
+    tags = b'\n'.join(_HEAD_TAG.findall(head))
+    return (b'<!doctype html><html lang="uk"><head>' + tags
+            + b'</head><body></body></html>')
 
 
 @lru_cache(maxsize=None)
@@ -63,6 +79,13 @@ def private_presentation(request, slug: str):
     filename = PRESENTATIONS.get(slug)
     if not filename:
         raise Http404
+    if _PREVIEW_BOTS.search(request.META.get('HTTP_USER_AGENT', '')):
+        response = HttpResponse(_preview(filename), content_type='text/html; charset=utf-8')
+        patch_vary_headers(response, ('User-Agent',))
+        response['X-Robots-Tag'] = 'noindex, nofollow'
+        response['Content-Security-Policy'] = "default-src 'none'; img-src 'self'"
+        response['Cache-Control'] = 'private, max-age=300'
+        return response
     raw, compressed, script_hashes = _load(filename)
     accepts_gzip = 'gzip' in request.META.get('HTTP_ACCEPT_ENCODING', '')
     body = compressed if accepts_gzip else raw
@@ -70,7 +93,7 @@ def private_presentation(request, slug: str):
     if accepts_gzip:
         response['Content-Encoding'] = 'gzip'
     response['Content-Length'] = str(len(body))
-    patch_vary_headers(response, ('Accept-Encoding',))
+    patch_vary_headers(response, ('Accept-Encoding', 'User-Agent'))
     response['X-Robots-Tag'] = 'noindex, nofollow'
     response['Content-Security-Policy'] = _csp(script_hashes)
     response['Referrer-Policy'] = 'no-referrer'

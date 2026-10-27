@@ -58,3 +58,19 @@ class PrivatePresentationTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotIn(SLUG, response.content.decode())
         self.assertIn("'strict-dynamic'", response['Content-Security-Policy'])
+
+
+class PreviewBotTests(__import__('django.test', fromlist=['TestCase']).TestCase):
+    URL = '/proposal/ultramarket-prezentatsiia-eea8d641/'
+
+    def test_telegram_gets_light_head_with_og(self):
+        r = self.client.get(self.URL, HTTP_USER_AGENT='TelegramBot (like TwitterBot)')
+        self.assertEqual(r.status_code, 200)
+        self.assertLess(len(r.content), 20000)
+        self.assertIn(b'og:image', r.content)
+        self.assertIn(b'ultramarket-presentation.jpg', r.content)
+        self.assertEqual(r['X-Robots-Tag'], 'noindex, nofollow')
+
+    def test_browser_gets_full_presentation(self):
+        r = self.client.get(self.URL, HTTP_USER_AGENT='Mozilla/5.0')
+        self.assertGreater(len(r.content), 1000000)
