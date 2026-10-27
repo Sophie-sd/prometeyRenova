@@ -31,31 +31,3 @@ IMAGE_FIELD_MAP = (
     ('static_card', 'card_image'),
     ('static_card_mobile', 'card_image_mobile'),
 )
-
-# Лого клієнтів на головній («Наші клієнти») — незалежно від PORTFOLIO_PROJECTS,
-# щоб заміна портфоліо не ламала секцію. Ключ — Client.name.
-HOME_LOGO_STATIC = {
-    'SpeakUp': 'images/portfolio/speakup.png',
-    'Coresync': 'images/portfolio/coresync.png',
-    'Play Vision': 'images/portfolio/playvision.png',
-    'BeautyShop': 'images/portfolio/beautyshop.png',
-    'RedRabbit': 'images/portfolio/redrabbit.png',
-    'Adiabatic': 'images/portfolio/adiabatic.png',
-    'Polygraph': 'images/portfolio/polygraph.png',
-    'Pulvas Store': 'images/portfolio/pulvas_store.png',
-    'Airinua': 'images/portfolio/airinua.png',
-}
-
-# Клієнти для секції «Наші клієнти» на головній (seed_clients) — той самий
-# набір лого, що й раніше на /portfolio/, до заміни на живі знімки.
-HOME_CLIENTS = [
-    {'name': 'Coresync', 'order': 0, 'static_home': HOME_LOGO_STATIC['Coresync']},
-    {'name': 'SpeakUp', 'order': 1, 'static_home': HOME_LOGO_STATIC['SpeakUp']},
-    {'name': 'Play Vision', 'order': 2, 'static_home': HOME_LOGO_STATIC['Play Vision']},
-    {'name': 'BeautyShop', 'order': 3, 'static_home': HOME_LOGO_STATIC['BeautyShop']},
-    {'name': 'Adiabatic', 'order': 4, 'static_home': HOME_LOGO_STATIC['Adiabatic']},
-    {'name': 'RedRabbit', 'order': 5, 'static_home': HOME_LOGO_STATIC['RedRabbit']},
-    {'name': 'Polygraph', 'order': 6, 'static_home': HOME_LOGO_STATIC['Polygraph']},
-    {'name': 'Pulvas Store', 'order': 7, 'static_home': HOME_LOGO_STATIC['Pulvas Store']},
-    {'name': 'Airinua', 'order': 8, 'static_home': HOME_LOGO_STATIC['Airinua']},
-]

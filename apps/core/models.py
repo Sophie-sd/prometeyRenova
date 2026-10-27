@@ -949,7 +949,31 @@ class Client(models.Model):
     """Клієнт для секції «Наші клієнти» на головній сторінці."""
 
     name = models.CharField(max_length=100, verbose_name=_('Назва'))
-    logo = models.ImageField(upload_to='clients/', verbose_name=_('Логотип'))
+    site_url = models.URLField(
+        blank=True,
+        verbose_name=_('Сайт клієнта'),
+        help_text=_('Повна https-адреса живого сайту. Коло на сайті веде сюди (нова вкладка).'),
+    )
+    logo = models.ImageField(
+        upload_to='clients/',
+        blank=True,
+        verbose_name=_('Логотип (завантаження)'),
+        help_text=_('Квадрат 256×256 (WebP/PNG), лого по центру з відступом ~14%. '
+                    'Якщо завантажено — має пріоритет над статичним логотипом.'),
+    )
+    logo_static = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_('Статичний логотип'),
+        help_text=_('Шлях у static/, напр. images/clients/fpsu.webp (поруч має бути fpsu-128.webp). '
+                    'Заповнює seed_clients.'),
+    )
+    logo_alt = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name=_('Alt логотипа'),
+        help_text=_('Порожньо — «<Назва> — сайт від PrometeyLabs» мовою сторінки.'),
+    )
     order = models.PositiveIntegerField(default=0, verbose_name=_('Порядок'))
     is_active = models.BooleanField(default=True, verbose_name=_('Показувати на головній'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Створено'))
@@ -972,15 +996,25 @@ class Client(models.Model):
 
         return resolve_client_logo_url(self)
 
-    def get_logo_webp_228_url(self) -> str:
-        from .portfolio_images import resolve_client_logo_webp_url
+    def get_logo_srcset(self) -> str:
+        from .portfolio_images import resolve_client_logo_srcset
 
-        return resolve_client_logo_webp_url(self, 228)
+        return resolve_client_logo_srcset(self)
 
-    def get_logo_webp_456_url(self) -> str:
-        from .portfolio_images import resolve_client_logo_webp_url
+    def get_logo_alt(self) -> str:
+        if self.logo_alt:
+            return self.logo_alt
+        from django.utils.translation import get_language
 
-        return resolve_client_logo_webp_url(self, 456)
+        suffix = CLIENT_ALT_SUFFIX.get((get_language() or 'uk')[:2], CLIENT_ALT_SUFFIX['uk'])
+        return f'{self.name} — {suffix}'
+
+
+CLIENT_ALT_SUFFIX = {
+    'uk': 'сайт від PrometeyLabs',
+    'ru': 'сайт от PrometeyLabs',
+    'en': 'website by PrometeyLabs',
+}
 
 
 from .proposal_models import (  # noqa: E402,F401

@@ -1,11 +1,22 @@
+import re
+import tempfile
+from pathlib import Path
+
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.management import call_command
 from django.test import Client as DjangoTestClient, SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
+from django.utils import translation
 
+from apps.core.home_clients_data import HOME_CLIENTS
+from apps.core.management.commands.seed_clients import is_legacy_seed_logo
 from apps.core.mixins import homepage_clients
 from apps.core.models import Client
-from apps.core.portfolio_images import resolve_client_logo_url
+from apps.core.portfolio_images import resolve_client_logo_srcset, resolve_client_logo_url
+
+EXCLUDED_DOMAINS = ('auto-lot.online', 'alexmodul', 'maisonpolina')
 
 MINIMAL_PNG = (
     b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01'
@@ -25,24 +36,102 @@ def make_client(name, order=0, is_active=True):
     )
 
 
-class ClientLogoFallbackTests(SimpleTestCase):
+class ClientLogoResolutionTests(SimpleTestCase):
     @override_settings(MEDIA_ROOT='/tmp/prometey-empty-media-test')
-    def test_static_fallback_when_media_missing(self):
-        client = Client(name='Play Vision')
+    def test_static_logo_when_no_upload_on_disk(self):
+        client = Client(name='Play Vision', logo_static='images/clients/playvision.webp')
         client.logo.name = 'clients/playvision_missing.png'
-        src = resolve_client_logo_url(client)
-        self.assertIn('/static/images/portfolio/playvision.png', src)
-        self.assertNotIn('/media/', src)
+        self.assertIn('/static/images/clients/playvision.webp', resolve_client_logo_url(client))
+        srcset = resolve_client_logo_srcset(client)
+        self.assertIn('playvision-128.webp 128w', srcset)
+        self.assertIn('playvision.webp 256w', srcset)
 
-    def test_homepage_renders_static_logo_src(self):
+    def test_admin_upload_wins_over_static(self):
+        with tempfile.TemporaryDirectory() as media:
+            (Path(media) / 'clients').mkdir()
+            (Path(media) / 'clients' / 'new-logo.png').write_bytes(MINIMAL_PNG)
+            with override_settings(MEDIA_ROOT=media):
+                client = Client(name='Play Vision', logo_static='images/clients/playvision.webp')
+                client.logo.name = 'clients/new-logo.png'
+                self.assertEqual(resolve_client_logo_url(client), '/media/clients/new-logo.png')
+                self.assertEqual(resolve_client_logo_srcset(client), '')
+
+    def test_no_name_based_override_left(self):
         client = Client(name='BeautyShop')
-        client.logo.name = 'clients/beautyshop.png'
-        self.assertIn('/static/images/portfolio/beautyshop.png', client.get_logo_url())
+        self.assertEqual(client.get_logo_url(), '')
+
+    def test_alt_per_language_and_override(self):
+        client = Client(name='ФПУ')
+        with translation.override('uk'):
+            self.assertEqual(client.get_logo_alt(), 'ФПУ — сайт від PrometeyLabs')
+        with translation.override('ru'):
+            self.assertEqual(client.get_logo_alt(), 'ФПУ — сайт от PrometeyLabs')
+        client.logo_alt = 'Custom'
+        self.assertEqual(client.get_logo_alt(), 'Custom')
+
+
+class HomeClientsDataTests(SimpleTestCase):
+    def test_list_size_unique_https_and_logo_files(self):
+        self.assertGreaterEqual(len(HOME_CLIENTS), 20)
+        self.assertLessEqual(len(HOME_CLIENTS), 35)
+        self.assertEqual(len({c['name'] for c in HOME_CLIENTS}), len(HOME_CLIENTS))
+        static_root = Path(settings.BASE_DIR) / 'static'
+        for item in HOME_CLIENTS:
+            with self.subTest(client=item['name']):
+                self.assertTrue(item['site_url'].startswith('https://'))
+                self.assertFalse(any(d in item['site_url'] for d in EXCLUDED_DOMAINS))
+                self.assertTrue((static_root / item['logo_static']).is_file())
+                self.assertTrue((static_root / item['logo_static'].replace('.webp', '-128.webp')).is_file())
+
+    def test_every_client_site_is_in_portfolio(self):
+        from apps.core.portfolio_seed_data import PORTFOLIO_PROJECTS
+
+        def host(url):
+            return re.sub(r'^https?://(www\.)?', '', url).split('/')[0]
+
+        portfolio_hosts = {host(p['site_url']) for p in PORTFOLIO_PROJECTS if p.get('site_url')}
+        portfolio_hosts.add('airinua.com')  # PROJECTS_MAP.md (Render), old homepage logo
+        for item in HOME_CLIENTS:
+            with self.subTest(client=item['name']):
+                self.assertIn(host(item['site_url']), portfolio_hosts)
+
+
+class SeedClientsTests(TestCase):
+    def setUp(self):
+        Client.objects.all().delete()
+
+    def test_seed_replaces_legacy_rows_idempotently(self):
+        legacy = make_client('Coresync', order=0)
+        play = make_client('Play Vision', order=2)
+        play.logo.name = 'clients/playvision_Ab12Cd3.png'
+        play.save()
+        admin_added = Client.objects.create(name='Admin Added', site_url='https://example.com/')
+
+        call_command('seed_clients', verbosity=0)
+        call_command('seed_clients', verbosity=0)
+
+        legacy.refresh_from_db()
+        play.refresh_from_db()
+        admin_added.refresh_from_db()
+        self.assertFalse(legacy.is_active)
+        self.assertTrue(admin_added.is_active)
+        self.assertTrue(play.is_active)
+        self.assertEqual(play.site_url, 'https://playvision.com.ua/')
+        self.assertEqual(play.logo.name, '')
+        self.assertEqual(Client.objects.filter(name='Play Vision').count(), 1)
+        active = list(homepage_clients().exclude(name='Admin Added').values_list('name', flat=True))
+        self.assertEqual(active, [c['name'] for c in HOME_CLIENTS])
+
+    def test_legacy_logo_detection(self):
+        self.assertTrue(is_legacy_seed_logo('clients/playvision.png'))
+        self.assertTrue(is_legacy_seed_logo('clients/pulvas_store_Xy12Ab3.png'))
+        self.assertFalse(is_legacy_seed_logo('clients/fpsu-new.webp'))
+        self.assertFalse(is_legacy_seed_logo(''))
 
 
 class HomepageClientsTests(TestCase):
     def setUp(self):
-        # Migration 0014 seeds the real homepage client set; these tests need a clean table.
+        # seed_clients may already have filled the table (build/start); these tests need a clean one.
         Client.objects.all().delete()
 
     def test_homepage_clients_returns_only_active_in_order(self):
@@ -100,42 +189,52 @@ class ClientAdminTests(TestCase):
 
 
 class ShopV2MarkupTests(SimpleTestCase):
-    def test_client_story_uses_listitem_wrap_and_webp(self):
+    def _client(self):
+        return Client(
+            name='Play Vision',
+            site_url='https://playvision.com.ua/',
+            logo_static='images/clients/playvision.webp',
+        )
+
+    def test_client_story_links_to_client_site(self):
         from django.template.loader import render_to_string
 
-        class DummyClient:
-            name = 'Play Vision'
+        with translation.override('uk'):
+            html = render_to_string(
+                'components/client_home_story.html',
+                {'client': self._client(), 'is_clone': False},
+            )
+        self.assertIn('class="project-story-wrap" role="listitem"', html)
+        self.assertIn('href="https://playvision.com.ua/" target="_blank" rel="noopener"', html)
+        self.assertNotIn('nofollow', html)
+        self.assertIn('alt="Play Vision — сайт від PrometeyLabs"', html)
+        self.assertIn('playvision-128.webp 128w', html)
+        self.assertIn('width="256" height="256" loading="lazy" decoding="async"', html)
+        self.assertNotIn('tabindex', html)
 
-            def get_logo_url(self):
-                return '/static/images/portfolio/playvision.png'
-
-            def get_logo_webp_228_url(self):
-                return '/static/images/portfolio/playvision-228.webp'
-
-            def get_logo_webp_456_url(self):
-                return '/static/images/portfolio/playvision-456.webp'
-
-        html = render_to_string(
-            'components/client_home_story.html',
-            {'client': DummyClient(), 'is_clone': False},
-        )
-        self.assertIn('class="project-story-wrap"', html)
-        self.assertIn('role="listitem"', html)
-        self.assertNotIn('role="listitem" aria-label=', html)
-        self.assertIn('playvision-228.webp', html)
-        self.assertIn('type="image/webp"', html)
+    def test_clone_is_hidden_from_a11y_and_tab_order(self):
+        from django.template.loader import render_to_string
 
         clone = render_to_string(
             'components/client_home_story.html',
-            {'client': DummyClient(), 'is_clone': True},
+            {'client': self._client(), 'is_clone': True},
         )
         self.assertIn('aria-hidden="true"', clone)
+        self.assertIn('tabindex="-1"', clone)
+        self.assertIn('alt=""', clone)
         self.assertNotIn('role="listitem"', clone)
 
-    def test_internet_shop_v2_template_self_hosts_fonts(self):
-        from pathlib import Path
-        from django.conf import settings
+    def test_marquee_is_clickable(self):
+        css = (Path(settings.BASE_DIR) / 'static/css/components/clients-marquee.css').read_text()
+        rule = css.split('[data-clients-marquee] {', 1)[1].split('}', 1)[0]
+        self.assertNotIn('pointer-events', rule)
+        self.assertIn(':focus-within', css)
+        self.assertIn('prefers-reduced-motion', css)
+        shop = (Path(settings.BASE_DIR) / 'static/css/internet-shop-v2.css').read_text()
+        rule = shop.split('.pl-shop__clients-stories-container {', 1)[1].split('}', 1)[0]
+        self.assertNotIn('pointer-events', rule)
 
+    def test_internet_shop_v2_template_self_hosts_fonts(self):
         page = (Path(settings.BASE_DIR) / 'templates/pages/internet-shop-v2.html').read_text()
         self.assertIn('fonts/v2/inter-latin.woff2', page)
         self.assertNotIn('fonts.googleapis.com', page)

@@ -555,7 +555,6 @@ body.pl-shop-body .main-footer .container,
     display: flex;
     gap: 14px;
     width: max-content;
-    pointer-events: none;
     user-select: none;
     transform: translate3d(0, 0, 0);
 }

@@ -1,9 +1,10 @@
-from django.core.management import call_command
 from django.db import migrations
 
 
 def seed_clients_forward(apps, schema_editor):
-    call_command('seed_clients')
+    # No-op: seed_clients uses the current Client model (fields from later migrations),
+    # so it cannot run at this point of a fresh migrate. build.sh / scripts/start.sh run it.
+    return
 
 
 class Migration(migrations.Migration):

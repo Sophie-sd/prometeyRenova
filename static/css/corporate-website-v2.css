@@ -868,6 +868,15 @@ body.pl-corp-body .main-footer .container,
     }
 }
 
+.pl-corp__clients-stories-container.marquee-active:focus-within {
+    animation-play-state: paused;
+}
+
+.pl-corp__clients .project-story:focus-visible {
+    outline: 3px solid var(--pl-acc);
+    outline-offset: -3px;
+}
+
 @keyframes pl-corp-marquee {
     from { transform: translate3d(0, 0, 0); }
     to { transform: translate3d(calc(-1 * var(--marquee-distance, 0px)), 0, 0); }

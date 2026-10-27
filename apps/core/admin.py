@@ -649,6 +649,7 @@ class ClientAdmin(UnfoldModelAdmin):
     list_filter_sheet = False
     list_display = (
         'name',
+        'site_url',
         'order',
         'is_active',
         'logo_preview',
@@ -656,13 +657,15 @@ class ClientAdmin(UnfoldModelAdmin):
     )
     list_editable = ('order', 'is_active')
     list_filter = (('is_active', BooleanDropdownFilter),)
-    search_fields = ('name',)
+    search_fields = ('name', 'site_url')
     readonly_fields = ('created_at', 'updated_at', 'logo_preview')
     ordering = ('order', 'name')
 
     fieldsets = (
         (_('Основне'), {
-            'fields': ('name', 'logo', 'logo_preview', 'order', 'is_active'),
+            'fields': (
+                'name', 'site_url', 'logo', 'logo_static', 'logo_alt', 'logo_preview', 'order', 'is_active',
+            ),
         }),
         (_('Службове'), {
             'fields': ('created_at', 'updated_at'),

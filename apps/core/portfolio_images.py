@@ -5,7 +5,7 @@ from pathlib import Path
 from django.conf import settings
 from django.templatetags.static import static as static_url
 
-from apps.core.portfolio_seed_data import HOME_LOGO_STATIC, IMAGE_FIELD_MAP, PORTFOLIO_PROJECTS
+from apps.core.portfolio_seed_data import IMAGE_FIELD_MAP, PORTFOLIO_PROJECTS
 
 # Мобільний варіант повносторінкових знімків (static/images/portfolio/screens/*-desktop-720.webp).
 MOBILE_SCREEN_WIDTH = 720
@@ -91,34 +91,39 @@ def portfolio_image_available(project, field_name: str) -> bool:
     return bool(resolve_portfolio_image_url(project, field_name))
 
 
-def _static_home_for_client_name(name: str) -> str:
-    """Лого клієнта для секції «Наші клієнти» — незалежно від PORTFOLIO_PROJECTS."""
-    return HOME_LOGO_STATIC.get(name.strip(), '')
+CLIENT_LOGO_SMALL_SUFFIX = '-128.webp'
 
 
-def resolve_client_logo_url(client) -> str:
-    """Головна: спочатку static (collectstatic), потім media якщо файл є на диску."""
-    static_rel = _static_home_for_client_name(client.name)
-    if static_rel:
-        return static_url(static_rel)
-
+def _client_media_logo_url(client) -> str:
     field = getattr(client, 'logo', None)
     if field and getattr(field, 'name', None):
-        media_path = Path(settings.MEDIA_ROOT) / field.name
-        if media_path.is_file():
+        if (Path(settings.MEDIA_ROOT) / field.name).is_file():
             return field.url
     return ''
 
 
-def resolve_client_logo_webp_url(client, width: int) -> str:
-    """Похідний WebP поруч із PNG у static/images/portfolio/ — лише якщо файл є."""
-    static_rel = _static_home_for_client_name(client.name)
-    if not static_rel.endswith('.png'):
-        return ''
-    webp_rel = f'{static_rel[:-4]}-{width}.webp'
-    if _static_file_exists(webp_rel):
-        return static_url(webp_rel)
+def resolve_client_logo_url(client) -> str:
+    """Коло клієнта: адмінський аплоад (media на диску) має пріоритет, далі static `logo_static`."""
+    media_url = _client_media_logo_url(client)
+    if media_url:
+        return media_url
+    static_rel = (getattr(client, 'logo_static', '') or '').strip()
+    if static_rel and _static_file_exists(static_rel):
+        return static_url(static_rel)
     return ''
+
+
+def resolve_client_logo_srcset(client) -> str:
+    """`<slug>-128.webp 128w, <slug>.webp 256w` для static-лого; для аплоаду — порожньо (один файл)."""
+    if _client_media_logo_url(client):
+        return ''
+    static_rel = (getattr(client, 'logo_static', '') or '').strip()
+    if not static_rel.endswith('.webp') or not _static_file_exists(static_rel):
+        return ''
+    small_rel = static_rel[:-len('.webp')] + CLIENT_LOGO_SMALL_SUFFIX
+    if not _static_file_exists(small_rel):
+        return ''
+    return f'{static_url(small_rel)} 128w, {static_url(static_rel)} 256w'
 
 
 def card_preview_srcset(project) -> str:

@@ -1,9 +1,9 @@
-/* Clients marquee — спільна анімація (винесено з internet-shop-v2.css, 40s linear, без паузи на hover).
+/* Clients marquee — спільна анімація (винесено з internet-shop-v2.css, 40s linear).
+   Кола — посилання на сайти клієнтів: пауза на hover / фокусі з клавіатури.
    JS: static/js/components/clients-marquee.js виставляє --marquee-distance і .marquee-active. */
 [data-clients-marquee] {
     display: flex;
     width: max-content;
-    pointer-events: none;
     user-select: none;
     transform: translate3d(0, 0, 0);
 }
@@ -11,6 +11,16 @@
 [data-clients-marquee].marquee-active {
     animation: clients-marquee 40s linear infinite;
     will-change: transform;
+}
+
+[data-clients-marquee].marquee-active:hover,
+[data-clients-marquee].marquee-active:focus-within {
+    animation-play-state: paused;
+}
+
+[data-clients-marquee] .project-story:focus-visible {
+    outline: 3px solid #f60;
+    outline-offset: -3px;
 }
 
 @keyframes clients-marquee {
