@@ -509,3 +509,8 @@ body.pl-bot-body .main-content { max-width: 100%; overflow-x: clip; }
     .tgf-lead__card { padding: 30px 16px 20px; }
     .tgf-lead__note { font-size: 14px; }
 }
+
+/* Full-bleed on wide screens: hero bg was a fixed 1440px box (side bands at 1728/1920). */
+@media (min-width: 1400px) {
+    .tgf-hero__bg { width: max(1440px, 100%); }
+}

@@ -688,3 +688,11 @@
 @media (max-width: 767px) {
     .hf-hero__title { filter: drop-shadow(0 3px 12px rgba(0, 0, 0, .35)); }
 }
+
+/* Full-bleed on wide screens (>1556px, e.g. 1728/1920): the Figma bgs are fixed 1586/1671px
+   and left black side bands + hard image edges. Keep exact Figma size up to that width,
+   then grow proportionally to viewport + offset; min-height covers the 100svh hero. */
+@media (min-width: 768px) {
+    .hf-hero__bg { width: max(1586px, calc(100% + 30px)); height: auto; aspect-ratio: 1586 / 992; min-height: 100%; }
+    .hf-finale__bg { width: max(1671px, calc(100% + 40px)); height: auto; aspect-ratio: 1671 / 941; }
+}

@@ -1139,3 +1139,9 @@ html, html.pf-snap-on, body { scroll-snap-type: none !important; }
    (width capped instead, above), and the giant glow is clipped by the list both ways. */
 .pf-snaps { overflow: clip; container-type: inline-size; }
 .pf-snaps .pf-snap::before { contain: strict; }
+
+/* Full-bleed on wide screens: hero bg was a fixed 1483px box (side bands at 1728/1920).
+   Identical at ≤1440; wider = same −5px left edge, proportional growth. */
+@media (min-width: 1441px) {
+    .pfg-hero__bg { left: -5px; width: calc(100% + 43px); height: auto; aspect-ratio: 1483 / 871; }
+}
