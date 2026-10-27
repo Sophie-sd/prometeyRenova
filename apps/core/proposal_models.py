@@ -213,6 +213,7 @@ class Proposal(models.Model):
             'corporate-pid-klyuch-58wg': 'proposal/img/seal-on-dark.webp',
             'internet-mahazyn-vzuttia-odiahu-37pz': 'proposal/img/seal-on-dark.webp',
             'corporate-profremservice-mnte': 'proposal/img/seal-on-dark.webp',
+            'corporate-fotograf-0763': 'proposal/img/seal-on-dark.webp',
         }
         rel = by_slug.get(self.slug, 'proposal/img/seal-on-dark.webp')
         if (Path(settings.BASE_DIR) / 'static' / rel).is_file():

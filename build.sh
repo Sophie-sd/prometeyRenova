@@ -191,4 +191,7 @@ python manage.py seed_proposal_vzuttia_odiah
 echo "📄 Seeding profremservice.com.ua corporate catalog proposal (700 – 720 €) + standard demo-corp..."
 python manage.py seed_proposal_profremservice
 
+echo "📄 Seeding photographer portfolio + services catalog corporate proposal (650 €) + standard demo-corp..."
+python manage.py seed_proposal_fotograf
+
 echo "✅ Build complete!"
