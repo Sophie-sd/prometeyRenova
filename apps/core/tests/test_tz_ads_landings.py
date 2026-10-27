@@ -133,15 +133,14 @@ class AdsLandingSeoTests(TestCase):
 
     def test_shop_copy_and_skips(self):
         html = self.client.get('/internet-shop-v2/').content.decode()
-        self.assertIn('Портфоліо: інтернет-магазини, які ми запустили', html)
         self.assertIn('Що входить у Base', html)
         self.assertIn('Телефон потрібен, щоб менеджер передзвонив і назвав орієнтовну вартість.', html)
         self.assertNotIn('Не передаємо третім особам.', html)
         self.assertNotIn('Відгуки власників магазинів', html)
         self.assertIn('Виконавець: ФОП Дмитренко Софія Дмитрівна', html)
         self.assertNotIn('РНОКПП', html)
-        self.assertIn('Усі роботи', html)
         self.assertNotIn('Відкрити магазин', html)
+        self.assertNotIn('pl-ads-cases', html)
 
     def test_rozrobka_types_and_faq(self):
         html = self.client.get('/rozrobka-sajtiv/').content.decode()

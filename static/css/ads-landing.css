@@ -23,13 +23,6 @@
     line-height: 1.25;
 }
 
-.pl-ads-lead {
-    margin: 0 0 28px;
-    max-width: 640px;
-    font-size: 16px;
-    line-height: 1.45;
-}
-
 .pl-ads-crumbs {
     width: 100%;
     margin: 0 0 16px;
@@ -60,7 +53,6 @@
 .pl-ads-faq,
 .pl-ads-contacts,
 .pl-ads-process,
-.pl-ads-cases,
 .pl-ads-scope,
 .pl-ads-types,
 .pl-ads-guarantee,
@@ -74,7 +66,6 @@
 .pl-ads-faq,
 .pl-ads-contacts,
 .pl-ads-process,
-.pl-ads-cases,
 .pl-ads-scope,
 .pl-ads-types,
 .pl-ads-guarantee,
@@ -164,52 +155,6 @@
     margin-top: 20px;
 }
 
-.pl-ads-cases__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-}
-
-.pl-ads-case {
-    padding: 0 0 8px;
-}
-
-.pl-ads-case__img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 280 / 180;
-    object-fit: cover;
-    border-radius: 16px;
-    background: #141414;
-}
-
-.pl-ads-case__name {
-    margin: 10px 0 4px;
-    font-size: 16px;
-    font-weight: 700;
-}
-
-.pl-ads-case__niche,
-.pl-ads-case__tags {
-    margin: 0 0 4px;
-    font-size: 13px;
-    line-height: 1.4;
-    opacity: 0.85;
-}
-
-.pl-ads-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 44px;
-    margin-top: 24px;
-    padding: 10px 22px;
-    border: 1px solid currentColor;
-    border-radius: 100px;
-    font-size: 15px;
-    font-weight: 600;
-}
-
 .pl-ads-scope__in,
 .pl-ads-scope__out {
     margin: 0 0 20px;
@@ -264,11 +209,9 @@
 
 .pl-shop-body .pl-ads-h2,
 .pl-shop-body .pl-ads-h3,
-.pl-shop-body .pl-ads-lead,
 .pl-shop-body .pl-ads-faq,
 .pl-shop-body .pl-ads-contacts,
 .pl-shop-body .pl-ads-process,
-.pl-shop-body .pl-ads-cases,
 .pl-shop-body .pl-ads-scope {
     color: #f5f5f5;
 }
@@ -325,10 +268,8 @@
     color: #f5f5f5;
 }
 
-.pl-rs-body .pl-ads-lead,
 .pl-rs-body .pl-ads-faq__a,
 .pl-rs-body .pl-ads-contacts,
-.pl-dorobka-body .pl-ads-lead,
 .pl-dorobka-body .pl-ads-faq__a,
 .pl-dorobka-body .pl-ads-contacts {
     color: #d4d4d4;
@@ -342,7 +283,6 @@
     .pl-ads-faq,
     .pl-ads-contacts,
     .pl-ads-process,
-    .pl-ads-cases,
     .pl-ads-scope,
     .pl-ads-types,
     .pl-ads-guarantee,
@@ -356,7 +296,6 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .pl-ads-cases__grid,
     .pl-ads-cards__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -365,10 +304,6 @@
 @media (min-width: 1100px) {
     .pl-ads-process__list {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .pl-ads-cases__grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
     .pl-ads-cards__grid {
@@ -385,27 +320,7 @@
 
     .pl-ads-faq__q,
     .pl-ads-faq__a,
-    .pl-ads-lead,
     .pl-ads-contacts__list {
         font-size: 16px;
-    }
-
-    /* 12 shop cards: two columns on phones keep the block short. */
-    .pl-ads-cases__grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px 12px;
-    }
-
-    .pl-ads-case__img {
-        border-radius: 12px;
-    }
-
-    .pl-ads-case__name {
-        font-size: 15px;
-    }
-
-    .pl-ads-case__niche,
-    .pl-ads-case__tags {
-        font-size: 12px;
     }
 }

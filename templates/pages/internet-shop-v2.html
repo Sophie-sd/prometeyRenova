@@ -67,13 +67,12 @@
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=206">
 <link rel="stylesheet" href="{% static 'css/components/clients-marquee.css' %}?v=1">
-<link rel="stylesheet" href="{% static 'css/ads-landing.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'css/ads-landing.css' %}?v=3">
 {% endblock %}
 
 {% block content %}
 <div id="plShopRoot" class="pl-shop pl-shop-page">
     {% include 'components/internet_shop_v2/hero.html' %}
-    {% if ads_tz %}{% include 'components/internet_shop_v2/cases.html' %}{% endif %}
     {% include 'components/internet_shop_v2/clients.html' %}
     {% include 'components/internet_shop_v2/packages.html' %}
     {% if ads_tz %}{% include 'components/ads/process.html' with process_title=ads_copy.process_h2 %}{% endif %}

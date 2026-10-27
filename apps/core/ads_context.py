@@ -1,14 +1,9 @@
 """Context for ads landings: copy + breadcrumbs + JSON-LD from one source."""
-from pathlib import Path
-
-from django.conf import settings
-from django.templatetags.static import static
 from django.urls import reverse
 from django.utils import translation
 
 from .ads_copy import (
     SITE,
-    SHOP_SLUGS,
     contacts_copy,
     crumbs_copy,
     faq_pairs,
@@ -19,7 +14,6 @@ from .ads_copy import (
 )
 from .ads_copy_dorobka import dorobka_copy
 from .ads_schema import hreflang_urls, schema_scripts
-from .mixins import published_portfolio_queryset
 
 
 def _abs(path):
@@ -44,37 +38,12 @@ def _crumbs(last_name, last_url):
     ]
 
 
-ADS_CARD_DIR = 'images/portfolio/screens/ads-cards'
-ADS_CARD_WIDTHS = (400, 800)
-
-
-def _ads_card_images(slug):
-    """Top-crop 280:180 thumbs (D10). Empty when not generated, so the card keeps the portfolio image."""
-    rels = [f'{ADS_CARD_DIR}/{slug}-{width}w.webp' for width in ADS_CARD_WIDTHS]
-    base = Path(settings.BASE_DIR) / 'static'
-    if not all((base / rel).is_file() for rel in rels):
-        return '', ''
-    srcset = ', '.join(f'{static(rel)} {width}w' for rel, width in zip(rels, ADS_CARD_WIDTHS))
-    return static(rels[-1]), srcset
-
-
-def shop_portfolio_projects():
-    found = {
-        project.slug: project
-        for project in published_portfolio_queryset().filter(slug__in=SHOP_SLUGS)
-    }
-    projects = [found[slug] for slug in SHOP_SLUGS if slug in found]
-    for project in projects:
-        project.ads_card_src, project.ads_card_srcset = _ads_card_images(project.slug)
-    return projects
-
-
 def _seo_only(name):
     return {
         'ads_tz': False,
         'ads_copy': {'faq_h2': '', 'types': (), 'types_h2': '', 'guarantee_h2': '', 'guarantee': '',
                      'process_h2': '', 'prices_h2': '', 'include_h3': '', 'include': '', 'exclude_h3': '',
-                     'exclude': '', 'portfolio_h2': '', 'shops_note': '', 'all_works': '', 'line': '',
+                     'exclude': '', 'line': '',
                      'form_note': '', 'privacy_before': '', 'privacy_link': '', 'trust': '', 'offer_line': '',
                      'crumb': ''},
         'ads_faq': [],
@@ -83,7 +52,6 @@ def _seo_only(name):
         'ads_seo': hreflang_for(name),
         'ads_process': {'title': '', 'note': '', 'steps': ()},
         'ads_json_ld': [],
-        'shop_portfolio': [],
     }
 
 
@@ -106,7 +74,6 @@ def shop_ads_context():
         'ads_seo': seo,
         'ads_process': process,
         'ads_json_ld': schema_scripts(crumbs, faq),
-        'shop_portfolio': shop_portfolio_projects(),
         'page_title': copy['title'],
         'meta_description': copy['description'],
         'og_title': copy['title'],

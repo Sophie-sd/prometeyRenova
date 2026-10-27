@@ -3,11 +3,6 @@ from django.utils import translation
 
 SITE = 'https://www.prometeylabs.com'
 
-SHOP_SLUGS = (
-    'droproom', 'gordimarket', 'svitpc', 'ofion', 'beauty-opt',
-    'domoteh', 'carpet-haus', 'geer', 'oyra', 'boltiko', 'beautycake', 'soliron',
-)
-
 PROCESS_SITE = {
     'uk': {
         'title': 'Як ми створюємо сайт',
@@ -84,9 +79,6 @@ SHOP = {
             'Відповідаємо протягом 15 хвилин · Оплата частинами до 15 платежів'
         ),
         'crumb': 'Інтернет-магазини',
-        'portfolio_h2': 'Портфоліо: інтернет-магазини, які ми запустили',
-        'shops_note': 'Ми розробили 30+ інтернет-магазинів — тут добірка найкращих',
-        'all_works': 'Усі роботи',
         'prices_h2': 'Скільки коштує створення інтернет-магазину',
         'include_h3': 'Що входить у Base',
         'include': (
@@ -152,9 +144,6 @@ SHOP = {
             'Отвечаем в течение 15 минут · Оплата частями до 15 платежей'
         ),
         'crumb': 'Интернет-магазины',
-        'portfolio_h2': 'Портфолио: интернет-магазины, которые мы запустили',
-        'shops_note': 'Мы разработали 30+ интернет-магазинов — здесь подборка лучших',
-        'all_works': 'Все работы',
         'prices_h2': 'Сколько стоит создание интернет-магазина',
         'include_h3': 'Что входит в Base',
         'include': (

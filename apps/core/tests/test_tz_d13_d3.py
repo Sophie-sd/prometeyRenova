@@ -21,12 +21,10 @@ class ShopsNoteTests(TestCase):
         self.assertEqual(response.status_code, 200, path)
         return response.content.decode()
 
-    def test_note_server_rendered_on_four_pages(self):
+    def test_note_server_rendered_on_portfolio_pages(self):
         for path, note, other in (
             ('/portfolio/', UK_NOTE, RU_NOTE),
             ('/ru/portfolio/', RU_NOTE, UK_NOTE),
-            ('/internet-shop-v2/', UK_NOTE, RU_NOTE),
-            ('/ru/internet-shop-v2/', RU_NOTE, UK_NOTE),
         ):
             with self.subTest(path=path):
                 html = self._html(path)
@@ -36,14 +34,6 @@ class ShopsNoteTests(TestCase):
     def test_portfolio_note_above_filter(self):
         html = self._html('/portfolio/')
         self.assertLess(html.index(UK_NOTE), html.index('id="pfg-filters-title"'))
-
-    def test_shop_note_in_clients_block(self):
-        for path, note in (('/internet-shop-v2/', UK_NOTE), ('/ru/internet-shop-v2/', RU_NOTE)):
-            with self.subTest(path=path):
-                html = self._html(path)
-                start = html.index('id="pl-shop-cases-title"')
-                self.assertLess(start, html.index(note))
-                self.assertLess(html.index(note), html.index('pl-ads-cases__grid'))
 
 
 class RozrobkaHeroPricesOnceTests(TestCase):
