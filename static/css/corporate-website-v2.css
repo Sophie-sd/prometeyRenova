@@ -858,7 +858,7 @@ body.pl-corp-body .main-footer .container,
 }
 
 .pl-corp__clients-stories-container.marquee-active {
-    animation: pl-corp-marquee 40s linear infinite;
+    animation: pl-corp-marquee var(--marquee-duration, 40s) linear infinite;
     will-change: transform;
 }
 
@@ -868,7 +868,7 @@ body.pl-corp-body .main-footer .container,
     }
 }
 
-.pl-corp__clients-stories-container.marquee-active:focus-within {
+.pl-corp__clients-stories-container.marquee-active:has(.project-story:focus-visible) {
     animation-play-state: paused;
 }
 

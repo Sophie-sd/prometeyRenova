@@ -595,7 +595,8 @@
     .hf-finale__bg { top: 0; width: 1824px; height: 1027px; transform: translateX(calc(-50% - 286.5px)); }
     .hf-clients__track { margin-top: 40px; }
     .hf-clients__list { gap: 14px; }
-    .hf-clients .project-story { width: 76.478px; height: 76.478px; }
+    /* 76px (не 76.478px з макета): цілий крок кола → шов стрічки без субпіксельного зсуву на мобільному. */
+    .hf-clients .project-story { width: 76px; height: 76px; }
     .hf-clients .hf-btn--brand { width: 100%; margin-top: 40px; }
 
     .hf-cta { margin-top: 218px; }

@@ -70,6 +70,22 @@ class ClientLogoResolutionTests(SimpleTestCase):
         self.assertEqual(client.get_logo_alt(), 'Custom')
 
 
+class ClientsMarqueeSpeedTests(SimpleTestCase):
+    """Old 9-logo strip ran one set per 40s; keep that px/s with any number of clients."""
+
+    def test_js_scales_duration_per_item_and_starts_on_any_intersection(self):
+        for rel in ('static/js/components/clients-marquee.js', 'static/js/corporate-website-v2.js'):
+            with self.subTest(js=rel):
+                js = (Path(settings.BASE_DIR) / rel).read_text(encoding='utf-8')
+                self.assertIn('var SECONDS_PER_ITEM = 40 / 9;', js)
+                self.assertIn("'--marquee-duration'", js)
+                # Стрічка з 33 кіл ширша за мобільний в'юпорт у ~8 разів: 10% площі не досягається.
+                self.assertIn("{ threshold: 0, rootMargin: '50px' }", js)
+                self.assertNotIn("{ threshold: 0.1, rootMargin: '50px' }", js)
+                self.assertIn('story-clone', js)
+                self.assertIn("img.loading = 'eager'", js)
+
+
 class HomeClientsDataTests(SimpleTestCase):
     def test_list_size_unique_https_and_logo_files(self):
         self.assertGreaterEqual(len(HOME_CLIENTS), 20)
@@ -228,8 +244,12 @@ class ShopV2MarkupTests(SimpleTestCase):
         css = (Path(settings.BASE_DIR) / 'static/css/components/clients-marquee.css').read_text()
         rule = css.split('[data-clients-marquee] {', 1)[1].split('}', 1)[0]
         self.assertNotIn('pointer-events', rule)
-        self.assertIn(':focus-within', css)
+        self.assertIn(':has(.project-story:focus-visible)', css)
+        self.assertIn('@media (hover: hover) and (pointer: fine)', css)
+        self.assertIn('var(--marquee-duration, 40s)', css)
         self.assertIn('prefers-reduced-motion', css)
+        corp = (Path(settings.BASE_DIR) / 'static/css/corporate-website-v2.css').read_text()
+        self.assertIn('pl-corp-marquee var(--marquee-duration, 40s)', corp)
         shop = (Path(settings.BASE_DIR) / 'static/css/internet-shop-v2.css').read_text()
         rule = shop.split('.pl-shop__clients-stories-container {', 1)[1].split('}', 1)[0]
         self.assertNotIn('pointer-events', rule)
