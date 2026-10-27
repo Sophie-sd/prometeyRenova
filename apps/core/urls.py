@@ -2,6 +2,7 @@ from django.urls import path
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 from . import ads_views
+from . import presentation_views
 from . import proposal_views
 from . import tz_views
 from . import views
@@ -50,6 +51,12 @@ urlpatterns = [
         name='corporate_website',
     ),
     path('thank-you/', views.ThankYouView.as_view(), name='thank_you'),
+    path(
+        'proposal/ultramarket-prezentatsiia-eea8d641/',
+        presentation_views.private_presentation,
+        {'slug': 'ultramarket-prezentatsiia-eea8d641'},
+        name='private_presentation_ultramarket',
+    ),
     path(
         'proposal/<slug:slug>/',
         proposal_views.ProposalDetailView.as_view(),

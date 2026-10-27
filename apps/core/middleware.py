@@ -64,6 +64,11 @@ class CSPMiddleware:
         if 'text/html' not in content_type:
             return response
 
+        # View already set its own (stricter) CSP, e.g. private KP presentations
+        # with hash-allowed inline scripts — keep it.
+        if 'Content-Security-Policy' in response:
+            return response
+
         # Django admin ships its own JS/CSS bundle and uses inline event
         # handlers in some widgets. Applying 'strict-dynamic' here breaks the
         # nav sidebar, inline "Add another" buttons, autocomplete, etc., so we
