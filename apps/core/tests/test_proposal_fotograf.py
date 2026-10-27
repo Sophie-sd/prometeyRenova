@@ -14,8 +14,8 @@ class FotografProposalTests(TestCase):
 
     def test_packages_and_payment_from_pdf(self):
         proposal = Proposal.objects.get(slug=self.slug)
-        self.assertEqual(proposal.kind, Proposal.DemoKind.CORPORATE)
-        self.assertTrue(proposal.corp_catalog)
+        self.assertEqual(proposal.kind, Proposal.DemoKind.SHOP)
+        self.assertFalse(proposal.corp_catalog)
         packages = list(proposal.packages.order_by('order'))
         self.assertEqual(len(packages), 1)
         self.assertEqual(packages[0].price, Decimal('650.00'))
@@ -38,14 +38,12 @@ class FotografProposalTests(TestCase):
         self.assertTrue(proposal.hero_image)
         self.assertTrue(proposal.hero_public_url)
 
-    def test_page_noindex_with_single_corp_demo(self):
+    def test_page_noindex_with_standard_demo_shop(self):
         call_command('seed_proposal_fotograf', verbosity=0)
         proposal = Proposal.objects.get(slug=self.slug)
-        site = proposal.demo_corp
+        site = proposal.demo_shop
         self.assertIsNotNone(site)
-        self.assertEqual(site.name, 'Demo Site')
-        self.assertTrue(site.has_catalog)
-        self.assertIsNone(getattr(proposal, 'demo_shop', None))
+        self.assertEqual(site.name, 'Demo Shop')
         response = self.client.get(f'/proposal/{self.slug}/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'noindex')

@@ -5,8 +5,8 @@ Management command: seed_proposal_fotograf
 (PDF 27.10.2026, українською): корпоративний сайт-портфоліо з каталогом послуг під ключ,
 650 €, 30 днів. Оплата 50/50 (325 € + 325 €) або розстрочка 0% (Моно / Приват),
 до 5 платежів по 130 €/міс. Kind — corporate (предмет договору: корпоративний сайт
-з каталогом), corp_catalog=True. Демо — стандартний корпоративний сайт
-(provision_demo_corp), без змін під клієнта.
+з каталогом). Демо — стандартний демо-магазин
+(provision_demo_shop), без змін під клієнта.
 """
 from datetime import date
 from decimal import Decimal
@@ -32,7 +32,7 @@ from apps.core.proposal_visual_models import ProposalArchNode, ProposalHighlight
 
 SLUG = 'corporate-fotograf-0763'
 CLIENT = 'Фотограф'
-DEMO_TENANT_SLUG = 'korporatyvnyi-katalog-c1f5c0'
+DEMO_TENANT_SLUG = 'fotograf-4a769c'
 ISSUED_ON = date(2026, 10, 27)
 ORDER = 45
 
@@ -266,14 +266,14 @@ def _attach_hero(proposal: Proposal) -> None:
 class Command(BaseCommand):
     help = (
         'Seed photographer portfolio + services catalog corporate proposal (650 €) '
-        '+ standard demo-corp (idempotent)'
+        '+ standard demo-shop (idempotent)'
     )
 
     def add_arguments(self, parser):
         parser.add_argument(
             '--no-demo',
             action='store_true',
-            help='Тільки КП, без provision_demo_corp',
+            help='Тільки КП, без provision_demo_shop',
         )
 
     def handle(self, *args, **options):
@@ -298,26 +298,20 @@ class Command(BaseCommand):
         ))
 
     def _provision_demo(self, proposal: Proposal) -> None:
-        """Стандартний демо корпоративного сайту (як у всіх corporate КП) через provision_demo_corp()."""
-        from apps.democorp.models import CorpSite
-        from apps.democorp.services.provision import provision_demo_corp
+        """Стандартний демо-магазин (як у всіх КП) через provision_demo_shop(), без змін під клієнта."""
         from apps.demoshop.models import DemoShop
+        from apps.demoshop.services.provision import provision_demo_shop
 
-        DemoShop.objects.filter(proposal=proposal).delete()
-        site = CorpSite.objects.filter(proposal=proposal).first()
-        if site is None:
-            site = CorpSite(
-                proposal=proposal,
-                name='Demo Site',
-                slug=DEMO_TENANT_SLUG,
-            )
-            site.save()
-        site = provision_demo_corp(proposal)
-        if site.name != 'Demo Site':
-            site.name = 'Demo Site'
-            site.save(update_fields=['name'])
+        shop = DemoShop.objects.filter(proposal=proposal).first()
+        if shop is None:
+            shop = DemoShop(proposal=proposal, name='Demo Shop', slug=DEMO_TENANT_SLUG)
+            shop.save()
+        shop = provision_demo_shop(proposal)
+        if shop.name != 'Demo Shop':
+            shop.name = 'Demo Shop'
+            shop.save(update_fields=['name'])
         self.stdout.write(self.style.SUCCESS(
-            f'Demo: {site.get_absolute_url()} (slug={site.slug})'
+            f'Demo: {shop.get_absolute_url()} (slug={shop.slug})'
         ))
 
     def _seed_rows(self):
@@ -350,8 +344,8 @@ class Command(BaseCommand):
                 'cta_label_ru': 'Обсудить проект',
                 'cta_label_en': '',
                 'cta_label_cs': '',
-                'kind': Proposal.DemoKind.CORPORATE,
-                'corp_catalog': True,
+                'kind': Proposal.DemoKind.SHOP,
+                'corp_catalog': False,
                 'is_published': True,
                 'order': ORDER,
             },
