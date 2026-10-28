@@ -2792,7 +2792,7 @@ body.pl-shop-body .main-footer .container,
 .pl-shop__title--hero{max-width:362px;font-size:34px;font-weight:500;line-height:1;letter-spacing:-1.7px;text-wrap:balance}
 .pl-shop__nowrap{white-space:nowrap}
 .pl-shop__hero-line{max-width:362px;padding:0;border:0;border-radius:0;font-size:14px;font-weight:500;line-height:1.3;letter-spacing:-0.28px;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.75)}
-.pl-shop__hero-acc{font-weight:700;color:#ff8a3d}
+.pl-shop__hero-acc{font-weight:700;color:#ff8a3d;white-space:nowrap}
 .pl-shop__hero-lead{max-width:298px;font-size:14px;font-weight:400;line-height:1.25;letter-spacing:-0.28px;color:#a1a1aa}
 .pl-shop__hero-card{gap:14px;max-width:520px;padding:16px;border:1px solid rgba(255,255,255,.1);border-radius:30px;background:var(--pl-grad),rgba(0,0,0,.62);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
 .pl-shop__hero-card .pl-calc-cta{margin:0 auto}
