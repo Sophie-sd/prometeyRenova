@@ -200,4 +200,7 @@ python manage.py seed_proposal_avtotovary
 echo "📄 Seeding auto goods e-shop + Prom.ua migration proposal (920 €) + standard demo-shop..."
 python manage.py seed_proposal_avtotovary_prom
 
+echo "📄 Seeding fishing goods e-shop proposal (950 €) + standard demo-shop..."
+python manage.py seed_proposal_rybalka
+
 echo "✅ Build complete!"
