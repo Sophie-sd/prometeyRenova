@@ -90,12 +90,13 @@ class CalcCtaLandingTests(TestCase):
                 self.assertNotIn('hf-btn--light', hero)
                 self.assertIn('hf-hero__secondary', hero)
 
-    def test_forms_kept_on_rozrobka_hero(self):
-        for url, form_id in (('/rozrobka-sajtiv/', 'pl-rs-hero-form'), ('/ru/rozrobka-sajtiv/', 'pl-rs-hero-form')):
+    def test_rozrobka_hero_has_no_form(self):
+        # ТЗ Софії 28.10.2026 п. 4.1: форму з херо прибрано, кнопка-квіз лишається.
+        for url in ('/rozrobka-sajtiv/', '/ru/rozrobka-sajtiv/'):
             with self.subTest(url=url):
                 html = self._html(url)
-                self.assertIn(f'id="{form_id}"', html)
-                self.assertLess(html.index('data-calc-cta="hero"'), html.index(f'id="{form_id}"'))
+                self.assertNotIn('id="pl-rs-hero-form"', html)
+                self.assertIn('data-calc-cta="hero"', html)
 
     def test_shop_hero_has_no_form_and_form1_after_svoboda(self):
         # ТЗ 27.10.2026 п. 4.2 / 4.9: форму з hero прибрано, «Форма №1» — після «Переросли Prom».

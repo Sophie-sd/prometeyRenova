@@ -51,11 +51,9 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertEqual(lead.count('class="pl-rs__acc"'), 4)
         self.assertNotIn('Ціну й строк фіксуємо в договорі.', lead)
         self.assertNotIn('адмінка залишається у вас', lead)
-        # first-screen form (site_request) + title + button + callback promise
-        self.assertIn('data-form-type="site_request"', root)
-        self.assertIn('Розрахуємо вартість вашого сайту', root)
-        self.assertIn('Отримати розрахунок', root)
-        self.assertIn('Менеджер передзвонить за 15 хвилин', root)
+        # ТЗ Софії 28.10.2026 п. 4.1: форми в херо немає
+        self.assertNotIn('id="pl-rs-hero-form"', html)
+        self.assertNotIn('Розрахуємо вартість вашого сайту', root)
         self.assertIn('Ціна і строк у договорі · Адмінка залишається у вас · 50+ запущених проєктів</p>', root)
         self.assertNotIn('Відповідаємо протягом 15 хвилин', root)
         # price ranges live in «Чому варто обрати» (home component), not in hero floats
@@ -130,9 +128,8 @@ class RozrobkaSajtivPageTests(TestCase):
         root = _landing_markup(html)
         self.assertIn('Разработка сайтов под ключ. Создание сайтов от 250 €</h1>', html)
         self.assertIn('Закажите сайт для бизнеса: лендинг <span class="pl-rs__acc">от 250 €', root)
-        self.assertIn('Рассчитаем стоимость вашего сайта', root)
-        self.assertIn('Получить расчёт', root)
-        self.assertIn('Менеджер перезвонит за 15 минут', root)
+        self.assertNotIn('id="pl-rs-hero-form"', html)
+        self.assertNotIn('Рассчитаем стоимость вашего сайта', root)
         self.assertIn('Пожизненная гарантия на код, <span class="pl-rs__acc">1 год бесплатной поддержки</span>.', root)
         self.assertIn('Цена и срок в договоре · Админка остаётся у вас · 50+ запущенных проектов</p>', root)
         self.assertNotIn('Отвечаем в течение 15 минут', root)

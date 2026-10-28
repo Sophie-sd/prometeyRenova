@@ -21,19 +21,14 @@ class ShopsNoteTests(TestCase):
         self.assertEqual(response.status_code, 200, path)
         return response.content.decode()
 
-    def test_note_server_rendered_on_portfolio_pages(self):
-        for path, note, other in (
-            ('/portfolio/', UK_NOTE, RU_NOTE),
-            ('/ru/portfolio/', RU_NOTE, UK_NOTE),
-        ):
+    def test_note_removed_from_portfolio_pages(self):
+        # ТЗ Софії 28.10.2026 п. 2.2: рядок прибрано з HTML (не display:none).
+        for path in ('/portfolio/', '/ru/portfolio/'):
             with self.subTest(path=path):
                 html = self._html(path)
-                self.assertEqual(html.count(note), 1)
-                self.assertNotIn(other, html)
-
-    def test_portfolio_note_above_filter(self):
-        html = self._html('/portfolio/')
-        self.assertLess(html.index(UK_NOTE), html.index('id="pfg-filters-title"'))
+                self.assertNotIn(UK_NOTE, html)
+                self.assertNotIn(RU_NOTE, html)
+                self.assertNotIn('pfg-filters__note', html)
 
 
 class RozrobkaHeroPricesOnceTests(TestCase):
