@@ -2827,3 +2827,8 @@ body.pl-shop-body .main-footer .container,
 .pl-shop-body .pl-shop__hero-card .pl-calc-cta{margin:0 auto}
 @media (min-width:768px){.pl-shop-body .pl-shop__hero-line{max-width:620px}}
 @media (min-width:1024px){.pl-shop-body .pl-shop__hero-line{max-width:900px}.pl-shop-body .pl-shop__hero-trust{font-size:15px}.pl-shop-body .pl-shop__hero-card .pl-calc-cta__btn{width:auto}}
+
+/* Фон-картинка квізу тепер на позиції №10 (смуга-CTA #rozrahunok) — фони чергуються за позицією, як до перестановки. */
+.pl-shop-body .pl-shop__strip-wrap{position:relative}
+.pl-shop-body .pl-shop__strip-wrap > .pl-corp__section{position:relative;z-index:1}
+.pl-shop-body .pl-shop__strip-wrap > .pl-shop__calc-bg{top:0;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 22%,#000 78%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 22%,#000 78%,transparent)}
