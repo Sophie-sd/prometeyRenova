@@ -108,6 +108,23 @@ class CalcCtaLandingTests(TestCase):
                 self.assertLess(html.index('id="garantiya"'), html.index('id="rozrahunok"'))
                 self.assertLess(html.index('id="rozrahunok"'), html.index('id="faq"'))
 
+    def test_shop_order_quiz_at_end_after_faq(self):
+        # 28.10.2026 (Олег): тест #zayavka — у самому кінці після FAQ; між херо і пакетами лише логотипи #portfolio.
+        order = ('portfolio', 'pakety', 'svoboda', 'forma-1', 'pl-shop-admin-title', 'dropshipping', 'garantiya', 'rozrahunok', 'faq', 'zayavka')
+        for url in ('/internet-shop-v2/', '/ru/internet-shop-v2/'):
+            with self.subTest(url=url):
+                html = self._html(url)
+                pos = [html.index(f'id="{a}"') for a in order]
+                self.assertEqual(pos, sorted(pos))
+                self.assertLess(html.index('data-calc-cta="hero"'), pos[0])
+                self.assertEqual(html[html.index('pl-shop__hero'):pos[1]].count('<section'), 2)  # лише логотипи + відкриття #pakety
+                sticky = html[html.index('data-calc-sticky'):]
+                self.assertIn('data-calc-target="#zayavka"', sticky[:300])
+                self.assertIn('href="#zayavka"', sticky[:700])
+                self.assertIn('class="pl-shop__calc-bg"', html[pos[-1]:])
+                self.assertNotIn('pl-shop__calc-bg', html[:pos[-1]])
+                self.assertNotIn('pl-shop__strip-wrap', html)
+
     def test_calculator_supports_autostart(self):
         for url in ('/calculator/', '/ru/calculator/'):
             with self.subTest(url=url):
