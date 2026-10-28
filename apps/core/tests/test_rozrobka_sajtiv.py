@@ -44,7 +44,13 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertIn('rozrobka-sajtiv.css', html)
         # ТЗ 27.10.2026 п. 3.1 / 3.10
         self.assertIn('Розробка сайтів під ключ. Створення сайтів від 250 €</h1>', html)
-        self.assertIn('Замовте сайт для бізнесу: лендінг від 250 € за 3–7 днів', root)
+        self.assertIn('Замовте сайт для бізнесу: лендінг <span class="pl-rs__acc">від 250 € за 3–7 днів</span>', root)
+        # ТЗ Софії 28.10.2026 п. 4.3: два фрагменти прибрано, рівно 4 помаранчеві акценти
+        lead = root[root.index('<p class="pl-rs__lead">'):]
+        lead = lead[:lead.index('</p>')]
+        self.assertEqual(lead.count('class="pl-rs__acc"'), 4)
+        self.assertNotIn('Ціну й строк фіксуємо в договорі.', lead)
+        self.assertNotIn('адмінка залишається у вас', lead)
         # first-screen form (site_request) + title + button + callback promise
         self.assertIn('data-form-type="site_request"', root)
         self.assertIn('Розрахуємо вартість вашого сайту', root)
@@ -64,7 +70,7 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertNotIn('pl-rs__floats', html)
         self.assertNotIn('fx-soft-float-', html)
         # canon warranty wording (wins over the ТЗ «рік підтримки безкоштовно»)
-        self.assertIn('Пожиттєва гарантія на код, 1 рік безкоштовної підтримки, адмінка залишається у вас.', root)
+        self.assertIn('Пожиттєва гарантія на код, <span class="pl-rs__acc">1 рік безкоштовної підтримки</span>.', root)
         self.assertNotIn('1 рік гарантії', html)
         self.assertNotIn('5 років', root)
         self.assertNotIn('індивідуально', root)
@@ -123,11 +129,11 @@ class RozrobkaSajtivPageTests(TestCase):
         html = self.client.get('/ru/rozrobka-sajtiv/').content.decode()
         root = _landing_markup(html)
         self.assertIn('Разработка сайтов под ключ. Создание сайтов от 250 €</h1>', html)
-        self.assertIn('Закажите сайт для бизнеса: лендинг от 250 €', root)
+        self.assertIn('Закажите сайт для бизнеса: лендинг <span class="pl-rs__acc">от 250 €', root)
         self.assertIn('Рассчитаем стоимость вашего сайта', root)
         self.assertIn('Получить расчёт', root)
         self.assertIn('Менеджер перезвонит за 15 минут', root)
-        self.assertIn('Пожизненная гарантия на код, 1 год бесплатной поддержки, админка остаётся у вас.', root)
+        self.assertIn('Пожизненная гарантия на код, <span class="pl-rs__acc">1 год бесплатной поддержки</span>.', root)
         self.assertIn('Цена и срок в договоре · Админка остаётся у вас · 50+ запущенных проектов</p>', root)
         self.assertNotIn('Отвечаем в течение 15 минут', root)
         self.assertIn('€', root)
