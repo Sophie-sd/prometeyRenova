@@ -14,8 +14,12 @@ RU = '/ru/internet-shop-v2/'
 SPEC = {
     UA: {
         'title': 'Створення інтернет-магазину під ключ — ціна від 800 € | PrometeyLabs',
-        'h1': 'Створення інтернет-магазину під ключ',
-        'line': 'Розробка інтернет-магазину від 800 €: запуск за 3 тижні, 1 рік підтримки безкоштовно і пожиттєва гарантія на код.',
+        'h1': 'Створення <span class="pl-shop__nowrap">інтернет-магазину</span> під ключ',
+        'line': 'Розробка <span class="pl-shop__nowrap">інтернет-магазину</span> <strong class="pl-shop__hero-acc">від 800 €</strong> · запуск <strong class="pl-shop__hero-acc">за 3 тижні</strong> · 1 рік підтримки безкоштовно · пожиттєва гарантія на код',
+        'cta': 'Розрахувати вартість магазину',
+        'micro': 'Пройдіть тест за 1 хвилину',
+        'sticky': 'Розрахуйте вартість онлайн',
+        'trust': ['30+ розроблених інтернет-магазинів', 'Ціна і строк у договорі', 'Менеджер передзвонить за 15 хвилин', 'Оплата частинами до 15 платежів'],
         'lead': 'Дизайн, код і інтеграції. Без плагінів і без щомісячної абонплати. Магазин залишається вашим.',
         'labels': ('Ім’я', 'Телефон'),
         'button': 'Дізнатися вартість',
@@ -42,8 +46,12 @@ SPEC = {
     },
     RU: {
         'title': 'Создание интернет-магазина под ключ — цена от 800 € | PrometeyLabs',
-        'h1': 'Создание интернет-магазина под ключ',
-        'line': 'Разработка интернет-магазина от 800 €: запуск за 3 недели, 1 год поддержки бесплатно и пожизненная гарантия на код.',
+        'h1': 'Создание <span class="pl-shop__nowrap">интернет-магазина</span> под ключ',
+        'line': 'Разработка <span class="pl-shop__nowrap">интернет-магазина</span> <strong class="pl-shop__hero-acc">от 800 €</strong> · запуск <strong class="pl-shop__hero-acc">за 3 недели</strong> · 1 год поддержки бесплатно · пожизненная гарантия на код',
+        'cta': 'Рассчитать стоимость магазина',
+        'micro': 'Пройдите тест за 1 минуту',
+        'sticky': 'Рассчитайте стоимость онлайн',
+        'trust': ['30+ разработанных интернет-магазинов', 'Цена и срок в договоре', 'Менеджер перезвонит за 15 минут', 'Оплата частями до 15 платежей'],
         'lead': 'Дизайн, код и интеграции. Без плагинов и без ежемесячной абонплаты. Магазин остаётся вашим.',
         'labels': ('Имя', 'Телефон'),
         'button': 'Узнать стоимость',
@@ -132,20 +140,19 @@ class ShopV2SpecTests(TestCase):
             self.assertIn(f'id="pl-shop-hero-title" class="pl-shop__title pl-shop__title--hero">{s["h1"]}</h1>', hero)
             self.assertIn(f'<p class="pl-shop__hero-line">{s["line"]}</p>', hero)
             self.assertIn(f'<p class="pl-shop__hero-lead">{s["lead"]}</p>', hero)
-            form = _between(hero, '<form', '</form>')
-            self.assertIn('id="pl-shop-hero-form"', form)
-            self.assertIn(f'action="{s["action"]}"', form)
-            self.assertIn('method="post"', form)
-            self.assertIn('data-form-type="site_request"', form)
-            self.assertIn('name="csrfmiddlewaretoken"', form)
-            self.assertIn('<input type="hidden" name="form_type" value="site_request">', form)
-            self.assertIn('<input type="hidden" name="source_page" value="internet-shop-v2">', form)
-            self.assertRegex(form, r'<input type="text" id="pl-shop-hero-name" name="name"[^>]*required')
-            self.assertRegex(form, r'<input type="tel" id="pl-shop-hero-phone" name="phone"[^>]*required')
-            for label in s['labels']:
-                self.assertIn(f'>{label}</label>', form)
-            self.assertIn(f'type="submit"', form)
-            self.assertIn(f'>{s["button"]}</button>', form)
+            # ТЗ 27.10.2026 п. 4.1–4.2: без видимих крошок і без форми в hero; CTA → квіз #zayavka.
+            self.assertNotIn('<form', hero, url)
+            self.assertNotIn('pl-ads-crumbs', hero, url)
+            self.assertIn('"BreadcrumbList"', html, url)
+            card = _between(hero, 'class="pl-shop__hero-card"', '</section>')
+            self.assertIn('href="#zayavka" class="pl-calc-cta__btn mobile-touch-target" data-calc-cta="hero" data-calc-page="shop" data-calc-scroll="#zayavka"', card)
+            self.assertIn(f'<span class="pl-calc-cta__label">{s["cta"]}</span>', card)
+            self.assertIn(f'<p class="pl-calc-cta__micro">{s["micro"]}</p>', card)
+            self.assertIn('data-calc-event="sticky_cta_click"', card)
+            self.assertIn(f'<span class="pl-calc-cta__label">{s["sticky"]}</span></a>', card)
+            trust = _between(card, 'class="pl-shop__hero-trust"', '</p>')
+            for t in s['trust']:
+                self.assertIn(f'<span>{t}</span>', trust)
             contacts = _between(hero, 'class="pl-shop__hero-contacts"', '</p>')
             self.assertIn('href="tel:+380639520565"', contacts)
             self.assertIn('+38 (063) 952-05-65', contacts)

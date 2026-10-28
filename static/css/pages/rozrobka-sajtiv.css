@@ -2312,3 +2312,6 @@
 .pl-rs__work-copy .pl-rs__work-name{max-width:none}
 .pl-rs__work-copy .pl-rs__work-meta{margin:0}
 @media (max-width:767px){.pl-rs__work-track{scroll-padding-inline:16px}} /* first card lines up with the H2 (snap respected the -16px bleed) */
+
+/* ТЗ 27.10.2026 (shop-v2) п. 4.1.6: без видимих крихт H1 на мобільному піднімався під шапку (перевірено на 390×844) */
+@media (max-width:767px){.pl-rs__h1{margin-top:33px}}

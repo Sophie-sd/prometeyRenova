@@ -6,7 +6,7 @@
     <div class="pl-rs__inner pl-rs__hero-stage">
         {# ТЗ 27.10.2026 п. 3.1: price floats removed from the hero (prices live in «Чому варто обрати» right below). #}
         <div class="pl-rs__hero-copy">
-            {% if ads_tz %}{% include 'components/ads/breadcrumbs.html' %}{% endif %}
+            {# ТЗ 27.10.2026 (shop-v2) п. 4.1: видимі крихти прибрано; BreadcrumbList JSON-LD у <head> лишається. #}
             <h1 id="pl-rs-h1" class="pl-rs__h1">{% trans "Розробка сайтів під ключ. Створення сайтів від 250 €" %}</h1>
             <p class="pl-rs__lead">{# ТЗ 27.10.2026 п. 3.1. Warranty wording = canon («1 рік безкоштовної підтримки»), not the ТЗ «рік підтримки безкоштовно». #}{% trans "Замовте сайт для бізнесу: лендінг від 250 € за 3–7 днів, корпоративний сайт від 500 €, інтернет-магазин від 800 €. Ціну й строк фіксуємо в договорі. Пожиттєва гарантія на код, 1 рік безкоштовної підтримки, адмінка залишається у вас." %}</p>
             {% calc_cta 'rozrobka' 'block' 'hero' %}{% calc_cta_sticky 'rozrobka' %}

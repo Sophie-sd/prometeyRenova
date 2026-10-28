@@ -90,13 +90,23 @@ class CalcCtaLandingTests(TestCase):
                 self.assertNotIn('hf-btn--light', hero)
                 self.assertIn('hf-hero__secondary', hero)
 
-    def test_forms_kept_on_shop_and_rozrobka_hero(self):
-        for url, form_id in (('/internet-shop-v2/', 'pl-shop-hero-form'), ('/ru/internet-shop-v2/', 'pl-shop-hero-form'),
-                             ('/rozrobka-sajtiv/', 'pl-rs-hero-form'), ('/ru/rozrobka-sajtiv/', 'pl-rs-hero-form')):
+    def test_forms_kept_on_rozrobka_hero(self):
+        for url, form_id in (('/rozrobka-sajtiv/', 'pl-rs-hero-form'), ('/ru/rozrobka-sajtiv/', 'pl-rs-hero-form')):
             with self.subTest(url=url):
                 html = self._html(url)
                 self.assertIn(f'id="{form_id}"', html)
                 self.assertLess(html.index('data-calc-cta="hero"'), html.index(f'id="{form_id}"'))
+
+    def test_shop_hero_has_no_form_and_form1_after_svoboda(self):
+        # ТЗ 27.10.2026 п. 4.2 / 4.9: форму з hero прибрано, «Форма №1» — після «Переросли Prom».
+        for url in ('/internet-shop-v2/', '/ru/internet-shop-v2/'):
+            with self.subTest(url=url):
+                html = self._html(url)
+                self.assertNotIn('id="pl-shop-hero-form"', html)
+                self.assertLess(html.index('id="svoboda"'), html.index('id="forma-1"'))
+                self.assertLess(html.index('id="forma-1"'), html.index('id="dropshipping"'))
+                self.assertLess(html.index('id="garantiya"'), html.index('id="rozrahunok"'))
+                self.assertLess(html.index('id="rozrahunok"'), html.index('id="faq"'))
 
     def test_calculator_supports_autostart(self):
         for url in ('/calculator/', '/ru/calculator/'):

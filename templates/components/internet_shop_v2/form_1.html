@@ -1,0 +1,7 @@
+{% load i18n %}
+{% comment %} ТЗ 27.10.2026 (shop-v2) п. 4.9: форма №1 з телефоном = копія section#rs-form-1 з /rozrobka-sajtiv/ (той самий shared partial і обгортка pl-corp pl-corp-page pl-rs-corp).
+   POST /forms/submit/ (base.js), form_type=site_request → KeyCRM → /thank-you/. {% endcomment %}
+<div class="pl-corp pl-corp-page pl-rs-corp">
+{% trans "Безкоштовна консультація" as lead_name %}{% trans "Номер телефону" as phone_label %}{% trans "Створити інтернет-магазин:" as accent %}{% trans "безкоштовна консультація і розрахунок вартості" as title %}{% trans "Залиште номер телефону — менеджер передзвонить за 15 хвилин, назве вартість і строк вашого магазину. Ціну й строк фіксуємо в договорі." as text %}{% trans "Отримати консультацію" as button %}{% trans "Сторінка: Інтернет-магазини · Форма №1 (після «Переросли Prom»)" as details %}
+{% include 'components/corporate_website_v2/_lead_cta.html' with section_id='forma-1' title_id='pl-shop-form1-title' extra_class='pl-rs-lead pl-rs-lead--1' form_type='site_request' source_page='internet-shop-v2' consent=True %}
+</div>

@@ -65,24 +65,28 @@
 {% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=207">
+<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=208">
 <link rel="stylesheet" href="{% static 'css/components/clients-marquee.css' %}?v=3">
 <link rel="stylesheet" href="{% static 'css/ads-landing.css' %}?v=3">
+{# ТЗ 27.10.2026 п. 4.9 / 4.13: вставки з /rozrobka-sajtiv/ (форма №1, смуга-CTA) — ті самі стилі, що там. #}
+<link rel="stylesheet" href="{% static 'css/corporate-website-v2.css' %}?v=43">
+<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv.css' %}?v=20">
 {% endblock %}
 
 {% block content %}
 <div id="plShopRoot" class="pl-shop pl-shop-page">
+    {# ТЗ 27.10.2026 розд. 3 (RU-зеркало): херо → логотипы → тест (#zayavka) → пакеты → «Переросли Prom» → форма №1 → админка → дропшиппинг → гарантия → полоса-CTA → FAQ. #process, #contacts, #scope убраны. #}
     {% include 'components/internet_shop_v2_ru/hero.html' %}
     {% include 'components/internet_shop_v2_ru/clients.html' %}
-    {% include 'components/internet_shop_v2_ru/packages.html' %}
-    {% include 'components/ads/process.html' with process_title=ads_copy.process_h2 %}
-    {% include 'components/internet_shop_v2_ru/svoboda.html' %}
-    {% include 'components/internet_shop_v2_ru/dropshipping.html' %}
-    {% include 'components/internet_shop_v2_ru/admin.html' %}
-    {% include 'components/internet_shop_v2_ru/garantiya.html' %}
-    {% include 'components/ads/faq.html' %}
     {% include 'components/internet_shop_v2_ru/brief.html' %}
-    {% include 'components/ads/contacts.html' %}
+    {% include 'components/internet_shop_v2_ru/packages.html' %}
+    {% include 'components/internet_shop_v2_ru/svoboda.html' %}
+    {% include 'components/internet_shop_v2_ru/form_1.html' %}
+    {% include 'components/internet_shop_v2_ru/admin.html' %}
+    {% include 'components/internet_shop_v2_ru/dropshipping.html' %}
+    {% include 'components/internet_shop_v2_ru/garantiya.html' %}
+    {% include 'components/internet_shop_v2_ru/cta_strip.html' %}
+    {% include 'components/ads/faq.html' %}
 </div>
 {% include 'components/internet_shop_v2_ru/pkg_compare_modal.html' %}
 {% endblock %}

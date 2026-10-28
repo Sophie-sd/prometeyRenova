@@ -2783,3 +2783,47 @@ body.pl-shop-body .main-footer .container,
         overflow-x: auto;
     }
 }
+
+/* ТЗ 27.10.2026 — херо магазину як у /corporate-website-v2/ */
+/* Мобільна версія (до 767 px) */
+.pl-shop__hero{padding-top:calc(var(--pl-header-offset) + 64px);padding-bottom:40px}
+.pl-shop__hero-inner{gap:40px;text-align:center}
+.pl-shop__hero-head{gap:20px}
+.pl-shop__title--hero{max-width:362px;font-size:34px;font-weight:500;line-height:1;letter-spacing:-1.7px;text-wrap:balance}
+.pl-shop__nowrap{white-space:nowrap}
+.pl-shop__hero-line{max-width:362px;padding:0;border:0;border-radius:0;font-size:14px;font-weight:500;line-height:1.3;letter-spacing:-0.28px;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.75)}
+.pl-shop__hero-acc{font-weight:700;color:#ff8a3d}
+.pl-shop__hero-lead{max-width:298px;font-size:14px;font-weight:400;line-height:1.25;letter-spacing:-0.28px;color:#a1a1aa}
+.pl-shop__hero-card{gap:14px;max-width:520px;padding:16px;border:1px solid rgba(255,255,255,.1);border-radius:30px;background:var(--pl-grad),rgba(0,0,0,.62);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.pl-shop__hero-card .pl-calc-cta{margin:0 auto}
+.pl-shop__hero-trust{margin:0;font-size:13px;line-height:1.3;letter-spacing:-0.26px;color:#fff;text-align:center}
+.pl-shop__hero-trust span{white-space:nowrap}
+.pl-shop__hero-contacts{display:flex;justify-content:center;gap:24px;margin:0}
+@media (max-width:359px){.pl-shop__title--hero{font-size:30px;letter-spacing:-1.5px}.pl-shop__hero-head{gap:16px}.pl-shop__hero-inner{gap:28px}}
+@media (max-width:767px) and (max-height:700px){.pl-shop__hero{padding-top:calc(var(--pl-header-offset) + 16px)}.pl-shop__hero-inner{gap:24px}.pl-shop__hero-head{gap:12px}}
+/* Планшет */
+@media (min-width:768px){.pl-shop__title--hero{max-width:620px;font-size:52px;letter-spacing:-2.6px}.pl-shop__hero-line{max-width:620px}.pl-shop__hero-lead{max-width:431px;font-size:16px;letter-spacing:-0.32px}}
+/* Десктоп (від 1024 px) */
+@media (min-width:1024px){
+ .pl-shop__hero{padding-bottom:0}
+ .pl-shop__hero-head{gap:30px}
+ .pl-shop__title--hero{max-width:762px;font-size:70px;letter-spacing:-3.5px}
+ .pl-shop__hero-line{max-width:900px;font-size:18px;letter-spacing:-0.36px}
+ .pl-shop__hero-lead{max-width:520px;font-size:16px}
+ .pl-shop__hero-card{max-width:800px;padding:16px 23px 20px}
+ .pl-shop__hero-card .pl-calc-cta__btn{width:auto}
+ .pl-shop__hero-trust{font-size:15px}
+}
+@media (min-width:1024px) and (max-height:860px){.pl-shop__title--hero{font-size:62px;letter-spacing:-3.1px}.pl-shop__hero-card{gap:12px;padding-top:14px}}
+
+/* ТЗ 27.10.2026 п. 4.5 — «Порівняти пакети» по центру */
+.pl-shop__pkg-compare{display:flex;justify-content:center;margin-left:auto;margin-right:auto}
+@media (min-width:1024px){.pl-shop__pkg-compare{width:250px;margin:30px auto 0}}
+
+/* ТЗ 27.10.2026 п. 4.2.7 — ads-landing.css і calc-cta.css підключаються ПІСЛЯ цього файлу й перебивали
+   ширину рядка під H1 (520 px), рядок довіри (12 px, сірий) і ширину кнопки (100 %) — повертаємо підсумкові розміри з ТЗ. */
+.pl-shop-body .pl-shop__hero-line{max-width:362px;line-height:1.3}
+.pl-shop-body .pl-shop__hero-trust{margin:0;font-size:13px;line-height:1.3;color:#fff}
+.pl-shop-body .pl-shop__hero-card .pl-calc-cta{margin:0 auto}
+@media (min-width:768px){.pl-shop-body .pl-shop__hero-line{max-width:620px}}
+@media (min-width:1024px){.pl-shop-body .pl-shop__hero-line{max-width:900px}.pl-shop-body .pl-shop__hero-trust{font-size:15px}.pl-shop-body .pl-shop__hero-card .pl-calc-cta__btn{width:auto}}

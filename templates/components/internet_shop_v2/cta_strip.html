@@ -1,0 +1,6 @@
+{% load i18n %}
+{# ТЗ 27.10.2026 (shop-v2) п. 4.13: смуга-CTA = копія section#rs-calc-strip з /rozrobka-sajtiv/ (shared partial, та сама обгортка); прокручує до тесту #zayavka. #}
+<div class="pl-corp pl-corp-page pl-rs-corp">
+{% trans "Хочете створити інтернет-магазин, але не знаєте ціну?" as title %}{% trans "Дайте відповідь на 4 питання — це 1 хвилина, безкоштовно і без зобов’язань. Менеджер передзвонить і назве вартість." as text %}{% trans "Розрахувати вартість онлайн →" as button %}{% trans "Це можна купити частинами," as pay_text %}{% trans "до 15 платежів" as pay_strong %}
+{% include 'components/corporate_website_v2/_calc_promo.html' with section_id='rozrahunok' title_id='pl-shop-strip-title' href='#zayavka' scroll='#zayavka' cta_position='mid' cta_page='shop' extra_class='pl-rs-strip' %}
+</div>

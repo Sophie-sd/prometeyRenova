@@ -1,0 +1,5 @@
+{% comment %} ТЗ 27.10.2026 (shop-v2) п. 4.9: форма №1 с телефоном = копия section#rs-form-1 с /ru/rozrobka-sajtiv/ (тот же shared partial и обёртка pl-corp pl-corp-page pl-rs-corp).
+   POST /forms/submit/ (base.js), form_type=site_request → KeyCRM → /ru/thank-you/. {% endcomment %}
+<div class="pl-corp pl-corp-page pl-rs-corp">
+{% include 'components/corporate_website_v2/_lead_cta.html' with section_id='forma-1' title_id='pl-shop-form1-title' extra_class='pl-rs-lead pl-rs-lead--1' form_type='site_request' source_page='internet-shop-v2' consent=True lead_name='Бесплатная консультация' phone_label='Номер телефона' accent='Создать интернет-магазин:' title='бесплатная консультация и расчёт стоимости' text='Оставьте номер телефона — менеджер перезвонит за 15 минут, назовёт стоимость и срок вашего магазина. Цену и срок фиксируем в договоре.' button='Получить консультацию' details='Страница: Интернет-магазины · Форма №1 (после «Переросли Prom»)' %}
+</div>

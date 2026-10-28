@@ -65,24 +65,28 @@
 {% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=207">
+<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=208">
 <link rel="stylesheet" href="{% static 'css/components/clients-marquee.css' %}?v=3">
 <link rel="stylesheet" href="{% static 'css/ads-landing.css' %}?v=3">
+{# ТЗ 27.10.2026 п. 4.9 / 4.13: вставки з /rozrobka-sajtiv/ (форма №1, смуга-CTA) — ті самі стилі, що там. #}
+<link rel="stylesheet" href="{% static 'css/corporate-website-v2.css' %}?v=43">
+<link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv.css' %}?v=20">
 {% endblock %}
 
 {% block content %}
 <div id="plShopRoot" class="pl-shop pl-shop-page">
+    {# ТЗ 27.10.2026 розд. 3: херо → логотипи → тест (#zayavka) → пакети → «Переросли Prom» → форма №1 → адмінка → дропшиппінг → гарантія → смуга-CTA → FAQ. #process, #contacts, #scope прибрано. #}
     {% include 'components/internet_shop_v2/hero.html' %}
     {% include 'components/internet_shop_v2/clients.html' %}
-    {% include 'components/internet_shop_v2/packages.html' %}
-    {% if ads_tz %}{% include 'components/ads/process.html' with process_title=ads_copy.process_h2 %}{% endif %}
-    {% include 'components/internet_shop_v2/svoboda.html' %}
-    {% include 'components/internet_shop_v2/dropshipping.html' %}
-    {% include 'components/internet_shop_v2/admin.html' %}
-    {% include 'components/internet_shop_v2/garantiya.html' %}
-    {% if ads_tz %}{% include 'components/ads/faq.html' %}{% endif %}
     {% include 'components/internet_shop_v2/brief.html' %}
-    {% if ads_tz %}{% include 'components/ads/contacts.html' %}{% endif %}
+    {% include 'components/internet_shop_v2/packages.html' %}
+    {% include 'components/internet_shop_v2/svoboda.html' %}
+    {% include 'components/internet_shop_v2/form_1.html' %}
+    {% include 'components/internet_shop_v2/admin.html' %}
+    {% include 'components/internet_shop_v2/dropshipping.html' %}
+    {% include 'components/internet_shop_v2/garantiya.html' %}
+    {% include 'components/internet_shop_v2/cta_strip.html' %}
+    {% if ads_tz %}{% include 'components/ads/faq.html' %}{% endif %}
 </div>
 {% include 'components/internet_shop_v2/pkg_compare_modal.html' %}
 {% endblock %}

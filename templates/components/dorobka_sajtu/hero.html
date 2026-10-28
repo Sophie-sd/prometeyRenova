@@ -6,7 +6,7 @@
     </div>
     <div class="pl-rs__inner pl-rs__hero-stage">
         <div class="pl-rs__hero-copy">
-            {% include 'components/ads/breadcrumbs.html' %}
+            {# ТЗ 27.10.2026 (shop-v2) п. 4.1: видимі крихти прибрано; BreadcrumbList JSON-LD у <head> лишається. #}
             <h1 id="pl-dorobka-h1" class="pl-rs__h1">{{ ads_copy.h1 }}</h1>
             <p class="pl-rs__lead">{{ ads_copy.lead }}</p>
             {% calc_cta 'dorobka' %}{% calc_cta_sticky 'dorobka' %}

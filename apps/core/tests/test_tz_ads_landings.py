@@ -137,11 +137,17 @@ class AdsLandingSeoTests(TestCase):
 
     def test_shop_copy_and_skips(self):
         html = self.client.get('/internet-shop-v2/').content.decode()
-        self.assertIn('Що входить у Base', html)
-        self.assertIn('Телефон потрібен, щоб менеджер передзвонив і назвав орієнтовну вартість.', html)
+        # ТЗ 27.10.2026 п. 4.6: блок «Що входить у Base» прибрано; п. 4.2: форми в hero немає.
+        self.assertNotIn('Що входить у Base', html)
+        self.assertNotIn('id="scope"', html)
+        self.assertNotIn('Телефон потрібен, щоб менеджер передзвонив і назвав орієнтовну вартість.', html)
         self.assertNotIn('Не передаємо третім особам.', html)
         self.assertNotIn('Відгуки власників магазинів', html)
-        self.assertIn('Виконавець: ФОП Дмитренко Софія Дмитрівна', html)
+        # ТЗ 27.10.2026 п. 4.18: #contacts прибрано повністю, нічого не переносимо (оферта — у підвалі й гарантії).
+        self.assertNotIn('Виконавець: ФОП Дмитренко Софія Дмитрівна', html)
+        self.assertNotIn('id="contacts"', html)
+        self.assertNotIn('id="process"', html)
+        self.assertIn('href="/offer/"', html)
         self.assertNotIn('РНОКПП', html)
         self.assertNotIn('Відкрити магазин', html)
         self.assertNotIn('pl-ads-cases', html)
