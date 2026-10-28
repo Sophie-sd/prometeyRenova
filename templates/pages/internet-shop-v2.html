@@ -65,7 +65,7 @@
 {% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=211">
+<link rel="stylesheet" href="{% static 'css/internet-shop-v2.css' %}?v=213">
 <link rel="stylesheet" href="{% static 'css/components/clients-marquee.css' %}?v=3">
 <link rel="stylesheet" href="{% static 'css/ads-landing.css' %}?v=3">
 {# ТЗ 27.10.2026 п. 4.9 / 4.13: вставки з /rozrobka-sajtiv/ (форма №1, смуга-CTA) — ті самі стилі, що там. #}
@@ -75,9 +75,11 @@
 
 {% block content %}
 <div id="plShopRoot" class="pl-shop pl-shop-page">
-    {# ТЗ 27.10.2026 розд. 3: херо → логотипи → пакети → «Переросли Prom» → форма №1 → адмінка → дропшиппінг → гарантія → смуга-CTA → FAQ → тест (#zayavka, у кінці — 28.10.2026). #process, #contacts, #scope прибрано. #}
+    {# ТЗ 27.10.2026 розд. 3: херо → логотипи → тест (#zayavka) → пакети → «Переросли Prom» → форма №1 → адмінка → дропшиппінг → гарантія → смуга-CTA → FAQ. #process, #contacts, #scope прибрано. #}
     {% include 'components/internet_shop_v2/hero.html' %}
     {% include 'components/internet_shop_v2/clients.html' %}
+    {# ТЗ 27.10.2026 п. 3 / 4.4 (канон): тест #zayavka — блок 3, одразу після логотипів. Фони закріплені за позиціями ab137de: №1 херо (звисає під №2), №10 — полум'я (тепер під смугою-CTA). #}
+    {% include 'components/internet_shop_v2/brief.html' %}
     {% include 'components/internet_shop_v2/packages.html' %}
     {% include 'components/internet_shop_v2/svoboda.html' %}
     {% include 'components/internet_shop_v2/form_1.html' %}
@@ -86,8 +88,6 @@
     {% include 'components/internet_shop_v2/garantiya.html' %}
     {% include 'components/internet_shop_v2/cta_strip.html' %}
     {% if ads_tz %}{% include 'components/ads/faq.html' %}{% endif %}
-    {# Тест #zayavka — у самому кінці, після FAQ (Олег, 28.10.2026); hero-CTA, sticky і кнопки пакетів ведуть сюди. #}
-    {% include 'components/internet_shop_v2/brief.html' %}
 </div>
 {% include 'components/internet_shop_v2/pkg_compare_modal.html' %}
 {% endblock %}

@@ -1,4 +1,10 @@
-{# ТЗ 27.10.2026 (shop-v2) п. 4.13: полоса-CTA = копия section#rs-calc-strip с /ru/rozrobka-sajtiv/ (shared partial, та же обёртка); прокручивает к тесту #zayavka. #}
+{% load static %}{# ТЗ 27.10.2026 (shop-v2) п. 4.13: полоса-CTA = копия section#rs-calc-strip с /ru/rozrobka-sajtiv/ (shared partial, та же обёртка); прокручивает к тесту #zayavka. #}
+<div class="pl-shop__slot10">
+    <picture class="pl-shop__calc-bg" aria-hidden="true">
+        <source media="(max-width: 767px)" srcset="{% static 'images/internet_shop_v2/figma/bg-calc-v3-mobile.webp' %}" width="393" height="826">
+        <img src="{% static 'images/internet_shop_v2/figma/bg-calc-v3-1440.webp' %}" srcset="{% static 'images/internet_shop_v2/figma/bg-calc-v3-960.webp' %} 960w, {% static 'images/internet_shop_v2/figma/bg-calc-v3-1440.webp' %} 1440w" sizes="100vw" alt="" width="1440" height="921" loading="lazy" decoding="async">
+    </picture>
 <div class="pl-corp pl-corp-page pl-rs-corp">
 {% include 'components/corporate_website_v2/_calc_promo.html' with section_id='rozrahunok' title_id='pl-shop-strip-title' href='#zayavka' scroll='#zayavka' cta_position='mid' cta_page='shop' extra_class='pl-rs-strip' title='Хотите создать интернет-магазин, но не знаете цену?' text='Ответьте на 4 вопроса — это 1 минута, бесплатно и без обязательств. Менеджер перезвонит и назовёт стоимость.' button='Рассчитать стоимость онлайн →' pay_text='Это можно купить частями,' pay_strong='до 15 платежей' %}
+</div>
 </div>

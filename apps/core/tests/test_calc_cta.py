@@ -108,22 +108,23 @@ class CalcCtaLandingTests(TestCase):
                 self.assertLess(html.index('id="garantiya"'), html.index('id="rozrahunok"'))
                 self.assertLess(html.index('id="rozrahunok"'), html.index('id="faq"'))
 
-    def test_shop_order_quiz_at_end_after_faq(self):
-        # 28.10.2026 (Олег): тест #zayavka — у самому кінці після FAQ; між херо і пакетами лише логотипи #portfolio.
-        order = ('portfolio', 'pakety', 'svoboda', 'forma-1', 'pl-shop-admin-title', 'dropshipping', 'garantiya', 'rozrahunok', 'faq', 'zayavka')
+    def test_shop_order_matches_tz_section_3(self):
+        # ТЗ 27.10.2026 розд. 3 (канон): херо → логотипи → тест #zayavka → пакети → … → смуга → FAQ → підвал.
+        order = ('top', 'portfolio', 'zayavka', 'pakety', 'svoboda', 'forma-1', 'pl-shop-admin-title', 'dropshipping', 'garantiya', 'rozrahunok', 'faq')
         for url in ('/internet-shop-v2/', '/ru/internet-shop-v2/'):
             with self.subTest(url=url):
                 html = self._html(url)
                 pos = [html.index(f'id="{a}"') for a in order]
                 self.assertEqual(pos, sorted(pos))
-                self.assertLess(html.index('data-calc-cta="hero"'), pos[0])
-                self.assertEqual(html[html.index('pl-shop__hero'):pos[1]].count('<section'), 2)  # лише логотипи + відкриття #pakety
+                self.assertLess(pos[-1], html.index('<footer'))
+                self.assertEqual(html[pos[1]:pos[2]].count('<section'), 1)  # між логотипами і тестом нічого
                 sticky = html[html.index('data-calc-sticky'):]
                 self.assertIn('data-calc-target="#zayavka"', sticky[:300])
                 self.assertIn('href="#zayavka"', sticky[:700])
-                self.assertIn('class="pl-shop__calc-bg"', html[pos[-1]:])
-                self.assertNotIn('pl-shop__calc-bg', html[:pos[-1]])
-                self.assertNotIn('pl-shop__strip-wrap', html)
+                # Фони закріплені за позиціями: тест (№3) без полум'я, полум'я — у слоті №10 (смуга).
+                self.assertNotIn('pl-shop__calc-bg', html[pos[2]:pos[3]])
+                self.assertEqual(html.count('class="pl-shop__calc-bg"'), 1)
+                self.assertIn('class="pl-shop__calc-bg"', html[pos[8]:pos[10]])
 
     def test_calculator_supports_autostart(self):
         for url in ('/calculator/', '/ru/calculator/'):

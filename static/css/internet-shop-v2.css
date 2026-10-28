@@ -2828,12 +2828,7 @@ body.pl-shop-body .main-footer .container,
 @media (min-width:768px){.pl-shop-body .pl-shop__hero-line{max-width:620px}}
 @media (min-width:1024px){.pl-shop-body .pl-shop__hero-line{max-width:900px}.pl-shop-body .pl-shop__hero-trust{font-size:15px}.pl-shop-body .pl-shop__hero-card .pl-calc-cta__btn{width:auto}}
 
-/* 28.10.2026: фон херо не виходить за межі херо — заголовок «Магазини, які вже працюють…» стоїть на чистому фоні свого блоку
-   (картинка 1440×1440 при height:auto звисала на ~540 px донизу). Низ м'яко гасне в чорний. */
-.pl-shop-body .pl-shop__hero{overflow:hidden}
-.pl-shop-body .pl-shop__hero-bg{bottom:0;overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent);mask-image:linear-gradient(to bottom,#000 72%,transparent);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
-
-/* 28.10.2026: низ сторінки — гарантія → смуга-CTA (як на /rozrobka-sajtiv/, без фону) → FAQ → тест #zayavka (фон ab137de) → футер.
+/* 28.10.2026: FAQ (позиція №11).
    FAQ у ритмі секцій магазину: той самий відступ секції, та сама сітка 1330 px, заголовок як .pl-shop__title, заповнені картки без тонкої рамки. */
 .pl-shop-body .pl-ads-faq {
     padding: var(--pl-section-gap) 0 0;
@@ -2925,12 +2920,6 @@ body.pl-shop-body .main-footer .container,
     color: #c8c8c8;
 }
 
-/* Фон тесту (ab137de) піднімається на 269/185 px над секцією — під останні картки FAQ. М'яко проявляємо його лише від верху секції тесту. */
-.pl-shop-body .pl-ads-faq + .pl-shop__calc .pl-shop__calc-bg {
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent 260px, #000 480px, #000 88%, transparent);
-    mask-image: linear-gradient(to bottom, transparent 0, transparent 260px, #000 480px, #000 88%, transparent);
-}
-
 @media (min-width: 1024px) {
     .pl-shop-body .pl-ads-faq .pl-ads-h2 {
         font-size: 50px;
@@ -2951,17 +2940,29 @@ body.pl-shop-body .main-footer .container,
         padding: 0 30px 28px;
         font-size: 17px;
     }
-
-    .pl-shop-body .pl-ads-faq + .pl-shop__calc .pl-shop__calc-bg {
-        -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent 180px, #000 400px, #000 88%, transparent);
-        mask-image: linear-gradient(to bottom, transparent 0, transparent 180px, #000 400px, #000 88%, transparent);
-    }
 }
 
-/* Заголовок блоку логотипів: правило ≥1024 задає центр, але пізніший margin:0 тиснув його вліво (центрований текст у лівій колонці 630 px). */
+/* 28.10.2026 (Олег): фони закріплені за позиціями, як у Figma / ab137de; міняється лише контент.
+   №1 херо — фон херо «як є» (ТЗ 4.2.2; звисає під №2 — логотипи, як і було). №10 — полум'я (було під тестом, тепер під смугою-CTA #rozrahunok):
+   та сама геометрія, що й у .pl-shop__calc-bg (top −269/−185 px, full-bleed max(100%,1440px), згасання донизу). */
+.pl-shop-body .pl-shop__slot10 {
+    position: relative;
+}
+
+.pl-shop-body .pl-shop__slot10 > .pl-corp {
+    position: relative;
+    z-index: 1;
+}
+
+/* Розмір полум'я — як у слоті №10 на ab137de (там секція була 630 px mobile / 896 px desktop + підйом 269/185 px),
+   щоб картинка не стискалась у смугу під коротшим контентом; низ гасне так само (mask 88%). */
+.pl-shop-body .pl-shop__slot10 > .pl-shop__calc-bg {
+    bottom: auto;
+    height: 899px;
+}
+
 @media (min-width: 1024px) {
-    .pl-shop-body .pl-shop__clients-title {
-        margin-left: auto;
-        margin-right: auto;
+    .pl-shop-body .pl-shop__slot10 > .pl-shop__calc-bg {
+        height: 1081px;
     }
 }
