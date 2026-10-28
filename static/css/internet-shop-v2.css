@@ -2966,3 +2966,43 @@ body.pl-shop-body .main-footer .container,
         height: 1081px;
     }
 }
+
+/* 28.10.2026 (Олег, v5): тест #zayavka переїхав у кінець (після FAQ); між херо і пакетами — лише логотипи #portfolio.
+   Фон херо більше не звисає під логотипи: обрізаємо його по низу херо з м'яким згасанням,
+   тож заголовок «Магазини, які вже працюють на нашому коді» стоїть у власному блоці на чорному тлі сторінки. */
+.pl-shop-body .pl-shop__hero {
+    overflow: clip;
+}
+
+.pl-shop-body .pl-shop__hero-bg {
+    bottom: 0;
+    -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent);
+    mask-image: linear-gradient(to bottom, #000 78%, transparent);
+}
+
+.pl-shop-body .pl-shop__hero-bg img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+/* Логотипи: власний блок без порожнього чорного поля (відступ зверху менший, бо херо вже дає повітря). */
+.pl-shop-body .pl-shop__clients {
+    z-index: 1;
+    padding-top: 50px;
+}
+
+/* Тест — останній блок перед футером: відступ зверху як у секцій, знизу — повітря до футера. */
+.pl-shop-body .pl-shop__calc {
+    padding-bottom: 60px;
+}
+
+@media (min-width: 1024px) {
+    .pl-shop-body .pl-shop__clients {
+        padding-top: 70px;
+    }
+
+    .pl-shop-body .pl-shop__calc {
+        padding-bottom: 120px;
+    }
+}
