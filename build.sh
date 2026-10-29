@@ -209,4 +209,7 @@ python manage.py seed_proposal_kvity_landing
 echo "📄 Seeding flowers E-SHOP proposal (1 200 €) + standard demo-shop..."
 python manage.py seed_proposal_kvity_shop
 
+echo "📄 Seeding auto parts e-shop + Prom.ua + 1C proposal (950 € / 1100 €) + standard demo-shop..."
+python manage.py seed_proposal_avtozapchastyny_1c
+
 echo "✅ Build complete!"

@@ -216,6 +216,7 @@ class Proposal(models.Model):
             'corporate-fotograf-0763': 'proposal/img/seal-on-dark.webp',
             'shop-avtotovary-ejja': 'proposal/img/seal-on-dark.webp',
             'shop-avtotovary-prom-rna3': 'proposal/img/seal-on-dark.webp',
+            'shop-avtozapchastyny-1c-w7k2': 'proposal/img/seal-on-dark.webp',
             'shop-rybalka-rh1k': 'proposal/img/seal-on-dark.webp',
             'landing-kvity-t4m9': 'proposal/img/seal-on-dark.webp',
             'shop-kvity-r7l2': 'proposal/img/seal-on-dark.webp',
