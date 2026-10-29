@@ -8,7 +8,7 @@ from apps.core.utils import get_site_contact_settings
 
 
 class ProposalDetailView(DetailView):
-    """Публічна сторінка КП за slug (лише is_published=True)."""
+    """Публічна сторінка КП за slug (лише is_published=True і без deleted_at)."""
 
     model = Proposal
     template_name = 'proposal/detail.html'
@@ -17,7 +17,7 @@ class ProposalDetailView(DetailView):
 
     def get_queryset(self):
         return (
-            Proposal.objects.filter(is_published=True)
+            Proposal.visible_objects()
             .select_related('demo_shop', 'demo_corp', 'demo_landing')
             .prefetch_related(
                 'modules',

@@ -192,7 +192,7 @@ class Proposal(models.Model):
 
     @property
     def hero_public_url(self) -> str:
-        """Херо КП: файл у media або статична копія, з якої його сіє build."""
+        """Херо КП: ProposalHeroImage/hero_image з media; мапа нижче — лише fallback для КП без фото в БД."""
         from pathlib import Path
 
         from django.conf import settings
@@ -200,6 +200,12 @@ class Proposal(models.Model):
 
         from apps.core.public_files import media_if_exists
 
+        # 1) активне hero-фото з БД (імпорт КП), 2) legacy hero_image, 3) статичний fallback нижче
+        hero = self.hero_images.filter(is_active=True).order_by('order', 'pk').first()
+        if hero is not None:
+            from_db = media_if_exists(hero.image)
+            if from_db:
+                return from_db
         direct = media_if_exists(self.hero_image)
         if direct:
             return direct
@@ -256,23 +262,52 @@ class Proposal(models.Model):
         'shop-kvity-r7l2': ('landing-kvity-t4m9', 'shop-kvity-r7l2'),
     }
 
-    @property
-    def demo_pair(self) -> list:
-        """[{label, url, current}] для лендингу й магазину пари, або [] якщо пари немає."""
+    # Порядок кнопок пари: лендинг → корпоративний → магазин (як у DEMO_PAIRS).
+    _PAIR_ORDER = ('landing', 'corporate', 'shop')
+
+    @classmethod
+    def visible_objects(cls):
+        """Опубліковані й не видалені (soft-delete deleted_at) КП."""
+        return cls.objects.filter(is_published=True, deleted_at__isnull=True)
+
+    def _demo_pair_members(self) -> list:
+        """[(label, proposal)] пари: з pair_slug у БД, інакше fallback DEMO_PAIRS."""
+        labels = {
+            self.DemoKind.LANDING: _('Лендинг'),
+            self.DemoKind.SHOP: _('Інтернет-магазин'),
+            self.DemoKind.CORPORATE: _('Корпоративний сайт'),
+        }
+        partner_slug = (self.pair_slug or '').strip()
+        if partner_slug and partner_slug != self.slug:
+            partner = Proposal.visible_objects().filter(slug=partner_slug).first()
+            if partner is not None:
+                members = sorted(
+                    (self, partner),
+                    key=lambda p: self._PAIR_ORDER.index(p.kind) if p.kind in self._PAIR_ORDER else 99,
+                )
+                return [(labels.get(p.kind, p.get_kind_display()), p) for p in members]
         pair = self.DEMO_PAIRS.get(self.slug)
         if not pair:
             return []
         out = []
-        labels = (_('Лендинг'), _('Інтернет-магазин'))
-        for label, slug in zip(labels, pair):
+        for label, slug in zip((_('Лендинг'), _('Інтернет-магазин')), pair):
             other = self if slug == self.slug else Proposal.objects.filter(slug=slug).first()
-            tenant = other.demo_tenant if other else None
+            if other is not None:
+                out.append((label, other))
+        return out
+
+    @property
+    def demo_pair(self) -> list:
+        """[{label, url, current}] для двох демо пари, або [] якщо пари немає."""
+        out = []
+        for label, member in self._demo_pair_members():
+            tenant = member.demo_tenant
             if tenant is None or not tenant.is_active:
                 continue
             out.append({
                 'label': label,
                 'url': tenant.get_absolute_url(),
-                'current': slug == self.slug,
+                'current': member.pk == self.pk,
             })
         return out if len(out) == 2 else []
 
