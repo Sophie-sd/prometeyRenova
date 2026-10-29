@@ -29,6 +29,7 @@ from .portfolio_sanitize import linkify_portfolio_html
 from .admin_widgets import PortfolioImageWidget
 from . import fx_admin  # noqa: F401 — реєстрація курсу валют
 from . import proposal_admin  # noqa: F401 — реєстрація ProposalAdmin
+from . import proposal_import_admin  # noqa: F401 — «Імпорт КП»
 from .fx_admin import UserFxAddForm, UserFxForm, save_user_fx_grant
 
 PORTFOLIO_IMAGE_WIDGETS = {

@@ -10,6 +10,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from apps.core.sitemaps import sitemaps
+from apps.core.proposal_media import protected_media_serve
 
 
 def build_urlpatterns(admin_prefix='admin'):
@@ -37,7 +38,8 @@ def build_urlpatterns(admin_prefix='admin'):
             name='sitemap',
         ),
         # Media файли — завжди (Render Persistent Disk)
-        re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+        # proposals/ — лише зображення + nosniff; proposal_imports/ — 404; решта як static.serve
+        re_path(r'^media/(?P<path>.*)$', protected_media_serve),
     ]
     patterns += i18n_patterns(
         path('', include('apps.core.urls')),

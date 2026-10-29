@@ -308,6 +308,8 @@ USE_TZ = True
 # STATIC & MEDIA
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+# Імпорт КП з zip (адмінка). За замовчуванням вимкнено.
+PROPOSAL_IMPORT_ENABLED = os.environ.get('PROPOSAL_IMPORT_ENABLED', 'False') == 'True'
 MEDIA_ROOT = Path(os.environ.get('MEDIA_ROOT', BASE_DIR / 'media'))
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
