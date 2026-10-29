@@ -10199,3 +10199,11 @@ msgstr "Answer 5 questions — it takes 2 minutes, free and with no obligation."
 #: rozrobka-sajtiv (ТЗ 27.10.2026)
 msgid "Розрахувати вартість онлайн →"
 msgstr "Calculate the cost online →"
+
+# TZ 2026-10-28-001, Design Lead veto
+msgid "розрахувати вартість сайту"
+msgstr "calculate website cost"
+
+# TZ 2026-10-28-001, Design Lead veto
+msgid "Розрахувати вартість сайту"
+msgstr "Calculate website cost"

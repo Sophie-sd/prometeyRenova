@@ -35,7 +35,7 @@
                     <a href="{% url 'dorobka_sajtu' %}" class="plm__sublink mobile-nav-link{% if rn == 'dorobka_sajtu' %} is-active{% endif %}">{% trans "Доробка сайтів" %}</a>
                 </div>
             </div>
-            <a href="{% url 'calculator' %}" class="plm__link mobile-nav-link{% if rn == 'calculator' %} is-active{% endif %}">{% trans "Розрахувати пропозицію" %}<span class="plm__dot" aria-hidden="true"></span></a>
+            <a href="{% url 'calculator' %}" class="plm__link mobile-nav-link{% if rn == 'calculator' %} is-active{% endif %}">{% trans "Розрахувати вартість сайту" %}<span class="plm__dot" aria-hidden="true"></span></a>
             <a href="{% url 'contacts' %}" class="plm__link mobile-nav-link{% if rn == 'contacts' %} is-active{% endif %}">{% trans "Контакти" %}<span class="plm__dot" aria-hidden="true"></span></a>
             <a href="{% url 'blog:blog_list' %}" class="plm__link mobile-nav-link{% if 'blog' in request.resolver_match.namespaces %} is-active{% endif %}">{% trans "Блог" %}<span class="plm__dot" aria-hidden="true"></span></a>
         </div>

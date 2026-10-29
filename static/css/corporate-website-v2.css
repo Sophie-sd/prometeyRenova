@@ -192,8 +192,9 @@ body.pl-corp-body .main-footer .container,
     color: var(--pl-text);
 }
 
+/* TZ 2026-10-28-001, Design Lead veto: white text ≥4.5:1 (was #f60 2.94:1) */
 .pl-corp__btn--accent {
-    background: var(--pl-acc);
+    background: #c44e00;
     color: #fff;
 }
 
@@ -217,7 +218,7 @@ body.pl-corp-body .main-footer .container,
     }
 
     .pl-corp__btn--accent:hover {
-        background: #ff7a1f;
+        background: #b84800;
         box-shadow: 0 10px 30px rgba(255, 102, 0, 0.35);
     }
 

@@ -64,6 +64,8 @@
 .hf-btn:focus-visible { outline: 2px solid var(--hf-orange); outline-offset: 3px; }
 .hf-btn--light { background: var(--hf-white); color: var(--hf-orange); }
 .hf-btn--light:hover { background: #fff; }
+/* TZ 2026-10-28-001, Design Lead veto: final CTA text contrast ≥4.5:1 on #f5f5f5 */
+.hf-cta .hf-btn--light { color: #b84800; }
 .hf-btn--ghost {
     background: rgba(255, 255, 255, .05);
     border-color: var(--hf-white);

@@ -21,8 +21,9 @@
                 <li class="pl-corp__hero-offer">{% trans "Аналітика і трекінг налаштовані разом із запуском" %}</li>
             </ul>
             {% calc_cta 'corp' 'btn' %}
+            {% calc_cta 'corp' 'micro' %}
             <button type="button" class="pl-corp__btn pl-corp__btn--glass mobile-touch-target" data-modal="call-request-modal">{% trans "Замовити консультацію" %}</button>
-            {% calc_cta 'corp' 'micro' %}{% calc_cta_sticky 'corp' %}
+            {% calc_cta_sticky 'corp' %}
             <p class="pl-corp__hero-guarantee">
                 <img src="{% static 'images/corporate_website_v2/figma/icon-award.svg' %}" alt="" width="18" height="18">
                 {% trans "Пожиттєва гарантія на код · 1 рік підтримки безкоштовно" %}

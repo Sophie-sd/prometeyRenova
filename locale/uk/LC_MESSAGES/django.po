@@ -5426,3 +5426,11 @@ msgstr ""
 #: templates/components/ads/breadcrumbs.html:1
 msgid "Навігаційний ланцюжок"
 msgstr ""
+
+# TZ 2026-10-28-001, Design Lead veto
+msgid "розрахувати вартість сайту"
+msgstr ""
+
+# TZ 2026-10-28-001, Design Lead veto
+msgid "Розрахувати вартість сайту"
+msgstr ""

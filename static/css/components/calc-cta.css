@@ -256,3 +256,16 @@
 @media (prefers-reduced-motion: reduce) {
     .pl-calc-cta__btn, .pl-calc-sticky__btn, .pl-calc-cta__arrow, .pl-calc-sticky { transition: none; }
 }
+
+/* Corp v2 (TZ 2026-10-28-001, Design Lead veto): micro sits right after the calc button in DOM.
+   Mobile: btn → micro → glass. Desktop (>767px): visual order as before (btn, glass, micro). */
+@media (min-width: 768px) {
+    .pl-corp__hero-card .pl-calc-cta__micro--row,
+    .pl-corp__hero-card .pl-calc-cta__micro--row ~ :not(.pl-corp__btn--glass) { order: 1; }
+}
+@media (max-width: 767px) {
+    .pl-corp__hero-card .pl-calc-cta__btn { order: 0; }
+    .pl-corp__hero-card .pl-calc-cta__micro--row { order: 1; margin-top: 6px; }
+    .pl-corp__hero-card .pl-corp__btn--glass { order: 2; }
+    .pl-corp__hero-card .pl-corp__btn--glass ~ * { order: 3; }
+}
