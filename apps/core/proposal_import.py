@@ -112,10 +112,34 @@ def validate_image(name: str, blob: bytes) -> None:
         raise ImportError_('Фото більше 2560×2560')
 
 
+def reencode_image(name: str, blob: bytes) -> bytes:
+    """Security/Launch: перекодування Pillow — прибирає EXIF/ICC/XMP і хвости-поліглоти."""
+    from PIL import Image
+
+    fmt = IMAGE_EXT[PurePosixPath(name).suffix.lower()]
+    with Image.open(io.BytesIO(blob)) as im:
+        im.load()
+        if im.mode not in ('RGB', 'RGBA', 'L', 'LA', 'P'):
+            im = im.convert('RGBA' if 'A' in im.getbands() else 'RGB')
+        if fmt == 'JPEG' and im.mode not in ('RGB', 'L'):
+            im = im.convert('RGB')
+        clean = Image.frombytes(im.mode, im.size, im.tobytes())  # лише пікселі, без info/EXIF
+        if im.mode == 'P':
+            clean.putpalette(im.getpalette())
+        out = io.BytesIO()
+        clean.save(out, fmt)
+    return out.getvalue()
+
+
+ALLOWED_TOP = {'manifest.json', 'proposal.json'}
+
+
 def parse_package(blob: bytes) -> ParsedPackage:
     """Dry-run: повна перевірка без запису в БД/диск."""
     if len(blob) > MAX_ZIP_BYTES:
         raise ImportError_('Zip більше 20 МБ')
+    if blob[:4] != b'PK\x03\x04':  # Security/Launch: magic bytes, без префікс-поліглотів
+        raise ImportError_('Файл не є zip-архівом')
     try:
         zf = zipfile.ZipFile(io.BytesIO(blob))
     except zipfile.BadZipFile as exc:
@@ -135,7 +159,12 @@ def parse_package(blob: bytes) -> ParsedPackage:
         total += info.file_size
         if info.compress_size and info.file_size / info.compress_size > MAX_RATIO:
             raise ImportError_('Підозріле стиснення (zip-бомба)')
+        if re.match(r'^[A-Za-z]:', name) or '\x00' in name:
+            raise ImportError_(f'Недопустимий шлях у zip: {name}')
         if not info.is_dir():
+            # Security/Launch: allow-list — лише manifest/proposal.json і media/<img>
+            if name not in ALLOWED_TOP and not (name.startswith('media/') and p.suffix.lower() in IMAGE_EXT):
+                raise ImportError_(f'Недозволений файл у zip: {name}')
             names[name] = info
     if total > MAX_UNPACKED:
         raise ImportError_('Розпакований вміст більше 200 МБ')
@@ -187,7 +216,7 @@ def parse_package(blob: bytes) -> ParsedPackage:
             raise ImportError_(f'hero_image не знайдено в media/: {hero_ref}')
         blob_img = zf.read(hero_ref)
         validate_image(hero_ref, blob_img)
-        hero = (hero_ref, blob_img)
+        hero = (hero_ref, reencode_image(hero_ref, blob_img))
     for name in names:
         if name.startswith('media/') and name != hero_ref:
             validate_image(name, zf.read(name))

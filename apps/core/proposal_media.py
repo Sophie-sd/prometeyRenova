@@ -1,4 +1,5 @@
 """Захищена віддача media: proposals/ — лише зображення + nosniff; proposal_imports/ — 404."""
+import posixpath
 from pathlib import PurePosixPath
 
 from django.conf import settings
@@ -10,7 +11,10 @@ BLOCKED_EXT = {'.html', '.htm', '.svg', '.js', '.css', '.xml', '.xhtml', '.svgz'
 
 
 def protected_media_serve(request, path):
-    norm = path.replace('\\', '/').lstrip('/')
+    # Security/Launch: нормалізуємо ДО перевірок префікса (x/../proposals/… обходив фільтр)
+    norm = posixpath.normpath(path.replace('\\', '/')).lstrip('/')
+    if norm in ('', '.') or norm == '..' or norm.startswith('../'):
+        raise Http404
     low = norm.lower()
     if low.startswith('proposal_imports/'):
         raise Http404
@@ -22,4 +26,4 @@ def protected_media_serve(request, path):
         response['X-Content-Type-Options'] = 'nosniff'
         response['Content-Security-Policy'] = "default-src 'none'; img-src 'self'; sandbox"
         return response
-    return serve(request, path, document_root=settings.MEDIA_ROOT)
+    return serve(request, norm, document_root=settings.MEDIA_ROOT)
