@@ -348,7 +348,10 @@ def restore_proposal(proposal: Proposal) -> None:
     with transaction.atomic():
         proposal.deleted_at = None
         proposal.deleted_by = None
-        proposal.save(update_fields=['deleted_at', 'deleted_by', 'updated_at'])
+        # QA: після restore публічний URL має знову працювати (soft-delete знімав публікацію;
+        # окремого поля «попередній is_published» у схемі немає → відновлюємо публікацію).
+        proposal.is_published = True
+        proposal.save(update_fields=['deleted_at', 'deleted_by', 'is_published', 'updated_at'])
         if proposal.source == Proposal.Source.IMPORT:
             tenant = proposal.demo_tenant
             if tenant is not None and hasattr(tenant, 'is_active'):

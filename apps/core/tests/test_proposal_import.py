@@ -197,3 +197,17 @@ class CommandTests(TestCase):
         call_command('purge_proposal', slug=p.slug, confirm=True)
         self.assertFalse(Proposal.objects.filter(slug=p.slug).exists())
         shutil.rmtree(out, ignore_errors=True)
+
+
+@override_settings(MEDIA_ROOT=TMP_MEDIA)
+class RestorePublicTests(TestCase):
+    def test_soft_delete_then_restore_public_200(self):
+        p = import_proposal_package(make_zip()).proposal
+        url = reverse('proposal_detail', kwargs={'slug': p.slug})
+        self.assertEqual(self.client.get(url).status_code, 200)
+        soft_delete_proposal(p)
+        self.assertEqual(self.client.get(url).status_code, 404)
+        restore_proposal(p)
+        p.refresh_from_db()
+        self.assertTrue(p.is_published)
+        self.assertEqual(self.client.get(url).status_code, 200)
