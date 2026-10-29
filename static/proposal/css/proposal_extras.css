@@ -257,7 +257,14 @@
     }
 
     .prop-spec {
-        grid-template-columns: minmax(8.75rem, 13.75rem) minmax(0, 1fr);
+        grid-template-columns: minmax(11rem, 20rem) minmax(0, 1fr);
+    }
+
+    /* Заголовок «Технічне завдання» у вузькій колонці не обрізається маскою */
+    .prop-spec__sticky .prop-section__title {
+        font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
 
     .prop-spec__sticky {
