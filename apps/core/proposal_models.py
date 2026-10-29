@@ -217,11 +217,40 @@ class Proposal(models.Model):
             'shop-avtotovary-ejja': 'proposal/img/seal-on-dark.webp',
             'shop-avtotovary-prom-rna3': 'proposal/img/seal-on-dark.webp',
             'shop-rybalka-rh1k': 'proposal/img/seal-on-dark.webp',
+            'landing-kvity-t4m9': 'proposal/img/seal-on-dark.webp',
+            'shop-kvity-r7l2': 'proposal/img/seal-on-dark.webp',
         }
         rel = by_slug.get(self.slug, 'proposal/img/seal-on-dark.webp')
         if (Path(settings.BASE_DIR) / 'static' / rel).is_file():
             return static(rel)
         return ''
+
+    # Пари КП «лендинг + інтернет-магазин» для одного клієнта: на сторінці КП
+    # показуємо дві кнопки демо («Лендинг» / «Інтернет-магазин»). Самі демо стандартні.
+    DEMO_PAIRS = {
+        'landing-kvity-t4m9': ('landing-kvity-t4m9', 'shop-kvity-r7l2'),
+        'shop-kvity-r7l2': ('landing-kvity-t4m9', 'shop-kvity-r7l2'),
+    }
+
+    @property
+    def demo_pair(self) -> list:
+        """[{label, url, current}] для лендингу й магазину пари, або [] якщо пари немає."""
+        pair = self.DEMO_PAIRS.get(self.slug)
+        if not pair:
+            return []
+        out = []
+        labels = (_('Лендинг'), _('Інтернет-магазин'))
+        for label, slug in zip(labels, pair):
+            other = self if slug == self.slug else Proposal.objects.filter(slug=slug).first()
+            tenant = other.demo_tenant if other else None
+            if tenant is None or not tenant.is_active:
+                continue
+            out.append({
+                'label': label,
+                'url': tenant.get_absolute_url(),
+                'current': slug == self.slug,
+            })
+        return out if len(out) == 2 else []
 
     @property
     def demo_cta_label(self) -> str:

@@ -203,4 +203,10 @@ python manage.py seed_proposal_avtotovary_prom
 echo "📄 Seeding fishing goods e-shop proposal (950 €) + standard demo-shop..."
 python manage.py seed_proposal_rybalka
 
+echo "📄 Seeding flowers LANDING proposal (250 €) + standard demo-landing..."
+python manage.py seed_proposal_kvity_landing
+
+echo "📄 Seeding flowers E-SHOP proposal (1 200 €) + standard demo-shop..."
+python manage.py seed_proposal_kvity_shop
+
 echo "✅ Build complete!"

@@ -34,13 +34,22 @@
                        href="{% if contacts.telegram_url %}{{ contacts.telegram_url }}{% else %}mailto:{{ contacts.email }}{% endif %}">
                         {{ proposal.get_localized_cta_label }}
                     </a>
-                    {% if proposal.demo_tenant.is_active %}
+                    {% with pair=proposal.demo_pair %}
+                    {% if pair %}
+                    {% for d in pair %}
+                    <a class="prop-cta prop-cta--ghost prop-cta--pair{% if d.current %} is-current{% endif %}"
+                       href="{{ d.url }}" target="_blank" rel="noopener">
+                        {{ d.label }}
+                    </a>
+                    {% endfor %}
+                    {% elif proposal.demo_tenant.is_active %}
                     <a class="prop-cta prop-cta--ghost"
                        href="{{ proposal.demo_tenant.get_absolute_url }}"
                        target="_blank" rel="noopener">
                         {{ proposal.demo_cta_label }}
                     </a>
                     {% endif %}
+                    {% endwith %}
                 </div>
             </div>
             <aside class="prop-hero__aside">
@@ -272,6 +281,20 @@
     <div class="prop-demo-sec__grid">
         <h2 id="prop-demo-title" class="prop-demo-sec__title prop-reveal" data-prop-reveal>{% trans "Демо вже зібране" %}</h2>
         <div>
+            {% with pair=proposal.demo_pair %}
+            {% if pair %}
+            <p class="prop-demo-sec__lead">
+                {% blocktrans %}Це не версія вашого сайту і не макет у Figma. Це два стандартні демо: лендинг (сторінка із заявками, без адмінки) та інтернет-магазин (каталог, кошик, оформлення й адмінка CMS).{% endblocktrans %}
+            </p>
+            <div class="prop-demo-pair" style="display:flex;flex-wrap:wrap;gap:16px;">
+                {% for d in pair %}
+                <a class="prop-cta prop-cta--xl {% if d.current %}prop-cta--fill{% else %}prop-cta--ghost{% endif %}"
+                   href="{{ d.url }}" target="_blank" rel="noopener">
+                    {{ d.label }}
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
             <p class="prop-demo-sec__lead">
                 {% blocktrans %}Це не версія вашого сайту і не макет у Figma. Це стандартний демо-сайт із функціоналом, який ви отримаєте для тестування: сторінки, заявки, адмінка.{% endblocktrans %}
             </p>
@@ -280,6 +303,8 @@
                target="_blank" rel="noopener">
                 {{ proposal.demo_cta_label }}
             </a>
+            {% endif %}
+            {% endwith %}
         </div>
     </div>
 </section>
