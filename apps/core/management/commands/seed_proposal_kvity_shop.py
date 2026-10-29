@@ -127,6 +127,10 @@ class Command(BaseCommand):
         parser.add_argument('--no-demo', action='store_true', help='Тільки КП, без демо')
 
     def handle(self, *args, **options):
+        from apps.core.management.commands._proposal_seed_guard import seed_must_skip
+        if (skip_reason := seed_must_skip(SLUG)):
+            self.stdout.write(f'Skip {SLUG}: {skip_reason}')
+            return
         proposal, created = seed_rows(sys.modules[__name__])
         if not options['no_demo']:
             self._provision_demo(proposal)

@@ -2,6 +2,7 @@
 from decimal import Decimal
 from pathlib import Path
 
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -12,6 +13,18 @@ def proposal_hero_upload_to(instance, filename: str) -> str:
         ext = '.png'
     slug = instance.slug or 'proposal'
     return f'proposals/{slug}/hero{ext}'
+
+
+import uuid as _uuid
+
+
+def proposal_hero_image_upload_to(instance, filename: str) -> str:
+    ext = Path(filename).suffix.lower()
+    if ext not in {'.jpg', '.jpeg', '.png', '.webp'}:
+        ext = '.jpg'
+    slug = getattr(instance.proposal, 'slug', None) or 'proposal'
+    return f'proposals/{slug}/{_uuid.uuid4().hex}{ext}'
+
 
 
 class Proposal(models.Model):
@@ -146,12 +159,22 @@ class Proposal(models.Model):
             '— кнопка «Купити» відкриває форму заявки.',
         ),
     )
+
+    class Source(models.TextChoices):
+        SEED = 'seed', _('Seed (код)')
+        IMPORT = 'import', _('Імпорт (адмінка)')
+    source = models.CharField(max_length=10, choices=Source.choices, default=Source.SEED, db_index=True, verbose_name=_('Джерело'))
+    deleted_at = models.DateTimeField(null=True, blank=True, db_index=True, verbose_name=_('Видалено (soft)'))
+    deleted_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name='deleted_proposals', verbose_name=_('Ким видалено'))
+    pair_slug = models.SlugField(max_length=200, null=True, blank=True, db_index=True, verbose_name=_('Slug парного КП'))
     order = models.PositiveIntegerField(default=0, verbose_name=_('Порядок'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Створено'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Оновлено'))
 
     class Meta:
         ordering = ('order', '-issued_on')
+        permissions = [('can_import_proposal', _("Може імпортувати, м'яко видаляти та відновлювати КП"))]
+        constraints = [models.UniqueConstraint(fields=('pair_slug',), condition=models.Q(deleted_at__isnull=True, pair_slug__isnull=False), name='uniq_proposal_pair_slug_alive')]
         verbose_name = _('Комерційна пропозиція')
         verbose_name_plural = _('Комерційні пропозиції')
 
@@ -536,3 +559,68 @@ class ProposalSpec(models.Model):
         from .i18n_content import localized_text
 
         return localized_text(self.body, self.body_ru, self.body_en, self.body_cs)
+
+
+class ProposalImport(models.Model):
+    class Status(models.TextChoices):
+        PENDING = 'pending', _('Очікує')
+        PROCESSING = 'processing', _('Обробка')
+        SUCCESS = 'success', _('Успіх')
+        ERROR = 'error', _('Помилка')
+
+    class Kind(models.TextChoices):
+        UPLOAD = 'upload', _('Завантаження')
+        ROLLBACK = 'rollback', _('Відкат')
+
+    proposal = models.ForeignKey('core.Proposal', null=True, blank=True, on_delete=models.SET_NULL,
+                                 related_name='imports', verbose_name=_('КП'))
+    kind = models.CharField(max_length=10, choices=Kind.choices, default=Kind.UPLOAD, verbose_name=_('Тип'))
+    version = models.PositiveIntegerField(default=1, verbose_name=_('Версія'))
+    file = models.FileField(upload_to='proposal_imports/%Y/%m/', blank=True, verbose_name=_('Файл імпорту (zip)'))
+    original_name = models.CharField(max_length=255, blank=True, default='', verbose_name=_('Оригінальна назва файлу'))
+    sha256 = models.CharField(max_length=64, null=True, blank=True, unique=True, verbose_name=_('SHA-256 zip'))
+    manifest = models.JSONField(null=True, blank=True, verbose_name=_('manifest.json'))
+    status = models.CharField(max_length=12, choices=Status.choices, default=Status.PENDING, verbose_name=_('Статус'))
+    log = models.JSONField(default=list, blank=True, verbose_name=_('Лог'))
+    error = models.TextField(blank=True, default='', verbose_name=_('Помилка'))
+    snapshot_before = models.JSONField(null=True, blank=True, verbose_name=_('Знімок КП до імпорту (JSON)'))
+    rollback_of = models.ForeignKey('self', null=True, blank=True, on_delete=models.PROTECT,
+                                    related_name='rollbacks', verbose_name=_('Відкат імпорту'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL,
+                             related_name='proposal_imports', verbose_name=_('Хто імпортував'))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Створено'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Оновлено'))
+    finished_at = models.DateTimeField(null=True, blank=True, verbose_name=_('Завершено'))
+
+    class Meta:
+        verbose_name = _('Імпорт КП')
+        verbose_name_plural = _('Імпорти КП')
+        ordering = ('-created_at',)
+        constraints = [models.UniqueConstraint(fields=('proposal', 'version'), condition=models.Q(proposal__isnull=False),
+                                               name='uniq_proposalimport_proposal_version'),
+                       models.CheckConstraint(condition=models.Q(kind='upload') | models.Q(rollback_of__isnull=False),
+                                              name='ck_proposalimport_rollback_has_target'),
+                       models.CheckConstraint(condition=models.Q(kind='rollback') | models.Q(sha256__isnull=False),
+                                              name='ck_proposalimport_upload_has_sha256')]
+        indexes = [models.Index(fields=['status', 'created_at'], name='core_pimp_status_created_idx'),
+                   models.Index(fields=['proposal', '-version'], name='core_pimp_proposal_ver_idx')]
+
+
+class ProposalHeroImage(models.Model):
+    proposal = models.ForeignKey('core.Proposal', on_delete=models.CASCADE, related_name='hero_images', verbose_name=_('КП'))
+    image = models.ImageField(upload_to=proposal_hero_image_upload_to, verbose_name=_('Фото'))
+    original_name = models.CharField(max_length=255, blank=True, default='', verbose_name=_('Оригінальна назва файлу'))
+    alt_uk = models.CharField(max_length=200, blank=True, default='', verbose_name=_('Alt (UK)'))
+    alt_ru = models.CharField(max_length=200, blank=True, default='', verbose_name=_('Alt (RU)'))
+    alt_en = models.CharField(max_length=200, blank=True, default='', verbose_name=_('Alt (EN)'))
+    alt_cs = models.CharField(max_length=200, blank=True, default='', verbose_name=_('Alt (CS)'))
+    order = models.PositiveIntegerField(default=0, verbose_name=_('Порядок'))
+    is_active = models.BooleanField(default=True, verbose_name=_('Активне'))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Створено'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Оновлено'))
+
+    class Meta:
+        verbose_name = _('Hero-фото КП')
+        verbose_name_plural = _('Hero-фото КП')
+        ordering = ('proposal', 'order', 'id')
+        constraints = [models.UniqueConstraint(fields=('proposal', 'order'), name='uniq_proposal_hero_order')]

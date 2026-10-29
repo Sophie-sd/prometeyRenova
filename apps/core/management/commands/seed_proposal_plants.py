@@ -236,6 +236,10 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        from apps.core.management.commands._proposal_seed_guard import seed_must_skip
+        if (skip_reason := seed_must_skip(SLUG)):
+            self.stdout.write(f'Skip {SLUG}: {skip_reason}')
+            return
         for model in (
             Proposal,
             ProposalModule,
