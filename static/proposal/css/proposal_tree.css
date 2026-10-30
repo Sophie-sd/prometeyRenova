@@ -78,29 +78,18 @@
 }
 
 .prop-tree__dash {
-    position: relative;
     width: 1px;
-    height: clamp(2.25rem, 5.5vh, 3.75rem);
-    margin-top: clamp(0.75rem, 1.6vh, 1.125rem);
-    background: var(--prop-accent);
-    opacity: 0.9;
-}
-
-/* стрілка до опису під кожною гілкою */
-.prop-tree__dash::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -1px;
-    width: 0.4375rem;
-    height: 0.4375rem;
-    border-right: 1px solid var(--prop-accent);
-    border-bottom: 1px solid var(--prop-accent);
-    transform: translateX(-50%) rotate(45deg);
+    height: clamp(1.875rem, 5vh, 3.5rem);
+    background-image: linear-gradient(var(--prop-accent) 2.5px, transparent 2.5px);
+    background-size: 1px 8px;
+    opacity: 0.85;
 }
 
 .prop-tree__dot {
-    display: none;
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 50%;
+    background: var(--prop-accent);
 }
 
 .prop-tree__cap {
@@ -298,57 +287,6 @@
         width: 83.333%;
     }
 
-    /* 7–8 гілок (catalog-КП, напр. p3g5): без правила дерево падало в 1 колонку — 7 вертикальних ліній = біла діра */
-    .prop-tree--n7 .prop-tree__drops,
-    .prop-tree--n7 .prop-tree__cols {
-        grid-template-columns: repeat(7, minmax(0, 1fr));
-    }
-
-    .prop-tree--n7 .prop-tree__bus {
-        width: 85.714%;
-    }
-
-    .prop-tree--n8 .prop-tree__drops,
-    .prop-tree--n8 .prop-tree__cols {
-        grid-template-columns: repeat(8, minmax(0, 1fr));
-    }
-
-    .prop-tree--n8 .prop-tree__bus {
-        width: 87.5%;
-    }
-
-    .prop-tree--n7,
-    .prop-tree--n8 {
-        --prop-tree-gap: clamp(0.75rem, 1.6vw, 1.5rem);
-    }
-
-    .prop-tree--n7 .prop-tree__drops,
-    .prop-tree--n7 .prop-tree__cols,
-    .prop-tree--n8 .prop-tree__drops,
-    .prop-tree--n8 .prop-tree__cols {
-        gap: var(--prop-tree-gap);
-    }
-
-    .prop-tree--n7 .prop-tree__node,
-    .prop-tree--n8 .prop-tree__node,
-    .prop-tree--n7 .prop-tree__cap,
-    .prop-tree--n8 .prop-tree__cap {
-        text-align: center;
-        overflow-wrap: anywhere;
-    }
-
-    /* 9+ гілок: сітка з переносом, без шини/ліній (не вирівнюються з рядами) */
-    .prop-tree:has(.prop-tree__col:nth-child(9)) .prop-tree__bus,
-    .prop-tree:has(.prop-tree__col:nth-child(9)) .prop-tree__drops {
-        display: none;
-    }
-
-    .prop-tree:has(.prop-tree__col:nth-child(9)) .prop-tree__cols {
-        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-        row-gap: clamp(1.5rem, 4vh, 2.25rem);
-        margin-top: 1.5rem;
-    }
-
     .prop-intro {
         grid-template-columns: minmax(8.75rem, 13.75rem) minmax(0, 1fr);
     }
@@ -376,5 +314,127 @@
 
     .prop-intro__index {
         font-size: 2.5rem;
+    }
+}
+
+/* 7+ гілок (catalog-КП, напр. p3g5): вертикальне дерево «сходинками» —
+   корінь → вертикальна шина → гілка за гілкою вниз; одна стрілка-рука на гілку,
+   опис праворуч. Без дублів (h2/dash/dot/bus сховані), без анімації-напівстану. */
+.prop-tree:has(.prop-tree__col:nth-child(7)) {
+    --vt-arm: clamp(2.5rem, 4vw, 4rem);
+    justify-items: stretch;
+    max-width: 60rem;
+    margin-inline: auto;
+}
+
+.prop-tree:has(.prop-tree__col:nth-child(7)) > .prop-tree__h,
+.prop-tree:has(.prop-tree__col:nth-child(7)) > .prop-tree__v,
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__bus,
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__drops,
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__h2,
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__dash,
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__dot {
+    display: none !important;
+}
+
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__root {
+    justify-self: start;
+    padding-bottom: clamp(0.875rem, 2vh, 1.25rem);
+    border-bottom: 1px solid var(--prop-line);
+    min-width: min(13.75rem, 60%);
+}
+
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__cols {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 0;
+    padding-top: clamp(0.5rem, 1.5vh, 1rem);
+    justify-items: stretch;
+}
+
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__col {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--vt-arm) minmax(0, 18rem) minmax(0, 1fr);
+    column-gap: clamp(1rem, 2.5vw, 2.5rem);
+    align-items: center;
+    justify-items: start;
+    padding: clamp(0.875rem, 2vh, 1.25rem) 0;
+    border-bottom: 1px solid var(--prop-line);
+    /* вертикальна шина: ліва кромка рядка; в останньому — до середини */
+    background: linear-gradient(var(--prop-accent), var(--prop-accent)) 0 0 / 1px 100% no-repeat;
+}
+
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__col:last-child {
+    background-size: 1px 50%;
+    border-bottom: 0;
+}
+
+/* рука від шини до гілки */
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__col::before {
+    content: "";
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: stretch;
+    height: 1px;
+    background: var(--prop-accent);
+    margin-right: 0.25rem;
+}
+
+/* наконечник стрілки — у тій самій клітинці, що й рука (завжди на одній осі) */
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__col::after {
+    content: "";
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    width: 0;
+    height: 0;
+    border-top: 0.3125rem solid transparent;
+    border-bottom: 0.3125rem solid transparent;
+    border-left: 0.4375rem solid var(--prop-accent);
+}
+
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__node {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: left;
+    hyphens: manual;
+}
+
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__cap {
+    grid-column: 3;
+    grid-row: 1;
+    margin: 0;
+    text-align: left;
+    line-height: 1.6;
+}
+
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__root,
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__node,
+.prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__cap {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+@media (max-width: 47.9375rem) {
+    .prop-tree:has(.prop-tree__col:nth-child(7)) {
+        --vt-arm: 1.75rem;
+    }
+
+    .prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__col {
+        grid-template-columns: var(--vt-arm) minmax(0, 1fr);
+        column-gap: 0.875rem;
+        row-gap: 0.375rem;
+    }
+
+    .prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__cap {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    .prop-tree:has(.prop-tree__col:nth-child(7)) .prop-tree__col:last-child {
+        background-size: 1px calc(clamp(0.875rem, 2vh, 1.25rem) + 0.9rem);
     }
 }
