@@ -65,6 +65,14 @@ def payment_amount(title, body, figure, price):
         lo, hi = price[0] / 2, price[1] / 2
         if lo == int(lo) and hi == int(hi):
             return f"{_eur(lo, hi)} {_('передоплата')} + {_eur(lo, hi)} {_('після тестування')}"
+    if has_money(title):
+        return ''  # сума вже в назві (дані КП) — не дублюємо
+    pct = re.fullmatch(r'(\d{1,3})%', figure or '')
+    if pct and price and 0 < int(pct.group(1)) < 100:
+        k = int(pct.group(1))
+        lo, hi = price[0] * k / 100, price[1] * k / 100
+        if lo == int(lo) and hi == int(hi):
+            return _eur(lo, hi)
     n, m = _INSTALMENTS.search(body or ''), _PER_MONTH.search(body or '')
     if n and m:
         cnt = int(n.group(1))

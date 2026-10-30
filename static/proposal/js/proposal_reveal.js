@@ -117,8 +117,14 @@
     if (!nav) return;
 
     const hero = document.getElementById('prop-hero');
-    const rest = Array.prototype.slice.call(
-      document.querySelectorAll('[data-prop-section]')
+    /* Канон Design Lead: секція рахується, лише якщо вона видима і має .prop-eyebrow
+       (01 Структура … 09 Старт = «/ 09»). Hero, header, footer, демо-віджет — без eyebrow, не рахуються. */
+    const rest = Array.prototype.filter.call(
+      document.querySelectorAll('section[id^="prop-"]'),
+      function (el) {
+        const eb = el.querySelector('.prop-eyebrow');
+        return !!eb && el.getClientRects().length > 0;
+      }
     );
     const items = [];
     if (hero) items.push(hero);
@@ -137,8 +143,7 @@
     });
 
     const rail = nav.querySelectorAll('[data-prop-rail]');
-    /* «NN / TT»: TT = кількість нумерованих секцій [data-prop-section] (01 Структура … 09 CTA);
-       hero, header, footer і демо-віджет не рахуються; на hero показуємо 01 */
+    /* «NN / TT»: TT = кількість видимих секцій з .prop-eyebrow; на hero показуємо 01 */
     const lead = hero ? 1 : 0;
     const total = Math.max(1, items.length - lead);
 

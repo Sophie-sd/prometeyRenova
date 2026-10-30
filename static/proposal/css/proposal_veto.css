@@ -86,3 +86,13 @@
         border-bottom: 1px solid var(--prop-line);
     }
 }
+
+/* Лічильник «NN / 09» рахує секції з .prop-eyebrow — eyebrow у ТЗ і CTA (канон Design Lead) */
+.prop-spec__eyebrow {
+    margin: 0 0 1rem;
+}
+
+.prop-cta-sec__eyebrow {
+    justify-content: center;
+    margin: 0 0 1.25rem;
+}

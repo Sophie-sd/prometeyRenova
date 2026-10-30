@@ -6592,3 +6592,7 @@ msgstr "мес"
 #: apps/core/proposal_presenters.py
 msgid "разом"
 msgstr "всего"
+
+#: templates/proposal/detail.html
+msgid "Старт"
+msgstr "Старт"

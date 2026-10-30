@@ -10247,3 +10247,7 @@ msgstr "mo"
 #: apps/core/proposal_presenters.py
 msgid "разом"
 msgstr "total"
+
+#: templates/proposal/detail.html
+msgid "Старт"
+msgstr "Start"
