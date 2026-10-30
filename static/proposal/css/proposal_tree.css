@@ -287,6 +287,57 @@
         width: 83.333%;
     }
 
+    /* 7–8 гілок (catalog-КП, напр. p3g5): без правила дерево падало в 1 колонку — 7 вертикальних ліній = біла діра */
+    .prop-tree--n7 .prop-tree__drops,
+    .prop-tree--n7 .prop-tree__cols {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
+    .prop-tree--n7 .prop-tree__bus {
+        width: 85.714%;
+    }
+
+    .prop-tree--n8 .prop-tree__drops,
+    .prop-tree--n8 .prop-tree__cols {
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+
+    .prop-tree--n8 .prop-tree__bus {
+        width: 87.5%;
+    }
+
+    .prop-tree--n7,
+    .prop-tree--n8 {
+        --prop-tree-gap: clamp(0.75rem, 1.6vw, 1.5rem);
+    }
+
+    .prop-tree--n7 .prop-tree__drops,
+    .prop-tree--n7 .prop-tree__cols,
+    .prop-tree--n8 .prop-tree__drops,
+    .prop-tree--n8 .prop-tree__cols {
+        gap: var(--prop-tree-gap);
+    }
+
+    .prop-tree--n7 .prop-tree__node,
+    .prop-tree--n8 .prop-tree__node,
+    .prop-tree--n7 .prop-tree__cap,
+    .prop-tree--n8 .prop-tree__cap {
+        text-align: center;
+        overflow-wrap: anywhere;
+    }
+
+    /* 9+ гілок: сітка з переносом, без шини/ліній (не вирівнюються з рядами) */
+    .prop-tree:has(.prop-tree__col:nth-child(9)) .prop-tree__bus,
+    .prop-tree:has(.prop-tree__col:nth-child(9)) .prop-tree__drops {
+        display: none;
+    }
+
+    .prop-tree:has(.prop-tree__col:nth-child(9)) .prop-tree__cols {
+        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+        row-gap: clamp(1.5rem, 4vh, 2.25rem);
+        margin-top: 1.5rem;
+    }
+
     .prop-intro {
         grid-template-columns: minmax(8.75rem, 13.75rem) minmax(0, 1fr);
     }

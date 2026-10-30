@@ -126,6 +126,14 @@
     color: var(--prop-text);
 }
 
+/* Гарантія одним абзацом (немає окремого короткого «цитатного» рядка): середній розмір замість display-цитати, щоб секція не роздувалась */
+.prop-gua .prop-prose p:only-of-type {
+    font-size: clamp(1.375rem, 2.2vw, 2.25rem);
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    max-width: 38ch;
+}
+
 .prop-gua .prop-prose strong {
     color: var(--prop-accent);
     font-weight: 300;
