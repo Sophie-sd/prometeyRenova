@@ -21,6 +21,7 @@ from django.db import transaction
 from django.db.models import Max
 from django.utils import timezone
 
+from .proposal_canon import normalize_proposal_data
 from .proposal_models import (
     Proposal, ProposalHeroImage, ProposalImport, ProposalModule, ProposalPackage, ProposalSpec,
 )
@@ -334,6 +335,7 @@ def import_proposal_package(blob: bytes, *, user=None, original_name: str = '', 
                             create_demo: bool = True) -> ProposalImport | ParsedPackage:
     parsed = parse_package(blob)
     parsed.log.extend(f'WARN: {w}' for w in import_warnings(parsed.data))
+    parsed.log.extend(f'CANON: {c}' for c in normalize_proposal_data(parsed.data))
     if ProposalImport.objects.filter(sha256=parsed.sha256).exists():
         raise ImportError_('Цей пакет уже імпортовано (той самий SHA-256)')
     existing = Proposal.objects.filter(slug=parsed.data['slug']).first()
