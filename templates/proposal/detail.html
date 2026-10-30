@@ -283,8 +283,8 @@
 {% endif %}
 
 {% if proposal.demo_tenant.is_active %}
-<section id="prop-demo" class="prop-section prop-demo-sec" data-prop-section="{{ secnum.demo }}" aria-labelledby="prop-demo-title">
-    <p class="prop-cta-sec__num">{{ secnum.demo }}</p>
+{# Демо — віджет до пакетів: без власного номера, у лічильник «NN / 09» не входить (канон Design Lead) #}
+<section id="prop-demo" class="prop-section prop-demo-sec" aria-labelledby="prop-demo-title">
     <div class="prop-demo-sec__grid">
         <h2 id="prop-demo-title" class="prop-demo-sec__title prop-reveal" data-prop-reveal>{% trans "Демо вже зібране" %}</h2>
         <div>

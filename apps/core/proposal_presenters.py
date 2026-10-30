@@ -90,7 +90,8 @@ def prepare_payment_items(items, packages=None):
     return items
 
 
-_SECTIONS = ('arch', 'intro', 'modules', 'specs', 'expert', 'packages', 'guarantee', 'payment', 'demo', 'cta')
+# Нумеровані секції КП (канон Design Lead): 01 Структура … 08 Оплата, 09 CTA. Hero і демо-віджет не нумеруються.
+_SECTIONS = ('arch', 'intro', 'modules', 'specs', 'expert', 'packages', 'guarantee', 'payment', 'cta')
 
 
 def section_numbers(present):

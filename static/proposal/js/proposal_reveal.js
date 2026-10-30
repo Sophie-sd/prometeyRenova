@@ -137,7 +137,8 @@
     });
 
     const rail = nav.querySelectorAll('[data-prop-rail]');
-    /* лічильник рахує лише нумеровані секції (01…NN), без hero: hero показує 01 */
+    /* «NN / TT»: TT = кількість нумерованих секцій [data-prop-section] (01 Структура … 09 CTA);
+       hero, header, footer і демо-віджет не рахуються; на hero показуємо 01 */
     const lead = hero ? 1 : 0;
     const total = Math.max(1, items.length - lead);
 

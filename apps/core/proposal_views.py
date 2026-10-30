@@ -64,7 +64,6 @@ class ProposalDetailView(DetailView):
             ),
         })
         context['hero_srcset'], context['hero_wh'] = hero_responsive(proposal.hero_public_url)
-        tenant = proposal.demo_tenant
         context['pay_has_amounts'] = any(i.pay_amount for i in context['payment_items'])
         context['secnum'] = section_numbers({
             'arch': bool(arch_nodes),
@@ -75,6 +74,5 @@ class ProposalDetailView(DetailView):
             'packages': bool(context['packages']),
             'guarantee': bool(proposal.get_safe_guarantee()),
             'payment': bool(context['payment_items']),
-            'demo': bool(tenant and tenant.is_active),
         })
         return context
