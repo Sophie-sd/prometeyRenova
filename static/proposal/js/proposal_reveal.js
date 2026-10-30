@@ -137,7 +137,9 @@
     });
 
     const rail = nav.querySelectorAll('[data-prop-rail]');
-    const total = items.length;
+    /* лічильник рахує лише нумеровані секції (01…NN), без hero: hero показує 01 */
+    const lead = hero ? 1 : 0;
+    const total = Math.max(1, items.length - lead);
 
     function setRail(i) {
       rail.forEach(function (a) {
@@ -160,7 +162,7 @@
           if (!entry.isIntersecting) return;
           const i = items.indexOf(entry.target);
           if (i < 0) return;
-          setCount(i + 1);
+          setCount(Math.max(1, i + 1 - lead));
           setRail(i);
         });
       },

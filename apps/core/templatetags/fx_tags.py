@@ -1,3 +1,5 @@
+import re
+
 from django import template
 from django.utils.translation import gettext as _
 
@@ -42,6 +44,25 @@ def fx_package(context, package):
     return format_package_price(package, currency, rates)
 
 
+_EUR_TXT = re.compile(r'(\d[\d\u00a0 ]*\d|\d)(?:\s?([–-])\s?(\d[\d\u00a0 ]*\d|\d))?\s?€')
+
+
+@register.simple_tag(takes_context=True)
+def fx_text(context, text):
+    """Суми в євро всередині тексту («375–400 € передоплата») у вибраній валюті; решта тексту без змін."""
+    currency, rates = _fx(context)
+
+    def num(v):
+        return int(re.sub(r'\D', '', v))
+
+    def sub(m):
+        if m.group(3):
+            return format_range(num(m.group(1)), num(m.group(3)), currency, rates)
+        return format_amount(num(m.group(1)), currency, rates)
+
+    return _EUR_TXT.sub(sub, text or '')
+
+
 @register.inclusion_tag('components/currency_switcher.html', takes_context=True)
 def currency_switcher(context, variant='light', region='home', oob=False, slot=''):
     if variant not in _VARIANTS:
@@ -52,6 +73,8 @@ def currency_switcher(context, variant='light', region='home', oob=False, slot='
     codes = context.get('fx_codes') or ['EUR']
     current = context.get('fx_currency') or 'EUR'
     next_url = request.get_full_path() if request is not None else '/'
+    if request is not None and request.method == 'POST' and request.POST.get('next'):
+        next_url = request.POST['next']  # OOB-перемальовка після HX: лишаємо сторінку (і мову) походження
     proposal = context.get('proposal')
     choices = [
         {

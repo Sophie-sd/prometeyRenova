@@ -10207,3 +10207,43 @@ msgstr "calculate website cost"
 # TZ 2026-10-28-001, Design Lead veto
 msgid "Розрахувати вартість сайту"
 msgstr "Calculate website cost"
+
+#: templates/proposal/detail.html
+msgid "Розуміння"
+msgstr "Understanding"
+
+#: templates/proposal/detail.html
+msgid "Рішення"
+msgstr "Solution"
+
+#: templates/proposal/detail.html
+msgid "модулів"
+msgstr "modules"
+
+#: templates/proposal/detail.html
+msgid "Експертиза"
+msgstr "Expertise"
+
+#: templates/proposal/detail.html
+msgid "Інвестиція"
+msgstr "Investment"
+
+#: templates/proposal/detail.html
+msgid "Гарантія PrometeyLabs"
+msgstr "PrometeyLabs guarantee"
+
+#: apps/core/proposal_presenters.py
+msgid "передоплата"
+msgstr "upfront"
+
+#: apps/core/proposal_presenters.py
+msgid "після тестування"
+msgstr "after testing"
+
+#: apps/core/proposal_presenters.py
+msgid "міс"
+msgstr "mo"
+
+#: apps/core/proposal_presenters.py
+msgid "разом"
+msgstr "total"

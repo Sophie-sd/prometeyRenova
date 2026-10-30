@@ -1,0 +1,2 @@
+{% load fx_tags %}
+<p id="fx-pay-{{ item.id }}" class="prop-pay__amount"{% if oob %} hx-swap-oob="outerHTML"{% endif %}>{% fx_text item.pay_amount %}</p>

@@ -836,10 +836,8 @@ msgid "Про компанію / стек"
 msgstr ""
 
 #: apps/core/proposal_admin.py:123
-#, fuzzy
-#| msgid "гарантія"
 msgid "Гарантія"
-msgstr "гарантия"
+msgstr "Гарантия"
 
 #: apps/core/proposal_admin.py:126
 msgid "Мета"
@@ -958,7 +956,7 @@ msgstr "Что входит:"
 #: apps/core/proposal_models.py:165
 #: templates/proposal/partials/package_card.html:18
 msgid "Термін"
-msgstr ""
+msgstr "Срок"
 
 #: apps/core/proposal_models.py:170
 msgid "Термін (RU)"
@@ -986,10 +984,8 @@ msgid "ТЗ / деталі проєкту"
 msgstr "Реальные проекты"
 
 #: apps/core/proposal_models.py:226 templates/proposal/detail.html:207
-#, fuzzy
-#| msgid "Помилка оплати"
 msgid "Умови оплати"
-msgstr "Ошибка оплаты"
+msgstr "Условия оплаты"
 
 # ===== home.html — services =====
 #: apps/core/proposal_models.py:227
@@ -4995,13 +4991,11 @@ msgstr "Перейти к содержанию"
 
 #: templates/proposal/base_proposal.html:48
 msgid "Документ конфіденційний. Не для публічного поширення."
-msgstr ""
+msgstr "Документ конфиденциальный. Не для публичного распространения."
 
 #: templates/proposal/detail.html:28
-#, fuzzy
-#| msgid "Відновлено: %(n)s"
 msgid "Підготовлено"
-msgstr "Восстановлено: %(n)s"
+msgstr "Подготовлено"
 
 #: templates/proposal/detail.html:31
 #, fuzzy
@@ -5022,53 +5016,45 @@ msgstr "Пожизненная гарантия на код"
 
 #: templates/proposal/detail.html:59
 msgid "Про компанію та стек"
-msgstr ""
+msgstr "О компании и стеке"
 
 #: templates/proposal/detail.html:73
-#, fuzzy
-#| msgid "Ключові слова"
 msgid "Ключові модулі платформи"
-msgstr "Ключевые слова"
+msgstr "Ключевые модули платформы"
 
 # ===== home.html — services =====
 #: templates/proposal/detail.html:118
-#, fuzzy
-#| msgid "Контакти | PrometeyLabs"
 msgid "Рекомендації від PrometeyLabs"
-msgstr "Контакты | PrometeyLabs"
+msgstr "Рекомендации от PrometeyLabs"
 
 #: templates/proposal/detail.html:149
 msgid "Рекомендації підготовлені командою PrometeyLabs"
 msgstr "Рекомендации подготовлены командой PrometeyLabs"
 
 #: templates/proposal/detail.html:164
-#, fuzzy
-#| msgid "Контакти та карта"
 msgid "Кошторис та пакети"
-msgstr "Контакты и карта"
+msgstr "Смета и пакеты"
 
 #: templates/proposal/detail.html:183
 msgid "Надійність та гарантія"
-msgstr ""
+msgstr "Надёжность и гарантия"
 
 #: templates/proposal/detail.html:230
 msgid "Готові розпочати?"
-msgstr ""
+msgstr "Готовы начать?"
 
 #: templates/proposal/detail.html:232
 msgid ""
 "Ми готові обговорити технічні нюанси та розпочати роботу над вашим проєктом."
-msgstr ""
+msgstr "Мы готовы обсудить технические нюансы и начать работу над вашим проектом."
 
 #: templates/proposal/detail.html:256
 msgid "Швидка дія"
-msgstr ""
+msgstr "Быстрое действие"
 
 #: templates/proposal/partials/package_card.html:9
-#, fuzzy
-#| msgid "Деактивовано"
 msgid "Рекомендовано"
-msgstr "Деактивировано"
+msgstr "Рекомендовано"
 
 #: templates/unfold/helpers/app_list_default.html:9
 #, python-format
@@ -6538,3 +6524,71 @@ msgstr "рассчитать стоимость сайта"
 # TZ 2026-10-28-001, Design Lead veto
 msgid "Розрахувати вартість сайту"
 msgstr "Рассчитать стоимость сайта"
+
+#: templates/proposal/detail.html
+msgid "Демо вже зібране"
+msgstr "Демо уже собрано"
+
+#: templates/proposal/detail.html
+msgid "Секції"
+msgstr "Разделы"
+
+#: templates/proposal/detail.html
+msgid "Розуміння"
+msgstr "Понимание"
+
+#: templates/proposal/detail.html
+msgid "Рішення"
+msgstr "Решение"
+
+#: templates/proposal/detail.html
+msgid "модулів"
+msgstr "модулей"
+
+#: templates/proposal/detail.html
+msgid "Експертиза"
+msgstr "Экспертиза"
+
+#: templates/proposal/detail.html
+msgid "Інвестиція"
+msgstr "Инвестиции"
+
+#: templates/proposal/detail.html
+msgid "Гарантія PrometeyLabs"
+msgstr "Гарантия PrometeyLabs"
+
+#: templates/proposal/detail.html
+msgid "Переглянути демо сайту"
+msgstr "Посмотреть демо сайта"
+
+#: templates/proposal/detail.html
+msgid "Переглянути демо магазину"
+msgstr "Посмотреть демо магазина"
+
+#: templates/proposal/detail.html
+msgid "Переглянути демо лендінгу"
+msgstr "Посмотреть демо лендинга"
+
+#: templates/proposal/detail.html
+msgid "Це не версія вашого сайту і не макет у Figma. Це два стандартні демо: лендинг (сторінка із заявками, без адмінки) та інтернет-магазин (каталог, кошик, оформлення й адмінка CMS)."
+msgstr "Это не версия вашего сайта и не макет в Figma. Это два стандартных демо: лендинг (страница с заявками, без админки) и интернет-магазин (каталог, корзина, оформление и админка CMS)."
+
+#: templates/proposal/detail.html
+msgid "Це не версія вашого сайту і не макет у Figma. Це стандартний демо-сайт із функціоналом, який ви отримаєте для тестування: сторінки, заявки, адмінка."
+msgstr "Это не версия вашего сайта и не макет в Figma. Это стандартный демо-сайт с функционалом, который вы получите для тестирования: страницы, заявки, админка."
+
+#: apps/core/proposal_presenters.py
+msgid "передоплата"
+msgstr "предоплата"
+
+#: apps/core/proposal_presenters.py
+msgid "після тестування"
+msgstr "после тестирования"
+
+#: apps/core/proposal_presenters.py
+msgid "міс"
+msgstr "мес"
+
+#: apps/core/proposal_presenters.py
+msgid "разом"
+msgstr "всего"

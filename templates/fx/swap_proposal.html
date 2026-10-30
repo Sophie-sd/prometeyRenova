@@ -3,3 +3,7 @@
 {% include 'fx/prop_price.html' with package=package oob=True %}
 {% endfor %}
 {% currency_switcher "dark" "proposal" True %}
+{% for item in payment_items %}{% if item.pay_amount %}
+{% include 'fx/prop_pay_amount.html' with item=item oob=True %}
+{% endif %}{% endfor %}
+{% if pay_has_amounts %}{% currency_switcher "dark" "proposal" True "pay" %}{% endif %}
