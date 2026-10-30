@@ -142,6 +142,26 @@
     animation-delay: 1.31s;
 }
 
+/* 4+ гілок: без цих правил h2/dash лишались scale(0) → під гілками 4..N не було ліній/стрілок */
+.prop-anim.is-in .prop-tree__drops .prop-tree__v:nth-child(n+4) {
+    animation: propGrowV 0.5s 0.8s var(--ease-reveal) both;
+    transform-origin: top;
+}
+.prop-anim.is-in .prop-tree__col:nth-child(n+4) .prop-tree__node {
+    animation: propFadeUp 0.6s 0.89s var(--ease-reveal) both;
+}
+.prop-anim.is-in .prop-tree__col:nth-child(n+4) .prop-tree__h2 {
+    animation: propGrowH 0.6s 1.01s var(--ease-reveal) both;
+}
+.prop-anim.is-in .prop-tree__col:nth-child(n+4) .prop-tree__dash {
+    animation: propGrowV 0.5s 1.11s var(--ease-reveal) both;
+}
+.prop-anim.is-in .prop-tree__col:nth-child(n+4) .prop-tree__dot {
+    animation-delay: 1.24s;
+}
+.prop-anim.is-in .prop-tree__col:nth-child(n+4) .prop-tree__cap {
+    animation-delay: 1.34s;
+}
 .prop-anim.is-in .prop-pay__fill {
     animation: propGrowH 0.9s 0.15s var(--ease-reveal) both;
 }

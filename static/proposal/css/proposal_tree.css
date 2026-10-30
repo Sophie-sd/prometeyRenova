@@ -78,18 +78,29 @@
 }
 
 .prop-tree__dash {
+    position: relative;
     width: 1px;
-    height: clamp(1.875rem, 5vh, 3.5rem);
-    background-image: linear-gradient(var(--prop-accent) 2.5px, transparent 2.5px);
-    background-size: 1px 8px;
-    opacity: 0.85;
+    height: clamp(2.25rem, 5.5vh, 3.75rem);
+    margin-top: clamp(0.75rem, 1.6vh, 1.125rem);
+    background: var(--prop-accent);
+    opacity: 0.9;
+}
+
+/* стрілка до опису під кожною гілкою */
+.prop-tree__dash::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -1px;
+    width: 0.4375rem;
+    height: 0.4375rem;
+    border-right: 1px solid var(--prop-accent);
+    border-bottom: 1px solid var(--prop-accent);
+    transform: translateX(-50%) rotate(45deg);
 }
 
 .prop-tree__dot {
-    width: 0.375rem;
-    height: 0.375rem;
-    border-radius: 50%;
-    background: var(--prop-accent);
+    display: none;
 }
 
 .prop-tree__cap {
