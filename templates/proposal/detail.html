@@ -270,7 +270,7 @@
                     <span class="prop-pay__dot" aria-hidden="true"></span>
                     {# порядок: цифра → назва → сума → опис; назва не дублюється #}
                     {% if item.pay_figure %}<p class="prop-pay__pct" data-prop-pct>{{ item.pay_figure }}</p>{% endif %}
-                    <h3 class="prop-pay__title">{{ item.get_localized_title }}</h3>
+                    <h3 class="prop-pay__title">{{ item.pay_title|default:item.get_localized_title }}</h3>
                     {% if item.pay_amount %}{% include 'fx/prop_pay_amount.html' %}{% endif %}
                     {% if item.pay_body %}
                     <p class="prop-pay__body">{{ item.pay_body }}</p>

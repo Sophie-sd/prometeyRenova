@@ -11,7 +11,7 @@ _MONEY = re.compile(
     r'(?:від\s+|от\s+|from\s+|od\s+)?'
     r'(?:[€$₴]\s?\d[\d\s.,]*(?:\s?[–-]\s?\d[\d\s.,]*)?'
     r'|\d[\d\s.,]*(?:\s?[–-]\s?\d[\d\s.,]*)?\s?(?:€|EUR|грн|₴|\$|USD|Kč|CZK))'
-    r'(?:\s?/\s?(?:міс|мес|mo|month|měs)\.?)?',
+    r'(?:\s?/\s?(?:міс|мес|мис|mo|month|měs)\.?)?',
     re.IGNORECASE,
 )
 _RATIO = re.compile(r'\b\d{1,3}\s?/\s?\d{1,3}\b')
@@ -53,8 +53,45 @@ def _single_eur_price(packages):
     return pk.price, (pk.price_high or pk.price)
 
 
-_INSTALMENTS = re.compile(r'(\d{1,2})\s*(?:платеж|платіж|платеж|payment|splát)', re.I)
-_PER_MONTH = re.compile(r'(\d[\d ]*)\s?(?:[–-]\s?(\d[\d ]*))?\s?€\s?/\s?(?:міс|мес|mo|month|měs)', re.I)
+_INSTALMENTS = re.compile(r'(\d{1,2})\s*(?:плат[еіи]ж|payment|splát)', re.I)
+_PER_MONTH = re.compile(r'(\d[\d ]*)\s?(?:[–-]\s?(\d[\d ]*))?\s?€\s?/\s?(?:міс|мес|мис|mo|month|měs)', re.I)
+
+
+def _instalments(text):
+    """«до 5 платежів по 50 €/міс» → (5, lo, hi) з даних КП; інакше None."""
+    n, m = _INSTALMENTS.search(text or ''), _PER_MONTH.search(text or '')
+    if not (n and m):
+        return None
+    lo = int(re.sub(r'\D', '', m.group(1)))
+    hi = int(re.sub(r'\D', '', m.group(2))) if m.group(2) else lo
+    return int(n.group(1)), lo, hi
+
+
+def _instalments_text(inst):
+    from django.utils.translation import gettext as _
+    cnt, lo, hi = inst
+    return f"{cnt} × {_eur(lo, hi)}/{_('міс')}, {_('разом')} {_eur(cnt * lo, cnt * hi)}"
+
+
+def split_title_amount(title, figure):
+    """Назва пункту без суми й без повтору цифри: «1-й платіж (50%) — 125 €» → («1-й платіж», «125 €»);
+    «Розстрочка 0% (…): до 5 платежів по 50 €/міс.» → («Розстрочка 0% (…)», «5 × 50 €/міс, разом 250 €»).
+    Сума береться лише з тексту КП. Без суми в назві — (title, '')."""
+    title = title or ''
+    if not has_money(title):
+        return title, ''
+    head, sep, tail = title.partition(':')
+    if sep and has_money(tail) and not has_money(head):
+        inst = _instalments(tail)
+        amount = _instalments_text(inst) if inst else tail.strip().rstrip('.')
+        return head.strip(), amount
+    m = _MONEY.search(title)
+    amount = m.group(0).strip().rstrip('.,')
+    name = (title[:m.start()] + title[m.end():]).strip()
+    if figure:
+        name = re.sub(r'\(\s*' + re.escape(figure).replace('%', r'\s?%') + r'\s*\)', '', name)
+    name = re.sub(r'[\s—–\-:,]+$', '', re.sub(r'\s{2,}', ' ', name)).strip()
+    return (name or title), amount
 
 
 def payment_amount(title, body, figure, price):
@@ -66,25 +103,20 @@ def payment_amount(title, body, figure, price):
         if lo == int(lo) and hi == int(hi):
             return f"{_eur(lo, hi)} {_('передоплата')} + {_eur(lo, hi)} {_('після тестування')}"
     if has_money(title):
-        return ''  # сума вже в назві (дані КП) — не дублюємо
+        return ''  # сума в назві — її виносить split_title_amount
     pct = re.fullmatch(r'(\d{1,3})%', figure or '')
     if pct and price and 0 < int(pct.group(1)) < 100:
         k = int(pct.group(1))
         lo, hi = price[0] * k / 100, price[1] * k / 100
         if lo == int(lo) and hi == int(hi):
             return _eur(lo, hi)
-    n, m = _INSTALMENTS.search(body or ''), _PER_MONTH.search(body or '')
-    if n and m:
-        cnt = int(n.group(1))
-        lo = int(re.sub(r'\D', '', m.group(1)))
-        hi = int(re.sub(r'\D', '', m.group(2))) if m.group(2) else lo
-        return f"{cnt} × {_eur(lo, hi)}/{_('міс')}, {_('разом')} {_eur(cnt * lo, cnt * hi)}"
-    return ''
+    inst = _instalments(body)
+    return _instalments_text(inst) if inst else ''
 
 
 def prepare_payment_items(items, packages=None):
-    """pay_figure — лише цифра; pay_amount — суми (EUR, конвертує перемикач валют); pay_body — опис.
-    Заголовок не дублюється ні в цифрі, ні в описі."""
+    """pay_figure — лише цифра; pay_title — назва без суми; pay_amount — суми (EUR, конвертує перемикач валют);
+    pay_body — опис. Порядок: цифра / назва / сума. Заголовок не дублюється ні в цифрі, ні в описі."""
     price = _single_eur_price(packages)
     for item in items:
         title, body = item.get_localized_title(), item.get_localized_body()
@@ -93,7 +125,8 @@ def prepare_payment_items(items, packages=None):
             item.pay_figure = ''
         if _norm(body) == _norm(title):
             body = ''
-        item.pay_amount = payment_amount(title, body, item.pay_figure, price)
+        item.pay_title, in_title = split_title_amount(title, item.pay_figure)
+        item.pay_amount = in_title or payment_amount(title, body, item.pay_figure, price)
         item.pay_body = body
     return items
 
