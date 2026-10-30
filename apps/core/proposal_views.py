@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.views.generic import DetailView
 
 from apps.core.proposal_models import Proposal, ProposalSpec
+from apps.core.proposal_presenters import hero_responsive, prepare_payment_items, section_numbers, visible_recommendations
 from apps.core.utils import get_site_contact_settings
 
 
@@ -52,9 +53,28 @@ class ProposalDetailView(DetailView):
             'arch_root': arch_nodes[0] if arch_nodes else None,
             'arch_branches': arch_nodes[1:] if arch_nodes else [],
             'spec_items': [s for s in specs if s.kind == ProposalSpec.Kind.SPEC],
-            'payment_items': [s for s in specs if s.kind == ProposalSpec.Kind.PAYMENT],
-            'recommendation_items': [
-                s for s in specs if s.kind == ProposalSpec.Kind.RECOMMENDATION
-            ],
+            'payment_items': prepare_payment_items(
+                [s for s in specs if s.kind == ProposalSpec.Kind.PAYMENT],
+                list(proposal.packages.all()),
+            ),
+            # Секцію «Рекомендації» не показуємо, якщо в ній лише гарантія, що вже є в секції 07
+            'recommendation_items': visible_recommendations(
+                [s for s in specs if s.kind == ProposalSpec.Kind.RECOMMENDATION],
+                proposal.get_localized_guarantee_html(),
+            ),
+        })
+        context['hero_srcset'], context['hero_wh'] = hero_responsive(proposal.hero_public_url)
+        tenant = proposal.demo_tenant
+        context['pay_has_amounts'] = any(i.pay_amount for i in context['payment_items'])
+        context['secnum'] = section_numbers({
+            'arch': bool(arch_nodes),
+            'intro': bool(proposal.get_safe_intro()),
+            'modules': bool(context['modules']),
+            'specs': bool(context['spec_items']),
+            'expert': bool(context['recommendation_items']),
+            'packages': bool(context['packages']),
+            'guarantee': bool(proposal.get_safe_guarantee()),
+            'payment': bool(context['payment_items']),
+            'demo': bool(tenant and tenant.is_active),
         })
         return context

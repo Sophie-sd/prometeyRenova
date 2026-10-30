@@ -25,6 +25,18 @@ def _with_cookie(response, code):
     return response
 
 
+def _proposal_swap_context(proposal):
+    from apps.core.proposal_models import ProposalSpec
+    from apps.core.proposal_presenters import prepare_payment_items
+
+    packages = list(proposal.packages.all())
+    pay = prepare_payment_items(
+        list(proposal.specs.filter(kind=ProposalSpec.Kind.PAYMENT).order_by('order', 'pk')), packages
+    )
+    return {'proposal': proposal, 'packages': packages,
+            'payment_items': pay, 'pay_has_amounts': any(i.pay_amount for i in pay)}
+
+
 def _hx_fragment(request, region):
     if region == 'proposal':
         from apps.core.proposal_models import Proposal
@@ -39,11 +51,16 @@ def _hx_fragment(request, region):
         )
         if proposal is None:
             return HttpResponse(status=404)
-        return render(
-            request,
-            'fx/swap_proposal.html',
-            {'proposal': proposal, 'packages': list(proposal.packages.all())},
-        )
+        from django.utils import translation
+
+        # HX-запит іде на неперекладений URL: мову фрагментів беремо з next (/ru/proposal/…)
+        lang = translation.get_language_from_path(request.POST.get('next') or '') or translation.get_language()
+        with translation.override(lang):
+            return render(
+                request,
+                'fx/swap_proposal.html',
+                _proposal_swap_context(proposal),
+            )
     return render(request, f'fx/swap_{region}.html')
 
 

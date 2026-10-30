@@ -1,0 +1,88 @@
+/* Design Lead VETO 30.10 (КП corp-budivnytstvo-g1by і всі КП): контраст, hero ≤767, дерево, пакети, гарантія, оплата, рекомендації */
+
+/* 8: дрібні підписи — альфа ≥0.55 (≈5.6:1 на #0a0a0a) */
+:root {
+    --prop-muted-faint: rgba(243, 238, 231, 0.58);
+}
+
+/* 7: на телефоні фон-візуал hero не перекриває лід і CTA */
+@media (max-width: 47.9375rem) {
+    .prop-hero__img {
+        opacity: 0.18;
+    }
+
+    .prop-hero__inner {
+        position: relative;
+        z-index: 1;
+    }
+
+    .prop-hero__lead {
+        color: rgba(243, 238, 231, 0.82);
+    }
+}
+
+/* 9: акцентний вузол дерева — без автоматичних переносів посеред слова */
+.prop-tree__node--accent {
+    hyphens: manual;
+    -webkit-hyphens: manual;
+    overflow-wrap: normal;
+    word-break: normal;
+    text-wrap: balance;
+}
+
+/* 10: один пакет на десктопі займає обидві колонки; світіння не «замінює» другу картку */
+@media (min-width: 64rem) {
+    .prop-packages-grid--n1 {
+        grid-template-columns: 1fr;
+    }
+
+    .prop-packages-grid--n1 > * {
+        grid-column: 1 / -1;
+    }
+
+    #prop-packages .prop-glow--pack {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0.5;
+    }
+}
+
+/* 11: печатка гарантії — штамп у колонці, а не порожнеча (і на телефоні) */
+.prop-gua__sticky .prop-seal {
+    width: clamp(7rem, 12vw, 10rem);
+    height: clamp(7rem, 12vw, 10rem);
+}
+
+.prop-gua__stamp {
+    margin: 1rem 0 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--prop-muted-faint);
+}
+
+/* 4: оплата — цифра → назва → сума → опис */
+.prop-pay__amount {
+    margin: 0.75rem 0 0;
+    font-family: var(--prop-display);
+    font-size: clamp(1.0625rem, 1.5vw, 1.375rem);
+    line-height: 1.35;
+    color: var(--prop-text);
+}
+
+.prop-pay__fx {
+    margin-top: 1.5rem;
+}
+
+/* Рекомендації 3–5 карток: непарна остання на всю ширину, нижня лінія в останньому ряду */
+@media (min-width: 64rem) {
+    .prop-expert-list > .prop-expert-list__item:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+    }
+
+    .prop-expert-list > .prop-expert-list__item:nth-last-child(2):nth-child(odd) {
+        border-bottom: 1px solid var(--prop-line);
+    }
+}
