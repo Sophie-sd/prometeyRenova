@@ -291,8 +291,49 @@ def _next_version(proposal: Proposal | None) -> int:
     return (proposal.imports.aggregate(m=Max('version'))['m'] or 0) + 1
 
 
-def import_proposal_package(blob: bytes, *, user=None, original_name: str = '', dry_run: bool = False) -> ProposalImport | ParsedPackage:
+def provision_demo_for(proposal: Proposal):
+    """Канон Олега 30.10: демо за kind через НАЯВНІ provision_* (їх тіла не змінюємо)."""
+    if proposal.kind == Proposal.DemoKind.LANDING:
+        from apps.demolanding.services.provision import provision_demo_landing
+        return provision_demo_landing(proposal)
+    if proposal.kind == Proposal.DemoKind.CORPORATE:
+        from apps.democorp.services.provision import provision_demo_corp
+        return provision_demo_corp(proposal)
+    from apps.demoshop.services.provision import provision_demo_shop
+    return provision_demo_shop(proposal)
+
+
+_PAGESPEED_RE = re.compile(r'pagespeed[^0-9]{0,40}(\d{2,3})', re.I)
+
+
+def import_warnings(data: dict) -> list[str]:
+    """М'які попередження (не блокують імпорт): брендинг, PageSpeed 90+, info@ замість office@."""
+    texts = []
+    for k, v in data.items():
+        if isinstance(v, str):
+            texts.append(v)
+        elif isinstance(v, list):
+            for row in v:
+                if isinstance(row, dict):
+                    texts.extend(x for x in row.values() if isinstance(x, str))
+    blob = '\n'.join(texts)
+    low = blob.lower()
+    out = []
+    if re.search(r'кодопис|kodopys', low):
+        out.append('Згадка «Кодописець / Kodopysets» — перевірте узгоджений брендинг перед публікацією.')
+    if 'pagespeed' in low:
+        nums = [int(n) for n in _PAGESPEED_RE.findall(blob)]
+        if not nums or min(nums) < 90:
+            out.append('PageSpeed: обіцянка має бути 90+ (знайдено: %s).' % (', '.join(map(str, nums)) or 'без числа'))
+    if re.search(r'\boffice@', low):
+        out.append('Знайдено office@ — за каноном краще info@.')
+    return out
+
+
+def import_proposal_package(blob: bytes, *, user=None, original_name: str = '', dry_run: bool = False,
+                            create_demo: bool = True) -> ProposalImport | ParsedPackage:
     parsed = parse_package(blob)
+    parsed.log.extend(f'WARN: {w}' for w in import_warnings(parsed.data))
     if ProposalImport.objects.filter(sha256=parsed.sha256).exists():
         raise ImportError_('Цей пакет уже імпортовано (той самий SHA-256)')
     existing = Proposal.objects.filter(slug=parsed.data['slug']).first()
@@ -308,10 +349,26 @@ def import_proposal_package(blob: bytes, *, user=None, original_name: str = '', 
             proposal=proposal, kind=ProposalImport.Kind.UPLOAD, version=_next_version(existing),
             original_name=original_name[:255], sha256=parsed.sha256, manifest=parsed.manifest,
             status=ProposalImport.Status.SUCCESS, snapshot_before=snapshot, user=user,
-            log=[f'{"оновлено" if existing else "створено"} КП {proposal.slug}'], finished_at=timezone.now(),
+            log=[f'{"оновлено" if existing else "створено"} КП {proposal.slug}'] + parsed.log,
+            finished_at=timezone.now(),
         )
         rec.file.save(f'{parsed.sha256[:16]}.zip', ContentFile(blob), save=False)
         rec.save()
+    rec.warnings = [x[6:] for x in parsed.log if x.startswith('WARN: ')]
+    rec.demo_error = ''
+    if create_demo:
+        # Поза транзакцією імпорту: збій provision НЕ відкочує КП.
+        try:
+            with transaction.atomic():
+                tenant = provision_demo_for(proposal)
+            rec.log = rec.log + [f'демо: {tenant.slug}']
+        except Exception as exc:  # noqa: BLE001
+            rec.demo_error = f'{type(exc).__name__}: {exc}'[:500]
+            rec.log = rec.log + [f'WARN: демо не створено — {rec.demo_error}']
+        rec.save(update_fields=['log', 'updated_at'])
+    else:
+        rec.log = rec.log + ['демо пропущено (вимкнено при імпорті)']
+        rec.save(update_fields=['log', 'updated_at'])
     return rec
 
 

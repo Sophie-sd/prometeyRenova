@@ -46,6 +46,8 @@ def _guard(request):
 
 class UploadForm(forms.Form):
     package = forms.FileField(label='Пакет КП (.zip)')
+    create_demo = forms.BooleanField(label='Одразу створити демо', required=False, initial=True,
+                                     help_text='Канон: демо створюється після кожного імпорту (corp/shop/landing).')
 
     def clean_package(self):
         f = self.cleaned_data['package']
@@ -113,12 +115,20 @@ class ProposalImportAdmin(UnfoldModelAdmin):
         if request.method == 'POST' and form.is_valid():
             f = form.cleaned_data['package']
             try:
-                rec = import_proposal_package(f.read(), user=request.user, original_name=f.name)
+                rec = import_proposal_package(f.read(), user=request.user, original_name=f.name,
+                                              create_demo=form.cleaned_data.get('create_demo', True))
             except ImportError_ as exc:
                 messages.error(request, f'Імпорт не виконано: {exc}')
             else:
                 messages.success(request, f'Імпортовано КП «{rec.proposal.slug}», версія {rec.version}. '
                                           'Опубліковано: ' + ('так' if rec.proposal.is_published else 'ні'))
+                for w in rec.warnings:
+                    messages.warning(request, w)
+                if rec.demo_error:
+                    messages.warning(request, f'КП імпортовано, але демо не створено: {rec.demo_error}. '
+                                              'Скористайтесь дією «Створити/оновити демо».')
+                elif not form.cleaned_data.get('create_demo', True):
+                    messages.warning(request, 'Демо не створено — натисніть «Створити/оновити демо».')
                 return HttpResponseRedirect(reverse('admin:core_proposal_change', args=[rec.proposal.pk]))
         ctx = {**self.admin_site.each_context(request), 'title': 'Імпорт КП — Завантажить пакет', 'form': form,
                'submit_label': 'Завантажить пакет', 'downloads': self._downloads(), 'opts': self.opts}
