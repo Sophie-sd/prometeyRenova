@@ -44,7 +44,7 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertIn('rozrobka-sajtiv.css', html)
         # ТЗ 27.10.2026 п. 3.1 / 3.10
         self.assertIn('Розробка сайтів під ключ. Створення сайтів від 250 €</h1>', html)
-        self.assertIn('Замовте сайт для бізнесу: лендінг <span class="pl-rs__acc">від 250 € за 3–7 днів</span>', root)
+        self.assertIn('Створіть сайт для бізнесу: лендінг <span class="pl-rs__acc">від 250 € за 3–7 днів</span>', root)
         # ТЗ Софії 28.10.2026 п. 4.3: два фрагменти прибрано, рівно 4 помаранчеві акценти
         lead = root[root.index('<p class="pl-rs__lead">'):]
         lead = lead[:lead.index('</p>')]
@@ -127,7 +127,7 @@ class RozrobkaSajtivPageTests(TestCase):
         html = self.client.get('/ru/rozrobka-sajtiv/').content.decode()
         root = _landing_markup(html)
         self.assertIn('Разработка сайтов под ключ. Создание сайтов от 250 €</h1>', html)
-        self.assertIn('Закажите сайт для бизнеса: лендинг <span class="pl-rs__acc">от 250 €', root)
+        self.assertIn('Создайте сайт для бизнеса: лендинг <span class="pl-rs__acc">от 250 €', root)
         self.assertNotIn('id="pl-rs-hero-form"', html)
         self.assertNotIn('Рассчитаем стоимость вашего сайта', root)
         self.assertIn('Пожизненная гарантия на код, <span class="pl-rs__acc">1 год бесплатной поддержки</span>.', root)
