@@ -10,31 +10,27 @@ items() skips names that fail reverse; tests assert every PAGES name reverses.
 """
 from django.contrib.sitemaps import Sitemap
 from django.urls import NoReverseMatch, reverse
-from django.utils import translation
+from django.utils import timezone, translation
 
 from apps.blog.models import BlogPost
 
+from . import seo
+
 SITE_DOMAIN = 'www.prometeylabs.com'
 
-# EN mirrors for key citability / Ads landings (i18n_patterns, prefix_default_language=False).
-# Never include admin / proposal / demo / thank-you / blog search.
-EN_MIRROR_NAMES = (
-    'home',
-    'portfolio',
-    'internet_shop_v2',
-    'corporate_website_v2',
-    'telegram_bot',
-        'rozrobka_sajtiv',
-        'dorobka_sajtu',
-        'contacts',
-    'blog:blog_list',
-)
+# Kept for backwards compatibility (tests / imports): EN versions listed in the sitemap.
+EN_MIRROR_NAMES = tuple(name for name, langs in seo.PAGE_LANGUAGES.items() if 'en' in langs)
 
 
 class AbsoluteSitemap(Sitemap):
-    """Sitemap без django.contrib.sites — фіксований прод-домен."""
+    """Sitemap без django.contrib.sites — фіксований прод-домен.
+
+    No <changefreq>/<priority> (ignored by Google); every URL has <lastmod>.
+    """
 
     protocol = 'https'
+    changefreq = None
+    priority = None
 
     def get_urls(self, page=1, site=None, protocol=None):
         class _Site:
@@ -49,84 +45,56 @@ class AbsoluteSitemap(Sitemap):
 
 
 class StaticViewSitemap(AbsoluteSitemap):
-    """Публічні маркетингові та юридичні сторінки (+ EN mirrors)."""
+    """Indexable static pages × real language versions (apps.core.seo.PAGE_LANGUAGES)."""
 
-    changefreq = 'weekly'
-    priority = 0.7
-
-    # name → (priority, changefreq) — default language (uk, no prefix)
-    PAGES = {
-        'home': (1.0, 'daily'),
-        'portfolio': (0.9, 'weekly'),
-        'internet_shop_v2': (0.9, 'weekly'),
-        'corporate_website_v2': (0.9, 'weekly'),
-        'tz_generator': (0.9, 'weekly'),
-        'telegram_bot': (0.9, 'weekly'),
-        'rozrobka_sajtiv': (0.9, 'weekly'),
-        'dorobka_sajtu': (0.9, 'weekly'),
-        'calculator': (0.8, 'weekly'),
-        'contacts': (0.8, 'monthly'),
-        'developer': (0.6, 'monthly'),
-        'monobank_chastynamy': (0.5, 'monthly'),
-        'offer': (0.3, 'yearly'),
-        'privacy': (0.3, 'yearly'),
-        'cookies': (0.3, 'yearly'),
-        'refund': (0.3, 'yearly'),
-        'intellectual_property': (0.3, 'yearly'),
-        'blog:blog_list': (0.8, 'daily'),
-    }
+    # Backwards-compatible view of the registry (tests assert every name reverses).
+    PAGES = dict.fromkeys(seo.PAGE_LANGUAGES)
 
     @staticmethod
     def _safe_reverse(name, lang):
-        try:
-            with translation.override(lang):
-                return reverse(name)
-        except NoReverseMatch:
-            return None
+        return seo.localized_path(name, lang)
 
     def items(self):
-        # ('uk'|'en', url_name)
-        out = []
-        for name in self.PAGES:
-            if self._safe_reverse(name, 'uk'):
-                out.append(('uk', name))
-        for name in EN_MIRROR_NAMES:
-            if name in self.PAGES and self._safe_reverse(name, 'en'):
-                out.append(('en', name))
-        for name in (
-            'home', 'internet_shop_v2', 'corporate_website_v2',
-            'rozrobka_sajtiv', 'dorobka_sajtu',
-        ):
-            if name in self.PAGES and self._safe_reverse(name, 'ru'):
-                out.append(('ru', name))
-        return out
+        return seo.sitemap_entries()
 
     def location(self, item):
         lang, name = item
-        path = self._safe_reverse(name, lang)
-        return path or '/'
+        return self._safe_reverse(name, lang) or '/'
 
-    def priority(self, item):
-        lang, name = item
-        pri = self.PAGES[name][0]
-        if lang in ('en', 'ru') and pri > 0.5:
-            return round(pri - 0.1, 1)
-        return pri
-
-    def changefreq(self, item):
+    def lastmod(self, item):
         _lang, name = item
-        return self.PAGES[name][1]
+        if name == seo.BLOG_LIST:
+            latest = (
+                BlogPost.objects.filter(is_published=True)
+                .order_by('-updated_at')
+                .values_list('updated_at', flat=True)
+                .first()
+            )
+            if latest:
+                # Always a date: mixing date/datetime breaks Django's latest_lastmod.
+                return timezone.localtime(latest).date()
+        return seo.STATIC_LASTMOD
 
 
 class BlogPostSitemap(AbsoluteSitemap):
-    changefreq = 'weekly'
-    priority = 0.6
+    """Published posts in every language that has a real translation (uk, ru when filled)."""
 
     def items(self):
-        return BlogPost.objects.filter(is_published=True).only('slug', 'updated_at')
+        out = []
+        posts = BlogPost.objects.filter(is_published=True).only(
+            'slug', 'updated_at', 'title_ru', 'content_ru',
+        )
+        for post in posts:
+            for lang in seo.blog_post_languages(post):
+                out.append((lang, post))
+        return out
 
-    def lastmod(self, obj):
-        return obj.updated_at
+    def location(self, item):
+        lang, post = item
+        return seo.localized_path(seo.BLOG_DETAIL, lang, {'slug': post.slug})
+
+    def lastmod(self, item):
+        return timezone.localtime(item[1].updated_at).date()
 
 
 sitemaps = {
