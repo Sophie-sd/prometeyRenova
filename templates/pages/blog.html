@@ -29,7 +29,8 @@
     <div class="hero-content">
         <div class="container">
             <div class="hero-text text-center">
-                <h1 class="text-mega color-brand-orange mb-lg">{% trans "БЛОГ" %}</h1>
+                {# SEO H1: descriptive text for crawlers/screen readers; visible «БЛОГ» unchanged. #}
+                <h1 class="text-mega color-brand-orange mb-lg"><span class="sr-only">{% trans "Блог PrometeyLabs про розробку сайтів, SEO і Telegram-боти" %} — </span>{% trans "БЛОГ" %}</h1>
                 <p class="text-large color-white mb-xl">
                     {% trans "Читайте експертні поради, практичні керівництва та актуальну інформацію про створення сайтів, навчання програмуванню та автоматизацію бізнесу" %}
                 </p>

@@ -5434,3 +5434,7 @@ msgstr ""
 # TZ 2026-10-28-001, Design Lead veto
 msgid "Розрахувати вартість сайту"
 msgstr ""
+
+#: templates/pages/blog.html:33
+msgid "Блог PrometeyLabs про розробку сайтів, SEO і Telegram-боти"
+msgstr ""

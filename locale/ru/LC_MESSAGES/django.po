@@ -6596,3 +6596,7 @@ msgstr "всего"
 #: templates/proposal/detail.html
 msgid "Старт"
 msgstr "Старт"
+
+#: templates/pages/blog.html:33
+msgid "Блог PrometeyLabs про розробку сайтів, SEO і Telegram-боти"
+msgstr "Блог PrometeyLabs о разработке сайтов, SEO и Telegram-ботах"
