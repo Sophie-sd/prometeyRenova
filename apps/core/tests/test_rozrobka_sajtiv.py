@@ -167,7 +167,7 @@ class RozrobkaSajtivPageTests(TestCase):
 class RozrobkaSajtivSitemapTests(TestCase):
     def test_static_sitemap_includes_page(self):
         self.assertIn('rozrobka_sajtiv', StaticViewSitemap.PAGES)
-        self.assertEqual(StaticViewSitemap.PAGES['rozrobka_sajtiv'][0], 0.9)
+        # SEO 2026-11-03: no <priority>/<changefreq> in sitemap any more.
         with translation.override('uk'):
             self.assertEqual(reverse('rozrobka_sajtiv'), '/rozrobka-sajtiv/')
 

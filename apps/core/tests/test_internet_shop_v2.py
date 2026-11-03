@@ -13,7 +13,8 @@ RU = '/ru/internet-shop-v2/'
 
 SPEC = {
     UA: {
-        'title': 'Створення інтернет-магазину під ключ — ціна від 800 € | PrometeyLabs',
+        # SEO 2026-11-03: title 50–60 chars, keyword first (apps.core.seo.META_OVERRIDES).
+        'title': 'Інтернет-магазин під ключ від 800 € — запуск за 3 тижні',
         'h1': 'Створення <span class="pl-shop__nowrap">інтернет-магазину</span> під ключ',
         'line': 'Розробка <span class="pl-shop__nowrap">інтернет-магазину</span> <strong class="pl-shop__hero-acc">від 800 €</strong> · запуск <strong class="pl-shop__hero-acc">за 3 тижні</strong> · 1 рік підтримки безкоштовно · пожиттєва гарантія на код',
         'cta': 'Розрахувати вартість магазину',
@@ -45,7 +46,7 @@ SPEC = {
         'name_ld': 'Створення інтернет-магазину під ключ',
     },
     RU: {
-        'title': 'Создание интернет-магазина под ключ — цена от 800 € | PrometeyLabs',
+        'title': 'Интернет-магазин под ключ от 800 € — запуск за 3 недели',
         'h1': 'Создание <span class="pl-shop__nowrap">интернет-магазина</span> под ключ',
         'line': 'Разработка <span class="pl-shop__nowrap">интернет-магазина</span> <strong class="pl-shop__hero-acc">от 800 €</strong> · запуск <strong class="pl-shop__hero-acc">за 3 недели</strong> · 1 год поддержки бесплатно · пожизненная гарантия на код',
         'cta': 'Рассчитать стоимость магазина',

@@ -108,7 +108,7 @@ class TelegramBotSitemapTests(SimpleTestCase):
         pages = StaticViewSitemap.PAGES
         self.assertIn('telegram_bot', pages)
         self.assertIn('internet_shop_v2', pages)
-        self.assertEqual(pages['telegram_bot'][0], 0.9)
+        # SEO 2026-11-03: no <priority>/<changefreq> in sitemap any more.
 
     def test_reverse_all_static_sitemap_names(self):
         for name in StaticViewSitemap.PAGES:
