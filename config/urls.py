@@ -11,6 +11,7 @@ from django.conf.urls.static import static
 
 from apps.core.sitemaps import sitemaps
 from apps.core.proposal_media import protected_media_serve
+from apps.core.redirects import cs_legacy_redirect
 
 
 def build_urlpatterns(admin_prefix='admin'):
@@ -40,6 +41,8 @@ def build_urlpatterns(admin_prefix='admin'):
         # Media файли — завжди (Render Persistent Disk)
         # proposals/ — лише зображення + nosniff; proposal_imports/ — 404; решта як static.serve
         re_path(r'^media/(?P<path>.*)$', protected_media_serve),
+        # Czech version lives on prometeylabs.cz: /cs/* → 301 (or 410 when no match).
+        re_path(r'^cs(?:/(?P<rest>.*))?$', cs_legacy_redirect),
     ]
     patterns += i18n_patterns(
         path('', include('apps.core.urls')),

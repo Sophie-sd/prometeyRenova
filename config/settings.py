@@ -247,6 +247,7 @@ UNFOLD = {
 
 # MIDDLEWARE
 MIDDLEWARE = [
+    'apps.core.redirects.CanonicalHostMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'apps.core.middleware.CSPMiddleware',
@@ -452,6 +453,11 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
     SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'False') == 'True'
+
+# One-hop 301 to https://www.prometeylabs.com for the public hosts only (see
+# apps.core.redirects). SECURE_SSL_REDIRECT stays env-driven: a global SSL redirect
+# would also hit Render's internal health check / onrender host.
+CANONICAL_HOST_REDIRECT = os.environ.get('CANONICAL_HOST_REDIRECT', str(not DEBUG)) == 'True'
 
 # LOGGING
 LOGGING = {
