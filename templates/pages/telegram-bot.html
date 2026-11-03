@@ -11,12 +11,6 @@
 {% block og_description %}{% trans "Сценарій, інтеграції та запуск Telegram-бота під ключ. Кошторис після короткого брифу — без вигаданих пакетних цін." %}{% endblock %}
 
 {% block extra_head %}
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.prometeylabs.com{% url 'telegram_bot' %}">
-<link rel="alternate" hreflang="uk" href="https://www.prometeylabs.com/telegram-bot/">
-<link rel="alternate" hreflang="en" href="https://www.prometeylabs.com/en/telegram-bot/">
-<link rel="alternate" hreflang="ru" href="https://www.prometeylabs.com/ru/telegram-bot/">
-<link rel="alternate" hreflang="x-default" href="https://www.prometeylabs.com/telegram-bot/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script type="application/ld+json">
@@ -24,11 +18,7 @@
   "@context": "https://schema.org",
   "@type": "Service",
   "name": "{% trans "Розробка Telegram-бота під ключ" %}",
-  "provider": {
-    "@type": "Organization",
-    "name": "PrometeyLabs",
-    "url": "https://www.prometeylabs.com"
-  },
+  "provider": {"@id": "https://www.prometeylabs.com/#organization"},
   "description": "{% trans "Telegram-бот для заявок, запису, CRM та оплати в чаті. Індивідуальний кошторис після брифу." %}",
   "url": "https://www.prometeylabs.com{% url 'telegram_bot' %}",
   "areaServed": "UA"

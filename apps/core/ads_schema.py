@@ -3,7 +3,10 @@ import json
 
 from django.utils.safestring import mark_safe
 
+from django.utils.translation import gettext
+
 from .ads_copy import SITE, lang
+from .seo import ORGANIZATION_ID
 from .utils import SITE_CONTACT_DEFAULTS, get_site_contact_settings
 
 LOCALITY = {'uk': 'Київ', 'ru': 'Kyiv'}
@@ -68,15 +71,31 @@ def _same_as(contact):
 
 
 def organization_ld():
+    """The single Organization node of the site (rendered once in base.html).
+
+    Every other JSON-LD block references it via {"@id": ORGANIZATION_ID}.
+    """
     contact = get_site_contact_settings()
     code = lang()
     return {
         '@context': 'https://schema.org',
         '@type': ['Organization', 'ProfessionalService'],
+        '@id': ORGANIZATION_ID,
         'name': 'PrometeyLabs',
+        'description': gettext('Розробка сайтів під ключ, Telegram боти, реклама'),
         'url': SITE + '/',
+        'logo': SITE + '/static/images/apple-touch-icon-180.png',
+        'image': SITE + '/static/images/og-image.jpg',
         'email': 'info@prometeylabs.com',
         'telephone': '+380639520565',
+        'contactPoint': {
+            '@type': 'ContactPoint',
+            'telephone': '+380639520565',
+            'email': 'info@prometeylabs.com',
+            'contactType': 'Customer Service',
+            'areaServed': 'UA',
+            'availableLanguage': ['uk', 'en', 'ru'],
+        },
         'address': {
             '@type': 'PostalAddress',
             'streetAddress': 'бульвар Тараса Шевченка 46а',
@@ -85,6 +104,10 @@ def organization_ld():
         },
         'sameAs': _same_as(contact),
     }
+
+
+def organization_ref():
+    return {'@id': ORGANIZATION_ID}
 
 
 def hreflang_urls(uk_path, ru_path):
@@ -100,7 +123,8 @@ def hreflang_urls(uk_path, ru_path):
 
 
 def schema_scripts(breadcrumbs, faq_pairs=None):
-    blocks = [dumps(breadcrumb_ld(breadcrumbs)), dumps(organization_ld())]
+    # Organization is emitted once by base.html (organization_ld); no duplicate node here.
+    blocks = [dumps(breadcrumb_ld(breadcrumbs))]
     if faq_pairs:
         blocks.append(dumps(faq_ld(faq_pairs)))
     return blocks

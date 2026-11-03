@@ -1,0 +1,6 @@
+{# Central SEO head (apps/core/seo.py). Pages must not emit their own canonical/hreflang/robots. #}
+{% if seo %}
+<meta name="robots" content="{{ seo.robots }}">
+<link rel="canonical" href="{{ seo.canonical }}">
+{% for code, href in seo.alternates %}<link rel="alternate" hreflang="{{ code }}" href="{{ href }}">
+{% endfor %}{% endif %}

@@ -11,8 +11,6 @@
 {% block og_image %}https://www.prometeylabs.com/static/images/og-image.jpg{% endblock %}
 
 {% block extra_head %}
-<meta name="robots" content="index, follow">
-{% include 'components/ads/hreflang.html' %}
 {% include 'components/ads/json_ld.html' %}
 <link rel="preload" href="{% static 'fonts/v2/inter-cyrillic.woff2' %}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{% static 'fonts/v2/inter-latin.woff2' %}" as="font" type="font/woff2" crossorigin>

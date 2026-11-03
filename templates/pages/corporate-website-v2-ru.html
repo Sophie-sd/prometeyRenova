@@ -12,8 +12,6 @@
 {% block og_image %}https://www.prometeylabs.com{% static 'images/corporate_website_v2/og-corp-v2-ru.jpg' %}{% endblock %}
 
 {% block extra_head %}
-<meta name="robots" content="index, follow">
-{% include 'components/ads/hreflang.html' %}
 {% include 'components/ads/json_ld.html' %}
 <script type="application/ld+json">
 {
@@ -22,13 +20,7 @@
   "name": "Корпоративный сайт под ключ",
   "description": "Корпоративные сайты и лендинги под ключ: дизайн, код, админка, интеграции, техническое SEO и аналитика. Пожизненная гарантия на код и 1 год поддержки бесплатно.",
   "serviceType": "Corporate website development",
-  "provider": {
-    "@type": "Organization",
-    "name": "PrometeyLabs",
-    "url": "https://www.prometeylabs.com",
-    "email": "info@prometeylabs.com",
-    "telephone": "+380639520565"
-  },
+  "provider": {"@id": "https://www.prometeylabs.com/#organization"},
   "areaServed": "UA",
   "url": "https://www.prometeylabs.com/ru/corporate-website-v2/",
   "offers": [

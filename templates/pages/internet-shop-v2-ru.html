@@ -10,8 +10,6 @@
 {% block og_description %}{{ meta_description }}{% endblock %}
 
 {% block extra_head %}
-<meta name="robots" content="index, follow">
-{% include 'components/ads/hreflang.html' %}
 {% include 'components/ads/json_ld.html' %}
 <script type="application/ld+json">
 {
@@ -20,13 +18,7 @@
   "name": "Создание интернет-магазина под ключ",
   "description": "Создание интернет-магазина под ключ от 800 €: дизайн, код и интеграции без плагинов и абонплаты. Запуск за 3 недели, пожизненная гарантия на код и 1 год поддержки бесплатно.",
   "serviceType": "E-commerce website development",
-  "provider": {
-    "@type": "Organization",
-    "name": "PrometeyLabs",
-    "url": "https://www.prometeylabs.com",
-    "email": "info@prometeylabs.com",
-    "telephone": "+380639520565"
-  },
+  "provider": {"@id": "https://www.prometeylabs.com/#organization"},
   "areaServed": "UA",
   "url": "https://www.prometeylabs.com/ru/internet-shop-v2/",
   "offers": [
