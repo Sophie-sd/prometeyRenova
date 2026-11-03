@@ -7,8 +7,12 @@
 {% block og_title %}{{ og_title }}{% endblock %}
 {% block keywords %}{{ keywords }}{% endblock %}
 
+{% block extra_head %}
+<script type="application/ld+json">{{ blog_posting_json_ld }}</script>
+{% endblock %}
+
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/blog.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'css/blog.css' %}?v=3">
 {% endblock %}
 
 {% block content %}
@@ -17,6 +21,11 @@
     <header class="article-header">
         <div class="container">
             <h1 class="article-title text-large color-brand-orange mb-md">{{ post.get_safe_title|safe }}</h1>
+            {# Visible dates = BlogPosting datePublished / dateModified. #}
+            <p class="article-dates text-small color-white">
+                {% trans "Опубліковано" %}: <time datetime="{{ post.created_at|date:'c' }}">{{ post.created_at|date:"d.m.Y" }}</time>
+                · {% trans "Оновлено" %}: <time datetime="{{ post.updated_at|date:'c' }}">{{ post.updated_at|date:"d.m.Y" }}</time>
+            </p>
 
             {% if post.excerpt %}
             <div class="article-excerpt text-medium color-white">

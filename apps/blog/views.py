@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
 from django.views.generic import DetailView
 from django.db.models import Q
 from .models import BlogPost
+from .slugs import LEGACY_SLUG_REDIRECTS
 
 
 def blog_list(request):
@@ -54,6 +55,13 @@ class BlogDetailView(DetailView):
     model = BlogPost
     template_name = 'pages/blog_detail.html'
     context_object_name = 'post'
+
+    def get(self, request, *args, **kwargs):
+        # Old Cyrillic slugs → Latin (data migration blog.0004). reverse() keeps /ru/ and /en/.
+        new_slug = LEGACY_SLUG_REDIRECTS.get(kwargs.get('slug'))
+        if new_slug:
+            return redirect('blog:blog_detail', slug=new_slug, permanent=True)
+        return super().get(request, *args, **kwargs)
     
     def get_queryset(self):
         try:
@@ -65,6 +73,8 @@ class BlogDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         post = self.get_object()
         
+        context['blog_posting_json_ld'] = blog_posting_ld(post)
+
         # SEO мета-дані
         context['page_title'] = post.meta_title or post.get_localized_title()
         context['meta_description'] = post.meta_description or post.get_localized_excerpt()
@@ -111,3 +121,38 @@ def blog_search(request):
     }
     
     return render(request, 'pages/blog_search.html', context)
+
+
+def blog_posting_ld(post):
+    """BlogPosting JSON-LD; dates are the same values shown in the article header."""
+    import json
+
+    from django.templatetags.static import static
+    from django.utils.html import strip_tags
+    from django.utils.safestring import mark_safe
+    from django.utils.timezone import localtime
+
+    from apps.core.seo import ORGANIZATION_ID, SITE, current_lang
+
+    if post.featured_image:
+        image = post.featured_image.url
+    else:
+        image = static('images/og-image.jpg')
+    if not image.startswith('http'):
+        image = SITE + image
+    url = SITE + post.get_absolute_url()
+    data = {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        'headline': strip_tags(post.get_localized_title() or '')[:110],
+        'description': strip_tags(post.get_localized_excerpt() or '')[:300],
+        'image': [image],
+        'datePublished': localtime(post.created_at).isoformat(timespec='seconds'),
+        'dateModified': localtime(post.updated_at).isoformat(timespec='seconds'),
+        'author': {'@type': 'Organization', '@id': ORGANIZATION_ID, 'name': 'PrometeyLabs', 'url': SITE + '/'},
+        'publisher': {'@id': ORGANIZATION_ID},
+        'mainEntityOfPage': {'@type': 'WebPage', '@id': url},
+        'url': url,
+        'inLanguage': current_lang(),
+    }
+    return mark_safe(json.dumps(data, ensure_ascii=False).replace('</', '<\\/'))
