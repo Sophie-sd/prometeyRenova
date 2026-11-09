@@ -85,6 +85,25 @@ def tenant_for_user(user):
     return None
 
 
+def is_studio_staff(user) -> bool:
+    """Штат агенції, не власник демо.
+
+    Кабінет такого користувача не підміняє сесію: інакше після відкриття
+    демо `/admin/` назавжди стає кабінетом магазину.
+    """
+    if not getattr(user, 'is_authenticated', False):
+        return False
+    if not getattr(user, 'is_active', False) or not getattr(user, 'is_staff', False):
+        return False
+    return tenant_for_user(user) is None
+
+
+def _studio_auth_path(path: str) -> str:
+    if path.endswith('/'):
+        return path
+    return path + '/'
+
+
 def urlconf_for(token: str):
     module = _URLCONFS.get(token)
     if module is not None:
@@ -134,6 +153,11 @@ class ConsoleAuthMiddleware(MiddlewareMixin):
         path = request.path_info or ''
         if path != '/admin' and not path.startswith('/admin/'):
             return None
+        # Застрягла демо-сесія має дійти до форми входу штату, а не по колу в кабінет.
+        if _studio_auth_path(path) in ('/admin/login/', '/admin/logout/'):
+            if _studio_auth_path(path) == '/admin/login/' and tenant_for_user(request.user) is not None:
+                auth_logout(request)
+            return None
         owner_tenant = tenant_for_user(request.user)
         if owner_tenant is None:
             return None
@@ -148,6 +172,11 @@ class ConsoleAuthMiddleware(MiddlewareMixin):
         if owner is None or not owner.is_active:
             raise Http404('Клієнтський логін для цього демо ще не створено')
         if request.user.is_authenticated and request.user.pk == owner.pk:
+            return None
+        if is_studio_staff(request.user):
+            # Сесія штату лишається штатом. На цей запит кабінет бачить власника демо.
+            request.user = owner
+            request.user.backend = _AUTH_BACKEND
             return None
         if request.user.is_authenticated:
             auth_logout(request)

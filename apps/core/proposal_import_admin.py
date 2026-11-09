@@ -90,6 +90,12 @@ class ProposalImportAdmin(UnfoldModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
 
+    def has_view_permission(self, request, obj=None):
+        return can_import(request.user)
+
+    def has_module_permission(self, request):
+        return can_import(request.user)
+
     def get_urls(self):
         info = self.opts.app_label, self.opts.model_name
         return [

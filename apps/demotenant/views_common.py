@@ -38,11 +38,16 @@ def make_admin_access_view(
 def make_admin_login_view(tenant_model, slug_kwarg: str = 'slug'):
     @require_GET
     def admin_login(request, **kwargs):
-        """Логінить власника цього тенанта і відкриває Django admin."""
+        """Відкриває кабінет демо. Штат агенції при цьому не розлогінюється."""
         tenant = get_object_or_404(tenant_model, slug=kwargs[slug_kwarg], is_active=True)
         owner = tenant.owner_user
         if owner is None or not owner.is_active:
             raise Http404('Клієнтський логін для цього демо ще не створено')
+
+        from apps.demotenant.console import is_studio_staff
+
+        if is_studio_staff(request.user):
+            return redirect(tenant.get_console_path())
 
         if request.user.is_authenticated and request.user.pk != owner.pk:
             auth_logout(request)
