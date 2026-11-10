@@ -32,6 +32,8 @@ class TenantContentAdminBase(UnfoldModelAdmin):
     owner_attr = ''
     #: forms.ModelForm(instance=tenant) — кольори + стиль/hero-налаштування.
     settings_form_class = None
+    #: Клас віджета для image-блоків (демо-корп). None — стандартний file input.
+    image_widget = None
     #: Шаблон сторінки «Контент і стиль».
     template_name = ''
     #: Superuser без ?tenant= — список тенантів, не сліпий redirect.
@@ -110,11 +112,15 @@ class TenantContentAdminBase(UnfoldModelAdmin):
 
         registry = self.get_registry(tenant)
         ensure_registry_blocks(self.block_model, tenant, registry)
-        block_form, blocks = build_block_form(registry, tenant)
+        block_form, blocks = build_block_form(
+            registry, tenant, image_widget=self.image_widget,
+        )
         settings_form = self.settings_form_class(instance=tenant)
 
         if request.method == 'POST':
-            block_form = type(block_form)(request.POST, request.FILES)
+            block_form = type(block_form)(
+                request.POST, request.FILES, initial=block_form.initial,
+            )
             settings_form = self.settings_form_class(request.POST, request.FILES, instance=tenant)
 
             if block_form.is_valid() and settings_form.is_valid():

@@ -1,0 +1,8 @@
+<div class="dc-cat-filter">
+    <label class="dc-cat-filter__label" for="dc-filter-{{ spec.lookup_kwarg }}">{{ title }}</label>
+    <select id="dc-filter-{{ spec.lookup_kwarg }}" class="dc-cat-filter__select" data-filter-nav="1">
+        {% for choice in choices %}
+        <option value="{{ choice.query_string|iriencode }}"{% if choice.selected %} selected{% endif %}>{{ choice.display }}</option>
+        {% endfor %}
+    </select>
+</div>
