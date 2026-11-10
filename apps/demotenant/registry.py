@@ -9,6 +9,7 @@
 from __future__ import annotations
 
 from django import forms
+from django.core.files.uploadedfile import UploadedFile
 from django.utils.translation import gettext_lazy as _
 
 
@@ -19,13 +20,16 @@ def get_entry(registry: list[dict], page: str, key: str) -> dict | None:
     return None
 
 
-def build_block_form(registry: list[dict], tenant) -> tuple[forms.Form, dict]:
+def build_block_form(registry: list[dict], tenant, image_widget=None) -> tuple[forms.Form, dict]:
     """Динамічна форма з полем на кожен запис реєстру. `tenant.blocks` — related manager."""
     fields: dict[str, forms.Field] = {}
     for entry in registry:
         base = f"{entry['page']}__{entry['key']}"
         if entry['type'] == 'image':
-            fields[base] = forms.ImageField(required=False, label=str(entry['label']))
+            field_kwargs = {'required': False, 'label': str(entry['label'])}
+            if image_widget is not None:
+                field_kwargs['widget'] = image_widget()
+            fields[base] = forms.ImageField(**field_kwargs)
         elif entry['type'] == 'bool':
             fields[base] = forms.BooleanField(required=False, label=str(entry['label']))
         else:
@@ -54,6 +58,9 @@ def build_block_form(registry: list[dict], tenant) -> tuple[forms.Form, dict]:
             continue
         if entry['type'] == 'bool':
             initial[base] = block.value_text != '0'
+        elif entry['type'] == 'image':
+            if image_widget is not None and block.value_image:
+                initial[base] = block.value_image
         elif entry['type'] != 'image':
             initial[base] = block.value_text
             initial[f'{base}__ru'] = block.value_text_ru
@@ -153,8 +160,13 @@ def save_blocks(block_model, tenant, registry: list[dict], block_form: forms.For
         )
         if entry['type'] == 'image':
             uploaded = block_form.cleaned_data.get(name)
-            if uploaded:
+            if isinstance(uploaded, UploadedFile):
                 block.value_image = uploaded
+                block.save(update_fields=['value_image'])
+            elif uploaded is False:
+                if block.value_image:
+                    block.value_image.delete(save=False)
+                block.value_image = None
                 block.save(update_fields=['value_image'])
         elif entry['type'] == 'bool':
             block.value_text = '1' if block_form.cleaned_data.get(name) else '0'

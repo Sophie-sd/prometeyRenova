@@ -1,0 +1,5 @@
+<div class="dc-color">
+    <label class="dc-color__btn" for="{{ widget.attrs.id }}">{{ widget.action_label }}</label>
+    {% include "django/forms/widgets/input.html" %}
+    <span class="dc-color__hex" data-dc-color-hex>{{ widget.value|default:"" }}</span>
+</div>

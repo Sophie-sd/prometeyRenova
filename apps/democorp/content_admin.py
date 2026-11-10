@@ -4,12 +4,12 @@ from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
 from apps.demotenant.content_admin_base import TenantContentAdminBase
+from apps.demotenant.widgets import PhotoClearableInput
 
 from .block_defaults import BLOCK_REGISTRY, PAGE_LABELS
 from .content_models import CorpBlock
 from .models import DEFAULT_THEME_COLORS, CorpSite
-
-HEX_WIDGET = forms.TextInput(attrs={'type': 'color'})
+from .widgets import ColorActionInput
 
 
 class CorpSettingsForm(forms.ModelForm):
@@ -26,11 +26,12 @@ class CorpSettingsForm(forms.ModelForm):
             'color_surface', 'color_primary', 'color_primary_hover', 'color_text', 'color_accent',
         )
         widgets = {
-            'color_primary': HEX_WIDGET,
-            'color_primary_hover': HEX_WIDGET,
-            'color_accent': HEX_WIDGET,
-            'color_surface': HEX_WIDGET,
-            'color_text': HEX_WIDGET,
+            'hero_image': PhotoClearableInput(),
+            'color_surface': ColorActionInput(_('Змінити фон')),
+            'color_primary': ColorActionInput(_('Змінити фон')),
+            'color_primary_hover': ColorActionInput(_('Змінити колір')),
+            'color_text': ColorActionInput(_('Змінити колір')),
+            'color_accent': ColorActionInput(_('Змінити колір')),
         }
 
     def __init__(self, *args, **kwargs):
@@ -75,6 +76,7 @@ class CorpContentAdmin(TenantContentAdminBase):
     block_model = CorpBlock
     owner_attr = 'demo_corp'
     settings_form_class = CorpSettingsForm
+    image_widget = PhotoClearableInput
     template_name = 'democorp/admin/my_site_content.html'
     picker_template_name = 'democorp/admin/tenant_picker.html'
     page_labels = PAGE_LABELS

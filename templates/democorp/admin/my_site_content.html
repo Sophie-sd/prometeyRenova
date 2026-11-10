@@ -4,7 +4,7 @@
 {% block extrastyle %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'demotenant/css/admin_nav_chips.css' %}?v=4">
-<link rel="stylesheet" href="{% static 'democorp/css/democorp_admin.css' %}?v=4">
+<link rel="stylesheet" href="{% static 'democorp/css/democorp_admin.css' %}?v=5">
 {% endblock %}
 
 {% block content %}
@@ -57,9 +57,6 @@
                     <span class="dc-admin-form__label-text">{{ item.field.label }}</span>
                 </label>
                 {{ item.field }}
-                {% if item.type == 'image' and item.current_image %}
-                <img class="dc-admin-form__preview" src="{{ item.current_image.url }}" alt="">
-                {% endif %}
             </div>
             {% endif %}
             {% endfor %}
@@ -75,9 +72,6 @@
                 </label>
                 {{ field }}
                 {% if field.help_text %}<p class="dc-admin-form__help">{{ field.help_text }}</p>{% endif %}
-                {% if field.name == 'hero_image' and tenant.hero_image %}
-                <img class="dc-admin-form__preview" src="{{ tenant.hero_image.url }}" alt="">
-                {% endif %}
             </div>
             {% endfor %}
         </section>
@@ -85,4 +79,5 @@
         <button type="submit" class="dc-admin-form__submit">{% trans "Зберегти зміни" %}</button>
     </form>
 </div>
+<script src="{% static 'democorp/js/admin_media.js' %}?v=1" defer></script>
 {% endblock %}

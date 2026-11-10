@@ -1,0 +1,17 @@
+<div class="dc-photo">
+    {% if widget.is_initial %}
+    <p class="dc-photo__current">{{ widget.initial_text }}</p>
+    <img class="dc-photo__preview" src="{{ widget.value.url }}" alt="">
+    {% if not widget.required %}
+    <label class="dc-photo__clear" for="{{ widget.checkbox_id }}">
+        <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}"{% if widget.attrs.disabled %} disabled{% endif %}{% if widget.attrs.checked %} checked{% endif %}>
+        <span>{{ widget.clear_checkbox_label }}</span>
+    </label>
+    {% endif %}
+    {% endif %}
+    <label class="dc-photo__change">
+        <span class="dc-photo__change-text">{{ widget.input_text }}</span>
+        <input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+    </label>
+    <p class="dc-photo__chosen" data-dc-photo-chosen></p>
+</div>
