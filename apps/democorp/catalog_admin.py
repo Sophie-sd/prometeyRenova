@@ -1,6 +1,8 @@
 """Каталог продукції в адмінці клієнта — видно лише сайтам з `has_catalog=True`
 (модуль реєструється завжди, `has_module_permission` перевіряє прапорець)."""
 from django.contrib import admin
+from django.urls import NoReverseMatch, reverse
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from unfold.admin import ModelAdmin as UnfoldModelAdmin
 from unfold.admin import TabularInline as UnfoldTabularInline
@@ -25,6 +27,21 @@ def _unique_category_choices(choices):
         seen_labels.add(text)
         unique.append((pk, label))
     return unique
+
+
+def _category_help(site_name):
+    """Підказка під «Категорія»: видна кнопка додати нову, без пошуку в меню ⋮."""
+    try:
+        url = reverse(f'{site_name}:democorp_corpcategory_add')
+    except NoReverseMatch:
+        return _('Оберіть категорію зі списку.')
+    return format_html(
+        '{} <a href="{}" target="_blank" rel="noopener" class="dc-add-category" '
+        'data-dc-add-category="1">{}</a>',
+        _('Оберіть категорію зі списку. Немає потрібної?'),
+        url,
+        _('+ Додати категорію'),
+    )
 
 
 class CorpCategoryDropdownFilter(RelatedFieldListFilter):
@@ -111,4 +128,9 @@ class CorpProductAdmin(CatalogScopedAdmin):
         if db_field.name == 'category' and not request.user.is_superuser:
             tenant = self._owned_tenant(request)
             kwargs['queryset'] = CorpCategory.objects.filter(tenant=tenant) if tenant else CorpCategory.objects.none()
+        if db_field.name == 'category':
+            kwargs['help_text'] = _category_help(self.admin_site.name)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    class Media:
+        js = ('democorp/js/admin_category_add.js',)

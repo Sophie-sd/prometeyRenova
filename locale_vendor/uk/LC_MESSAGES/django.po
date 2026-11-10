@@ -1,0 +1,441 @@
+# Українські рядки для Unfold і кабінету КП клієнта.
+# Окремо від locale/, щоб makemessages їх не позначав застарілими (#~):
+# цих рядків немає в коді проєкту, вони з пакета django-unfold, який не має uk.
+msgid ""
+msgstr ""
+"Project-Id-Version: prometeyRenova unfold-uk\n"
+"PO-Revision-Date: 2026-11-10 12:40+0200\n"
+"Last-Translator: PrometeyLabs\n"
+"Language-Team: Ukrainian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "%(sel)s of %(cnt)s selected"
+msgstr "%(sel)s з %(cnt)s обрано"
+
+msgid "Action"
+msgstr "Дія"
+
+msgid "Add"
+msgstr "Додати"
+
+msgid "Add new item"
+msgstr "Додати новий запис"
+
+msgid "Add row"
+msgstr "Додати рядок"
+
+msgid "All"
+msgstr "Всі"
+
+msgid "All applications"
+msgstr "Усі розділи"
+
+msgid "Apply Filters"
+msgstr "Застосувати фільтри"
+
+msgid "Available shortcuts"
+msgstr "Гарячі клавіші"
+
+msgid "Bold"
+msgstr "Жирний"
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Change"
+msgstr "Змінити"
+
+msgid "Change History"
+msgstr "Історія змін"
+
+msgid "Change password"
+msgstr "Змінити пароль"
+
+msgid "Changelist shortcuts"
+msgstr "Клавіші для списку"
+
+msgid "Changes"
+msgstr "Зміни"
+
+msgid "Choose file to upload"
+msgstr "Оберіть файл для завантаження"
+
+msgid "Clear"
+msgstr "Очистити"
+
+msgid "Clear all filters"
+msgstr "Скинути всі фільтри"
+
+msgid "Clear selection"
+msgstr "Зняти виділення"
+
+msgid "Click here to select the objects across all pages"
+msgstr "Натисніть, щоб обрати записи на всіх сторінках"
+
+msgid "Click to cancel"
+msgstr "Натисніть, щоб скасувати"
+
+msgid "Click to download"
+msgstr "Натисніть, щоб завантажити"
+
+msgid "Close"
+msgstr "Закрити"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Collapse"
+msgstr "Згорнути"
+
+msgid "Command tool shortcuts"
+msgstr "Клавіші для швидкого пошуку"
+
+msgid "Comment"
+msgstr "Коментар"
+
+msgid "Create new record"
+msgstr "Створити новий запис"
+
+msgid "Current file"
+msgstr "Поточний файл"
+
+msgid "Dark"
+msgstr "Темна"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Date from"
+msgstr "Дата від"
+
+msgid "Date to"
+msgstr "Дата до"
+
+msgid "Date/time"
+msgstr "Дата і час"
+
+msgid "Default"
+msgstr "За замовчуванням"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "Enter an URL"
+msgstr "Введіть посилання"
+
+msgid "Export"
+msgstr "Експорт"
+
+msgid "False"
+msgstr "Ні"
+
+msgid "Filters"
+msgstr "Фільтри"
+
+msgid "From"
+msgstr "Від"
+
+msgid "General"
+msgstr "Загальне"
+
+msgid "Global shortcuts"
+msgstr "Загальні клавіші"
+
+msgid "Go back"
+msgstr "Назад"
+
+msgid "Heading"
+msgstr "Заголовок"
+
+msgid "Hide counts"
+msgstr "Сховати кількість"
+
+msgid "History"
+msgstr "Історія"
+
+msgid "Home"
+msgstr "Головна"
+
+msgid "Image preview"
+msgstr "Перегляд зображення"
+
+msgid "Import"
+msgstr "Імпорт"
+
+msgid "Indent decrease"
+msgstr "Зменшити відступ"
+
+msgid "Indent increase"
+msgstr "Збільшити відступ"
+
+msgid "Italic"
+msgstr "Курсив"
+
+msgid "Light"
+msgstr "Світла"
+
+msgid "Line number"
+msgstr "Номер рядка"
+
+msgid "Link"
+msgstr "Посилання"
+
+msgid "Log in"
+msgstr "Увійти"
+
+msgid "Log in again"
+msgstr "Увійти знову"
+
+msgid "Log out"
+msgstr "Вийти"
+
+msgid "Name"
+msgstr "Назва"
+
+msgid "Navigate"
+msgstr "Перехід"
+
+msgid "New"
+msgstr "Новий"
+
+msgid "Next"
+msgstr "Далі"
+
+msgid "No"
+msgstr "Ні"
+
+msgid "No data"
+msgstr "Немає даних"
+
+msgid "No results found"
+msgstr "Нічого не знайдено"
+
+msgid "No, take me back"
+msgstr "Ні, повернутися"
+
+msgid "Not enough data."
+msgstr "Недостатньо даних."
+
+msgid "Nothing matched your search"
+msgstr "За вашим запитом нічого не знайдено"
+
+msgid "Open command tool"
+msgstr "Відкрити швидкий пошук"
+
+msgid "Open selection"
+msgstr "Відкрити обране"
+
+msgid "Open selection in new tab"
+msgstr "Відкрити обране в новій вкладці"
+
+msgid "Open shortcuts list"
+msgstr "Показати гарячі клавіші"
+
+msgid "Ordered list"
+msgstr "Нумерований список"
+
+msgid "Paragraph"
+msgstr "Абзац"
+
+msgid "Previous"
+msgstr "Назад"
+
+msgid "Quote"
+msgstr "Цитата"
+
+msgid "Recent actions"
+msgstr "Останні дії"
+
+msgid "Recent searches"
+msgstr "Останні пошуки"
+
+msgid "Redo"
+msgstr "Повторити"
+
+msgid "Remove from sorting"
+msgstr "Прибрати з сортування"
+
+msgid "Reset filters"
+msgstr "Скинути фільтри"
+
+msgid "Reset to default"
+msgstr "Повернути за замовчуванням"
+
+msgid "Return to site"
+msgstr "Повернутися на сайт"
+
+msgid "Row"
+msgstr "Рядок"
+
+msgid "Run"
+msgstr "Виконати"
+
+msgid "Run the selected action"
+msgstr "Виконати обрану дію"
+
+msgid "SEO description"
+msgstr "SEO-опис"
+
+msgid "SEO title"
+msgstr "SEO-заголовок"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Save and add another"
+msgstr "Зберегти і додати ще"
+
+msgid "Save and continue editing"
+msgstr "Зберегти і продовжити редагування"
+
+msgid "Save and view"
+msgstr "Зберегти і переглянути"
+
+msgid "Save as new"
+msgstr "Зберегти як новий"
+
+msgid "Search apps and models..."
+msgstr "Пошук розділів..."
+
+msgid "Select"
+msgstr "Обрати"
+
+msgid "Select action"
+msgstr "Оберіть дію"
+
+msgid "Select action to run"
+msgstr "Оберіть дію для виконання"
+
+msgid "Select all objects on this page for an action"
+msgstr "Обрати всі записи на сторінці"
+
+msgid "Select currency"
+msgstr "Оберіть валюту"
+
+msgid "Select format"
+msgstr "Оберіть формат"
+
+msgid "Select record"
+msgstr "Обрати запис"
+
+msgid "Select value"
+msgstr "Оберіть значення"
+
+msgid "Show all"
+msgstr "Показати всі"
+
+msgid "Show counts"
+msgstr "Показати кількість"
+
+msgid "Slug"
+msgstr "Адреса сторінки (slug)"
+
+msgid "Strike"
+msgstr "Закреслений"
+
+msgid "Submit"
+msgstr "Надіслати"
+
+msgid "Summary"
+msgstr "Підсумок"
+
+msgid "System"
+msgstr "Як у системі"
+
+msgid "This item will be deleted."
+msgstr "Цей запис буде видалено."
+
+msgid "This page yielded into no results."
+msgstr "На цій сторінці немає записів."
+
+msgid "Time"
+msgstr "Час"
+
+msgid "To"
+msgstr "До"
+
+msgid "Toggle dark/light mode"
+msgstr "Перемкнути світлу/темну тему"
+
+msgid "Toggle filter"
+msgstr "Показати/сховати фільтр"
+
+msgid "Toggle password visibility"
+msgstr "Показати/сховати пароль"
+
+msgid "Toggle sidebar"
+msgstr "Показати/сховати меню"
+
+msgid "Toggle sorting"
+msgstr "Змінити сортування"
+
+msgid "True"
+msgstr "Так"
+
+msgid "Type to search"
+msgstr "Почніть вводити для пошуку"
+
+msgid "Underlined"
+msgstr "Підкреслений"
+
+msgid "Undo"
+msgstr "Скасувати дію"
+
+msgid "Unknown"
+msgstr "Невідомо"
+
+msgid "Unknown content"
+msgstr "Невідомий вміст"
+
+msgid "Unlink"
+msgstr "Прибрати посилання"
+
+msgid "Unordered list"
+msgstr "Маркований список"
+
+msgid "Update"
+msgstr "Оновити"
+
+msgid "Value"
+msgstr "Значення"
+
+msgid "View"
+msgstr "Переглянути"
+
+msgid "View on site"
+msgstr "Переглянути на сайті"
+
+msgid "View site"
+msgstr "Переглянути сайт"
+
+msgid "Welcome"
+msgstr "Вітаємо"
+
+msgid "Welcome back to"
+msgstr "З поверненням до"
+
+msgid "Yes"
+msgstr "Так"
+
+msgid "Yes, I’m sure"
+msgstr "Так, я впевнений"
+
+msgid "You have unsaved changes on individual editable fields. If you run an action, your unsaved changes will be lost."
+msgstr "У вас є незбережені зміни в полях. Якщо виконати дію, їх буде втрачено."
+
+msgid "Your password was changed."
+msgstr "Ваш пароль змінено."
+
+msgid "next"
+msgstr "далі"
+
+msgid "previous"
+msgstr "назад"
+

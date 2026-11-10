@@ -301,7 +301,11 @@ LANGUAGES = [
     ('en', 'English'),
     ('ru', 'Русский'),
 ]
-LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+    # uk для Unfold (пакет без української) — кабінет КП клієнта
+    os.path.join(BASE_DIR, 'locale_vendor'),
+]
 TIME_ZONE = 'Europe/Kyiv'
 USE_I18N = True
 USE_TZ = True

@@ -5,6 +5,8 @@ Django permissions діють на рівні моделі, а не запису
 """
 from __future__ import annotations
 
+from django import forms
+
 
 class TenantScopedAdminMixin:
     """Клієнт бачить і редагує лише дані свого тенанта.
@@ -36,6 +38,10 @@ class TenantScopedAdminMixin:
             tenant = self._owned_tenant(request)
             model = db_field.remote_field.model
             kwargs['queryset'] = model.objects.filter(pk=tenant.pk) if tenant else model.objects.none()
+            # Клієнт не обирає «Сайт» — він один; поле приховане, але валідується
+            # (unique_together з tenant лишається в перевірці форми).
+            kwargs['widget'] = forms.HiddenInput()
+            kwargs['initial'] = tenant.pk if tenant else None
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
     def save_model(self, request, obj, form, change):
