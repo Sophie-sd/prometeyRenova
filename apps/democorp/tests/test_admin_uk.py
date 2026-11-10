@@ -73,8 +73,9 @@ class CorpAdminUkrainianTests(TestCase):
 
     def test_product_form_hides_site_and_shows_add_category(self):
         html = self.client.get(self._url('democorp/corpproduct/add/')).content.decode()
-        self.assertRegex(html, r'<input type="hidden" name="tenant" value="%d"' % self.site.pk)
+        self.assertNotIn('name="tenant"', html)
         self.assertNotIn('<select name="tenant"', html)
+        self.assertNotIn('for="id_tenant"', html)
         self.assertIn('data-dc-add-category="1"', html)
         self.assertIn('+ Додати категорію', html)
         self.assertIn('democorp/corpcategory/add/', html)
@@ -83,10 +84,20 @@ class CorpAdminUkrainianTests(TestCase):
     def test_client_adds_product_without_choosing_site(self):
         category = self.site.categories.first()
         response = self.client.post(self._url('democorp/corpproduct/add/'), {
-            'tenant': self.site.pk, 'category': category.pk, 'name': 'Новий приклад',
+            'category': category.pk, 'name': 'Новий приклад',
             'slug': 'novyi-pryklad', 'order': 0, 'is_active': 'on',
             'images-TOTAL_FORMS': 0, 'images-INITIAL_FORMS': 0,
             'images-MIN_NUM_FORMS': 0, 'images-MAX_NUM_FORMS': 1000,
         })
         self.assertEqual(response.status_code, 302, response.content.decode()[:3000])
         self.assertTrue(self.site.products.filter(name='Новий приклад').exists())
+
+    def test_duplicate_slug_in_own_site_is_form_error_not_crash(self):
+        existing = self.site.products.first()
+        response = self.client.post(self._url('democorp/corpproduct/add/'), {
+            'category': existing.category_id, 'name': 'Дубль', 'slug': existing.slug, 'order': 0,
+            'images-TOTAL_FORMS': 0, 'images-INITIAL_FORMS': 0,
+            'images-MIN_NUM_FORMS': 0, 'images-MAX_NUM_FORMS': 1000,
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(self.site.products.filter(name='Дубль').exists())
