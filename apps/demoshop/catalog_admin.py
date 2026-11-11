@@ -1,16 +1,56 @@
 """Каталог демо-магазину в адмінці: доступ scoped до власного shop (DemoClient).
 
-Django permissions діють на рівні моделі, не запису — реальний захист тут
-дає `ShopScopedAdminMixin.get_queryset`, а не group permissions самі по собі
-(django_roles_permissions_skill).
+Django permissions діють на рівні моделі, не запису. Група DemoClient з
+міграції 0002 лишається без цих прав: рядки Permission створює post_migrate
+уже після RunPython, а відсутній codename там ковтається. Тому власник
+активного магазину проходить через цей mixin, а чужі записи відсікає
+`get_queryset`. Звичайний staff без магазину лишається на своїх Django-правах.
 """
 from django.contrib import admin
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 from unfold.admin import ModelAdmin as UnfoldModelAdmin
 from unfold.admin import TabularInline as UnfoldTabularInline
 
 from .catalog_models import ShopCategory, ShopProduct, ShopProductImage, ShopReview
 from .models import DemoShop
+
+
+def owned_demo_shop(request):
+    """Активний магазин поточного клієнта. Суперюзер і чужий staff — ні."""
+    user = getattr(request, 'user', None)
+    if not getattr(user, 'is_authenticated', False) or getattr(user, 'is_superuser', False):
+        return None
+    try:
+        shop = user.demo_shop
+    except ObjectDoesNotExist:
+        return None
+    if shop is None or not shop.is_active:
+        return None
+    return shop
+
+
+def shop_id_of(obj):
+    if obj is None:
+        return None
+    shop_id = getattr(obj, 'shop_id', None)
+    if shop_id is not None:
+        return shop_id
+    for attr in ('product', 'order'):
+        parent = getattr(obj, attr, None)
+        nested = getattr(parent, 'shop_id', None)
+        if nested is not None:
+            return nested
+    return None
+
+
+def owner_matches_shop(request, obj):
+    shop = owned_demo_shop(request)
+    if shop is None:
+        return False
+    if obj is None:
+        return True
+    return shop_id_of(obj) == shop.pk
 
 
 class ShopScopedAdminMixin:
@@ -40,8 +80,84 @@ class ShopScopedAdminMixin:
                 obj.shop = shop
         super().save_model(request, obj, form, change)
 
+    def _owned_shop(self, request):
+        return owned_demo_shop(request)
 
-class ShopProductImageInline(UnfoldTabularInline):
+    def _object_in_shop(self, obj, shop):
+        if obj is None:
+            return True
+        return shop_id_of(obj) == shop.pk
+
+    def _owner_can(self, request, obj=None):
+        return owner_matches_shop(request, obj)
+
+    def has_module_permission(self, request):
+        if request.user.is_superuser or self._owner_can(request):
+            return True
+        return super().has_module_permission(request)
+
+    def has_view_permission(self, request, obj=None):
+        if request.user.is_superuser or self._owner_can(request, obj):
+            return True
+        return super().has_view_permission(request, obj)
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser or self._owner_can(request, obj):
+            return True
+        return super().has_change_permission(request, obj)
+
+    def has_add_permission(self, request):
+        if request.user.is_superuser or self._owner_can(request):
+            return True
+        return super().has_add_permission(request)
+
+
+class ShopNestedInlineMixin:
+    """Вкладений рядок видимий лише в магазині батьківського об'єкта.
+
+    `owner_perms` — підмножина задуманої групи DemoClient. Видалення сюди
+    не входить: його лишає стандартна перевірка Django-права.
+    """
+
+    owner_perms = ('view',)
+    shop_lookup = 'shop__pk'
+
+    def has_view_permission(self, request, obj=None):
+        if getattr(request.user, 'is_superuser', False):
+            return True
+        if 'view' in self.owner_perms and owner_matches_shop(request, obj):
+            return True
+        return super().has_view_permission(request, obj)
+
+    def has_change_permission(self, request, obj=None):
+        if getattr(request.user, 'is_superuser', False):
+            return True
+        if 'change' in self.owner_perms and owner_matches_shop(request, obj):
+            return True
+        return super().has_change_permission(request, obj)
+
+    def has_add_permission(self, request, obj=None):
+        if getattr(request.user, 'is_superuser', False):
+            return True
+        if 'add' in self.owner_perms and owner_matches_shop(request, obj):
+            return True
+        return super().has_add_permission(request, obj)
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if getattr(request.user, 'is_superuser', False):
+            return qs
+        shop = owned_demo_shop(request)
+        if shop is None:
+            return qs.none()
+        return qs.filter(**{self.shop_lookup: shop.pk})
+
+
+class ShopProductImageInline(ShopNestedInlineMixin, UnfoldTabularInline):
+    """Фото: перегляд, додавання, зміна свого товару. Без видалення."""
+
+    owner_perms = ('view', 'add', 'change')
+    shop_lookup = 'product__shop__pk'
     model = ShopProductImage
     extra = 0
     fields = ('image', 'alt', 'is_main', 'order')

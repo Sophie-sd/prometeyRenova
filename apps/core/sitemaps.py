@@ -24,9 +24,8 @@ EN_MIRROR_NAMES = (
     'internet_shop_v2',
     'corporate_website_v2',
     'telegram_bot',
-        'rozrobka_sajtiv',
-        'dorobka_sajtu',
-        'contacts',
+    'rozrobka_sajtiv',
+    'contacts',
     'blog:blog_list',
 )
 

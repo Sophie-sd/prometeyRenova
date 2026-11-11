@@ -6,10 +6,14 @@
         <div class="pl-ads-cases__grid">
             {% for project in shop_portfolio %}
             <article class="pl-ads-case">
-                {% if project.get_card_image_src %}
+                {% if project.ads_card_src %}
+                <img class="pl-ads-case__img" src="{{ project.ads_card_src }}" srcset="{{ project.ads_card_srcset }}"
+                     sizes="(max-width: 767px) 46vw, (max-width: 1099px) 45vw, 280px"
+                     alt="{{ project.get_card_alt }}" width="280" height="180" loading="lazy" decoding="async">
+                {% elif project.get_card_image_src %}
                 {% with preview=project.get_card_preview_srcset %}
                 <img class="pl-ads-case__img" src="{{ project.get_card_image_src }}"
-                     {% if preview %}srcset="{{ preview }}" sizes="(max-width: 767px) 100vw, (max-width: 1099px) 45vw, 280px"{% endif %}
+                     {% if preview %}srcset="{{ preview }}" sizes="(max-width: 767px) 46vw, (max-width: 1099px) 45vw, 280px"{% endif %}
                      alt="{{ project.get_card_alt }}" width="280" height="180" loading="lazy" decoding="async">
                 {% endwith %}
                 {% endif %}

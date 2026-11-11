@@ -410,6 +410,16 @@ let calculatorInstance = null;
 document.addEventListener('DOMContentLoaded', () => {
     calculatorInstance = new ProjectCalculator();
     window.calculatorInstance = calculatorInstance;
+    // Calc CTA з рекламних посадкових: /calculator/?start=1 → одразу відкриваємо тест
+    try {
+        if (new URLSearchParams(window.location.search).get('start') === '1') {
+            calculatorInstance.showTestForm();
+            const testSection = document.getElementById('test-section');
+            testSection?.scrollIntoView({ block: 'start' });
+        }
+    } catch (error) {
+        console.error('Calc autostart failed:', error);
+    }
 });
 
 window.CalculatorUtils = {

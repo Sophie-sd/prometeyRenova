@@ -1,4 +1,8 @@
 """Context for ads landings: copy + breadcrumbs + JSON-LD from one source."""
+from pathlib import Path
+
+from django.conf import settings
+from django.templatetags.static import static
 from django.urls import reverse
 from django.utils import translation
 
@@ -6,6 +10,7 @@ from .ads_copy import (
     SITE,
     SHOP_SLUGS,
     contacts_copy,
+    corp_copy,
     crumbs_copy,
     faq_pairs,
     lang,
@@ -40,12 +45,29 @@ def _crumbs(last_name, last_url):
     ]
 
 
+ADS_CARD_DIR = 'images/portfolio/screens/ads-cards'
+ADS_CARD_WIDTHS = (400, 800)
+
+
+def _ads_card_images(slug):
+    """Top-crop 280:180 thumbs (D10). Empty when not generated, so the card keeps the portfolio image."""
+    rels = [f'{ADS_CARD_DIR}/{slug}-{width}w.webp' for width in ADS_CARD_WIDTHS]
+    base = Path(settings.BASE_DIR) / 'static'
+    if not all((base / rel).is_file() for rel in rels):
+        return '', ''
+    srcset = ', '.join(f'{static(rel)} {width}w' for rel, width in zip(rels, ADS_CARD_WIDTHS))
+    return static(rels[-1]), srcset
+
+
 def shop_portfolio_projects():
     found = {
         project.slug: project
         for project in published_portfolio_queryset().filter(slug__in=SHOP_SLUGS)
     }
-    return [found[slug] for slug in SHOP_SLUGS if slug in found]
+    projects = [found[slug] for slug in SHOP_SLUGS if slug in found]
+    for project in projects:
+        project.ads_card_src, project.ads_card_srcset = _ads_card_images(project.slug)
+    return projects
 
 
 def _seo_only(name):
@@ -54,7 +76,8 @@ def _seo_only(name):
         'ads_copy': {'faq_h2': '', 'types': (), 'types_h2': '', 'guarantee_h2': '', 'guarantee': '',
                      'process_h2': '', 'prices_h2': '', 'include_h3': '', 'include': '', 'exclude_h3': '',
                      'exclude': '', 'portfolio_h2': '', 'shops_note': '', 'all_works': '', 'line': '',
-                     'form_note': '', 'trust': '', 'offer_line': '', 'crumb': ''},
+                     'form_note': '', 'privacy_before': '', 'privacy_link': '', 'trust': '', 'offer_line': '',
+                     'crumb': ''},
         'ads_faq': [],
         'ads_contacts': contacts_copy(),
         'ads_crumbs': [],
@@ -140,11 +163,16 @@ def corporate_ads_context():
     labels = crumbs_copy()
     last = 'Корпоративні сайти та лендінги' if lang() == 'uk' else 'Корпоративные сайты и лендинги'
     crumbs = _crumbs(last, seo['canonical'])
+    code = (translation.get_language() or 'uk').split('-')[0]
+    copy = corp_copy() if code in ('uk', 'ru') else {'faq_h2': '', 'faq': ()}
+    faq = faq_pairs(copy['faq'])
     return {
+        'ads_copy': copy,
+        'ads_faq': faq,
         'ads_crumbs': crumbs,
         'ads_seo': seo,
         'ads_contacts': contacts_copy(),
-        'ads_json_ld': schema_scripts(crumbs),
+        'ads_json_ld': schema_scripts(crumbs, faq),
     }
 
 

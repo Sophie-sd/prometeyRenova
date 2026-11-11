@@ -4,16 +4,27 @@ from django.utils.translation import gettext_lazy as _
 from unfold.admin import ModelAdmin as UnfoldModelAdmin
 from unfold.admin import TabularInline as UnfoldTabularInline
 
-from .catalog_admin import ShopScopedAdminMixin
+from .catalog_admin import ShopNestedInlineMixin, ShopScopedAdminMixin, owned_demo_shop
+from .catalog_models import ShopProduct
 from .order_models import ShopOrder, ShopOrderItem
 
 
-class ShopOrderItemInline(UnfoldTabularInline):
+class ShopOrderItemInline(ShopNestedInlineMixin, UnfoldTabularInline):
+    """Позиція замовлення: лише перегляд свого магазину, без додавання і видалення."""
+
+    owner_perms = ('view',)
+    shop_lookup = 'order__shop__pk'
     model = ShopOrderItem
     extra = 0
     fields = ('product', 'product_name', 'price', 'qty')
     readonly_fields = ('product_name', 'price', 'qty')
     can_delete = False
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'product' and not request.user.is_superuser:
+            shop = owned_demo_shop(request)
+            kwargs['queryset'] = ShopProduct.objects.filter(shop=shop) if shop else ShopProduct.objects.none()
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 @admin.register(ShopOrder)

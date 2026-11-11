@@ -74,6 +74,7 @@
 
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/corporate-website-v2.css' %}?v=41">
+<link rel="stylesheet" href="{% static 'css/ads-landing.css' %}?v=3">
 {% endblock %}
 
 {% block content %}
@@ -86,6 +87,7 @@
     {% include 'components/corporate_website_v2/admin_demo.html' %}
     {% include 'components/corporate_website_v2/calc_promo.html' %}
     {% include 'components/corporate_website_v2/scale.html' %}
+    {% include 'components/ads/faq.html' %}
     {% include 'components/corporate_website_v2/brief.html' %}
 </div>
 {% endblock %}

@@ -28,7 +28,7 @@
 
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv.css' %}?v=16">
-<link rel="stylesheet" href="{% static 'css/ads-landing.css' %}?v=1">
+<link rel="stylesheet" href="{% static 'css/ads-landing.css' %}?v=3">
 {% endblock %}
 
 {% block extra_js %}
@@ -42,6 +42,7 @@
     {% include 'components/dorobka_sajtu/tech.html' %}
     {% include 'components/dorobka_sajtu/price.html' %}
     {% include 'components/dorobka_sajtu/how.html' %}
+    {% include 'components/dorobka_sajtu/portfolio.html' %}
     {% include 'components/ads/faq.html' %}
     {% include 'components/ads/contacts.html' %}
 </div>

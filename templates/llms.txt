@@ -7,7 +7,7 @@
 ## Services
 
 - [Корпоративний сайт](https://www.prometeylabs.com/corporate-website-v2/): 500–700 €
-- [Інтернет-магазин](https://www.prometeylabs.com/internet-shop-v2/): 800–1400 €
+- [Інтернет-магазин](https://www.prometeylabs.com/internet-shop-v2/): від 800 €
 - [Telegram-бот](https://www.prometeylabs.com/telegram-bot/): індивідуальний кошторис після брифу (публічного прайсу немає)
 - [Розробка сайтів під ключ (Soft hub)](https://www.prometeylabs.com/rozrobka-sajtiv/): лендінг від 250 € / корп від 500 € / магазин від 800 €
 
