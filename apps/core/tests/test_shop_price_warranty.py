@@ -1,4 +1,4 @@
-"""Ціна старту магазину 800 €, дропшиппінг від 1 500 €, гарантія: пожиттєва на код + 1 рік безкоштовної підтримки (doc 16.10, завдання 5)."""
+"""Ціна старту магазину 650 €, дропшиппінг від 1 500 €, гарантія: пожиттєва на код + 1 рік безкоштовної підтримки (doc 16.10, завдання 5)."""
 from decimal import Decimal
 
 from django.test import TestCase
@@ -44,12 +44,12 @@ class ShopPriceTests(TestCase):
             'czk_per_eur': Decimal('25'),
         })
 
-    def test_shop_v2_start_800_and_dropshipping_1500_eur(self):
+    def test_shop_v2_start_650_and_dropshipping_1500_eur(self):
         for url, word in (('/internet-shop-v2/', 'від'), ('/ru/internet-shop-v2/', 'от')):
             html = self.client.get(url).content.decode()
-            self.assertIn(f'id="fx-pkg-base" class="pl-shop__pkg-price">{word} 800 €', html)
+            self.assertIn(f'id="fx-pkg-base" class="pl-shop__pkg-price">{word} 650 €', html)
             self.assertIn(f'id="fx-drop-from" class="pl-shop__accent">{word} 1{NBSP}500 €', html)
-            self.assertIn(f'data-fx-price-base="{word} 800 €"', html)
+            self.assertIn(f'data-fx-price-base="{word} 650 €"', html)
             self.assertNotIn('700&nbsp;€', html)
             self.assertNotIn(f'{word} 700 €', html)
 
@@ -59,13 +59,13 @@ class ShopPriceTests(TestCase):
         }, HTTP_HX_REQUEST='true')
         body = response.content.decode()
         self.assertEqual(response.status_code, 200)
-        self.assertIn(f'id="fx-pkg-base" class="pl-shop__pkg-price" hx-swap-oob="outerHTML">від 41{NBSP}160 ₴', body)
+        self.assertIn(f'id="fx-pkg-base" class="pl-shop__pkg-price" hx-swap-oob="outerHTML">від 33{NBSP}443 ₴', body)
         self.assertIn(f'id="fx-drop-from" class="pl-shop__accent" hx-swap-oob="outerHTML">від 77{NBSP}175 ₴', body)
 
     def test_uah_cookie_page_render(self):
         self.client.cookies['pl_currency'] = 'UAH'
         html = self.client.get('/internet-shop-v2/').content.decode()
-        self.assertIn(f'від 41{NBSP}160 ₴', html)
+        self.assertIn(f'від 33{NBSP}443 ₴', html)
         self.assertIn(f'від 77{NBSP}175 ₴', html)
 
 
@@ -87,11 +87,11 @@ class WarrantyLifetimeTests(TestCase):
     def test_lifetime_and_support_claims_present(self):
         checks = {
             # ТЗ 27.10.2026: hero lead uses the canon wording; «Чому варто обрати» card comes from home
-            '/rozrobka-sajtiv/': ('Пожиттєва гарантія на код, 1 рік безкоштовної підтримки',
+            '/rozrobka-sajtiv/': ('Пожиттєва гарантія на код, <span class="pl-rs__acc">1 рік безкоштовної підтримки</span>',
                                   'Пожиттєва гарантія на код і рік безкоштовної підтримки'),
-            '/ru/rozrobka-sajtiv/': ('Пожизненная гарантия на код, 1 год бесплатной поддержки',
+            '/ru/rozrobka-sajtiv/': ('Пожизненная гарантия на код, <span class="pl-rs__acc">1 год бесплатной поддержки</span>',
                                      'Пожизненная гарантия на код и год бесплатной поддержки'),
-            '/en/rozrobka-sajtiv/': ('Lifetime code warranty, 1 year of free support',),
+            '/en/rozrobka-sajtiv/': ('Lifetime code warranty and 1 year of free support',),
             '/corporate-website-v2/': ('Пожиттєва гарантія на код · 1 рік підтримки безкоштовно',
                                        'Безкоштовна підтримка після запуску'),
             '/ru/corporate-website-v2/': ('Пожизненная гарантия на код · 1 год поддержки бесплатно',

@@ -13,7 +13,7 @@
     var PKG_MAP_UK = {
         base: {
             label: 'Base',
-            price: 'від 800\u00a0€',
+            price: 'від 650\u00a0€',
             term: '3–4 тижні',
             features: [
                 'Базовий конверсійний дизайн під нішу',
@@ -48,7 +48,7 @@
     var PKG_MAP_RU = {
         base: {
             label: 'Base',
-            price: 'от 800\u00a0€',
+            price: 'от 650\u00a0€',
             term: '3–4 недели',
             features: [
                 'Базовый конверсионный дизайн под нишу',
@@ -83,7 +83,7 @@
     var PKG_MAP_EN = {
         base: {
             label: 'Base',
-            price: 'from \u20ac800',
+            price: 'from \u20ac650',
             term: '3–4 weeks',
             features: [
                 'Core conversion-focused design for your niche',

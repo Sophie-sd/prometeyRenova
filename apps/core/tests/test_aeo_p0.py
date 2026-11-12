@@ -78,8 +78,8 @@ class LlmsTxtAeoP0Tests(TestCase):
         self.assertEqual(response.status_code, 200)
         body = response.content.decode()
         self.assertIn('PrometeyLabs', body)
-        self.assertIn('500–700', body)
-        self.assertIn('800–1400', body)
+        self.assertIn('350–500', body)
+        self.assertIn('від 650', body)
         self.assertIn('corporate-website-v2', body)
         self.assertIn('internet-shop-v2', body)
         self.assertIn('telegram-bot', body)
@@ -91,4 +91,4 @@ class LlmsTxtAeoP0Tests(TestCase):
             self.assertNotIn(frag, body)
         # Soft lock mirrored as hub line, not rewritten Soft CSS
         self.assertIn('rozrobka-sajtiv', body)
-        self.assertIn('250', body)
+        self.assertIn('150', body)

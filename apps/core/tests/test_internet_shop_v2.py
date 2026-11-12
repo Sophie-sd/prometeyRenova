@@ -14,9 +14,9 @@ RU = '/ru/internet-shop-v2/'
 SPEC = {
     UA: {
         # SEO 2026-11-03: title 50–60 chars, keyword first (apps.core.seo.META_OVERRIDES).
-        'title': 'Інтернет-магазин під ключ від 800 € — запуск за 3 тижні',
+        'title': 'Інтернет-магазин під ключ від 650 € — запуск за 3 тижні',
         'h1': 'Створення <span class="pl-shop__nowrap">інтернет-магазину</span> під ключ',
-        'line': 'Розробка <span class="pl-shop__nowrap">інтернет-магазину</span> <strong class="pl-shop__hero-acc">від 800 €</strong> · запуск <strong class="pl-shop__hero-acc">за 3 тижні</strong> · 1 рік підтримки безкоштовно · пожиттєва гарантія на код',
+        'line': 'Розробка <span class="pl-shop__nowrap">інтернет-магазину</span> <strong class="pl-shop__hero-acc">від 650 €</strong> · запуск <strong class="pl-shop__hero-acc">за 3 тижні</strong> · 1 рік підтримки безкоштовно · пожиттєва гарантія на код',
         'cta': 'Розрахувати вартість магазину',
         'micro': 'Пройдіть тест за 1 хвилину',
         'sticky': 'Розрахуйте вартість онлайн',
@@ -25,7 +25,7 @@ SPEC = {
         'labels': ('Ім’я', 'Телефон'),
         'button': 'Дізнатися вартість',
         'action': '/forms/submit/',
-        'meta': ('800 €', '3 тижні', '1 рік підтримки безкоштовно'),
+        'meta': ('650 €', '3 тижні', '1 рік підтримки безкоштовно'),
         'start': ['Дизайн', 'Мобільна версія', 'Базова SEO', 'LiqPay і Mono', 'Нова Пошта',
                   'Адмінка', '1 рік підтримки · пожиттєва гарантія на код', 'Каталог до 100 товарів'],
         'business': ['CRM', 'Telegram-сповіщення', 'Ролі менеджерів в адмінці', 'Онлайн-оплати',
@@ -46,9 +46,9 @@ SPEC = {
         'name_ld': 'Створення інтернет-магазину під ключ',
     },
     RU: {
-        'title': 'Интернет-магазин под ключ от 800 € — запуск за 3 недели',
+        'title': 'Интернет-магазин под ключ от 650 € — запуск за 3 недели',
         'h1': 'Создание <span class="pl-shop__nowrap">интернет-магазина</span> под ключ',
-        'line': 'Разработка <span class="pl-shop__nowrap">интернет-магазина</span> <strong class="pl-shop__hero-acc">от 800 €</strong> · запуск <strong class="pl-shop__hero-acc">за 3 недели</strong> · 1 год поддержки бесплатно · пожизненная гарантия на код',
+        'line': 'Разработка <span class="pl-shop__nowrap">интернет-магазина</span> <strong class="pl-shop__hero-acc">от 650 €</strong> · запуск <strong class="pl-shop__hero-acc">за 3 недели</strong> · 1 год поддержки бесплатно · пожизненная гарантия на код',
         'cta': 'Рассчитать стоимость магазина',
         'micro': 'Пройдите тест за 1 минуту',
         'sticky': 'Рассчитайте стоимость онлайн',
@@ -57,7 +57,7 @@ SPEC = {
         'labels': ('Имя', 'Телефон'),
         'button': 'Узнать стоимость',
         'action': '/ru/forms/submit/',
-        'meta': ('800 €', '3 недели', '1 год поддержки бесплатно'),
+        'meta': ('650 €', '3 недели', '1 год поддержки бесплатно'),
         'start': ['Дизайн', 'Мобильная версия', 'Базовое SEO', 'LiqPay и Mono', 'Новая Почта',
                   'Админка', '1 год поддержки · пожизненная гарантия на код', 'Каталог до 100 товаров'],
         'business': ['CRM', 'Telegram-уведомления', 'Роли менеджеров в админке', 'Онлайн-оплаты',
@@ -122,7 +122,7 @@ class ShopV2SpecTests(TestCase):
             self.assertEqual(service[0]['url'], 'https://www.prometeylabs.com' + url)
             offers = service[0]['offers']
             self.assertEqual([(o['@type'], o['name'], o['price'], o['priceCurrency']) for o in offers],
-                             [('Offer', name, price, 'EUR') for name, price in zip(s['offers'], ('800', '1500', '7000'))],
+                             [('Offer', name, price, 'EUR') for name, price in zip(s['offers'], ('650', '1500', '7000'))],
                              url)
             for o in offers:
                 self.assertTrue(o.get('description'), url)
@@ -169,7 +169,7 @@ class ShopV2SpecTests(TestCase):
             self.assertNotIn('hx-', hero)
             self.assertNotIn('₴', hero)
             # packages still follow FX
-            self.assertIn(f'{s["from"]} 41\u00a0160 ₴', html)
+            self.assertIn(f'{s["from"]} 33\u00a0443 ₴', html)
 
     def test_no_developer_modal_and_no_lang_suggest(self):
         for url in SPEC:
@@ -189,7 +189,7 @@ class ShopV2SpecTests(TestCase):
             self.assertEqual(_list_after(pak, 'pl-shop__pkg-card--featured'), s['business'], url)
             self.assertNotIn('pl-shop-pkg-extra-premium', pak)
             self.assertIn(s['scale_keep'], pak)
-            self.assertIn(f'id="fx-pkg-base" class="pl-shop__pkg-price">{s["from"]} 800 €', pak)
+            self.assertIn(f'id="fx-pkg-base" class="pl-shop__pkg-price">{s["from"]} 650 €', pak)
             self.assertIn(f'id="fx-pkg-premium" class="pl-shop__pkg-price">{s["from"]} 1\u00a0500 €', pak)
             self.assertIn(f'id="fx-pkg-platinum" class="pl-shop__pkg-price">{s["from"]} 7\u00a0000 €', pak)
 

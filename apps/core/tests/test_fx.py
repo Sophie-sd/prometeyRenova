@@ -107,7 +107,7 @@ class FxConvertTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotIn('Location', response)
         self.assertEqual(response.cookies['pl_currency'].value, 'UAH')
-        self.assertIn('10\u00a0000–16\u00a0000 ₴', body)
+        self.assertIn('6\u00a0000–12\u00a0000 ₴', body)
         self.assertIn('id="fx-switch-home"', body)
         self.assertIn('fx-switch--dark', body)
         self.assertIn('aria-label="Гривня"', body)
@@ -122,7 +122,7 @@ class FxConvertTests(TestCase):
         body = response.content.decode()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.cookies['pl_currency'].value, 'UAH')
-        self.assertIn('10 000–16 000 ₴', body)
+        self.assertIn('6 000–12 000 ₴', body)
         self.assertNotIn('id="fx-switch-soft"', body)
         # ТЗ 27.10.2026: soft = «Чому варто обрати» price card (home_prices) + its switcher
         self.assertIn('id="fx-home-prices"', body)

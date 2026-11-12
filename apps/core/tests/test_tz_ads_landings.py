@@ -127,9 +127,9 @@ class AdsLandingSeoTests(TestCase):
         start = html.index('class="pl-rs__hero"')
         hero = html[start:html.index('</section>', start)]
         self.assertNotIn('pl-rs__floats', hero)
-        self.assertNotIn('250–400 €', hero)
+        self.assertNotIn('150–300 €', hero)
         main = html[start:html.index('id="faq"')]
-        self.assertEqual(main.count('250–400 €'), 1)
+        self.assertEqual(main.count('150–300 €'), 1)
 
     def test_shop_dom_under_1500(self):
         html = self.client.get('/internet-shop-v2/').content.decode()

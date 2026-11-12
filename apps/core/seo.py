@@ -71,22 +71,22 @@ META_OVERRIDES: dict[tuple[str, str], tuple[str | None, str | None]] = {
         'Turnkey websites: landing pages, corporate sites, online stores and Telegram bots. '
         'Fixed price and deadline, lifetime code warranty and 1 year of free support.',
     ),
-    ('internet_shop_v2', 'uk'): ('Інтернет-магазин під ключ від 800 € — запуск за 3 тижні', None),
-    ('internet_shop_v2', 'ru'): ('Интернет-магазин под ключ от 800 € — запуск за 3 недели', None),
+    ('internet_shop_v2', 'uk'): ('Інтернет-магазин під ключ від 650 € — запуск за 3 тижні', None),
+    ('internet_shop_v2', 'ru'): ('Интернет-магазин под ключ от 650 € — запуск за 3 недели', None),
     ('corporate_website_v2', 'uk'): (
-        'Корпоративний сайт під ключ від 500 €, лендінг від 250 €',
-        'Корпоративні сайти та лендінги під ключ: лендінг 250–400 € за 3–7 днів, сайт 500–700 € '
+        'Корпоративний сайт під ключ від 350 €, лендінг від 150 €',
+        'Корпоративні сайти та лендінги під ключ: лендінг 150–300 € за 3–7 днів, сайт 350–500 € '
         'за 7–14 днів. Пожиттєва гарантія на код і 1 рік безкоштовної підтримки.',
     ),
     ('corporate_website_v2', 'ru'): (
-        'Корпоративный сайт под ключ от 500 €, лендинг от 250 €',
-        'Корпоративные сайты и лендинги под ключ: лендинг 250–400 € за 3–7 дней, сайт 500–700 € '
+        'Корпоративный сайт под ключ от 350 €, лендинг от 150 €',
+        'Корпоративные сайты и лендинги под ключ: лендинг 150–300 € за 3–7 дней, сайт 350–500 € '
         'за 7–14 дней. Пожизненная гарантия на код и 1 год бесплатной поддержки.',
     ),
     ('corporate_website_v2', 'en'): (
         'Turnkey Corporate Website & Landing Pages | PrometeyLabs',
-        'Turnkey corporate websites and landing pages: landing €250–400 in 3–7 days, website '
-        '€500–700 in 7–14 days. Lifetime code warranty and 1 year of free support.',
+        'Turnkey corporate websites and landing pages: landing €150–300 in 3–7 days, website '
+        '€350–500 in 7–14 days. Lifetime code warranty and 1 year of free support.',
     ),
     ('telegram_bot', 'uk'): (
         'Розробка Telegram-бота під ключ для бізнесу | PrometeyLabs',
@@ -103,8 +103,8 @@ META_OVERRIDES: dict[tuple[str, str], tuple[str | None, str | None]] = {
         'Turnkey Telegram bot development: lead capture, online booking, CRM integration and '
         'in-chat payments. Individual quote after a brief, support after launch.',
     ),
-    ('rozrobka_sajtiv', 'uk'): ('Розробка сайтів під ключ від 250 € — створення сайту', None),
-    ('rozrobka_sajtiv', 'ru'): ('Разработка сайтов под ключ от 250 € — создание сайта', None),
+    ('rozrobka_sajtiv', 'uk'): ('Розробка сайтів під ключ від 150 € — створення сайту', None),
+    ('rozrobka_sajtiv', 'ru'): ('Разработка сайтов под ключ от 150 € — создание сайта', None),
     ('dorobka_sajtu', 'uk'): ('Доопрацювання сайту: редизайн і прискорення | PrometeyLabs', None),
     ('dorobka_sajtu', 'ru'): ('Доработка сайта: редизайн, ускорение, перенос | PrometeyLabs', None),
     ('portfolio', 'uk'): (

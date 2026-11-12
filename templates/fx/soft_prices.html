@@ -1,14 +1,14 @@
 {% load i18n fx_tags %}
 {# Soft price fragments swapped by region=soft (hero floats, products). #}
-{% include 'fx/soft_range.html' with key='float-landing' low=250 high=400 oob=oob %}
-{% include 'fx/soft_range.html' with key='float-corp' low=500 high=700 oob=oob %}
-{% include 'fx/soft_from.html' with key='float-shop' amount=800 oob=oob %}
+{% include 'fx/soft_range.html' with key='float-landing' low=150 high=300 oob=oob %}
+{% include 'fx/soft_range.html' with key='float-corp' low=350 high=500 oob=oob %}
+{% include 'fx/soft_from.html' with key='float-shop' amount=650 oob=oob %}
 {% include 'fx/soft_range.html' with key='float-platform' low=1500 high=5000 oob=oob %}
-{% include 'fx/soft_range.html' with key='prod-landing' low=250 high=400 oob=oob %}
-{% include 'fx/soft_range.html' with key='prod-corp' low=500 high=700 oob=oob %}
-{% include 'fx/soft_from.html' with key='prod-shop' amount=800 oob=oob %}
+{% include 'fx/soft_range.html' with key='prod-landing' low=150 high=300 oob=oob %}
+{% include 'fx/soft_range.html' with key='prod-corp' low=350 high=500 oob=oob %}
+{% include 'fx/soft_from.html' with key='prod-shop' amount=650 oob=oob %}
 {% include 'fx/soft_range.html' with key='prod-platform' low=1500 high=5000 oob=oob %}
 {# Demo CMS «Ціни» tab (admin.html) — lower bounds of the same ranges. #}
-{% include 'fx/soft_amount.html' with key='cms-landing' amount=250 oob=oob %}
-{% include 'fx/soft_amount.html' with key='cms-corp' amount=500 oob=oob %}
-{% include 'fx/soft_amount.html' with key='cms-shop' amount=800 oob=oob %}
+{% include 'fx/soft_amount.html' with key='cms-landing' amount=150 oob=oob %}
+{% include 'fx/soft_amount.html' with key='cms-corp' amount=350 oob=oob %}
+{% include 'fx/soft_amount.html' with key='cms-shop' amount=650 oob=oob %}

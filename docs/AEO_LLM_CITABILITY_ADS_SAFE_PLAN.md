@@ -31,7 +31,7 @@
 
 ## Червоні лінії Ads
 
-1. **Не ламати Soft / message match.** Hero Soft і Ads final URL мають говорити про той самий офер (лендінг 250 € / корп 500 € / магазин 800 € на Soft; на сервісних LP — діапазони з тієї ж сторінки). Розбіжність = QS і Relevance падають.
+1. **Не ламати Soft / message match.** Hero Soft і Ads final URL мають говорити про той самий офер (лендінг 150 € / корп 350 € / магазин 650 € на Soft; на сервісних LP — діапазони з тієї ж сторінки). Розбіжність = QS і Relevance падають.
 2. **Не міняти Soft € без узгодження з Андрієм.** Ціни в DOM (`pl-rs__prices` + currency) і в Ads — lock.
 3. **Не чіпати Ads landing copy mid-campaign без QA.** Будь-який rewrite above-fold на LP, що є final URL — тільки staged deploy + візуальний/текстовий diff + перевірка відповідності RSA.
 4. **Не пушити AEO-правки на `origin`/BonisOleg.** Soft-код — лише `git push sophie main` (як у робочих правилах).
@@ -52,7 +52,7 @@
    - **Виключити:** `/admin/`, `/proposal/`, `/demo/` (+ demo-landing/demo-site), `/thank-you/`, тонкий search блогу.
 2. **Додати root `llms.txt`**  
    - Короткий блер PrometeyLabs.  
-   - Посилання з цінами з реальних LP: корп **500–700 €**, магазин **800–1400 €**, бот (ціна з LP), contacts.  
+   - Посилання з цінами з реальних LP: корп **350–500 €**, магазин **від 650 €**, бот (ціна з LP), contacts.  
    - **Без** вигаданих case-URL.
 3. **Hero cite-параграфи** на 3 сервісних LP (corp / shop / bot): щільний quoteable абзац над fold, **видима дата оновлення цін**, таблиця include/exclude; прибрати слоганний fluff із quote-блоку.
 4. **Schema Offer**  
@@ -138,7 +138,7 @@
 - Rename URL mid-flight **без** 301 і без синхрону Ads final URL.
 - Блокувати всі LLM-боти «про запас».
 - Crawl-delay.
-- Міняти Soft 250/500/800 € або Ads RSA mid-campaign без QA.
+- Міняти Soft 150/350/650 € або Ads RSA mid-campaign без QA.
 - Публікувати фейкову адресу / LocalBusiness без офісу.
 - Тягнути `/proposal/`, `/demo/`, thank-you в sitemap або `llms.txt`.
 - Масовий rewrite блогу «під LLM» у P0 (спочатку інфраструктура + LP).
