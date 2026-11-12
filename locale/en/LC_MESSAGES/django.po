@@ -1294,16 +1294,16 @@ msgid "Інтернет-магазини під ключ — PrometeyLabs"
 msgstr "E-commerce stores"
 
 #: apps/core/views.py:192
-msgid "Створення інтернет-магазину під ключ від 800€ | PrometeyLabs"
-msgstr "Turnkey online store development from €800 | PrometeyLabs"
+msgid "Створення інтернет-магазину під ключ від 650€ | PrometeyLabs"
+msgstr "Turnkey online store development from €650 | PrometeyLabs"
 
 #: apps/core/views.py:194
 msgid ""
-"Створення інтернет-магазину під ключ від 800 €: дизайн, код і інтеграції без "
+"Створення інтернет-магазину під ключ від 650 €: дизайн, код і інтеграції без "
 "плагінів і абонплати. Запуск за 3 тижні, пожиттєва гарантія на код і 1 рік "
 "підтримки безкоштовно."
 msgstr ""
-"Turnkey online store development from €800: design, code and integrations "
+"Turnkey online store development from €650: design, code and integrations "
 "with no plugins and no subscription fees. Launch in 3 weeks, lifetime code "
 "warranty and 1 year of free support."
 
@@ -2631,20 +2631,20 @@ msgid "Середні діапазони цін:"
 msgstr "Average price ranges:"
 
 #: templates/components/home/redesign_why.html:43
-msgid "250–400 €"
-msgstr "250–400 €"
+msgid "150–300 €"
+msgstr "150–300 €"
 
 #: templates/components/home/redesign_why.html:44
-msgid "500–700 €"
-msgstr "500–700 €"
+msgid "350–500 €"
+msgstr "350–500 €"
 
 #: templates/components/home/redesign_why.html:45
 msgid "E-commerce:"
 msgstr "E-commerce:"
 
 #: templates/components/home/redesign_why.html:45
-msgid "800–1400 €"
-msgstr "800–1400 €"
+msgid "від 650 €"
+msgstr "from €650"
 
 #: templates/components/home/redesign_why.html:46
 msgid "Веб-додатки:"
@@ -5861,12 +5861,12 @@ msgstr "Turnkey websites of any complexity"
 
 #: templates/pages/rozrobka-sajtiv.html
 msgid ""
-"Лендінг від 250 € за 3–7 днів, корпоративний сайт від 500 €, інтернет-магазин"
-" від 800 €. Ціну й строк фіксуємо в договорі. Пожиттєва гарантія на код, рік "
+"Лендінг від 150 € за 3–7 днів, корпоративний сайт від 350 €, інтернет-магазин"
+" від 650 €. Ціну й строк фіксуємо в договорі. Пожиттєва гарантія на код, рік "
 "підтримки безкоштовно, адмінка залишається у вас."
 msgstr ""
-"Landing page from €250 in 3–7 days, corporate website from €500, online store"
-" from €800. Price and timeline are fixed in the contract. Lifetime code "
+"Landing page from €150 in 3–7 days, corporate website from €350, online store"
+" from €650. Price and timeline are fixed in the contract. Lifetime code "
 "warranty, 1 year of free support, and the admin panel stays yours."
 
 #: templates/pages/rozrobka-sajtiv.html
@@ -5935,12 +5935,12 @@ msgstr "Turnkey website development in Ukraine | PrometeyLabs"
 
 #: templates/pages/rozrobka-sajtiv.html
 msgid ""
-"Розробка сайтів будь-якої складності під ключ: лендінги від 250 €, "
-"корпоративні від 500 €, магазини від 800 €. Бюджет і строки у договорі, "
+"Розробка сайтів будь-якої складності під ключ: лендінги від 150 €, "
+"корпоративні від 350 €, магазини від 650 €. Бюджет і строки у договорі, "
 "пожиттєва гарантія на код і рік підтримки безкоштовно. Отримати консультацію."
 msgstr ""
-"Turnkey websites of any complexity: landings from €250, corporate sites from "
-"€500, stores from €800. Budget and timeline in the contract, lifetime code "
+"Turnkey websites of any complexity: landings from €150, corporate sites from "
+"€350, stores from €650. Budget and timeline in the contract, lifetime code "
 "warranty and 1 year of free support. Get a consultation."
 
 #: templates/pages/rozrobka-sajtiv.html
@@ -6024,13 +6024,13 @@ msgstr ""
 " brief in the contract."
 
 msgid ""
-"Розробка сайтів будь-якої складності під ключ: лендінги 250–400 €, "
-"корпоративні 500–700 €, магазини від 800 €, платформи 1 500–5 000 €. Бюджет і"
+"Розробка сайтів будь-якої складності під ключ: лендінги 150–300 €, "
+"корпоративні 350–500 €, магазини від 650 €, платформи 1 500–5 000 €. Бюджет і"
 " строки у договорі, пожиттєва гарантія на код і рік підтримки безкоштовно. "
 "Отримати консультацію."
 msgstr ""
-"Turnkey websites of any complexity: landings €250–400, corporate €500–700, "
-"online stores from €800, platforms €1,500–5,000. Budget and timeline in the "
+"Turnkey websites of any complexity: landings €150–300, corporate €350–500, "
+"online stores from €650, platforms €1,500–5,000. Budget and timeline in the "
 "contract, lifetime code warranty and 1 year of free support. Get a "
 "consultation."
 
@@ -6259,12 +6259,12 @@ msgstr ""
 "PrometeyLabs"
 
 msgid ""
-"Корпоративні сайти та лендінги під ключ: лендінг 250–400 € за 3–7 днів, "
-"корпоративний сайт 500–700 € за 7–14 днів. Технічне SEO, швидке завантаження,"
+"Корпоративні сайти та лендінги під ключ: лендінг 150–300 € за 3–7 днів, "
+"корпоративний сайт 350–500 € за 7–14 днів. Технічне SEO, швидке завантаження,"
 " пожиттєва гарантія на код."
 msgstr ""
-"Turnkey corporate websites and landing pages: a landing page for €250–400 in "
-"3–7 days, a corporate website for €500–700 in 7–14 days. Technical SEO, fast "
+"Turnkey corporate websites and landing pages: a landing page for €150–300 in "
+"3–7 days, a corporate website for €350–500 in 7–14 days. Technical SEO, fast "
 "loading, lifetime code warranty and 1 year of free support."
 
 msgid "Корпоративні сайти та лендінги під ключ, що домінують у пошуку"
@@ -6298,8 +6298,8 @@ msgstr "High level of data protection"
 msgid "Створення інтернет-магазину під ключ"
 msgstr "Turnkey online store development"
 
-msgid "Від 800€. Запуск за 3 тижні. 1 рік підтримки безкоштовно."
-msgstr "From €800. Launch in 3 weeks. 1 year of free support."
+msgid "Від 650€. Запуск за 3 тижні. 1 рік підтримки безкоштовно."
+msgstr "From €650. Launch in 3 weeks. 1 year of free support."
 
 msgid ""
 "Дизайн, код і інтеграції. Без плагінів і без щомісячної абонплати. Магазин "
@@ -7140,8 +7140,8 @@ msgstr "Corp."
 msgid "Ціна і строк"
 msgstr "Price and timeline"
 
-msgid "Лендінг 250–400 €, 3–7 днів"
-msgstr "Landing page €250–400, 3–7 days"
+msgid "Лендінг 150–300 €, 3–7 днів"
+msgstr "Landing page €150–300, 3–7 days"
 
 msgid ""
 "Односторінковий сайт із формою заявок, технічним SEO, аналітикою і трекінгом,"
@@ -7150,8 +7150,8 @@ msgstr ""
 "A one-page site with a lead form, technical SEO, analytics and tracking, a "
 "domain and a secure connection"
 
-msgid "Корпоративний сайт 500–700 €, 7–14 днів"
-msgstr "Corporate website €500–700, 7–14 days"
+msgid "Корпоративний сайт 350–500 €, 7–14 днів"
+msgstr "Corporate website €350–500, 7–14 days"
 
 msgid ""
 "Багатосторінковий сайт з адмінкою, інтеграціями (CRM, ERP, оплати), технічним"
@@ -9201,8 +9201,8 @@ msgstr ""
 msgid "Реальна річна процентна ставка: 0,000001%%"
 msgstr "Real annual interest rate: 0.000001%%"
 
-msgid "Розробка і створення сайтів під ключ від 250 €"
-msgstr "Turnkey website design and development from €250"
+msgid "Розробка і створення сайтів під ключ від 150 €"
+msgstr "Turnkey website design and development from €150"
 
 msgid "Розрахуємо вартість вашого сайту"
 msgstr "We'll estimate the cost of your website"
@@ -10117,12 +10117,12 @@ msgid "Навігаційний ланцюжок"
 msgstr "Breadcrumb"
 
 #: rozrobka-sajtiv (ТЗ 27.10.2026)
-msgid "Розробка сайтів під ключ. Створення сайтів від 250 €"
-msgstr "Turnkey website development. Websites from €250"
+msgid "Розробка сайтів під ключ. Створення сайтів від 150 €"
+msgstr "Turnkey website development. Websites from €150"
 
 #: rozrobka-sajtiv (ТЗ 27.10.2026)
-msgid "Замовте сайт для бізнесу: лендінг від 250 € за 3–7 днів, корпоративний сайт від 500 €, інтернет-магазин від 800 €. Ціну й строк фіксуємо в договорі. Пожиттєва гарантія на код, 1 рік безкоштовної підтримки, адмінка залишається у вас."
-msgstr "Order a business website: a landing page from €250 in 3–7 days, a corporate website from €500, an online store from €800. Price and deadline are fixed in the contract. Lifetime code warranty, 1 year of free support, and the admin panel stays yours."
+msgid "Замовте сайт для бізнесу: лендінг від 150 € за 3–7 днів, корпоративний сайт від 350 €, інтернет-магазин від 650 €. Ціну й строк фіксуємо в договорі. Пожиттєва гарантія на код, 1 рік безкоштовної підтримки, адмінка залишається у вас."
+msgstr "Order a business website: a landing page from €150 in 3–7 days, a corporate website from €350, an online store from €650. Price and deadline are fixed in the contract. Lifetime code warranty, 1 year of free support, and the admin panel stays yours."
 
 #: rozrobka-sajtiv (ТЗ 27.10.2026)
 msgid "Менеджер передзвонить за 15 хвилин"

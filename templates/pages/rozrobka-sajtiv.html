@@ -5,7 +5,7 @@
 {% block body_attrs %} class="pl-rs-body" data-modal-source-page="rozrobka-sajtiv"{% endblock %}
 
 {% block title %}{% if ads_tz %}{{ page_title }}{% else %}{% trans "Розробка сайтів під ключ в Україні | PrometeyLabs" %}{% endif %}{% endblock %}
-{% block description %}{% if ads_tz %}{{ meta_description }}{% else %}{% trans "Розробка сайтів будь-якої складності під ключ: лендінги 250–400 €, корпоративні 500–700 €, магазини від 800 €, платформи 1 500–5 000 €. Бюджет і строки у договорі, пожиттєва гарантія на код і рік підтримки безкоштовно. Отримати консультацію." %}{% endif %}{% endblock %}
+{% block description %}{% if ads_tz %}{{ meta_description }}{% else %}{% trans "Розробка сайтів будь-якої складності під ключ: лендінги 150–300 €, корпоративні 350–500 €, магазини від 650 €, платформи 1 500–5 000 €. Бюджет і строки у договорі, пожиттєва гарантія на код і рік підтримки безкоштовно. Отримати консультацію." %}{% endif %}{% endblock %}
 {% block keywords %}{% trans "розробка сайтів, сайт під ключ, лендінг, корпоративний сайт, інтернет-магазин, PrometeyLabs" %}{% endblock %}
 {% block og_title %}{{ page_title }}{% endblock %}
 {% block og_description %}{{ meta_description }}{% endblock %}
@@ -43,19 +43,19 @@
     {
       "@type": "Offer",
       "name": "{% filter escapejs %}{% trans "Лендінги" %}{% endfilter %}",
-      "price": "250",
+      "price": "150",
       "priceCurrency": "EUR"
     },
     {
       "@type": "Offer",
       "name": "{% filter escapejs %}{% trans "Корпоративні" %}{% endfilter %}",
-      "price": "500",
+      "price": "350",
       "priceCurrency": "EUR"
     },
     {
       "@type": "Offer",
       "name": "{% filter escapejs %}{% trans "Магазини" %}{% endfilter %}",
-      "price": "800",
+      "price": "650",
       "priceCurrency": "EUR"
     },
     {

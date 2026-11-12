@@ -34,10 +34,10 @@
                         <p><span class="pl-rs__screen-name">{% trans "Ірина · Корп. сайт" %}</span><small class="pl-rs__screen-time">12.09</small><b class="pl-rs__screen-st pl-rs__screen-st--done">{% trans "Закрита" %}</b></p>
                     </div>
                     <div class="pl-rs__screen-rows pl-rs__screen-pane" role="tabpanel" id="pl-rs-cms-pane-prices" aria-labelledby="pl-rs-cms-tab-prices" data-pl-rs-cms-pane hidden>
-                        {# Same lower bounds as the Soft ranges (250–400 / 500–700 / 800–1 400); ids swap on FX change. #}
-                        <p><span class="pl-rs__screen-name">{% trans "Лендінг" %}</span><em class="pl-rs__screen-price">{% include 'fx/soft_amount.html' with key='cms-landing' amount=250 %}</em><b class="pl-rs__screen-act">{% trans "Редагувати" %}</b></p>
-                        <p><span class="pl-rs__screen-name">{% trans "Корпоративний сайт" %}</span><em class="pl-rs__screen-price">{% include 'fx/soft_amount.html' with key='cms-corp' amount=500 %}</em><b class="pl-rs__screen-act">{% trans "Редагувати" %}</b></p>
-                        <p><span class="pl-rs__screen-name">{% trans "Інтернет-магазин" %}</span><em class="pl-rs__screen-price">{% include 'fx/soft_amount.html' with key='cms-shop' amount=800 %}</em><b class="pl-rs__screen-act">{% trans "Редагувати" %}</b></p>
+                        {# Same lower bounds as the Soft ranges (150–300 / 350–500 / від 650); ids swap on FX change. #}
+                        <p><span class="pl-rs__screen-name">{% trans "Лендінг" %}</span><em class="pl-rs__screen-price">{% include 'fx/soft_amount.html' with key='cms-landing' amount=150 %}</em><b class="pl-rs__screen-act">{% trans "Редагувати" %}</b></p>
+                        <p><span class="pl-rs__screen-name">{% trans "Корпоративний сайт" %}</span><em class="pl-rs__screen-price">{% include 'fx/soft_amount.html' with key='cms-corp' amount=350 %}</em><b class="pl-rs__screen-act">{% trans "Редагувати" %}</b></p>
+                        <p><span class="pl-rs__screen-name">{% trans "Інтернет-магазин" %}</span><em class="pl-rs__screen-price">{% include 'fx/soft_amount.html' with key='cms-shop' amount=650 %}</em><b class="pl-rs__screen-act">{% trans "Редагувати" %}</b></p>
                     </div>
                 </div>
             </div>

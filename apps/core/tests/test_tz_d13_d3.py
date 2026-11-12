@@ -94,8 +94,8 @@ class RozrobkaHeroPricesOnceTests(TestCase):
         html = self.client.get('/rozrobka-sajtiv/').content.decode()
         start = html.index('class="pl-rs__hero"')
         hero = html[start:html.index('</section>', start)]
-        self.assertNotIn('250–400 €', hero)
+        self.assertNotIn('150–300 €', hero)
         card = html[html.index('id="fx-home-prices"'):]
         card = card[:card.index('</ul>')]
-        for text in ('250–400 €', '500–700 €', 'від 800 €', '1\u00a0500–5\u00a0000 €'):
+        for text in ('150–300 €', '350–500 €', 'від 650 €', '1\u00a0500–5\u00a0000 €'):
             self.assertEqual(card.count(text), 1, text)

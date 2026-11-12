@@ -43,8 +43,8 @@ class RozrobkaSajtivPageTests(TestCase):
         root = _landing_markup(html)
         self.assertIn('rozrobka-sajtiv.css', html)
         # ТЗ 27.10.2026 п. 3.1 / 3.10
-        self.assertIn('Розробка сайтів під ключ. Створення сайтів від 250 €</h1>', html)
-        self.assertIn('Створіть сайт для бізнесу: лендінг <span class="pl-rs__acc">від 250 € за 3–7 днів</span>', root)
+        self.assertIn('Розробка сайтів під ключ. Створення сайтів від 150 €</h1>', html)
+        self.assertIn('Створіть сайт для бізнесу: лендінг <span class="pl-rs__acc">від 150 € за 3–7 днів</span>', root)
         # ТЗ Софії 28.10.2026 п. 4.3: два фрагменти прибрано, рівно 4 помаранчеві акценти
         lead = root[root.index('<p class="pl-rs__lead">'):]
         lead = lead[:lead.index('</p>')]
@@ -57,9 +57,9 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertIn('Ціна і строк у договорі · Адмінка залишається у вас · 50+ запущених проєктів</p>', root)
         self.assertNotIn('Відповідаємо протягом 15 хвилин', root)
         # price ranges live in «Чому варто обрати» (home component), not in hero floats
-        self.assertIn('250–400 €', root)
-        self.assertIn('500–700 €', root)
-        self.assertIn('від 800 €', root)
+        self.assertIn('150–300 €', root)
+        self.assertIn('350–500 €', root)
+        self.assertIn('від 650 €', root)
         self.assertNotIn('800–1\u00a0400 €', root)
         self.assertIn('1\u00a0500–5\u00a0000 €', root)
         self.assertIn('3–7 днів', root)
@@ -104,7 +104,7 @@ class RozrobkaSajtivPageTests(TestCase):
                 self.assertNotIn('data-currency="eur"', root)
                 self.assertNotIn('data-pl-rs-amount', root)
                 self.assertNotIn('data-usd=', root)
-                self.assertIn('250–400 €', root)
+                self.assertIn('150–300 €', root)
                 self.assertIn('value="UAH"', root)
                 self.assertIn('₴', root)
 
@@ -117,7 +117,7 @@ class RozrobkaSajtivPageTests(TestCase):
         body = response.content.decode()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.cookies['pl_currency'].value, 'UAH')
-        self.assertIn('10\u00a0000–16\u00a0000 ₴', body)
+        self.assertIn('6\u00a0000–12\u00a0000 ₴', body)
         self.assertNotIn('id="fx-switch-soft"', body)
         self.assertIn('id="fx-switch-soft-why"', body)
         self.assertIn('hx-swap-oob="outerHTML"', body)
@@ -126,8 +126,8 @@ class RozrobkaSajtivPageTests(TestCase):
     def test_ru_mirror_has_euro_and_no_dollar_switcher(self):
         html = self.client.get('/ru/rozrobka-sajtiv/').content.decode()
         root = _landing_markup(html)
-        self.assertIn('Разработка сайтов под ключ. Создание сайтов от 250 €</h1>', html)
-        self.assertIn('Создайте сайт для бизнеса: лендинг <span class="pl-rs__acc">от 250 €', root)
+        self.assertIn('Разработка сайтов под ключ. Создание сайтов от 150 €</h1>', html)
+        self.assertIn('Создайте сайт для бизнеса: лендинг <span class="pl-rs__acc">от 150 €', root)
         self.assertNotIn('id="pl-rs-hero-form"', html)
         self.assertNotIn('Рассчитаем стоимость вашего сайта', root)
         self.assertIn('Пожизненная гарантия на код, <span class="pl-rs__acc">1 год бесплатной поддержки</span>.', root)
@@ -143,9 +143,9 @@ class RozrobkaSajtivPageTests(TestCase):
 
     def test_seo_head(self):
         html = self.client.get('/rozrobka-sajtiv/').content.decode()
-        self.assertIn('Створити сайт під ключ — розробка сайтів від 250 € | PrometeyLabs', html)
-        self.assertIn('250–400 €', html)
-        self.assertIn('500–700 €', html)
+        self.assertIn('Створити сайт під ключ — розробка сайтів від 150 € | PrometeyLabs', html)
+        self.assertIn('150–300 €', html)
+        self.assertIn('350–500 €', html)
         self.assertIn('rel="canonical" href="https://www.prometeylabs.com/rozrobka-sajtiv/"', html)
         self.assertIn('hreflang="uk"', html)
         self.assertIn('hreflang="ru"', html)
