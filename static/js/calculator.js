@@ -161,6 +161,16 @@ class ProjectCalculator {
             this.nextBtn.disabled = !this.isStepAnswered(currentStep);
         }
 
+        if (isContact) {
+            this.steps.forEach((step) => {
+                if (this.isContactStep(step)) return;
+                step.querySelectorAll('input[required]').forEach((input) => {
+                    const group = step.querySelector(`input[name="${input.name}"]:checked`);
+                    if (!group) input.required = false;
+                });
+            });
+        }
+
         this.updateProgress();
     }
 
