@@ -50,3 +50,19 @@
     .ctf__inner { padding-top: clamp(96px, 17svh, 120px); }
     .ctf__info { gap: clamp(24px, 5svh, 50px); }
 }
+
+/* Phone and tablet: the desktop block above does not apply.
+   Header is fixed over the hero, so the section itself is the whole screen
+   and the existing padding keeps the text below the header. */
+@media (max-width: 1023px) {
+    .hf-hero,
+    .pl-corp__hero,
+    .pl-shop__hero,
+    .pl-rs__hero,
+    .tgf-hero,
+    .pfg-hero {
+        box-sizing: border-box;
+        min-height: 100vh;
+        min-height: 100svh;
+    }
+}
