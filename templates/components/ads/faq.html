@@ -1,0 +1,12 @@
+{% load i18n %}
+<section class="pl-rs-new pl-rs-faq" aria-labelledby="pl-rs-faq-title">
+    <div class="pl-rs__inner pl-rs-faq__inner">
+        <h2 id="pl-rs-faq-title" class="pl-rs__h2 pl-rs-new__h2">{% trans "Часті питання про розробку сайтів" %}</h2>
+        {% for item in rozrobka_faq %}
+        <details class="pl-rs-faq__item">
+            <summary>{{ item.q }}</summary>
+            <p>{{ item.a }}</p>
+        </details>
+        {% endfor %}
+    </div>
+</section>

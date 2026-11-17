@@ -5,6 +5,10 @@
         <div>
             <h2 id="pl-rs-calc-title" class="pl-rs__h2">{% trans "Порахуйте бюджет до дзвінка" %}</h2>
             <p class="pl-rs__note">{% trans "Три орієнтири Soft — старт розмови. Точну суму і строк фіксуємо після брифу в договорі." %}</p>
+            {% get_current_language as LANGUAGE_CODE %}
+            {% if LANGUAGE_CODE == 'uk' %}
+            <p class="pl-rs__note">{% trans "Пн–Пт 10:00–18:00, відповідаємо протягом 1 робочої години" %}</p>
+            {% endif %}
         </div>
         <div class="pl-rs__actions">
             <a class="pl-rs__cta mobile-touch-target" href="{% url 'calculator' %}">{% trans "Відкрити калькулятор" %}</a>

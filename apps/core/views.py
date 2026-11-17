@@ -1,12 +1,14 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.utils import timezone
+from .ads_copy import ROZROBKA_FAQ, ROZROBKA_REVIEWS
 from .mixins import (
     BasePageView,
     homepage_clients,
     homepage_portfolio_strip,
     portfolio_page_projects,
 )
+from .rozrobka_portfolio import ROZROBKA_CASES, ROZROBKA_TILES
 from .form_handlers import (
     validate_phone, validate_name, create_form_response, get_form_type_from_path,
     create_form_data, send_form_email, save_form_submission,
@@ -142,6 +144,10 @@ class RozrobkaSajtivView(BasePageView):
         context = super().get_context_data(**kwargs)
         context['home_clients'] = homepage_clients()
         context['portfolio_strip'] = homepage_portfolio_strip()
+        context['rozrobka_cases'] = ROZROBKA_CASES
+        context['rozrobka_tiles'] = ROZROBKA_TILES
+        context['rozrobka_reviews'] = ROZROBKA_REVIEWS
+        context['rozrobka_faq'] = ROZROBKA_FAQ
         return context
 
 

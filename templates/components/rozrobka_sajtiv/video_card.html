@@ -1,0 +1,9 @@
+{% load static %}
+<figure class="pl-rs-video">
+    <button type="button" class="pl-rs-video__btn" data-pl-rs-video="{{ video_id }}" aria-label="{{ title }}">
+        <img src="{% static poster %}" alt="" width="{{ poster_w }}" height="{{ poster_h }}" loading="lazy" decoding="async">
+        <span class="pl-rs-video__play" aria-hidden="true"></span>
+        {% if duration %}<span class="pl-rs-video__time">{{ duration }}</span>{% endif %}
+    </button>
+    <figcaption class="pl-rs-video__caption">{{ caption }}</figcaption>
+</figure>
