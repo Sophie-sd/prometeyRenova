@@ -100,7 +100,6 @@ class CSPMiddleware:
                 "https://fonts.gstatic.com http://fonts.gstatic.com"
             ),
             "frame-src 'self' https://www.google.com https://maps.google.com "
-            "https://www.youtube-nocookie.com "
             "https://www.googletagmanager.com https://bid.g.doubleclick.net "
             "https://www.facebook.com https://td.doubleclick.net",
             "connect-src 'self' https:",

@@ -69,40 +69,18 @@
 {% block page_css %}
 <link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv.css' %}?v=4">
 <link rel="stylesheet" href="{% static 'css/pages/rozrobka-sajtiv-2.css' %}?v=4">
-{% get_current_language as LANGUAGE_CODE %}
-{% if LANGUAGE_CODE == 'uk' %}
-<link rel="stylesheet" href="{% static 'css/pages/rozrobka-blocks.css' %}?v=1">
-<link rel="stylesheet" href="{% static 'css/pages/rozrobka-blocks-2.css' %}?v=1">
-{% endif %}
 {% endblock %}
 
 {% block extra_js %}
 <script src="{% static 'js/rozrobka-sajtiv.js' %}?v=1" nonce="{{ csp_nonce }}" defer></script>
-{% get_current_language as LANGUAGE_CODE %}
-{% if LANGUAGE_CODE == 'uk' %}
-<script src="{% static 'js/portfolio-screen-scroll.js' %}?v=screen4" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/rozrobka-video.js' %}?v=1" nonce="{{ csp_nonce }}" defer></script>
-{% endif %}
 {% endblock %}
 
 {% block content %}
 <div id="plRsRoot" class="pl-rs">
     {% include 'components/rozrobka_sajtiv/hero.html' %}
     {% include 'components/rozrobka_sajtiv/products.html' %}
-    {% get_current_language as LANGUAGE_CODE %}
-    {% if LANGUAGE_CODE == 'uk' %}
-    {% include 'components/rozrobka_sajtiv/compare.html' %}
-    {% include 'components/rozrobka_sajtiv/process.html' %}
-    {% else %}
-    {% include 'components/rozrobka_sajtiv/portfolio_legacy.html' %}
-    {% endif %}
-    {% include 'components/rozrobka_sajtiv/admin.html' %}
-    {% if LANGUAGE_CODE == 'uk' %}
     {% include 'components/rozrobka_sajtiv/portfolio.html' %}
-    {% include 'components/rozrobka_sajtiv/reviews.html' %}
-    {% include 'components/ads/faq.html' %}
-    {% include 'components/rozrobka_sajtiv/video_dialog.html' %}
-    {% endif %}
+    {% include 'components/rozrobka_sajtiv/admin.html' %}
     {% include 'components/rozrobka_sajtiv/calc.html' %}
 </div>
 {% endblock %}

@@ -1,52 +1,33 @@
-{% load i18n static %}
-<section class="pl-rs-new pl-rs-work" aria-labelledby="pl-rs-work-title">
-    <div class="pl-rs__inner">
-        <h2 id="pl-rs-work-title" class="pl-rs__h2 pl-rs-new__h2">{% trans "Широке портфоліо сайтів на різну тематику" %}</h2>
-        <div class="pl-rs-work__top">
-            <div class="pl-rs-work__cases">
-                {% for case in rozrobka_cases %}
-                <article class="pl-rs-case">
-                    <div class="pl-rs-shot"{% if case.scroll %} data-pf-screen{% endif %}>
-                        <picture>
-                            {% if case.image_mobile %}
-                            <source media="(max-width: 767px)" srcset="{% static case.image_mobile %}">
-                            {% endif %}
-                            <img class="pl-rs-shot__img" src="{% static case.image %}" alt="{% blocktrans with name=case.name %}Скрін сайту {{ name }}{% endblocktrans %}" width="{{ case.width }}" height="{{ case.height }}" loading="lazy" decoding="async"{% if case.scroll %} data-pf-shot{% endif %}>
-                        </picture>
-                        {% if case.badge %}<span class="pl-rs-badge">{{ case.badge }}</span>{% endif %}
-                    </div>
-                    <p class="pl-rs-case__name">
-                        <a href="{{ case.url }}" target="_blank" rel="noopener noreferrer">{{ case.name }} <span aria-hidden="true">↗</span></a>
-                    </p>
-                    <p class="pl-rs-case__line">{{ case.line }}</p>
-                    <details class="pl-rs-case__details">
-                        <summary class="pl-rs-case__more">{% trans "Детальніше про проєкт" %} <span aria-hidden="true">↗</span></summary>
-                        <div class="pl-rs-case__body">
-                            <p><span>{% trans "Задача" %}</span> {{ case.task }}</p>
-                            <p><span>{% trans "Що зроблено" %}</span> {{ case.done }}</p>
-                            <p><span>{% trans "Результат" %}</span> {{ case.result }}</p>
-                        </div>
-                    </details>
-                </article>
-                {% endfor %}
-            </div>
-            {% trans "Як ми робимо корпоративні сайти" as corp_caption %}
-            {% include "components/rozrobka_sajtiv/video_card.html" with video_id="UFPyLvLMp7M" poster="images/rozrobka/video/cover-corporate-sites.webp" poster_w=768 poster_h=1365 title=corp_caption caption=corp_caption %}
-        </div>
-        <div class="pl-rs-work__tiles">
-            {% for tile in rozrobka_tiles %}
-            <a class="pl-rs-tile" href="{{ tile.url }}" target="_blank" rel="noopener noreferrer">
-                <div class="pl-rs-shot"{% if tile.scroll %} data-pf-screen{% endif %}>
-                    <picture>
-                        {% if tile.image_mobile %}
-                        <source media="(max-width: 767px)" srcset="{% static tile.image_mobile %}">
-                        {% endif %}
-                        <img class="pl-rs-shot__img" src="{% static tile.image %}" alt="{% blocktrans with name=tile.name %}Скрін сайту {{ name }}{% endblocktrans %}" width="{{ tile.width }}" height="{{ tile.height }}" loading="lazy" decoding="async"{% if tile.scroll %} data-pf-shot{% endif %}>
-                    </picture>
-                </div>
-                <span class="pl-rs-tile__name">{{ tile.name }} <span aria-hidden="true">↗</span></span>
-            </a>
-            {% endfor %}
-        </div>
+{% load i18n %}
+<section class="pl-rs__section pl-rs__section--work" aria-labelledby="pl-rs-work-title">
+    <div class="pl-rs__inner pl-rs__head">
+        <h2 id="pl-rs-work-title" class="pl-rs__h2">{% trans "Проєкти в проді" %}</h2>
+        <a class="pl-rs__more" href="{% url 'portfolio' %}">{% trans "Усе портфоліо" %}</a>
     </div>
+    {% if home_clients or portfolio_strip %}
+    <div class="pl-rs__strip" role="list">
+        {% for client in home_clients %}
+        <a class="pl-rs__tile pl-rs__tile--logo" role="listitem" href="{% url 'portfolio' %}">
+            {% if client.get_logo_url %}
+            <img src="{{ client.get_logo_url }}" alt="{{ client.name }}" width="88" height="88" loading="lazy" decoding="async">
+            {% endif %}
+            <span>{{ client.name }}</span>
+        </a>
+        {% endfor %}
+        {% for project in portfolio_strip %}
+        <a class="pl-rs__tile pl-rs__tile--shot" role="listitem" href="{% url 'portfolio' %}">
+            {% if project.get_home_image_src %}
+            <img src="{{ project.get_home_image_src }}" alt="{{ project.get_card_alt }}" width="168" height="210" loading="lazy" decoding="async">
+            {% else %}
+            <span class="pl-rs__tile-fallback" aria-hidden="true">PL</span>
+            {% endif %}
+            <span>{{ project.get_localized_title }}</span>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="pl-rs__inner">
+        <p class="pl-rs__note">{% trans "Кейси студії зібрані в портфоліо." %}</p>
+    </div>
+    {% endif %}
 </section>
