@@ -44,7 +44,8 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertIn('rozrobka-sajtiv.css', html)
         # ТЗ 27.10.2026 п. 3.1 / 3.10
         self.assertIn('Розробка сайтів під ключ. Створення сайтів від 150 €</h1>', html)
-        self.assertIn('Створіть сайт для бізнесу: лендінг <span class="pl-rs__acc">від 150 € за 3–7 днів</span>', root)
+        self.assertIn('Створіть сайт для бізнесу: лендінг <span class="pl-rs__acc">від 150 €</span>', root)
+        self.assertNotIn('за 3–7 днів', root[root.index('<p class="pl-rs__lead">'):root.index('</p>', root.index('<p class="pl-rs__lead">'))])
         # ТЗ Софії 28.10.2026 п. 4.3: два фрагменти прибрано, рівно 4 помаранчеві акценти
         lead = root[root.index('<p class="pl-rs__lead">'):]
         lead = lead[:lead.index('</p>')]

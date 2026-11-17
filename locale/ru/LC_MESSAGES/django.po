@@ -6507,13 +6507,13 @@ msgstr "Рассчитать стоимость онлайн →"
 
 #: templates/components/rozrobka_sajtiv/hero.html (ТЗ Софії 28.10.2026 п. 4.3)
 msgid ""
-"Створіть сайт для бізнесу: лендінг <span class=\"pl-rs__acc\">від 150 € за 3–7 "
-"днів</span>, корпоративний сайт <span class=\"pl-rs__acc\">від 350 €</span>, "
+"Створіть сайт для бізнесу: лендінг <span class=\"pl-rs__acc\">від 150 €</span>, "
+"корпоративний сайт <span class=\"pl-rs__acc\">від 350 €</span>, "
 "інтернет-магазин <span class=\"pl-rs__acc\">від 650 €</span>. Пожиттєва "
 "гарантія на код, <span class=\"pl-rs__acc\">1 рік безкоштовної підтримки</span>."
 msgstr ""
-"Создайте сайт для бизнеса: лендинг <span class=\"pl-rs__acc\">от 150 € за 3–7 "
-"дней</span>, корпоративный сайт <span class=\"pl-rs__acc\">от 350 €</span>, "
+"Создайте сайт для бизнеса: лендинг <span class=\"pl-rs__acc\">от 150 €</span>, "
+"корпоративный сайт <span class=\"pl-rs__acc\">от 350 €</span>, "
 "интернет-магазин <span class=\"pl-rs__acc\">от 650 €</span>. Пожизненная "
 "гарантия на код, <span class=\"pl-rs__acc\">1 год бесплатной поддержки</span>."
 
