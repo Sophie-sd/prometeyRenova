@@ -1,0 +1,11 @@
+{% load static %}
+<figure class="pl-rs-video">
+    <button type="button" class="pl-rs-video__card" data-rs-video="{{ video_id }}" data-rs-video-title="{{ label }}" aria-label="{{ label }}">
+        <img class="pl-rs-video__poster" src="{% static poster %}" alt="" width="{{ poster_w }}" height="{{ poster_h }}" loading="lazy" decoding="async">
+        <span class="pl-rs-video__play" aria-hidden="true">
+            <img src="{% static 'img/rozrobka-figma/rs-play.svg' %}" alt="" width="36" height="38">
+        </span>
+        {% if time %}<span class="pl-rs-video__time">{{ time }}</span>{% endif %}
+    </button>
+    <figcaption class="pl-rs-video__caption">{{ caption }}</figcaption>
+</figure>

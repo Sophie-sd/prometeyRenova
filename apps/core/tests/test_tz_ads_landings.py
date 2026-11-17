@@ -158,10 +158,11 @@ class AdsLandingSeoTests(TestCase):
         self.assertNotIn('Створити сайт для бізнесу: який тип обрати', html)
         self.assertNotIn('Гарантія і підтримка', html)
         self.assertIn('id="faq"', html)
+        self.assertIn('id="process"', html)
         self.assertIn('Часті питання про розробку сайтів', html)
         self.assertIn('"FAQPage"', html)
         self.assertIn('50+ запущених проєктів', html)
-        self.assertNotIn('Відгуки клієнтів', html)
+        self.assertIn('Відгуки клієнтів на Google', html)
 
     def test_dorobka_form_and_skipped_facts(self):
         html = self.client.get('/dorobka-sajtu/').content.decode()

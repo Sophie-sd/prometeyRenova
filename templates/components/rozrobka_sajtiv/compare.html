@@ -1,0 +1,47 @@
+{% load i18n static %}
+<section class="pl-rs-blocks" id="rs-compare" aria-labelledby="pl-rs-compare-title">
+    <div class="pl-rs__inner">
+        <div class="pl-rs-blocks__head">
+            <h2 class="pl-rs-blocks__h2" id="pl-rs-compare-title">{% trans "Замовити сайт у студії чи зробити в конструкторі?" %}</h2>
+            <p class="pl-rs-blocks__lead">{% trans "Конструктор підходить для простої сторінки в межах шаблону. Якщо сайт має продавати роками — краще розробка під вашу задачу." %}</p>
+        </div>
+        <div class="pl-rs-compare">
+            <article class="pl-rs-card pl-rs-card--design">
+                <h3 class="pl-rs-card__title">{% trans "Дизайн і структура" %}</h3>
+                <p>{% trans "У студії сайт збирають під ваш сервіс або магазин: свої екрани, свої сценарії, своя логіка. У конструкторі ви збираєте сторінку з готових блоків. Виглядати може охайно, але структура чужа, і її важко підлаштувати, коли бізнес виросте." %}</p>
+            </article>
+            <article class="pl-rs-card pl-rs-card--speed">
+                <h3 class="pl-rs-card__title">{% trans "Швидкість і пошук" %}</h3>
+                <p>{% trans "На індивідуальній розробці швидкість, заголовки, мікророзмітку й технічне SEO закладають у сам сайт. У конструкторі частина цього вже «зашита» в платформу: щось можна налаштувати, щось — ні." %}</p>
+            </article>
+            <article class="pl-rs-card pl-rs-card--admin">
+                <h3 class="pl-rs-card__title">{% trans "Адмінка й заявки" %}</h3>
+                <div class="pl-rs-card__admin">
+                    <div class="pl-rs-card__copy">
+                        <p>{% trans "Ми робимо панель під вашу роботу: ви самі змінюєте заголовки, тексти й фото, а заявки бачите в міні-CRM. У магазині додаються товари, акції, промокоди й фіди для реклами." %}</p>
+                        <p>{% trans "У конструкторі адмінка універсальна. Для простого сайту цього часто досить, для окремого процесу продажів — зазвичай ні." %}</p>
+                    </div>
+                    {% trans "Адмінка сайту розробленого в PrometeyLabs" as video_label %}
+                    {% trans "Подивіться, як ви самі керуєте сайтом" as video_caption %}
+                    {% include 'components/rozrobka_sajtiv/_video.html' with video_id='giim7h-DlVg' poster='images/rozrobka/video/cover-admin-laptop.webp' poster_w=720 poster_h=1280 time='01:34' label=video_label caption=video_caption %}
+                </div>
+            </article>
+            <article class="pl-rs-card pl-rs-card--pay">
+                <h3 class="pl-rs-card__title">{% trans "Оплата, доставка та інші інтеграції" %}</h3>
+                <p>{% trans "У студійному сайті можна підключити оплату, служби доставки, фіди та інші сервіси так, як працює саме ваш бізнес. У конструкторі ви обираєте з того, що вже передбачила платформа." %}</p>
+            </article>
+            <article class="pl-rs-card pl-rs-card--own">
+                <h3 class="pl-rs-card__title">{% trans "Кому належить сайт" %}</h3>
+                <p>{% trans "Після розробки у студії ви отримуєте свій сайт і свій код, без щомісячної плати платформі за сам факт існування сторінки. Конструктор зручний, доки ви залишаєтесь на цій платформі й оплачуєте тариф. Перенести все «як є» на інше рішення часто неможливо." %}</p>
+            </article>
+            <article class="pl-rs-card pl-rs-card--support">
+                <h3 class="pl-rs-card__title">{% trans "Підтримка" %}</h3>
+                <p>{% trans "Сайт супроводжує команда, яка його зробила: правки, нові блоки, консультації. У конструкторі підтримка — це довідка платформи й те, що ви встигаєте зробити самі або через підрядника, який зайшов уже в готову систему." %}</p>
+            </article>
+        </div>
+        <a class="pl-rs-blocks__cta" href="#pl-rs-calc">
+            <span>{% trans "Розрахувати вартість сайту" %}</span>
+            <img src="{% static 'img/rozrobka-figma/rs-arrow-right.svg' %}" alt="" width="18" height="12">
+        </a>
+    </div>
+</section>

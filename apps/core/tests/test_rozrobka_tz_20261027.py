@@ -8,16 +8,22 @@ from django.test import TestCase
 from apps.core.fx_models import ExchangeRateSettings
 
 PAGES = {'uk': '/rozrobka-sajtiv/', 'ru': '/ru/rozrobka-sajtiv/'}
-BLOCK_ORDER = ['why', 'rs-form-1', 'economy', 'rs-calc-strip', 'portfolio', 'rs-form-2', 'faq', 'pl-rs-calc']
+BLOCK_ORDER = {
+    'uk': ['why', 'rs-compare', 'process', 'rs-form-1', 'economy', 'rs-calc-strip', 'portfolio', 'rs-form-2', 'rs-reviews', 'faq', 'pl-rs-calc'],
+    'ru': ['why', 'rs-form-1', 'economy', 'rs-calc-strip', 'portfolio', 'rs-form-2', 'faq', 'pl-rs-calc'],
+}
 ADS_ANCHORS = ['pl-rs-products-title', 'pl-rs-calc', 'pl-rs-admin-title', 'pl-rs-work-title']
 H2 = {
     'uk': [
         'Чому варто обрати',
+        'Замовити сайт у студії чи зробити в конструкторі',
+        'Як ми створюємо сайт',
         'безкоштовна консультація і розрахунок вартості',
         'Що входить у розробку під ключ',
         'Хочете зробити сайт, але не знаєте бюджет?',
-        'Наші роботи — сайти від веб-студії PrometeyLabs',
+        'Широке портфоліо сайтів на різну тематику',
         'обговоримо ваш проєкт безкоштовно',
+        'Відгуки клієнтів на Google',
         'Часті питання про розробку сайтів',
         'Порахуйте бюджет до дзвінка',
     ],
@@ -59,7 +65,7 @@ class RozrobkaStructureTests(TestCase):
         for lang, path in PAGES.items():
             with self.subTest(lang=lang):
                 main = _main(self.client.get(path).content.decode())
-                positions = [main.index(f'id="{sid}"') for sid in BLOCK_ORDER]
+                positions = [main.index(f'id="{sid}"') for sid in BLOCK_ORDER[lang]]
                 self.assertEqual(positions, sorted(positions))
                 self.assertLess(main.index('class="pl-rs__hero"'), positions[0])
                 h2s = [re.sub(r'<[^>]+>', '', h) for h in re.findall(r'<h2[^>]*>(.*?)</h2>', main, re.S)]
@@ -92,9 +98,14 @@ class RozrobkaStructureTests(TestCase):
         for lang, path in PAGES.items():
             with self.subTest(lang=lang):
                 main = _main(self.client.get(path).content.decode())
-                for marker in ('pl-rs__section--services', 'id="types"', 'id="process"', 'id="guarantee"',
-                               'pl-rs__section--admin', 'id="contacts"', 'pl-rs__floats', 'ФОП',
-                               'href="/corporate-website-v2/#', 'href="/internet-shop-v2/#', '/telegram-bot/#pakety'):
+                markers = [
+                    'pl-rs__section--services', 'id="types"', 'id="guarantee"',
+                    'pl-rs__section--admin', 'id="contacts"', 'pl-rs__floats', 'ФОП',
+                    'href="/corporate-website-v2/#', 'href="/internet-shop-v2/#', '/telegram-bot/#pakety',
+                ]
+                if lang != 'uk':
+                    markers.append('id="process"')
+                for marker in markers:
                     self.assertNotIn(marker, main)
 
     def test_calc_ctas_scroll_to_embedded_calc(self):
@@ -130,21 +141,34 @@ class RozrobkaPortfolioTests(TestCase):
     def test_ten_cards_no_external_links(self):
         expected = ['fpsu', 'elit-fasad', 'diodi', 'grand-oblik', 'playvision',
                     'phoenixvet', 'queendrive', 'beauty-opt', 'znomax', 'fortprint']
-        for lang, path in PAGES.items():
-            with self.subTest(lang=lang):
-                block = _section(self.client.get(path).content.decode(), 'pl-rs-work-title')
-                self.assertEqual(re.findall(r'data-rs-case="([^"]+)"', block), expected)
-                hrefs = re.findall(r'href="([^"]+)"', block)
-                self.assertTrue(hrefs)
-                portfolio = '/portfolio/' if lang == 'uk' else '/ru/portfolio/'
-                self.assertEqual(set(hrefs), {portfolio})
-                self.assertNotIn('Beauty Cake', block)
-                imgs = re.findall(r'<img[^>]*portfolio/screens/[^>]*>', block)
-                self.assertEqual(len(imgs), 10)
-                for img in imgs:
-                    self.assertIn('loading="lazy"', img)
-                    self.assertIn('width="', img)
-                    self.assertIn('height="', img)
+        path = PAGES['ru']
+        block = _section(self.client.get(path).content.decode(), 'pl-rs-work-title')
+        self.assertEqual(re.findall(r'data-rs-case="([^"]+)"', block), expected)
+        hrefs = re.findall(r'href="([^"]+)"', block)
+        self.assertEqual(set(hrefs), {'/ru/portfolio/'})
+        self.assertNotIn('Beauty Cake', block)
+        imgs = re.findall(r'<img[^>]*portfolio/screens/[^>]*>', block)
+        self.assertEqual(len(imgs), 10)
+        for img in imgs:
+            self.assertIn('loading="lazy"', img)
+            self.assertIn('width="', img)
+            self.assertIn('height="', img)
+
+    def test_uk_showcase_cases_and_tiles(self):
+        block = _section(self.client.get(PAGES['uk']).content.decode(), 'pl-rs-work-title')
+        self.assertEqual(re.findall(r'data-rs-case="([^"]+)"', block), [
+            'fpsu', 'ajeres', 'pokrivlya', 'elit-fasad', 'ucvn', 'ofion', 'droproom',
+            'varvarova', 'sonjashnyk', 'nanesi', 'arktyka',
+        ])
+        self.assertIn('https://www.fpsu.org.ua/', block)
+        self.assertIn('https://ajeres.uz/', block)
+        self.assertIn('https://arctica.od.ua/', block)
+        self.assertEqual(block.count('<details'), 3)
+        self.assertIn('Задача', block)
+        self.assertIn('Що зроблено', block)
+        self.assertIn('Результат', block)
+        self.assertNotIn('Дивитись портфоліо', block)
+        self.assertNotIn('href="/portfolio/"', block)
 
     def test_ru_names_translated(self):
         block = _section(self.client.get(PAGES['ru']).content.decode(), 'pl-rs-work-title')

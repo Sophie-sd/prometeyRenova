@@ -86,7 +86,7 @@ class RozrobkaSajtivPageTests(TestCase):
         # п. 3.3: old blocks and their outbound hash links are gone
         for gone in ('Ціни на розробку сайтів під ключ', 'який тип обрати', 'Гарантія і підтримка',
                      'Контакти PrometeyLabs', 'ФОП', 'pl-rs__products', 'pl-rs__section--admin',
-                     'id="types"', 'id="process"', 'id="guarantee"', 'id="contacts"',
+                     'id="types"', 'id="guarantee"', 'id="contacts"',
                      '#scale"', '#tech"', '/internet-shop-v2/#pakety', '/telegram-bot/#pakety'):
             self.assertNotIn(gone, root, gone)
         self.assertEqual(html.count('<h1'), 1)
