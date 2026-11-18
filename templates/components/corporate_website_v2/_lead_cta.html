@@ -4,7 +4,7 @@
     <div class="pl-corp__inner">
         <div class="pl-corp__lead-cta-row" data-reveal>
             <div class="pl-corp__lead-cta-copy">
-                <h2 id="{{ title_id }}" class="pl-corp__lead-cta-title"><span class="pl-corp__accent">{{ accent }}</span> {{ title }}</h2>
+                <h2 id="{{ title_id }}" class="pl-corp__lead-cta-title">{% if split_title %}<span class="pl-corp__accent pl-rs-line">{{ accent }}</span><br><span class="pl-rs-line">{{ title_mid }}</span><br> <span class="pl-rs-line">{{ title_last }}</span>{% else %}<span class="pl-corp__accent">{{ accent }}</span> {{ title }}{% endif %}</h2>
                 <p class="pl-corp__lead-cta-text">{{ text }}</p>
             </div>
             <form class="pl-corp__lead-cta-form" method="post" action="{% url 'form_submit' %}" data-form-type="{{ form_type }}">

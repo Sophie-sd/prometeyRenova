@@ -77,6 +77,7 @@ class AdsLandingSeoTests(TestCase):
             ('/ru/internet-shop-v2/', SHOP['ru']['faq']),
             ('/rozrobka-sajtiv/', RS['uk']['faq']),
             ('/ru/rozrobka-sajtiv/', RS['ru']['faq']),
+            ('/en/rozrobka-sajtiv/', RS['en']['faq']),
             ('/dorobka-sajtu/', DOROBKA['uk']['faq']),
             ('/ru/dorabotka-sajta/', DOROBKA['ru']['faq']),
         )

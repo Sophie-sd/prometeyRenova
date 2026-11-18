@@ -155,11 +155,11 @@ class RozrobkaSajtivView(BasePageView):
         from django.utils import translation
         from .ads_context import rs_ads_context
         from .rozrobka_portfolio import rozrobka_portfolio_cards, rozrobka_showcase
+        from .rozrobka_reviews import rozrobka_review_bodies
         context = super().get_context_data(**kwargs)
-        # ТЗ 27.10.2026 п. 3.6: fixed 10 cases for ru. Ukrainian page uses the handoff showcase.
         context['rs_portfolio'] = rozrobka_portfolio_cards()
-        if translation.get_language() == 'uk':
-            context['rs_showcase'] = rozrobka_showcase()
+        context['rs_showcase'] = rozrobka_showcase()
+        context['rs_review_bodies'] = rozrobka_review_bodies()
         context.update(rs_ads_context())
         if translation.get_language() == 'ru':
             context['lang_suggest_always'] = True

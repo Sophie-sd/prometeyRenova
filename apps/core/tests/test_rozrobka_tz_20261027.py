@@ -7,11 +7,9 @@ from django.test import TestCase
 
 from apps.core.fx_models import ExchangeRateSettings
 
-PAGES = {'uk': '/rozrobka-sajtiv/', 'ru': '/ru/rozrobka-sajtiv/'}
-BLOCK_ORDER = {
-    'uk': ['why', 'rs-compare', 'process', 'rs-form-1', 'economy', 'rs-calc-strip', 'portfolio', 'rs-form-2', 'rs-reviews', 'faq', 'pl-rs-calc'],
-    'ru': ['why', 'rs-form-1', 'economy', 'rs-calc-strip', 'portfolio', 'rs-form-2', 'faq', 'pl-rs-calc'],
-}
+PAGES = {'uk': '/rozrobka-sajtiv/', 'ru': '/ru/rozrobka-sajtiv/', 'en': '/en/rozrobka-sajtiv/'}
+_ORDER = ['why', 'rs-compare', 'process', 'rs-form-1', 'economy', 'rs-calc-strip', 'portfolio', 'rs-form-2', 'rs-reviews', 'faq', 'pl-rs-calc']
+BLOCK_ORDER = {'uk': _ORDER, 'ru': list(_ORDER), 'en': list(_ORDER)}
 ADS_ANCHORS = ['pl-rs-products-title', 'pl-rs-calc', 'pl-rs-admin-title', 'pl-rs-work-title']
 H2 = {
     'uk': [
@@ -25,17 +23,33 @@ H2 = {
         'обговоримо ваш проєкт безкоштовно',
         'Відгуки клієнтів на Google',
         'Часті питання про розробку сайтів',
-        'Порахуйте бюджет до дзвінка',
+        'Калькулятор вартості',
     ],
     'ru': [
         'Почему стоит выбрать',
+        'Заказать сайт в студии или сделать в конструкторе?',
+        'Как мы создаём сайт',
         'бесплатная консультация и расчёт стоимости',
         'Что входит в разработку под ключ',
         'Хотите сделать сайт, но не знаете бюджет?',
-        'Наши работы — сайты от веб-студии PrometeyLabs',
+        'Широкое портфолио сайтов на разную тематику',
         'обсудим ваш проект бесплатно',
+        'Отзывы клиентов на Google',
         'Частые вопросы о разработке сайтов',
-        'Посчитайте бюджет до звонка',
+        'Калькулятор стоимости',
+    ],
+    'en': [
+        'Why choose',
+        'Order a website from a studio or build it with a website builder?',
+        'How we build a website',
+        'free consultation and a cost estimate',
+        'What a turnkey build includes',
+        "Want a website but don't know the budget?",
+        'A wide portfolio of websites across different fields',
+        "let's discuss your project for free",
+        'Customer reviews on Google',
+        'Common questions about website development',
+        'Cost calculator',
     ],
 }
 
@@ -103,8 +117,6 @@ class RozrobkaStructureTests(TestCase):
                     'pl-rs__section--admin', 'id="contacts"', 'pl-rs__floats', 'ФОП',
                     'href="/corporate-website-v2/#', 'href="/internet-shop-v2/#', '/telegram-bot/#pakety',
                 ]
-                if lang != 'uk':
-                    markers.append('id="process"')
                 for marker in markers:
                     self.assertNotIn(marker, main)
 
@@ -130,29 +142,17 @@ class RozrobkaStructureTests(TestCase):
                 block = block[:block.index('</div>')]
                 self.assertNotIn('pl-calc-cta__arrow', block)
                 self.assertIn('data-calc-event="sticky_cta_click"', block)
-                label = 'Розрахуйте вартість онлайн' if lang == 'uk' else 'Рассчитайте стоимость онлайн'
+                label = {
+                    'uk': 'Розрахуйте вартість онлайн',
+                    'ru': 'Рассчитайте стоимость онлайн',
+                    'en': 'Calculate the cost online',
+                }[lang]
                 self.assertIn(f'<span class="pl-calc-cta__label">{label}</span>', block)
 
 
 class RozrobkaPortfolioTests(TestCase):
     def setUp(self):
         _rates()
-
-    def test_ten_cards_no_external_links(self):
-        expected = ['fpsu', 'elit-fasad', 'diodi', 'grand-oblik', 'playvision',
-                    'phoenixvet', 'queendrive', 'beauty-opt', 'znomax', 'fortprint']
-        path = PAGES['ru']
-        block = _section(self.client.get(path).content.decode(), 'pl-rs-work-title')
-        self.assertEqual(re.findall(r'data-rs-case="([^"]+)"', block), expected)
-        hrefs = re.findall(r'href="([^"]+)"', block)
-        self.assertEqual(set(hrefs), {'/ru/portfolio/'})
-        self.assertNotIn('Beauty Cake', block)
-        imgs = re.findall(r'<img[^>]*portfolio/screens/[^>]*>', block)
-        self.assertEqual(len(imgs), 10)
-        for img in imgs:
-            self.assertIn('loading="lazy"', img)
-            self.assertIn('width="', img)
-            self.assertIn('height="', img)
 
     def test_uk_showcase_cases_and_tiles(self):
         block = _section(self.client.get(PAGES['uk']).content.decode(), 'pl-rs-work-title')
@@ -170,10 +170,26 @@ class RozrobkaPortfolioTests(TestCase):
         self.assertNotIn('Дивитись портфоліо', block)
         self.assertNotIn('href="/portfolio/"', block)
 
-    def test_ru_names_translated(self):
-        block = _section(self.client.get(PAGES['ru']).content.decode(), 'pl-rs-work-title')
-        for text in ('ДиОДи', 'Гранд Учёт', 'Феникс', 'ПОДГОТОВКА К НМТ'):
-            self.assertIn(text.lower(), block.lower())
+    def test_ru_and_en_showcase_copy(self):
+        slugs = [
+            'fpsu', 'ajeres', 'pokrivlya', 'elit-fasad', 'ucvn', 'ofion', 'droproom',
+            'varvarova', 'sonjashnyk', 'nanesi', 'arktyka',
+        ]
+        ru = _section(self.client.get(PAGES['ru']).content.decode(), 'pl-rs-work-title')
+        en = _section(self.client.get(PAGES['en']).content.decode(), 'pl-rs-work-title')
+        self.assertEqual(re.findall(r'data-rs-case="([^"]+)"', ru), slugs)
+        self.assertEqual(re.findall(r'data-rs-case="([^"]+)"', en), slugs)
+        self.assertIn('Что сделано', ru)
+        self.assertNotIn('Що зроблено', ru)
+        self.assertIn('Федерация профсоюзов Украины', ru)
+        self.assertIn('Кровля под ключ', ru)
+        self.assertIn('Соняшник', ru)
+        self.assertIn('What was done', en)
+        self.assertIn('Federation of Trade Unions of Ukraine', en)
+        self.assertIn('Turnkey roofing', en)
+        self.assertIn('Elit-Fasad Development', en)
+        self.assertNotIn('Що зроблено', en)
+        self.assertNotIn('Что сделано', en)
 
 
 class RozrobkaLeadFormsTests(TestCase):
@@ -186,13 +202,15 @@ class RozrobkaLeadFormsTests(TestCase):
                    'Сторінка: Розробка сайтів · Форма №2 (після «Наші роботи»)'),
             'ru': ('Страница: Разработка сайтов · Форма №1 (после «Почему стоит выбрать»)',
                    'Страница: Разработка сайтов · Форма №2 (после «Наши работы»)'),
+            'en': ('Page: Website development · Form #1 (after «Why choose»)',
+                   'Page: Website development · Form #2 (after «Our work»)'),
         }
         for lang, path in PAGES.items():
             html = self.client.get(path).content.decode()
             for idx, sid in enumerate(('rs-form-1', 'rs-form-2')):
                 with self.subTest(lang=lang, form=sid):
                     block = _section(html, sid)
-                    action = '/forms/submit/' if lang == 'uk' else '/ru/forms/submit/'
+                    action = '/forms/submit/' if lang == 'uk' else f'/{lang}/forms/submit/'
                     self.assertIn(f'action="{action}"', block)
                     self.assertIn('name="form_type" value="site_request"', block)
                     self.assertIn('name="source_page" value="rozrobka-sajtiv"', block)

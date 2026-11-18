@@ -39,6 +39,11 @@ CALC_CTA = {
             'sticky': 'Рассчитайте стоимость онлайн',
             'micro': '5 вопросов · 2 минуты · бесплатно, без обязательств',
         },
+        'en': {
+            'label': 'Calculate the cost online',
+            'sticky': 'Calculate the cost online',
+            'micro': '5 questions · 2 minutes · free, no obligation',
+        },
     },
     # ТЗ 27.10.2026 (shop-v2) п. 4.2 / 4.16 / 4.17: тест перенесено на 3-тє місце (#zayavka);
     # sticky — і на десктопі, без стрілки, sticky_cta_click (як на /rozrobka-sajtiv/).
@@ -94,8 +99,10 @@ CALC_START_QUERY = '?start=1'
 def calc_cta_copy(page, lang):
     """Return {'label', 'sticky', 'micro', 'target', 'sticky_*'} for page × lang (uk fallback)."""
     entry = CALC_CTA[page]
-    lang = 'ru' if (lang or '').startswith('ru') else 'uk'
-    data = dict(entry[lang])
+    code = (lang or '').split('-')[0]
+    if code not in entry:
+        code = 'uk'
+    data = dict(entry[code])
     data['target'] = entry['target']
     # sticky options (shared component): defaults = mobile-only bar with arrow, cta_calc_click
     data['sticky_desktop'] = entry.get('sticky_desktop', False)

@@ -320,11 +320,63 @@ RS = {
             ),
             (
                 'Смогу ли я сам менять сайт?',
-                'Тексты, цены, заявки и баннеры правите сами.',
+                'Да, сами. В административной панели можно менять заголовки, тексты, фото и, в магазине, товары, акции и промокоды. Заявки приходят в мини-CRM. Разработчик нужен тогда, когда вы добавляете новую функцию или меняете логику сайта, а не чтобы исправить цену или заменить картинку.',
+            ),
+            (
+                'Почему не сделать сайт в конструкторе? Это же быстрее.',
+                'Для простой визитки — да, часто быстрее. Если нужны своя структура, отдельная админка, оплата, фиды или нестандартные сценарии, конструктор начинает ограничивать. Тогда доработки стоят времени, а часть вещей там не сделать вообще. Для сайта, который должен приводить заявки и продажи, выгоднее сразу сделать его под задачу.',
+            ),
+            (
+                'Что будет с сайтом после запуска? Вы не «привяжете» его к себе?',
+                'Сайт ваш: вы получаете код и доступ, без обязательной ежемесячной платы конструктору. После запуска можно остаться на сопровождении студии — для правок, обновлений и консультаций — или вести контент самостоятельно. Это не аренда чужой платформы, с которой сайт потом не забрать.',
             ),
             (
                 'Какая гарантия?',
                 'Пожизненная гарантия на код и год бесплатной поддержки. Включает: исправление технических ошибок, поддержку работоспособности кода, реакцию на критические технические сбои, соответствие функционала ТЗ. Не включает: новые функции, обновление дизайна, интеграции с новыми сервисами.',
+            ),
+        ],
+    },
+    'en': {
+        'title': 'Turnkey website development in Ukraine | PrometeyLabs',
+        'description': (
+            'Turnkey websites: landing pages 150–300 €, corporate sites 350–500 €, '
+            'online stores from 650 €. Price and deadline are fixed in the contract. '
+            'Lifetime code warranty and 1 year of free support.'
+        ),
+        'crumb': 'Website development',
+        'faq_h2': 'Common questions about website development',
+        'faq': [
+            (
+                'How much does it cost to build a website?',
+                'Landing pages 150–300 €, corporate sites 350–500 €, online stores from 650 €, platforms 1,500–5,000 €. We fix the exact amount and deadline in the contract.',
+            ),
+            (
+                'How long does website development take?',
+                'A landing page takes 3–7 days, a corporate site 7–14 days, an online store 14–21 days, a platform 14–30 days.',
+            ),
+            (
+                'What is included in the price?',
+                'In the total: a layout, markup, a form, and a responsive version (landing page); page structure, a CMS base, a responsive version, and basic SEO (corporate site); a catalog, a cart, a payment and delivery base, and an order admin panel (store); an agreed MVP from the brief within the range (platform). Not included: advertising, copy written from scratch, third-party APIs, filling in content, filling in products, marketing, custom integrations, new modules after delivery, third-party licenses.',
+            ),
+            (
+                'Can I pay in parts or by stages?',
+                'Yes. Payment is split into stages, with no overpayment and no hidden terms. For stores and corporate sites — up to 15 payments.',
+            ),
+            (
+                'Will I be able to change the site myself?',
+                'Yes. In the admin panel you can change headlines, texts, and photos and, in a store, products, promotions, and promo codes. Inquiries arrive in a mini-CRM. A developer is needed when you add a new function or change the site logic, not to fix a price or replace a picture.',
+            ),
+            (
+                'Why not build the site in a website builder? Isn’t that faster?',
+                'For a simple calling card, yes, it is often faster. If you need your own structure, a separate admin panel, payment, feeds, or unusual scenarios, a website builder starts to limit you. Rework then costs time, and some things cannot be done there at all. For a site that should bring inquiries and sales, it is better to build it for the task from the start.',
+            ),
+            (
+                'What happens to the site after launch? Will you lock it to yourselves?',
+                'The site is yours: you receive the code and access, with no required monthly fee to a website builder. After launch you can stay on studio support — for edits, updates, and consultations — or manage the content yourself. This is not a rental of someone else’s platform that you cannot take the site away from.',
+            ),
+            (
+                'What is the warranty?',
+                'Lifetime code warranty and 1 year of free support. It includes fixing technical errors, keeping the code working, a response to critical technical failures, and matching the specification. It does not include new functions, design updates, or integrations with new services.',
             ),
         ],
     },
@@ -345,7 +397,8 @@ def shop_copy():
 
 
 def rs_copy():
-    return RS[lang()]
+    code = (translation.get_language() or 'uk').split('-')[0]
+    return RS.get(code) or RS['uk']
 
 
 def contacts_copy():

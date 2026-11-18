@@ -43,7 +43,8 @@ class RozrobkaSajtivPageTests(TestCase):
         root = _landing_markup(html)
         self.assertIn('rozrobka-sajtiv.css', html)
         # ТЗ 27.10.2026 п. 3.1 / 3.10
-        self.assertIn('Розробка сайтів під ключ. Створення сайтів від 150 €</h1>', html)
+        self.assertIn('Розробка сайтів під ключ.', html)
+        self.assertIn('Створення сайтів від 150 €', html)
         self.assertIn('Створіть сайт для бізнесу: лендінг <span class="pl-rs__acc">від 150 €</span>', root)
         self.assertNotIn('за 3–7 днів', root[root.index('<p class="pl-rs__lead">'):root.index('</p>', root.index('<p class="pl-rs__lead">'))])
         # ТЗ Софії 28.10.2026 п. 4.3: два фрагменти прибрано, рівно 4 помаранчеві акценти
@@ -127,7 +128,8 @@ class RozrobkaSajtivPageTests(TestCase):
     def test_ru_mirror_has_euro_and_no_dollar_switcher(self):
         html = self.client.get('/ru/rozrobka-sajtiv/').content.decode()
         root = _landing_markup(html)
-        self.assertIn('Разработка сайтов под ключ. Создание сайтов от 150 €</h1>', html)
+        self.assertIn('Разработка сайтов под ключ.', html)
+        self.assertIn('Создание сайтов от 150 €', html)
         self.assertIn('Создайте сайт для бизнеса: лендинг <span class="pl-rs__acc">от 150 €', root)
         self.assertNotIn('id="pl-rs-hero-form"', html)
         self.assertNotIn('Рассчитаем стоимость вашего сайта', root)

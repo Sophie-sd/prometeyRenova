@@ -4183,7 +4183,7 @@ msgstr "Extended landing / promo site (multi-page)"
 
 #: templates/pages/calculator.html:98
 msgid "Корпоративний сайт або сайт послуг"
-msgstr "Corporate website or service website"
+msgstr "Corporate website"
 
 #: templates/pages/calculator.html:106
 msgid "Веб-додаток / PWA"
@@ -4710,7 +4710,7 @@ msgstr "Leave a request"
 
 #: templates/pages/home.html:79 templates/pages/home.html:101
 msgid "Корпоративні сайти"
-msgstr "Corporate website or service website"
+msgstr "Corporate website"
 
 #: templates/pages/home.html:87 templates/pages/home.html:109
 msgid "Веб-додатки"
@@ -10255,3 +10255,121 @@ msgstr "Start"
 #: templates/pages/blog.html:33
 msgid "Блог PrometeyLabs про розробку сайтів, SEO і Telegram-боти"
 msgstr "PrometeyLabs blog on website development, SEO and Telegram bots"
+
+#: templates/components/rozrobka_sajtiv/compare.html
+msgid "Замовити сайт у студії чи зробити в конструкторі?"
+msgstr "Order a website from a studio or build it with a website builder?"
+
+msgid "Конструктор підходить для простої сторінки в межах шаблону. Якщо сайт має продавати роками — краще розробка під вашу задачу."
+msgstr "A website builder fits a simple page within a template. If the site has to sell for years, development for your task is the better choice."
+
+msgid "Дизайн і структура"
+msgstr "Design and structure"
+
+msgid "У студії сайт збирають під ваш сервіс або магазин: свої екрани, свої сценарії, своя логіка. У конструкторі ви збираєте сторінку з готових блоків. Виглядати може охайно, але структура чужа, і її важко підлаштувати, коли бізнес виросте."
+msgstr "In a studio the site is built around your service or store: your screens, your scenarios, your logic. In a website builder you assemble a page from ready-made blocks. It can look tidy, but the structure is someone else's, and it is hard to adapt when the business grows."
+
+msgid "Швидкість і пошук"
+msgstr "Speed and search"
+
+msgid "На індивідуальній розробці швидкість, заголовки, мікророзмітку й технічне SEO закладають у сам сайт. У конструкторі частина цього вже «зашита» в платформу: щось можна налаштувати, щось — ні."
+msgstr "On a custom build, speed, headings, structured data, and technical SEO are built into the site itself. In a website builder, part of this is already locked into the platform: some of it can be configured, some of it cannot."
+
+msgid "Адмінка й заявки"
+msgstr "Admin panel and inquiries"
+
+msgid "Ми робимо панель під вашу роботу: ви самі змінюєте заголовки, тексти й фото, а заявки бачите в міні-CRM. У магазині додаються товари, акції, промокоди й фіди для реклами."
+msgstr "We build the panel around your work: you change headlines, texts, and photos yourself, and you see inquiries in a mini-CRM. A store also gets products, promotions, promo codes, and feeds for ads."
+
+msgid "У конструкторі адмінка універсальна. Для простого сайту цього часто досить, для окремого процесу продажів — зазвичай ні."
+msgstr "In a website builder the admin panel is generic. For a simple site that is often enough. For a separate sales process, it usually is not."
+
+msgid "Адмінка сайту розробленого в PrometeyLabs"
+msgstr "Admin panel of a site built at PrometeyLabs"
+
+msgid "Подивіться, як ви самі керуєте сайтом"
+msgstr "See how you manage the site yourself"
+
+msgid "Оплата, доставка та інші інтеграції"
+msgstr "Payment, delivery, and other integrations"
+
+msgid "У студійному сайті можна підключити оплату, служби доставки, фіди та інші сервіси так, як працює саме ваш бізнес. У конструкторі ви обираєте з того, що вже передбачила платформа."
+msgstr "On a studio site you can connect payment, delivery services, feeds, and other services the way your business actually works. In a website builder you choose from what the platform already provides."
+
+msgid "Кому належить сайт"
+msgstr "Who owns the site"
+
+msgid "Після розробки у студії ви отримуєте свій сайт і свій код, без щомісячної плати платформі за сам факт існування сторінки. Конструктор зручний, доки ви залишаєтесь на цій платформі й оплачуєте тариф. Перенести все «як є» на інше рішення часто неможливо."
+msgstr "After development in a studio you receive your own site and your own code, without a monthly fee to a platform just for the page to exist. A website builder is convenient while you stay on that platform and pay the plan. Moving everything as is to another solution is often impossible."
+
+msgid "Підтримка"
+msgstr "Support"
+
+msgid "Сайт супроводжує команда, яка його зробила: правки, нові блоки, консультації. У конструкторі підтримка — це довідка платформи й те, що ви встигаєте зробити самі або через підрядника, який зайшов уже в готову систему."
+msgstr "The site is looked after by the team that built it: edits, new blocks, consultations. In a website builder, support is the platform help center and whatever you manage to do yourself or through a contractor who arrived after the system was already built."
+
+#: templates/components/rozrobka_sajtiv/portfolio.html
+msgid "Широке портфоліо сайтів на різну тематику"
+msgstr "A wide portfolio of websites across different fields"
+
+msgid "Детальніше про проєкт"
+msgstr "More about the project"
+
+msgid "Задача"
+msgstr "Task"
+
+msgid "Що зроблено"
+msgstr "What was done"
+
+msgid "Результат"
+msgstr "Result"
+
+msgid "Як ми робимо корпоративні сайти"
+msgstr "How we build corporate websites"
+
+#: templates/components/rozrobka_sajtiv/reviews.html
+msgid "Відгуки клієнтів на Google"
+msgstr "Customer reviews on Google"
+
+msgid "5 зірок"
+msgstr "5 stars"
+
+msgid "51 відгук на Google, станом на листопад 2026"
+msgstr "51 Google reviews, as of November 2026"
+
+msgid "Усі 51 відгук на Google"
+msgstr "All 51 Google reviews"
+
+#: templates/pages/rozrobka-sajtiv.html
+msgid "Відео"
+msgstr "Video"
+
+msgid "Розробка сайтів під ключ."
+msgstr "Turnkey website development."
+
+msgid "Створення сайтів від 150 €"
+msgstr "Websites from €150"
+
+msgid "Замовити сайт у студії"
+msgstr "Order a website from a studio"
+
+msgid "чи зробити в конструкторі?"
+msgstr "or build it with a website builder?"
+
+msgid "Калькулятор вартості"
+msgstr "Cost calculator"
+
+msgid "5 питань · 2 хвилини · безкоштовно, без зобов’язань."
+msgstr "5 questions · 2 minutes · free, no obligation."
+
+msgid "безкоштовна консультація"
+msgstr "free consultation"
+
+msgid "і розрахунок вартості"
+msgstr "and a cost estimate"
+
+msgid "Спеціалісти PrometeyLabs мають роки практики у веб-розробці, дизайні, інтеграціях, мобільних додатках та інтернет-маркетингу. Це гарантує, що ваш проєкт буде реалізований системно, технологічно та з розумінням бізнес-задач."
+msgstr "PrometeyLabs specialists have years of practice in web development, design, integrations, mobile apps and internet marketing. This means your project is delivered systematically, with the right technology and a clear understanding of the business task."
+
+msgid "Створіть сайт для бізнесу: лендінг <span class=\"pl-rs__acc\">від 150 €</span>, корпоративний сайт <span class=\"pl-rs__acc\">від 350 €</span>,<br> інтернет-магазин <span class=\"pl-rs__acc\">від 650 €</span>. Пожиттєва гарантія на код, <span class=\"pl-rs__acc\">1 рік безкоштовної підтримки</span>."
+msgstr "Create a website for your business: a landing page <span class=\"pl-rs__acc\">from €150</span>, a corporate website <span class=\"pl-rs__acc\">from €350</span>,<br> an online store <span class=\"pl-rs__acc\">from €650</span>. Lifetime code warranty and <span class=\"pl-rs__acc\">1 year of free support</span>."

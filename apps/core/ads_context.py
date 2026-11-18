@@ -82,13 +82,21 @@ def shop_ads_context():
 
 def rs_ads_context():
     seo = hreflang_for('rozrobka_sajtiv')
-    if lang() not in ('uk', 'ru'):
+    code = (translation.get_language() or 'uk').split('-')[0]
+    if code not in ('uk', 'ru', 'en'):
         ctx = _seo_only('rozrobka_sajtiv')
         ctx['ads_seo'] = seo
         return ctx
     copy = rs_copy()
     faq = faq_pairs(copy['faq'])
-    crumbs = _crumbs(copy['crumb'], seo['canonical'])
+    if code == 'en':
+        crumbs = [
+            {'name': 'Home', 'url': _abs(_reverse('home', 'en'))},
+            {'name': 'Services', 'url': ''},
+            {'name': copy['crumb'], 'url': _abs(_reverse('rozrobka_sajtiv', 'en'))},
+        ]
+    else:
+        crumbs = _crumbs(copy['crumb'], seo['canonical'])
     return {
         'ads_tz': True,
         'ads_copy': copy,

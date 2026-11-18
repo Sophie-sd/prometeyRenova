@@ -156,3 +156,37 @@ html body #pl-rs-calc .pl-rs__calc-alt { margin-top: 0; }
     html body #pl-rs-calc .pl-rs__calc-card { padding: 20px 14px; }
     html body #pl-rs-calc .pl-rs__calc-body { gap: 10px; }
 }
+
+/* Line locks for /rozrobka-sajtiv/ only. Stronger than hero-fit 16ch and the 640px lead. */
+html body .pl-rs__hero .pl-rs__h1 {
+    max-width: none;
+    text-wrap: wrap;
+    font-size: clamp(22px, 6.4vw, 58px);
+}
+html body .pl-rs__hero .pl-rs__h1 .pl-rs-line {
+    display: block;
+    white-space: nowrap;
+}
+html body .pl-rs__hero .pl-rs__lead .pl-rs__acc { white-space: nowrap; }
+@media (min-width: 768px) {
+    html body .pl-rs__hero .pl-rs__lead { max-width: 920px; }
+    html body .pl-rs__hero .pl-rs__hero-copy { max-width: 1100px; }
+}
+.pl-rs-hf .hf-why__title { width: auto; max-width: 100%; font-size: clamp(26px, 4.4vw, 64px); }
+.pl-rs-hf .hf-why__line { white-space: nowrap; }
+.pl-rs-hf .hf-why__cards .hf-card--why:nth-child(3) .hf-card__title { max-width: 100%; }
+.pl-rs-lead .pl-rs-line { white-space: nowrap; }
+.pl-rs-lead .pl-corp__lead-cta-title { font-size: clamp(16px, 4.6vw, 20px); }
+@media (min-width: 768px) {
+    .pl-rs-lead .pl-corp__lead-cta-row { grid-template-columns: minmax(480px, 520px) minmax(0, 420px); }
+    .pl-rs-lead .pl-corp__lead-cta-copy { max-width: 520px; }
+    .pl-rs-lead .pl-corp__lead-cta-text { font-size: 15px; line-height: 1.35; max-width: none; }
+}
+@media (min-width: 1100px) {
+    .pl-rs-hf .hf-card--ai .hf-card__prose > p:first-child,
+    .pl-rs-hf .hf-card--ai .hf-note {
+        max-width: 780px;
+        font-size: 15px;
+        line-height: 1.35;
+    }
+}
