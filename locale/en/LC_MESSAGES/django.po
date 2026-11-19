@@ -3978,12 +3978,12 @@ msgstr "Skip"
 
 #: templates/components/tz_generator/quiz.html:170
 #: templates/pages/calculator.html:222
-msgid "Далі →"
-msgstr "Next →"
+msgid "Далі ↗"
+msgstr "Next ↗"
 
 #: templates/components/tz_generator/quiz.html:171
-msgid "Отримати ТЗ у PDF →"
-msgstr "Get the brief in PDF →"
+msgid "Отримати ТЗ у PDF ↗"
+msgstr "Get the brief in PDF ↗"
 
 #: templates/components/tz_generator/quiz.html:172
 msgid "Безкоштовно. Без спаму. PDF одразу."
@@ -7032,8 +7032,8 @@ msgstr ""
 "Leave your contact details and we'll show you the recommended package based "
 "on your answers."
 
-msgid "Отримати розрахунок →"
-msgstr "Get my estimate →"
+msgid "Отримати розрахунок ↗"
+msgstr "Get my estimate ↗"
 
 msgid "Отримайте безкоштовний розрахунок вартості вашого сайту"
 msgstr "Get a free cost estimate for your website"
@@ -10129,8 +10129,8 @@ msgid "Менеджер передзвонить за 15 хвилин"
 msgstr "A manager will call you back within 15 minutes"
 
 #: rozrobka-sajtiv (ТЗ 27.10.2026)
-msgid "Ціна і строк у договорі · Адмінка залишається у вас · 50+ запущених проєктів"
-msgstr "Price and deadline in the contract · The admin panel stays yours · 50+ launched projects"
+msgid "Ціна і строк у договорі · <span class=\"pl-rs__trust-admin\">Адмінка залишається у вас · </span>50+ запущених проєктів"
+msgstr "Price and deadline in the contract · <span class=\"pl-rs__trust-admin\">The admin panel stays yours · </span>50+ launched projects"
 
 #: rozrobka-sajtiv (ТЗ 27.10.2026)
 msgid "Наші роботи — сайти від веб-студії PrometeyLabs"
@@ -10197,8 +10197,8 @@ msgid "Дайте відповідь на 5 питань — це 2 хвилин
 msgstr "Answer 5 questions — it takes 2 minutes, free and with no obligation."
 
 #: rozrobka-sajtiv (ТЗ 27.10.2026)
-msgid "Розрахувати вартість онлайн →"
-msgstr "Calculate the cost online →"
+msgid "Розрахувати вартість онлайн ↗"
+msgstr "Calculate the cost online ↗"
 
 # TZ 2026-10-28-001, Design Lead veto
 msgid "розрахувати вартість сайту"
@@ -10371,5 +10371,5 @@ msgstr "and a cost estimate"
 msgid "Спеціалісти PrometeyLabs мають роки практики у веб-розробці, дизайні, інтеграціях, мобільних додатках та інтернет-маркетингу. Це гарантує, що ваш проєкт буде реалізований системно, технологічно та з розумінням бізнес-задач."
 msgstr "PrometeyLabs specialists have years of practice in web development, design, integrations, mobile apps and internet marketing. This means your project is delivered systematically, with the right technology and a clear understanding of the business task."
 
-msgid "Створіть сайт для бізнесу: лендінг <span class=\"pl-rs__acc\">від 150 €</span>, корпоративний сайт <span class=\"pl-rs__acc\">від 350 €</span>,<br> інтернет-магазин <span class=\"pl-rs__acc\">від 650 €</span>. Пожиттєва гарантія на код, <span class=\"pl-rs__acc\">1 рік безкоштовної підтримки</span>."
-msgstr "Create a website for your business: a landing page <span class=\"pl-rs__acc\">from €150</span>, a corporate website <span class=\"pl-rs__acc\">from €350</span>,<br> an online store <span class=\"pl-rs__acc\">from €650</span>. Lifetime code warranty and <span class=\"pl-rs__acc\">1 year of free support</span>."
+msgid "<span class=\"pl-rs-mline\">Лендінг <span class=\"pl-rs__acc\">від 150 €</span>,</span> <span class=\"pl-rs-mline\">корпоративний сайт <span class=\"pl-rs__acc\">від 350 €</span>,</span><br class=\"pl-rs-br-d\"> <span class=\"pl-rs-mline\">інтернет-магазин <span class=\"pl-rs__acc\">від 650 €</span>.</span> <span class=\"pl-rs-mline pl-rs-mline--fit\">Пожиттєва гарантія на код, <span class=\"pl-rs__acc\">1 рік безкоштовної підтримки</span>.</span>"
+msgstr "<span class=\"pl-rs-mline\">A landing page <span class=\"pl-rs__acc\">from €150</span>,</span> <span class=\"pl-rs-mline\">a corporate website <span class=\"pl-rs__acc\">from €350</span>,</span><br class=\"pl-rs-br-d\"> <span class=\"pl-rs-mline\">an online store <span class=\"pl-rs__acc\">from €650</span>.</span> <span class=\"pl-rs-mline pl-rs-mline--fit\">Lifetime code warranty and <span class=\"pl-rs__acc\">1 year of free support</span>.</span>"

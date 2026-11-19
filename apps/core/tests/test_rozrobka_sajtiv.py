@@ -45,7 +45,8 @@ class RozrobkaSajtivPageTests(TestCase):
         # ТЗ 27.10.2026 п. 3.1 / 3.10
         self.assertIn('Розробка сайтів під ключ.', html)
         self.assertIn('Створення сайтів від 150 €', html)
-        self.assertIn('Створіть сайт для бізнесу: лендінг <span class="pl-rs__acc">від 150 €</span>', root)
+        self.assertNotIn('Створіть сайт для бізнесу:', root)
+        self.assertIn('Лендінг <span class="pl-rs__acc">від 150 €</span>', root)
         self.assertNotIn('за 3–7 днів', root[root.index('<p class="pl-rs__lead">'):root.index('</p>', root.index('<p class="pl-rs__lead">'))])
         # ТЗ Софії 28.10.2026 п. 4.3: два фрагменти прибрано, рівно 4 помаранчеві акценти
         lead = root[root.index('<p class="pl-rs__lead">'):]
@@ -56,7 +57,7 @@ class RozrobkaSajtivPageTests(TestCase):
         # ТЗ Софії 28.10.2026 п. 4.1: форми в херо немає
         self.assertNotIn('id="pl-rs-hero-form"', html)
         self.assertNotIn('Розрахуємо вартість вашого сайту', root)
-        self.assertIn('Ціна і строк у договорі · Адмінка залишається у вас · 50+ запущених проєктів</p>', root)
+        self.assertIn('Ціна і строк у договорі · <span class="pl-rs__trust-admin">Адмінка залишається у вас · </span>50+ запущених проєктів', root)
         self.assertNotIn('Відповідаємо протягом 15 хвилин', root)
         # price ranges live in «Чому варто обрати» (home component), not in hero floats
         self.assertIn('150–300 €', root)
@@ -130,11 +131,12 @@ class RozrobkaSajtivPageTests(TestCase):
         root = _landing_markup(html)
         self.assertIn('Разработка сайтов под ключ.', html)
         self.assertIn('Создание сайтов от 150 €', html)
-        self.assertIn('Создайте сайт для бизнеса: лендинг <span class="pl-rs__acc">от 150 €', root)
+        self.assertNotIn('Создайте сайт для бизнеса:', root)
+        self.assertIn('Лендинг <span class="pl-rs__acc">от 150 €', root)
         self.assertNotIn('id="pl-rs-hero-form"', html)
         self.assertNotIn('Рассчитаем стоимость вашего сайта', root)
         self.assertIn('Пожизненная гарантия на код, <span class="pl-rs__acc">1 год бесплатной поддержки</span>.', root)
-        self.assertIn('Цена и срок в договоре · Админка остаётся у вас · 50+ запущенных проектов</p>', root)
+        self.assertIn('Цена и срок в договоре · <span class="pl-rs__trust-admin">Админка остаётся у вас · </span>50+ запущенных проектов', root)
         self.assertNotIn('Отвечаем в течение 15 минут', root)
         self.assertIn('€', root)
         self.assertIn('id="fx-switch-soft-why"', root)

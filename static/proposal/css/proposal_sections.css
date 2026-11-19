@@ -126,7 +126,7 @@
 }
 
 .prop-cta--xl::after {
-    content: "→";
+    content: "↗";
     flex-shrink: 0;
     font-weight: 400;
     letter-spacing: 0;

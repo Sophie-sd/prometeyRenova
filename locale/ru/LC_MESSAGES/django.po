@@ -3827,12 +3827,12 @@ msgstr "Пропустить"
 
 #: templates/components/tz_generator/quiz.html:170
 #: templates/pages/calculator.html:222
-msgid "Далі →"
-msgstr "Далее →"
+msgid "Далі ↗"
+msgstr "Далее ↗"
 
 #: templates/components/tz_generator/quiz.html:171
-msgid "Отримати ТЗ у PDF →"
-msgstr "Получить ТЗ в PDF →"
+msgid "Отримати ТЗ у PDF ↗"
+msgstr "Получить ТЗ в PDF ↗"
 
 #: templates/components/tz_generator/quiz.html:172
 msgid "Безкоштовно. Без спаму. PDF одразу."
@@ -6434,8 +6434,8 @@ msgid "Менеджер передзвонить за 15 хвилин"
 msgstr "Менеджер перезвонит за 15 минут"
 
 #: rozrobka-sajtiv (ТЗ 27.10.2026)
-msgid "Ціна і строк у договорі · Адмінка залишається у вас · 50+ запущених проєктів"
-msgstr "Цена и срок в договоре · Админка остаётся у вас · 50+ запущенных проектов"
+msgid "Ціна і строк у договорі · <span class=\"pl-rs__trust-admin\">Адмінка залишається у вас · </span>50+ запущених проєктів"
+msgstr "Цена и срок в договоре · <span class=\"pl-rs__trust-admin\">Админка остаётся у вас · </span>50+ запущенных проектов"
 
 #: rozrobka-sajtiv (ТЗ 27.10.2026)
 msgid "Наші роботи — сайти від веб-студії PrometeyLabs"
@@ -6502,20 +6502,12 @@ msgid "Дайте відповідь на 5 питань — це 2 хвилин
 msgstr "Ответьте на 5 вопросов — это 2 минуты, бесплатно и без обязательств."
 
 #: rozrobka-sajtiv (ТЗ 27.10.2026)
-msgid "Розрахувати вартість онлайн →"
-msgstr "Рассчитать стоимость онлайн →"
+msgid "Розрахувати вартість онлайн ↗"
+msgstr "Рассчитать стоимость онлайн ↗"
 
 #: templates/components/rozrobka_sajtiv/hero.html (ТЗ Софії 28.10.2026 п. 4.3)
-msgid ""
-"Створіть сайт для бізнесу: лендінг <span class=\"pl-rs__acc\">від 150 €</span>, "
-"корпоративний сайт <span class=\"pl-rs__acc\">від 350 €</span>,<br> інтернет-"
-"магазин <span class=\"pl-rs__acc\">від 650 €</span>. Пожиттєва гарантія на код, "
-"<span class=\"pl-rs__acc\">1 рік безкоштовної підтримки</span>."
-msgstr ""
-"Создайте сайт для бизнеса: лендинг <span class=\"pl-rs__acc\">от 150 €</span>, "
-"корпоративный сайт <span class=\"pl-rs__acc\">от 350 €</span>,<br> интернет-"
-"магазин <span class=\"pl-rs__acc\">от 650 €</span>. Пожизненная гарантия на код, "
-"<span class=\"pl-rs__acc\">1 год бесплатной поддержки</span>."
+msgid "<span class=\"pl-rs-mline\">Лендінг <span class=\"pl-rs__acc\">від 150 €</span>,</span> <span class=\"pl-rs-mline\">корпоративний сайт <span class=\"pl-rs__acc\">від 350 €</span>,</span><br class=\"pl-rs-br-d\"> <span class=\"pl-rs-mline\">інтернет-магазин <span class=\"pl-rs__acc\">від 650 €</span>.</span> <span class=\"pl-rs-mline pl-rs-mline--fit\">Пожиттєва гарантія на код, <span class=\"pl-rs__acc\">1 рік безкоштовної підтримки</span>.</span>"
+msgstr "<span class=\"pl-rs-mline\">Лендинг <span class=\"pl-rs__acc\">от 150 €</span>,</span> <span class=\"pl-rs-mline\">корпоративный сайт <span class=\"pl-rs__acc\">от 350 €</span>,</span><br class=\"pl-rs-br-d\"> <span class=\"pl-rs-mline\">интернет-магазин <span class=\"pl-rs__acc\">от 650 €</span>.</span> <span class=\"pl-rs-mline pl-rs-mline--fit\">Пожизненная гарантия на код, <span class=\"pl-rs__acc\">1 год бесплатной поддержки</span>.</span>"
 
 # TZ 2026-10-28-001, Design Lead veto
 msgid "розрахувати вартість сайту"

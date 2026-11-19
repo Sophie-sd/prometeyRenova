@@ -150,7 +150,13 @@ html body .pl-rs__hero .pl-rs__hero-trust { margin-top: 10px; font-size: 13px; }
 html body #pl-rs-calc.pl-rs__calc { padding: 16px 0; }
 html body #pl-rs-calc .pl-rs__calc-card { min-height: 0; padding-top: 24px; padding-bottom: 24px; }
 html body #pl-rs-calc .pl-rs__calc-body { gap: 12px; }
-html body #pl-rs-calc .pl-rs__note--center { margin-top: 0; }
+html body #pl-rs-calc .pl-rs__note--center {
+    margin-top: 0;
+    max-width: none;
+    white-space: nowrap;
+    font-size: clamp(10px, 3.05vw, 16px);
+    letter-spacing: -0.03em;
+}
 html body #pl-rs-calc .pl-rs__calc-alt { margin-top: 0; }
 @media (max-width: 767px) {
     html body #pl-rs-calc .pl-rs__calc-card { padding: 20px 14px; }
@@ -188,5 +194,88 @@ html body .pl-rs__hero .pl-rs__lead .pl-rs__acc { white-space: nowrap; }
         max-width: 780px;
         font-size: 15px;
         line-height: 1.35;
+    }
+}
+
+/* Mobile type for /rozrobka-sajtiv/ only. #plRsRoot keeps home, corporate and shop unchanged. */
+@media (max-width: 767px) {
+    #plRsRoot .pl-rs__hero .pl-rs__h1 {
+        font-size: clamp(22px, 6.8vw, 30px);
+        letter-spacing: -0.04em;
+    }
+
+    #plRsRoot .pl-rs__hero .pl-rs__lead {
+        max-width: none;
+        width: 100%;
+        font-size: 17px;
+        line-height: 1.25;
+    }
+
+    #plRsRoot .pl-rs-mline {
+        display: block;
+    }
+
+    #plRsRoot .pl-rs-br-d {
+        display: none;
+    }
+
+    #plRsRoot .pl-rs-mline--fit {
+        font-size: clamp(10px, 3.15vw, 13px);
+        line-height: 1.25;
+        white-space: nowrap;
+    }
+
+    #plRsRoot .pl-rs__trust-admin {
+        display: none;
+    }
+
+    #plRsRoot .pl-rs-hf .hf-why__title {
+        font-size: clamp(26px, 7.4vw, 32px);
+    }
+
+    #plRsRoot .pl-rs-hf .hf-tag {
+        height: auto;
+        min-height: 0;
+        padding: 5px 12px;
+        font-size: 13px;
+        line-height: 1.25;
+    }
+
+    #plRsRoot .pl-rs-hf .hf-card__title {
+        max-width: none;
+        width: auto;
+        font-size: 17px;
+        line-height: 1.15;
+    }
+
+    #plRsRoot .pl-rs-lead .pl-corp__lead-cta-title {
+        font-size: 20px;
+    }
+
+    #plRsRoot .pl-corp__dev-title {
+        max-width: none;
+        width: 100%;
+        font-size: clamp(26px, 8vw, 32px);
+        line-height: 1.05;
+    }
+
+    #plRsRoot .pl-rs-work__top {
+        margin-top: 16px;
+    }
+
+    #plRsRoot .pl-rs__hero .pl-calc-cta {
+        width: fit-content;
+        max-width: calc(100% - 32px);
+    }
+
+    #plRsRoot .pl-rs__hero .pl-calc-cta__btn {
+        width: auto;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 819px) {
+    #plRsRoot .pl-rs__hero .pl-rs__lead {
+        font-size: 16px;
     }
 }

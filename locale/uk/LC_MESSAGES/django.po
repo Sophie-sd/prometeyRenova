@@ -3733,7 +3733,7 @@ msgid "Пропустити"
 msgstr ""
 
 #: templates/pages/calculator.html:222
-msgid "Далі →"
+msgid "Далі ↗"
 msgstr ""
 
 #: templates/pages/calculator.html:228 templates/pages/contacts.html:76
