@@ -3830,6 +3830,9 @@ msgstr "Пропустить"
 msgid "Далі ↗"
 msgstr "Далее ↗"
 
+msgid "Далі →"
+msgstr "Далее →"
+
 #: templates/components/tz_generator/quiz.html:171
 msgid "Отримати ТЗ у PDF ↗"
 msgstr "Получить ТЗ в PDF ↗"

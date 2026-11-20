@@ -3981,6 +3981,9 @@ msgstr "Skip"
 msgid "Далі ↗"
 msgstr "Next ↗"
 
+msgid "Далі →"
+msgstr "Next →"
+
 #: templates/components/tz_generator/quiz.html:171
 msgid "Отримати ТЗ у PDF ↗"
 msgstr "Get the brief in PDF ↗"

@@ -3736,6 +3736,9 @@ msgstr ""
 msgid "Далі ↗"
 msgstr ""
 
+msgid "Далі →"
+msgstr "Далі →"
+
 #: templates/pages/calculator.html:228 templates/pages/contacts.html:76
 msgid "Ваше ім'я"
 msgstr ""
