@@ -155,8 +155,8 @@ html body .pl-rs__hero .pl-rs__hero-trust { margin-top: 10px; font-size: 13px; }
 /* ---------- 4.5 Херо в один екран ---------- */
 @media (max-width: 767px) {
     .pl-rs__hero .pl-rs__hero-trust { padding-inline: 16px; text-wrap: balance; }
-    html body .pl-rs__hero { padding-bottom: 96px; }
-    html body:has(#lang-suggest) .pl-rs__hero { padding-top: calc(128px + env(safe-area-inset-top, 0px)); }
+    html body .pl-rs__hero { padding-bottom: 16px; }
+    html body:has(#lang-suggest) .pl-rs__hero { padding-top: calc(128px + env(safe-area-inset-top, 0px)); padding-bottom: 96px; }
 }
 
 /* ---------- 4.6 #pl-rs-calc: менші вертикальні відступи ---------- */
