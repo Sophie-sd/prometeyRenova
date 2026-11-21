@@ -41,9 +41,9 @@ PAGE_LANGUAGES: dict[str, tuple[str, ...]] = {
     'intellectual_property': ALL_LANGS,
     # RU copy of the monobank page is the untranslated UA text.
     'monobank_chastynamy': ('uk', 'en'),
-    # EN copies of these landings are untranslated (UA text) → noindex.
+    # EN copy of rozrobka is translated and indexable. The other two EN landings stay noindex.
     'internet_shop_v2': ('uk', 'ru'),
-    'rozrobka_sajtiv': ('uk', 'ru'),
+    'rozrobka_sajtiv': ('uk', 'ru', 'en'),
     'dorobka_sajtu': ('uk', 'ru'),
 }
 

@@ -57,7 +57,7 @@ class RozrobkaSajtivPageTests(TestCase):
         # ТЗ Софії 28.10.2026 п. 4.1: форми в херо немає
         self.assertNotIn('id="pl-rs-hero-form"', html)
         self.assertNotIn('Розрахуємо вартість вашого сайту', root)
-        self.assertIn('5,0 ★ на Google · 51 відгук · 50+ запущених проєктів', root)
+        self.assertIn('5,0 ★ на Google\u00a0· 51 відгук\u00a0· 50+ запущених проєктів', root)
         self.assertNotIn('pl-rs__trust-admin', root)
         self.assertNotIn('Відповідаємо протягом 15 хвилин', root)
         # price ranges live in «Чому варто обрати» (home component), not in hero floats

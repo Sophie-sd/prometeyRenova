@@ -12,12 +12,21 @@
 
     function normalizePhone(raw) {
         if (!raw) return null;
-        var digits = String(raw).replace(/[^\d+]/g, '');
+        var s = String(raw).trim();
+        var digits = s.replace(/\D/g, '');
         if (!digits) return null;
-        if (digits.indexOf('+') === 0) return digits;
+        var intl = s.charAt(0) === '+' || digits.indexOf('00') === 0;
+        if (digits.indexOf('00') === 0) digits = digits.slice(2);
+        if (digits.indexOf('380') === 0 && digits.length >= 12) return '+380' + digits.slice(3, 12);
+        if (digits.charAt(0) === '0' && digits.length >= 10) return '+38' + digits.slice(0, 10);
+        if (!intl && digits.length === 9) return '+380' + digits;
+        if (!intl && digits.indexOf('80') === 0 && digits.length >= 11) return '+3' + digits.slice(0, 11);
+        var en = ((document.documentElement && document.documentElement.lang) || '').toLowerCase().slice(0, 2) === 'en';
+        if (en && intl && digits.charAt(0) !== '0' && digits.length >= 8 && digits.length <= 15) return '+' + digits;
         if (digits.indexOf('380') === 0) return '+' + digits;
-        if (digits.indexOf('0') === 0) return '+38' + digits;
-        return '+380' + digits;
+        if (digits.charAt(0) === '0') return '+38' + digits;
+        if (!en) return digits.length ? '+380' + digits : null;
+        return null;
     }
 
     function saveFromRaw(raw) {

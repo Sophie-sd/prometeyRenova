@@ -1,8 +1,8 @@
 /**
  * PHONE-MASK.JS — єдина маска телефону для всього сайту (vanilla, без залежностей).
  *
- * - Україна за замовчуванням: +380 (XX) XXX-XX-XX, рівно 9 національних цифр.
- * - Лише українські номери: будь-який інший код країни (+1, +44, 0048…) відхиляється.
+ * - Україна (uk/ru): +380 (XX) XXX-XX-XX, рівно 9 національних цифр. «0XX…» стає +380 без стирання.
+ * - EN: без примусового +380. Локальний 0XXXXXXXXX і 380… → +380; «+» / 00 і код країни (8–15 цифр) → E.164.
  * - Автозаповнення (input/change/animationstart), вставка будь-якого формату,
  *   backspace/delete посередині без стрибків каретки, мобільні клавіатури.
  * - Доступні інлайн-помилки (aria-invalid, aria-describedby), UA/RU/EN.
@@ -23,11 +23,12 @@
     var MAX_FOREIGN = 15;
     var SELECTOR = 'input[type="tel"], input[name="phone"], input[autocomplete="tel"]';
     var PLACEHOLDER = '+380 (__) ___-__-__';
+    var PLACEHOLDER_EN = '+380 67 123 4567 or +44 20 1234 5678';
     var INTL = 'INTL';
     var INTL_MIN = 8;
-    // EN-версія: нейтральна міжнародна маска (порожній «+», вільний формат, без примусового +380)
+    // EN: neutral placeholder, no forced +380. uk/ru stay Ukrainian-only.
     function isIntl() { return lang() === 'en'; }
-    function placeholder() { return isIntl() ? '+' : PLACEHOLDER; }
+    function placeholder() { return isIntl() ? PLACEHOLDER_EN : PLACEHOLDER; }
 
     var MESSAGES = {
         uk: {
@@ -65,26 +66,67 @@
         return MESSAGES[lang()][key].replace('{cc}', cc || '');
     }
 
+    function uaResult(national, hasLetters) {
+        var res = { empty: false, cc: UA, nat: national || '', digits: '', partialPrefix: '', e164: '', error: '', raw: '' };
+        if (res.nat.charAt(0) === '0') res.nat = res.nat.slice(1);
+        if (!res.nat) { res.error = 'short'; return res; }
+        if (res.nat.length < UA_LEN) res.error = 'short';
+        else if (res.nat.length > UA_LEN) res.error = 'long';
+        else res.e164 = '+' + UA + res.nat;
+        if (hasLetters && res.e164) { res.e164 = ''; res.error = 'invalid'; }
+        return res;
+    }
+
+    /**
+     * EN: local 0XXXXXXXXX and 380… → UA; + / 00 with a country code → E.164.
+     * Does not invent a +380 prefix while the visitor is typing another country.
+     */
+    function parseEn(raw) {
+        var s = String(raw == null ? '' : raw);
+        var trimmed = s.trim();
+        var digits = trimmed.replace(/\D/g, '');
+        var res = { empty: false, cc: INTL, nat: '', digits: digits, partialPrefix: '', e164: '', error: '', raw: s };
+        var hasLetters = /[^\d\s()+\-.]/.test(trimmed);
+        if (!digits) {
+            res.empty = true;
+            res.error = 'required';
+            if (trimmed.charAt(0) === '+') res.partialPrefix = '+';
+            return res;
+        }
+        if (hasLetters) { res.error = 'invalid'; res.nat = digits; return res; }
+        var intl = trimmed.charAt(0) === '+' || digits.slice(0, 2) === '00';
+        var body = digits.slice(0, 2) === '00' ? digits.slice(2) : digits;
+        // Trunk 0 + 9 national digits. "+067…" is the same local number: 0 is not a country code.
+        if (body.charAt(0) === '0' && (!intl || body.length === 10)) return uaResult(body.slice(1), false);
+        if (body.indexOf(UA) === 0) return uaResult(body.slice(3), false);
+        if (!intl && body.slice(0, 2) === '80' && body.length === 11) return uaResult(body.slice(2), false);
+        if (!intl && body.length === 9) return uaResult(body, false);
+        if (intl && body.charAt(0) === '0') {
+            res.nat = body;
+            res.error = body.length < INTL_MIN ? 'short' : 'long';
+            return res;
+        }
+        if (!intl) {
+            res.nat = body;
+            if (body.length > MAX_FOREIGN) res.error = 'long';
+            else if (body.length >= INTL_MIN) res.error = 'invalid';
+            else res.error = 'short';
+            return res;
+        }
+        res.nat = body;
+        if (body.length < INTL_MIN) res.error = 'short';
+        else if (body.length > MAX_FOREIGN) res.error = 'long';
+        else res.e164 = '+' + body;
+        return res;
+    }
+
     /**
      * Розбір довільного рядка.
      * → {empty, cc, nat, digits, partialPrefix, e164, error}
      */
-    function parseIntl(s) {
-        var digits = s.replace(/\D/g, '');
-        var res = { empty: false, cc: INTL, nat: '', digits: digits, partialPrefix: '', e164: '', error: '', raw: s };
-        if (!digits) { res.empty = true; res.error = 'required'; if (s.charAt(0) === '+') res.partialPrefix = '+'; return res; }
-        if (digits.slice(0, 2) === '00') digits = digits.slice(2);
-        res.nat = digits;
-        if (digits.length < INTL_MIN) res.error = 'short';
-        else if (digits.length > MAX_FOREIGN) res.error = 'long';
-        else res.e164 = '+' + digits;
-        if (/[^\d\s()+\-.]/.test(s) && res.e164) { res.e164 = ''; res.error = 'invalid'; }
-        return res;
-    }
-
     function parse(raw) {
+        if (isIntl()) return parseEn(raw);
         var s = String(raw == null ? '' : raw).trim();
-        if (isIntl()) return parseIntl(String(raw == null ? '' : raw).replace(/^\s+/, ''));  // keep trailing space while typing
         var digits = s.replace(/\D/g, '');
         var res = { empty: false, cc: UA, nat: '', digits: digits, partialPrefix: '', e164: '', error: '' };
         var hasLetters = /[^\d\s()+\-.]/.test(s);
@@ -128,10 +170,13 @@
         if (p.empty) return p.partialPrefix || '';
         if (p.partialPrefix) return p.partialPrefix;
         if (p.cc === INTL) {
-            // Вільний формат: лишаємо пробіли/дужки/дефіси користувача, гарантуємо «+» на початку
-            var free = String(p.raw || '').replace(/[^\d\s()\-.]/g, '').replace(/^[\s()\-.]+/, '');
+            // Вільний формат. «+» лише якщо його набрали (або 00) — не підставляємо +380.
+            var src = String(p.raw || '');
+            var hadPlus = src.trim().charAt(0) === '+' || /^\s*00/.test(src);
+            var free = src.replace(/[^\d\s()\-.]/g, '').replace(/^[\s()\-.]+/, '');
             if (/^00/.test(free)) free = free.replace(/^00/, '');
-            return '+' + free.replace(/\s{2,}/g, ' ');
+            free = free.replace(/^\+/, '').replace(/\s{2,}/g, ' ');
+            return (hadPlus ? '+' : '') + free;
         }
         var n = p.nat;
         if (p.cc === UA) {
@@ -277,7 +322,7 @@
         }
         input.setAttribute('data-phone-mask', 'on');
         var ph = input.getAttribute('placeholder') || '';
-        if (!ph || /^\+?38\s*\(?[_0]/.test(ph)) input.setAttribute('placeholder', placeholder());
+        if (isIntl() || !ph || /^\+?38\s*\(?[_0]/.test(ph)) input.setAttribute('placeholder', placeholder());
         if (input.maxLength > 0 && input.maxLength < 24) input.removeAttribute('maxlength');
 
         var on = function (type, fn, target) {
@@ -292,10 +337,7 @@
         on('animationstart', function (e) {
             if (e.animationName === 'phoneMaskAutofill') { self.reformat(true); self.liveValidate(); }
         });
-        on('focus', function () {
-            if (isIntl() && !input.value) { input.value = '+'; self.setCaret(1); }
-            self.remember();
-        });
+        on('focus', function () { self.remember(); });
         on('blur', function () { self.onBlur(); });
         var form = input.form;
         if (form) {
@@ -321,7 +363,14 @@
         var p = parse(raw);
         var next = format(p);
         this.input.value = next;
-        this.setCaret(digitsAfter == null ? next.length : caretForDigitsAfter(next, digitsAfter));
+        var self = this;
+        var place = function () {
+            self.setCaret(digitsAfter == null ? next.length : caretForDigitsAfter(next, digitsAfter));
+        };
+        place();
+        // «0…» переписується на +380. На iOS каретка після зміни value стрибає на початок.
+        var rawDigits = String(raw).replace(/\D/g, '');
+        if (rawDigits.charAt(0) === '0' && next.indexOf('+380') === 0) setTimeout(place, 0);
         this._prev = { value: next, start: this.input.selectionStart || 0, end: this.input.selectionEnd || 0 };
         return p;
     };

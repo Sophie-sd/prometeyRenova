@@ -386,13 +386,7 @@ class ProjectCalculator {
             nameField.classList.remove('error');
         }
         if (phoneField) {
-            const app = window.prometeyApp;
-            if (app && app.phoneMasks && app.phoneMasks.has(phoneField)) {
-                const mask = app.phoneMasks.get(phoneField);
-                mask.ensurePrefix();
-            } else {
-                phoneField.value = '+38';
-            }
+            phoneField.value = '';
             phoneField.classList.remove('error');
         }
 

@@ -280,11 +280,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     {% block base_js %}
     <script src="{% static 'js/core/analytics.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/core/gclid-capture.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
-    <script src="{% static 'js/core/ec-phone.js' %}" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/core/ec-phone.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/core/utils.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/mobile-core.js' %}" nonce="{{ csp_nonce }}" defer></script>
-    <script src="{% static 'js/core/phone-mask.js' %}?v=4" nonce="{{ csp_nonce }}" defer></script>
-    <script src="{% static 'js/base.js' %}?v=mm3" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/core/phone-mask.js' %}?v=5" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/base.js' %}?v=mm4" nonce="{{ csp_nonce }}" defer></script>
     <!-- video-system.js: load only on pages that actually contain <video> (skips landings without media) -->
     <script nonce="{{ csp_nonce }}">
     (function(){

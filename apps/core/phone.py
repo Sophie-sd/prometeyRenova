@@ -1,10 +1,11 @@
 """Shared phone normalisation (server mirror of static/js/core/phone-mask.js).
 
-Ukrainian numbers: +380 + exactly 9 national digits. Other international numbers
-(with + or 00) are accepted as E.164 (8-15 digits) only on the EN version (neutral
-international mask); UA/RU versions accept only +380 (mirror of phone-mask.js).
-normalize_phone() -> E.164 "+380XXXXXXXXX" or None.
-Accepted input formats: +380..., 380..., 0XX..., XX... (9 digits), 80XX..., 00380...,
+Ukrainian numbers: +380 + exactly 9 national digits.
+UA/RU accept only Ukrainian numbers. EN also accepts any E.164 number that
+starts with + or 00 (8-15 digits, country code not 0).
+On every language a local 0XXXXXXXXX (10 digits) and 380XXXXXXXXX normalise to +380...
+normalize_phone() -> E.164 or None.
+Accepted UA input: +380..., 380..., 0XX..., XX... (9 digits), 80XX..., 00380...,
 with any spaces, dashes, dots or brackets.
 """
 import re
@@ -39,12 +40,19 @@ def parse_phone(raw, allow_international=None):
     if digits.startswith('00'):
         digits = digits[2:]
 
+    # +380... / 380... / 00380... — Ukrainian even when the page is EN.
     if digits.startswith(UA_CODE):
         national = digits[3:]
+    # Local trunk 0XXXXXXXXX (10 digits). A leading 0 is not a country code,
+    # so "+0671234567" is the same number as "0671234567".
+    elif digits.startswith('0') and len(digits) == 10:
+        national = digits[1:]
     elif international and not allow_international:
         return None, 'foreign'
     elif international:
-        # EN version uses a neutral international mask: accept any E.164 number (8-15 digits).
+        # EN: any E.164 number (8-15 digits) whose country code does not start with 0.
+        if digits.startswith('0'):
+            return None, 'short' if len(digits) < 8 else 'long'
         if 8 <= len(digits) <= 15:
             return '+' + digits, ''
         return None, 'short' if len(digits) < 8 else 'long'
