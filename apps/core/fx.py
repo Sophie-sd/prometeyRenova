@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from decimal import Decimal, ROUND_HALF_UP
 
-from django.utils.translation import gettext as _
+from django.utils.translation import get_language, gettext as _
 
 CURRENCY_COOKIE = 'pl_currency'
 CURRENCY_COOKIE_AGE = 60 * 60 * 24 * 365
@@ -119,8 +119,23 @@ def format_range(low, high, currency: str, rates) -> str:
     return f'{_grouped(int(left))}–{_grouped(int(right))} {SYMBOLS[code]}'
 
 
+def _en_eur_number(amount) -> str:
+    """English shop cards: €1,500, with a comma thousands separator."""
+    amount = Decimal(amount)
+    if amount == amount.to_integral_value():
+        return f'{int(amount):,}'
+    quantized = amount.quantize(Decimal('0.01'))
+    whole, frac = f'{quantized:.2f}'.split('.')
+    return f'{int(whole):,}.{frac}'
+
+
 def format_from(amount, currency: str, rates) -> str:
-    return f'{_("від")} {format_amount(amount, currency, rates)}'
+    label = _("від")
+    code = currency if currency in available_codes(rates) else 'EUR'
+    lang = (get_language() or 'uk').split('-')[0]
+    if code == 'EUR' and lang == 'en':
+        return f'{label} €{_en_eur_number(amount)}'
+    return f'{label} {format_amount(amount, code, rates)}'
 
 
 def is_eur_mark(mark: str | None) -> bool:

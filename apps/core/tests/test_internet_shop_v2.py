@@ -282,6 +282,10 @@ class ShopV2EnglishTests(TestCase):
     def test_en_copy_and_uk_ru_unchanged(self):
         html = self._get(self.EN)
         self.assertIn(f'<title>{self.EN_TITLE}</title>', html)
+        self.assertIn('from €650', html)
+        self.assertIn('from €1,500', html)
+        self.assertIn('from €7,000', html)
+        self.assertNotIn('650 €', html)
         self.assertIn(
             f'id="pl-shop-hero-title" class="pl-shop__title pl-shop__title--hero">{self.EN_H1}</h1>',
             html,
