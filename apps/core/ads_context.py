@@ -26,7 +26,7 @@ def _reverse(name, language):
 
 
 def hreflang_for(name):
-    return hreflang_urls(_reverse(name, 'uk'), _reverse(name, 'ru'))
+    return hreflang_urls(_reverse(name, 'uk'), _reverse(name, 'ru'), _reverse(name, 'en'))
 
 
 def _crumbs(last_name, last_url):
@@ -57,7 +57,7 @@ def _seo_only(name):
 
 def shop_ads_context():
     seo = hreflang_for('internet_shop_v2')
-    if lang() not in ('uk', 'ru'):
+    if lang() not in ('uk', 'ru', 'en'):
         ctx = _seo_only('internet_shop_v2')
         ctx['ads_seo'] = seo
         return ctx
@@ -135,7 +135,7 @@ def dorobka_ads_context():
 def corporate_ads_context():
     seo = hreflang_for('corporate_website_v2')
     labels = crumbs_copy()
-    last = 'Корпоративні сайти та лендінги' if lang() == 'uk' else 'Корпоративные сайты и лендинги'
+    last = 'Корпоративные сайты и лендинги' if lang() == 'ru' else 'Корпоративні сайти та лендінги'
     crumbs = _crumbs(last, seo['canonical'])
     return {
         'ads_crumbs': crumbs,

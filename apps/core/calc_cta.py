@@ -62,6 +62,11 @@ CALC_CTA = {
             'sticky': 'Рассчитайте стоимость онлайн',
             'micro': 'Пройдите тест за 1 минуту',
         },
+        'en': {
+            'label': 'Calculate the store cost',
+            'sticky': 'Calculate the cost online',
+            'micro': 'Take the quiz in 1 minute',
+        },
     },
     # ТЗ Софії 28.10.2026 п. 3.1: sticky і на десктопі, текст як на /rozrobka-sajtiv/;
     # ціль/data-calc-cta/data-calc-page без змін, подію (data-calc-event) не додаємо.

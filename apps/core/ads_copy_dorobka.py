@@ -1,5 +1,5 @@
 """Literal TZ copy for /dorobka-sajtu/ and /ru/dorabotka-sajta/."""
-from .ads_copy import lang
+from .ads_copy import for_lang
 
 DOROBKA = {
     'uk': {
@@ -126,4 +126,4 @@ DOROBKA = {
 
 
 def dorobka_copy():
-    return DOROBKA[lang()]
+    return for_lang(DOROBKA)
