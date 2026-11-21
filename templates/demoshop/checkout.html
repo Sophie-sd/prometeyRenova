@@ -26,7 +26,7 @@
                 <div class="ds-field">
                     <label for="id_phone">{% trans "Телефон" %}</label>
                     <input id="id_phone" type="tel" name="phone" required
-                           autocomplete="tel" inputmode="tel" placeholder="+38 (063) 000-00-00">
+                           autocomplete="tel" inputmode="tel" placeholder="{% if LANGUAGE_CODE == 'en' %}Phone number{% else %}+38 (063) 000-00-00{% endif %}">
                 </div>
                 <div class="ds-field">
                     <label for="id_email">Email</label>
