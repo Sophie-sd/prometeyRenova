@@ -3029,6 +3029,9 @@ body.pl-shop-body .main-footer .container,
         font-size: 12px;
         letter-spacing: -0.24px;
     }
+}
+
+@media (max-width: 767px) {
     .pl-shop-body .pl-calc-sticky .pl-calc-cta__label {
         white-space: normal;
         overflow: visible;
