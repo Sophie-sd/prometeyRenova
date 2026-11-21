@@ -7,10 +7,9 @@
  * - Does NOT block scroll — page is fully usable.
  * - Auto-dismisses on first user scroll (>40px) or after 12s of inactivity.
  * - "Так" → switch to Ukrainian (or navigate to data-uk-url).
- * - "Ні"  → dismiss and remember choice (unless data-always="true").
+ * - "Ні" / close → dismiss and remember the choice (localStorage lang_suggest_seen).
  *
  * Data attributes:
- *   data-always="true"  — show on every visit (skip localStorage gate).
  *   data-uk-url="/..."  — direct URL to the UA version (preferred over set_language).
  */
 (function () {
@@ -66,21 +65,17 @@
         const toast = document.getElementById('lang-suggest');
         if (!toast) return;
 
-        const isAlways = toast.dataset.always === 'true';
         const directUrl = toast.dataset.ukUrl || null;
 
-        if (!isAlways) {
-            try {
-                if (localStorage.getItem(STORAGE_KEY)) return;
-            } catch (_) { /* private browsing may block */ }
-        }
+        try {
+            if (localStorage.getItem(STORAGE_KEY)) return;
+        } catch (_) { /* private browsing may block */ }
 
         let dismissed = false;
         let initialScrollY = 0;
         let autoHideTimer = null;
 
         function persistDismiss() {
-            if (isAlways) return;
             try {
                 localStorage.setItem(STORAGE_KEY, '1');
             } catch (_) { /* ignore */ }

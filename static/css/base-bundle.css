@@ -4389,26 +4389,41 @@ body.modal-open .main-footer {
 
 @media (max-width: 600px) {
     .lang-suggest {
-        top: 70px;
-        width: calc(100% - 16px);
+        top: 0;
+        left: 8px;
+        right: 52px;
+        width: auto;
+        max-width: none;
+        transform: none;
+    }
+    .lang-suggest.is-visible {
+        transform: none;
     }
     .lang-suggest__card {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-        padding: 14px 16px;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 8px 4px 12px;
+        border-radius: 10px;
+        min-height: 0;
     }
     .lang-suggest__text {
-        font-size: 13.5px;
-        text-align: center;
+        font-size: 11px;
+        line-height: 1.15;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .lang-suggest__actions {
-        justify-content: center;
+        justify-content: flex-end;
+        gap: 6px;
     }
     .lang-suggest__yes,
     .lang-suggest__close {
-        flex: 1;
-        padding: 10px 14px;
-        font-size: 12.5px;
+        flex: 0 0 auto;
+        padding: 6px 10px;
+        font-size: 11px;
     }
 }

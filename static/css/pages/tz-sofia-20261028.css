@@ -225,10 +225,6 @@ html body .pl-rs__hero .pl-rs__lead .pl-rs__acc { white-space: nowrap; }
         white-space: nowrap;
     }
 
-    #plRsRoot .pl-rs__trust-admin {
-        display: none;
-    }
-
     #plRsRoot .pl-rs-hf .hf-why__title {
         font-size: clamp(26px, 7.4vw, 32px);
     }

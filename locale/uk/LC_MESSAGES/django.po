@@ -1986,7 +1986,7 @@ msgid "КОНТАКТИ"
 msgstr ""
 
 #: templates/components/footer.html:43
-msgid "Графік роботи: Цілодобово"
+msgid "Графік роботи: Пн–Пт 10:00–18:00"
 msgstr ""
 
 #: templates/components/footer.html:72
@@ -5440,4 +5440,16 @@ msgstr ""
 
 #: templates/pages/blog.html:33
 msgid "Блог PrometeyLabs про розробку сайтів, SEO і Telegram-боти"
+msgstr ""
+
+msgid "5,0 ★ на Google · 51 відгук · 50+ запущених проєктів"
+msgstr ""
+
+msgid "Менеджер передзвонить за 15 хвилин (Пн–Пт 10:00–18:00)"
+msgstr ""
+
+msgid "ФОП Дмитренко Софія Дмитрівна · РНОКПП 3770706565 · Київ, бульвар Тараса Шевченка 46а · Пн–Пт 10:00–18:00"
+msgstr ""
+
+msgid "Бейдж PrometeyLabs: роки практики у веб-розробці, дизайні, інтеграціях, мобільних додатках та інтернет-маркетингу"
 msgstr ""

@@ -57,7 +57,8 @@ class RozrobkaSajtivPageTests(TestCase):
         # ТЗ Софії 28.10.2026 п. 4.1: форми в херо немає
         self.assertNotIn('id="pl-rs-hero-form"', html)
         self.assertNotIn('Розрахуємо вартість вашого сайту', root)
-        self.assertIn('Ціна і строк у договорі · <span class="pl-rs__trust-admin">Адмінка залишається у вас · </span>50+ запущених проєктів', root)
+        self.assertIn('5,0 ★ на Google · 51 відгук · 50+ запущених проєктів', root)
+        self.assertNotIn('pl-rs__trust-admin', root)
         self.assertNotIn('Відповідаємо протягом 15 хвилин', root)
         # price ranges live in «Чому варто обрати» (home component), not in hero floats
         self.assertIn('150–300 €', root)
@@ -136,7 +137,9 @@ class RozrobkaSajtivPageTests(TestCase):
         self.assertNotIn('id="pl-rs-hero-form"', html)
         self.assertNotIn('Рассчитаем стоимость вашего сайта', root)
         self.assertIn('Пожизненная гарантия на код, <span class="pl-rs__acc">1 год бесплатной поддержки</span>.', root)
-        self.assertIn('Цена и срок в договоре · <span class="pl-rs__trust-admin">Админка остаётся у вас · </span>50+ запущенных проектов', root)
+        self.assertIn('5,0 ★ в Google · 51 отзыв · 50+ запущенных проектов', root)
+        self.assertNotIn('data-always="true"', html)
+        self.assertNotIn('pl-rs__trust-admin', root)
         self.assertNotIn('Отвечаем в течение 15 минут', root)
         self.assertIn('€', root)
         self.assertIn('id="fx-switch-soft-why"', root)

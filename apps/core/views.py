@@ -79,7 +79,6 @@ class HomeView(BasePageView):
         context['home_clients'] = homepage_clients()
         context.update(home_hreflang_context())
         if translation.get_language() == 'ru':
-            context['lang_suggest_always'] = True
             context['lang_suggest_uk_url'] = '/'
         return context
 
@@ -162,7 +161,6 @@ class RozrobkaSajtivView(BasePageView):
         context['rs_review_bodies'] = rozrobka_review_bodies()
         context.update(rs_ads_context())
         if translation.get_language() == 'ru':
-            context['lang_suggest_always'] = True
             context['lang_suggest_uk_url'] = '/rozrobka-sajtiv/'
         return context
 
@@ -276,7 +274,6 @@ class CorporateWebsiteV2View(BasePageView):
                 '100/100 Core Web Vitals, техническое SEO, пожизненная гарантия на код.'
             )
             context['og_title'] = 'Корпоративные сайты, которые доминируют в поиске — PrometeyLabs'
-            context['lang_suggest_always'] = True
             context['lang_suggest_uk_url'] = '/corporate-website-v2/'
         return context
 

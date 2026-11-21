@@ -149,7 +149,8 @@ class AdsLandingSeoTests(TestCase):
         self.assertNotIn('id="contacts"', html)
         self.assertNotIn('id="process"', html)
         self.assertIn('href="/offer/"', html)
-        self.assertNotIn('РНОКПП', html)
+        self.assertNotIn('id="pl-ads-contacts"', html)
+        self.assertIn('ФОП Дмитренко Софія Дмитрівна · РНОКПП 3770706565', html)
         self.assertNotIn('Відкрити магазин', html)
         self.assertNotIn('pl-ads-cases', html)
 
@@ -162,7 +163,7 @@ class AdsLandingSeoTests(TestCase):
         self.assertIn('id="process"', html)
         self.assertIn('Часті питання про розробку сайтів', html)
         self.assertIn('"FAQPage"', html)
-        self.assertIn('50+ запущених проєктів', html)
+        self.assertIn('5,0 ★ на Google · 51 відгук · 50+ запущених проєктів', html)
         self.assertIn('Відгуки клієнтів на Google', html)
 
     def test_dorobka_form_and_skipped_facts(self):

@@ -288,11 +288,12 @@
 }
 .hf-ai__badge img {
     position: absolute;
-    top: -6.16%;
-    left: -20.9%;
-    width: 139.9%;
+    inset: 0;
+    width: 100%;
     max-width: none;
-    height: 117.62%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center top;
 }
 
 /* ---------- Process ---------- */
