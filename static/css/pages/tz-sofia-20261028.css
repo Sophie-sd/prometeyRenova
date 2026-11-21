@@ -16,8 +16,7 @@
     html body .hf-hero { padding-top: 112px; }
 }
 @media (max-width: 600px) {
-    /* Language bar is ~3 lines + 44px buttons at the top. Keep the wordmark below it. */
-    html body .hf-hero { padding-top: 140px; }
+    html body:has(#lang-suggest) .hf-hero { padding-top: 140px; }
 }
 @media (max-width: 767px) {
     html body .hf-hero .hf-hero__content { top: 0; z-index: 1; }
@@ -156,11 +155,8 @@ html body .pl-rs__hero .pl-rs__hero-trust { margin-top: 10px; font-size: 13px; }
 /* ---------- 4.5 Херо в один екран ---------- */
 @media (max-width: 767px) {
     .pl-rs__hero .pl-rs__hero-trust { padding-inline: 16px; text-wrap: balance; }
-    /* Bar at the top is ~2 lines + 44px buttons; H1 starts below it. 96px bottom keeps the trust line off the chat button. */
-    html body .pl-rs__hero {
-        padding-top: calc(128px + env(safe-area-inset-top, 0px));
-        padding-bottom: 96px;
-    }
+    html body .pl-rs__hero { padding-bottom: 96px; }
+    html body:has(#lang-suggest) .pl-rs__hero { padding-top: calc(128px + env(safe-area-inset-top, 0px)); }
 }
 
 /* ---------- 4.6 #pl-rs-calc: менші вертикальні відступи ---------- */
