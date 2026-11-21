@@ -10383,5 +10383,18 @@ msgstr "A manager will call you back within 15 minutes (Mon–Fri 10:00–18:00)
 msgid "ФОП Дмитренко Софія Дмитрівна · РНОКПП 3770706565 · Київ, бульвар Тараса Шевченка 46а · Пн–Пт 10:00–18:00"
 msgstr "ФОП Дмитренко Софія Дмитрівна · РНОКПП 3770706565 · Kyiv, 46a Taras Shevchenko Blvd · Mon–Fri 10:00–18:00"
 
+msgid "ФОП Дмитренко Софія Дмитрівна"
+msgstr "ФОП Дмитренко Софія Дмитрівна"
+
+msgid "РНОКПП 3770706565"
+msgstr "РНОКПП 3770706565"
+
+msgctxt "footer-legal"
+msgid "Київ, бульвар Тараса Шевченка 46а"
+msgstr "Kyiv, 46a Taras Shevchenko Blvd"
+
+msgid "Пн–Пт 10:00–18:00"
+msgstr "Mon–Fri 10:00–18:00"
+
 msgid "Бейдж PrometeyLabs: роки практики у веб-розробці, дизайні, інтеграціях, мобільних додатках та інтернет-маркетингу"
 msgstr "PrometeyLabs badge: years of practical experience in web development, design, integrations, mobile apps and digital marketing"

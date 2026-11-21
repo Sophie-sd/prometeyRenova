@@ -150,7 +150,10 @@ class AdsLandingSeoTests(TestCase):
         self.assertNotIn('id="process"', html)
         self.assertIn('href="/offer/"', html)
         self.assertNotIn('id="pl-ads-contacts"', html)
-        self.assertIn('ФОП Дмитренко Софія Дмитрівна · РНОКПП 3770706565', html)
+        self.assertIn('ФОП Дмитренко Софія Дмитрівна', html)
+        self.assertIn('class="plf__nw">РНОКПП 3770706565</span>', html)
+        self.assertIn('Київ, бульвар Тараса Шевченка 46а', html)
+        self.assertIn('class="plf__nw">Пн–Пт 10:00–18:00</span>', html)
         self.assertNotIn('Відкрити магазин', html)
         self.assertNotIn('pl-ads-cases', html)
 

@@ -6,8 +6,10 @@
  * - Appears gently ~1.5s after page load (slide + fade in).
  * - Does NOT block scroll — page is fully usable.
  * - Auto-dismisses on first user scroll (>40px) or after 12s of inactivity.
+ * - Shown once per visitor: localStorage lang_suggest_seen is set as soon as
+ *   the bar is shown, so a scroll or the 12s timeout does not bring it back
+ *   on the next page. "Так" and "Ні" still dismiss it.
  * - "Так" → switch to Ukrainian (or navigate to data-uk-url).
- * - "Ні" / close → dismiss and remember the choice (localStorage lang_suggest_seen).
  *
  * Data attributes:
  *   data-uk-url="/..."  — direct URL to the UA version (preferred over set_language).
@@ -98,13 +100,14 @@
         function onScroll() {
             const delta = Math.abs(window.scrollY - initialScrollY);
             if (delta > SCROLL_THRESHOLD_PX) {
-                // User started scrolling — gently dismiss without persisting,
-                // so we can still show it next time if they didn't decide.
+                // Already recorded in show(); scrolling only hides this visit.
                 hide(false);
             }
         }
 
         function show() {
+            // Once per visitor, including when they ignore the bar.
+            persistDismiss();
             initialScrollY = window.scrollY || 0;
             toast.hidden = false;
             // Force a reflow so the transition kicks in from the initial state.

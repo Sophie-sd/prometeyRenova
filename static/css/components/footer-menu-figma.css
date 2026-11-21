@@ -36,7 +36,8 @@
 .plf__bottom{display:flex;flex-direction:column;gap:0;padding-top:20px;border-top:1px solid var(--plf-gray);font-size:12px;line-height:normal;letter-spacing:-.36px;color:var(--plf-gray)}
 .plf__bottom p{margin:0;font:inherit;color:inherit}
 .plf__bottom .plf__tagline{color:var(--plf-orange)}
-.plf__legal{margin-top:8px;max-width:40rem;line-height:1.45;overflow-wrap:break-word}
+.plf__bottom .plf__legal{margin-top:8px;line-height:1.5;max-width:none}
+.plf__nw{white-space:nowrap}
 
 /* ---- Lead form (footer + menu) ---- */
 .plf-form{display:flex;flex-direction:column;gap:14px;margin:0;width:100%}
@@ -110,7 +111,7 @@
   .plf__acc-body{display:none}
   [data-plf-acc].is-open .plf__acc-body{display:flex}
   .plf__bottom{border-top:0;padding:20px 88px 24px 0;font-size:10px;letter-spacing:-.3px;margin-top:0}
-  .plf__legal{max-width:none;line-height:1.5}
+  .plf__bottom .plf__legal{font-size:12px}
 }
 
 /* ================= MOBILE MENU (Figma 1:339) ================= */

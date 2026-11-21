@@ -135,9 +135,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .nav-dropdown__menu{position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%) translateY(6px);opacity:0;visibility:hidden;pointer-events:none}
 .nav-dropdown.is-open .nav-dropdown__menu,.nav-dropdown:hover .nav-dropdown__menu,.nav-dropdown:focus-within .nav-dropdown__menu{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
 @media(max-width:767px){.contact-widget{display:none}.mobile-contact-fab{display:flex;align-items:center;justify-content:center;position:fixed;right:clamp(16px,4vw,24px);bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:9999;width:67px;height:67px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);color:#fff;box-shadow:0 4px 24px rgba(0,0,0,.2)}body.menu-open .mobile-contact-fab,body.modal-open .mobile-contact-fab{visibility:hidden;pointer-events:none;opacity:0}}
-.lang-suggest{position:fixed;top:76px;left:50%;transform:translate(-50%,-16px);z-index:1500;display:none;pointer-events:none}
+.lang-suggest{position:fixed;top:auto;bottom:24px;left:24px;right:auto;max-width:420px;z-index:1500;display:none;pointer-events:none;transform:none}
 .lang-suggest:not([hidden]){display:block}
-@media(max-width:600px){.lang-suggest{top:0;left:8px;right:52px;width:auto;max-width:none;transform:none}}
+@media(max-width:600px){.lang-suggest{top:0;bottom:auto;left:8px;right:52px;width:auto;max-width:none;transform:none}}
 .is-sticky-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9000}
 .container{width:100%;margin:0 auto;padding:0 var(--space-xs);margin-top:60px}
 @media(max-width:1024px){.container{padding:0 var(--space-sm)}}
@@ -165,9 +165,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </style>
 
     <!-- CSS Base Bundle — non-blocking (preload + media-print swap on load) -->
-    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=34" as="style">
-    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=34" media="print" data-async-css>
-    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=34"></noscript>
+    <link rel="preload" href="{% static 'css/base-bundle.css' %}?v=35" as="style">
+    <link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=35" media="print" data-async-css>
+    <noscript><link rel="stylesheet" href="{% static 'css/base-bundle.css' %}?v=35"></noscript>
     {% block currency_css %}<link rel="stylesheet" href="{% static 'css/components/currency.css' %}?v=3">{% endblock %}
 
     {# Canonical, hreflang, robots — one central source (apps/core/seo.py). #}
@@ -180,7 +180,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     {% block extra_css %}{% endblock %}
     <link rel="stylesheet" href="{% static 'css/components/a11y-states.css' %}?v=2">
     <link rel="stylesheet" href="{% static 'css/components/phone-field.css' %}?v=1">
-    <link rel="stylesheet" href="{% static 'css/components/footer-menu-figma.css' %}?v=8">
+    <link rel="stylesheet" href="{% static 'css/components/footer-menu-figma.css' %}?v=9">
     <link rel="stylesheet" href="{% static 'css/components/modal-mobile.css' %}?v=4">
 
     <!-- Activate non-blocking CSS as soon as it loads (eliminates FOUC, no defer wait) -->
@@ -306,7 +306,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     {% endblock %}
     {# Outside base_js: the home page replaces that block, and the toast must still run. #}
     {% if CURRENT_LANG == 'ru' and not hide_lang_suggest %}
-    <script src="{% static 'js/lang-suggest.js' %}?v=4" nonce="{{ csp_nonce }}" defer></script>
+    <script src="{% static 'js/lang-suggest.js' %}?v=5" nonce="{{ csp_nonce }}" defer></script>
     {% endif %}
     <script src="{% static 'js/vendor/htmx.min.js' %}" nonce="{{ csp_nonce }}" defer></script>
     <script src="{% static 'js/core/currency.js' %}?v=1" nonce="{{ csp_nonce }}" defer></script>
