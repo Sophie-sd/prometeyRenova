@@ -179,6 +179,11 @@
         pointer-events: auto;
         transition: transform 0.25s ease, visibility 0s;
     }
+    /* translateY(0) лишається transform і прив'язує fixed до overflow-предка. FAB чату без transform стоїть на екрані. */
+    body > .pl-calc-sticky.is-visible {
+        position: fixed;
+        transform: none;
+    }
     /* є FAB → кнопка звільняє місце справа під нього */
     body.pl-calc-sticky-on.pl-calc-has-fab .pl-calc-sticky {
         right: calc(var(--pl-calc-sticky-side) + var(--pl-calc-sticky-h) + var(--pl-calc-sticky-gap));
