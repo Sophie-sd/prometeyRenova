@@ -45,9 +45,12 @@
     function initSticky() {
         var bar = document.querySelector('[data-calc-sticky]');
         if (!bar || !('IntersectionObserver' in window)) return;
-        // Рендериться всередині hero; переносимо в <body>, щоб stacking context hero
-        // (z-index/isolation секції) не ховав fixed-бар під наступні секції.
-        if (bar.parentNode !== document.body) document.body.appendChild(bar);
+        /* overflow:hidden on the hero and overflow-x:clip on main pin position:fixed
+           to the page. Keep the bar on body, same as the chat FAB. */
+        function park() {
+            if (bar.parentNode !== document.body) document.body.appendChild(bar);
+        }
+        park();
         var btn = bar.querySelector('a');
         var hero = document.querySelector('[data-calc-cta-hero]');
         var mq = window.matchMedia('(max-width: 767px)');
@@ -61,6 +64,7 @@
             var show = (mq.matches || desktop) && pastHero && blockers.size === 0 && !typing &&
                 !leadSent() &&
                 !body.classList.contains('modal-open') && !body.classList.contains('menu-open');
+            park();
             bar.classList.toggle('is-visible', show);
             bar.setAttribute('aria-hidden', show ? 'false' : 'true');
             if (btn) btn.tabIndex = show ? 0 : -1;
@@ -87,7 +91,11 @@
             if (t) watch.push(t);
         }
         document.querySelectorAll('main form, form[data-form-type], footer, .footer, .site-footer').forEach(function (el) {
-            if (el.closest('.modal, [role="dialog"], [data-calc-sticky], .fx-switch')) return;
+            /* Off-canvas menu form and closed dialogs must not count as on-screen,
+               or the bar never receives .is-visible. menu-open still hides it. */
+            if (el.closest('.modal, [role="dialog"], dialog, [data-calc-sticky], .fx-switch, .mobile-menu, .contact-widget, [hidden]')) return;
+            var dlg = el.closest('dialog');
+            if (dlg && !dlg.open) return;
             if (watch.indexOf(el) === -1) watch.push(el);
         });
         var io = new IntersectionObserver(function (entries) {
