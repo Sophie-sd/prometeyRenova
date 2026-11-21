@@ -85,8 +85,8 @@ META_OVERRIDES: dict[tuple[str, str], tuple[str | None, str | None]] = {
     ),
     ('corporate_website_v2', 'en'): (
         'Turnkey Corporate Website & Landing Pages | PrometeyLabs',
-        'Turnkey corporate websites and landing pages: landing €150–300 in 3–7 days, website '
-        '€350–500 in 7–14 days. Lifetime code warranty and 1 year of free support.',
+        'Turnkey corporate websites and landing pages: landing €150–€300 in 3–7 days, website '
+        '€350–€500 in 7–14 days. Lifetime code warranty and 1 year of free support.',
     ),
     ('telegram_bot', 'uk'): (
         'Розробка Telegram-бота під ключ для бізнесу | PrometeyLabs',

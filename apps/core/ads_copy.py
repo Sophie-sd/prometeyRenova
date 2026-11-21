@@ -395,8 +395,8 @@ RS = {
     'en': {
         'title': 'Turnkey website development in Ukraine | PrometeyLabs',
         'description': (
-            'Turnkey websites: landing pages 150–300 €, corporate sites 350–500 €, '
-            'online stores from 650 €. Price and deadline are fixed in the contract. '
+            'Turnkey websites: landing pages €150–€300, corporate sites €350–€500, '
+            'online stores from €650. Price and deadline are fixed in the contract. '
             'Lifetime code warranty and 1 year of free support.'
         ),
         'crumb': 'Website development',
@@ -404,7 +404,7 @@ RS = {
         'faq': [
             (
                 'How much does it cost to build a website?',
-                'Landing pages 150–300 €, corporate sites 350–500 €, online stores from 650 €, platforms 1,500–5,000 €. We fix the exact amount and deadline in the contract.',
+                'Landing pages €150–€300, corporate sites €350–€500, online stores from €650, platforms €1,500–€5,000. We fix the exact amount and deadline in the contract.',
             ),
             (
                 'How long does website development take?',
