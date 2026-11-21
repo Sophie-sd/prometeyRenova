@@ -83,7 +83,7 @@
     var PKG_MAP_EN = {
         base: {
             label: 'Base',
-            price: 'from \u20ac650',
+            price: 'from 650 €',
             term: '3–4 weeks',
             features: [
                 'Core conversion-focused design for your niche',
@@ -93,7 +93,7 @@
         },
         premium: {
             label: 'Premium',
-            price: 'from \u20ac1,500',
+            price: 'from 1 500 €',
             term: '5–8 weeks',
             features: [
                 'Custom UI/UX design from scratch',
@@ -104,7 +104,7 @@
         },
         platinum: {
             label: 'Platinum',
-            price: 'from \u20ac7,000',
+            price: 'from 7 000 €',
             term: '2–4 months',
             features: [
                 'Store: niche design, admin panel with roles, up to 10 languages',

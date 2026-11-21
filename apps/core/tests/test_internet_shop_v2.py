@@ -270,7 +270,7 @@ class ShopV2EnglishTests(TestCase):
     """EN /internet-shop-v2/ uses the approved English copy; uk and ru stay put."""
 
     EN = '/en/internet-shop-v2/'
-    EN_TITLE = 'Turnkey online store development — price from €650 | PrometeyLabs'
+    EN_TITLE = 'Turnkey online store development — price from 650 € | PrometeyLabs'
     EN_H1 = 'Turnkey <span class="pl-shop__nowrap">online store</span> development'
     HIDDEN_DETAILS = 'Сторінка: Інтернет-магазини · Форма №1 (після «Переросли Prom»)'
 
@@ -282,6 +282,10 @@ class ShopV2EnglishTests(TestCase):
     def test_en_copy_and_uk_ru_unchanged(self):
         html = self._get(self.EN)
         self.assertIn(f'<title>{self.EN_TITLE}</title>', html)
+        self.assertIn('from 650 €', html)
+        self.assertNotIn('€6', html)
+        self.assertNotIn('€1,', html)
+        self.assertNotIn('€7,', html)
         self.assertIn(
             f'id="pl-shop-hero-title" class="pl-shop__title pl-shop__title--hero">{self.EN_H1}</h1>',
             html,
