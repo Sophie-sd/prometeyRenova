@@ -1295,7 +1295,7 @@ msgstr "E-commerce stores"
 
 #: apps/core/views.py:192
 msgid "Створення інтернет-магазину під ключ від 650€ | PrometeyLabs"
-msgstr "Turnkey online store development from 650 € | PrometeyLabs"
+msgstr "Turnkey online store development from €650 | PrometeyLabs"
 
 #: apps/core/views.py:194
 msgid ""
@@ -1303,7 +1303,7 @@ msgid ""
 "плагінів і абонплати. Запуск за 3 тижні, пожиттєва гарантія на код і 1 рік "
 "підтримки безкоштовно."
 msgstr ""
-"Turnkey online store development from 650 €: design, code and integrations "
+"Turnkey online store development from €650: design, code and integrations "
 "with no plugins and no subscription fees. Launch in 3 weeks, lifetime code "
 "warranty and 1 year of free support."
 
@@ -5735,7 +5735,7 @@ msgid "Створення <span class=\"pl-shop__nowrap\">інтернет-ма�
 msgstr "Turnkey <span class=\"pl-shop__nowrap\">online store</span> development"
 
 msgid "Розробка <span class=\"pl-shop__nowrap\">інтернет-магазину</span> <strong class=\"pl-shop__hero-acc\">від 650 €</strong> · запуск <strong class=\"pl-shop__hero-acc\">за 3 тижні</strong> · 1 рік підтримки безкоштовно · пожиттєва гарантія на код"
-msgstr "<span class=\"pl-shop__nowrap\">Online store</span> development <strong class=\"pl-shop__hero-acc\">from 650 €</strong> · launch <strong class=\"pl-shop__hero-acc\">in 3 weeks</strong> · 1 year of free support · lifetime code warranty"
+msgstr "<span class=\"pl-shop__nowrap\">Online store</span> development <strong class=\"pl-shop__hero-acc\">from €650</strong> · launch <strong class=\"pl-shop__hero-acc\">in 3 weeks</strong> · 1 year of free support · lifetime code warranty"
 
 msgid "30+ розроблених інтернет-магазинів"
 msgstr "30+ online stores developed"
@@ -6340,7 +6340,7 @@ msgid "Створення інтернет-магазину під ключ"
 msgstr "Turnkey online store development"
 
 msgid "Від 650€. Запуск за 3 тижні. 1 рік підтримки безкоштовно."
-msgstr "From 650 €. Launch in 3 weeks. 1 year of free support."
+msgstr "From €650. Launch in 3 weeks. 1 year of free support."
 
 msgid ""
 "Дизайн, код і інтеграції. Без плагінів і без щомісячної абонплати. Магазин "

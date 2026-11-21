@@ -195,14 +195,14 @@ SHOP = {
         ],
     },
     'en': {
-        'title': 'Turnkey online store development — price from 650 € | PrometeyLabs',
+        'title': 'Turnkey online store development — price from €650 | PrometeyLabs',
         'description': (
-            'Create or order a turnkey online store from 650 €: design, code, LiqPay, Mono, '
+            'Create or order a turnkey online store from €650: design, code, LiqPay, Mono, '
             'Nova Poshta. Launch in 3 weeks, 1 year of free support.'
         ),
         'h1': 'Turnkey online store development',
         'line': (
-            'Online store development from 650 € · launch in 3 weeks · 1 year of free support · '
+            'Online store development from €650 · launch in 3 weeks · 1 year of free support · '
             'lifetime code warranty.'
         ),
         'lead': 'Design, code and integrations. No plugins and no monthly fees. The store stays yours.',
@@ -213,9 +213,9 @@ SHOP = {
         'faq': [
             (
                 'How much does it cost to create an online store?',
-                'A basic store (up to 100 products, design, mobile version, LiqPay and Mono, Nova Poshta, admin panel) — from 650 €. '
-                'A store with CRM, Telegram notifications and ad account setup — from 1 500 €. '
-                'A store with marketing and SEO — from 7 000 €. The exact amount and deadline are fixed in the contract.',
+                'A basic store (up to 100 products, design, mobile version, LiqPay and Mono, Nova Poshta, admin panel) — from €650. '
+                'A store with CRM, Telegram notifications and ad account setup — from €1,500. '
+                'A store with marketing and SEO — from €7,000. The exact amount and deadline are fixed in the contract.',
             ),
             (
                 'How long does online store development take?',
