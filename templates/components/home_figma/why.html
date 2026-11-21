@@ -53,9 +53,23 @@
             </div>
             {% trans "Результат: повна автоматизація взаємодії з клієнтами, оптимізація витрат та вихід на новий рівень цифрового сервісу" as n4 %}{% include 'components/home_figma/_note.html' with text=n4 %}
         </article>
-        <div class="hf-ai__badge" aria-hidden="true"><img src="{% static 'images/home-figma/badge.webp' %}"
-             srcset="{% static 'images/home-figma/badge-480.webp' %} 480w, {% static 'images/home-figma/badge.webp' %} 860w"
-             sizes="(max-width: 767px) 330px, 430px" width="860" height="1290" alt="" loading="lazy" decoding="async"></div>
+        {% get_current_language as LANG %}
+        {% trans "Бейдж PrometeyLabs: роки практики у веб-розробці, дизайні, інтеграціях, мобільних додатках та інтернет-маркетингу" as badge_alt %}
+        <div class="hf-ai__badge">
+            {% if LANG == 'ru' %}
+            <img src="{% static 'images/home-figma/badge-ru.webp' %}"
+                 srcset="{% static 'images/home-figma/badge-ru-480.webp' %} 480w, {% static 'images/home-figma/badge-ru.webp' %} 860w"
+                 sizes="(max-width: 767px) 330px, 430px" width="860" height="1534" alt="{{ badge_alt }}" loading="lazy" decoding="async">
+            {% elif LANG == 'en' %}
+            <img src="{% static 'images/home-figma/badge-en.webp' %}"
+                 srcset="{% static 'images/home-figma/badge-en-480.webp' %} 480w, {% static 'images/home-figma/badge-en.webp' %} 860w"
+                 sizes="(max-width: 767px) 330px, 430px" width="860" height="1535" alt="{{ badge_alt }}" loading="lazy" decoding="async">
+            {% else %}
+            <img src="{% static 'images/home-figma/badge.webp' %}"
+                 srcset="{% static 'images/home-figma/badge-480.webp' %} 480w, {% static 'images/home-figma/badge.webp' %} 860w"
+                 sizes="(max-width: 767px) 330px, 430px" width="860" height="1534" alt="{{ badge_alt }}" loading="lazy" decoding="async">
+            {% endif %}
+        </div>
     </div>
 </section>
 {% endwith %}

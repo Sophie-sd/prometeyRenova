@@ -55,7 +55,7 @@
                 <div class="plf__list plf__acc-body">
                     <a href="{{ site_contact.get_tel_href }}" class="plf__accent">{{ site_contact.phone_display }}</a>
                     <a href="mailto:{{ site_contact.email }}" class="plf__accent">{{ site_contact.email }}</a>
-                    <span class="plf__small">{% trans "Графік роботи: Цілодобово" %}</span>
+                    <span class="plf__small">{% trans "Графік роботи: Пн–Пт 10:00–18:00" %}</span>
                     {% include 'components/footer_social.html' %}
                 </div>
             </div>
@@ -74,6 +74,7 @@
         <div class="plf__bottom">
             <p>&copy; {% now "Y" %} PrometeyLabs. {% trans "Усі права захищені." %}</p>
             <p class="plf__tagline">{% trans "Комплексні веб-рішення" %} • {% trans "Розробка" %} • Digital-{% trans "просування" %} • {% trans "Навчання" %}</p>
+            <p class="plf__legal">{% trans "ФОП Дмитренко Софія Дмитрівна" %} · <span class="plf__nw">{% trans "РНОКПП 3770706565" %}</span> · {% trans "Київ, бульвар Тараса Шевченка 46а" context "footer-legal" %} · <span class="plf__nw">{% trans "Пн–Пт 10:00–18:00" %}</span></p>
         </div>
     </div>
 </footer>

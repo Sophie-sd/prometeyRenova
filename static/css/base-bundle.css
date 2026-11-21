@@ -4309,14 +4309,12 @@ body.modal-open .main-footer {
 }
 
 .lang-suggest__card {
-    background: rgba(20, 20, 20, 0.96);
-    border: 1px solid rgba(230, 81, 0, 0.45);
-    border-radius: 14px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(230, 81, 0, 0.12);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+    background: var(--color-black);
+    border: 0;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
     padding: 16px 18px;
-    color: #fff;
+    color: var(--color-white);
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -4325,16 +4323,17 @@ body.modal-open .main-footer {
 
 .lang-suggest__text {
     flex: 1 1 auto;
+    min-width: 0;
     font-size: 14px;
     font-weight: 500;
-    color: #fff;
+    color: var(--color-white);
     line-height: 1.45;
     margin: 0;
     letter-spacing: -0.1px;
 }
 
 .lang-suggest__text strong {
-    color: var(--color-brand-orange, #E65100);
+    color: var(--color-brand-orange);
     font-weight: 700;
 }
 
@@ -4361,15 +4360,15 @@ body.modal-open .main-footer {
 }
 
 .lang-suggest__yes {
-    /* #c44e00: white 12.5px text = 4.7:1 (WCAG AA); brand #E65100 was 3.8:1 */
-    background: #c44e00;
-    color: #fff;
-    border: 1.5px solid #c44e00;
+    /* --color-brand-orange (#E65100) on white is 3.8:1; the active token is 5.9:1 */
+    background: var(--color-brand-orange-active);
+    color: var(--color-white);
+    border: 0;
 }
 
 .lang-suggest__yes:hover,
 .lang-suggest__yes:focus-visible {
-    filter: brightness(1.15);
+    background: var(--color-brand-orange-active);
     outline: none;
 }
 
@@ -4382,33 +4381,71 @@ body.modal-open .main-footer {
 .lang-suggest__close:hover,
 .lang-suggest__close:focus-visible {
     background: rgba(255, 255, 255, 0.08);
-    color: #fff;
+    color: var(--color-white);
     border-color: rgba(255, 255, 255, 0.45);
     outline: none;
 }
 
 @media (max-width: 600px) {
     .lang-suggest {
-        top: 70px;
-        width: calc(100% - 16px);
+        top: 0;
+        left: 8px;
+        right: 52px;
+        width: auto;
+        max-width: none;
+        transform: none;
+    }
+    .lang-suggest.is-visible {
+        transform: none;
     }
     .lang-suggest__card {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-        padding: 14px 16px;
+        display: block;
+        padding: 8px 10px;
+    }
+    .lang-suggest__card::after {
+        content: "";
+        display: block;
+        clear: both;
     }
     .lang-suggest__text {
-        font-size: 13.5px;
-        text-align: center;
+        font-size: 13px;
+        line-height: 1.25;
+        text-align: left;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
     }
     .lang-suggest__actions {
-        justify-content: center;
+        float: right;
+        margin: 0 0 4px 8px;
     }
     .lang-suggest__yes,
     .lang-suggest__close {
-        flex: 1;
-        padding: 10px 14px;
-        font-size: 12.5px;
+        flex: 0 0 auto;
+        padding: 6px 10px;
+        font-size: 13px;
+        min-height: 44px;
+    }
+}
+
+@media (min-width: 601px) {
+    .lang-suggest {
+        top: auto;
+        bottom: 24px;
+        left: 24px;
+        right: auto;
+        width: max-content;
+        max-width: 420px;
+        transform: none;
+    }
+    .lang-suggest.is-visible {
+        transform: none;
+    }
+}
+
+/* Sticky calc CTA is a full-width bar at ≤767px. Lift the toast above it. */
+@media (min-width: 601px) and (max-width: 767px) {
+    body.pl-calc-sticky-on .lang-suggest {
+        bottom: calc(24px + var(--pl-calc-sticky-h, 54px) + var(--pl-calc-sticky-gap, 12px));
     }
 }

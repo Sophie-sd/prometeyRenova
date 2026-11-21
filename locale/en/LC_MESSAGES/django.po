@@ -2319,8 +2319,8 @@ msgid "КОНТАКТИ"
 msgstr "CONTACTS"
 
 #: templates/components/footer.html:43
-msgid "Графік роботи: Цілодобово"
-msgstr "Working Hours: 24/7"
+msgid "Графік роботи: Пн–Пт 10:00–18:00"
+msgstr "Working hours: Mon–Fri 10:00–18:00"
 
 #: templates/components/footer.html:72
 msgid "ОТРИМАТИ КОНСУЛЬТАЦІЮ"
@@ -10170,8 +10170,8 @@ msgid "Менеджер передзвонить за 15 хвилин"
 msgstr "A manager will call you back within 15 minutes"
 
 #: rozrobka-sajtiv (ТЗ 27.10.2026)
-msgid "Ціна і строк у договорі · <span class=\"pl-rs__trust-admin\">Адмінка залишається у вас · </span>50+ запущених проєктів"
-msgstr "Price and deadline in the contract · <span class=\"pl-rs__trust-admin\">The admin panel stays yours · </span>50+ launched projects"
+msgid "5,0 ★ на Google · 51 відгук · 50+ запущених проєктів"
+msgstr "5.0 ★ on Google · 51 reviews · 50+ launched projects"
 
 #: rozrobka-sajtiv (ТЗ 27.10.2026)
 msgid "Наші роботи — сайти від веб-студії PrometeyLabs"
@@ -10414,3 +10414,25 @@ msgstr "PrometeyLabs specialists have years of practice in web development, desi
 
 msgid "<span class=\"pl-rs-mline\">Лендінг <span class=\"pl-rs__acc\">від 150 €</span>,</span> <span class=\"pl-rs-mline\">корпоративний сайт <span class=\"pl-rs__acc\">від 350 €</span>,</span><br class=\"pl-rs-br-d\"> <span class=\"pl-rs-mline\">інтернет-магазин <span class=\"pl-rs__acc\">від 650 €</span>.</span> <span class=\"pl-rs-mline pl-rs-mline--fit\">Пожиттєва гарантія на код, <span class=\"pl-rs__acc\">1 рік безкоштовної підтримки</span>.</span>"
 msgstr "<span class=\"pl-rs-mline\">A landing page <span class=\"pl-rs__acc\">from €150</span>,</span> <span class=\"pl-rs-mline\">a corporate website <span class=\"pl-rs__acc\">from €350</span>,</span><br class=\"pl-rs-br-d\"> <span class=\"pl-rs-mline\">an online store <span class=\"pl-rs__acc\">from €650</span>.</span> <span class=\"pl-rs-mline pl-rs-mline--fit\">Lifetime code warranty and <span class=\"pl-rs__acc\">1 year of free support</span>.</span>"
+
+msgid "Менеджер передзвонить за 15 хвилин (Пн–Пт 10:00–18:00)"
+msgstr "A manager will call you back within 15 minutes (Mon–Fri 10:00–18:00)"
+
+msgid "ФОП Дмитренко Софія Дмитрівна · РНОКПП 3770706565 · Київ, бульвар Тараса Шевченка 46а · Пн–Пт 10:00–18:00"
+msgstr "ФОП Дмитренко Софія Дмитрівна · РНОКПП 3770706565 · Kyiv, 46a Taras Shevchenko Blvd · Mon–Fri 10:00–18:00"
+
+msgid "ФОП Дмитренко Софія Дмитрівна"
+msgstr "ФОП Дмитренко Софія Дмитрівна"
+
+msgid "РНОКПП 3770706565"
+msgstr "РНОКПП 3770706565"
+
+msgctxt "footer-legal"
+msgid "Київ, бульвар Тараса Шевченка 46а"
+msgstr "Kyiv, 46a Taras Shevchenko Blvd"
+
+msgid "Пн–Пт 10:00–18:00"
+msgstr "Mon–Fri 10:00–18:00"
+
+msgid "Бейдж PrometeyLabs: роки практики у веб-розробці, дизайні, інтеграціях, мобільних додатках та інтернет-маркетингу"
+msgstr "PrometeyLabs badge: years of practical experience in web development, design, integrations, mobile apps and digital marketing"

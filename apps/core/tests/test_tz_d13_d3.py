@@ -79,6 +79,18 @@ class RozrobkaHeroPricesOnceTests(TestCase):
             self.assertIn('class="lang-suggest"', html)
             self.assertLess(html.index('</main>'), html.index('id="lang-suggest"'))
 
+    def test_lang_suggest_is_remembered_as_soon_as_it_is_shown(self):
+        """Scroll or the 12s timeout must not show the bar again on the next page."""
+        from pathlib import Path
+
+        js = Path('static/js/lang-suggest.js').read_text(encoding='utf-8')
+        self.assertIn("const STORAGE_KEY = 'lang_suggest_seen'", js)
+        persist = js.split('function persistDismiss()', 1)[1].split('function hide', 1)[0]
+        self.assertIn('localStorage.setItem(STORAGE_KEY', persist)
+        self.assertIn('try {', persist)
+        show = js.split('function show()', 1)[1].split('const yesBtn', 1)[0]
+        self.assertLess(show.index('persistDismiss()'), show.index("toast.classList.add('is-visible')"))
+
     def test_no_standalone_facebook_or_doubleclick_scripts(self):
         html = self.client.get('/rozrobka-sajtiv/').content.decode()
         self.assertNotIn('connect.facebook.net', html)
