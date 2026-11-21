@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from decimal import Decimal, ROUND_HALF_UP
 
-from django.utils.translation import gettext as _
+from django.utils.translation import get_language, gettext as _
 
 CURRENCY_COOKIE = 'pl_currency'
 CURRENCY_COOKIE_AGE = 60 * 60 * 24 * 365
@@ -102,9 +102,25 @@ def convert_amount(amount, currency: str, rates) -> Decimal:
     return (amount * rate).quantize(Decimal('1'), rounding=ROUND_HALF_UP)
 
 
+def _is_en() -> bool:
+    return (get_language() or 'uk').split('-')[0] == 'en'
+
+
+def _en_eur_number(amount) -> str:
+    """English EUR: €1,500, comma thousands separator."""
+    amount = Decimal(amount)
+    if amount == amount.to_integral_value():
+        return f'{int(amount):,}'
+    quantized = amount.quantize(Decimal('0.01'))
+    whole, frac = f'{quantized:.2f}'.split('.')
+    return f'{int(whole):,}.{frac}'
+
+
 def format_amount(amount, currency: str, rates) -> str:
     code = currency if currency in available_codes(rates) else 'EUR'
     if code == 'EUR':
+        if _is_en():
+            return f'€{_en_eur_number(amount)}'
         return f'{format_eur_number(amount)} €'
     shown = convert_amount(amount, code, rates)
     return f'{_grouped(int(shown))} {SYMBOLS[code]}'
@@ -113,6 +129,8 @@ def format_amount(amount, currency: str, rates) -> str:
 def format_range(low, high, currency: str, rates) -> str:
     code = currency if currency in available_codes(rates) else 'EUR'
     if code == 'EUR':
+        if _is_en():
+            return f'€{_en_eur_number(low)}–€{_en_eur_number(high)}'
         return f'{format_eur_number(low)}–{format_eur_number(high)} €'
     left = convert_amount(low, code, rates)
     right = convert_amount(high, code, rates)
@@ -135,6 +153,8 @@ def format_package_price(package, currency: str, rates) -> str:
         return format_range(package.price, high, currency, rates)
     code = currency if currency in available_codes(rates) else 'EUR'
     if code == 'EUR':
+        if _is_en():
+            return f'€{_en_eur_number(package.price)}'
         return package.format_price()
     shown = convert_amount(package.price, code, rates)
     return f'{_grouped(int(shown))} {SYMBOLS[code]}'

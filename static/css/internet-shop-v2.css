@@ -3006,3 +3006,43 @@ body.pl-shop-body .main-footer .container,
         padding-bottom: 120px;
     }
 }
+
+/* EN trust line and sticky CTA: stack the chips, let the short button wrap.
+   calc-cta.css loads later and sets nowrap + ellipsis, so the sticky rule is
+   scoped to .pl-shop-body to win that cascade. */
+@media (max-width: 767px) {
+    .pl-shop-body .pl-shop__hero-trust {
+        font-size: 0;
+        line-height: 0;
+    }
+    .pl-shop-body .pl-shop__hero-trust span {
+        display: block;
+        font-size: 13px;
+        line-height: 1.3;
+        letter-spacing: -0.26px;
+        white-space: normal;
+    }
+}
+
+@media (max-width: 374px) {
+    .pl-shop-body .pl-shop__hero-trust span {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+    }
+}
+
+@media (max-width: 767px) {
+    .pl-shop-body .pl-calc-sticky .pl-calc-cta__label {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        line-height: 1.1;
+        text-align: center;
+        text-wrap: balance;
+    }
+}
+
+.pl-shop-body .pl-shop__hero-line,
+.pl-shop-body .pl-ads-faq .pl-ads-h2 {
+    text-wrap: balance;
+}

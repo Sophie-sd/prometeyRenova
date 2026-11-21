@@ -2632,11 +2632,11 @@ msgstr "Average price ranges:"
 
 #: templates/components/home/redesign_why.html:43
 msgid "150–300 €"
-msgstr "150–300 €"
+msgstr "€150–€300"
 
 #: templates/components/home/redesign_why.html:44
 msgid "350–500 €"
-msgstr "350–500 €"
+msgstr "€350–€500"
 
 #: templates/components/home/redesign_why.html:45
 msgid "E-commerce:"
@@ -2652,7 +2652,7 @@ msgstr "Web application / SaaS:"
 
 #: templates/components/home/redesign_why.html:46
 msgid "1500–5000 €"
-msgstr "1500–5000 €"
+msgstr "€1,500–€5,000"
 
 #: templates/components/home/redesign_why.html:49
 msgid "Пропонуємо розбиття оплати на етапи — без переплат та прихованих умов."
@@ -5729,6 +5729,44 @@ msgstr ""
 msgid "Оферта"
 msgstr "Offer"
 
+# internet-shop-v2 EN (approved 2026-11-21).
+# Separate block, not at EOF, so it stays clear of entries other branches append.
+msgid "Створення <span class=\"pl-shop__nowrap\">інтернет-магазину</span> під ключ"
+msgstr "Turnkey <span class=\"pl-shop__nowrap\">online store</span> development"
+
+msgid "Розробка <span class=\"pl-shop__nowrap\">інтернет-магазину</span> <strong class=\"pl-shop__hero-acc\">від 650 €</strong> · запуск <strong class=\"pl-shop__hero-acc\">за 3 тижні</strong> · 1 рік підтримки безкоштовно · пожиттєва гарантія на код"
+msgstr "<span class=\"pl-shop__nowrap\">Online store</span> development <strong class=\"pl-shop__hero-acc\">from €650</strong> · launch <strong class=\"pl-shop__hero-acc\">in 3 weeks</strong> · 1 year of free support · lifetime code warranty"
+
+msgid "30+ розроблених інтернет-магазинів"
+msgstr "30+ online stores developed"
+
+msgid "Ціна і строк у договорі"
+msgstr "Price and deadline in the contract"
+
+msgid "Оплата частинами до 15 платежів"
+msgstr "Payment in instalments, up to 15 payments"
+
+msgid "Створити інтернет-магазин:"
+msgstr "Create an online store:"
+
+msgid "Залиште номер телефону — менеджер передзвонить за 15 хвилин, назве вартість і строк вашого магазину. Ціну й строк фіксуємо в договорі."
+msgstr "Leave your phone number — a manager will call you back within 15 minutes and name the price and deadline for your store. Price and deadline are fixed in the contract."
+
+msgid "оферта"
+msgstr "offer"
+
+msgid "Хочете створити інтернет-магазин, але не знаєте ціну?"
+msgstr "Want to create an online store but don’t know the price?"
+
+msgid "Дайте відповідь на 4 питання — це 1 хвилина, безкоштовно і без зобов’язань. Менеджер передзвонить і назве вартість."
+msgstr "Answer 4 questions — it takes 1 minute, free and with no obligation. A manager will call you back and name the price."
+
+msgid "Залиште телефон — менеджер передзвонить за 15 хвилин і назве вартість за вашими відповідями."
+msgstr "Leave your phone number — a manager will call you back within 15 minutes and name the price based on your answers."
+
+msgid "Замовити дзвінок з розрахунком"
+msgstr "Request a call with an estimate"
+
 #: templates/pages/telegram-bot.html
 msgid "Отримати прорахунок бота"
 msgstr "Get a bot quote"
@@ -6032,8 +6070,8 @@ msgid ""
 " строки у договорі, пожиттєва гарантія на код і рік підтримки безкоштовно. "
 "Отримати консультацію."
 msgstr ""
-"Turnkey websites of any complexity: landings €150–300, corporate €350–500, "
-"online stores from €650, platforms €1,500–5,000. Budget and timeline in the "
+"Turnkey websites of any complexity: landings €150–€300, corporate €350–€500, "
+"online stores from €650, platforms €1,500–€5,000. Budget and timeline in the "
 "contract, lifetime code warranty and 1 year of free support. Get a "
 "consultation."
 
@@ -6266,8 +6304,8 @@ msgid ""
 "корпоративний сайт 350–500 € за 7–14 днів. Технічне SEO, швидке завантаження,"
 " пожиттєва гарантія на код."
 msgstr ""
-"Turnkey corporate websites and landing pages: a landing page for €150–300 in "
-"3–7 days, a corporate website for €350–500 in 7–14 days. Technical SEO, fast "
+"Turnkey corporate websites and landing pages: a landing page for €150–€300 in "
+"3–7 days, a corporate website for €350–€500 in 7–14 days. Technical SEO, fast "
 "loading, lifetime code warranty and 1 year of free support."
 
 msgid "Корпоративні сайти та лендінги під ключ, що домінують у пошуку"
@@ -7144,7 +7182,7 @@ msgid "Ціна і строк"
 msgstr "Price and timeline"
 
 msgid "Лендінг 150–300 €, 3–7 днів"
-msgstr "Landing page €150–300, 3–7 days"
+msgstr "Landing page €150–€300, 3–7 days"
 
 msgid ""
 "Односторінковий сайт із формою заявок, технічним SEO, аналітикою і трекінгом,"
@@ -7154,7 +7192,7 @@ msgstr ""
 "domain and a secure connection"
 
 msgid "Корпоративний сайт 350–500 €, 7–14 днів"
-msgstr "Corporate website €350–500, 7–14 days"
+msgstr "Corporate website €350–€500, 7–14 days"
 
 msgid ""
 "Багатосторінковий сайт з адмінкою, інтеграціями (CRM, ERP, оплати), технічним"

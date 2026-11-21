@@ -1,4 +1,8 @@
-"""Literal TZ copy for ads landings (uk/ru). Visible FAQ and JSON-LD share these lists."""
+"""Literal TZ copy for ads landings (uk/ru, and en where a landing has it).
+
+Visible FAQ and JSON-LD share these lists. ``lang()`` may return ``en``;
+``for_lang`` falls back to ``uk`` for any dict that has no English entry.
+"""
 from django.utils import translation
 
 SITE = 'https://www.prometeylabs.com'
@@ -56,6 +60,7 @@ CONTACTS = {
 CRUMBS = {
     'uk': {'home': 'Головна', 'services': 'Послуги'},
     'ru': {'home': 'Главная', 'services': 'Услуги'},
+    'en': {'home': 'Home', 'services': 'Services'},
 }
 
 SHOP = {
@@ -186,6 +191,57 @@ SHOP = {
             (
                 'Сложно ли управлять магазином?',
                 'Украиноязычная админка: новый менеджер освоит её за 15 минут. Обновление остатков, цен и обработка заказов — в 1–2 клика.',
+            ),
+        ],
+    },
+    'en': {
+        'title': 'Turnkey online store development — price from €650 | PrometeyLabs',
+        'description': (
+            'Create or order a turnkey online store from €650: design, code, LiqPay, Mono, '
+            'Nova Poshta. Launch in 3 weeks, 1 year of free support.'
+        ),
+        'h1': 'Turnkey online store development',
+        'line': (
+            'Online store development from €650 · launch in 3 weeks · 1 year of free support · '
+            'lifetime code warranty.'
+        ),
+        'lead': 'Design, code and integrations. No plugins and no monthly fees. The store stays yours.',
+        'crumb': 'E-commerce stores',
+        'prices_h2': 'How much does it cost to create an online store',
+        'offer_line': 'The warranty is set out in the public contract (clause 8 of the offer)',
+        'faq_h2': 'Frequently asked questions about creating an online store',
+        'faq': [
+            (
+                'How much does it cost to create an online store?',
+                'A basic store (up to 100 products, design, mobile version, LiqPay and Mono, Nova Poshta, admin panel) — from €650. '
+                'A store with CRM, Telegram notifications and ad account setup — from €1,500. '
+                'A store with marketing and SEO — from €7,000. The exact amount and deadline are fixed in the contract.',
+            ),
+            (
+                'How long does online store development take?',
+                'Launch in 3 weeks (14–21 days) for a store with a catalog, cart, payment and delivery.',
+            ),
+            (
+                'Will there be a monthly subscription fee or commission?',
+                'No. No plugins, no monthly subscription fee, and no platform commissions. The store remains yours.',
+            ),
+            (
+                'What about the warranty and support?',
+                'Lifetime code warranty: technical bugs caused by us are fixed free of charge, with no time limit. '
+                'Plus 1 year of free support: technical questions, minor edits and consultations.',
+            ),
+            (
+                'Will you migrate products from Prom, Rozetka, Horoshop or WooCommerce?',
+                'Yes. Parsing from any website, 100,000+ SKU in a single pass, full migration in 24 hours.',
+            ),
+            (
+                'Can I pay in instalments?',
+                'Yes, up to 15 payments through monobank «Pay in Parts».',
+            ),
+            (
+                'Is the store hard to manage?',
+                'We build the admin panel ourselves, in any language you need — English, Ukrainian or another: '
+                'a new manager will master it in 15 minutes. Stock and price updates and order processing — in 1–2 clicks.',
             ),
         ],
     },
@@ -339,8 +395,8 @@ RS = {
     'en': {
         'title': 'Turnkey website development in Ukraine | PrometeyLabs',
         'description': (
-            'Turnkey websites: landing pages 150–300 €, corporate sites 350–500 €, '
-            'online stores from 650 €. Price and deadline are fixed in the contract. '
+            'Turnkey websites: landing pages €150–€300, corporate sites €350–€500, '
+            'online stores from €650. Price and deadline are fixed in the contract. '
             'Lifetime code warranty and 1 year of free support.'
         ),
         'crumb': 'Website development',
@@ -348,7 +404,7 @@ RS = {
         'faq': [
             (
                 'How much does it cost to build a website?',
-                'Landing pages 150–300 €, corporate sites 350–500 €, online stores from 650 €, platforms 1,500–5,000 €. We fix the exact amount and deadline in the contract.',
+                'Landing pages €150–€300, corporate sites €350–€500, online stores from €650, platforms €1,500–€5,000. We fix the exact amount and deadline in the contract.',
             ),
             (
                 'How long does website development take?',
@@ -385,7 +441,15 @@ RS = {
 
 def lang():
     code = (translation.get_language() or 'uk').split('-')[0]
-    return code if code in ('uk', 'ru') else 'uk'
+    return code if code in ('uk', 'ru', 'en') else 'uk'
+
+
+def for_lang(mapping):
+    """Return mapping[lang], or uk when this dict has no entry for the language."""
+    code = lang()
+    if code in mapping:
+        return mapping[code]
+    return mapping['uk']
 
 
 def faq_pairs(items):
@@ -393,21 +457,20 @@ def faq_pairs(items):
 
 
 def shop_copy():
-    return SHOP[lang()]
+    return for_lang(SHOP)
 
 
 def rs_copy():
-    code = (translation.get_language() or 'uk').split('-')[0]
-    return RS.get(code) or RS['uk']
+    return for_lang(RS)
 
 
 def contacts_copy():
-    return CONTACTS[lang()]
+    return for_lang(CONTACTS)
 
 
 def crumbs_copy():
-    return CRUMBS[lang()]
+    return for_lang(CRUMBS)
 
 
 def process_site_copy():
-    return PROCESS_SITE[lang()]
+    return for_lang(PROCESS_SITE)
