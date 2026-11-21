@@ -41,7 +41,7 @@ CONTACTS = {
         'email': 'info@prometeylabs.com',
         'telegram': 'Telegram @prometeylabs',
         'address': 'Київ, бульвар Тараса Шевченка 46а',
-        'hours': 'Пн–Пт 10:00–18:00',
+        'hours': 'Цілодобово',
         'executor': 'Виконавець: ФОП Дмитренко Софія Дмитрівна, публічний договір —',
         'offer_label': '/offer/',
     },
@@ -51,7 +51,7 @@ CONTACTS = {
         'email': 'info@prometeylabs.com',
         'telegram': 'Telegram @prometeylabs',
         'address': 'Киев, бульвар Тараса Шевченко 46а',
-        'hours': 'Пн–Пт 10:00–18:00',
+        'hours': 'Круглосуточно',
         'executor': 'Исполнитель: ФЛП Дмитренко София Дмитриевна, публичный договор —',
         'offer_label': '/offer/',
     },
@@ -465,7 +465,10 @@ def rs_copy():
 
 
 def contacts_copy():
-    return for_lang(CONTACTS)
+    data = dict(for_lang(CONTACTS))
+    if lang() == 'en':
+        data['hours'] = '24/7'
+    return data
 
 
 def crumbs_copy():

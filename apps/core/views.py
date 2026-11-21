@@ -10,7 +10,7 @@ from .portfolio_categories import portfolio_filter_context
 from .form_handlers import (
     validate_phone, phone_error_message, validate_name, create_form_response, get_form_type_from_path,
     create_form_data, send_form_email, save_form_submission,
-    send_test_result_email
+    send_test_result_email, ensure_form_language,
 )
 from .keycrm_service import sync_submission_to_keycrm
 from .phone import normalize_phone
@@ -288,6 +288,7 @@ class ThankYouView(BasePageView):
 
 def handle_form_submission(request):
     """Обробка AJAX форм"""
+    ensure_form_language(request)
     if request.method != 'POST':
         return create_form_response(False, _('Метод не дозволений'))
     
@@ -512,6 +513,7 @@ def handle_contact_request(request, name, phone):
 
 def handle_test_submission(request):
     """Обробка тесту для калькулятора"""
+    ensure_form_language(request)
     if request.method != 'POST':
         return create_form_response(False, _('Метод не дозволений'))
     

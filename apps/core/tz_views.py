@@ -15,6 +15,7 @@ from django.views.decorators.http import require_POST, require_GET
 from apps.core.form_handlers import (
     create_form_data,
     create_form_response,
+    ensure_form_language,
     save_form_submission,
     validate_name,
     validate_phone,
@@ -64,6 +65,7 @@ def _validate_email(email: str) -> bool:
 @require_POST
 def handle_tz_submission(request):
     """POST /forms/tz/ — контакт-гейт після квіза → PDF token."""
+    ensure_form_language(request)
     name = request.POST.get('name', '').strip()
     phone = request.POST.get('phone', '').strip()
     email = request.POST.get('email', '').strip()

@@ -1845,7 +1845,10 @@ class PrometeyApp {
     }
 
     async submitForm(formData, formType) {
-        const url = formType === 'test' ? '/forms/test/' : '/forms/submit/';
+        var lang = ((document.documentElement && document.documentElement.lang) || 'uk').toLowerCase().slice(0, 2);
+        if (lang === 'ua') lang = 'uk';
+        var prefix = (lang === 'en' || lang === 'ru') ? '/' + lang : '';
+        const url = prefix + (formType === 'test' ? '/forms/test/' : '/forms/submit/');
 
         if (formType !== 'test') {
             formData.append('form_type', formType);

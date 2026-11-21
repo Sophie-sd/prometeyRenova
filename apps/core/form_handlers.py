@@ -18,8 +18,40 @@ logger = logging.getLogger(__name__)
 EMAIL_TIMEOUT = 10
 
 
+def ensure_form_language(request):
+    """Use the page language for an AJAX form post.
+
+    prefix_default_language=False makes /forms/test/ and /forms/submit/
+    Ukrainian even when the form sits on /en/ or /ru/. The URL prefix wins.
+    Otherwise the Referer path (the page that owns the form) does.
+    """
+    from urllib.parse import urlparse
+    from django.utils import translation
+
+    path = request.path_info or ''
+    if path.startswith('/en/') or path == '/en':
+        code = 'en'
+    elif path.startswith('/ru/') or path == '/ru':
+        code = 'ru'
+    else:
+        ref = urlparse(request.META.get('HTTP_REFERER') or '').path or ''
+        if ref.startswith('/en/') or ref == '/en':
+            code = 'en'
+        elif ref.startswith('/ru/') or ref == '/ru':
+            code = 'ru'
+        else:
+            code = ''
+    if code:
+        translation.activate(code)
+    return code
+
+
 def phone_error_message(phone):
-    """Локалізоване повідомлення про помилку телефону або '' якщо номер валідний."""
+    """Локалізоване повідомлення про помилку телефону або '' якщо номер валідний.
+
+    gettext uses the active language, so an EN request never returns the
+    Ukrainian msgid. Call ensure_form_language() before this on AJAX posts.
+    """
     from django.utils.translation import gettext
     from apps.core.phone import parse_phone
     e164, code = parse_phone(phone)
@@ -31,7 +63,7 @@ def phone_error_message(phone):
 
 
 def validate_phone(phone):
-    """Валідація номера: лише UA +380 і рівно 9 цифр (див. apps.core.phone)."""
+    """Номер валідний, якщо normalize_phone повертає E.164 (див. apps.core.phone)."""
     return normalize_phone(phone) is not None
 
 

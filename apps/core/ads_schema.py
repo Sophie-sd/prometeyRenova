@@ -87,6 +87,7 @@ def organization_ld():
         '@type': ['Organization', 'ProfessionalService'],
         '@id': ORGANIZATION_ID,
         'name': 'PrometeyLabs',
+        'foundingDate': '2025-05',
         'description': gettext('Розробка сайтів під ключ, Telegram боти, реклама'),
         'url': SITE + '/',
         'logo': SITE + '/static/images/apple-touch-icon-180.png',
