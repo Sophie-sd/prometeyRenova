@@ -234,7 +234,7 @@
                             autocomplete="tel"
                             inputmode="tel"
                             required
-                            placeholder="+380 (__) ___-__-__"
+                            placeholder="{% if LANGUAGE_CODE == 'en' %}Phone number{% else %}+380 (__) ___-__-__{% endif %}"
                         >
                     </div>
                     <button

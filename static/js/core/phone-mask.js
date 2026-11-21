@@ -23,10 +23,10 @@
     var MAX_FOREIGN = 15;
     var SELECTOR = 'input[type="tel"], input[name="phone"], input[autocomplete="tel"]';
     var PLACEHOLDER = '+380 (__) ___-__-__';
-    var PLACEHOLDER_EN = '+380 67 123 4567 or +44 20 1234 5678';
+    var PLACEHOLDER_EN = 'Phone number';
     var INTL = 'INTL';
     var INTL_MIN = 8;
-    // EN: neutral placeholder, no forced +380. uk/ru stay Ukrainian-only.
+    // EN placeholder is the label, not a sample number. uk/ru keep the Ukrainian mask.
     function isIntl() { return lang() === 'en'; }
     function placeholder() { return isIntl() ? PLACEHOLDER_EN : PLACEHOLDER; }
 
