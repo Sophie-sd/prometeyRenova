@@ -1,7 +1,10 @@
 """POST-перемикач валюти. HTMX міняє фрагменти цін, інакше редірект."""
+from urllib.parse import urlparse
+
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.utils import translation
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 
@@ -25,6 +28,26 @@ def _with_cookie(response, code):
     return response
 
 
+def _fragment_lang(request):
+    """Language of the page that sent the HTMX swap.
+
+    ``set_currency`` lives at ``/i18n/set_currency/`` (no language prefix), so the
+    request language is always Ukrainian. The page path is in POST ``next``,
+    with ``HX-Current-URL`` as a fallback.
+    """
+    allowed = {code for code, _label in settings.LANGUAGES}
+    sources = (
+        request.POST.get('next') or '',
+        request.headers.get('HX-Current-URL') or '',
+    )
+    for raw in sources:
+        path = urlparse(raw).path if '://' in raw else raw
+        code = translation.get_language_from_path(path or '')
+        if code in allowed:
+            return code
+    return 'uk'
+
+
 def _proposal_swap_context(proposal):
     from apps.core.proposal_models import ProposalSpec
     from apps.core.proposal_presenters import prepare_payment_items
@@ -38,30 +61,26 @@ def _proposal_swap_context(proposal):
 
 
 def _hx_fragment(request, region):
-    if region == 'proposal':
-        from apps.core.proposal_models import Proposal
+    with translation.override(_fragment_lang(request)):
+        if region == 'proposal':
+            from apps.core.proposal_models import Proposal
 
-        proposal = (
-            Proposal.objects.filter(
-                slug=request.POST.get('slug') or '',
-                is_published=True,
+            proposal = (
+                Proposal.objects.filter(
+                    slug=request.POST.get('slug') or '',
+                    is_published=True,
+                )
+                .prefetch_related('packages')
+                .first()
             )
-            .prefetch_related('packages')
-            .first()
-        )
-        if proposal is None:
-            return HttpResponse(status=404)
-        from django.utils import translation
-
-        # HX-запит іде на неперекладений URL: мову фрагментів беремо з next (/ru/proposal/…)
-        lang = translation.get_language_from_path(request.POST.get('next') or '') or translation.get_language()
-        with translation.override(lang):
+            if proposal is None:
+                return HttpResponse(status=404)
             return render(
                 request,
                 'fx/swap_proposal.html',
                 _proposal_swap_context(proposal),
             )
-    return render(request, f'fx/swap_{region}.html')
+        return render(request, f'fx/swap_{region}.html')
 
 
 @never_cache

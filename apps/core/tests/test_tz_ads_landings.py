@@ -75,6 +75,7 @@ class AdsLandingSeoTests(TestCase):
         cases = (
             ('/internet-shop-v2/', SHOP['uk']['faq']),
             ('/ru/internet-shop-v2/', SHOP['ru']['faq']),
+            ('/en/internet-shop-v2/', SHOP['en']['faq']),
             ('/rozrobka-sajtiv/', RS['uk']['faq']),
             ('/ru/rozrobka-sajtiv/', RS['ru']['faq']),
             ('/en/rozrobka-sajtiv/', RS['en']['faq']),
@@ -91,9 +92,13 @@ class AdsLandingSeoTests(TestCase):
                 org = [block for block in blocks if 'Organization' in str(block.get('@type'))]
                 self.assertTrue(org, path)
                 address = org[0]['address']
-                self.assertEqual(address['streetAddress'], 'бульвар Тараса Шевченка 46а')
                 self.assertEqual(address['addressCountry'], 'UA')
-                self.assertIn(address['addressLocality'], ('Київ', 'Kyiv'))
+                if path.startswith('/en/'):
+                    self.assertEqual(address['streetAddress'], '46a Taras Shevchenko Blvd')
+                    self.assertEqual(address['addressLocality'], 'Kyiv')
+                else:
+                    self.assertEqual(address['streetAddress'], 'бульвар Тараса Шевченка 46а')
+                    self.assertIn(address['addressLocality'], ('Київ', 'Kyiv'))
                 faq = next(block for block in blocks if block.get('@type') == 'FAQPage')
                 json_pairs = [
                     (item['name'], item['acceptedAnswer']['text'])

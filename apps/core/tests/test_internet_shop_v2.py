@@ -264,3 +264,73 @@ class ShopV2HeroFormSubmitTests(TestCase):
             self.assertEqual(data['redirect'], '/thank-you/')
         self.assertEqual(dispatch.call_count, 2)
         self.assertEqual(FormSubmission.objects.count(), 2)
+
+
+class ShopV2EnglishTests(TestCase):
+    """EN /internet-shop-v2/ uses the approved English copy; uk and ru stay put."""
+
+    EN = '/en/internet-shop-v2/'
+    EN_TITLE = 'Turnkey online store development — price from €650 | PrometeyLabs'
+    EN_H1 = 'Turnkey <span class="pl-shop__nowrap">online store</span> development'
+    HIDDEN_DETAILS = 'Сторінка: Інтернет-магазини · Форма №1 (після «Переросли Prom»)'
+
+    def _get(self, url):
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200, url)
+        return response.content.decode()
+
+    def test_en_copy_and_uk_ru_unchanged(self):
+        html = self._get(self.EN)
+        self.assertIn(f'<title>{self.EN_TITLE}</title>', html)
+        self.assertIn('from €650', html)
+        self.assertIn('from €1,500', html)
+        self.assertIn('from €7,000', html)
+        self.assertNotIn('650 €', html)
+        self.assertIn(
+            f'id="pl-shop-hero-title" class="pl-shop__title pl-shop__title--hero">{self.EN_H1}</h1>',
+            html,
+        )
+        for banned in (
+            'Створення інтернет-магазину',
+            'Часті питання',
+            'Розрахувати вартість магазину',
+        ):
+            self.assertNotIn(banned, html, banned)
+        self.assertIn('noindex, follow', html)
+        self.assertIn(f'value="{self.HIDDEN_DETAILS}"', html)
+        self.assertIn('Frequently asked questions about creating an online store', html)
+        self.assertIn('Calculate the store cost', html)
+        self.assertIn('Take the quiz in 1 minute', html)
+        self.assertIn('How much does it cost to create an online store', html)
+        self.assertIn('The warranty is set out in the public contract (clause 8 of the offer)', html)
+        self.assertIn('>offer</a>', html)
+
+        blocks = [json.loads(chunk) for chunk in re.findall(
+            r'<script type="application/ld\+json">(.*?)</script>', html, re.S,
+        )]
+        crumbs = next(block for block in blocks if block.get('@type') == 'BreadcrumbList')
+        items = crumbs['itemListElement']
+        self.assertEqual([item['name'] for item in items], ['Home', 'E-commerce stores'])
+        for item in items:
+            self.assertIn('/en/', item['item'])
+        faq = next(block for block in blocks if block.get('@type') == 'FAQPage')
+        self.assertEqual(
+            faq['mainEntity'][-1]['acceptedAnswer']['text'],
+            'We build the admin panel ourselves, in any language you need — English, Ukrainian or another: '
+            'a new manager will master it in 15 minutes. Stock and price updates and order processing — in 1–2 clicks.',
+        )
+        org = next(
+            block for block in blocks
+            if 'Organization' in (block.get('@type') if isinstance(block.get('@type'), list) else [block.get('@type')])
+        )
+        self.assertEqual(org['address']['streetAddress'], '46a Taras Shevchenko Blvd')
+        self.assertEqual(org['address']['addressLocality'], 'Kyiv')
+
+        uk = self._get(UA)
+        self.assertIn(f'<title>{SPEC[UA]["title"]}</title>', uk)
+        self.assertIn(SPEC[UA]['h1'], uk)
+        self.assertNotIn(self.EN_TITLE, uk)
+        ru = self._get(RU)
+        self.assertIn(f'<title>{SPEC[RU]["title"]}</title>', ru)
+        self.assertIn(SPEC[RU]['h1'], ru)
+        self.assertNotIn(self.EN_TITLE, ru)

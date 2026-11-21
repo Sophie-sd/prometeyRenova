@@ -9,7 +9,12 @@ from .ads_copy import SITE, lang
 from .seo import ORGANIZATION_ID
 from .utils import SITE_CONTACT_DEFAULTS, get_site_contact_settings
 
-LOCALITY = {'uk': 'Київ', 'ru': 'Kyiv'}
+LOCALITY = {'uk': 'Київ', 'ru': 'Kyiv', 'en': 'Kyiv'}
+STREET = {
+    'uk': 'бульвар Тараса Шевченка 46а',
+    'ru': 'бульвар Тараса Шевченка 46а',
+    'en': '46a Taras Shevchenko Blvd',
+}
 
 
 def dumps(obj):
@@ -99,7 +104,7 @@ def organization_ld():
         },
         'address': {
             '@type': 'PostalAddress',
-            'streetAddress': 'бульвар Тараса Шевченка 46а',
+            'streetAddress': STREET.get(code, STREET['uk']),
             'addressLocality': LOCALITY.get(code, 'Kyiv'),
             'addressCountry': 'UA',
         },
@@ -111,10 +116,16 @@ def organization_ref():
     return {'@id': ORGANIZATION_ID}
 
 
-def hreflang_urls(uk_path, ru_path):
+def hreflang_urls(uk_path, ru_path, en_path=None):
     uk = SITE + uk_path
     ru = SITE + ru_path
-    current = ru if lang() == 'ru' else uk
+    code = lang()
+    if code == 'ru':
+        current = ru
+    elif code == 'en' and en_path:
+        current = SITE + en_path
+    else:
+        current = uk
     return {
         'canonical': current,
         'uk': uk,

@@ -62,6 +62,30 @@ class ShopPriceTests(TestCase):
         self.assertIn(f'id="fx-pkg-base" class="pl-shop__pkg-price" hx-swap-oob="outerHTML">від 33{NBSP}443 ₴', body)
         self.assertIn(f'id="fx-drop-from" class="pl-shop__accent" hx-swap-oob="outerHTML">від 77{NBSP}175 ₴', body)
 
+    def test_htmx_shop_fragment_uses_language_of_next(self):
+        cases = (
+            ('/en/internet-shop-v2/', ('from 33', 'Currency')),
+            ('/ru/internet-shop-v2/', ('от 33',)),
+            ('/internet-shop-v2/', (f'від 33{NBSP}443', 'Валюта')),
+        )
+        for next_url, needles in cases:
+            with self.subTest(next=next_url):
+                response = self.client.post('/i18n/set_currency/', {
+                    'currency': 'UAH', 'region': 'shop', 'next': next_url,
+                }, HTTP_HX_REQUEST='true')
+                body = response.content.decode()
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.cookies['pl_currency'].value, 'UAH')
+                for needle in needles:
+                    self.assertIn(needle, body)
+        # No next: language comes from the page that issued the request.
+        response = self.client.post('/i18n/set_currency/', {
+            'currency': 'UAH', 'region': 'shop',
+        }, HTTP_HX_REQUEST='true', HTTP_HX_CURRENT_URL='https://www.prometeylabs.com/en/internet-shop-v2/')
+        body = response.content.decode()
+        self.assertIn('from 33', body)
+        self.assertIn('Currency', body)
+
     def test_uah_cookie_page_render(self):
         self.client.cookies['pl_currency'] = 'UAH'
         html = self.client.get('/internet-shop-v2/').content.decode()
