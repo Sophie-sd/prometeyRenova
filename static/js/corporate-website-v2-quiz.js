@@ -104,9 +104,10 @@
         return (str.match(/\d/g) || []).length;
     }
 
-    function getCheckedValue(name) {
-        var input = form.querySelector('input[name="' + name + '"]:checked');
-        return input ? input.value : null;
+    function getCheckedValues(name) {
+        return Array.from(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (input) {
+            return input.value;
+        });
     }
 
     function isStepAnswered(step) {
@@ -155,8 +156,8 @@
         var parts = ['Сторінка: ' + (form.dataset.sourceLabel || 'Корпоративний сайт v2')];
 
         fields.forEach(function (field) {
-            var val = getCheckedValue(field.name);
-            if (val) parts.push(field.label + ': ' + val);
+            var values = getCheckedValues(field.name);
+            if (values.length) parts.push(field.label + ': ' + values.join(', '));
         });
 
         detailsInput.value = parts.join('\n');
@@ -193,7 +194,10 @@
         if (nextBtn) {
             setNavSlot(nextBtn, showNext);
             if (showNext) {
-                nextBtn.disabled = !isStepAnswered(currentStep);
+                var multi = currentStep && currentStep.dataset.multi === 'true';
+                nextBtn.disabled = multi
+                    ? !currentStep.querySelector('input[type="checkbox"]:checked')
+                    : !isStepAnswered(currentStep);
             }
         }
 
