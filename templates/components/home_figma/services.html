@@ -1,22 +1,33 @@
 {% load i18n %}
+{% trans "Хто ми і що робимо — за хвилину" as hf_video_title %}
 <section class="hf-services hf-wrap" id="services" aria-labelledby="hf-services-title">
     <h2 class="hf-h2" id="hf-services-title">{% trans "Послуги" %}<br><span class="hf-accent">PrometeyLabs</span></h2>
     <div class="hf-services__list">
-        <button type="button" class="hf-card hf-service" data-modal="service-web-modal">
-            <span class="hf-service__title">{% trans "Веброзробка" %}</span>
-            <span class="hf-service__quote">{% trans "Сайти під ключ, лендінги, інтернет-магазини, вебзастосунки та Telegram-боти." %}</span>
-        </button>
-        <button type="button" class="hf-card hf-service" data-modal="service-mobile-modal">
-            <span class="hf-service__title">{% trans "Мобільні застосунки" %}</span>
-            <span class="hf-service__quote">{% trans "iOS та Android-застосунки із сучасним дизайном і зручним користувацьким досвідом" %}</span>
-        </button>
-        <button type="button" class="hf-card hf-service" data-modal="service-smm-modal">
-            <span class="hf-service__title">{% trans "Реклама та SMM" %}</span>
-            <span class="hf-service__quote">{% trans "Google Ads, Meta Ads, TikTok Ads, SMM і створення контенту для соціальних мереж" %}</span>
-        </button>
-        <button type="button" class="hf-card hf-service" data-modal="service-ai-modal">
-            <span class="hf-service__title">{% trans "AI-автоматизація" %}</span>
-            <span class="hf-service__quote">{% trans "Інтеграція штучного інтелекту в сайти, CRM та бізнес-процеси — від AI-консультантів до автоматизації рутинних завдань." %}</span>
-        </button>
+        <article class="hf-card hf-service hf-service--web">
+            <h3 class="hf-service__title" id="hf-service-web-title">{% trans "Веброзробка" %}</h3>
+            <p class="hf-service__quote">{% trans "Сайти під ключ, лендінги, інтернет-магазини, вебзастосунки та Telegram-боти." %}</p>
+            <button type="button" class="hf-service__more" data-modal="service-web-modal" aria-haspopup="dialog" aria-describedby="hf-service-web-title">{% trans "Детальніше" %}</button>
+        </article>
+        <article class="hf-card hf-service hf-service--dorobka">
+            <h3 class="hf-service__title" id="hf-service-dorobka-title">{% trans "Доробка сайтів" %}</h3>
+            <p class="hf-service__quote">{% trans "Редизайн, прискорення, безпека, перенесення" %}</p>
+            <button type="button" class="hf-service__more" data-modal="service-dorobka-modal" aria-haspopup="dialog" aria-describedby="hf-service-dorobka-title">{% trans "Детальніше" %}</button>
+        </article>
+        <article class="hf-card hf-service hf-service--mobile">
+            <h3 class="hf-service__title" id="hf-service-mobile-title">{% trans "Мобільні застосунки" %}</h3>
+            <p class="hf-service__quote">{% trans "iOS та Android-застосунки із сучасним дизайном і зручним користувацьким досвідом" %}</p>
+            <button type="button" class="hf-service__more" data-modal="service-mobile-modal" aria-haspopup="dialog" aria-describedby="hf-service-mobile-title">{% trans "Детальніше" %}</button>
+        </article>
+        <article class="hf-card hf-service hf-service--smm">
+            <h3 class="hf-service__title" id="hf-service-smm-title">{% trans "Реклама та SMM" %}</h3>
+            <p class="hf-service__quote">{% trans "Google Ads, Meta Ads, TikTok Ads, SMM і створення контенту для соціальних мереж" %}</p>
+            <button type="button" class="hf-service__more" data-modal="service-smm-modal" aria-haspopup="dialog" aria-describedby="hf-service-smm-title">{% trans "Детальніше" %}</button>
+        </article>
+        <article class="hf-card hf-service hf-service--ai">
+            <h3 class="hf-service__title" id="hf-service-ai-title">{% trans "AI-автоматизація" %}</h3>
+            <p class="hf-service__quote">{% trans "Інтеграція штучного інтелекту в сайти, CRM та бізнес-процеси — від AI-консультантів до автоматизації рутинних завдань." %}</p>
+            <button type="button" class="hf-service__more" data-modal="service-ai-modal" aria-haspopup="dialog" aria-describedby="hf-service-ai-title">{% trans "Детальніше" %}</button>
+        </article>
+        <div class="hf-services__video">{% include 'components/rozrobka_sajtiv/_video.html' with video_id='QVaSdrcDq6M' poster='images/rozrobka/video/cover-studio-intro.webp' poster_w=1080 poster_h=624 time='00:35' title=hf_video_title %}</div>
     </div>
 </section>

@@ -9,6 +9,7 @@ from apps.core.calc_cta import CALC_CTA
 PAGES = (
     ('/', 'home', 'uk', '/calculator/?start=1'),
     ('/ru/', 'home', 'ru', '/ru/calculator/?start=1'),
+    ('/en/', 'home', 'en', '/en/calculator/?start=1'),
     # ТЗ 27.10.2026: rozrobka embeds the quiz → hero/sticky scroll to it on the same page
     ('/rozrobka-sajtiv/', 'rozrobka', 'uk', '#pl-rs-calc'),
     ('/ru/rozrobka-sajtiv/', 'rozrobka', 'ru', '#pl-rs-calc'),

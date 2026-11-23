@@ -1,5 +1,5 @@
 {% load i18n %}
-<div class="modal" id="service-web-modal" role="dialog" aria-labelledby="service-web-title" aria-hidden="true">
+<div class="modal" id="service-web-modal" role="dialog" aria-modal="true" aria-labelledby="service-web-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content service-modal-content">
         <button class="modal-close" type="button" aria-label="{% trans 'Закрити' %}">&times;</button>
@@ -12,17 +12,18 @@
                 <li><strong>E-commerce</strong>{% trans "Каталог, оплати, доставки, інтеграції з маркетплейсами" %}</li>
                 <li><strong>{% trans "Веб-додатки / SaaS" %}</strong>{% trans "Особисті кабінети, підписки, аналітика, білінг" %}</li>
                 <li><strong>{% trans "Telegram-боти" %}</strong>{% trans "Автоматизація, продажі, інтеграції з CRM та платіжними системами" %} — <a href="{% url 'telegram_bot' %}">{% trans "замовити бота" %}</a></li>
-                <li><strong>{% trans "Оновлення проєктів" %}</strong>{% trans "Редизайн, прискорення, безпека, перенесення" %} — <a href="{% url 'dorobka_sajtu' %}">{% trans "Доробка сайтів" %}</a></li>
+                <li><strong>{% trans "Оновлення проєктів" %}</strong>{% trans "Редизайн, прискорення, безпека, перенесення" %}</li>
             </ul>
             <h4 class="service-subtitle">{% trans "Робота включає:" %}</h4>
             <p class="service-text">{% trans "Прототипування → UI/UX → верстка → бекенд → інтеграції → адмін-панель → деплой → SEO → аналітика → тестування → запуск" %}</p>
             <h4 class="service-subtitle">{% trans "Технології:" %}</h4>
             <p class="service-text">React, Next.js, Vue, Node.js, Django, PostgreSQL, MongoDB, Docker, AWS, Firebase, WordPress</p>
+            <p class="service-text"><a href="{% url 'rozrobka_sajtiv' %}">{% trans "Перейти до сторінки" %} <span aria-hidden="true">↗</span></a></p>
         </div>
     </div>
 </div>
 
-<div class="modal" id="service-mobile-modal" role="dialog" aria-labelledby="service-mobile-title" aria-hidden="true">
+<div class="modal" id="service-mobile-modal" role="dialog" aria-modal="true" aria-labelledby="service-mobile-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content service-modal-content">
         <button class="modal-close" type="button" aria-label="{% trans 'Закрити' %}">&times;</button>
@@ -45,7 +46,7 @@
     </div>
 </div>
 
-<div class="modal" id="service-smm-modal" role="dialog" aria-labelledby="service-smm-title" aria-hidden="true">
+<div class="modal" id="service-smm-modal" role="dialog" aria-modal="true" aria-labelledby="service-smm-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content service-modal-content">
         <button class="modal-close" type="button" aria-label="{% trans 'Закрити' %}">&times;</button>
@@ -67,7 +68,7 @@
     </div>
 </div>
 
-<div class="modal" id="service-ai-modal" role="dialog" aria-labelledby="service-ai-title" aria-hidden="true">
+<div class="modal" id="service-ai-modal" role="dialog" aria-modal="true" aria-labelledby="service-ai-title" aria-hidden="true">
     <div class="modal-backdrop"></div>
     <div class="modal-content service-modal-content">
         <button class="modal-close" type="button" aria-label="{% trans 'Закрити' %}">&times;</button>
@@ -86,6 +87,29 @@
             </ul>
             <h4 class="service-subtitle">{% trans "Результат:" %}</h4>
             <p class="service-text">{% trans "Менше рутини для команди, швидша реакція на клієнтів і масштабування support без пропорційного зростання витрат." %}</p>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="service-dorobka-modal" role="dialog" aria-modal="true" aria-labelledby="service-dorobka-title" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content service-modal-content">
+        <button class="modal-close" type="button" aria-label="{% trans 'Закрити' %}">&times;</button>
+        <div class="modal-header">
+            <h3 class="text-medium color-brand-orange mb-sm" id="service-dorobka-title">{% trans "Доробка сайтів" %}</h3>
+        </div>
+        <div class="service-modal-body">
+            <ul class="service-list">
+                <li><strong>{% trans "Редизайн / рестайлінг" %}</strong>{% trans "Оновлюємо вигляд і структуру наявного сайту." %}</li>
+                <li><strong>{% trans "Прискорення завантаження" %}</strong>{% trans "Прискорюємо сторінки, щоб сайт відкривався швидше." %}</li>
+                <li><strong>{% trans "Безпека" %}</strong>{% trans "Посилюємо захист і оновлюємо вразливі місця." %}</li>
+                <li><strong>{% trans "Перенесення на новий хостинг або CMS" %}</strong>{% trans "Переносимо сайт на новий хостинг або CMS." %}</li>
+                <li><strong>{% trans "Нові функції та інтеграції" %}</strong>{% trans "Додаємо CRM, оплати та Telegram." %}</li>
+            </ul>
+            <h4 class="service-subtitle">{% trans "Робота включає:" %}</h4>
+            <p class="service-text">{% trans "Адреса сайту → короткий аналіз і дзвінок з рекомендаціями → виконання і тестування на пристроях → передача доступів" %}</p>
+            <h4 class="service-subtitle">{% trans "Технології:" %}</h4>
+            <p class="service-text">React, Next.js, Vue, Node.js, Django, PostgreSQL, MongoDB, Docker, AWS, Firebase, WordPress</p>
         </div>
     </div>
 </div>

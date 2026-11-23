@@ -2803,7 +2803,7 @@ msgstr ""
 #: templates/components/home/service_modals.html:42
 #: templates/pages/home.html:161 templates/pages/home.html:184
 msgid "Технології:"
-msgstr "Technologies"
+msgstr "Technologies:"
 
 #: templates/components/home/service_modals.html:34
 #: templates/pages/home.html:176
@@ -10444,3 +10444,55 @@ msgstr "What’s included in the packages"
 msgctxt "corp"
 msgid "Переглянути портфоліо"
 msgstr "View portfolio"
+
+#: templates/components/home_figma/services.html
+msgid "Хто ми і що робимо — за хвилину"
+msgstr "Who we are and what we do — in a minute"
+
+#: templates/components/home/service_modals.html
+msgid "Перейти до сторінки"
+msgstr "Go to page"
+
+#: templates/components/home/service_modals.html
+msgid "Редизайн / рестайлінг"
+msgstr "Redesign / restyling"
+
+#: templates/components/home/service_modals.html
+msgid "Оновлюємо вигляд і структуру наявного сайту."
+msgstr "We update the look and structure of your existing website."
+
+#: templates/components/home/service_modals.html
+msgid "Прискорення завантаження"
+msgstr "Faster loading"
+
+#: templates/components/home/service_modals.html
+msgid "Прискорюємо сторінки, щоб сайт відкривався швидше."
+msgstr "We speed up pages so the website opens faster."
+
+#: templates/components/home/service_modals.html
+msgid "Безпека"
+msgstr "Security"
+
+#: templates/components/home/service_modals.html
+msgid "Посилюємо захист і оновлюємо вразливі місця."
+msgstr "We strengthen protection and fix vulnerable spots."
+
+#: templates/components/home/service_modals.html
+msgid "Перенесення на новий хостинг або CMS"
+msgstr "Migration to new hosting or a CMS"
+
+#: templates/components/home/service_modals.html
+msgid "Переносимо сайт на новий хостинг або CMS."
+msgstr "We move the website to new hosting or a CMS."
+
+#: templates/components/home/service_modals.html
+msgid "Нові функції та інтеграції"
+msgstr "New features and integrations"
+
+#: templates/components/home/service_modals.html
+msgid "Додаємо CRM, оплати та Telegram."
+msgstr "We add CRM, payments and Telegram."
+
+#: templates/components/home/service_modals.html
+msgid "Адреса сайту → короткий аналіз і дзвінок з рекомендаціями → виконання і тестування на пристроях → передача доступів"
+msgstr "Website address → short analysis and a call with recommendations → implementation and testing on devices → handover of access"

@@ -373,57 +373,6 @@
     transform: rotate(40.12deg);
 }
 
-/* ---------- Services ---------- */
-.hf-services { margin-top: 109px; } /* 3110 − 3001 */
-.hf-services__list {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 318px));
-    justify-content: space-between;
-    align-items: end;
-    gap: 20px;
-    margin-top: 60px;
-}
-.hf-service {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 24px;
-    height: 274px;
-    padding: 20px;
-    border: 0;
-    color: inherit;
-    font: inherit;
-    text-align: left;
-    cursor: pointer;
-    transition: transform .25s ease;
-}
-.hf-service:first-child { height: 275px; }
-.hf-service:hover { transform: translateY(-4px); }
-.hf-service:focus-visible { outline: 2px solid var(--hf-orange); outline-offset: 3px; }
-.hf-service__title {
-    max-width: 257px;
-    font-size: 38px;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: -1.9px;
-    color: var(--hf-white);
-}
-.hf-service__quote {
-    display: flex;
-    gap: 14px;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.48px;
-    color: var(--hf-gray-quote);
-}
-.hf-service__quote::before {
-    content: '';
-    flex: 0 0 34.912px;
-    height: 33.071px;
-    background: url('../../images/home-figma/quote.svg') center / contain no-repeat;
-}
-
 /* ---------- Clients + CTA ---------- */
 .hf-finale { position: relative; margin-top: 145px; padding-bottom: 216px; } /* 3730 − 3585; 4868 − 4652 */
 .hf-finale__bg {
@@ -506,7 +455,6 @@
     .hf-ai__badge { left: auto; right: 0; }
     .hf-card__prose { max-width: 58%; }
     .hf-why__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .hf-services__list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .hf-steps { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
     .hf-step { padding: 16px; }
 }
@@ -516,7 +464,6 @@
     .hf-card--why { min-height: 0; }
     .hf-card--why .hf-card__title { max-width: 390px; }
     .hf-rows { max-width: 560px; }
-    .hf-services__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .hf-process { height: auto; padding-bottom: 60px; }
     .hf-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 50px; }
     .hf-step { margin-top: 0 !important; }
@@ -588,12 +535,6 @@
     .hf-step__list { gap: 8px; margin-top: 20px; }
     .hf-step__list li { gap: 8px; font-size: 12px; letter-spacing: -0.24px; }
 
-    .hf-services { margin-top: 80px; }
-    .hf-services__list { grid-template-columns: 1fr; gap: 14px; margin-top: 40px; }
-    .hf-service, .hf-service:first-child { height: auto; min-height: 160px; gap: 40px; padding: 16px; }
-    .hf-service__title { max-width: 100%; font-size: 34px; letter-spacing: -1.7px; }
-    .hf-service__quote { font-size: 14px; letter-spacing: 0; }
-
     .hf-finale { margin-top: 80px; padding-bottom: 246px; }
     .hf-finale__bg { top: 0; width: 1824px; height: 1027px; transform: translateX(calc(-50% - 286.5px)); }
     .hf-clients__track { margin-top: 40px; }
@@ -615,8 +556,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .hf-btn, .hf-service { transition: none; }
-    .hf-service:hover { transform: none; }
+    .hf-btn { transition: none; }
 }
 
 /* ===== Process: читабельність карток на яскравому фото (layout/розміри без змін) ===== */
