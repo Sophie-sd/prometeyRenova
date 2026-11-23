@@ -1,4 +1,6 @@
 {% load i18n static %}
+{% trans "Читати повністю" as review_more %}
+{% trans "Згорнути" as review_less %}
 <section class="pl-rs-blocks" id="rs-reviews" aria-labelledby="pl-rs-reviews-title">
     <div class="pl-rs__inner">
         <h2 class="pl-rs-blocks__h2 pl-rs-reviews__title" id="pl-rs-reviews-title">
@@ -17,7 +19,11 @@
                     <img src="{% static 'img/rozrobka-figma/rs-stars-5-small.svg' %}" alt="" width="74" height="14">
                     <img class="pl-rs-review__g" src="{% static 'img/rozrobka-figma/rs-google-g.svg' %}" alt="Google" width="16" height="16">
                 </header>
-                <p>{{ rs_review_bodies.0 }}</p>
+                <p class="pl-rs-review__text" id="pl-rs-review-text-1">{{ rs_review_bodies.0 }}</p>
+                <button type="button" class="pl-rs-review__more" hidden aria-expanded="false" aria-controls="pl-rs-review-text-1" data-pl-rs-review-more>
+                    <span class="pl-rs-review__more-full">{{ review_more }}</span>
+                    <span class="pl-rs-review__more-short">{{ review_less }}</span>
+                </button>
             </article>
             <article class="pl-rs-review">
                 <header class="pl-rs-review__head">
@@ -25,7 +31,11 @@
                     <img src="{% static 'img/rozrobka-figma/rs-stars-5-small.svg' %}" alt="" width="74" height="14">
                     <img class="pl-rs-review__g" src="{% static 'img/rozrobka-figma/rs-google-g.svg' %}" alt="Google" width="16" height="16">
                 </header>
-                <p>{{ rs_review_bodies.1 }}</p>
+                <p class="pl-rs-review__text" id="pl-rs-review-text-2">{{ rs_review_bodies.1 }}</p>
+                <button type="button" class="pl-rs-review__more" hidden aria-expanded="false" aria-controls="pl-rs-review-text-2" data-pl-rs-review-more>
+                    <span class="pl-rs-review__more-full">{{ review_more }}</span>
+                    <span class="pl-rs-review__more-short">{{ review_less }}</span>
+                </button>
             </article>
             <article class="pl-rs-review">
                 <header class="pl-rs-review__head">
@@ -33,7 +43,11 @@
                     <img src="{% static 'img/rozrobka-figma/rs-stars-5-small.svg' %}" alt="" width="74" height="14">
                     <img class="pl-rs-review__g" src="{% static 'img/rozrobka-figma/rs-google-g.svg' %}" alt="Google" width="16" height="16">
                 </header>
-                <p>{{ rs_review_bodies.2 }}</p>
+                <p class="pl-rs-review__text" id="pl-rs-review-text-3">{{ rs_review_bodies.2 }}</p>
+                <button type="button" class="pl-rs-review__more" hidden aria-expanded="false" aria-controls="pl-rs-review-text-3" data-pl-rs-review-more>
+                    <span class="pl-rs-review__more-full">{{ review_more }}</span>
+                    <span class="pl-rs-review__more-short">{{ review_less }}</span>
+                </button>
             </article>
             <article class="pl-rs-review">
                 <header class="pl-rs-review__head">
@@ -41,7 +55,11 @@
                     <img src="{% static 'img/rozrobka-figma/rs-stars-5-small.svg' %}" alt="" width="74" height="14">
                     <img class="pl-rs-review__g" src="{% static 'img/rozrobka-figma/rs-google-g.svg' %}" alt="Google" width="16" height="16">
                 </header>
-                <p>{{ rs_review_bodies.3 }}</p>
+                <p class="pl-rs-review__text" id="pl-rs-review-text-4">{{ rs_review_bodies.3 }}</p>
+                <button type="button" class="pl-rs-review__more" hidden aria-expanded="false" aria-controls="pl-rs-review-text-4" data-pl-rs-review-more>
+                    <span class="pl-rs-review__more-full">{{ review_more }}</span>
+                    <span class="pl-rs-review__more-short">{{ review_less }}</span>
+                </button>
             </article>
             <article class="pl-rs-review">
                 <header class="pl-rs-review__head">
@@ -49,7 +67,11 @@
                     <img src="{% static 'img/rozrobka-figma/rs-stars-5-small.svg' %}" alt="" width="74" height="14">
                     <img class="pl-rs-review__g" src="{% static 'img/rozrobka-figma/rs-google-g.svg' %}" alt="Google" width="16" height="16">
                 </header>
-                <p>{{ rs_review_bodies.4 }}</p>
+                <p class="pl-rs-review__text" id="pl-rs-review-text-5">{{ rs_review_bodies.4 }}</p>
+                <button type="button" class="pl-rs-review__more" hidden aria-expanded="false" aria-controls="pl-rs-review-text-5" data-pl-rs-review-more>
+                    <span class="pl-rs-review__more-full">{{ review_more }}</span>
+                    <span class="pl-rs-review__more-short">{{ review_less }}</span>
+                </button>
             </article>
             <article class="pl-rs-review">
                 <header class="pl-rs-review__head">
@@ -57,7 +79,11 @@
                     <img src="{% static 'img/rozrobka-figma/rs-stars-5-small.svg' %}" alt="" width="74" height="14">
                     <img class="pl-rs-review__g" src="{% static 'img/rozrobka-figma/rs-google-g.svg' %}" alt="Google" width="16" height="16">
                 </header>
-                <p>{{ rs_review_bodies.5 }}</p>
+                <p class="pl-rs-review__text" id="pl-rs-review-text-6">{{ rs_review_bodies.5 }}</p>
+                <button type="button" class="pl-rs-review__more" hidden aria-expanded="false" aria-controls="pl-rs-review-text-6" data-pl-rs-review-more>
+                    <span class="pl-rs-review__more-full">{{ review_more }}</span>
+                    <span class="pl-rs-review__more-short">{{ review_less }}</span>
+                </button>
             </article>
         </div>
         <a class="pl-rs-blocks__cta" href="https://maps.google.com/?cid=14470082583700063662" target="_blank" rel="noopener noreferrer">

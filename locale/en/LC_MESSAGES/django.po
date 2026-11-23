@@ -10411,10 +10411,10 @@ msgid "Менеджер передзвонить за 15 хвилин, ціло�
 msgstr "A manager will call you back within 15 minutes, 24/7"
 
 msgid "ФОП Дмитренко Софія Дмитрівна"
-msgstr "ФОП Дмитренко Софія Дмитрівна"
+msgstr "FOP Dmytrenko Sofiia Dmytrivna"
 
 msgid "РНОКПП 3770706565"
-msgstr "РНОКПП 3770706565"
+msgstr "Tax ID (RNOKPP) 3770706565"
 
 msgctxt "footer-legal"
 msgid "Київ, бульвар Тараса Шевченка 46а"
@@ -10429,3 +10429,9 @@ msgstr "Founded: May 2025"
 
 msgid "Бейдж PrometeyLabs: роки практики у веб-розробці, дизайні, інтеграціях, мобільних додатках та інтернет-маркетингу"
 msgstr "PrometeyLabs badge: years of practical experience in web development, design, integrations, mobile apps and digital marketing"
+
+msgid "Читати повністю"
+msgstr "Read more"
+
+msgid "Згорнути"
+msgstr "Show less"
