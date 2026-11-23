@@ -1,4 +1,4 @@
-/* corporate-website-v2-quiz.js — multi-step calculator + package recommendation */
+/* corporate-website-v2-quiz.js — multi-step quiz */
 
 (function () {
     'use strict';
@@ -12,80 +12,11 @@
     var PHONE_MSG_EMPTY = isRu ? 'Внесите номер телефона' : isEn ? 'Enter your phone number' : 'Внесіть номер телефону';
     var PHONE_MSG_INVALID = isRu ? 'Введите корректный номер телефона' : isEn ? 'Enter a valid phone number' : 'Введіть коректний номер телефону';
 
-    var PKG_MAP = {
-        starter: {
-            label: 'СТАРТОВИЙ',
-            term: '5–7 днів',
-            features: [
-                '1-сторінковий лендинг під бренд',
-                'Базове SEO та форма заявки',
-                'Інтеграція Telegram або CRM',
-                'Адаптивна мобільна версія'
-            ]
-        },
-        corporate: {
-            label: 'КОРПОРАТИВНИЙ',
-            term: '2–3 тижні',
-            features: [
-                '5–9 сторінок, блог для SEO',
-                'Розширене SEO та Core Web Vitals',
-                'CRM + Google Ads у пакеті',
-                'Каталог послуг або продукції'
-            ]
-        },
-        premium: {
-            label: 'БІЗНЕС-ПРЕМІУМ',
-            term: '3–6 тижнів',
-            features: [
-                '10+ сторінок, мультимовність',
-                'Інтеграція 1С / Bitrix24',
-                'Маркетинг під ключ: Google, Meta, TikTok',
-                'SEO-просування та складний функціонал'
-            ]
-        }
-    };
-
-    if (isEn) {
-        PKG_MAP.starter.label = 'STARTER';
-        PKG_MAP.starter.term = '5–7 days';
-        PKG_MAP.starter.features = ['1-page landing page for your brand', 'Basic SEO and a lead form', 'Telegram or CRM integration', 'Responsive mobile version'];
-        PKG_MAP.corporate.label = 'CORPORATE';
-        PKG_MAP.corporate.term = '2–3 weeks';
-        PKG_MAP.corporate.features = ['5–9 pages, a blog for SEO', 'Advanced SEO and Core Web Vitals', 'CRM + Google Ads included', 'Catalogue of services or products'];
-        PKG_MAP.premium.label = 'BUSINESS PREMIUM';
-        PKG_MAP.premium.term = '3–6 weeks';
-        PKG_MAP.premium.features = ['10+ pages, multilingual', '1C / Bitrix24 integration', 'Turnkey marketing: Google, Meta, TikTok', 'SEO promotion and advanced functionality'];
-    }
-    var EN2UA = {
-        "Services (B2C / B2B)": "Послуги (B2C / B2B)",
-        "Manufacturing / wholesale": "Виробництво / опт",
-        "Retail": "Торгівля",
-        "Other / not sure yet": "Інше / не визначився",
-        "Collecting leads and contacts": "Збір заявок та контактів",
-        "Direct online sales": "Прямі онлайн-продажі",
-        "Presenting your brand or services": "Презентація бренду або послуг",
-        "Scaling": "Масштабування",
-        "1 page (landing page)": "1 сторінка (лендінг)",
-        "Up to 10 pages": "до 10 сторінок",
-        "11–20 pages": "11–20 сторінок",
-        "21+ pages": "21+ сторінок",
-        "Advertising services": "Рекламні послуги",
-        "SEO growth for the site": "SEO розвиток сайту",
-        "CRM and automation": "CRM та автоматизація",
-        "Multilingual": "Мультимовність",
-        "As soon as possible (within 7 days)": "Якнайшвидше (до 7 днів)",
-        "Within 2 weeks": "Протягом 2 тижнів",
-        "Within a month": "Протягом місяця",
-        "Flexible timeline": "Терміни гнучкі"
-    };
-    function ua(v) { return EN2UA[v] || v; }
-
     var steps = Array.from(form.querySelectorAll('.pl-corp__quiz-step'));
     var stage = form.querySelector('.pl-corp__quiz-stage');
     var progressBar = form.querySelector('[data-quiz-progress]');
     var stepNumEl = form.querySelector('[data-quiz-step-num]');
     var prevBtn = form.querySelector('.pl-corp__quiz-prev');
-    var prevResultBtn = form.querySelector('.pl-corp__quiz-prev-result');
     var skipBtn = form.querySelector('.pl-corp__quiz-skip');
     var nextBtn = form.querySelector('.pl-corp__quiz-next');
     var navDiv = form.querySelector('.pl-corp__quiz-nav');
@@ -93,16 +24,11 @@
     var nameInput = form.querySelector('#pl-corp-quiz-name');
     var phoneInput = form.querySelector('#pl-corp-quiz-phone');
     var detailsInput = document.getElementById('pl-corp-quiz-details');
-    var resultRoot = form.querySelector('[data-quiz-result]');
 
-    var QUESTION_STEPS = steps.filter(function (s) {
-        return !s.classList.contains('pl-corp__quiz-step--contact')
-            && !s.classList.contains('pl-corp__quiz-step--result');
-    }).length;
-
-    var resultStepIdx = steps.findIndex(function (s) {
-        return s.classList.contains('pl-corp__quiz-step--result');
+    var questionSteps = steps.filter(function (s) {
+        return !s.classList.contains('pl-corp__quiz-step--contact');
     });
+    var QUESTION_STEPS = questionSteps.length;
 
     var currentIdx = 0;
     var resizeTimer;
@@ -115,11 +41,6 @@
         btn.setAttribute('aria-hidden', visible ? 'false' : 'true');
         btn.tabIndex = visible ? 0 : -1;
     }
-
-    var questionSteps = steps.filter(function (s) {
-        return !s.classList.contains('pl-corp__quiz-step--contact')
-            && !s.classList.contains('pl-corp__quiz-step--result');
-    });
 
     function measureStageHeight() {
         if (!stage || !steps.length || isMeasuring) return;
@@ -153,10 +74,7 @@
         if (!stage) return;
 
         var currentStep = steps[currentIdx];
-        var isFluidStep = currentStep && (
-            currentStep.classList.contains('pl-corp__quiz-step--contact')
-            || currentStep.classList.contains('pl-corp__quiz-step--result')
-        );
+        var isFluidStep = currentStep && currentStep.classList.contains('pl-corp__quiz-step--contact');
 
         stage.classList.toggle('pl-corp__quiz-stage--fluid', !!isFluidStep);
 
@@ -191,86 +109,12 @@
         return input ? input.value : null;
     }
 
-    function getCheckedOptions() {
-        var val = getCheckedValue('q_options');
-        return val ? [val] : [];
-    }
-
-    function recommendPackage() {
-        var score = { starter: 0, corporate: 0, premium: 0 };
-        var business = ua(getCheckedValue('q_business'));
-        var goal = ua(getCheckedValue('q_goal'));
-        var pages = ua(getCheckedValue('q_pages'));
-        var option = ua(getCheckedValue('q_options'));
-        var timeline = ua(getCheckedValue('q_timeline'));
-
-        if (pages === '1 сторінка (лендинг)') score.starter += 4;
-        if (pages === 'до 10 сторінок') score.corporate += 4;
-        if (pages === '11–20 сторінок') score.premium += 3;
-        if (pages === '21+ сторінок') score.premium += 5;
-
-        if (business === 'Виробництво / опт') score.corporate += 1;
-        if (business === 'Торгівля') score.corporate += 1;
-        if (business === 'Інше / не визначився') score.corporate += 1;
-
-        if (goal === 'Збір заявок та контактів') score.starter += 2;
-        if (goal === 'Презентація бренду або послуг') score.corporate += 2;
-        if (goal === 'Прямі онлайн-продажі') score.corporate += 2;
-        if (goal === 'Масштабування') score.premium += 3;
-
-        if (option === 'Рекламні послуги' || option === 'SEO розвиток сайту') {
-            score.corporate += 2;
-        }
-        if (option === 'CRM та автоматизація') score.corporate += 2;
-        if (option === 'Мультимовність') score.premium += 3;
-
-        if (timeline === 'Якнайшвидше (до 7 днів)') score.starter += 3;
-        if (timeline === 'Протягом 2 тижнів') score.corporate += 2;
-        if (timeline === 'Протягом місяця') score.corporate += 1;
-        if (timeline === 'Терміни гнучкі') score.premium += 2;
-
-        var best = 'corporate';
-        var bestScore = -1;
-        Object.keys(score).forEach(function (key) {
-            if (score[key] > bestScore) {
-                bestScore = score[key];
-                best = key;
-            }
-        });
-
-        return best;
-    }
-
-    function updateResultPreview(pkgKey) {
-        var data = PKG_MAP[pkgKey];
-        if (!data || !resultRoot) return;
-
-        var pkgEl = resultRoot.querySelector('[data-quiz-result-pkg]');
-        var termEl = resultRoot.querySelector('[data-quiz-result-term]');
-        var featuresEl = resultRoot.querySelector('[data-quiz-result-features]');
-
-        if (pkgEl) pkgEl.textContent = data.label;
-        if (termEl) termEl.textContent = data.term;
-
-        if (featuresEl) {
-            featuresEl.innerHTML = '';
-            data.features.forEach(function (text) {
-                var li = document.createElement('li');
-                li.textContent = text;
-                featuresEl.appendChild(li);
-            });
-            scheduleMeasure();
-        }
-    }
-
     function isStepAnswered(step) {
         return !!step.querySelector('input[type="radio"]:checked, input[type="checkbox"]:checked');
     }
 
     function isQuestionStep(step) {
-        return step
-            && !step.classList.contains('pl-corp__quiz-step--contact')
-            && !step.classList.contains('pl-corp__quiz-step--result');
+        return step && !step.classList.contains('pl-corp__quiz-step--contact');
     }
 
     function showPhoneError(message) {
@@ -297,43 +141,9 @@
         if (existing) existing.remove();
     }
 
-    function validateContactFields() {
-        var valid = true;
-
-        if (nameInput && !nameInput.checkValidity()) {
-            nameInput.reportValidity();
-            valid = false;
-        }
-
-        if (!phoneInput) return valid;
-
-        clearPhoneError();
-        var contact = phoneInput.value.trim();
-        var digits = countDigits(contact);
-
-        if (!contact) {
-            phoneInput.reportValidity();
-            return false;
-        }
-
-        if (contact.charAt(0) === '@') {
-            if (digits < 7) {
-                showPhoneError(isEn ? 'Add a phone number along with your Telegram, or enter a phone number we can call.' : 'Додайте номер телефону разом із Telegram або вкажіть телефон для звʼязку.');
-                valid = false;
-            }
-        } else if (digits < 7) {
-            showPhoneError(isEn ? 'Enter a valid phone number or a Telegram handle with a number.' : 'Введіть коректний номер телефону або Telegram з номером.');
-            valid = false;
-        }
-
-        return valid;
-    }
-
     function compileDetails() {
         if (!detailsInput) return;
 
-        var pkgKey = recommendPackage();
-        var data = PKG_MAP[pkgKey];
         var fields = [
             { name: 'q_business', label: 'Тип бізнесу' },
             { name: 'q_goal', label: 'Бізнес-ціль' },
@@ -343,10 +153,6 @@
         ];
 
         var parts = ['Сторінка: ' + (form.dataset.sourceLabel || 'Корпоративний сайт v2')];
-
-        if (data) {
-            parts.push('Рекомендований пакет: ' + data.label + ' · ' + data.term);
-        }
 
         fields.forEach(function (field) {
             var val = getCheckedValue(field.name);
@@ -368,20 +174,18 @@
 
         var currentStep = steps[idx];
         var isContact = currentStep && currentStep.classList.contains('pl-corp__quiz-step--contact');
-        var isResult = currentStep && currentStep.classList.contains('pl-corp__quiz-step--result');
         var isQuestion = isQuestionStep(currentStep);
-        var stepNum = isResult ? QUESTION_STEPS : (isContact ? QUESTION_STEPS : idx + 1);
-        var progress = (isContact || isResult) ? 100 : ((idx + 1) / QUESTION_STEPS) * 100;
+        var stepNum = isContact ? QUESTION_STEPS : idx + 1;
+        var progress = isContact ? 100 : ((idx + 1) / QUESTION_STEPS) * 100;
 
         if (progressBar) progressBar.style.width = progress + '%';
         if (stepNumEl) stepNumEl.textContent = String(stepNum);
 
-        /* No "Back" on the final contact/result step */
         var showPrev = idx > 0 && isQuestion;
         var showNext = isQuestion;
         var showSkip = isQuestion;
 
-        if (navDiv) navDiv.hidden = isResult || (!showPrev && !showNext && !showSkip);
+        if (navDiv) navDiv.hidden = !showPrev && !showNext && !showSkip;
 
         setNavSlot(prevBtn, showPrev);
         setNavSlot(skipBtn, showSkip);
@@ -490,7 +294,6 @@
     }
 
     if (revealBtn) revealBtn.addEventListener('click', handleRevealClick);
-    if (prevResultBtn) prevResultBtn.addEventListener('click', goPrev);
     /* Enter on a question step = "Next" (never Skip, never the contact submit) */
     form.addEventListener('keydown', function (e) {
         if (e.key !== 'Enter' || e.isComposing) return;
