@@ -1,7 +1,6 @@
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
-from . import ads_views
 from . import presentation_views
 from . import proposal_views
 from . import tz_views
@@ -35,7 +34,7 @@ urlpatterns = [
     path('tz-dlia-saitu/', tz_views.TzGeneratorView.as_view(), name='tz_generator'),
     path('telegram-bot/', views.TelegramBotView.as_view(), name='telegram_bot'),
     path('rozrobka-sajtiv/', views.RozrobkaSajtivView.as_view(), name='rozrobka_sajtiv'),
-    path(_('dorobka-sajtu/'), ads_views.DorobkaSajtuView.as_view(), name='dorobka_sajtu'),
+    path(_('dorobka-sajtu/'), RedirectView.as_view(pattern_name='home', permanent=True, query_string=True)),
     path(
         'internet-shop-ru/',
         RedirectView.as_view(url='/ru/internet-shop-v2/', permanent=True, query_string=True),

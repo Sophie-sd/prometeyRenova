@@ -106,18 +106,8 @@
     color: #fff;
 }
 
-/* Rozrobka / dorobka: calc between lead and form card, form submit = outline */
+/* Rozrobka: calc CTA between lead and copy */
 .pl-rs__hero-copy > .pl-calc-cta { margin: 18px auto 18px; }
-.pl-rs__hero-form-card .plf-form__submit {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    color: #fff;
-}
-.pl-rs__hero-form-card .plf-form__submit:hover,
-.pl-rs__hero-form-card .plf-form__submit:focus-visible {
-    background: #fff;
-    color: #111;
-}
 
 .pl-corp__hero-card .pl-calc-cta__btn { width: 100%; }
 @media (min-width: 1024px) {

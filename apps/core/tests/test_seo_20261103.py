@@ -12,12 +12,12 @@ from apps.core import seo
 from apps.core.redirects import CanonicalHostMiddleware
 
 SITE = 'https://www.prometeylabs.com'
-UNTRANSLATED_EN = ('/en/internet-shop-v2/', '/en/dorobka-sajtu/')
+UNTRANSLATED_EN = ('/en/internet-shop-v2/',)
 INDEXABLE = (
     '/', '/ru/', '/en/', '/portfolio/', '/ru/portfolio/', '/en/portfolio/', '/contacts/', '/en/contacts/',
     '/calculator/', '/blog/', '/ru/blog/', '/en/blog/', '/telegram-bot/', '/en/telegram-bot/',
     '/corporate-website-v2/', '/en/corporate-website-v2/', '/internet-shop-v2/', '/ru/internet-shop-v2/',
-    '/rozrobka-sajtiv/', '/ru/rozrobka-sajtiv/', '/en/rozrobka-sajtiv/', '/dorobka-sajtu/', '/ru/dorabotka-sajta/',
+    '/rozrobka-sajtiv/', '/ru/rozrobka-sajtiv/', '/en/rozrobka-sajtiv/',
     '/privacy/', '/ru/privacy/', '/en/privacy/', '/offer/', '/refund/', '/cookies/',
 )
 

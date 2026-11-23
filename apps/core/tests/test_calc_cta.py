@@ -17,8 +17,6 @@ PAGES = (
     ('/ru/internet-shop-v2/', 'shop', 'ru', '#zayavka'),
     ('/corporate-website-v2/', 'corp', 'uk', '#calculator'),
     ('/ru/corporate-website-v2/', 'corp', 'ru', '#calculator'),
-    ('/dorobka-sajtu/', 'dorobka', 'uk', '/calculator/?start=1'),
-    ('/ru/dorabotka-sajta/', 'dorobka', 'ru', '/ru/calculator/?start=1'),
 )
 
 HERO_RE = re.compile(r'<a href="([^"]+)" class="pl-calc-cta__btn[^"]*"[^>]*data-calc-cta="hero"[^>]*>'
