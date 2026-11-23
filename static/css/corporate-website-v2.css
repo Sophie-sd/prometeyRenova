@@ -3258,6 +3258,30 @@ body.pl-corp-body .modal .modal-content .form-submit {
     padding-inline: var(--pl-gutter);
 }
 
+/* hero-fit.css sets min-height: 100svh on .pl-corp__hero. That empty tail
+   sat between the guarantee line and this video. Higher specificity wins
+   over hero-fit.css, which is linked later. */
+@media (max-width: 767px) {
+    body.pl-corp-body .pl-corp__hero {
+        min-height: 0;
+        padding-bottom: 0;
+    }
+
+    body.pl-corp-body .pl-corp__hero-offers--more {
+        display: none;
+    }
+
+    body.pl-corp-body .pl-corp__video-intro {
+        margin-top: 24px;
+    }
+}
+
+@media (min-width: 768px) {
+    body.pl-corp-body .pl-corp__hero {
+        min-height: 0;
+    }
+}
+
 .pl-corp__video-intro .pl-rs-video {
     width: 100%;
     max-width: 460px;
