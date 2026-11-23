@@ -4007,7 +4007,7 @@ msgstr "Получите точную оценку стоимости за 2 м�
 
 #: templates/pages/calculator.html:73
 msgid "Розрахунок вартості"
-msgstr "Расчет стоимости"
+msgstr "Расчёт стоимости"
 
 #: templates/pages/calculator.html:74
 msgid "Розробки веб-сайту"
@@ -6349,14 +6349,8 @@ msgstr "Пожизненная гарантия на код + 1 год бесп�
 #~ msgid "Куди надіслати розширене ТЗ?"
 #~ msgstr "Куда отправить расширенное ТЗ?"
 
-#~ msgid "Імʼя"
-#~ msgstr "Имя"
-
 #~ msgid "Назад"
 #~ msgstr "Назад"
-
-#~ msgid "Далі"
-#~ msgstr "Далее"
 
 #~ msgid "Чому без ТЗ проєкти зриваються"
 #~ msgstr "Почему без ТЗ проекты срываются"
@@ -6891,7 +6885,7 @@ msgstr "Google учитывает скорость страницы в оцен�
 
 #: templates/pages/corporate-website-v2.html
 msgid "Дизайн, у якому впізнають ваш бренд, і верстка без вигляду конструктора"
-msgstr "Дизайн, в котором узнают ваш бренд, и вёрстка без вида конструктора"
+msgstr "Дизайн, в котором узнают ваш бренд, и вёрстка, которая не выглядит как конструктор"
 
 #: templates/pages/corporate-website-v2.html
 msgid "Форми збору заявок, календар, онлайн-запис чи будь-які інтеграції"
@@ -7119,7 +7113,7 @@ msgstr "Собираем на той же архитектуре — быстр�
 
 #: templates/pages/corporate-website-v2.html
 msgid "Отримайте прорахунок вартості"
-msgstr "Получите просчёт стоимости"
+msgstr "Получите расчёт стоимости"
 
 #: templates/pages/corporate-website-v2.html
 msgid "Висока швидкість, чистий код. Сайт, який працює на результат."
@@ -7294,3 +7288,7 @@ msgstr "Смотреть портфолио"
 #: templates/components/corporate_website_v2/demo.html
 msgid "Що входить у пакети"
 msgstr "Что входит в пакеты"
+
+#: templates/components/corporate_website_v2/scale.html
+msgid "оферта"
+msgstr "оферта"
