@@ -1,8 +1,9 @@
 {% load i18n static %}
 {% if rs_showcase %}
-<section id="portfolio" class="pl-rs-blocks pl-rs-work" aria-labelledby="pl-rs-work-title" data-pl-rs-portfolio>
-    <div class="pl-rs__inner">
+<section id="portfolio" class="pl-rs-blocks pl-rs-work pl-rs-work--proof{% if hide_video %} pl-rs-work--no-video{% endif %}" aria-labelledby="pl-rs-work-title" data-pl-rs-portfolio>
+    <div class="{{ inner_class|default:'pl-rs__inner' }}">
         <h2 id="pl-rs-work-title" class="pl-rs-blocks__h2">{% trans "Широке портфоліо сайтів на різну тематику" %}</h2>
+        <div class="pl-rs-work__board">
         <div class="pl-rs-work__top">
             <div class="pl-rs-work__cases">
                 {% for card in rs_showcase.cases %}
@@ -27,8 +28,8 @@
                 </article>
                 {% endfor %}
             </div>
-            {% trans "Як ми робимо корпоративні сайти" as corp_label %}
-            {% include 'components/rozrobka_sajtiv/_video.html' with video_id='UFPyLvLMp7M' poster='images/rozrobka/video/cover-corporate-sites.webp' poster_w=768 poster_h=1365 label=corp_label caption=corp_label %}
+            {% if not hide_video %}{% trans "Як ми робимо корпоративні сайти" as corp_title %}
+            {% include 'components/rozrobka_sajtiv/_video.html' with video_id='UFPyLvLMp7M' poster='images/rozrobka/video/cover-corporate-sites.webp' poster_w=768 poster_h=1365 time='00:39' title=corp_title size='compact' %}{% endif %}
         </div>
         <div class="pl-rs-work__tiles">
             {% for card in rs_showcase.tiles %}
@@ -39,13 +40,14 @@
             </a>
             {% endfor %}
         </div>
+        </div>
     </div>
 </section>
 {% else %}
 {# Upper Portfolio Section only — Figma 1:164. Lower logo-gallery 1:198 DO NOT implement. #}
 {# Screens = same full-page shots + scroll-on-hover as /portfolio/ (data-pf-screen / data-pf-shot → js/portfolio-screen-scroll.js). #}
 <section id="portfolio" class="pl-rs__section pl-rs__section--work" aria-labelledby="pl-rs-work-title" data-pl-rs-portfolio>
-    <div class="pl-rs__inner">
+    <div class="{{ inner_class|default:'pl-rs__inner' }}">
         <div class="pl-rs__work-head">
             <h2 id="pl-rs-work-title" class="pl-rs__h2 pl-rs__h2--work">{% trans "Наші роботи — сайти від веб-студії PrometeyLabs" %}</h2>
             <div class="pl-rs__work-nav" role="group" aria-label="{% trans "Навігація портфоліо" %}">

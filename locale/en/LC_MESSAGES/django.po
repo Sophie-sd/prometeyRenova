@@ -3101,7 +3101,7 @@ msgstr "Technical requirements"
 #: templates/components/process_block.html:58
 #: templates/components/process_flow_block.html:51
 msgid "Карта сайту"
-msgstr "Sitemap"
+msgstr "Site map"
 
 #: templates/components/process_block.html:59
 #: templates/components/tz_generator/holo.html:19
@@ -3184,7 +3184,7 @@ msgstr "Final approval"
 
 #: templates/components/process_block.html:158
 msgid "Деплой і передача прав"
-msgstr "Deployment and handover"
+msgstr "Deployment and transfer of rights"
 
 #: templates/components/process_block.html:159
 msgid "Запуск на сервер"
@@ -6253,7 +6253,7 @@ msgstr ""
 "inventory, website. We don’t promise services the team hasn’t implemented"
 
 msgid "Це можна купити частинами,"
-msgstr "You can pay for it in instalments,"
+msgstr "You can pay for it in installments,"
 
 msgid "до 15 платежів"
 msgstr "up to 15 payments"
@@ -6306,7 +6306,7 @@ msgid ""
 msgstr ""
 "Turnkey corporate websites and landing pages: a landing page for €150–€300 in "
 "3–7 days, a corporate website for €350–€500 in 7–14 days. Technical SEO, fast "
-"loading, lifetime code warranty and 1 year of free support."
+"loading, lifetime code warranty."
 
 msgid "Корпоративні сайти та лендінги під ключ, що домінують у пошуку"
 msgstr "Turnkey corporate websites and landing pages that dominate search"
@@ -6931,7 +6931,7 @@ msgid ""
 "Спробуйте просто зараз — оберіть колір у демо-панелі й подивіться, як за один"
 " клік змінюється брендова схема сайту. Саме так це працює у вашій панелі"
 msgstr ""
-"Try it right now — pick a colour in the demo panel and watch the site's brand"
+"Try it right now — pick a color in the demo panel and watch the site's brand"
 " scheme change in one click. That's exactly how it works in your panel"
 
 msgid "Надзручна адмінка"
@@ -6941,7 +6941,7 @@ msgid ""
 "Змінюйте тексти, зображення та кольорову схему бренду в 2 кліки. Не потрібен "
 "програміст"
 msgstr ""
-"Change text, images and your brand colour scheme in 2 clicks. No developer "
+"Change text, images and your brand color scheme in 2 clicks. No developer "
 "needed"
 
 msgid "Повний контроль"
@@ -6966,7 +6966,7 @@ msgid "Дизайн та бренд"
 msgstr "Design & brand"
 
 msgid "Колір бренду"
-msgstr "Brand colour"
+msgstr "Brand color"
 
 msgid "Помаранчевий"
 msgstr "Orange"
@@ -7089,7 +7089,7 @@ msgid "Що входить у розробку під ключ"
 msgstr "What a turnkey build includes"
 
 msgid "Стандартні CMS · WordPress / Tilda / Wix"
-msgstr "Standard CMSs · WordPress / Tilda / Wix"
+msgstr "Standard CMS platforms · WordPress / Tilda / Wix"
 
 msgid "Повільна сторінка після кліку"
 msgstr "Slow page after the click"
@@ -7114,16 +7114,16 @@ msgstr "Google factors page speed into its landing page quality assessment"
 
 msgid "Дизайн, у якому впізнають ваш бренд, і верстка без вигляду конструктора"
 msgstr ""
-"A design that's recognisably your brand, with a layout that doesn't look like"
-" a template"
+"A design that's recognizably your brand, with a layout that doesn't look like"
+" a website builder"
 
 msgid "Форми збору заявок, календар, онлайн-запис чи будь-які інтеграції"
-msgstr "Lead forms, a calendar, online booking or any integration you need"
+msgstr "Lead forms, a calendar, online booking, or any integrations"
 
 msgid ""
 "Адмінка, де тексти, фото і кольори міняєте самі, без залучення програмістів"
 msgstr ""
-"An admin panel where you change text, photos and colours yourself, without "
+"An admin panel where you change text, photos and colors yourself, without "
 "developers"
 
 msgid "Запуск із доменом і захищеним з’єднанням, доступи передаємо вам"
@@ -7282,7 +7282,7 @@ msgid "1 рік"
 msgstr "1 year"
 
 msgid "Безкоштовна підтримка після запуску"
-msgstr "Post-launch support"
+msgstr "Free support after launch"
 
 msgid "Технічні питання, дрібні правки та консультації протягом першого року"
 msgstr ""
@@ -7345,7 +7345,7 @@ msgid ""
 "Код оптимізований під ідеальну роботу на будь-якому пристрої — незалежно від "
 "потужності процесора клієнта чи швидкості з'єднання."
 msgstr ""
-"The code is optimised to run flawlessly on any device — regardless of the "
+"The code is optimized to run flawlessly on any device — regardless of the "
 "visitor's processor power or connection speed."
 
 msgid "Пік трафіку · сервер стабільний"
@@ -7431,7 +7431,7 @@ msgid "Гривня"
 msgstr "Hryvnia"
 
 msgid "Звʼязки між сторінками"
-msgstr "Links between pages"
+msgstr "Internal linking"
 
 msgid "UX-тестування"
 msgstr "UX testing"
@@ -10435,3 +10435,12 @@ msgstr "Read more"
 
 msgid "Згорнути"
 msgstr "Show less"
+
+#: templates/components/corporate_website_v2/demo.html
+msgid "Що входить у пакети"
+msgstr "What’s included in the packages"
+
+#: templates/components/corporate_website_v2/clients.html
+msgctxt "corp"
+msgid "Переглянути портфоліо"
+msgstr "View portfolio"

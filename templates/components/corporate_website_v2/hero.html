@@ -13,6 +13,7 @@
                 <li class="pl-corp__hero-proof-item">{% trans "Лендінг" %} <strong class="pl-corp__hero-proof-price">{% trans "150–300 €" %}</strong> · {% trans "3–7 днів" %}</li>
                 <li class="pl-corp__hero-proof-item">{% trans "Корпоративний сайт" %} <strong class="pl-corp__hero-proof-price">{% trans "350–500 €" %}</strong> · {% trans "7–14 днів" %}</li>
             </ul>
+            <p class="pl-rs__hero-trust">{% trans "5,0 ★ на Google · 51 відгук · 50+ запущених проєктів" %}</p>
         </div>
 
         <div class="pl-corp__hero-card">
@@ -21,9 +22,7 @@
                 <li class="pl-corp__hero-offer">{% trans "Аналітика і трекінг налаштовані разом із запуском" %}</li>
             </ul>
             {% calc_cta 'corp' 'btn' %}
-            {% calc_cta 'corp' 'micro' %}
-            <button type="button" class="pl-corp__btn pl-corp__btn--glass mobile-touch-target" data-modal="call-request-modal">{% trans "Замовити консультацію" %}</button>
-            {% calc_cta_sticky 'corp' %}
+            <button type="button" class="pl-corp__btn pl-corp__btn--glass pl-corp__btn--outline mobile-touch-target" data-modal="call-request-modal">{% trans "Замовити консультацію" %}</button>
             <p class="pl-corp__hero-guarantee">
                 <img src="{% static 'images/corporate_website_v2/figma/icon-award.svg' %}" alt="" width="18" height="18">
                 {% trans "Пожиттєва гарантія на код · 1 рік підтримки безкоштовно" %}
@@ -35,120 +34,4 @@
         </div>
     </div>
 </section>
-
-<section class="pl-corp__perf" aria-label="{% trans "Демо-сайт: швидкість, ціна і строки" %}" data-hero-stage>
-    <div class="pl-corp__inner">
-        <div class="pl-corp__perf-grid">
-            <div class="pl-corp__perf-side">
-                <div class="pl-corp__perf-card pl-corp__perf-card--lighthouse" data-hero-chip data-hero-tab-trigger="tech" role="button" tabindex="0" aria-label="{% trans "Google Lighthouse — показати Core Web Vitals" %}">
-                    <p class="pl-corp__perf-card-title">
-                        <img src="{% static 'images/corporate_website_v2/figma/icon-website.svg' %}" alt="" width="20" height="20">
-                        Google Lighthouse
-                    </p>
-                    <ul class="pl-corp__perf-rings">
-                        <li class="pl-corp__perf-ring"><span class="pl-corp__perf-ring-circle" data-hero-ring><svg class="pl-corp__perf-ring-check" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="pl-corp__perf-ring-label">Perf</span></li>
-                        <li class="pl-corp__perf-ring"><span class="pl-corp__perf-ring-circle" data-hero-ring><svg class="pl-corp__perf-ring-check" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="pl-corp__perf-ring-label">A11y</span></li>
-                        <li class="pl-corp__perf-ring"><span class="pl-corp__perf-ring-circle" data-hero-ring><svg class="pl-corp__perf-ring-check" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="pl-corp__perf-ring-label">BP</span></li>
-                        <li class="pl-corp__perf-ring"><span class="pl-corp__perf-ring-circle" data-hero-ring><svg class="pl-corp__perf-ring-check" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="pl-corp__perf-ring-label">SEO</span></li>
-                    </ul>
-                    <p class="pl-corp__perf-note">{% trans "Усі 4 показники Lighthouse у зеленій зоні (мобільний)" %}</p>
-                </div>
-
-                <div class="pl-corp__perf-card pl-corp__perf-card--timer" data-hero-chip data-hero-tab-trigger="economy" role="button" tabindex="0" aria-label="{% trans "Строк запуску — показати ціну і строки" %}">
-                    <p class="pl-corp__perf-card-title">
-                        <img src="{% static 'images/corporate_website_v2/figma/icon-time.svg' %}" alt="" width="20" height="20">
-                        {% trans "Строк запуску" %}
-                    </p>
-                    <p class="pl-corp__perf-timer">
-                        <span class="pl-corp__perf-timer-item"><span class="pl-corp__perf-timer-kind">{% trans "Лендінг" %}</span> <strong class="pl-corp__perf-timer-val">3–7</strong></span>
-                        <span class="pl-corp__perf-timer-sep" aria-hidden="true">·</span>
-                        <span class="pl-corp__perf-timer-item"><span class="pl-corp__perf-timer-kind">{% trans "Корп" %}</span> <strong class="pl-corp__perf-timer-val">7–14</strong> <span class="pl-corp__perf-timer-unit">{% trans "днів" %}</span></span>
-                    </p>
-                    <span class="pl-corp__perf-progress" aria-hidden="true"><span class="pl-corp__perf-progress-bar"></span></span>
-                </div>
-            </div>
-
-            <div class="pl-corp__win" data-hero-win>
-                <img class="pl-corp__win-glow" src="{% static 'images/corporate_website_v2/figma/glow-window.svg' %}" alt="" width="626" height="626" aria-hidden="true">
-                <div class="pl-corp__win-bar">
-                    <span class="pl-corp__win-dot" aria-hidden="true"></span>
-                    <span class="pl-corp__win-dot" aria-hidden="true"></span>
-                    <span class="pl-corp__win-dot" aria-hidden="true"></span>
-                    <span class="pl-corp__win-url">
-                        <img src="{% static 'images/corporate_website_v2/figma/icon-lock.svg' %}" alt="" width="11" height="12">
-                        prometeylabs.com
-                    </span>
-                </div>
-                <div class="pl-corp__win-body" data-hero-mockup>
-                    <div class="pl-corp__win-panels">
-                        <div class="pl-corp__win-panel is-active" id="pl-corp-win-economy" data-hero-panel="economy" role="tabpanel" aria-hidden="false">
-                            <p class="pl-corp__win-crumbs"><button type="button" class="pl-corp__win-back" data-hero-back><img src="{% static 'images/corporate_website_v2/figma/icon-back.svg' %}" alt="" width="10" height="7"> {% trans "Головна" %}</button><span aria-hidden="true">/</span><span class="pl-corp__win-crumb">{% trans "Вартість" %}</span></p>
-                            <h3 class="pl-corp__win-title">{% trans "Ціна і строк" %}</h3>
-                            <ul class="pl-corp__win-pkgs">
-                                <li class="pl-corp__win-pkg"><span class="pl-corp__win-pkg-label">{% trans "Лендінг" %}</span><span class="pl-corp__win-pkg-name">{% trans "Лендінг 150–300 €, 3–7 днів" %}</span><span class="pl-corp__win-pkg-desc">{% trans "Односторінковий сайт із формою заявок, технічним SEO, аналітикою і трекінгом, доменом і захищеним з’єднанням" %}</span></li>
-                                <li class="pl-corp__win-pkg"><span class="pl-corp__win-pkg-label">{% trans "Корпоративний сайт" %}</span><span class="pl-corp__win-pkg-name">{% trans "Корпоративний сайт 350–500 €, 7–14 днів" %}</span><span class="pl-corp__win-pkg-desc">{% trans "Багатосторінковий сайт з адмінкою, інтеграціями (CRM, ERP, оплати), технічним SEO і аналітикою" %}</span></li>
-                            </ul>
-                        </div>
-
-                        <div class="pl-corp__win-panel" id="pl-corp-win-tech" data-hero-panel="tech" role="tabpanel" aria-hidden="true">
-                            <p class="pl-corp__win-crumbs"><button type="button" class="pl-corp__win-back" data-hero-back><img src="{% static 'images/corporate_website_v2/figma/icon-back.svg' %}" alt="" width="10" height="7"> {% trans "Головна" %}</button><span aria-hidden="true">/</span><span class="pl-corp__win-crumb">Core Web Vitals</span></p>
-                            <h3 class="pl-corp__win-title">{% trans "Core Web Vitals у зеленій зоні" %}</h3>
-                            <p class="pl-corp__win-desc">{% trans "Цільовий показник для кожного сайту — зелена зона Lighthouse (мобільний профіль)." %}</p>
-                            <ul class="pl-corp__win-metrics">
-                                <li class="pl-corp__win-metric"><span class="pl-corp__win-metric-name">LCP</span><span class="pl-corp__win-metric-track"><span class="pl-corp__win-metric-fill pl-corp__win-metric-fill--lcp"></span></span><strong class="pl-corp__win-metric-val">{% trans "1,5–1,7 с" %}</strong></li>
-                                <li class="pl-corp__win-metric"><span class="pl-corp__win-metric-name">TBT</span><span class="pl-corp__win-metric-track"><span class="pl-corp__win-metric-fill pl-corp__win-metric-fill--inp"></span></span><strong class="pl-corp__win-metric-val">{% trans "0 мс" %}</strong></li>
-                                <li class="pl-corp__win-metric"><span class="pl-corp__win-metric-name">CLS</span><span class="pl-corp__win-metric-track"><span class="pl-corp__win-metric-fill pl-corp__win-metric-fill--cls"></span></span><strong class="pl-corp__win-metric-val">0</strong></li>
-                            </ul>
-                        </div>
-
-                        <div class="pl-corp__win-panel" id="pl-corp-win-scale" data-hero-panel="scale" role="tabpanel" aria-hidden="true">
-                            <p class="pl-corp__win-crumbs"><button type="button" class="pl-corp__win-back" data-hero-back><img src="{% static 'images/corporate_website_v2/figma/icon-back.svg' %}" alt="" width="10" height="7"> {% trans "Головна" %}</button><span aria-hidden="true">/</span><span class="pl-corp__win-crumb">{% trans "Масштаб" %}</span></p>
-                            <h3 class="pl-corp__win-title">{% trans "Клонування за 5 хвилин" %}</h3>
-                            <p class="pl-corp__win-desc">{% trans "Snapshot архітектури — новий лендінг збираємо на готовій основі, швидше й дешевше за розробку з нуля." %}</p>
-                            <ul class="pl-corp__win-pills pl-corp__win-pills--folders">
-                                <li class="pl-corp__win-pill">site-original/</li>
-                                <li class="pl-corp__win-pill pl-corp__win-pill--acc">site-clone-02/</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="pl-corp__win-tabs" data-hero-win-cards role="tablist" aria-label="{% trans "Розділи демо-сайту" %}">
-                        <button type="button" class="pl-corp__win-tab is-active mobile-touch-target" data-hero-tab="economy" role="tab" aria-selected="true" aria-controls="pl-corp-win-economy">
-                            <img class="pl-corp__win-tab-glow pl-corp__win-tab-glow--warm" src="{% static 'images/corporate_website_v2/figma/glow-tab-warm.svg' %}" alt="" width="180" height="175">
-                            <img class="pl-corp__win-tab-glow pl-corp__win-tab-glow--light" src="{% static 'images/corporate_website_v2/figma/glow-tab-light.svg' %}" alt="" width="204" height="184">
-                            <img class="pl-corp__win-tab-icon" src="{% static 'images/corporate_website_v2/figma/icon-ticket.svg' %}" alt="" width="22" height="18">
-                            <span class="pl-corp__win-tab-label">{% trans "Ціна і строк" %}</span>
-                        </button>
-                        <button type="button" class="pl-corp__win-tab mobile-touch-target" data-hero-tab="tech" role="tab" aria-selected="false" aria-controls="pl-corp-win-tech">
-                            <img class="pl-corp__win-tab-glow pl-corp__win-tab-glow--warm" src="{% static 'images/corporate_website_v2/figma/glow-tab-warm.svg' %}" alt="" width="180" height="175">
-                            <img class="pl-corp__win-tab-glow pl-corp__win-tab-glow--light" src="{% static 'images/corporate_website_v2/figma/glow-tab-light.svg' %}" alt="" width="204" height="184">
-                            <img class="pl-corp__win-tab-icon" src="{% static 'images/corporate_website_v2/figma/icon-star.svg' %}" alt="" width="22" height="22">
-                            <span class="pl-corp__win-tab-label">Core Web Vitals</span>
-                        </button>
-                        <button type="button" class="pl-corp__win-tab mobile-touch-target" data-hero-tab="scale" role="tab" aria-selected="false" aria-controls="pl-corp-win-scale">
-                            <img class="pl-corp__win-tab-glow pl-corp__win-tab-glow--warm" src="{% static 'images/corporate_website_v2/figma/glow-tab-warm.svg' %}" alt="" width="180" height="175">
-                            <img class="pl-corp__win-tab-glow pl-corp__win-tab-glow--light" src="{% static 'images/corporate_website_v2/figma/glow-tab-light.svg' %}" alt="" width="204" height="184">
-                            <img class="pl-corp__win-tab-icon" src="{% static 'images/corporate_website_v2/figma/icon-activity.svg' %}" alt="" width="21" height="22">
-                            <span class="pl-corp__win-tab-label">{% trans "Клонування сайтів" %}</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <ul class="pl-corp__perf-benefits">
-            <li class="pl-corp__perf-benefit">
-                <img class="pl-corp__perf-benefit-icon pl-corp__perf-benefit-icon--cross" src="{% static 'images/corporate_website_v2/figma/icon-cross-acc.svg' %}" alt="" width="23" height="23">
-                <span>{% trans "Без доплат у процесі" %}</span>
-            </li>
-            <li class="pl-corp__perf-benefit">
-                <img class="pl-corp__perf-benefit-icon" src="{% static 'images/corporate_website_v2/figma/icon-award.svg' %}" alt="" width="20" height="20">
-                <span>{% trans "Пожиттєва гарантія на код" %}</span>
-            </li>
-            <li class="pl-corp__perf-benefit pl-corp__perf-benefit--wide">
-                <img class="pl-corp__perf-benefit-icon" src="{% static 'images/corporate_website_v2/figma/icon-setting.svg' %}" alt="" width="21" height="23">
-                <span>{% trans "Зручна адмінка українською мовою: змінюйте заголовки, текстові блоки, зображення, ціни, послуги тощо на сайті без залучення програмістів." %}</span>
-            </li>
-        </ul>
-    </div>
-</section>
+{% calc_cta_sticky 'corp' %}

@@ -2,7 +2,7 @@
 {% trans "Читати повністю" as review_more %}
 {% trans "Згорнути" as review_less %}
 <section class="pl-rs-blocks" id="rs-reviews" aria-labelledby="pl-rs-reviews-title">
-    <div class="pl-rs__inner">
+    <div class="{{ inner_class|default:'pl-rs__inner' }}">
         <h2 class="pl-rs-blocks__h2 pl-rs-reviews__title" id="pl-rs-reviews-title">
             <span>{% trans "Відгуки клієнтів на Google" %}</span>
             <img src="{% static 'img/rozrobka-figma/rs-google-g.svg' %}" alt="" width="50" height="51">

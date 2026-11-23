@@ -1,5 +1,5 @@
 {% if ads_faq %}
-<section class="pl-ads-faq" id="faq" aria-labelledby="pl-ads-faq-title">
+<section class="pl-ads-faq{% if faq_mod %} {{ faq_mod }}{% endif %}" id="faq" aria-labelledby="pl-ads-faq-title">
     <div class="pl-ads-wrap">
         <h2 class="pl-ads-h2" id="pl-ads-faq-title">{{ ads_copy.faq_h2 }}</h2>
         <div class="pl-ads-faq__list">

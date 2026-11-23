@@ -134,6 +134,16 @@ class TelegramBotView(BasePageView):
         'чат-бот telegram для бізнесу'
     )
 
+def rozrobka_proof_context():
+    """rs_showcase and rs_review_bodies for /rozrobka-sajtiv/ and /corporate-website-v2/."""
+    from .rozrobka_portfolio import rozrobka_showcase
+    from .rozrobka_reviews import rozrobka_review_bodies
+    return {
+        'rs_showcase': rozrobka_showcase(),
+        'rs_review_bodies': rozrobka_review_bodies(),
+    }
+
+
 class RozrobkaSajtivView(BasePageView):
     """Ads-лендінг «розробка сайтів»: Soft € над фолдом на мобільному."""
 
@@ -153,12 +163,10 @@ class RozrobkaSajtivView(BasePageView):
     def get_context_data(self, **kwargs):
         from django.utils import translation
         from .ads_context import rs_ads_context
-        from .rozrobka_portfolio import rozrobka_portfolio_cards, rozrobka_showcase
-        from .rozrobka_reviews import rozrobka_review_bodies
+        from .rozrobka_portfolio import rozrobka_portfolio_cards
         context = super().get_context_data(**kwargs)
         context['rs_portfolio'] = rozrobka_portfolio_cards()
-        context['rs_showcase'] = rozrobka_showcase()
-        context['rs_review_bodies'] = rozrobka_review_bodies()
+        context.update(rozrobka_proof_context())
         context.update(rs_ads_context())
         if translation.get_language() == 'ru':
             context['lang_suggest_uk_url'] = '/rozrobka-sajtiv/'
@@ -254,12 +262,7 @@ class CorporateWebsiteV2View(BasePageView):
         '100/100 Core Web Vitals, технічне SEO, пожиттєва гарантія на код.'
     )
     og_title = _('Корпоративні сайти, що домінують у пошуку — PrometeyLabs')
-
-    def get_template_names(self):
-        from django.utils import translation
-        if translation.get_language() == 'ru':
-            return ['pages/corporate-website-v2-ru.html']
-        return ['pages/corporate-website-v2.html']
+    template_name = 'pages/corporate-website-v2.html'
 
     def get_context_data(self, **kwargs):
         from django.utils import translation
@@ -267,13 +270,8 @@ class CorporateWebsiteV2View(BasePageView):
         context = super().get_context_data(**kwargs)
         context['home_clients'] = homepage_clients()
         context.update(corporate_ads_context())
+        context.update(rozrobka_proof_context())
         if translation.get_language() == 'ru':
-            context['page_title'] = 'Корпоративные сайты и лендинги под ключ — цена и сроки | PrometeyLabs'
-            context['meta_description'] = (
-                'Разработка корпоративных сайтов и лендингов с нативной архитектурой. '
-                '100/100 Core Web Vitals, техническое SEO, пожизненная гарантия на код.'
-            )
-            context['og_title'] = 'Корпоративные сайты, которые доминируют в поиске — PrometeyLabs'
             context['lang_suggest_uk_url'] = '/corporate-website-v2/'
         return context
 

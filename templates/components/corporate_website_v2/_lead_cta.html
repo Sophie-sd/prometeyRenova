@@ -4,8 +4,8 @@
     <div class="pl-corp__inner">
         <div class="pl-corp__lead-cta-row" data-reveal>
             <div class="pl-corp__lead-cta-copy">
-                <h2 id="{{ title_id }}" class="pl-corp__lead-cta-title">{% if split_title %}<span class="pl-corp__accent pl-rs-line">{{ accent }}</span><br><span class="pl-rs-line">{{ title_mid }}</span><br> <span class="pl-rs-line">{{ title_last }}</span>{% else %}<span class="pl-corp__accent">{{ accent }}</span> {{ title }}{% endif %}</h2>
-                <p class="pl-corp__lead-cta-text">{{ text }}</p>
+                <h2 id="{{ title_id }}" class="pl-corp__lead-cta-title">{% if split_title %}<span class="pl-corp__accent pl-rs-line">{{ accent }}</span><br><span class="pl-rs-line">{{ title_mid }}</span><br> <span class="pl-rs-line">{{ title_last }}</span>{% else %}{% if accent %}<span class="pl-corp__accent">{{ accent }}</span> {% endif %}{{ title }}{% endif %}</h2>
+                {% if text %}<p class="pl-corp__lead-cta-text">{{ text }}</p>{% endif %}
             </div>
             <form class="pl-corp__lead-cta-form" method="post" action="{% url 'form_submit' %}" data-form-type="{{ form_type }}">
                 {% csrf_token %}
@@ -19,6 +19,7 @@
                     <input type="tel" name="phone" class="pl-corp__field-input mobile-touch-target" autocomplete="tel" inputmode="tel" placeholder="{{ phone_label }}" required>
                 </label>
                 <button type="submit" class="pl-corp__btn pl-corp__btn--accent mobile-touch-target">{{ button }}</button>
+                {% if pay_text %}<p class="pl-corp__lead-cta-pay"><a href="{% url 'monobank_chastynamy' %}">{{ pay_text }} <strong>{{ pay_strong }}</strong></a></p>{% endif %}
                 {% if consent %}{% url 'privacy' as privacy_url %}<label class="pl-corp__consent">
                     <input type="checkbox" name="consent" value="1" required class="pl-corp__consent-check">
                     <span>{% trans "Даю згоду на обробку персональних даних згідно з" %} <a href="{{ privacy_url }}" target="_blank" rel="noopener">{% trans "політики конфіденційності" %}</a></span>

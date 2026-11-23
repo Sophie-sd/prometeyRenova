@@ -8,6 +8,7 @@ from .ads_copy import (
     crumbs_copy,
     faq_pairs,
     lang,
+    corp_copy,
     process_site_copy,
     rs_copy,
     shop_copy,
@@ -134,14 +135,21 @@ def dorobka_ads_context():
 
 def corporate_ads_context():
     seo = hreflang_for('corporate_website_v2')
-    labels = crumbs_copy()
-    last = 'Корпоративные сайты и лендинги' if lang() == 'ru' else 'Корпоративні сайти та лендінги'
+    last = {
+        'uk': 'Корпоративні сайти та лендінги',
+        'ru': 'Корпоративные сайты и лендинги',
+        'en': 'Corporate websites and landing pages',
+    }.get(lang(), 'Корпоративні сайти та лендінги')
     crumbs = _crumbs(last, seo['canonical'])
+    copy = corp_copy()
+    faq = faq_pairs(copy['faq'])
     return {
+        'ads_copy': copy,
+        'ads_faq': faq,
         'ads_crumbs': crumbs,
         'ads_seo': seo,
         'ads_contacts': contacts_copy(),
-        'ads_json_ld': schema_scripts(crumbs),
+        'ads_json_ld': schema_scripts(crumbs, faq),
     }
 
 
