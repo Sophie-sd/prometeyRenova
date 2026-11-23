@@ -74,6 +74,12 @@
 .hf-services__video { min-width: 0; }
 .hf-services__video .pl-rs-video { max-width: none; }
 
+/* clients → portfolio → reviews → cta, inside the shared finale. */
+.hf-finale > .pl-rs-blocks {
+    position: relative;
+    margin-top: 80px;
+}
+
 /* ≥1100: row 1 web, dorobka, video; row 2 smm, ai, mobile. */
 @media (min-width: 1100px) {
     .hf-service--web { grid-column: 1; grid-row: 1; }
@@ -84,6 +90,10 @@
     .hf-service--mobile { grid-column: 3; grid-row: 2; }
     .hf-services__video .pl-rs-video,
     .hf-services__video .pl-rs-video__card { height: 274px; }
+}
+
+@media (min-width: 1100px) and (max-width: 1199px) {
+    .hf-service__title { font-size: 34px; }
 }
 
 @media (max-width: 1099px) {
@@ -106,10 +116,4 @@
 @media (prefers-reduced-motion: reduce) {
     .hf-service { transition: none; }
     .hf-service:hover { transform: none; }
-}
-
-/* clients → portfolio → reviews → cta, inside the shared finale. */
-.hf-finale > .pl-rs-blocks {
-    position: relative;
-    margin-top: 80px;
 }
