@@ -334,3 +334,31 @@ class ShopV2EnglishTests(TestCase):
         self.assertIn(f'<title>{SPEC[RU]["title"]}</title>', ru)
         self.assertIn(SPEC[RU]['h1'], ru)
         self.assertNotIn(self.EN_TITLE, ru)
+
+
+class ShopV2VideoIntroTests(TestCase):
+    """Секція під hero. Картка-заглушка, доки немає YouTube ID і постера."""
+
+    def test_placeholder_follows_hero(self):
+        expect = {
+            UA: ('Як ми робимо', 'Широке портфоліо інтернет-магазинів на різну тематику', 'Замовити консультацію'),
+            RU: ('Как мы делаем', 'Широкое портфолио интернет-магазинов разной тематики', 'Заказать консультацию'),
+            '/en/internet-shop-v2/': ('How we build', 'A wide portfolio of online stores in different niches', 'Request a consultation'),
+        }
+        for url, (how, fact, btn) in expect.items():
+            html = self.client.get(url).content.decode()
+            video = html.index('id="yak-my-robymo"')
+            self.assertLess(html.index('id="top"'), video, url)
+            self.assertLess(video, html.index('id="portfolio"'), url)
+            block = html[video:html.index('id="portfolio"', video)]
+            self.assertIn(how, block, url)
+            self.assertIn(fact, block, url)
+            self.assertIn('>' + btn + '<', block, url)
+            self.assertIn('data-modal="call-request-modal"', block, url)
+            self.assertIn('>01:34<', block, url)
+            self.assertNotIn('pl-rs-video__poster', block, url)
+            self.assertNotIn('<iframe', block, url)
+            self.assertIn('css/pages/shop-video.css?v=1', html, url)
+            self.assertIn('css/components/pl-proof-blocks.css?v=4', html, url)
+            self.assertIn('js/rozrobka-video.js?v=4', html, url)
+            self.assertIn('data-rs-video-dialog', html, url)

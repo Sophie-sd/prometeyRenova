@@ -1,0 +1,148 @@
+/* Секція «Як ми робимо інтернет-магазини» під hero.
+   Кольори лише через токени сторінки: --pl-text, --pl-acc, --pl-font, --pl-radius-pill.
+   ≥1024 у hero padding-bottom: 0, тож margin-top: -40px накрив би CTA і trust.
+   Замість наїзду на фото — звичайний відступ 40px. */
+
+.pl-shop-video {
+    position: relative;
+    padding: 0 16px;
+    color: var(--pl-text);
+    font-family: var(--pl-font);
+    scroll-margin-top: calc(var(--pl-header-offset) + env(safe-area-inset-top, 0px));
+}
+
+.pl-shop-video__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 358px;
+    margin: 0 auto;
+}
+
+.pl-shop-video__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+}
+
+.pl-shop-video__title {
+    margin: 0;
+    max-width: min(209px, 100%);
+    color: var(--pl-text);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.66px;
+}
+
+.pl-shop-video__accent {
+    color: var(--pl-acc);
+}
+
+.pl-shop-video__text {
+    margin: 0;
+    max-width: min(288px, 100%);
+    color: var(--pl-text);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: -0.56px;
+}
+
+.pl-shop-video__media {
+    min-width: 0;
+}
+
+.pl-shop-video .pl-rs-video,
+.pl-shop-video .pl-rs-video__card {
+    width: 100%;
+}
+
+.pl-shop-video .pl-rs-video__title {
+    font-size: 14px;
+}
+
+.pl-shop-video .pl-rs-video__card:not(button) {
+    cursor: default;
+}
+
+.pl-shop-video__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    padding: 0 16px;
+    border: 1px solid rgba(255, 255, 255, 1);
+    border-radius: var(--pl-radius-pill);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--pl-text);
+    font-family: var(--pl-font);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.32px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 300ms ease-out;
+}
+
+.pl-shop-video__btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.pl-shop-video__btn:focus-visible {
+    outline: 2px solid var(--pl-acc);
+    outline-offset: 3px;
+}
+
+@media (min-width: 1024px) {
+    .pl-shop-video {
+        margin-top: 40px;
+    }
+
+    .pl-shop-video__q {
+        display: none;
+    }
+
+    .pl-shop-video__inner {
+        display: grid;
+        grid-template-columns: 329px 460px;
+        grid-template-rows: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "copy media"
+            "btn media";
+        column-gap: 50px;
+        row-gap: 0;
+        align-items: stretch;
+        width: 839px;
+        max-width: 100%;
+        height: 256px;
+    }
+
+    .pl-shop-video__copy {
+        grid-area: copy;
+        align-self: start;
+        gap: 12px;
+    }
+
+    .pl-shop-video__media {
+        grid-area: media;
+        height: 256px;
+    }
+
+    .pl-shop-video .pl-rs-video,
+    .pl-shop-video .pl-rs-video__card {
+        height: 256px;
+    }
+
+    .pl-shop-video__btn {
+        grid-area: btn;
+        align-self: end;
+        width: 329px;
+    }
+}

@@ -1,0 +1,29 @@
+{% load i18n %}{% load static %}
+{# [HOLD] YouTube ID і постер дасть Софія #}
+{% with shop_video_id="" shop_video_poster="" shop_video_time="01:34" %}
+{% trans "Як ми робимо інтернет-магазини" as shop_video_title %}
+<section class="pl-shop-video" id="yak-my-robymo" aria-labelledby="shop-video-title">
+    <div class="pl-shop-video__inner">
+        <div class="pl-shop-video__copy">
+            <h2 class="pl-shop-video__title" id="shop-video-title">{% trans "Як ми робимо" %} <span class="pl-shop-video__accent">{% trans "інтернет-магазини" %}</span><span class="pl-shop-video__q" aria-hidden="true">?</span></h2>
+            <p class="pl-shop-video__text">{% trans "Широке портфоліо інтернет-магазинів на різну тематику" %} · {% trans "Ціна і строк у договорі" %} · {% trans "Оплата частинами до 15 платежів" %}</p>
+        </div>
+        <div class="pl-shop-video__media">
+            {% if shop_video_id and shop_video_poster %}
+            {% include 'components/rozrobka_sajtiv/_video.html' with video_id=shop_video_id poster=shop_video_poster poster_w=460 poster_h=256 time=shop_video_time title=shop_video_title %}
+            {% else %}
+            <figure class="pl-rs-video">
+                <div class="pl-rs-video__card">
+                    <span class="pl-rs-video__title">{{ shop_video_title }}</span>
+                    <span class="pl-rs-video__time" aria-hidden="true">{{ shop_video_time }}</span>
+                    <span class="pl-rs-video__play" aria-hidden="true">
+                        <img src="{% static 'img/rozrobka-figma/rs-play.svg' %}" alt="" width="26" height="28">
+                    </span>
+                </div>
+            </figure>
+            {% endif %}
+        </div>
+        <button type="button" class="pl-shop-video__btn" data-modal="call-request-modal" aria-haspopup="dialog">{% trans "Замовити консультацію" %}</button>
+    </div>
+</section>
+{% endwith %}

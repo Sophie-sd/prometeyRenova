@@ -110,22 +110,22 @@ class CalcCtaLandingTests(TestCase):
                 self.assertLess(html.index('id="rozrahunok"'), html.index('id="faq"'))
 
     def test_shop_order_matches_tz_section_3(self):
-        # 28.10.2026: херо → логотипи → пакети → … → смуга → FAQ → тест #zayavka в кінці.
-        order = ('top', 'portfolio', 'pakety', 'svoboda', 'forma-1', 'pl-shop-admin-title', 'dropshipping', 'garantiya', 'rozrahunok', 'faq', 'zayavka')
+        # 28.10.2026: херо → відео → логотипи → пакети → … → смуга → FAQ → тест #zayavka в кінці.
+        order = ('top', 'yak-my-robymo', 'portfolio', 'pakety', 'svoboda', 'forma-1', 'pl-shop-admin-title', 'dropshipping', 'garantiya', 'rozrahunok', 'faq', 'zayavka')
         for url in ('/internet-shop-v2/', '/ru/internet-shop-v2/'):
             with self.subTest(url=url):
                 html = self._html(url)
                 pos = [html.index(f'id="{a}"') for a in order]
                 self.assertEqual(pos, sorted(pos))
                 self.assertLess(pos[-1], html.index('<footer'))
-                self.assertEqual(html[pos[1]:pos[2]].count('<section'), 1)  # між логотипами і пакетами нічого
+                self.assertEqual(html[pos[2]:pos[3]].count('<section'), 1)  # між логотипами і пакетами нічого
                 sticky = html[html.index('data-calc-sticky'):]
                 self.assertIn('data-calc-target="#zayavka"', sticky[:300])
                 self.assertIn('href="#zayavka"', sticky[:700])
                 # Полум'я лишається на смузі-CTA (перед #rozrahunok), не на тесті в кінці.
                 self.assertNotIn('pl-shop__calc-bg', html[pos[-1]:html.index('<footer')])
                 self.assertEqual(html.count('class="pl-shop__calc-bg"'), 1)
-                self.assertIn('class="pl-shop__calc-bg"', html[pos[7]:pos[8]])
+                self.assertIn('class="pl-shop__calc-bg"', html[pos[8]:pos[9]])
 
     def test_calculator_supports_autostart(self):
         for url in ('/calculator/', '/ru/calculator/'):
