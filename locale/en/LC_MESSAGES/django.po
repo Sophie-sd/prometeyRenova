@@ -6253,7 +6253,7 @@ msgstr ""
 "inventory, website. We don’t promise services the team hasn’t implemented"
 
 msgid "Це можна купити частинами,"
-msgstr "You can pay for it in parts,"
+msgstr "You can pay for it in installments,"
 
 msgid "до 15 платежів"
 msgstr "up to 15 payments"
@@ -7431,7 +7431,7 @@ msgid "Гривня"
 msgstr "Hryvnia"
 
 msgid "Звʼязки між сторінками"
-msgstr "Connections between pages"
+msgstr "Internal linking"
 
 msgid "UX-тестування"
 msgstr "UX testing"
@@ -10431,7 +10431,7 @@ msgid "Бейдж PrometeyLabs: роки практики у веб-розроб
 msgstr "PrometeyLabs badge: years of practical experience in web development, design, integrations, mobile apps and digital marketing"
 
 msgid "Читати повністю"
-msgstr "Read in full"
+msgstr "Read more"
 
 msgid "Згорнути"
 msgstr "Show less"

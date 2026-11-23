@@ -2747,13 +2747,15 @@ body.pl-corp-body .modal .modal-content .form-submit {
         margin-top: 60px;
     }
 
-    /* tech */
+    /* tech — two lines on desktop for uk, ru and en */
     .pl-corp__tech-title {
-        max-width: 580px;
+        max-width: 660px;
+        text-wrap: balance;
     }
 
     .pl-corp__tech-desc {
-        max-width: 431px;
+        max-width: 720px;
+        text-wrap: balance;
     }
 
     .pl-corp__tech-explorer {
