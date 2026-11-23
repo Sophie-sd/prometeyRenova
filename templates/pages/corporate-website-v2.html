@@ -65,7 +65,8 @@
 {% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static 'css/corporate-website-v2.css' %}?v=44">
+<link rel="stylesheet" href="{% static 'css/home-figma/home-figma.css' %}?v=15">
+<link rel="stylesheet" href="{% static 'css/corporate-website-v2.css' %}?v=45">
 <link rel="stylesheet" href="{% static 'css/components/pl-proof-blocks.css' %}?v=1">
 {# ТЗ Софії 28.10.2026: косметика #}
 <link rel="stylesheet" href="{% static 'css/pages/tz-sofia-20261028.css' %}?v=21">
@@ -74,6 +75,8 @@
 {% block content %}
 <div id="plCorpRoot" class="pl-corp pl-corp-page">
     {% include 'components/corporate_website_v2/hero.html' %}
+    {% include 'components/corporate_website_v2/video_intro.html' %}
+    {% include 'components/corporate_website_v2/demo.html' %}
     {% include 'components/corporate_website_v2/clients.html' %}
     {% include 'components/corporate_website_v2/economy.html' %}
     {% include 'components/corporate_website_v2/free_analysis.html' %}
@@ -81,7 +84,12 @@
     {% include 'components/corporate_website_v2/admin_demo.html' %}
     {% include 'components/corporate_website_v2/calc_promo.html' %}
     {% include 'components/corporate_website_v2/scale.html' %}
+    <div class="pl-corp-process">{% include 'components/home_figma/process.html' %}</div>
+    {% include 'components/rozrobka_sajtiv/portfolio.html' with inner_class='pl-corp__inner' %}
+    {% include 'components/rozrobka_sajtiv/reviews.html' with inner_class='pl-corp__inner' %}
+    {% include 'components/ads/faq.html' with faq_mod='pl-ads-faq--proof' %}
     {% include 'components/corporate_website_v2/brief.html' %}
+    {% include 'components/rozrobka_sajtiv/_video_dialog.html' %}
 </div>
 {% endblock %}
 
@@ -89,6 +97,7 @@
 <script src="{% static 'js/corporate-website-v2-admin-demo.js' %}?v=2" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/corporate-website-v2-quiz.js' %}?v=12" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/corporate-website-v2-tech.js' %}?v=6" nonce="{{ csp_nonce }}" defer></script>
-<script src="{% static 'js/corporate-website-v2.js' %}?v=16" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/corporate-website-v2.js' %}?v=17" nonce="{{ csp_nonce }}" defer></script>
+<script src="{% static 'js/rozrobka-video.js' %}?v=4" nonce="{{ csp_nonce }}" defer></script>
 <script src="{% static 'js/components/reviews-collapse.js' %}?v=1" nonce="{{ csp_nonce }}" defer></script>
 {% endblock %}

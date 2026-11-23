@@ -108,7 +108,14 @@
         var mockup = root.querySelector('[data-hero-mockup]');
         var rings = root.querySelectorAll('[data-hero-ring]');
         var cardsWrap = root.querySelector('[data-hero-win-cards]');
-        var tabIds = ['economy', 'tech', 'scale'];
+        var tabIds = [];
+        if (cardsWrap) {
+            cardsWrap.querySelectorAll('[data-hero-tab]').forEach(function (btn) {
+                if (btn.hidden) return;
+                tabIds.push(btn.getAttribute('data-hero-tab'));
+            });
+        }
+        if (!tabIds.length) tabIds = ['economy', 'tech', 'scale'];
         var CYCLE_MS = 3200;
         var cycleTimer = null;
         var paused = false;

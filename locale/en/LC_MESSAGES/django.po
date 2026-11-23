@@ -10435,3 +10435,7 @@ msgstr "Read more"
 
 msgid "Згорнути"
 msgstr "Show less"
+
+#: templates/components/corporate_website_v2/demo.html
+msgid "Що входить у пакети"
+msgstr "What’s included in the packages"

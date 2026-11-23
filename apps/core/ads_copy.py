@@ -439,6 +439,124 @@ RS = {
 }
 
 
+CORP = {
+    'uk': {
+        'faq_h2': 'Часті питання про корпоративні сайти та лендінги',
+        'offer_line': 'Гарантію закріплено в публічному договорі (п. 8 оферти)',
+        'faq': [
+            (
+                'Скільки коштує корпоративний сайт або лендінг?',
+                'Лендінг 150–300 €, корпоративний сайт 350–500 €. Точну суму і строк фіксуємо в договорі.',
+            ),
+            (
+                'Скільки часу займає розробка?',
+                'Лендінг 3–7 днів, корпоративний сайт 7–14 днів.',
+            ),
+            (
+                'Що входить у вартість?',
+                'У лендінг: макет, верстка, форма, адаптив. У корпоративний сайт: структура сторінок, CMS-основа, адаптив, базова SEO. Не входить: реклама, тексти з нуля, сторонні API, наповнення контентом, маркетинг, кастомні інтеграції, нові модулі після здачі, сторонні ліцензії.',
+            ),
+            (
+                'Чи можна оплатити частинами або етапами?',
+                'Так, розбиття оплати на етапи — без переплат та прихованих умов. Для корпоративних сайтів — до 15 платежів.',
+            ),
+            (
+                'Чи зможу я сам змінювати сайт?',
+                'Так, самі. У адміністративній панелі можна змінювати заголовки, тексти й фото. Заявки приходять у міні-CRM. Розробник потрібен тоді, коли ви додаєте нову функцію або змінюєте логіку сайту, а не щоб виправити ціну чи замінити картинку.',
+            ),
+            (
+                'Яка гарантія?',
+                'Пожиттєва гарантія на код і рік безкоштовної підтримки. Включає: виправлення технічних помилок, підтримку працездатності коду, реакцію на критичні технічні збої, відповідність функціоналу ТЗ. Не включає: нові функції, оновлення дизайну, інтеграції з новими сервісами.',
+            ),
+            (
+                'Чому не зробити сайт у конструкторі? Це ж швидше.',
+                'Для простої візитки — так, часто швидше. Якщо потрібні своя структура, окрема адмінка, оплата, фіди чи нестандартні сценарії, конструктор починає обмежувати. Тоді доопрацювання коштують часу, а частини речей там не зробити взагалі. Для сайту, який має приводити заявки й продажі, вигідніше одразу зробити його під задачу.',
+            ),
+            (
+                'Що буде з сайтом після запуску? Чи не «прив’яжете» ви його до себе?',
+                'Сайт ваш: ви отримуєте код і доступ, без обов’язкової щомісячної плати конструктору. Після запуску можна залишитись на супроводі студії — для правок, оновлень і консультацій — або вести контент самостійно. Це не оренда чужої платформи, з якої сайт потім не забрати.',
+            ),
+        ],
+    },
+    'ru': {
+        'faq_h2': 'Частые вопросы о корпоративных сайтах и лендингах',
+        'offer_line': 'Гарантию закреплено в публичном договоре (п. 8 оферты)',
+        'faq': [
+            (
+                'Сколько стоит корпоративный сайт или лендинг?',
+                'Лендинг 150–300 €, корпоративный сайт 350–500 €. Точную сумму и срок фиксируем в договоре.',
+            ),
+            (
+                'Сколько времени занимает разработка?',
+                'Лендинг 3–7 дней, корпоративный сайт 7–14 дней.',
+            ),
+            (
+                'Что входит в стоимость?',
+                'В лендинг: макет, вёрстка, форма, адаптив. В корпоративный сайт: структура страниц, CMS-основа, адаптив, базовое SEO. Не входит: реклама, тексты с нуля, сторонние API, наполнение контентом, маркетинг, кастомные интеграции, новые модули после сдачи, сторонние лицензии.',
+            ),
+            (
+                'Можно ли оплатить частями или этапами?',
+                'Да, разбиение оплаты на этапы — без переплат и скрытых условий. Для корпоративных сайтов — до 15 платежей.',
+            ),
+            (
+                'Смогу ли я сам менять сайт?',
+                'Да, сами. В административной панели можно менять заголовки, тексты и фото. Заявки приходят в мини-CRM. Разработчик нужен тогда, когда вы добавляете новую функцию или меняете логику сайта, а не чтобы исправить цену или заменить картинку.',
+            ),
+            (
+                'Какая гарантия?',
+                'Пожизненная гарантия на код и год бесплатной поддержки. Включает: исправление технических ошибок, поддержку работоспособности кода, реакцию на критические технические сбои, соответствие функционала ТЗ. Не включает: новые функции, обновление дизайна, интеграции с новыми сервисами.',
+            ),
+            (
+                'Почему не сделать сайт в конструкторе? Это же быстрее.',
+                'Для простой визитки — да, часто быстрее. Если нужны своя структура, отдельная админка, оплата, фиды или нестандартные сценарии, конструктор начинает ограничивать. Тогда доработки стоят времени, а часть вещей там не сделать вообще. Для сайта, который должен приводить заявки и продажи, выгоднее сразу сделать его под задачу.',
+            ),
+            (
+                'Что будет с сайтом после запуска? Вы не «привяжете» его к себе?',
+                'Сайт ваш: вы получаете код и доступ, без обязательной ежемесячной платы конструктору. После запуска можно остаться на сопровождении студии — для правок, обновлений и консультаций — или вести контент самостоятельно. Это не аренда чужой платформы, с которой сайт потом не забрать.',
+            ),
+        ],
+    },
+    'en': {
+        'faq_h2': 'Common questions about corporate websites and landing pages',
+        'offer_line': 'The warranty is set out in the public contract (clause 8 of the offer)',
+        'faq': [
+            (
+                'How much does a corporate website or a landing page cost?',
+                'A landing page is €150–€300, a corporate website €350–€500. We fix the exact amount and the deadline in the contract.',
+            ),
+            (
+                'How long does development take?',
+                'A landing page takes 3–7 days, a corporate website 7–14 days.',
+            ),
+            (
+                'What is included in the price?',
+                'A landing page includes the layout, markup, a form, and a responsive version. A corporate website includes the page structure, a CMS base, a responsive version, and basic SEO. Not included: advertising, copy written from scratch, third-party APIs, filling in content, marketing, custom integrations, new modules after delivery, third-party licenses.',
+            ),
+            (
+                'Can I pay in parts or by stages?',
+                'Yes. Payment is split into stages, with no overpayment and no hidden terms. For corporate websites — up to 15 payments.',
+            ),
+            (
+                'Will I be able to change the site myself?',
+                'Yes. In the admin panel you can change headlines, texts, and photos. Inquiries arrive in a mini-CRM. A developer is needed when you add a new function or change the site logic, not to fix a price or replace a picture.',
+            ),
+            (
+                'What is the warranty?',
+                'Lifetime code warranty and 1 year of free support. It includes fixing technical errors, keeping the code working, a response to critical technical failures, and matching the specification. It does not include new functions, design updates, or integrations with new services.',
+            ),
+            (
+                'Why not build the site in a website builder? Isn’t that faster?',
+                'For a simple calling card, yes, it is often faster. If you need your own structure, a separate admin panel, payment, feeds, or unusual scenarios, a website builder starts to limit you. Rework then costs time, and some things cannot be done there at all. For a site that should bring inquiries and sales, it is better to build it for the task from the start.',
+            ),
+            (
+                'What happens to the site after launch? Will you lock it to yourselves?',
+                'The site is yours: you receive the code and access, with no required monthly fee to a website builder. After launch you can stay on studio support — for edits, updates, and consultations — or manage the content yourself. This is not a rental of someone else’s platform that you cannot take the site away from.',
+            ),
+        ],
+    },
+}
+
+
 def lang():
     code = (translation.get_language() or 'uk').split('-')[0]
     return code if code in ('uk', 'ru', 'en') else 'uk'
@@ -462,6 +580,10 @@ def shop_copy():
 
 def rs_copy():
     return for_lang(RS)
+
+
+def corp_copy():
+    return for_lang(CORP)
 
 
 def contacts_copy():

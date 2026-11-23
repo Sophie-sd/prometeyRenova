@@ -7290,3 +7290,7 @@ msgctxt "corp"
 msgid "Переглянути портфоліо"
 msgstr "Смотреть портфолио"
 
+
+#: templates/components/corporate_website_v2/demo.html
+msgid "Що входить у пакети"
+msgstr "Что входит в пакеты"

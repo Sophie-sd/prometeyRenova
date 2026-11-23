@@ -54,5 +54,10 @@
                 </div>
             </div>
         </div>
+
+        {% trans "Подивіться, як ви самі керуєте сайтом" as admin_video_label %}
+        <div class="pl-corp__admin-video">
+            {% include 'components/rozrobka_sajtiv/_video.html' with video_id='giim7h-DlVg' poster='images/rozrobka/video/cover-admin-laptop.webp' poster_w=720 poster_h=1280 label=admin_video_label caption=admin_video_label %}
+        </div>
     </div>
 </section>
