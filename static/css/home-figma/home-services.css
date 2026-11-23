@@ -74,8 +74,8 @@
 .hf-services__video { min-width: 0; }
 .hf-services__video .pl-rs-video { max-width: none; }
 
-/* clients → portfolio → reviews → cta, inside the shared finale. */
-.hf-finale > .pl-rs-blocks {
+/* clients → portfolio → reviews, before the CTA finale */
+.hf-clients ~ .pl-rs-blocks {
     position: relative;
     margin-top: 80px;
 }
@@ -106,7 +106,7 @@
     .hf-service, .hf-service:first-child { height: auto; min-height: 160px; gap: 40px; padding: 16px; }
     .hf-service__title { max-width: 100%; font-size: 34px; letter-spacing: -1.7px; }
     .hf-service__quote { font-size: 14px; letter-spacing: 0; }
-    .hf-finale > .pl-rs-blocks { margin-top: 48px; }
+    .hf-clients ~ .pl-rs-blocks { margin-top: 48px; }
 }
 
 @media (max-width: 360px) {

@@ -73,6 +73,16 @@ class HomeProofTests(TestCase):
                 self.assertLess(clients, portfolio)
                 self.assertLess(portfolio, reviews)
                 self.assertLess(reviews, contact)
+                finale = html.index('class="hf-finale"')
+                self.assertGreater(finale, reviews)
+                between = html[finale:contact]
+                self.assertIn('class="hf-finale__bg"', between)
+                self.assertNotIn('id="portfolio"', between)
+                self.assertNotIn('id="rs-reviews"', between)
+                self.assertEqual(html.count('class="hf-finale__bg"'), 1)
+                title_at = html.index('<h2 class="hf-cta__title" id="hf-cta-title">')
+                title = html[title_at:html.index('</h2>', title_at)]
+                self.assertNotIn('<br', title)
                 hero_start = html.index('class="hf-hero"')
                 hero = html[hero_start:html.index('</section>', hero_start)]
                 self.assertNotIn('pl-calc-cta__micro', hero)

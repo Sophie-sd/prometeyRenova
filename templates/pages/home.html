@@ -17,9 +17,9 @@
 <link rel="preload" as="image" href="{% static 'images/home-figma/hero-bg.webp' %}" imagesrcset="{% static 'images/home-figma/hero-bg-800.webp' %} 800w, {% static 'images/home-figma/hero-bg.webp' %} 1586w" imagesizes="(max-width: 767px) 1276px, 1586px">
 {# home.css — лише заради стилів сервісних модалок (service_modals.html) #}
 <link rel="stylesheet" href="{% static 'css/home.css' %}?v=8">
-<link rel="stylesheet" href="{% static 'css/home-figma/home-figma.css' %}?v=16">
+<link rel="stylesheet" href="{% static 'css/home-figma/home-figma.css' %}?v=17">
 <link rel="stylesheet" href="{% static 'css/components/pl-proof-blocks.css' %}?v=4">
-<link rel="stylesheet" href="{% static 'css/home-figma/home-services.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'css/home-figma/home-services.css' %}?v=3">
 <link rel="stylesheet" href="{% static 'css/components/clients-marquee.css' %}?v=3">
 {# ТЗ Софії 28.10.2026: косметика #}
 <link rel="stylesheet" href="{% static 'css/pages/tz-sofia-20261028.css' %}?v=21">
@@ -31,11 +31,11 @@
     {% include 'components/home_figma/why.html' %}
     {% include 'components/home_figma/process.html' %}
     {% include 'components/home_figma/services.html' %}
+    {% include 'components/home_figma/clients.html' %}
+    {% include 'components/rozrobka_sajtiv/portfolio.html' with inner_class='hf-wrap' hide_video=True %}
+    {% include 'components/rozrobka_sajtiv/reviews.html' with inner_class='hf-wrap' %}
     <div class="hf-finale">
         <img class="hf-finale__bg" src="{% static 'images/home-figma/clients-bg.webp' %}" width="1671" height="941" alt="" loading="lazy" decoding="async">
-        {% include 'components/home_figma/clients.html' %}
-        {% include 'components/rozrobka_sajtiv/portfolio.html' with inner_class='hf-wrap' hide_video=True %}
-        {% include 'components/rozrobka_sajtiv/reviews.html' with inner_class='hf-wrap' %}
         {% include 'components/home_figma/cta.html' %}
     </div>
 </div>
