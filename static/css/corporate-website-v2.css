@@ -2789,18 +2789,21 @@ body.pl-corp-body .modal .modal-content .form-submit {
     /* admin */
     .pl-corp__admin-row {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 220px minmax(280px, 420px);
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 522px);
+        grid-template-areas:
+            "copy mock"
+            "video mock";
         align-items: start;
-        gap: 18px;
+        gap: 18px 28px;
     }
 
-    .pl-corp__admin-copy { order: 1; }
-    .pl-corp__admin-video { order: 2; }
-    .pl-corp__admin-mock { order: 3; margin-top: 0; }
+    .pl-corp__admin-copy { grid-area: copy; }
+    .pl-corp__admin-video { grid-area: video; }
+    .pl-corp__admin-mock { grid-area: mock; margin-top: 0; }
 
     .pl-corp__admin-video .pl-rs-video {
         width: 100%;
-        max-width: 220px;
+        max-width: 460px;
         margin: 0;
     }
 
@@ -3248,41 +3251,29 @@ body.pl-corp-body .modal .modal-content .form-submit {
     }
 }
 
-.pl-corp__video-intro-row {
+.pl-corp__video-intro {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    text-align: center;
+    justify-content: center;
+    margin-top: var(--pl-section-gap);
+    padding-inline: var(--pl-gutter);
 }
 
 .pl-corp__video-intro .pl-rs-video {
-    width: min(86%, 280px);
+    width: 100%;
+    max-width: 460px;
     margin: 0;
 }
 
-.pl-corp__video-intro .pl-rs-video__caption:empty {
-    display: none;
+.pl-corp__admin-video .pl-rs-video {
+    width: 100%;
+    max-width: 460px;
+    margin: 28px 0 0;
 }
 
 @media (min-width: 1024px) {
-    .pl-corp__video-intro-row {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) 320px;
-        align-items: center;
-        gap: 40px;
-        text-align: left;
+    .pl-corp__admin-video .pl-rs-video {
+        margin: 0;
     }
-
-    .pl-corp__video-intro .pl-rs-video {
-        width: 100%;
-        max-width: 320px;
-    }
-}
-
-.pl-corp__admin-video .pl-rs-video {
-    width: min(86%, 280px);
-    margin: 28px auto 0;
 }
 
 .pl-corp__lead-cta-pay {

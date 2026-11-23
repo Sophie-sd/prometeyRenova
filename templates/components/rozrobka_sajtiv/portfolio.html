@@ -3,6 +3,7 @@
 <section id="portfolio" class="pl-rs-blocks pl-rs-work pl-rs-work--proof" aria-labelledby="pl-rs-work-title" data-pl-rs-portfolio>
     <div class="{{ inner_class|default:'pl-rs__inner' }}">
         <h2 id="pl-rs-work-title" class="pl-rs-blocks__h2">{% trans "Широке портфоліо сайтів на різну тематику" %}</h2>
+        <div class="pl-rs-work__board">
         <div class="pl-rs-work__top">
             <div class="pl-rs-work__cases">
                 {% for card in rs_showcase.cases %}
@@ -27,8 +28,8 @@
                 </article>
                 {% endfor %}
             </div>
-            {% trans "Як ми робимо корпоративні сайти" as corp_label %}
-            {% include 'components/rozrobka_sajtiv/_video.html' with video_id='UFPyLvLMp7M' poster='images/rozrobka/video/cover-corporate-sites.webp' poster_w=768 poster_h=1365 label=corp_label caption=corp_label %}
+            {% trans "Як ми робимо корпоративні сайти" as corp_title %}
+            {% include 'components/rozrobka_sajtiv/_video.html' with video_id='UFPyLvLMp7M' poster='images/rozrobka/video/cover-corporate-sites.webp' poster_w=768 poster_h=1365 time='00:39' title=corp_title size='compact' %}
         </div>
         <div class="pl-rs-work__tiles">
             {% for card in rs_showcase.tiles %}
@@ -38,6 +39,7 @@
                 <img class="pl-rs-tile__arrow" src="{% static 'img/rozrobka-figma/rs-arrow-diagonal.svg' %}" alt="" width="26" height="26">
             </a>
             {% endfor %}
+        </div>
         </div>
     </div>
 </section>

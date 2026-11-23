@@ -77,17 +77,17 @@ CALC_CTA = {
         'uk': {
             'label': 'Розрахувати вартість сайту',
             'sticky': 'Розрахуйте вартість онлайн',
-            'micro': '5 питань · 2 хвилини · підберемо пакет під ваш бізнес',
+            'micro': '',
         },
         'ru': {
             'label': 'Рассчитать стоимость сайта',
             'sticky': 'Рассчитайте стоимость онлайн',
-            'micro': '5 вопросов · 2 минуты · подберём пакет под ваш бизнес',
+            'micro': '',
         },
         'en': {
             'label': 'Calculate the website cost',
             'sticky': 'Calculate the cost online',
-            'micro': '5 questions · 2 minutes · we’ll match a package to your business',
+            'micro': '',
         },
     },
     'dorobka': {

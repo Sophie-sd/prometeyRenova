@@ -63,17 +63,6 @@
     .pl-rs-card--speed { grid-column: 2; grid-row: 1; }
     .pl-rs-card--admin { grid-column: 2; grid-row: 2 / span 3; }
 
-    .pl-rs-card__admin {
-        flex-direction: row-reverse;
-        align-items: flex-start;
-    }
-
-    .pl-rs-card--admin .pl-rs-video {
-        width: 320px;
-        max-width: 320px;
-        flex: 0 0 320px;
-    }
-
     .pl-rs .pl-rs-process .hf-process {
         padding-top: 72px;
     }

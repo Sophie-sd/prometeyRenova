@@ -1,8 +1,5 @@
-{% load i18n static %}
-{% trans "Як ми робимо корпоративні сайти" as video_label %}
-<section class="pl-corp__section pl-corp__video-intro" aria-labelledby="pl-corp-video-intro-title">
-    <div class="pl-corp__inner pl-corp__video-intro-row">
-        <h2 id="pl-corp-video-intro-title" class="pl-corp__title">{% trans "Як ми робимо корпоративні сайти" %}</h2>
-        {% include 'components/rozrobka_sajtiv/_video.html' with video_id='UFPyLvLMp7M' poster='images/rozrobka/video/cover-corporate-sites.webp' poster_w=768 poster_h=1365 label=video_label caption='' %}
-    </div>
-</section>
+{% load i18n %}
+{% trans "Як ми робимо корпоративні сайти" as video_title %}
+<div class="pl-corp__video-intro">
+    {% include 'components/rozrobka_sajtiv/_video.html' with video_id='UFPyLvLMp7M' poster='images/rozrobka/video/cover-corporate-sites.webp' poster_w=768 poster_h=1365 time='00:39' title=video_title %}
+</div>

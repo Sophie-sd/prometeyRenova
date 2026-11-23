@@ -1,11 +1,11 @@
 {% load static %}
-<figure class="pl-rs-video">
-    <button type="button" class="pl-rs-video__card" data-rs-video="{{ video_id }}" data-rs-video-title="{{ label }}" aria-label="{{ label }}">
+<figure class="pl-rs-video{% if size == 'compact' %} pl-rs-video--compact{% endif %}">
+    <button type="button" class="pl-rs-video__card" data-rs-video="{{ video_id }}" data-rs-video-title="{{ title }}">
         <img class="pl-rs-video__poster" src="{% static poster %}" alt="" width="{{ poster_w }}" height="{{ poster_h }}" loading="lazy" decoding="async">
+        <span class="pl-rs-video__title">{{ title }}</span>
+        {% if time %}<span class="pl-rs-video__time" aria-hidden="true">{{ time }}</span>{% endif %}
         <span class="pl-rs-video__play" aria-hidden="true">
-            <img src="{% static 'img/rozrobka-figma/rs-play.svg' %}" alt="" width="36" height="38">
+            <img src="{% static 'img/rozrobka-figma/rs-play.svg' %}" alt="" width="26" height="28">
         </span>
-        {% if time %}<span class="pl-rs-video__time">{{ time }}</span>{% endif %}
     </button>
-    <figcaption class="pl-rs-video__caption">{{ caption }}</figcaption>
 </figure>
