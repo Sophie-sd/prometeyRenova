@@ -965,7 +965,7 @@ msgstr ""
 #: apps/core/proposal_models.py:176
 #: templates/proposal/partials/package_card.html:23
 msgid "Вартість"
-msgstr ""
+msgstr "Стоимость"
 
 #: apps/core/proposal_models.py:181 apps/payment/models.py:108
 msgid "Валюта"
@@ -1221,10 +1221,8 @@ msgstr ""
 "Корпоративные сайты и лендинги под ключ — быстрая разработка | PrometeyLabs"
 
 #: apps/core/views.py:210
-msgid ""
-"Розробка корпоративних сайтів та лендінгів з нативною архітектурою. 100/100 "
-"Core Web Vitals, технічне SEO, пожиттєва гарантія на код."
-msgstr ""
+msgid "Розробка корпоративних сайтів та лендінгів з нативною архітектурою. 100/100 Core Web Vitals, технічне SEO, пожиттєва гарантія на код."
+msgstr "Разработка корпоративных сайтов и лендингов с нативной архитектурой. 100/100 Core Web Vitals, техническое SEO, пожизненная гарантия на код."
 
 #: apps/core/views.py:213
 msgid "Корпоративні сайти, що домінують у пошуку — PrometeyLabs"
@@ -6110,17 +6108,11 @@ msgstr "Пожизненная гарантия на код · 1 год подд
 msgid "Безкоштовна підтримка після запуску"
 msgstr "Бесплатная поддержка после запуска"
 
-msgid ""
-"Корпоративні сайти та лендінги під ключ: лендінг 150–300 € за 3–7 днів, "
-"корпоративний сайт 350–500 € за 7–14 днів. Технічне SEO, швидке завантаження,"
-" пожиттєва гарантія на код."
-msgstr ""
+msgid "Корпоративні сайти та лендінги під ключ: лендінг 150–300 € за 3–7 днів, корпоративний сайт 350–500 € за 7–14 днів. Технічне SEO, швидке завантаження, пожиттєва гарантія на код."
+msgstr "Корпоративные сайты и лендинги под ключ: лендинг 150–300 € за 3–7 дней, корпоративный сайт 350–500 € за 7–14 дней. Техническое SEO, быстрая загрузка, пожизненная гарантия на код."
 
-msgid ""
-"Корпоративні сайти та лендінги під ключ: дизайн, код, адмінка, інтеграції, "
-"технічне SEO та аналітика. Пожиттєва гарантія на код і 1 рік підтримки "
-"безкоштовно."
-msgstr ""
+msgid "Корпоративні сайти та лендінги під ключ: дизайн, код, адмінка, інтеграції, технічне SEO та аналітика. Пожиттєва гарантія на код і 1 рік підтримки безкоштовно."
+msgstr "Корпоративные сайты и лендинги под ключ: дизайн, код, админка, интеграции, техническое SEO и аналитика. Пожизненная гарантия на код и 1 год поддержки бесплатно."
 
 msgid "Пожиттєва гарантія на код і 1 рік безкоштовної підтримки."
 msgstr "Пожизненная гарантия на код и 1 год бесплатной поддержки."
@@ -6739,3 +6731,562 @@ msgstr "Читать полностью"
 
 msgid "Згорнути"
 msgstr "Свернуть"
+
+
+#: templates/pages/corporate-website-v2.html
+msgid "Корпоративні сайти та лендінги під ключ, що домінують у пошуку"
+msgstr "Корпоративные сайты и лендинги под ключ, которые доминируют в поиске"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Іміджеві корпоративні сайти під ключ для середнього та великого бізнесу. Лендінги, з яких трафік конвертується в заявки"
+msgstr "Имиджевые корпоративные сайты под ключ для среднего и крупного бизнеса. Лендинги, с которых трафик конвертируется в заявки"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Ціна і строки"
+msgstr "Цена и сроки"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Готові до SEO з першого дня запуску"
+msgstr "Готовы к SEO с первого дня запуска"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Аналітика і трекінг налаштовані разом із запуском"
+msgstr "Аналитика и трекинг настроены вместе с запуском"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Складна внутрішня архітектура та інтеграції: CRM, ERP, оплати"
+msgstr "Сложная внутренняя архитектура и интеграции: CRM, ERP, оплаты"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Високий рівень захисту даних"
+msgstr "Высокий уровень защиты данных"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Демо-сайт: швидкість, ціна і строки"
+msgstr "Демо-сайт: скорость, цена и сроки"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Google Lighthouse — показати Core Web Vitals"
+msgstr "Google Lighthouse — показать Core Web Vitals"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Усі 4 показники Lighthouse у зеленій зоні (мобільний)"
+msgstr "Все 4 показателя Lighthouse в зелёной зоне (мобильный)"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Строк запуску — показати ціну і строки"
+msgstr "Срок запуска — показать цену и сроки"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Строк запуску"
+msgstr "Срок запуска"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Корп"
+msgstr "Корп"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Ціна і строк"
+msgstr "Цена и срок"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Лендінг 150–300 €, 3–7 днів"
+msgstr "Лендинг 150–300 €, 3–7 дней"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Односторінковий сайт із формою заявок, технічним SEO, аналітикою і трекінгом, доменом і захищеним з’єднанням"
+msgstr "Одностраничный сайт с формой заявок, техническим SEO, аналитикой и трекингом, доменом и защищённым соединением"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Корпоративний сайт 350–500 €, 7–14 днів"
+msgstr "Корпоративный сайт 350–500 €, 7–14 дней"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Багатосторінковий сайт з адмінкою, інтеграціями (CRM, ERP, оплати), технічним SEO і аналітикою"
+msgstr "Многостраничный сайт с админкой, интеграциями (CRM, ERP, оплаты), техническим SEO и аналитикой"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Core Web Vitals у зеленій зоні"
+msgstr "Core Web Vitals в зелёной зоне"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Цільовий показник для кожного сайту — зелена зона Lighthouse (мобільний профіль)."
+msgstr "Целевой показатель для каждого сайта — зелёная зона Lighthouse (мобильный профиль)."
+
+#: templates/pages/corporate-website-v2.html
+msgid "1,5–1,7 с"
+msgstr "1,5–1,7 с"
+
+#: templates/pages/corporate-website-v2.html
+msgid "0 мс"
+msgstr "0 мс"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Масштаб"
+msgstr "Масштаб"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Клонування за 5 хвилин"
+msgstr "Клонирование за 5 минут"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Snapshot архітектури — новий лендінг збираємо на готовій основі, швидше й дешевше за розробку з нуля."
+msgstr "Snapshot архитектуры — новый лендинг собираем на готовой основе, быстрее и дешевле разработки с нуля."
+
+#: templates/pages/corporate-website-v2.html
+msgid "Розділи демо-сайту"
+msgstr "Разделы демо-сайта"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Клонування сайтів"
+msgstr "Клонирование сайтов"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Без доплат у процесі"
+msgstr "Без доплат в процессе"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Зручна адмінка українською мовою: змінюйте заголовки, текстові блоки, зображення, ціни, послуги тощо на сайті без залучення програмістів."
+msgstr "Удобная админка: меняйте заголовки, текстовые блоки, изображения, цены, услуги и т. д. на сайте без привлечения программистов."
+
+#: templates/pages/corporate-website-v2.html
+msgid "Бізнеси, що вже працюють на нашому коді"
+msgstr "Бизнесы, которые уже работают на нашем коде"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Що входить у розробку під ключ"
+msgstr "Что входит в разработку под ключ"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Стандартні CMS · WordPress / Tilda / Wix"
+msgstr "Стандартные CMS · WordPress / Tilda / Wix"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Повільна сторінка після кліку"
+msgstr "Медленная страница после клика"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Перевантажені плагінами — низькі оцінки швидкості"
+msgstr "Перегружены плагинами — низкие оценки скорости"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Гірший досвід після кліку з реклами"
+msgstr "Худший опыт после клика из рекламы"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Постійні «дірки» у безпеці через сторонній код"
+msgstr "Постоянные «дыры» в безопасности из-за стороннего кода"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Залежність від оновлень, які ламають сайт"
+msgstr "Зависимость от обновлений, которые ломают сайт"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Наша архітектура · чистий код"
+msgstr "Наша архитектура · чистый код"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Google враховує швидкість сторінки в оцінці якості цільової сторінки"
+msgstr "Google учитывает скорость страницы в оценке качества целевой страницы"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Дизайн, у якому впізнають ваш бренд, і верстка без вигляду конструктора"
+msgstr "Дизайн, в котором узнают ваш бренд, и вёрстка без вида конструктора"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Форми збору заявок, календар, онлайн-запис чи будь-які інтеграції"
+msgstr "Формы сбора заявок, календарь, онлайн-запись или любые интеграции"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Адмінка, де тексти, фото і кольори міняєте самі, без залучення програмістів"
+msgstr "Админка, где тексты, фото и цвета меняете сами, без привлечения программистов"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Запуск із доменом і захищеним з’єднанням, доступи передаємо вам"
+msgstr "Запуск с доменом и защищённым соединением, доступы передаём вам"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Швидке завантаження — частина досвіду після кліку, який оцінює Google"
+msgstr "Быстрая загрузка — часть опыта после клика, который оценивает Google"
+
+#: templates/pages/corporate-website-v2.html
+msgid "сторонніх плагінів і конструкторів"
+msgstr "сторонних плагинов и конструкторов"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Performance у Lighthouse (мобільний)"
+msgstr "Performance в Lighthouse (мобильный)"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Технології, що працюють на ваш прибуток"
+msgstr "Технологии, которые работают на вашу прибыль"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Жодних зайвих скриптів — тільки код, потрібний для роботи вашого бізнесу. Кожна деталь архітектури налаштована на максимальну релевантність реклами та органіки"
+msgstr "Никаких лишних скриптов — только код, нужный для работы вашего бизнеса. Каждая деталь архитектуры настроена на максимальную релевантность рекламы и органики"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Технічне SEO «з коробки»"
+msgstr "Техническое SEO «из коробки»"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Мобільний перфекціонізм"
+msgstr "Мобильный перфекционизм"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Стійкість до навантажень"
+msgstr "Устойчивость к нагрузкам"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Архітектурна чистота"
+msgstr "Архитектурная чистота"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Пошукова видимість"
+msgstr "Поисковая видимость"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Ми будуємо сайт так, щоб пошукові роботи «закохувалися» у вашу структуру з першого сканування — мікророзмітка, sitemap і чисті URL."
+msgstr "Мы строим сайт так, чтобы поисковые роботы «влюблялись» в вашу структуру с первого сканирования — микроразметка, sitemap и чистые URL."
+
+#: templates/pages/corporate-website-v2.html
+msgid "Будь-який пристрій"
+msgstr "Любое устройство"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Код оптимізований під ідеальну роботу на будь-якому пристрої — незалежно від потужності процесора клієнта чи швидкості з'єднання."
+msgstr "Код оптимизирован под идеальную работу на любом устройстве — независимо от мощности процессора клиента или скорости соединения."
+
+#: templates/pages/corporate-website-v2.html
+msgid "Пік трафіку · сервер стабільний"
+msgstr "Пик трафика · сервер стабилен"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Наш код не «прокисає». Сайт розрахований на піки трафіку з реклами (CDN, кешування) — без падіння сервера в пік кампанії."
+msgstr "Наш код не «скисает». Сайт рассчитан на пики трафика из рекламы (CDN, кэширование) — без падения сервера в пик кампании."
+
+#: templates/pages/corporate-website-v2.html
+msgid "Тільки корисний код"
+msgstr "Только полезный код"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Чистий код"
+msgstr "Чистый код"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Зайві плагіни"
+msgstr "Лишние плагины"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Баласт-скрипти"
+msgstr "Балласт-скрипты"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Жодних зайвих скриптів. Тільки той код, який потрібен для роботи вашого бізнесу — без баласту, що сповільнює сайт."
+msgstr "Никаких лишних скриптов. Только тот код, который нужен для работы вашего бизнеса — без балласта, замедляющего сайт."
+
+#: templates/pages/corporate-website-v2.html
+msgid "Ваша власна адмінка: бізнес-інструмент, а не конструктор"
+msgstr "Ваша собственная админка: бизнес-инструмент, а не конструктор"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Спробуйте просто зараз — оберіть колір у демо-панелі й подивіться, як за один клік змінюється брендова схема сайту. Саме так це працює у вашій панелі"
+msgstr "Попробуйте прямо сейчас — выберите цвет в демо-панели и посмотрите, как за один клик меняется брендовая схема сайта. Именно так это работает в вашей панели"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Надзручна адмінка"
+msgstr "Сверхудобная админка"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Змінюйте тексти, зображення та кольорову схему бренду в 2 кліки. Не потрібен програміст"
+msgstr "Меняйте тексты, изображения и цветовую схему бренда в 2 клика. Программист не нужен"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Повний контроль"
+msgstr "Полный контроль"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Інтуїтивно зрозуміле меню, де навіть контент-менеджер без досвіду зрозуміє, що робити"
+msgstr "Интуитивно понятное меню, где даже контент-менеджер без опыта поймёт, что делать"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Гнучкість дизайну"
+msgstr "Гибкость дизайна"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Зміна контенту без ризику зламати верстку сайту — структура захищена"
+msgstr "Смена контента без риска сломать вёрстку сайта — структура защищена"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Дизайн та бренд"
+msgstr "Дизайн и бренд"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Колір бренду"
+msgstr "Цвет бренда"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Помаранчевий"
+msgstr "Оранжевый"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Жовтий"
+msgstr "Жёлтый"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Зелений"
+msgstr "Зелёный"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Синій"
+msgstr "Синий"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Фіолетовий"
+msgstr "Фиолетовый"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Превью сайту"
+msgstr "Превью сайта"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Оновлюється миттєво"
+msgstr "Обновляется мгновенно"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Замовити"
+msgstr "Заказать"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Технологія клонування: нові лендінги на готовій архітектурі"
+msgstr "Технология клонирования: новые лендинги на готовой архитектуре"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Наша архітектура дозволяє робити «Snapshot» вашого сайту. Новий лендінг збираємо на готовій основі з іншим контентом — швидше й дешевше за розробку з нуля. Вартість погоджуємо до старту"
+msgstr "Наша архитектура позволяет делать «Snapshot» вашего сайта. Новый лендинг собираем на готовой основе с другим контентом — быстрее и дешевле разработки с нуля. Стоимость согласуем до старта"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Діаграма: один Snapshot перетворюється на серію лендінгів"
+msgstr "Диаграмма: один Snapshot превращается в серию лендингов"
+
+#: templates/pages/corporate-website-v2.html
+msgid "оригінал"
+msgstr "оригинал"
+
+#: templates/pages/corporate-website-v2.html
+msgid "landing-послуга/"
+msgstr "landing-услуга/"
+
+#: templates/pages/corporate-website-v2.html
+msgid "копія"
+msgstr "копия"
+
+#: templates/pages/corporate-website-v2.html
+msgid "landing-регіон/"
+msgstr "landing-регион/"
+
+#: templates/pages/corporate-website-v2.html
+msgid "5 хв"
+msgstr "5 мин"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Кейс"
+msgstr "Кейс"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Потрібен лендінг під нову послугу або місто? Збираємо його на тій самій основі і погоджуємо вартість до початку роботи."
+msgstr "Нужен лендинг под новую услугу или город? Собираем его на той же основе и согласуем стоимость до начала работы."
+
+#: templates/pages/corporate-website-v2.html
+msgid "1 рік"
+msgstr "1 год"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Технічні питання, дрібні правки та консультації протягом першого року"
+msgstr "Технические вопросы, мелкие правки и консультации в течение первого года"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Сайт лишається таким, яким ми його здали: стабільним і спокійним. Якщо в нашому коді щось піде не так, ми поруч"
+msgstr "Сайт остаётся таким, каким мы его сдали: стабильным и спокойным. Если в нашем коде что-то пойдёт не так, мы рядом"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Нові лендінги з готового сайту"
+msgstr "Новые лендинги из готового сайта"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Збираємо на тій самій архітектурі — швидше й дешевше за розробку з нуля, вартість погоджуємо до старту"
+msgstr "Собираем на той же архитектуре — быстрее и дешевле разработки с нуля, стоимость согласуем до старта"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Отримайте прорахунок вартості"
+msgstr "Получите просчёт стоимости"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Висока швидкість, чистий код. Сайт, який працює на результат."
+msgstr "Высокая скорость, чистый код. Сайт, который работает на результат."
+
+#: templates/pages/corporate-website-v2.html
+msgid "Корпоративний сайт v2"
+msgstr "Корпоративный сайт v2"
+
+#: templates/pages/corporate-website-v2.html
+msgid "з 5"
+msgstr "из 5"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Що у вас за бізнес?"
+msgstr "Какой у вас бизнес?"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Послуги (B2C / B2B)"
+msgstr "Услуги (B2C / B2B)"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Виробництво / опт"
+msgstr "Производство / опт"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Торгівля"
+msgstr "Торговля"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Яка основна бізнес-ціль вашого проєкту?"
+msgstr "Какая основная бизнес-цель вашего проекта?"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Збір заявок та контактів"
+msgstr "Сбор заявок и контактов"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Прямі онлайн-продажі"
+msgstr "Прямые онлайн-продажи"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Презентація бренду або послуг"
+msgstr "Презентация бренда или услуг"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Масштабування"
+msgstr "Масштабирование"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Скільки сторінок потрібно?"
+msgstr "Сколько страниц нужно?"
+
+#: templates/pages/corporate-website-v2.html
+msgid "1 сторінка (лендінг)"
+msgstr "1 страница (лендинг)"
+
+#: templates/pages/corporate-website-v2.html
+msgid "до 10 сторінок"
+msgstr "до 10 страниц"
+
+#: templates/pages/corporate-website-v2.html
+msgid "11–20 сторінок"
+msgstr "11–20 страниц"
+
+#: templates/pages/corporate-website-v2.html
+msgid "21+ сторінок"
+msgstr "21+ страниц"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Що потрібно додатково?"
+msgstr "Что нужно дополнительно?"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Рекламні послуги"
+msgstr "Рекламные услуги"
+
+#: templates/pages/corporate-website-v2.html
+msgid "SEO розвиток сайту"
+msgstr "SEO-развитие сайта"
+
+#: templates/pages/corporate-website-v2.html
+msgid "CRM та автоматизація"
+msgstr "CRM и автоматизация"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Коли потрібен запуск?"
+msgstr "Когда нужен запуск?"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Якнайшвидше (до 7 днів)"
+msgstr "Как можно скорее (до 7 дней)"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Протягом 2 тижнів"
+msgstr "В течение 2 недель"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Протягом місяця"
+msgstr "В течение месяца"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Терміни гнучкі"
+msgstr "Сроки гибкие"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Залишіть контакти — і ми покажемо рекомендований пакет за вашими відповідями."
+msgstr "Оставьте контакты — и мы покажем рекомендованный пакет по вашим ответам."
+
+#: templates/pages/corporate-website-v2.html
+msgid "Ваше імʼя"
+msgstr "Ваше имя"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Імʼя"
+msgstr "Имя"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Отримати розрахунок ↗"
+msgstr "Получить расчёт ↗"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Далі"
+msgstr "Далее"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Безкоштовний"
+msgstr "Бесплатный"
+
+#: templates/pages/corporate-website-v2.html
+msgid "аналіз сайту та консультація"
+msgstr "анализ сайта и консультация"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Залиште номер телефону — підготуємо короткий аналіз вашого сайту і зателефонуємо з рекомендаціями"
+msgstr "Оставьте номер телефона — подготовим короткий анализ вашего сайта и позвоним с рекомендациями"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Безкоштовний аналіз"
+msgstr "Бесплатный анализ"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Отримайте безкоштовний розрахунок вартості вашого сайту"
+msgstr "Получите бесплатный расчёт стоимости вашего сайта"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Калькулятор розрахунку"
+msgstr "Калькулятор расчёта"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Корпоративні сайти та лендінги під ключ — ціна і строки | PrometeyLabs"
+msgstr "Корпоративные сайты и лендинги под ключ — цена и сроки | PrometeyLabs"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Корпоративний сайт під ключ"
+msgstr "Корпоративный сайт под ключ"
+
+#: templates/pages/corporate-website-v2.html
+msgid "Односторінковий сайт із формою заявок, технічним SEO, аналітикою і трекінгом, доменом і захищеним з’єднанням. Запуск за 3–7 днів."
+msgstr "Одностраничный сайт с формой заявок, техническим SEO, аналитикой и трекингом, доменом и защищённым соединением. Запуск за 3–7 дней."
+
+#: templates/pages/corporate-website-v2.html
+msgid "Багатосторінковий сайт з адмінкою, інтеграціями (CRM, ERP, оплати), технічним SEO і аналітикою. Запуск за 7–14 днів."
+msgstr "Многостраничный сайт с админкой, интеграциями (CRM, ERP, оплаты), техническим SEO и аналитикой. Запуск за 7–14 дней."
+
+#: templates/components/corporate_website_v2/clients.html
+msgctxt "corp"
+msgid "Переглянути портфоліо"
+msgstr "Смотреть портфолио"
+

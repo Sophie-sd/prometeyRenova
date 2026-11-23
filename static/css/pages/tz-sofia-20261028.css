@@ -308,10 +308,6 @@ html body .pl-rs__hero .pl-rs__lead .pl-rs__acc { white-space: nowrap; }
         line-height: 1.05;
     }
 
-    #plRsRoot .pl-rs-work__top {
-        margin-top: 16px;
-    }
-
     #plRsRoot .pl-rs__hero .pl-calc-cta {
         width: fit-content;
         max-width: calc(100% - 32px);

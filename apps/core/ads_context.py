@@ -134,8 +134,11 @@ def dorobka_ads_context():
 
 def corporate_ads_context():
     seo = hreflang_for('corporate_website_v2')
-    labels = crumbs_copy()
-    last = 'Корпоративные сайты и лендинги' if lang() == 'ru' else 'Корпоративні сайти та лендінги'
+    last = {
+        'uk': 'Корпоративні сайти та лендінги',
+        'ru': 'Корпоративные сайты и лендинги',
+        'en': 'Corporate websites and landing pages',
+    }.get(lang(), 'Корпоративні сайти та лендінги')
     crumbs = _crumbs(last, seo['canonical'])
     return {
         'ads_crumbs': crumbs,

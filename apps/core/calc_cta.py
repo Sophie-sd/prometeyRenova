@@ -84,6 +84,11 @@ CALC_CTA = {
             'sticky': 'Рассчитайте стоимость онлайн',
             'micro': '5 вопросов · 2 минуты · подберём пакет под ваш бизнес',
         },
+        'en': {
+            'label': 'Calculate the website cost',
+            'sticky': 'Calculate the cost online',
+            'micro': '5 questions · 2 minutes · we’ll match a package to your business',
+        },
     },
     'dorobka': {
         'target': 'calculator',
