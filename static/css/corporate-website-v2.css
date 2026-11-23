@@ -2786,38 +2786,51 @@ body.pl-corp-body .modal .modal-content .form-submit {
         font-size: 16px;
     }
 
-    /* admin */
+    /* admin — Figma 23:2719 */
+    .pl-corp__admin-title {
+        max-width: 942px;
+        margin-inline: auto;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    .pl-corp__admin-desc {
+        max-width: none;
+        margin-top: 0;
+    }
+
     .pl-corp__admin-row {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(280px, 522px);
+        grid-template-columns: minmax(0, 706fr) minmax(280px, 522fr);
+        grid-template-rows: auto 1fr;
         grid-template-areas:
             "copy mock"
             "video mock";
         align-items: start;
-        gap: 18px 28px;
+        column-gap: clamp(32px, 7vw, 102px);
+        row-gap: 40px;
     }
 
     .pl-corp__admin-copy { grid-area: copy; }
-    .pl-corp__admin-video { grid-area: video; }
-    .pl-corp__admin-mock { grid-area: mock; margin-top: 0; }
-
-    .pl-corp__admin-video .pl-rs-video {
-        width: 100%;
-        max-width: 460px;
-        margin: 0;
-    }
+    .pl-corp__admin-video { grid-area: video; align-self: start; }
+    .pl-corp__admin-mock { grid-area: mock; }
 
     .pl-corp__admin-features {
-        gap: 50px;
-        margin-top: 50px;
+        max-width: none;
+        gap: 30px;
+        margin-top: 30px;
     }
 
     .pl-corp__admin-feature {
         gap: 21px;
     }
 
-    .pl-corp__admin-mock {
-        margin-top: 0;
+    .pl-corp__admin-feature-title {
+        gap: 8px;
+    }
+
+    .pl-corp__admin-feature-title .pl-corp__dev-icon--check {
+        margin: 0;
     }
 
     .pl-corp__admin-bar {
@@ -3267,10 +3280,6 @@ body.pl-corp-body .modal .modal-content .form-submit {
         padding-bottom: 0;
     }
 
-    body.pl-corp-body .pl-corp__hero-offers--more {
-        display: none;
-    }
-
     body.pl-corp-body .pl-corp__video-intro {
         margin-top: 24px;
     }
@@ -3279,24 +3288,6 @@ body.pl-corp-body .modal .modal-content .form-submit {
 @media (min-width: 768px) {
     body.pl-corp-body .pl-corp__hero {
         min-height: 0;
-    }
-}
-
-.pl-corp__video-intro .pl-rs-video {
-    width: 100%;
-    max-width: 460px;
-    margin: 0;
-}
-
-.pl-corp__admin-video .pl-rs-video {
-    width: 100%;
-    max-width: 460px;
-    margin: 28px 0 0;
-}
-
-@media (min-width: 1024px) {
-    .pl-corp__admin-video .pl-rs-video {
-        margin: 0;
     }
 }
 
@@ -3370,9 +3361,3 @@ body.pl-corp-body .modal .modal-content .form-submit {
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .pl-corp__video-intro .pl-rs-video__card,
-    .pl-corp__admin-video .pl-rs-video__card {
-        transition: none;
-    }
-}

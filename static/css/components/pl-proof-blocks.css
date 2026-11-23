@@ -3,6 +3,7 @@
 
 .pl-rs-blocks,
 .pl-ads-faq--proof,
+.pl-rs-video,
 .pl-rs-video__dialog {
     --pl-rs-f60: #ff6600;
     --pl-rs-text: #f5f5f5;
@@ -637,6 +638,12 @@
 
     .pl-rs-work .pl-rs-video {
         margin-inline: auto;
+    }
+}
+
+@media (min-width: 1100px) {
+    .pl-rs-work--no-video .pl-rs-work__board > .pl-rs-work__top {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 

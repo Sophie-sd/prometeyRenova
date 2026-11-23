@@ -1,8 +1,9 @@
 {% load i18n %}{% load static %}
 <section class="pl-corp__section pl-corp__admin" aria-labelledby="pl-corp-admin-title">
-    <div class="pl-corp__inner pl-corp__admin-row">
+    <div class="pl-corp__inner">
+        <h2 id="pl-corp-admin-title" class="pl-corp__title pl-corp__admin-title" data-reveal>{% trans "Ваша власна адмінка: бізнес-інструмент, а не конструктор" %}</h2>
+        <div class="pl-corp__admin-row">
         <div class="pl-corp__admin-copy" data-reveal>
-            <h2 id="pl-corp-admin-title" class="pl-corp__title pl-corp__admin-title">{% trans "Ваша власна адмінка: бізнес-інструмент, а не конструктор" %}</h2>
             <p class="pl-corp__text pl-corp__admin-desc">{% trans "Спробуйте просто зараз — оберіть колір у демо-панелі й подивіться, як за один клік змінюється брендова схема сайту. Саме так це працює у вашій панелі" %}</p>
             <ul class="pl-corp__admin-features">
                 <li class="pl-corp__admin-feature">
@@ -58,6 +59,7 @@
         {% trans "Подивіться, як ви самі керуєте сайтом" as admin_video_title %}
         <div class="pl-corp__admin-video">
             {% include 'components/rozrobka_sajtiv/_video.html' with video_id='giim7h-DlVg' poster='images/rozrobka/video/cover-admin-laptop.webp' poster_w=720 poster_h=1280 time='00:52' title=admin_video_title %}
+        </div>
         </div>
     </div>
 </section>

@@ -119,9 +119,7 @@
     color: #111;
 }
 
-/* Corp v2: inline button in the flex card, micro as its own full row */
 .pl-corp__hero-card .pl-calc-cta__btn { width: 100%; }
-.pl-corp__hero-card .pl-calc-cta__micro--row { flex: 0 0 100%; margin-top: -4px; }
 @media (min-width: 1024px) {
     .pl-corp__hero-card .pl-calc-cta__btn { width: auto; }
 }
