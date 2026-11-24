@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="{% static 'css/home.css' %}?v=8">
 <link rel="stylesheet" href="{% static 'css/home-figma/home-figma.css' %}?v=18">
 <link rel="stylesheet" href="{% static 'css/components/pl-proof-blocks.css' %}?v=4">
-<link rel="stylesheet" href="{% static 'css/home-figma/home-services.css' %}?v=4">
+<link rel="stylesheet" href="{% static 'css/home-figma/home-services.css' %}?v=5">
 <link rel="stylesheet" href="{% static 'css/components/clients-marquee.css' %}?v=3">
 {# ТЗ Софії 28.10.2026: косметика #}
 <link rel="stylesheet" href="{% static 'css/pages/tz-sofia-20261028.css' %}?v=21">
@@ -32,7 +32,7 @@
     {% include 'components/home_figma/process.html' %}
     {% include 'components/home_figma/services.html' %}
     {% include 'components/home_figma/clients.html' %}
-    {% include 'components/rozrobka_sajtiv/portfolio.html' with inner_class='hf-wrap' hide_video=True %}
+    {% include 'components/rozrobka_sajtiv/portfolio.html' with inner_class='hf-wrap' hide_video=True title_break=True %}
     {% include 'components/rozrobka_sajtiv/reviews.html' with inner_class='hf-wrap' %}
     <div class="hf-finale">
         <img class="hf-finale__bg" src="{% static 'images/home-figma/clients-bg.webp' %}" width="1671" height="941" alt="" loading="lazy" decoding="async">

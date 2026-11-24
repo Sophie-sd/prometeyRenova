@@ -144,7 +144,6 @@
 }
 
 /* Home only. /rozrobka-sajtiv/ wraps the same why block in .hf.pl-rs-hf and does not load this file. */
-.hf:not(.pl-rs-hf) .hf-why { margin-top: 72px; }
 .hf:not(.pl-rs-hf) .hf-why__text {
     width: auto;
     flex: 1 1 auto;
@@ -155,23 +154,24 @@
     line-height: 1.35;
 }
 .hf:not(.pl-rs-hf) #pl-rs-work-title {
-    max-width: 18em;
-    font-size: clamp(18px, 3.4vw, 40px);
-    line-height: 1.08;
+    max-width: none;
+    font-size: clamp(20px, 4.6vw, 64px);
+    line-height: 1.05;
     letter-spacing: -0.03em;
 }
+.hf:not(.pl-rs-hf) #pl-rs-work-title .pl-rs-work__line { white-space: nowrap; }
 
 .hf-finale::after {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, .55) 100%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, .72) 100%);
     pointer-events: none;
 }
 .hf-cta { z-index: 1; }
 .hf-cta__card {
-    background: rgba(0, 0, 0, .92);
+    background: rgba(0, 0, 0, .5);
     -webkit-backdrop-filter: blur(18px);
     backdrop-filter: blur(18px);
 }
@@ -181,7 +181,11 @@
     .hf:not(.pl-rs-hf) .hf-why__lead { font-size: 15px; }
 }
 
+@media (min-width: 1024px) {
+    html body .hf-hero .hf-hero__content { margin-top: 48px; }
+}
+
 @media (max-width: 767px) {
-    .hf:not(.pl-rs-hf) .hf-why { margin-top: 40px; }
+    html body .hf-hero .hf-hero__content { margin-top: 24px; }
     .hf:not(.pl-rs-hf) .hf-why__lead { font-size: 15px; line-height: 1.45; }
 }

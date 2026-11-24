@@ -7344,3 +7344,11 @@ msgstr "Добавляем CRM, оплаты и Telegram."
 #: templates/components/home/service_modals.html
 msgid "Адреса сайту → короткий аналіз і дзвінок з рекомендаціями → виконання і тестування на пристроях → передача доступів"
 msgstr "Адрес сайта → короткий анализ и звонок с рекомендациями → выполнение и тестирование на устройствах → передача доступов"
+
+#: templates/components/rozrobka_sajtiv/portfolio.html
+msgid "Широке портфоліо сайтів"
+msgstr "Широкое портфолио сайтов"
+
+#: templates/components/rozrobka_sajtiv/portfolio.html
+msgid "на різну тематику"
+msgstr "на разную тематику"
