@@ -44,7 +44,6 @@ PAGE_LANGUAGES: dict[str, tuple[str, ...]] = {
     # EN copy of rozrobka is translated and indexable. The other two EN landings stay noindex.
     'internet_shop_v2': ('uk', 'ru'),
     'rozrobka_sajtiv': ('uk', 'ru', 'en'),
-    'dorobka_sajtu': ('uk', 'ru'),
 }
 
 BLOG_DETAIL = 'blog:blog_detail'
@@ -105,8 +104,6 @@ META_OVERRIDES: dict[tuple[str, str], tuple[str | None, str | None]] = {
     ),
     ('rozrobka_sajtiv', 'uk'): ('Розробка сайтів під ключ від 150 € — створення сайту', None),
     ('rozrobka_sajtiv', 'ru'): ('Разработка сайтов под ключ от 150 € — создание сайта', None),
-    ('dorobka_sajtu', 'uk'): ('Доопрацювання сайту: редизайн і прискорення | PrometeyLabs', None),
-    ('dorobka_sajtu', 'ru'): ('Доработка сайта: редизайн, ускорение, перенос | PrometeyLabs', None),
     ('portfolio', 'uk'): (
         'Портфоліо PrometeyLabs: сайти під ключ для бізнесу',
         'Портфоліо PrometeyLabs: корпоративні сайти, лендінги та інтернет-магазини під ключ для '

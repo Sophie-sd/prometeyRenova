@@ -1,0 +1,191 @@
+/* Home services grid, «Детальніше» buttons, studio video and proof spacing.
+   Card rules moved from home-figma.css. Tokens only. */
+
+.hf-services { margin-top: 109px; } /* 3110 − 3001 */
+.hf-services__list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 20px;
+    margin-top: 60px;
+}
+.hf-service {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+    position: relative;
+    min-width: 0;
+    height: 274px;
+    cursor: pointer;
+    padding: 20px;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    transition: transform .25s ease;
+}
+.hf-service:first-child { height: 275px; }
+.hf-service:hover { transform: translateY(-4px); }
+.hf-service__title {
+    max-width: 257px;
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -1.9px;
+    color: var(--hf-white);
+}
+.hf-service--ai .hf-service__title {
+    max-width: none;
+    white-space: nowrap;
+}
+.hf-service__quote {
+    display: flex;
+    gap: 14px;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.48px;
+    color: var(--hf-gray-quote);
+}
+.hf-service__quote::before {
+    content: '';
+    flex: 0 0 34.912px;
+    height: 33.071px;
+    background: url('../../images/home-figma/quote.svg') center / contain no-repeat;
+}
+.hf-service__more {
+    position: static;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--hf-orange);
+    font: 500 16px/1.2 var(--hf-font);
+    letter-spacing: -0.32px;
+    text-align: left;
+    cursor: pointer;
+}
+.hf-service__more::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+.hf-service:hover .hf-service__more,
+.hf-service__more:hover,
+.hf-service__more:focus-visible { color: var(--hf-white); }
+.hf-service__more:focus-visible {
+    outline: 2px solid var(--hf-orange);
+    outline-offset: 3px;
+}
+.hf-service__arrow {
+    display: block;
+    width: 16px;
+    height: 16px;
+    transition: transform .3s ease;
+}
+.hf-service:hover .hf-service__arrow,
+.hf-service__more:focus-visible .hf-service__arrow { transform: translate(3px, -3px); }
+
+.hf-services__video { min-width: 0; }
+.hf-services__video .pl-rs-video { max-width: none; }
+
+/* clients → portfolio → reviews, before the CTA finale */
+.hf-clients ~ .pl-rs-blocks {
+    position: relative;
+    margin-top: 80px;
+}
+
+/* ≥1100: row 1 web, dorobka, video; row 2 smm, ai, mobile. */
+@media (min-width: 1100px) {
+    .hf-service--web { grid-column: 1; grid-row: 1; }
+    .hf-service--dorobka { grid-column: 2; grid-row: 1; }
+    .hf-services__video { grid-column: 3; grid-row: 1; }
+    .hf-service--smm { grid-column: 1; grid-row: 2; }
+    .hf-service--ai { grid-column: 2; grid-row: 2; }
+    .hf-service--mobile { grid-column: 3; grid-row: 2; }
+    .hf-services__video .pl-rs-video,
+    .hf-services__video .pl-rs-video__card { height: 274px; }
+}
+
+@media (min-width: 1100px) and (max-width: 1199px) {
+    .hf-service__title { font-size: 34px; }
+}
+
+@media (max-width: 1099px) {
+    .hf-services__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767px) {
+    .hf-services { margin-top: 80px; }
+    .hf-services__list { grid-template-columns: 1fr; gap: 14px; margin-top: 40px; }
+    .hf-service, .hf-service:first-child { height: auto; min-height: 160px; gap: 40px; padding: 16px; }
+    .hf-service__title { max-width: 100%; font-size: 34px; letter-spacing: -1.7px; }
+    .hf-service__quote { font-size: 14px; letter-spacing: 0; }
+    .hf-clients ~ .pl-rs-blocks { margin-top: 48px; }
+}
+
+@media (max-width: 360px) {
+    .hf-service__title { font-size: clamp(28px, 9vw, 34px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hf-service,
+    .hf-service__arrow { transition: none; }
+    .hf-service:hover { transform: none; }
+    .hf-service:hover .hf-service__arrow,
+    .hf-service__more:focus-visible .hf-service__arrow { transform: none; }
+}
+
+/* Home only. /rozrobka-sajtiv/ wraps the same why block in .hf.pl-rs-hf and does not load this file. */
+.hf:not(.pl-rs-hf) .hf-why__text {
+    width: auto;
+    flex: 1 1 auto;
+    max-width: 980px;
+}
+.hf:not(.pl-rs-hf) .hf-why__lead {
+    font-size: 16px;
+    line-height: 1.35;
+}
+.hf:not(.pl-rs-hf) #pl-rs-work-title {
+    max-width: none;
+    font-size: clamp(20px, 4.6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+}
+.hf:not(.pl-rs-hf) #pl-rs-work-title .pl-rs-work__line { white-space: nowrap; }
+
+.hf-finale::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, .72) 100%);
+    pointer-events: none;
+}
+.hf-cta { z-index: 1; }
+.hf-cta__card {
+    background: rgba(0, 0, 0, .5);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+}
+.hf-cta__hint { color: var(--hf-white); }
+
+@media (min-width: 1100px) and (max-width: 1240px) {
+    .hf:not(.pl-rs-hf) .hf-why__lead { font-size: 15px; }
+}
+
+@media (min-width: 1024px) {
+    html body .hf-hero .hf-hero__content { margin-top: 48px; }
+}
+
+@media (max-width: 767px) {
+    html body .hf-hero .hf-hero__content { margin-top: 24px; }
+    .hf:not(.pl-rs-hf) .hf-why__lead { font-size: 15px; line-height: 1.45; }
+}

@@ -1539,8 +1539,14 @@ class PrometeyApp {
         this.state.activeModal = modalId;
 
         const firstInput = modal.querySelector('input:not([type="hidden"]), textarea');
+        this.lastModalTrigger = document.activeElement;
         if (firstInput) {
             setTimeout(() => firstInput.focus(), 300);
+        } else {
+            const closeButton = modal.querySelector('.modal-close');
+            if (closeButton) {
+                setTimeout(() => closeButton.focus(), 300);
+            }
         }
 
         this.emit('modal:opened', { modalId });
@@ -1561,6 +1567,10 @@ class PrometeyApp {
 
         this.state.activeModal = null;
         this.restoreScrollPosition();
+        if (this.lastModalTrigger && document.contains(this.lastModalTrigger)) {
+            this.lastModalTrigger.focus({ preventScroll: true });
+        }
+        this.lastModalTrigger = null;
 
         this.emit('modal:closed', { modalId: modal.id });
         this.popBackState();

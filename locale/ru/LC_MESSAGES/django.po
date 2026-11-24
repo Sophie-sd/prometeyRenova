@@ -7350,3 +7350,63 @@ msgstr "Рассчитаем стоимость вашего магазина"
 #: templates/components/corporate_website_v2/scale.html
 msgid "оферта"
 msgstr "оферта"
+
+#: templates/components/home_figma/services.html
+msgid "Хто ми і що робимо — за хвилину"
+msgstr "Кто мы и что делаем — за минуту"
+
+#: templates/components/home/service_modals.html
+msgid "Перейти до сторінки"
+msgstr "Перейти на страницу"
+
+#: templates/components/home/service_modals.html
+msgid "Редизайн / рестайлінг"
+msgstr "Редизайн / рестайлинг"
+
+#: templates/components/home/service_modals.html
+msgid "Оновлюємо вигляд і структуру наявного сайту."
+msgstr "Обновляем вид и структуру существующего сайта."
+
+#: templates/components/home/service_modals.html
+msgid "Прискорення завантаження"
+msgstr "Ускорение загрузки"
+
+#: templates/components/home/service_modals.html
+msgid "Прискорюємо сторінки, щоб сайт відкривався швидше."
+msgstr "Ускоряем страницы, чтобы сайт открывался быстрее."
+
+#: templates/components/home/service_modals.html
+msgid "Безпека"
+msgstr "Безопасность"
+
+#: templates/components/home/service_modals.html
+msgid "Посилюємо захист і оновлюємо вразливі місця."
+msgstr "Усиливаем защиту и обновляем уязвимые места."
+
+#: templates/components/home/service_modals.html
+msgid "Перенесення на новий хостинг або CMS"
+msgstr "Перенос на новый хостинг или CMS"
+
+#: templates/components/home/service_modals.html
+msgid "Переносимо сайт на новий хостинг або CMS."
+msgstr "Переносим сайт на новый хостинг или CMS."
+
+#: templates/components/home/service_modals.html
+msgid "Нові функції та інтеграції"
+msgstr "Новые функции и интеграции"
+
+#: templates/components/home/service_modals.html
+msgid "Додаємо CRM, оплати та Telegram."
+msgstr "Добавляем CRM, оплаты и Telegram."
+
+#: templates/components/home/service_modals.html
+msgid "Адреса сайту → короткий аналіз і дзвінок з рекомендаціями → виконання і тестування на пристроях → передача доступів"
+msgstr "Адрес сайта → короткий анализ и звонок с рекомендациями → выполнение и тестирование на устройствах → передача доступов"
+
+#: templates/components/rozrobka_sajtiv/portfolio.html
+msgid "Широке портфоліо сайтів"
+msgstr "Широкое портфолио сайтов"
+
+#: templates/components/rozrobka_sajtiv/portfolio.html
+msgid "на різну тематику"
+msgstr "на разную тематику"

@@ -9,6 +9,7 @@ from apps.core.calc_cta import CALC_CTA
 PAGES = (
     ('/', 'home', 'uk', '/calculator/?start=1'),
     ('/ru/', 'home', 'ru', '/ru/calculator/?start=1'),
+    ('/en/', 'home', 'en', '/en/calculator/?start=1'),
     # ТЗ 27.10.2026: rozrobka embeds the quiz → hero/sticky scroll to it on the same page
     ('/rozrobka-sajtiv/', 'rozrobka', 'uk', '#pl-rs-calc'),
     ('/ru/rozrobka-sajtiv/', 'rozrobka', 'ru', '#pl-rs-calc'),
@@ -16,8 +17,6 @@ PAGES = (
     ('/ru/internet-shop-v2/', 'shop', 'ru', '#zayavka'),
     ('/corporate-website-v2/', 'corp', 'uk', '#calculator'),
     ('/ru/corporate-website-v2/', 'corp', 'ru', '#calculator'),
-    ('/dorobka-sajtu/', 'dorobka', 'uk', '/calculator/?start=1'),
-    ('/ru/dorabotka-sajta/', 'dorobka', 'ru', '/ru/calculator/?start=1'),
 )
 
 HERO_RE = re.compile(r'<a href="([^"]+)" class="pl-calc-cta__btn[^"]*"[^>]*data-calc-cta="hero"[^>]*>'

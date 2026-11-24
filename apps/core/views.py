@@ -80,6 +80,7 @@ class HomeView(BasePageView):
         context.update(home_hreflang_context())
         if translation.get_language() == 'ru':
             context['lang_suggest_uk_url'] = '/'
+        context.update(rozrobka_proof_context())
         return context
 
 
@@ -135,7 +136,7 @@ class TelegramBotView(BasePageView):
     )
 
 def rozrobka_proof_context():
-    """rs_showcase and rs_review_bodies for /rozrobka-sajtiv/ and /corporate-website-v2/."""
+    """rs_showcase and rs_review_bodies for the homepage, /rozrobka-sajtiv/ and /corporate-website-v2/."""
     from .rozrobka_portfolio import rozrobka_showcase
     from .rozrobka_reviews import rozrobka_review_bodies
     return {

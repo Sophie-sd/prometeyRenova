@@ -4,11 +4,9 @@ import re
 from unittest import mock
 
 from django.test import TestCase
-from django.urls import reverse
-from django.utils import translation
+from django.urls import NoReverseMatch, reverse
 
 from apps.core.ads_copy import RS, SHOP, faq_pairs
-from apps.core.ads_copy_dorobka import DOROBKA
 from apps.core.sitemaps import StaticViewSitemap
 
 ADS = (
@@ -18,8 +16,6 @@ ADS = (
     '/ru/rozrobka-sajtiv/',
     '/corporate-website-v2/',
     '/ru/corporate-website-v2/',
-    '/dorobka-sajtu/',
-    '/ru/dorabotka-sajta/',
     '/',
     '/ru/',
 )
@@ -53,7 +49,6 @@ class AdsLandingSeoTests(TestCase):
             ('/internet-shop-v2/', '/ru/internet-shop-v2/'),
             ('/rozrobka-sajtiv/', '/ru/rozrobka-sajtiv/'),
             ('/corporate-website-v2/', '/ru/corporate-website-v2/'),
-            ('/dorobka-sajtu/', '/ru/dorabotka-sajta/'),
             ('/', '/ru/'),
         )
         for uk, ru in pairs:
@@ -79,8 +74,6 @@ class AdsLandingSeoTests(TestCase):
             ('/rozrobka-sajtiv/', RS['uk']['faq']),
             ('/ru/rozrobka-sajtiv/', RS['ru']['faq']),
             ('/en/rozrobka-sajtiv/', RS['en']['faq']),
-            ('/dorobka-sajtu/', DOROBKA['uk']['faq']),
-            ('/ru/dorabotka-sajta/', DOROBKA['ru']['faq']),
         )
         for path, expected in cases:
             with self.subTest(path=path):
@@ -116,11 +109,9 @@ class AdsLandingSeoTests(TestCase):
             self.assertIn('Service', types, path)
 
     def test_sitemap_contains_new_and_ads_pages(self):
-        self.assertIn('dorobka_sajtu', StaticViewSitemap.PAGES)
+        self.assertNotIn('dorobka_sajtu', StaticViewSitemap.PAGES)
         body = self.client.get('/sitemap.xml').content.decode()
         for path in (
-            '/dorobka-sajtu/',
-            '/ru/dorabotka-sajta/',
             '/internet-shop-v2/',
             '/ru/internet-shop-v2/',
             '/rozrobka-sajtiv/',
@@ -174,30 +165,26 @@ class AdsLandingSeoTests(TestCase):
         self.assertIn('5,0 ★ на Google\u00a0· 51 відгук\u00a0· 50+ запущених проєктів', html)
         self.assertIn('Відгуки клієнтів на Google', html)
 
-    def test_dorobka_form_and_skipped_facts(self):
-        html = self.client.get('/dorobka-sajtu/').content.decode()
-        self.assertIn('name="website"', html)
-        self.assertIn('Отримати аналіз сайту', html)
-        self.assertIn('Вартість рахуємо після безкоштовного аналізу сайту.', html)
-        self.assertNotIn('і фіксуємо до старту робіт', html)
-        self.assertNotIn('и фиксируем до старта работ', html)
-        self.assertNotIn('developer-modal', html)
-        self.assertNotIn('noindex', html)
-        self.assertIn('Доробка сайтів', html)
-        ru = self.client.get('/ru/dorabotka-sajta/').content.decode()
-        self.assertIn('Стоимость считаем после бесплатного анализа сайта.', ru)
-        self.assertIn('Получить анализ сайта', ru)
+    def test_home_has_no_dorobka_link(self):
+        for path in ('/', '/ru/', '/en/'):
+            with self.subTest(path=path):
+                html = self.client.get(path).content.decode()
+                self.assertNotIn('/dorobka-sajtu/', html)
+        self.assertIn('Оновлення проєктів', self.client.get('/').content.decode())
 
-    def test_menu_and_home_link_to_dorobka(self):
-        home = self.client.get('/').content.decode()
-        self.assertIn('/dorobka-sajtu/', home)
-        self.assertIn('Оновлення проєктів', home)
-
-    def test_dorobka_url_reverse(self):
-        with translation.override('uk'):
-            self.assertEqual(reverse('dorobka_sajtu'), '/dorobka-sajtu/')
-        with translation.override('ru'):
-            self.assertEqual(reverse('dorobka_sajtu'), '/ru/dorabotka-sajta/')
+    def test_dorobka_redirects_301(self):
+        cases = (
+            ('/dorobka-sajtu/?gclid=x', '/?gclid=x'),
+            ('/ru/dorabotka-sajta/?gclid=x', '/ru/?gclid=x'),
+            ('/en/dorobka-sajtu/?gclid=x', '/en/?gclid=x'),
+        )
+        for src, dest in cases:
+            with self.subTest(src=src):
+                response = self.client.get(src)
+                self.assertEqual(response.status_code, 301, src)
+                self.assertEqual(response['Location'], dest, src)
+        with self.assertRaises(NoReverseMatch):
+            reverse('dorobka_sajtu')
 
     @mock.patch('apps.core.views._dispatch_async')
     def test_website_field_lands_in_details(self, _dispatch):
@@ -205,7 +192,7 @@ class AdsLandingSeoTests(TestCase):
 
         response = self.client.post('/forms/submit/', {
             'form_type': 'site_request',
-            'source_page': 'dorobka-sajtu',
+            'source_page': 'rozrobka-sajtiv',
             'details': 'Сторінка: Доробка сайту',
             'name': 'Тест',
             'phone': '+380671234567',
@@ -217,7 +204,7 @@ class AdsLandingSeoTests(TestCase):
         row = FormSubmission.objects.get()
         self.assertIn('Адреса сайту: https://example.com', row.details)
         self.assertEqual(row.extra_data.get('website'), 'https://example.com')
-        self.assertEqual(row.extra_data.get('source_page'), 'dorobka-sajtu')
+        self.assertEqual(row.extra_data.get('source_page'), 'rozrobka-sajtiv')
 
     def test_faq_pairs_helper_matches_copy(self):
         self.assertEqual(

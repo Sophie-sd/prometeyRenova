@@ -2,7 +2,7 @@
 {% if rs_showcase %}
 <section id="portfolio" class="pl-rs-blocks pl-rs-work pl-rs-work--proof{% if hide_video %} pl-rs-work--no-video{% endif %}" aria-labelledby="pl-rs-work-title" data-pl-rs-portfolio>
     <div class="{{ inner_class|default:'pl-rs__inner' }}">
-        <h2 id="pl-rs-work-title" class="pl-rs-blocks__h2">{% trans "Широке портфоліо сайтів на різну тематику" %}</h2>
+        <h2 id="pl-rs-work-title" class="pl-rs-blocks__h2">{% if title_break %}<span class="pl-rs-work__line">{% trans "Широке портфоліо сайтів" %}</span><br><span class="pl-rs-work__line">{% trans "на різну тематику" %}</span>{% else %}{% trans "Широке портфоліо сайтів на різну тематику" %}{% endif %}</h2>
         <div class="pl-rs-work__board">
         <div class="pl-rs-work__top">
             <div class="pl-rs-work__cases">

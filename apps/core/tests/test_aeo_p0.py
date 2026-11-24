@@ -27,8 +27,8 @@ REQUIRED_UK_PATHS = (
     '/blog/',
 )
 
-# SEO 2026-11-03: untranslated EN landings (internet-shop-v2, rozrobka-sajtiv,
-# dorobka-sajtu) are noindex,follow and excluded from the sitemap.
+# SEO 2026-11-03: untranslated EN landings (internet-shop-v2, rozrobka-sajtiv)
+# are noindex,follow and excluded from the sitemap.
 REQUIRED_EN_PATHS = (
     '/en/',
     '/en/portfolio/',

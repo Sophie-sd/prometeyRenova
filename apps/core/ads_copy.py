@@ -34,29 +34,6 @@ PROCESS_SITE = {
     },
 }
 
-CONTACTS = {
-    'uk': {
-        'h2': 'Контакти PrometeyLabs',
-        'phone': '+38 (063) 952-05-65',
-        'email': 'info@prometeylabs.com',
-        'telegram': 'Telegram @prometeylabs',
-        'address': 'Київ, бульвар Тараса Шевченка 46а',
-        'hours': 'Цілодобово',
-        'executor': 'Виконавець: ФОП Дмитренко Софія Дмитрівна, публічний договір —',
-        'offer_label': '/offer/',
-    },
-    'ru': {
-        'h2': 'Контакты PrometeyLabs',
-        'phone': '+38 (063) 952-05-65',
-        'email': 'info@prometeylabs.com',
-        'telegram': 'Telegram @prometeylabs',
-        'address': 'Киев, бульвар Тараса Шевченко 46а',
-        'hours': 'Круглосуточно',
-        'executor': 'Исполнитель: ФЛП Дмитренко София Дмитриевна, публичный договор —',
-        'offer_label': '/offer/',
-    },
-}
-
 CRUMBS = {
     'uk': {'home': 'Головна', 'services': 'Послуги'},
     'ru': {'home': 'Главная', 'services': 'Услуги'},
@@ -570,13 +547,6 @@ def rs_copy():
 
 def corp_copy():
     return for_lang(CORP)
-
-
-def contacts_copy():
-    data = dict(for_lang(CONTACTS))
-    if lang() == 'en':
-        data['hours'] = '24/7'
-    return data
 
 
 def crumbs_copy():

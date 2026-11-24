@@ -4,7 +4,6 @@ from django.utils import translation
 
 from .ads_copy import (
     SITE,
-    contacts_copy,
     crumbs_copy,
     faq_pairs,
     lang,
@@ -13,7 +12,6 @@ from .ads_copy import (
     rs_copy,
     shop_copy,
 )
-from .ads_copy_dorobka import dorobka_copy
 from .ads_schema import hreflang_urls, schema_scripts
 
 
@@ -48,7 +46,6 @@ def _seo_only(name):
                      'form_note': '', 'privacy_before': '', 'privacy_link': '', 'trust': '', 'offer_line': '',
                      'crumb': ''},
         'ads_faq': [],
-        'ads_contacts': contacts_copy(),
         'ads_crumbs': [],
         'ads_seo': hreflang_for(name),
         'ads_process': {'title': '', 'note': '', 'steps': ()},
@@ -70,7 +67,6 @@ def shop_ads_context():
         'ads_tz': True,
         'ads_copy': copy,
         'ads_faq': faq,
-        'ads_contacts': contacts_copy(),
         'ads_crumbs': crumbs,
         'ads_seo': seo,
         'ads_process': process,
@@ -102,7 +98,6 @@ def rs_ads_context():
         'ads_tz': True,
         'ads_copy': copy,
         'ads_faq': faq,
-        'ads_contacts': contacts_copy(),
         'ads_crumbs': crumbs,
         'ads_seo': seo,
         'ads_process': process_site_copy(),
@@ -110,26 +105,6 @@ def rs_ads_context():
         'page_title': copy['title'],
         'meta_description': copy['description'],
         'og_title': copy['title'],
-    }
-
-
-def dorobka_ads_context():
-    copy = dorobka_copy()
-    seo = hreflang_for('dorobka_sajtu')
-    faq = faq_pairs(copy['faq'])
-    crumbs = _crumbs(copy['crumb'], seo['canonical'])
-    return {
-        'ads_copy': copy,
-        'ads_faq': faq,
-        'ads_contacts': contacts_copy(),
-        'ads_crumbs': crumbs,
-        'ads_seo': seo,
-        'ads_json_ld': schema_scripts(crumbs, faq),
-        'page_title': copy['title'],
-        'meta_description': copy['description'],
-        'og_title': copy['title'],
-        'hide_developer_modal': True,
-        'hide_lang_suggest': True,
     }
 
 
@@ -148,7 +123,6 @@ def corporate_ads_context():
         'ads_faq': faq,
         'ads_crumbs': crumbs,
         'ads_seo': seo,
-        'ads_contacts': contacts_copy(),
         'ads_json_ld': schema_scripts(crumbs, faq),
     }
 
