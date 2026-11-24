@@ -167,7 +167,14 @@
     min-height: 258px;
 }
 .hf-why__text { display: flex; flex-direction: column; gap: 24px; width: 677px; max-width: 100%; }
-.hf-why__title { width: 659px; max-width: 100%; }
+.hf-why__title {
+    width: auto;
+    max-width: 100%;
+    font-size: clamp(28px, 4.4vw, 60px);
+    letter-spacing: -0.04em;
+}
+.hf-why__line,
+.hf-why__title .hf-accent { white-space: nowrap; }
 .hf-why__lead {
     font-size: 16px;
     font-weight: 400;
@@ -494,7 +501,7 @@
 
     .hf-why__intro { flex-direction: column; align-items: flex-start; gap: 20px; min-height: 0; }
     .hf-why__text { gap: 20px; }
-    .hf-why__title { width: 310px; }
+    .hf-why__title { width: auto; max-width: 100%; font-size: clamp(22px, 6.8vw, 34px); }
     .hf-why__lead { font-size: 14px; letter-spacing: -0.28px; }
     .hf-why__fx .fx-switch__track { min-height: 44px; padding: 4px; }
     .hf-why__fx .fx-btn { min-width: 36px; min-height: 36px; font-size: 15px; }
