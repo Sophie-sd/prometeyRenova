@@ -42,7 +42,10 @@ class CalcCtaLandingTests(TestCase):
                 self.assertEqual(unescape(hero[0][0]), href)
                 self.assertEqual(unescape(hero[0][1]), copy['label'])
                 self.assertIn(f'data-calc-page="{page}"', html)
-                self.assertIn(copy['micro'], unescape(html))
+                if copy['micro']:
+                    self.assertIn(copy['micro'], unescape(html))
+                else:
+                    self.assertNotIn('<p class="pl-calc-cta__micro">', html)
                 self.assertIn('css/components/calc-cta.css', html)
 
     def test_sticky_present_same_label_and_target(self):

@@ -15,12 +15,11 @@ SPEC = {
     UA: {
         # SEO 2026-11-03: title 50–60 chars, keyword first (apps.core.seo.META_OVERRIDES).
         'title': 'Інтернет-магазин під ключ від 650 € — запуск за 3 тижні',
-        'h1': 'Створення <span class="pl-shop__nowrap">інтернет-магазину</span> під ключ',
+        'h1': '<span class="pl-shop__title-line">Створення інтернет-магазину</span> <span class="pl-shop__title-line">під ключ</span>',
         'line': 'Розробка <span class="pl-shop__nowrap">інтернет-магазину</span> <strong class="pl-shop__hero-acc">від 650 €</strong> · запуск <strong class="pl-shop__hero-acc">за 3 тижні</strong> · 1 рік підтримки безкоштовно · пожиттєва гарантія на код',
         'cta': 'Розрахувати вартість магазину',
-        'micro': 'Пройдіть тест за 1 хвилину',
         'sticky': 'Розрахуйте вартість онлайн',
-        'trust': ['30+ розроблених інтернет-магазинів', 'Ціна і строк у договорі', 'Менеджер передзвонить за 15 хвилин', 'Оплата частинами до 15 платежів'],
+        'trust': '5,0 ★ на Google\u00a0· 51 відгук\u00a0· 50+ запущених проєктів',
         'lead': 'Дизайн, код і інтеграції. Без плагінів і без щомісячної абонплати. Магазин залишається вашим.',
         'labels': ('Ім’я', 'Телефон'),
         'button': 'Розрахувати вартість магазину',
@@ -47,12 +46,11 @@ SPEC = {
     },
     RU: {
         'title': 'Интернет-магазин под ключ от 650 € — запуск за 3 недели',
-        'h1': 'Создание <span class="pl-shop__nowrap">интернет-магазина</span> под ключ',
+        'h1': '<span class="pl-shop__title-line">Создание интернет-магазина</span> <span class="pl-shop__title-line">под ключ</span>',
         'line': 'Разработка <span class="pl-shop__nowrap">интернет-магазина</span> <strong class="pl-shop__hero-acc">от 650 €</strong> · запуск <strong class="pl-shop__hero-acc">за 3 недели</strong> · 1 год поддержки бесплатно · пожизненная гарантия на код',
         'cta': 'Рассчитать стоимость магазина',
-        'micro': 'Пройдите тест за 1 минуту',
         'sticky': 'Рассчитайте стоимость онлайн',
-        'trust': ['30+ разработанных интернет-магазинов', 'Цена и срок в договоре', 'Менеджер перезвонит за 15 минут', 'Оплата частями до 15 платежей'],
+        'trust': '5,0 ★ в Google\u00a0· 51 отзыв\u00a0· 50+ запущенных проектов',
         'lead': 'Дизайн, код и интеграции. Без плагинов и без ежемесячной абонплаты. Магазин остаётся вашим.',
         'labels': ('Имя', 'Телефон'),
         'button': 'Рассчитать стоимость магазина',
@@ -148,12 +146,11 @@ class ShopV2SpecTests(TestCase):
             card = _between(hero, 'class="pl-shop__hero-card"', '</section>')
             self.assertIn('href="#zayavka" class="pl-calc-cta__btn mobile-touch-target" data-calc-cta="hero" data-calc-page="shop" data-calc-scroll="#zayavka"', card)
             self.assertIn(f'<span class="pl-calc-cta__label">{s["cta"]}</span>', card)
-            self.assertIn(f'<p class="pl-calc-cta__micro">{s["micro"]}</p>', card)
+            self.assertNotIn('pl-calc-cta__micro', card)
             self.assertIn('data-calc-event="sticky_cta_click"', card)
             self.assertIn(f'<span class="pl-calc-cta__label">{s["sticky"]}</span></a>', card)
             trust = _between(card, 'class="pl-shop__hero-trust"', '</p>')
-            for t in s['trust']:
-                self.assertIn(f'<span>{t}</span>', trust)
+            self.assertIn(s['trust'], trust)
             contacts = _between(hero, 'class="pl-shop__hero-contacts"', '</p>')
             self.assertIn('href="tel:+380639520565"', contacts)
             self.assertIn('+38 (063) 952-05-65', contacts)
@@ -206,8 +203,11 @@ class ShopV2SpecTests(TestCase):
             self.assertEqual(plat.count('data-calc-pkg='), 1, url)
             self.assertIn(f'>{s["button"]}</a>', plat)
             self.assertNotIn('pl-shop__pkg-read-more', plat)
+            plat_low = plat.lower()
+            for bad in s['reviews']:
+                self.assertNotIn(bad, plat_low, f'{url}: {bad}')
             low = html.lower()
-            for bad in s['reviews'] + ('кінематограф', 'кинематограф'):
+            for bad in ('кінематограф', 'кинематограф'):
                 self.assertNotIn(bad, low, f'{url}: {bad}')
             # visible card eyebrows = JSON-LD Offer names (message match page <-> schema)
             pak = _between(html, 'id="pakety"', '</section>')
@@ -272,7 +272,7 @@ class ShopV2EnglishTests(TestCase):
 
     EN = '/en/internet-shop-v2/'
     EN_TITLE = 'Turnkey online store development — price from €650 | PrometeyLabs'
-    EN_H1 = 'Turnkey <span class="pl-shop__nowrap">online store</span> development'
+    EN_H1 = '<span class="pl-shop__title-line">Turnkey online store</span> <span class="pl-shop__title-line">development</span>'
     HIDDEN_DETAILS = 'Сторінка: Інтернет-магазини · Форма №1 (після «Переросли Prom»)'
 
     def _get(self, url):
@@ -301,7 +301,8 @@ class ShopV2EnglishTests(TestCase):
         self.assertIn(f'value="{self.HIDDEN_DETAILS}"', html)
         self.assertIn('Frequently asked questions about creating an online store', html)
         self.assertIn('Calculate the store cost', html)
-        self.assertIn('Take the quiz in 1 minute', html)
+        self.assertNotIn('Take the quiz in 1 minute', html)
+        self.assertIn('5.0 ★ on Google\u00a0· 51 reviews\u00a0· 50+ launched projects', html)
         self.assertIn('How much does it cost to create an online store', html)
         self.assertIn('The warranty is set out in the public contract (clause 8 of the offer)', html)
         self.assertIn('>offer</a>', html)

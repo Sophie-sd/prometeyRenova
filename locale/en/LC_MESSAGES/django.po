@@ -5731,14 +5731,11 @@ msgstr "Offer"
 
 # internet-shop-v2 EN (approved 2026-11-21).
 # Separate block, not at EOF, so it stays clear of entries other branches append.
-msgid "Створення <span class=\"pl-shop__nowrap\">інтернет-магазину</span> під ключ"
-msgstr "Turnkey <span class=\"pl-shop__nowrap\">online store</span> development"
+msgid "<span class=\"pl-shop__title-line\">Створення інтернет-магазину</span> <span class=\"pl-shop__title-line\">під ключ</span>"
+msgstr "<span class=\"pl-shop__title-line\">Turnkey online store</span> <span class=\"pl-shop__title-line\">development</span>"
 
 msgid "Розробка <span class=\"pl-shop__nowrap\">інтернет-магазину</span> <strong class=\"pl-shop__hero-acc\">від 650 €</strong> · запуск <strong class=\"pl-shop__hero-acc\">за 3 тижні</strong> · 1 рік підтримки безкоштовно · пожиттєва гарантія на код"
 msgstr "<span class=\"pl-shop__nowrap\">Online store</span> development <strong class=\"pl-shop__hero-acc\">from €650</strong> · launch <strong class=\"pl-shop__hero-acc\">in 3 weeks</strong> · 1 year of free support · lifetime code warranty"
-
-msgid "30+ розроблених інтернет-магазинів"
-msgstr "30+ online stores developed"
 
 msgid "Ціна і строк у договорі"
 msgstr "Price and deadline in the contract"
@@ -6371,9 +6368,6 @@ msgstr "Cost estimate request"
 
 msgid "Ім’я"
 msgstr "Name"
-
-msgid "Дізнатися вартість"
-msgstr "Get a price"
 
 msgid "Як до вас звертатися"
 msgstr "How should we address you?"
