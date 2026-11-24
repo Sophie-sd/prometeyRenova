@@ -252,10 +252,17 @@ class InternetShopV2View(BasePageView):
         context.update(shop_ads_context())
         context['hide_developer_modal'] = True
         context['hide_lang_suggest'] = True
-        # [HOLD] poster — обкладинка PrometeyLabs, дасть Софія
         context['shop_videos'] = {
-            'intro': {'id': 'o4OvYDAMeGE', 'poster': '', 'time': '00:47'},
-            'packages': {'id': 'T3ldCTDRrrM', 'poster': '', 'time': '01:06'},
+            'intro': {
+                'id': 'o4OvYDAMeGE',
+                'poster': 'images/internet-shop/video/shop-video-4.webp',
+                'time': '00:47',
+            },
+            'packages': {
+                'id': 'T3ldCTDRrrM',
+                'poster': 'images/internet-shop/video/shop-video-5.webp',
+                'time': '01:06',
+            },
         }
         context['rs_review_bodies'] = rozrobka_review_bodies()
         return context

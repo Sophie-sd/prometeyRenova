@@ -339,7 +339,7 @@ class ShopV2EnglishTests(TestCase):
 
 
 class ShopV2VideoIntroTests(TestCase):
-    """Секція під hero. ID і тривалість у контексті; картка лишається заглушкою, доки немає постера."""
+    """Секція під hero. Картки №4 і №5 відкривають діалог з обкладинки."""
 
     def test_placeholder_follows_hero(self):
         expect = {
@@ -358,9 +358,11 @@ class ShopV2VideoIntroTests(TestCase):
             self.assertIn('>' + btn + '<', block, url)
             self.assertIn('data-modal="call-request-modal"', block, url)
             self.assertIn('>00:47<', block, url)
-            self.assertNotIn('pl-rs-video__poster', block, url)
+            self.assertIn('pl-rs-video__poster', block, url)
+            self.assertIn('images/internet-shop/video/shop-video-4.webp', block, url)
+            self.assertIn('loading="lazy"', block, url)
             self.assertNotIn('<iframe', block, url)
-            self.assertNotIn('data-rs-video="o4OvYDAMeGE"', block, url)
+            self.assertIn('data-rs-video="o4OvYDAMeGE"', block, url)
             self.assertIn('css/pages/shop-video.css?v=2', html, url)
             self.assertIn('css/components/pl-proof-blocks.css?v=4', html, url)
             self.assertIn('js/rozrobka-video.js?v=4', html, url)
@@ -377,20 +379,22 @@ class ShopV2VideoIntroTests(TestCase):
             pak = html[html.index('id="pakety"'):html.index('id="svoboda"')]
             self.assertIn(title, pak, url)
             self.assertIn('>01:06<', pak, url)
-            self.assertNotIn('pl-rs-video__poster', pak, url)
+            self.assertIn('pl-rs-video__poster', pak, url)
+            self.assertIn('images/internet-shop/video/shop-video-5.webp', pak, url)
+            self.assertIn('loading="lazy"', pak, url)
             self.assertNotIn('<iframe', pak, url)
-            self.assertNotIn('data-rs-video="T3ldCTDRrrM"', pak, url)
+            self.assertIn('data-rs-video="T3ldCTDRrrM"', pak, url)
 
-    def test_video_ids_in_context_while_placeholder_stays(self):
+    def test_video_ids_and_posters_in_context(self):
         for url in (UA, RU, '/en/internet-shop-v2/'):
             response = self.client.get(url)
             videos = response.context['shop_videos']
             self.assertEqual(videos['intro']['id'], 'o4OvYDAMeGE', url)
             self.assertEqual(videos['intro']['time'], '00:47', url)
-            self.assertEqual(videos['intro']['poster'], '', url)
+            self.assertEqual(videos['intro']['poster'], 'images/internet-shop/video/shop-video-4.webp', url)
             self.assertEqual(videos['packages']['id'], 'T3ldCTDRrrM', url)
             self.assertEqual(videos['packages']['time'], '01:06', url)
-            self.assertEqual(videos['packages']['poster'], '', url)
+            self.assertEqual(videos['packages']['poster'], 'images/internet-shop/video/shop-video-5.webp', url)
 
 
 class ShopV2Round4Tests(TestCase):
@@ -439,6 +443,13 @@ class ShopV2Round4Tests(TestCase):
             admin = html[html.index('id="pl-shop-admin-title"'):html.index('id="dropshipping"')]
             self.assertIn('data-rs-video="giim7h-DlVg"', admin, url)
             self.assertIn('id="rs-reviews"', html, url)
-            quiz = html[html.index('id="zayavka"'):]
+            quiz = html[html.index('id="zayavka"'):html.index('class="main-footer"')]
             self.assertIn(drop, quiz, url)
+            self.assertIn('pl-shop__quiz-option-tick', quiz, url)
+            self.assertNotIn(hours, quiz, url)
+            self.assertNotIn('4 коротких', quiz, url)
+            self.assertNotIn('4 quick questions', quiz, url)
+            self.assertNotIn('Залиште телефон — менеджер', quiz, url)
+            self.assertNotIn('Оставьте телефон', quiz, url)
+            self.assertNotIn('name the price based on your answers', quiz, url)
             self.assertIn(faq, html, url)

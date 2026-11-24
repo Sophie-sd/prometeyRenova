@@ -5802,9 +5802,6 @@ msgstr "Leave your phone number — a manager will call you back within 15 minut
 msgid "оферта"
 msgstr "offer"
 
-msgid "Залиште телефон — менеджер передзвонить за 15 хвилин і назве вартість за вашими відповідями."
-msgstr "Leave your phone number — a manager will call you back within 15 minutes and name the price based on your answers."
-
 msgid "Замовити дзвінок з розрахунком"
 msgstr "Request a call with an estimate"
 
@@ -6458,13 +6455,6 @@ msgstr "Estimate the cost"
 
 msgid "інтернет-магазину"
 msgstr "of your online store"
-
-msgid ""
-"4 коротких питання — отримаєте рекомендацію пакета та дзвінок менеджера з "
-"орієнтовною вартістю"
-msgstr ""
-"4 quick questions — get a package recommendation and a call from a manager "
-"with an estimated price"
 
 msgid "Інтернет-магазин v2"
 msgstr "Online store v2"
