@@ -35,6 +35,8 @@ urlpatterns = [
     path('telegram-bot/', views.TelegramBotView.as_view(), name='telegram_bot'),
     path('rozrobka-sajtiv/', views.RozrobkaSajtivView.as_view(), name='rozrobka_sajtiv'),
     path(_('dorobka-sajtu/'), RedirectView.as_view(pattern_name='home', permanent=True, query_string=True)),
+    # ru перекладає slug на dorabotka-sajta/; старий /ru/dorobka-sajtu/ лишається 301 на головну.
+    path('dorobka-sajtu/', RedirectView.as_view(pattern_name='home', permanent=True, query_string=True)),
     path(
         'internet-shop-ru/',
         RedirectView.as_view(url='/ru/internet-shop-v2/', permanent=True, query_string=True),
