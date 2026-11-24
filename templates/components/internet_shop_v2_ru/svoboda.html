@@ -1,36 +1,38 @@
 {% load static %}
-<section id="svoboda" class="pl-shop__section pl-shop__svoboda" aria-labelledby="pl-shop-svoboda-title">
+<section id="svoboda" class="pl-shop__section pl-rs-blocks" aria-labelledby="pl-shop-compare-title">
     <div class="pl-shop__inner">
-        <h2 id="pl-shop-svoboda-title" class="pl-shop__title" data-reveal>Переросли Prom и OLX?<br>Время играть по своим правилам</h2>
-
-        <div class="pl-shop__svoboda-grid" data-svoboda-reveal>
-            <article class="pl-shop__card pl-shop__card--glass pl-shop__compare">
-                <p class="pl-shop__badge pl-shop__badge--bad"><span class="pl-shop__badge-dot" aria-hidden="true"></span>Аренда · Маркетплейсы</p>
-                <div class="pl-shop__compare-body">
-                    <h3 class="pl-shop__card-title">Вы строите бизнес на чужой земле</h3>
-                    <ul class="pl-shop__list pl-shop__list--bad">
-                        <li class="pl-shop__list-item">Платите комиссию за каждый шаг и каждый заказ</li>
-                        <li class="pl-shop__list-item">Теряетесь среди сотен одинаковых конкурентов</li>
-                        <li class="pl-shop__list-item">Не контролируете SEO и не владеете базой клиентов</li>
-                        <li class="pl-shop__list-item">Теряете клиентов из‑за чужих багов и правил</li>
-                    </ul>
-                </div>
+        <div class="pl-rs-blocks__head">
+            <h2 class="pl-rs-blocks__h2 pl-shop-compare__title" id="pl-shop-compare-title"><span class="pl-shop-compare__line">Конструктор или магазин под ключ:</span> <span class="pl-shop-compare__line">что вам подходит?</span></h2>
+            <p class="pl-rs-blocks__lead">В студии — цена и срок в договоре, запуск за 3 недели, от 650 €. Конструктор подходит для простой страницы в рамках шаблона.</p>
+        </div>
+        <div class="pl-rs-compare">
+            <article class="pl-rs-card">
+                <h3 class="pl-rs-card__title">Дизайн и структура</h3>
+                <p>Свои экраны, сценарии и логика под ваш бизнес. В конструкторе — страница из готовых блоков.</p>
             </article>
-
-            <article class="pl-shop__card pl-shop__card--glass pl-shop__compare">
-                <p class="pl-shop__badge pl-shop__badge--good"><span class="pl-shop__badge-dot" aria-hidden="true"></span>Собственность · Ваш магазин</p>
-                <div class="pl-shop__compare-body">
-                    <h3 class="pl-shop__card-title">Вы владеете активом, который растёт</h3>
-                    <ul class="pl-shop__list pl-shop__list--good">
-                        <li class="pl-shop__list-item">Полный контроль над базой клиентов и данными</li>
-                        <li class="pl-shop__list-item">Чистая прибыль без комиссий платформ</li>
-                        <li class="pl-shop__list-item">Дизайн и бренд, который запоминают</li>
-                        <li class="pl-shop__list-item">SEO-позиции, которые работают только на вас</li>
-                    </ul>
-                </div>
+            <article class="pl-rs-card">
+                <h3 class="pl-rs-card__title">Скорость и поиск</h3>
+                <p>Скорость, микроразметка и техническое SEO заложены в магазин. В конструкторе часть зашита в платформу, не всё настраивается.</p>
             </article>
-
-            <article class="pl-shop__card pl-shop__card--dim pl-shop__import">
+            <article class="pl-rs-card">
+                <h3 class="pl-rs-card__title">Админка и заявки</h3>
+                <p>Админка товаров, акций, промокодов и заявок в мини-CRM. В конструкторе — универсальная админка для всех.</p>
+            </article>
+            <article class="pl-rs-card">
+                <h3 class="pl-rs-card__title">Оплата, доставка и другие интеграции</h3>
+                <p>Подключаем так, как работает ваш бизнес. В конструкторе — только то, что предусмотрела платформа.</p>
+            </article>
+            <article class="pl-rs-card">
+                <h3 class="pl-rs-card__title">Кому принадлежит магазин</h3>
+                <p>Ваш код, без ежемесячной платы платформе. Конструктор удобен, пока вы остаётесь на платформе и оплачиваете тариф.</p>
+            </article>
+            <article class="pl-rs-card">
+                <h3 class="pl-rs-card__title">Поддержка</h3>
+                <p>Пожизненная гарантия на код и 1 год бесплатной поддержки от команды, которая сделала магазин. В конструкторе — справка платформы или сами.</p>
+            </article>
+        </div>
+        <div data-svoboda-reveal>
+            <article class="pl-shop__card pl-shop__card--dim pl-shop__import pl-shop__import--wide">
                 <picture class="pl-shop__glow pl-shop__glow--import" aria-hidden="true">
                     <source media="(max-width: 767px)" srcset="{% static 'images/internet_shop_v2/figma/glow-import-mobile.svg' %}">
                     <img src="{% static 'images/internet_shop_v2/figma/glow-import.svg' %}" alt="" width="626" height="476" loading="lazy" decoding="async">
@@ -51,7 +53,6 @@
                 </div>
             </article>
         </div>
-
         {# ТЗ 27.10.2026 п. 4.8: кнопку «Рассчитать проект» убрали — сразу после блока идёт форма №1. #}
     </div>
 </section>

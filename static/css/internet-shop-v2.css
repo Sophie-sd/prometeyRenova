@@ -301,31 +301,6 @@ body.pl-shop-body .main-footer .container,
     white-space: nowrap;
 }
 
-.pl-shop__badge-dot {
-    flex: 0 0 6px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-}
-
-.pl-shop__badge--bad {
-    background: rgba(255, 13, 0, 0.05);
-    border-color: rgba(255, 13, 0, 0.18);
-}
-
-.pl-shop__badge--bad .pl-shop__badge-dot {
-    background: var(--pl-danger);
-}
-
-.pl-shop__badge--good {
-    background: rgba(136, 255, 0, 0.05);
-    border-color: rgba(136, 255, 0, 0.18);
-}
-
-.pl-shop__badge--good .pl-shop__badge-dot {
-    background: var(--pl-ok);
-}
-
 /* ---------- Icon lists ---------- */
 .pl-shop__list {
     display: flex;
@@ -354,22 +329,6 @@ body.pl-shop-body .main-footer .container,
     margin-top: -2px;
     background: url('../images/internet_shop_v2/figma/icon-check.svg') center / 9.33px 14.46px no-repeat;
     transform: rotate(40.12deg);
-}
-
-.pl-shop__list--bad .pl-shop__list-item {
-    font-weight: 500;
-    letter-spacing: -0.05em;
-    color: var(--pl-gray-2);
-}
-
-.pl-shop__list--bad .pl-shop__list-item::before {
-    flex-basis: 15px;
-    width: 15px;
-    height: 15px;
-    margin-top: -1px;
-    background-image: url('../images/internet_shop_v2/figma/icon-cross.svg');
-    background-size: 15.56px 15.56px;
-    transform: rotate(43deg);
 }
 
 /* =========================================================
@@ -590,31 +549,6 @@ body.pl-shop-body .main-footer .container,
 /* =========================================================
    SVOBODA (1:189 / 1:794)
    ========================================================= */
-.pl-shop__svoboda-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 14px;
-    margin-top: var(--pl-head-gap);
-}
-
-.pl-shop__compare {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 30px;
-    padding: 14px;
-}
-
-.pl-shop__compare-body {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.pl-shop__compare .pl-shop__card-title {
-    max-width: 270px;
-}
-
 .pl-shop__import {
     display: flex;
     flex-direction: column;
@@ -678,11 +612,6 @@ body.pl-shop-body .main-footer .container,
     line-height: 1;
     letter-spacing: -0.02em;
     color: var(--pl-gray);
-}
-
-.pl-shop__svoboda-cta {
-    min-height: 44px;
-    margin-top: var(--pl-head-gap);
 }
 
 /* =========================================================
@@ -2197,7 +2126,6 @@ body.pl-shop-body .main-footer .container,
         --pl-gutter: 32px;
     }
 
-    .pl-shop__svoboda-grid,
     .pl-shop__pkg-grid,
     .pl-shop__garant-grid,
     .pl-shop__features {
@@ -2270,12 +2198,6 @@ body.pl-shop-body .main-footer .container,
     .pl-shop__list-item::before,
     .pl-shop__pkg-list li::before {
         margin-top: 0;
-    }
-
-    .pl-shop__list--bad .pl-shop__list-item {
-        font-weight: 400;
-        letter-spacing: -0.02em;
-        color: var(--pl-gray);
     }
 
     .pl-shop__btn {
@@ -2352,28 +2274,11 @@ body.pl-shop-body .main-footer .container,
         height: 128px;
     }
 
-    /* Svoboda */
-    .pl-shop__svoboda-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 20px;
-    }
-
+    /* Import strip */
     .pl-shop__import {
         grid-column: auto;
-    }
-
-    .pl-shop__compare,
-    .pl-shop__import {
         min-height: 307px;
         padding: 20px;
-    }
-
-    .pl-shop__compare {
-        gap: 50px;
-    }
-
-    .pl-shop__compare .pl-shop__card-title {
-        max-width: none;
     }
 
     .pl-shop__glow--import {
@@ -2403,9 +2308,6 @@ body.pl-shop-body .main-footer .container,
         padding: 20px 18px 20px 20px;
     }
 
-    .pl-shop__svoboda-cta {
-        min-height: 60px;
-    }
 
     /* Packages */
     .pl-shop__packages-head {
@@ -2795,22 +2697,21 @@ body.pl-shop-body .main-footer .container,
     }
 }
 
-/* Admin: features column beside the 790px dashboard only when both fit */
+/* Admin ≥1280: feature cards in one row, then dashboard 790 and video 520 */
 @media (min-width: 1280px) {
     .pl-shop__admin-row {
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 790px 520px;
+        align-items: start;
         gap: 20px;
     }
 
     .pl-shop__features {
-        flex: 0 1 430px;
-        grid-template-columns: minmax(0, 1fr);
+        grid-column: 1 / -1;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .pl-shop__admin-window {
-        flex: 0 0 790px;
         margin: 0;
     }
 }

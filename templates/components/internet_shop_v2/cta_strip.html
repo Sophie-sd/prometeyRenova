@@ -1,12 +1,12 @@
 {% load static %}{% load i18n %}
-{# ТЗ 27.10.2026 (shop-v2) п. 4.13: смуга-CTA = копія section#rs-calc-strip з /rozrobka-sajtiv/ (shared partial, та сама обгортка); прокручує до тесту #zayavka. #}
+{# ТЗ 24.11.2026: смуга #rozrahunok — форма з телефоном (спільний _lead_cta), полум'я лишається на цій позиції. #}
 <div class="pl-shop__slot10">
     <picture class="pl-shop__calc-bg" aria-hidden="true">
         <source media="(max-width: 767px)" srcset="{% static 'images/internet_shop_v2/figma/bg-calc-v3-mobile.webp' %}" width="393" height="826">
         <img src="{% static 'images/internet_shop_v2/figma/bg-calc-v3-1440.webp' %}" srcset="{% static 'images/internet_shop_v2/figma/bg-calc-v3-960.webp' %} 960w, {% static 'images/internet_shop_v2/figma/bg-calc-v3-1440.webp' %} 1440w" sizes="100vw" alt="" width="1440" height="921" loading="lazy" decoding="async">
     </picture>
 <div class="pl-corp pl-corp-page pl-rs-corp">
-{% trans "Хочете створити інтернет-магазин, але не знаєте ціну?" as title %}{% trans "Дайте відповідь на 4 питання — це 1 хвилина, безкоштовно і без зобов’язань. Менеджер передзвонить і назве вартість." as text %}{% trans "Розрахувати вартість онлайн ↗" as button %}{% trans "Це можна купити частинами," as pay_text %}{% trans "до 15 платежів" as pay_strong %}
-{% include 'components/corporate_website_v2/_calc_promo.html' with section_id='rozrahunok' title_id='pl-shop-strip-title' href='#zayavka' scroll='#zayavka' cta_position='mid' cta_page='shop' extra_class='pl-rs-strip' %}
+{% trans "Розрахуємо вартість вашого магазину" as title %}{% trans "Графік роботи: цілодобово" as text %}{% trans "Розрахувати вартість магазину" as button %}{% trans "Номер телефону" as phone_label %}{% trans "Розрахунок вартості" as lead_name %}{% trans "Сторінка: Інтернет-магазини · Смуга «Розрахуємо вартість»" as details %}
+{% include 'components/corporate_website_v2/_lead_cta.html' with section_id='rozrahunok' title_id='pl-shop-strip-title' extra_class='pl-rs-lead pl-rs-lead--1' form_type='site_request' source_page='internet-shop-v2' consent=True accent='' %}
 </div>
 </div>

@@ -5760,6 +5760,39 @@ msgstr "What’s included in the packages?"
 msgid "Розрахувати вартість магазину"
 msgstr "Calculate the store cost"
 
+msgid "Конструктор чи магазин під ключ:"
+msgstr "Website builder or turnkey online store:"
+
+msgid "що вам підходить?"
+msgstr "which one suits you?"
+
+msgid "У студії — ціна й строк у договорі, запуск за 3 тижні, від 650 €. Конструктор підходить для простої сторінки в межах шаблону."
+msgstr "With the studio — price and deadline in the contract, launch in 3 weeks, from €650. A website builder fits a simple page within a template."
+
+msgid "Свої екрани, сценарії й логіка під ваш бізнес. У конструкторі — сторінка з готових блоків."
+msgstr "Your own screens, scenarios, and logic for your business. In a website builder — a page made of ready-made blocks."
+
+msgid "Швидкість, мікророзмітка й технічне SEO закладені в магазин. У конструкторі частина зашита в платформу, не все налаштовується."
+msgstr "Speed, structured data, and technical SEO are built into the store. In a website builder, part of this is locked into the platform, and not everything can be configured."
+
+msgid "Адмінка товарів, акцій, промокодів і заявок у міні-CRM. У конструкторі — універсальна адмінка для всіх."
+msgstr "An admin panel for products, promotions, promo codes, and inquiries in a mini-CRM. In a website builder — a one-size-fits-all admin panel."
+
+msgid "Підключаємо так, як працює ваш бізнес. У конструкторі — лише те, що передбачила платформа."
+msgstr "We connect them the way your business works. In a website builder — only what the platform provides."
+
+msgid "Кому належить магазин"
+msgstr "Who owns the store"
+
+msgid "Ваш код, без щомісячної плати платформі. Конструктор зручний, доки ви залишаєтесь на платформі й оплачуєте тариф."
+msgstr "Your code, with no monthly fee to a platform. A website builder is convenient as long as you stay on the platform and pay the plan."
+
+msgid "Пожиттєва гарантія на код і 1 рік безкоштовної підтримки від команди, яка зробила магазин. У конструкторі — довідка платформи або самі."
+msgstr "Lifetime code warranty and 1 year of free support from the team that built the store. In a website builder — platform help docs or doing it yourself."
+
+msgid "Розрахуємо вартість вашого магазину"
+msgstr "We'll estimate the cost of your store"
+
 msgid "Створити інтернет-магазин:"
 msgstr "Create an online store:"
 
@@ -5768,12 +5801,6 @@ msgstr "Leave your phone number — a manager will call you back within 15 minut
 
 msgid "оферта"
 msgstr "offer"
-
-msgid "Хочете створити інтернет-магазин, але не знаєте ціну?"
-msgstr "Want to create an online store but don’t know the price?"
-
-msgid "Дайте відповідь на 4 питання — це 1 хвилина, безкоштовно і без зобов’язань. Менеджер передзвонить і назве вартість."
-msgstr "Answer 4 questions — it takes 1 minute, free and with no obligation. A manager will call you back and name the price."
 
 msgid "Залиште телефон — менеджер передзвонить за 15 хвилин і назве вартість за вашими відповідями."
 msgstr "Leave your phone number — a manager will call you back within 15 minutes and name the price based on your answers."
@@ -6819,48 +6846,6 @@ msgstr "AI (Premium) + hand-written copy"
 
 msgid "Тексти і медіа для сторінок магазину"
 msgstr "Copy and media for store pages"
-
-msgid "Переросли Prom та OLX?"
-msgstr "Outgrown Prom and OLX?"
-
-msgid "Час грати за власними правилами"
-msgstr "Time to play by your own rules"
-
-msgid "Оренда · Маркетплейси"
-msgstr "Renting · Marketplaces"
-
-msgid "Ви будуєте бізнес на чужій землі"
-msgstr "You're building a business on someone else's land"
-
-msgid "Платите комісію за кожен крок і кожне замовлення"
-msgstr "You pay a commission for every step and every order"
-
-msgid "Губитеся серед сотень однакових конкурентів"
-msgstr "You get lost among hundreds of identical competitors"
-
-msgid "Не контролюєте SEO і не володієте базою клієнтів"
-msgstr "You don't control SEO and don't own your customer base"
-
-msgid "Втрачаєте клієнтів через чужі баги та правила"
-msgstr "You lose customers to other people's bugs and rules"
-
-msgid "Власність · Ваш магазин"
-msgstr "Ownership · Your own store"
-
-msgid "Ви володієте активом, що зростає"
-msgstr "You own an asset that grows"
-
-msgid "Повний контроль над базою клієнтів та даними"
-msgstr "Full control over your customer base and data"
-
-msgid "Чистий прибуток без комісій платформ"
-msgstr "Pure profit with no platform commissions"
-
-msgid "Дизайн і бренд, який запам'ятовують"
-msgstr "A design and brand people remember"
-
-msgid "SEO-позиції, що працюють лише на вас"
-msgstr "SEO rankings that work only for you"
 
 msgid "Автоматичний імпорт товарів"
 msgstr "Automatic product import"

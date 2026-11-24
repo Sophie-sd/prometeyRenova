@@ -1,6 +1,5 @@
 {% load i18n %}
-{# [HOLD] YouTube ID і постер дасть Софія #}
-{% with shop_video_id="" shop_video_poster="" shop_video_time="01:34" %}
+{# [HOLD] poster — обкладинка PrometeyLabs, дасть Софія #}
 {% trans "Як ми робимо інтернет-магазини" as shop_video_title %}
 <section class="pl-shop-video" id="yak-my-robymo" aria-labelledby="shop-video-title">
     <div class="pl-shop-video__inner">
@@ -9,9 +8,8 @@
             <p class="pl-shop-video__text">{% trans "Широке портфоліо інтернет-магазинів на різну тематику" %} · {% trans "Ціна і строк у договорі" %} · {% trans "Оплата частинами до 15 платежів" %}</p>
         </div>
         <div class="pl-shop-video__media">
-            {% include 'components/internet_shop_v2/_video_slot.html' with video_id=shop_video_id poster=shop_video_poster time=shop_video_time title=shop_video_title %}
+            {% include 'components/internet_shop_v2/_video_slot.html' with video_id=shop_videos.intro.id poster=shop_videos.intro.poster time=shop_videos.intro.time title=shop_video_title %}
         </div>
         <button type="button" class="pl-shop-video__btn" data-modal="call-request-modal" aria-haspopup="dialog">{% trans "Замовити консультацію" %}</button>
     </div>
 </section>
-{% endwith %}

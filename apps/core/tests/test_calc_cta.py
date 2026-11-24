@@ -114,7 +114,7 @@ class CalcCtaLandingTests(TestCase):
 
     def test_shop_order_matches_tz_section_3(self):
         # 28.10.2026: херо → відео → логотипи → пакети → … → смуга → FAQ → тест #zayavka в кінці.
-        order = ('top', 'yak-my-robymo', 'portfolio', 'pakety', 'svoboda', 'forma-1', 'pl-shop-admin-title', 'dropshipping', 'garantiya', 'rozrahunok', 'faq', 'zayavka')
+        order = ('top', 'yak-my-robymo', 'portfolio', 'pakety', 'svoboda', 'forma-1', 'pl-shop-admin-title', 'dropshipping', 'garantiya', 'rozrahunok', 'rs-reviews', 'faq', 'zayavka')
         for url in ('/internet-shop-v2/', '/ru/internet-shop-v2/'):
             with self.subTest(url=url):
                 html = self._html(url)

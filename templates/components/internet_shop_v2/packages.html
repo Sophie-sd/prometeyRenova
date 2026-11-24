@@ -30,13 +30,11 @@
                     </a>
                 </div>
             </div>
-            {# [HOLD] YouTube ID і постер дасть Софія #}
-            {% with pkg_video_id="" pkg_video_poster="" pkg_video_time="01:34" %}
+            {# [HOLD] poster — обкладинка PrometeyLabs, дасть Софія #}
             {% trans "Що входить у пакети?" as pkg_video_title %}
             <div class="pl-shop__foundation-media">
-                {% include 'components/internet_shop_v2/_video_slot.html' with video_id=pkg_video_id poster=pkg_video_poster time=pkg_video_time title=pkg_video_title %}
+                {% include 'components/internet_shop_v2/_video_slot.html' with video_id=shop_videos.packages.id poster=shop_videos.packages.poster time=shop_videos.packages.time title=pkg_video_title %}
             </div>
-            {% endwith %}
         </aside>
 
         {% include 'fx/quiz_prices.html' %}

@@ -339,7 +339,7 @@ class ShopV2EnglishTests(TestCase):
 
 
 class ShopV2VideoIntroTests(TestCase):
-    """Секція під hero. Картка-заглушка, доки немає YouTube ID і постера."""
+    """Секція під hero. ID і тривалість у контексті; картка лишається заглушкою, доки немає постера."""
 
     def test_placeholder_follows_hero(self):
         expect = {
@@ -357,10 +357,11 @@ class ShopV2VideoIntroTests(TestCase):
             self.assertIn(fact, block, url)
             self.assertIn('>' + btn + '<', block, url)
             self.assertIn('data-modal="call-request-modal"', block, url)
-            self.assertIn('>01:34<', block, url)
+            self.assertIn('>00:47<', block, url)
             self.assertNotIn('pl-rs-video__poster', block, url)
             self.assertNotIn('<iframe', block, url)
-            self.assertIn('css/pages/shop-video.css?v=1', html, url)
+            self.assertNotIn('data-rs-video="o4OvYDAMeGE"', block, url)
+            self.assertIn('css/pages/shop-video.css?v=2', html, url)
             self.assertIn('css/components/pl-proof-blocks.css?v=4', html, url)
             self.assertIn('js/rozrobka-video.js?v=4', html, url)
             self.assertIn('data-rs-video-dialog', html, url)
@@ -375,6 +376,69 @@ class ShopV2VideoIntroTests(TestCase):
             html = self.client.get(url).content.decode()
             pak = html[html.index('id="pakety"'):html.index('id="svoboda"')]
             self.assertIn(title, pak, url)
-            self.assertIn('>01:34<', pak, url)
+            self.assertIn('>01:06<', pak, url)
             self.assertNotIn('pl-rs-video__poster', pak, url)
             self.assertNotIn('<iframe', pak, url)
+            self.assertNotIn('data-rs-video="T3ldCTDRrrM"', pak, url)
+
+    def test_video_ids_in_context_while_placeholder_stays(self):
+        for url in (UA, RU, '/en/internet-shop-v2/'):
+            response = self.client.get(url)
+            videos = response.context['shop_videos']
+            self.assertEqual(videos['intro']['id'], 'o4OvYDAMeGE', url)
+            self.assertEqual(videos['intro']['time'], '00:47', url)
+            self.assertEqual(videos['intro']['poster'], '', url)
+            self.assertEqual(videos['packages']['id'], 'T3ldCTDRrrM', url)
+            self.assertEqual(videos['packages']['time'], '01:06', url)
+            self.assertEqual(videos['packages']['poster'], '', url)
+
+
+class ShopV2Round4Tests(TestCase):
+    """Конструктор, смуга з формою, відео адмінки, відгуки, FAQ +2, опція квізу."""
+
+    def test_sections(self):
+        from apps.core.ads_copy import SHOP
+
+        self.assertEqual(len(SHOP['uk']['faq']), 9)
+        self.assertEqual(len(SHOP['ru']['faq']), 9)
+        self.assertEqual(len(SHOP['en']['faq']), 9)
+        pages = {
+            UA: (
+                'Конструктор чи магазин під ключ:',
+                'що вам підходить?',
+                'Графік роботи: цілодобово',
+                'Дропшиппінг-платформа',
+                'Чому не зробити сайт у конструкторі? Це ж швидше.',
+            ),
+            RU: (
+                'Конструктор или магазин под ключ:',
+                'что вам подходит?',
+                'График работы: круглосуточно',
+                'Дропшиппинг-платформа',
+                'Почему не сделать сайт в конструкторе? Это же быстрее.',
+            ),
+            '/en/internet-shop-v2/': (
+                'Website builder or turnkey online store:',
+                'which one suits you?',
+                'Working hours: 24/7',
+                'Dropshipping platform',
+                'Why not build the site in a website builder?',
+            ),
+        }
+        for url, (h2, h2b, hours, drop, faq) in pages.items():
+            html = self.client.get(url).content.decode()
+            sv = html[html.index('id="svoboda"'):html.index('id="forma-1"')]
+            self.assertIn(h2, sv, url)
+            self.assertIn(h2b, sv, url)
+            self.assertIn('100 000+', sv, url)
+            self.assertNotIn('Переросли', sv, url)
+            strip = html[html.index('id="rozrahunok"'):html.index('id="rs-reviews"')]
+            self.assertIn('<form', strip, url)
+            self.assertIn('name="phone"', strip, url)
+            self.assertIn(hours, strip, url)
+            admin = html[html.index('id="pl-shop-admin-title"'):html.index('id="dropshipping"')]
+            self.assertIn('data-rs-video="giim7h-DlVg"', admin, url)
+            self.assertIn('id="rs-reviews"', html, url)
+            quiz = html[html.index('id="zayavka"'):]
+            self.assertIn(drop, quiz, url)
+            self.assertIn(faq, html, url)

@@ -51,6 +51,12 @@
                     </li>
                     <li>
                         <label class="pl-shop__quiz-option">
+                            <input type="radio" name="q_start" value="{% trans "Дропшиппінг-платформа" %}">
+                            <span class="pl-shop__quiz-option-text">{% trans "Дропшиппінг-платформа" %}</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="pl-shop__quiz-option">
                             <input type="radio" name="q_start" value="{% trans "Ще не визначився" %}">
                             <span class="pl-shop__quiz-option-text">{% trans "Ще не визначився — потрібна консультація" %}</span>
                         </label>
@@ -152,6 +158,7 @@
             <div class="pl-shop__quiz-step pl-shop__quiz-step--contact" data-step="contact" hidden>
                 <p class="pl-shop__quiz-question">{% trans "Майже готово!" %}</p>
                 <p class="pl-shop__quiz-hint">{% trans "Залиште телефон — менеджер передзвонить за 15 хвилин і назве вартість за вашими відповідями." %}</p>
+                <p class="pl-shop__quiz-hint">{% trans "Графік роботи: цілодобово" %}</p>
 
                 <div class="pl-shop__quiz-fields">
                     <div class="pl-shop__field pl-shop__quiz-field">

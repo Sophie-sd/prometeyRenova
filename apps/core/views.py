@@ -246,11 +246,18 @@ class InternetShopV2View(BasePageView):
 
     def get_context_data(self, **kwargs):
         from .ads_context import shop_ads_context
+        from .rozrobka_reviews import rozrobka_review_bodies
         context = super().get_context_data(**kwargs)
         context['home_clients'] = homepage_clients()
         context.update(shop_ads_context())
         context['hide_developer_modal'] = True
         context['hide_lang_suggest'] = True
+        # [HOLD] poster — обкладинка PrometeyLabs, дасть Софія
+        context['shop_videos'] = {
+            'intro': {'id': 'o4OvYDAMeGE', 'poster': '', 'time': '00:47'},
+            'packages': {'id': 'T3ldCTDRrrM', 'poster': '', 'time': '01:06'},
+        }
+        context['rs_review_bodies'] = rozrobka_review_bodies()
         return context
 
 
