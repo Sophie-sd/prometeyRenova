@@ -15,15 +15,14 @@ SPEC = {
     UA: {
         # SEO 2026-11-03: title 50–60 chars, keyword first (apps.core.seo.META_OVERRIDES).
         'title': 'Інтернет-магазин під ключ від 650 € — запуск за 3 тижні',
-        'h1': 'Створення <span class="pl-shop__nowrap">інтернет-магазину</span> під ключ',
+        'h1': '<span class="pl-shop__title-line">Створення інтернет-магазину</span> <span class="pl-shop__title-line">під ключ</span>',
         'line': 'Розробка <span class="pl-shop__nowrap">інтернет-магазину</span> <strong class="pl-shop__hero-acc">від 650 €</strong> · запуск <strong class="pl-shop__hero-acc">за 3 тижні</strong> · 1 рік підтримки безкоштовно · пожиттєва гарантія на код',
         'cta': 'Розрахувати вартість магазину',
-        'micro': 'Пройдіть тест за 1 хвилину',
         'sticky': 'Розрахуйте вартість онлайн',
-        'trust': ['30+ розроблених інтернет-магазинів', 'Ціна і строк у договорі', 'Менеджер передзвонить за 15 хвилин', 'Оплата частинами до 15 платежів'],
+        'trust': '5,0 ★ на Google\u00a0· 51 відгук\u00a0· 50+ запущених проєктів',
         'lead': 'Дизайн, код і інтеграції. Без плагінів і без щомісячної абонплати. Магазин залишається вашим.',
         'labels': ('Ім’я', 'Телефон'),
-        'button': 'Дізнатися вартість',
+        'button': 'Розрахувати вартість магазину',
         'action': '/forms/submit/',
         'meta': ('650 €', '3 тижні', '1 рік підтримки безкоштовно'),
         'start': ['Дизайн', 'Мобільна версія', 'Базова SEO', 'LiqPay і Mono', 'Нова Пошта',
@@ -47,15 +46,14 @@ SPEC = {
     },
     RU: {
         'title': 'Интернет-магазин под ключ от 650 € — запуск за 3 недели',
-        'h1': 'Создание <span class="pl-shop__nowrap">интернет-магазина</span> под ключ',
+        'h1': '<span class="pl-shop__title-line">Создание интернет-магазина</span> <span class="pl-shop__title-line">под ключ</span>',
         'line': 'Разработка <span class="pl-shop__nowrap">интернет-магазина</span> <strong class="pl-shop__hero-acc">от 650 €</strong> · запуск <strong class="pl-shop__hero-acc">за 3 недели</strong> · 1 год поддержки бесплатно · пожизненная гарантия на код',
         'cta': 'Рассчитать стоимость магазина',
-        'micro': 'Пройдите тест за 1 минуту',
         'sticky': 'Рассчитайте стоимость онлайн',
-        'trust': ['30+ разработанных интернет-магазинов', 'Цена и срок в договоре', 'Менеджер перезвонит за 15 минут', 'Оплата частями до 15 платежей'],
+        'trust': '5,0 ★ в Google\u00a0· 51 отзыв\u00a0· 50+ запущенных проектов',
         'lead': 'Дизайн, код и интеграции. Без плагинов и без ежемесячной абонплаты. Магазин остаётся вашим.',
         'labels': ('Имя', 'Телефон'),
-        'button': 'Узнать стоимость',
+        'button': 'Рассчитать стоимость магазина',
         'action': '/ru/forms/submit/',
         'meta': ('650 €', '3 недели', '1 год поддержки бесплатно'),
         'start': ['Дизайн', 'Мобильная версия', 'Базовое SEO', 'LiqPay и Mono', 'Новая Почта',
@@ -148,12 +146,11 @@ class ShopV2SpecTests(TestCase):
             card = _between(hero, 'class="pl-shop__hero-card"', '</section>')
             self.assertIn('href="#zayavka" class="pl-calc-cta__btn mobile-touch-target" data-calc-cta="hero" data-calc-page="shop" data-calc-scroll="#zayavka"', card)
             self.assertIn(f'<span class="pl-calc-cta__label">{s["cta"]}</span>', card)
-            self.assertIn(f'<p class="pl-calc-cta__micro">{s["micro"]}</p>', card)
+            self.assertNotIn('pl-calc-cta__micro', card)
             self.assertIn('data-calc-event="sticky_cta_click"', card)
             self.assertIn(f'<span class="pl-calc-cta__label">{s["sticky"]}</span></a>', card)
             trust = _between(card, 'class="pl-shop__hero-trust"', '</p>')
-            for t in s['trust']:
-                self.assertIn(f'<span>{t}</span>', trust)
+            self.assertIn(s['trust'], trust)
             contacts = _between(hero, 'class="pl-shop__hero-contacts"', '</p>')
             self.assertIn('href="tel:+380639520565"', contacts)
             self.assertIn('+38 (063) 952-05-65', contacts)
@@ -192,6 +189,7 @@ class ShopV2SpecTests(TestCase):
             self.assertIn(f'id="fx-pkg-base" class="pl-shop__pkg-price">{s["from"]} 650 €', pak)
             self.assertIn(f'id="fx-pkg-premium" class="pl-shop__pkg-price">{s["from"]} 1\u00a0500 €', pak)
             self.assertIn(f'id="fx-pkg-platinum" class="pl-shop__pkg-price">{s["from"]} 7\u00a0000 €', pak)
+            self.assertEqual(pak.count(f'>{s["button"]}</a>'), 3, url)
 
     def test_platinum_is_shop_plus_marketing_and_no_review_services(self):
         for url, s in SPEC.items():
@@ -205,8 +203,11 @@ class ShopV2SpecTests(TestCase):
             self.assertEqual(plat.count('data-calc-pkg='), 1, url)
             self.assertIn(f'>{s["button"]}</a>', plat)
             self.assertNotIn('pl-shop__pkg-read-more', plat)
+            plat_low = plat.lower()
+            for bad in s['reviews']:
+                self.assertNotIn(bad, plat_low, f'{url}: {bad}')
             low = html.lower()
-            for bad in s['reviews'] + ('кінематограф', 'кинематограф'):
+            for bad in ('кінематограф', 'кинематограф'):
                 self.assertNotIn(bad, low, f'{url}: {bad}')
             # visible card eyebrows = JSON-LD Offer names (message match page <-> schema)
             pak = _between(html, 'id="pakety"', '</section>')
@@ -271,7 +272,7 @@ class ShopV2EnglishTests(TestCase):
 
     EN = '/en/internet-shop-v2/'
     EN_TITLE = 'Turnkey online store development — price from €650 | PrometeyLabs'
-    EN_H1 = 'Turnkey <span class="pl-shop__nowrap">online store</span> development'
+    EN_H1 = '<span class="pl-shop__title-line">Turnkey online store</span> <span class="pl-shop__title-line">development</span>'
     HIDDEN_DETAILS = 'Сторінка: Інтернет-магазини · Форма №1 (після «Переросли Prom»)'
 
     def _get(self, url):
@@ -300,7 +301,8 @@ class ShopV2EnglishTests(TestCase):
         self.assertIn(f'value="{self.HIDDEN_DETAILS}"', html)
         self.assertIn('Frequently asked questions about creating an online store', html)
         self.assertIn('Calculate the store cost', html)
-        self.assertIn('Take the quiz in 1 minute', html)
+        self.assertNotIn('Take the quiz in 1 minute', html)
+        self.assertIn('5.0 ★ on Google\u00a0· 51 reviews\u00a0· 50+ launched projects', html)
         self.assertIn('How much does it cost to create an online store', html)
         self.assertIn('The warranty is set out in the public contract (clause 8 of the offer)', html)
         self.assertIn('>offer</a>', html)
@@ -334,3 +336,120 @@ class ShopV2EnglishTests(TestCase):
         self.assertIn(f'<title>{SPEC[RU]["title"]}</title>', ru)
         self.assertIn(SPEC[RU]['h1'], ru)
         self.assertNotIn(self.EN_TITLE, ru)
+
+
+class ShopV2VideoIntroTests(TestCase):
+    """Секція під hero. Картки №4 і №5 відкривають діалог з обкладинки."""
+
+    def test_placeholder_follows_hero(self):
+        expect = {
+            UA: ('Як ми робимо', 'Широке портфоліо інтернет-магазинів на різну тематику', 'Замовити консультацію'),
+            RU: ('Как мы делаем', 'Широкое портфолио интернет-магазинов разной тематики', 'Заказать консультацию'),
+            '/en/internet-shop-v2/': ('How we build', 'A wide portfolio of online stores in different niches', 'Request a consultation'),
+        }
+        for url, (how, fact, btn) in expect.items():
+            html = self.client.get(url).content.decode()
+            video = html.index('id="yak-my-robymo"')
+            self.assertLess(html.index('id="top"'), video, url)
+            self.assertLess(video, html.index('id="portfolio"'), url)
+            block = html[video:html.index('id="portfolio"', video)]
+            self.assertIn(how, block, url)
+            self.assertIn(fact, block, url)
+            self.assertIn('>' + btn + '<', block, url)
+            self.assertIn('data-modal="call-request-modal"', block, url)
+            self.assertIn('>00:47<', block, url)
+            self.assertIn('pl-rs-video__poster', block, url)
+            self.assertIn('images/internet-shop/video/shop-video-4.webp', block, url)
+            self.assertIn('loading="lazy"', block, url)
+            self.assertNotIn('<iframe', block, url)
+            self.assertIn('data-rs-video="o4OvYDAMeGE"', block, url)
+            self.assertIn('css/pages/shop-video.css?v=2', html, url)
+            self.assertIn('css/components/pl-proof-blocks.css?v=4', html, url)
+            self.assertIn('js/rozrobka-video.js?v=4', html, url)
+            self.assertIn('data-rs-video-dialog', html, url)
+
+    def test_packages_video_placeholder(self):
+        titles = {
+            UA: 'Що входить у пакети?',
+            RU: 'Что входит в пакеты?',
+            '/en/internet-shop-v2/': 'What’s included in the packages?',
+        }
+        for url, title in titles.items():
+            html = self.client.get(url).content.decode()
+            pak = html[html.index('id="pakety"'):html.index('id="svoboda"')]
+            self.assertIn(title, pak, url)
+            self.assertIn('>01:06<', pak, url)
+            self.assertIn('pl-rs-video__poster', pak, url)
+            self.assertIn('images/internet-shop/video/shop-video-5.webp', pak, url)
+            self.assertIn('loading="lazy"', pak, url)
+            self.assertNotIn('<iframe', pak, url)
+            self.assertIn('data-rs-video="T3ldCTDRrrM"', pak, url)
+
+    def test_video_ids_and_posters_in_context(self):
+        for url in (UA, RU, '/en/internet-shop-v2/'):
+            response = self.client.get(url)
+            videos = response.context['shop_videos']
+            self.assertEqual(videos['intro']['id'], 'o4OvYDAMeGE', url)
+            self.assertEqual(videos['intro']['time'], '00:47', url)
+            self.assertEqual(videos['intro']['poster'], 'images/internet-shop/video/shop-video-4.webp', url)
+            self.assertEqual(videos['packages']['id'], 'T3ldCTDRrrM', url)
+            self.assertEqual(videos['packages']['time'], '01:06', url)
+            self.assertEqual(videos['packages']['poster'], 'images/internet-shop/video/shop-video-5.webp', url)
+
+
+class ShopV2Round4Tests(TestCase):
+    """Конструктор, смуга з формою, відео адмінки, відгуки, FAQ +2, опція квізу."""
+
+    def test_sections(self):
+        from apps.core.ads_copy import SHOP
+
+        self.assertEqual(len(SHOP['uk']['faq']), 9)
+        self.assertEqual(len(SHOP['ru']['faq']), 9)
+        self.assertEqual(len(SHOP['en']['faq']), 9)
+        pages = {
+            UA: (
+                'Конструктор чи магазин під ключ:',
+                'що вам підходить?',
+                'Графік роботи: цілодобово',
+                'Дропшиппінг-платформа',
+                'Чому не зробити сайт у конструкторі? Це ж швидше.',
+            ),
+            RU: (
+                'Конструктор или магазин под ключ:',
+                'что вам подходит?',
+                'График работы: круглосуточно',
+                'Дропшиппинг-платформа',
+                'Почему не сделать сайт в конструкторе? Это же быстрее.',
+            ),
+            '/en/internet-shop-v2/': (
+                'Website builder or turnkey online store:',
+                'which one suits you?',
+                'Working hours: 24/7',
+                'Dropshipping platform',
+                'Why not build the site in a website builder?',
+            ),
+        }
+        for url, (h2, h2b, hours, drop, faq) in pages.items():
+            html = self.client.get(url).content.decode()
+            sv = html[html.index('id="svoboda"'):html.index('id="forma-1"')]
+            self.assertIn(h2, sv, url)
+            self.assertIn(h2b, sv, url)
+            self.assertIn('100 000+', sv, url)
+            self.assertNotIn('Переросли', sv, url)
+            strip = html[html.index('id="rozrahunok"'):html.index('id="rs-reviews"')]
+            self.assertIn('<form', strip, url)
+            self.assertIn('name="phone"', strip, url)
+            self.assertIn(hours, strip, url)
+            admin = html[html.index('id="pl-shop-admin-title"'):html.index('id="dropshipping"')]
+            self.assertIn('data-rs-video="giim7h-DlVg"', admin, url)
+            self.assertIn('id="rs-reviews"', html, url)
+            quiz = html[html.index('id="zayavka"'):html.index('class="main-footer"')]
+            self.assertIn(drop, quiz, url)
+            self.assertIn('pl-shop__quiz-option-tick', quiz, url)
+            self.assertNotIn(hours, quiz, url)
+            self.assertNotIn('4 коротких', quiz, url)
+            self.assertNotIn('4 quick questions', quiz, url)
+            self.assertNotIn('Залиште телефон — менеджер', quiz, url)
+            self.assertNotIn('Оставьте телефон', quiz, url)
+            self.assertNotIn('name the price based on your answers', quiz, url)
+            self.assertIn(faq, html, url)

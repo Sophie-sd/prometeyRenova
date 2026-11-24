@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}{% load calc_cta_tags %}
 <section id="top" class="pl-shop__hero" aria-labelledby="pl-shop-hero-title">
     <picture class="pl-shop__hero-bg" aria-hidden="true">
@@ -7,14 +8,14 @@
     <div class="pl-shop__inner pl-shop__hero-inner">
         {# ТЗ 27.10.2026 п. 4.1–4.2: без видимых крошек (BreadcrumbList JSON-LD в <head> остаётся) и без формы; херо как у /ru/corporate-website-v2/. #}
         <div class="pl-shop__hero-head">
-            <h1 id="pl-shop-hero-title" class="pl-shop__title pl-shop__title--hero">Создание <span class="pl-shop__nowrap">интернет-магазина</span> под ключ</h1>
+            <h1 id="pl-shop-hero-title" class="pl-shop__title pl-shop__title--hero"><span class="pl-shop__title-line">Создание интернет-магазина</span> <span class="pl-shop__title-line">под ключ</span></h1>
             <p class="pl-shop__hero-line">Разработка <span class="pl-shop__nowrap">интернет-магазина</span> <strong class="pl-shop__hero-acc">от 650 €</strong> · запуск <strong class="pl-shop__hero-acc">за 3 недели</strong> · 1 год поддержки бесплатно · пожизненная гарантия на код</p>
             <p class="pl-shop__hero-lead">Дизайн, код и интеграции. Без плагинов и без ежемесячной абонплаты. Магазин остаётся вашим.</p>
         </div>
         <div class="pl-shop__hero-card">
             {% calc_cta 'shop' %}
             {% calc_cta_sticky 'shop' %}
-            <p class="pl-shop__hero-trust"><span>30+ разработанных интернет-магазинов</span> · <span>Цена и срок в договоре</span> · <span>Менеджер перезвонит за 15 минут</span> · <span>Оплата частями до 15 платежей</span></p>
+            <p class="pl-shop__hero-trust">{% trans "5,0 ★ на Google · 51 відгук · 50+ запущених проєктів" %}</p>
             <p class="pl-shop__hero-contacts">
                 <a href="tel:+380639520565" class="pl-shop__hero-contact">+38 (063) 952-05-65</a>
                 <a href="https://t.me/prometeylabs" class="pl-shop__hero-contact" target="_blank" rel="noopener noreferrer">Telegram</a>

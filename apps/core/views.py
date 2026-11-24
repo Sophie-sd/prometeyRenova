@@ -246,11 +246,25 @@ class InternetShopV2View(BasePageView):
 
     def get_context_data(self, **kwargs):
         from .ads_context import shop_ads_context
+        from .rozrobka_reviews import rozrobka_review_bodies
         context = super().get_context_data(**kwargs)
         context['home_clients'] = homepage_clients()
         context.update(shop_ads_context())
         context['hide_developer_modal'] = True
         context['hide_lang_suggest'] = True
+        context['shop_videos'] = {
+            'intro': {
+                'id': 'o4OvYDAMeGE',
+                'poster': 'images/internet-shop/video/shop-video-4.webp',
+                'time': '00:47',
+            },
+            'packages': {
+                'id': 'T3ldCTDRrrM',
+                'poster': 'images/internet-shop/video/shop-video-5.webp',
+                'time': '01:06',
+            },
+        }
+        context['rs_review_bodies'] = rozrobka_review_bodies()
         return context
 
 

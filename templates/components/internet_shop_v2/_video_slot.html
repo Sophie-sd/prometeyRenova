@@ -1,0 +1,14 @@
+{% load static %}
+{% if video_id and poster %}
+{% include 'components/rozrobka_sajtiv/_video.html' with video_id=video_id poster=poster poster_w=460 poster_h=256 time=time title=title %}
+{% else %}
+<figure class="pl-rs-video">
+    <div class="pl-rs-video__card">
+        <span class="pl-rs-video__title">{{ title }}</span>
+        <span class="pl-rs-video__time" aria-hidden="true">{{ time }}</span>
+        <span class="pl-rs-video__play" aria-hidden="true">
+            <img src="{% static 'img/rozrobka-figma/rs-play.svg' %}" alt="" width="26" height="28">
+        </span>
+    </div>
+</figure>
+{% endif %}

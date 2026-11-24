@@ -44,7 +44,7 @@
     .pl-rs__prices { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
     /* Very short desktop screens only (≤700px tall): spacing alone can't fit the 3-line H1 under the header */
-    @media (max-height: 700px) { .pl-corp__hero-title { font-size: clamp(44px, 8.6svh, 70px); } .pl-shop__title--hero { font-size: clamp(44px, 8.6svh, 70px); } }
+    @media (max-height: 700px) { .pl-corp__hero-title { font-size: clamp(44px, 8.6svh, 70px); } .pl-shop__title--hero { font-size: min(clamp(44px, 8.6svh, 70px), 7.1cqi); } }
 
     /* Contacts (info column; the form is page content, stacked below at 1024) */
     .ctf__inner { padding-top: clamp(96px, 17svh, 120px); }

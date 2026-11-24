@@ -10,23 +10,29 @@
         </div>
 
         <aside class="pl-shop__card pl-shop__card--dim pl-shop__foundation" data-reveal aria-labelledby="pl-shop-foundation-title">
-            <picture class="pl-shop__glow pl-shop__glow--foundation" aria-hidden="true">
-                <source media="(max-width: 767px)" srcset="{% static 'images/internet_shop_v2/figma/glow-foundation-mobile.svg' %}">
-                <img src="{% static 'images/internet_shop_v2/figma/glow-foundation.svg' %}" alt="" width="1147" height="459" loading="lazy" decoding="async">
-            </picture>
-            <h3 id="pl-shop-foundation-title" class="pl-shop__card-title pl-shop__card-title--accent">{% trans "У кожному пакеті — одна й та сама база" %}</h3>
-            <div class="pl-shop__foundation-body">
-                <ul class="pl-shop__list pl-shop__list--good pl-shop__foundation-list">
-                    <li class="pl-shop__list-item">{% trans "Google PageSpeed 90+ на чистому коді" %}</li>
-                    <li class="pl-shop__list-item">{% trans "Продуманий UI/UX під вашу нішу" %}</li>
-                    <li class="pl-shop__list-item">{% trans "Зрозуміла адмін-панель з першого дня" %}</li>
-                    <li class="pl-shop__list-item">{% trans "Розгортання під ключ на вашому домені" %}</li>
-                </ul>
-                <p class="pl-shop__note"><img class="pl-shop__note-icon" src="{% static 'images/internet_shop_v2/figma/icon-danger.svg' %}" alt="" width="17" height="17" aria-hidden="true">{% trans "Пакет відрізняє глибину ШІ, інтеграції та маркетинг — не якість фундаменту" %}</p>
-                <a href="{% url 'monobank_chastynamy' %}" class="pl-shop__installment">
-                    <img class="pl-shop__installment-icon" src="{% static 'images/internet_shop_v2/figma/mono-paw-15.webp' %}" alt="" width="54" height="54" loading="lazy" decoding="async">
-                    <span class="pl-shop__installment-text">{% trans "Це можна купити частинами," %} <strong class="pl-shop__installment-strong">{% trans "до 15 платежів" %}</strong></span>
-                </a>
+            <div class="pl-shop__foundation-copy">
+                <picture class="pl-shop__glow pl-shop__glow--foundation" aria-hidden="true">
+                    <source media="(max-width: 767px)" srcset="{% static 'images/internet_shop_v2/figma/glow-foundation-mobile.svg' %}">
+                    <img src="{% static 'images/internet_shop_v2/figma/glow-foundation.svg' %}" alt="" width="1147" height="459" loading="lazy" decoding="async">
+                </picture>
+                <h3 id="pl-shop-foundation-title" class="pl-shop__card-title pl-shop__card-title--accent">{% trans "У кожному пакеті — одна й та сама база" %}</h3>
+                <div class="pl-shop__foundation-body">
+                    <ul class="pl-shop__list pl-shop__list--good pl-shop__foundation-list">
+                        <li class="pl-shop__list-item">{% trans "Google PageSpeed 90+ на чистому коді" %}</li>
+                        <li class="pl-shop__list-item">{% trans "Зрозуміла адмін-панель з першого дня" %}</li>
+                        <li class="pl-shop__list-item">{% trans "Продуманий UI/UX під вашу нішу" %}</li>
+                        <li class="pl-shop__list-item">{% trans "Розгортання під ключ на вашому домені" %}</li>
+                    </ul>
+                    <p class="pl-shop__note"><img class="pl-shop__note-icon" src="{% static 'images/internet_shop_v2/figma/icon-danger.svg' %}" alt="" width="17" height="17" aria-hidden="true">{% trans "Пакет відрізняє глибину ШІ, інтеграції та маркетинг — не якість фундаменту" %}</p>
+                    <a href="{% url 'monobank_chastynamy' %}" class="pl-shop__installment">
+                        <img class="pl-shop__installment-icon" src="{% static 'images/internet_shop_v2/figma/mono-paw-15.webp' %}" alt="" width="54" height="54" loading="lazy" decoding="async">
+                        <span class="pl-shop__installment-text">{% trans "Це можна купити частинами," %} <strong class="pl-shop__installment-strong">{% trans "до 15 платежів" %}</strong></span>
+                    </a>
+                </div>
+            </div>
+            {% trans "Що входить у пакети?" as pkg_video_title %}
+            <div class="pl-shop__foundation-media">
+                {% include 'components/internet_shop_v2/_video_slot.html' with video_id=shop_videos.packages.id poster=shop_videos.packages.poster time=shop_videos.packages.time title=pkg_video_title %}
             </div>
         </aside>
 
@@ -52,7 +58,7 @@
                         <li>{% trans "Каталог до 100 товарів" %}</li>
                     </ul>
                 </div>
-                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--light pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="base">{% trans "Дізнатися вартість" %}</a>
+                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--light pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="base">{% trans "Розрахувати вартість магазину" %}</a>
             </article>
 
             <article class="pl-shop__pkg-card pl-shop__pkg-card--featured">
@@ -76,7 +82,7 @@
                         <li>{% trans "Налаштування рекламного кабінету і стартова кампанія" %}</li>
                     </ul>
                 </div>
-                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--accent pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="premium">{% trans "Дізнатися вартість" %}</a>
+                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--accent pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="premium">{% trans "Розрахувати вартість магазину" %}</a>
             </article>
 
             <article class="pl-shop__pkg-card pl-shop__pkg-card--platinum">
@@ -99,7 +105,7 @@
                         <li><span><strong class="pl-shop__pkg-theme-name">{% trans "Пошук і контент" %}</strong>{% trans "SEO під Україну і зовнішні ринки, статті й контент 6 місяців, тексти і медіа для сторінок магазину" %}</span></li>
                     </ul>
                 </div>
-                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--light pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="platinum">{% trans "Дізнатися вартість" %}</a>
+                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--light pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="platinum">{% trans "Розрахувати вартість магазину" %}</a>
             </article>
         </div>
 

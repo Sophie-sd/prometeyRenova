@@ -55,17 +55,17 @@ CALC_CTA = {
         'uk': {
             'label': 'Розрахувати вартість магазину',
             'sticky': 'Розрахуйте вартість онлайн',
-            'micro': 'Пройдіть тест за 1 хвилину',
+            'micro': '',
         },
         'ru': {
             'label': 'Рассчитать стоимость магазина',
             'sticky': 'Рассчитайте стоимость онлайн',
-            'micro': 'Пройдите тест за 1 минуту',
+            'micro': '',
         },
         'en': {
             'label': 'Calculate the store cost',
             'sticky': 'Calculate the cost online',
-            'micro': 'Take the quiz in 1 minute',
+            'micro': '',
         },
     },
     # ТЗ Софії 28.10.2026 п. 3.1: sticky і на десктопі, текст як на /rozrobka-sajtiv/;

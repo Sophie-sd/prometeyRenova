@@ -1,36 +1,38 @@
 {% load i18n %}{% load static %}
-<section id="svoboda" class="pl-shop__section pl-shop__svoboda" aria-labelledby="pl-shop-svoboda-title">
+<section id="svoboda" class="pl-shop__section pl-rs-blocks" aria-labelledby="pl-shop-compare-title">
     <div class="pl-shop__inner">
-        <h2 id="pl-shop-svoboda-title" class="pl-shop__title" data-reveal>{% trans "Переросли Prom та OLX?" %}<br>{% trans "Час грати за власними правилами" %}</h2>
-
-        <div class="pl-shop__svoboda-grid" data-svoboda-reveal>
-            <article class="pl-shop__card pl-shop__card--glass pl-shop__compare">
-                <p class="pl-shop__badge pl-shop__badge--bad"><span class="pl-shop__badge-dot" aria-hidden="true"></span>{% trans "Оренда · Маркетплейси" %}</p>
-                <div class="pl-shop__compare-body">
-                    <h3 class="pl-shop__card-title">{% trans "Ви будуєте бізнес на чужій землі" %}</h3>
-                    <ul class="pl-shop__list pl-shop__list--bad">
-                        <li class="pl-shop__list-item">{% trans "Платите комісію за кожен крок і кожне замовлення" %}</li>
-                        <li class="pl-shop__list-item">{% trans "Губитеся серед сотень однакових конкурентів" %}</li>
-                        <li class="pl-shop__list-item">{% trans "Не контролюєте SEO і не володієте базою клієнтів" %}</li>
-                        <li class="pl-shop__list-item">{% trans "Втрачаєте клієнтів через чужі баги та правила" %}</li>
-                    </ul>
-                </div>
+        <div class="pl-rs-blocks__head">
+            <h2 class="pl-rs-blocks__h2 pl-shop-compare__title" id="pl-shop-compare-title"><span class="pl-shop-compare__line">{% trans "Конструктор чи магазин під ключ:" %}</span> <span class="pl-shop-compare__line">{% trans "що вам підходить?" %}</span></h2>
+            <p class="pl-rs-blocks__lead">{% trans "У студії — ціна й строк у договорі, запуск за 3 тижні, від 650 €. Конструктор підходить для простої сторінки в межах шаблону." %}</p>
+        </div>
+        <div class="pl-rs-compare">
+            <article class="pl-rs-card">
+                <h3 class="pl-rs-card__title">{% trans "Дизайн і структура" %}</h3>
+                <p>{% trans "Свої екрани, сценарії й логіка під ваш бізнес. У конструкторі — сторінка з готових блоків." %}</p>
             </article>
-
-            <article class="pl-shop__card pl-shop__card--glass pl-shop__compare">
-                <p class="pl-shop__badge pl-shop__badge--good"><span class="pl-shop__badge-dot" aria-hidden="true"></span>{% trans "Власність · Ваш магазин" %}</p>
-                <div class="pl-shop__compare-body">
-                    <h3 class="pl-shop__card-title">{% trans "Ви володієте активом, що зростає" %}</h3>
-                    <ul class="pl-shop__list pl-shop__list--good">
-                        <li class="pl-shop__list-item">{% trans "Повний контроль над базою клієнтів та даними" %}</li>
-                        <li class="pl-shop__list-item">{% trans "Чистий прибуток без комісій платформ" %}</li>
-                        <li class="pl-shop__list-item">{% trans "Дизайн і бренд, який запам'ятовують" %}</li>
-                        <li class="pl-shop__list-item">{% trans "SEO-позиції, що працюють лише на вас" %}</li>
-                    </ul>
-                </div>
+            <article class="pl-rs-card">
+                <h3 class="pl-rs-card__title">{% trans "Швидкість і пошук" %}</h3>
+                <p>{% trans "Швидкість, мікророзмітка й технічне SEO закладені в магазин. У конструкторі частина зашита в платформу, не все налаштовується." %}</p>
             </article>
-
-            <article class="pl-shop__card pl-shop__card--dim pl-shop__import">
+            <article class="pl-rs-card">
+                <h3 class="pl-rs-card__title">{% trans "Адмінка й заявки" %}</h3>
+                <p>{% trans "Адмінка товарів, акцій, промокодів і заявок у міні-CRM. У конструкторі — універсальна адмінка для всіх." %}</p>
+            </article>
+            <article class="pl-rs-card">
+                <h3 class="pl-rs-card__title">{% trans "Оплата, доставка та інші інтеграції" %}</h3>
+                <p>{% trans "Підключаємо так, як працює ваш бізнес. У конструкторі — лише те, що передбачила платформа." %}</p>
+            </article>
+            <article class="pl-rs-card">
+                <h3 class="pl-rs-card__title">{% trans "Кому належить магазин" %}</h3>
+                <p>{% trans "Ваш код, без щомісячної плати платформі. Конструктор зручний, доки ви залишаєтесь на платформі й оплачуєте тариф." %}</p>
+            </article>
+            <article class="pl-rs-card">
+                <h3 class="pl-rs-card__title">{% trans "Підтримка" %}</h3>
+                <p>{% trans "Пожиттєва гарантія на код і 1 рік безкоштовної підтримки від команди, яка зробила магазин. У конструкторі — довідка платформи або самі." %}</p>
+            </article>
+        </div>
+        <div data-svoboda-reveal>
+            <article class="pl-shop__card pl-shop__card--dim pl-shop__import pl-shop__import--wide">
                 <picture class="pl-shop__glow pl-shop__glow--import" aria-hidden="true">
                     <source media="(max-width: 767px)" srcset="{% static 'images/internet_shop_v2/figma/glow-import-mobile.svg' %}">
                     <img src="{% static 'images/internet_shop_v2/figma/glow-import.svg' %}" alt="" width="626" height="476" loading="lazy" decoding="async">
@@ -51,7 +53,6 @@
                 </div>
             </article>
         </div>
-
         {# ТЗ 27.10.2026 п. 4.8: кнопку «Прорахувати проєкт» прибрано — одразу після блока йде форма №1. #}
     </div>
 </section>

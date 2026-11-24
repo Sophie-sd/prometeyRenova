@@ -79,10 +79,6 @@ SHOP = {
         'form_note': 'Телефон потрібен, щоб менеджер передзвонив і назвав орієнтовну вартість.',
         'privacy_before': 'Надсилаючи заявку, ви погоджуєтесь з',
         'privacy_link': 'політикою конфіденційності',
-        'trust': (
-            '30+ розроблених інтернет-магазинів · Ціна і строк у договорі · '
-            'Відповідаємо протягом 15 хвилин · Оплата частинами до 15 платежів'
-        ),
         'crumb': 'Інтернет-магазини',
         'prices_h2': 'Скільки коштує створення інтернет-магазину',
         'include_h3': 'Що входить у Base',
@@ -144,10 +140,6 @@ SHOP = {
         'form_note': 'Телефон нужен, чтобы менеджер перезвонил и назвал ориентировочную стоимость.',
         'privacy_before': 'Отправляя заявку, вы соглашаетесь с',
         'privacy_link': 'политикой конфиденциальности',
-        'trust': (
-            '30+ разработанных интернет-магазинов · Цена и срок в договоре · '
-            'Отвечаем в течение 15 минут · Оплата частями до 15 платежей'
-        ),
         'crumb': 'Интернет-магазины',
         'prices_h2': 'Сколько стоит создание интернет-магазина',
         'include_h3': 'Что входит в Base',
@@ -247,6 +239,42 @@ SHOP = {
     },
 }
 
+_FAQ_BUILDER = {
+    'uk': (
+        (
+            'Чому не зробити сайт у конструкторі? Це ж швидше.',
+            'Для простої візитки — так, часто швидше. Якщо потрібні своя структура, окрема адмінка, оплата, фіди чи нестандартні сценарії, конструктор починає обмежувати. Тоді доопрацювання коштують часу, а частини речей там не зробити взагалі. Для сайту, який має приводити заявки й продажі, вигідніше одразу зробити його під задачу.',
+        ),
+        (
+            'Що буде з сайтом після запуску? Чи не «прив’яжете» ви його до себе?',
+            'Сайт ваш: ви отримуєте код і доступ, без обов’язкової щомісячної плати конструктору. Після запуску можна залишитись на супроводі студії — для правок, оновлень і консультацій — або вести контент самостійно. Це не оренда чужої платформи, з якої сайт потім не забрати.',
+        ),
+    ),
+    'ru': (
+        (
+            'Почему не сделать сайт в конструкторе? Это же быстрее.',
+            'Для простой визитки — да, часто быстрее. Если нужны своя структура, отдельная админка, оплата, фиды или нестандартные сценарии, конструктор начинает ограничивать. Тогда доработки стоят времени, а часть вещей там не сделать вообще. Для сайта, который должен приводить заявки и продажи, выгоднее сразу сделать его под задачу.',
+        ),
+        (
+            'Что будет с сайтом после запуска? Вы не «привяжете» его к себе?',
+            'Сайт ваш: вы получаете код и доступ, без обязательной ежемесячной платы конструктору. После запуска можно остаться на сопровождении студии — для правок, обновлений и консультаций — или вести контент самостоятельно. Это не аренда чужой платформы, с которой сайт потом не забрать.',
+        ),
+    ),
+    'en': (
+        (
+            'Why not build the site in a website builder? Isn’t that faster?',
+            'For a simple calling card, yes, it is often faster. If you need your own structure, a separate admin panel, payment, feeds, or unusual scenarios, a website builder starts to limit you. Rework then costs time, and some things cannot be done there at all. For a site that should bring inquiries and sales, it is better to build it for the task from the start.',
+        ),
+        (
+            'What happens to the site after launch? Will you lock it to yourselves?',
+            'The site is yours: you receive the code and access, with no required monthly fee to a website builder. After launch you can stay on studio support — for edits, updates, and consultations — or manage the content yourself. This is not a rental of someone else’s platform that you cannot take the site away from.',
+        ),
+    ),
+}
+
+for _faq_lang in ('uk', 'ru', 'en'):
+    SHOP[_faq_lang]['faq'].extend(_FAQ_BUILDER[_faq_lang])
+
 RS = {
     'uk': {
         'title': 'Створити сайт під ключ — розробка сайтів від 150 € | PrometeyLabs',
@@ -306,14 +334,7 @@ RS = {
                 'Чи зможу я сам змінювати сайт?',
                 'Так, самі. У адміністративній панелі можна змінювати заголовки, тексти, фото й, у магазині, товари, акції та промокоди. Заявки приходять у міні-CRM. Розробник потрібен тоді, коли ви додаєте нову функцію або змінюєте логіку сайту, а не щоб виправити ціну чи замінити картинку.',
             ),
-            (
-                'Чому не зробити сайт у конструкторі? Це ж швидше.',
-                'Для простої візитки — так, часто швидше. Якщо потрібні своя структура, окрема адмінка, оплата, фіди чи нестандартні сценарії, конструктор починає обмежувати. Тоді доопрацювання коштують часу, а частини речей там не зробити взагалі. Для сайту, який має приводити заявки й продажі, вигідніше одразу зробити його під задачу.',
-            ),
-            (
-                'Що буде з сайтом після запуску? Чи не «прив’яжете» ви його до себе?',
-                'Сайт ваш: ви отримуєте код і доступ, без обов’язкової щомісячної плати конструктору. Після запуску можна залишитись на супроводі студії — для правок, оновлень і консультацій — або вести контент самостійно. Це не оренда чужої платформи, з якої сайт потім не забрати.',
-            ),
+            *_FAQ_BUILDER['uk'],
             (
                 'Яка гарантія?',
                 'Пожиттєва гарантія на код і рік безкоштовної підтримки. Включає: виправлення технічних помилок, підтримку працездатності коду, реакцію на критичні технічні збої, відповідність функціоналу ТЗ. Не включає: нові функції, оновлення дизайну, інтеграції з новими сервісами.',
@@ -378,14 +399,7 @@ RS = {
                 'Смогу ли я сам менять сайт?',
                 'Да, сами. В административной панели можно менять заголовки, тексты, фото и, в магазине, товары, акции и промокоды. Заявки приходят в мини-CRM. Разработчик нужен тогда, когда вы добавляете новую функцию или меняете логику сайта, а не чтобы исправить цену или заменить картинку.',
             ),
-            (
-                'Почему не сделать сайт в конструкторе? Это же быстрее.',
-                'Для простой визитки — да, часто быстрее. Если нужны своя структура, отдельная админка, оплата, фиды или нестандартные сценарии, конструктор начинает ограничивать. Тогда доработки стоят времени, а часть вещей там не сделать вообще. Для сайта, который должен приводить заявки и продажи, выгоднее сразу сделать его под задачу.',
-            ),
-            (
-                'Что будет с сайтом после запуска? Вы не «привяжете» его к себе?',
-                'Сайт ваш: вы получаете код и доступ, без обязательной ежемесячной платы конструктору. После запуска можно остаться на сопровождении студии — для правок, обновлений и консультаций — или вести контент самостоятельно. Это не аренда чужой платформы, с которой сайт потом не забрать.',
-            ),
+            *_FAQ_BUILDER['ru'],
             (
                 'Какая гарантия?',
                 'Пожизненная гарантия на код и год бесплатной поддержки. Включает: исправление технических ошибок, поддержку работоспособности кода, реакцию на критические технические сбои, соответствие функционала ТЗ. Не включает: новые функции, обновление дизайна, интеграции с новыми сервисами.',
@@ -422,14 +436,7 @@ RS = {
                 'Will I be able to change the site myself?',
                 'Yes. In the admin panel you can change headlines, texts, and photos and, in a store, products, promotions, and promo codes. Inquiries arrive in a mini-CRM. A developer is needed when you add a new function or change the site logic, not to fix a price or replace a picture.',
             ),
-            (
-                'Why not build the site in a website builder? Isn’t that faster?',
-                'For a simple calling card, yes, it is often faster. If you need your own structure, a separate admin panel, payment, feeds, or unusual scenarios, a website builder starts to limit you. Rework then costs time, and some things cannot be done there at all. For a site that should bring inquiries and sales, it is better to build it for the task from the start.',
-            ),
-            (
-                'What happens to the site after launch? Will you lock it to yourselves?',
-                'The site is yours: you receive the code and access, with no required monthly fee to a website builder. After launch you can stay on studio support — for edits, updates, and consultations — or manage the content yourself. This is not a rental of someone else’s platform that you cannot take the site away from.',
-            ),
+            *_FAQ_BUILDER['en'],
             (
                 'What is the warranty?',
                 'Lifetime code warranty and 1 year of free support. It includes fixing technical errors, keeping the code working, a response to critical technical failures, and matching the specification. It does not include new functions, design updates, or integrations with new services.',
@@ -468,14 +475,7 @@ CORP = {
                 'Яка гарантія?',
                 'Пожиттєва гарантія на код і рік безкоштовної підтримки. Включає: виправлення технічних помилок, підтримку працездатності коду, реакцію на критичні технічні збої, відповідність функціоналу ТЗ. Не включає: нові функції, оновлення дизайну, інтеграції з новими сервісами.',
             ),
-            (
-                'Чому не зробити сайт у конструкторі? Це ж швидше.',
-                'Для простої візитки — так, часто швидше. Якщо потрібні своя структура, окрема адмінка, оплата, фіди чи нестандартні сценарії, конструктор починає обмежувати. Тоді доопрацювання коштують часу, а частини речей там не зробити взагалі. Для сайту, який має приводити заявки й продажі, вигідніше одразу зробити його під задачу.',
-            ),
-            (
-                'Що буде з сайтом після запуску? Чи не «прив’яжете» ви його до себе?',
-                'Сайт ваш: ви отримуєте код і доступ, без обов’язкової щомісячної плати конструктору. Після запуску можна залишитись на супроводі студії — для правок, оновлень і консультацій — або вести контент самостійно. Це не оренда чужої платформи, з якої сайт потім не забрати.',
-            ),
+            *_FAQ_BUILDER['uk'],
         ],
     },
     'ru': {
@@ -506,14 +506,7 @@ CORP = {
                 'Какая гарантия?',
                 'Пожизненная гарантия на код и год бесплатной поддержки. Включает: исправление технических ошибок, поддержку работоспособности кода, реакцию на критические технические сбои, соответствие функционала ТЗ. Не включает: новые функции, обновление дизайна, интеграции с новыми сервисами.',
             ),
-            (
-                'Почему не сделать сайт в конструкторе? Это же быстрее.',
-                'Для простой визитки — да, часто быстрее. Если нужны своя структура, отдельная админка, оплата, фиды или нестандартные сценарии, конструктор начинает ограничивать. Тогда доработки стоят времени, а часть вещей там не сделать вообще. Для сайта, который должен приводить заявки и продажи, выгоднее сразу сделать его под задачу.',
-            ),
-            (
-                'Что будет с сайтом после запуска? Вы не «привяжете» его к себе?',
-                'Сайт ваш: вы получаете код и доступ, без обязательной ежемесячной платы конструктору. После запуска можно остаться на сопровождении студии — для правок, обновлений и консультаций — или вести контент самостоятельно. Это не аренда чужой платформы, с которой сайт потом не забрать.',
-            ),
+            *_FAQ_BUILDER['ru'],
         ],
     },
     'en': {
@@ -544,14 +537,7 @@ CORP = {
                 'What is the warranty?',
                 'Lifetime code warranty and 1 year of free support. It includes fixing technical errors, keeping the code working, a response to critical technical failures, and matching the specification. It does not include new functions, design updates, or integrations with new services.',
             ),
-            (
-                'Why not build the site in a website builder? Isn’t that faster?',
-                'For a simple calling card, yes, it is often faster. If you need your own structure, a separate admin panel, payment, feeds, or unusual scenarios, a website builder starts to limit you. Rework then costs time, and some things cannot be done there at all. For a site that should bring inquiries and sales, it is better to build it for the task from the start.',
-            ),
-            (
-                'What happens to the site after launch? Will you lock it to yourselves?',
-                'The site is yours: you receive the code and access, with no required monthly fee to a website builder. After launch you can stay on studio support — for edits, updates, and consultations — or manage the content yourself. This is not a rental of someone else’s platform that you cannot take the site away from.',
-            ),
+            *_FAQ_BUILDER['en'],
         ],
     },
 }
