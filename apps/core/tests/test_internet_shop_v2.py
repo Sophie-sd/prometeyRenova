@@ -23,7 +23,7 @@ SPEC = {
         'trust': ['30+ розроблених інтернет-магазинів', 'Ціна і строк у договорі', 'Менеджер передзвонить за 15 хвилин', 'Оплата частинами до 15 платежів'],
         'lead': 'Дизайн, код і інтеграції. Без плагінів і без щомісячної абонплати. Магазин залишається вашим.',
         'labels': ('Ім’я', 'Телефон'),
-        'button': 'Дізнатися вартість',
+        'button': 'Розрахувати вартість магазину',
         'action': '/forms/submit/',
         'meta': ('650 €', '3 тижні', '1 рік підтримки безкоштовно'),
         'start': ['Дизайн', 'Мобільна версія', 'Базова SEO', 'LiqPay і Mono', 'Нова Пошта',
@@ -55,7 +55,7 @@ SPEC = {
         'trust': ['30+ разработанных интернет-магазинов', 'Цена и срок в договоре', 'Менеджер перезвонит за 15 минут', 'Оплата частями до 15 платежей'],
         'lead': 'Дизайн, код и интеграции. Без плагинов и без ежемесячной абонплаты. Магазин остаётся вашим.',
         'labels': ('Имя', 'Телефон'),
-        'button': 'Узнать стоимость',
+        'button': 'Рассчитать стоимость магазина',
         'action': '/ru/forms/submit/',
         'meta': ('650 €', '3 недели', '1 год поддержки бесплатно'),
         'start': ['Дизайн', 'Мобильная версия', 'Базовое SEO', 'LiqPay и Mono', 'Новая Почта',
@@ -192,6 +192,7 @@ class ShopV2SpecTests(TestCase):
             self.assertIn(f'id="fx-pkg-base" class="pl-shop__pkg-price">{s["from"]} 650 €', pak)
             self.assertIn(f'id="fx-pkg-premium" class="pl-shop__pkg-price">{s["from"]} 1\u00a0500 €', pak)
             self.assertIn(f'id="fx-pkg-platinum" class="pl-shop__pkg-price">{s["from"]} 7\u00a0000 €', pak)
+            self.assertEqual(pak.count(f'>{s["button"]}</a>'), 3, url)
 
     def test_platinum_is_shop_plus_marketing_and_no_review_services(self):
         for url, s in SPEC.items():
@@ -362,3 +363,17 @@ class ShopV2VideoIntroTests(TestCase):
             self.assertIn('css/components/pl-proof-blocks.css?v=4', html, url)
             self.assertIn('js/rozrobka-video.js?v=4', html, url)
             self.assertIn('data-rs-video-dialog', html, url)
+
+    def test_packages_video_placeholder(self):
+        titles = {
+            UA: 'Що входить у пакети?',
+            RU: 'Что входит в пакеты?',
+            '/en/internet-shop-v2/': 'What’s included in the packages?',
+        }
+        for url, title in titles.items():
+            html = self.client.get(url).content.decode()
+            pak = html[html.index('id="pakety"'):html.index('id="svoboda"')]
+            self.assertIn(title, pak, url)
+            self.assertIn('>01:34<', pak, url)
+            self.assertNotIn('pl-rs-video__poster', pak, url)
+            self.assertNotIn('<iframe', pak, url)

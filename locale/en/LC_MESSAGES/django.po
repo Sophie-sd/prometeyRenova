@@ -5757,6 +5757,12 @@ msgstr "How we build online stores"
 msgid "Широке портфоліо інтернет-магазинів на різну тематику"
 msgstr "A wide portfolio of online stores in different niches"
 
+msgid "Що входить у пакети?"
+msgstr "What’s included in the packages?"
+
+msgid "Розрахувати вартість магазину"
+msgstr "Calculate the store cost"
+
 msgid "Створити інтернет-магазин:"
 msgstr "Create an online store:"
 

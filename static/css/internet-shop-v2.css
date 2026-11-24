@@ -765,13 +765,28 @@ body.pl-shop-body .main-footer .container,
     }
 }
 
-/* Foundation card */
-.pl-shop__foundation {
+/* Foundation card. На мобільному картка і відео окремо; ≥1024 відео всередині картки праворуч. */
+.pl-shop__card.pl-shop__foundation {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: var(--pl-head-gap);
+    padding: 0;
+    overflow: visible;
+    background: transparent;
+    border-radius: 0;
+}
+
+.pl-shop__foundation-copy {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 30px;
-    margin-top: var(--pl-head-gap);
     padding: 14px;
+    overflow: hidden;
+    isolation: isolate;
+    border-radius: var(--pl-radius-card);
+    background: var(--pl-dim);
 }
 
 .pl-shop__glow--foundation {
@@ -789,6 +804,19 @@ body.pl-shop-body .main-footer .container,
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.pl-shop__foundation-media .pl-rs-video,
+.pl-shop__foundation-media .pl-rs-video__card {
+    width: 100%;
+}
+
+.pl-shop__foundation-media .pl-rs-video__title {
+    font-size: 14px;
+}
+
+.pl-shop__foundation-media .pl-rs-video__card:not(button) {
+    cursor: default;
 }
 
 .pl-shop__note {
@@ -2200,6 +2228,8 @@ body.pl-shop-body .main-footer .container,
     .pl-shop__foundation-list {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: repeat(2, auto);
+        grid-auto-flow: column;
         gap: 14px 24px;
     }
 
@@ -2402,10 +2432,26 @@ body.pl-shop-body .main-footer .container,
         max-width: 373px;
     }
 
-    .pl-shop__foundation {
-        gap: 50px;
-        min-height: 225px;
+    .pl-shop__card.pl-shop__foundation {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 460px;
+        column-gap: 20px;
+        align-items: start;
+        min-height: 331px;
         padding: 20px;
+        overflow: hidden;
+        background: var(--pl-dim);
+        border-radius: var(--pl-radius-card);
+    }
+
+    .pl-shop__foundation-copy {
+        position: static;
+        isolation: auto;
+        gap: 50px;
+        padding: 0;
+        overflow: visible;
+        background: transparent;
+        border-radius: 0;
     }
 
     .pl-shop__glow--foundation {
@@ -2416,18 +2462,17 @@ body.pl-shop-body .main-footer .container,
     }
 
     .pl-shop__foundation .pl-shop__card-title {
-        max-width: 418px;
+        max-width: none;
     }
 
     .pl-shop__foundation-body {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: center;
-        gap: 20px 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
     }
 
     .pl-shop__foundation-list {
-        grid-column: 1;
         max-width: 763px;
         gap: 14px 24px;
     }
@@ -2436,8 +2481,14 @@ body.pl-shop-body .main-footer .container,
         font-size: 16px;
     }
 
+    @media (max-width: 1279px) {
+        .pl-shop__foundation-list {
+            grid-template-columns: minmax(0, 1fr);
+            grid-auto-flow: row;
+        }
+    }
+
     .pl-shop__note {
-        grid-column: 1;
         justify-self: start;
         gap: 12px;
         min-height: 34px;
@@ -2452,12 +2503,19 @@ body.pl-shop-body .main-footer .container,
     }
 
     .pl-shop__installment {
-        grid-column: 2;
-        grid-row: 1 / span 2;
-        align-self: center;
+        align-self: flex-start;
         gap: 14px;
         min-height: 74px;
         padding-right: 14px;
+    }
+
+    .pl-shop__foundation-media {
+        width: 460px;
+    }
+
+    .pl-shop__foundation-media .pl-rs-video,
+    .pl-shop__foundation-media .pl-rs-video__card {
+        height: 256px;
     }
 
     .pl-shop__installment-icon {

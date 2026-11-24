@@ -10,24 +10,32 @@
         </div>
 
         <aside class="pl-shop__card pl-shop__card--dim pl-shop__foundation" data-reveal aria-labelledby="pl-shop-foundation-title">
-            <picture class="pl-shop__glow pl-shop__glow--foundation" aria-hidden="true">
-                <source media="(max-width: 767px)" srcset="{% static 'images/internet_shop_v2/figma/glow-foundation-mobile.svg' %}">
-                <img src="{% static 'images/internet_shop_v2/figma/glow-foundation.svg' %}" alt="" width="1147" height="459" loading="lazy" decoding="async">
-            </picture>
-            <h3 id="pl-shop-foundation-title" class="pl-shop__card-title pl-shop__card-title--accent">В каждом пакете — одна и та же база</h3>
-            <div class="pl-shop__foundation-body">
-                <ul class="pl-shop__list pl-shop__list--good pl-shop__foundation-list">
-                    <li class="pl-shop__list-item">Google PageSpeed 90+ на чистом коде</li>
-                    <li class="pl-shop__list-item">Продуманный UI/UX под вашу нишу</li>
-                    <li class="pl-shop__list-item">Понятная админ-панель с первого дня</li>
-                    <li class="pl-shop__list-item">Развёртывание под ключ на вашем домене</li>
-                </ul>
-                <p class="pl-shop__note"><img class="pl-shop__note-icon" src="{% static 'images/internet_shop_v2/figma/icon-danger.svg' %}" alt="" width="17" height="17" aria-hidden="true">Пакет отличает глубину ИИ, интеграции и маркетинг — не качество фундамента</p>
-                <a href="{% url 'monobank_chastynamy' %}" class="pl-shop__installment">
-                    <img class="pl-shop__installment-icon" src="{% static 'images/internet_shop_v2/figma/mono-paw-15.webp' %}" alt="" width="54" height="54" loading="lazy" decoding="async">
-                    <span class="pl-shop__installment-text">Это можно купить частями, <strong class="pl-shop__installment-strong">до 15 платежей</strong></span>
-                </a>
+            <div class="pl-shop__foundation-copy">
+                <picture class="pl-shop__glow pl-shop__glow--foundation" aria-hidden="true">
+                    <source media="(max-width: 767px)" srcset="{% static 'images/internet_shop_v2/figma/glow-foundation-mobile.svg' %}">
+                    <img src="{% static 'images/internet_shop_v2/figma/glow-foundation.svg' %}" alt="" width="1147" height="459" loading="lazy" decoding="async">
+                </picture>
+                <h3 id="pl-shop-foundation-title" class="pl-shop__card-title pl-shop__card-title--accent">В каждом пакете — одна и та же база</h3>
+                <div class="pl-shop__foundation-body">
+                    <ul class="pl-shop__list pl-shop__list--good pl-shop__foundation-list">
+                        <li class="pl-shop__list-item">Google PageSpeed 90+ на чистом коде</li>
+                        <li class="pl-shop__list-item">Понятная админ-панель с первого дня</li>
+                        <li class="pl-shop__list-item">Продуманный UI/UX под вашу нишу</li>
+                        <li class="pl-shop__list-item">Развёртывание под ключ на вашем домене</li>
+                    </ul>
+                    <p class="pl-shop__note"><img class="pl-shop__note-icon" src="{% static 'images/internet_shop_v2/figma/icon-danger.svg' %}" alt="" width="17" height="17" aria-hidden="true">Пакет отличает глубину ИИ, интеграции и маркетинг — не качество фундамента</p>
+                    <a href="{% url 'monobank_chastynamy' %}" class="pl-shop__installment">
+                        <img class="pl-shop__installment-icon" src="{% static 'images/internet_shop_v2/figma/mono-paw-15.webp' %}" alt="" width="54" height="54" loading="lazy" decoding="async">
+                        <span class="pl-shop__installment-text">Это можно купить частями, <strong class="pl-shop__installment-strong">до 15 платежей</strong></span>
+                    </a>
+                </div>
             </div>
+            {# [HOLD] YouTube ID і постер дасть Софія #}
+            {% with pkg_video_id="" pkg_video_poster="" pkg_video_time="01:34" %}
+            <div class="pl-shop__foundation-media">
+                {% include 'components/internet_shop_v2/_video_slot.html' with video_id=pkg_video_id poster=pkg_video_poster time=pkg_video_time title="Что входит в пакеты?" %}
+            </div>
+            {% endwith %}
         </aside>
 
         {% include 'fx/quiz_prices.html' %}
@@ -52,7 +60,7 @@
                         <li>Каталог до 100 товаров</li>
                     </ul>
                 </div>
-                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--light pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="base">Узнать стоимость</a>
+                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--light pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="base">Рассчитать стоимость магазина</a>
             </article>
 
             <article class="pl-shop__pkg-card pl-shop__pkg-card--featured">
@@ -76,7 +84,7 @@
                         <li>Настройка рекламного кабинета и стартовая кампания</li>
                     </ul>
                 </div>
-                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--accent pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="premium">Узнать стоимость</a>
+                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--accent pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="premium">Рассчитать стоимость магазина</a>
             </article>
 
             <article class="pl-shop__pkg-card pl-shop__pkg-card--platinum">
@@ -99,7 +107,7 @@
                         <li><span><strong class="pl-shop__pkg-theme-name">Поиск и контент</strong>SEO под Украину и зарубежные рынки, статьи и контент 6 месяцев, тексты и медиа для страниц магазина</span></li>
                     </ul>
                 </div>
-                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--light pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="platinum">Узнать стоимость</a>
+                <a href="#zayavka" class="pl-shop__btn pl-shop__btn--light pl-shop__btn--block pl-shop__pkg-cta" data-calc-pkg="platinum">Рассчитать стоимость магазина</a>
             </article>
         </div>
 
