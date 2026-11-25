@@ -29,7 +29,7 @@
 
 .pl-shop-video__title {
     margin: 0;
-    max-width: min(209px, 100%);
+    max-width: min(240px, 100%);
     color: var(--pl-text);
     font-size: 22px;
     font-weight: 500;
@@ -39,6 +39,7 @@
 
 .pl-shop-video__accent {
     color: var(--pl-acc);
+    white-space: nowrap;
 }
 
 .pl-shop-video__text {
