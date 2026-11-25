@@ -108,6 +108,12 @@
     outline-offset: 3px;
 }
 
+@media (max-width: 1023px) {
+    .pl-shop-video {
+        padding-top: 24px;
+    }
+}
+
 @media (min-width: 1024px) {
     .pl-shop-video {
         margin-top: 40px;
