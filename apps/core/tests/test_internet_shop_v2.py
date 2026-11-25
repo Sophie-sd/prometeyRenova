@@ -363,7 +363,7 @@ class ShopV2VideoIntroTests(TestCase):
             self.assertIn('loading="lazy"', block, url)
             self.assertNotIn('<iframe', block, url)
             self.assertIn('data-rs-video="o4OvYDAMeGE"', block, url)
-            self.assertIn('css/pages/shop-video.css?v=3', html, url)
+            self.assertIn('css/pages/shop-video.css?v=4', html, url)
             self.assertIn('css/components/pl-proof-blocks.css?v=4', html, url)
             self.assertIn('js/rozrobka-video.js?v=4', html, url)
             self.assertIn('data-rs-video-dialog', html, url)
