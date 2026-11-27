@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 from django.urls import reverse_lazy
 from django.templatetags.static import static
-from django.utils.functional import lazy
 from django.utils.translation import gettext_lazy as _
 
 load_dotenv()
@@ -60,7 +59,11 @@ INSTALLED_APPS = [
     'apps.democorp',
 ]
 
-def _payment_subscriptions_admin_link():
+def _payment_subscriptions_admin_link(_request):
+    """Unfold викликає link(request) і кладе результат у link_callback.
+
+    reverse() бере поточний префікс адмінки (ADMIN_URL або фолбек admin/).
+    """
     from django.urls import reverse
     return reverse('admin:payment_paymentlink_changelist') + '?is_subscription=1'
 
@@ -109,6 +112,7 @@ UNFOLD = {
     "SCRIPTS": [
         lambda request: static("admin/js/admin-theme.js"),
         lambda request: static("admin/js/admin-list-filters.js"),
+        lambda request: static("admin/js/admin-sidebar-toggle.js"),
     ],
     "SIDEBAR": {
         "show_search": True,
@@ -130,7 +134,7 @@ UNFOLD = {
                 "separator": True,
                 "items": [
                     {"title": _("Посилання"), "icon": "link", "link": reverse_lazy("admin:payment_paymentlink_changelist"), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
-                    {"title": _("Підписки"), "icon": "autorenew", "link": lazy(_payment_subscriptions_admin_link, str)(), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
+                    {"title": _("Підписки"), "icon": "autorenew", "link": _payment_subscriptions_admin_link, "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
                     {"title": _("Рахунки"), "icon": "receipt_long", "link": reverse_lazy("admin:payment_invoice_changelist"), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
                     {"title": _("Отримувачі"), "icon": "account_balance", "link": reverse_lazy("admin:payment_recipientprofile_changelist"), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
                     {"title": _("Налаштування"), "icon": "settings", "link": reverse_lazy("admin:payment_paymentsettings_changelist"), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
