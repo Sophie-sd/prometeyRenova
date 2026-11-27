@@ -44,8 +44,8 @@ python manage.py migrate
 echo "👤 Creating superuser..."
 python manage.py create_superuser
 
-echo "🔐 Granting staff admin access..."
-python manage.py grant_staff_admin_access
+# Права менеджерів задаються вручну в адмінці — деплой їх не видає і не перезаписує.
+# grant_staff_admin_access прибрано: відсутній користувач валив збірку, а set() розширював би права.
 
 echo "🌱 Seeding initial data (blog posts & events)..."
 python manage.py seed_initial_data
