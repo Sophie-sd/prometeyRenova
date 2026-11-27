@@ -2,6 +2,7 @@ from django import forms
 from django.contrib import admin, messages
 from tinymce.widgets import AdminTinyMCE
 from unfold.admin import ModelAdmin as UnfoldModelAdmin
+from unfold.forms import AdminPasswordChangeForm
 from unfold.contrib.filters.admin import (
     ChoicesDropdownFilter,
     RangeDateFilter,
@@ -64,6 +65,9 @@ except admin.sites.NotRegistered:
 
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin, UnfoldModelAdmin):
+    form = UserFxForm
+    add_form = UserFxAddForm
+    change_password_form = AdminPasswordChangeForm
     list_filter_sheet = False
     list_filter = (
         ('is_staff', BooleanDropdownFilter),
@@ -80,11 +84,6 @@ class UserAdmin(DjangoUserAdmin, UnfoldModelAdmin):
                 {'fields': ('can_set_fx',)},
             ))
         return fieldsets
-
-    def get_form(self, request, obj=None, **kwargs):
-        if request.user.is_superuser:
-            kwargs['form'] = UserFxAddForm if obj is None else UserFxForm
-        return super().get_form(request, obj, **kwargs)
 
     def save_related(self, request, form, formsets, change):
         super().save_related(request, form, formsets, change)
