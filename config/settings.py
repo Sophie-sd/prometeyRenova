@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from django.urls import reverse_lazy
 from django.templatetags.static import static
+from django.utils.functional import lazy
 from django.utils.translation import gettext_lazy as _
 
 load_dotenv()
@@ -12,6 +13,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-CHANGE-IN-PRODUCTION')
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
+
+def _normalize_admin_url(raw):
+    """Без слешів по краях і з одним слешем у кінці. Порожнє значення → 'admin/'."""
+    value = (raw or '').strip().strip('/')
+    return f'{value}/' if value else 'admin/'
+
+
+# Студійна адмінка. Немає ADMIN_URL або значення порожнє — фолбек 'admin/',
+# щоб прод працював, доки змінну не додано в Render.
+ADMIN_URL = _normalize_admin_url(os.environ.get('ADMIN_URL'))
 
 # ALLOWED_HOSTS
 ALLOWED_HOSTS = ['www.prometeylabs.com', 'prometeylabs.com']
@@ -47,6 +59,11 @@ INSTALLED_APPS = [
     'apps.demolanding',
     'apps.democorp',
 ]
+
+def _payment_subscriptions_admin_link():
+    from django.urls import reverse
+    return reverse('admin:payment_paymentlink_changelist') + '?is_subscription=1'
+
 
 # UNFOLD ADMIN
 UNFOLD = {
@@ -113,7 +130,7 @@ UNFOLD = {
                 "separator": True,
                 "items": [
                     {"title": _("Посилання"), "icon": "link", "link": reverse_lazy("admin:payment_paymentlink_changelist"), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
-                    {"title": _("Підписки"), "icon": "autorenew", "link": "/admin/payment/paymentlink/?is_subscription=1", "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
+                    {"title": _("Підписки"), "icon": "autorenew", "link": lazy(_payment_subscriptions_admin_link, str)(), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
                     {"title": _("Рахунки"), "icon": "receipt_long", "link": reverse_lazy("admin:payment_invoice_changelist"), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
                     {"title": _("Отримувачі"), "icon": "account_balance", "link": reverse_lazy("admin:payment_recipientprofile_changelist"), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},
                     {"title": _("Налаштування"), "icon": "settings", "link": reverse_lazy("admin:payment_paymentsettings_changelist"), "permission": "apps.demoshop.admin_permissions.is_prometey_staff"},

@@ -14,11 +14,14 @@ from apps.core.proposal_media import protected_media_serve
 from apps.core.redirects import cs_legacy_redirect
 
 
-def build_urlpatterns(admin_prefix='admin'):
-    """Один набір маршрутів. Студія: `admin`. Кабінет КП: `k/<ключ>`."""
-    prefix = admin_prefix.strip('/')
+def build_urlpatterns(admin_prefix=None):
+    """Один набір маршрутів. Студія: settings.ADMIN_URL. Кабінет КП: `k/<ключ>`."""
+    if admin_prefix is None:
+        admin_route = path(settings.ADMIN_URL, admin.site.urls)
+    else:
+        admin_route = path(f"{admin_prefix.strip('/')}/", admin.site.urls)
     patterns = [
-        path(f'{prefix}/', admin.site.urls),
+        admin_route,
         path('tinymce/', include('tinymce.urls')),
         path('i18n/set_language/', set_language, name='set_language'),
         path('i18n/set_currency/', set_currency, name='set_currency'),
@@ -58,4 +61,4 @@ def build_urlpatterns(admin_prefix='admin'):
     return patterns
 
 
-urlpatterns = build_urlpatterns('admin')
+urlpatterns = build_urlpatterns()

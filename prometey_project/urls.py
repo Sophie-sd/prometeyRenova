@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from apps.core.sitemaps import sitemaps
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path(settings.ADMIN_URL, admin.site.urls),
     path('i18n/set_language/', set_language, name='set_language'),
     path(
         'robots.txt',
