@@ -66,6 +66,18 @@ class PaymentLinkAdminForm(forms.ModelForm):
         model = PaymentLink
         fields = '__all__'
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # default=True у моделі лишається для створення поза адмінкою.
+        # Нова форма в адмінці стартує з вимкненим еквайрингом.
+        if (
+            not self.is_bound
+            and not getattr(self.instance, 'pk', None)
+            and 'use_acquiring' in self.fields
+        ):
+            self.initial['use_acquiring'] = False
+            self.fields['use_acquiring'].initial = False
+
 
 # ── PaymentLink inline ─────────────────────────────────────────────────────
 
@@ -263,6 +275,11 @@ class PaymentLinkAdmin(UnfoldModelAdmin):
             return '—'
         local_dt = timezone.localtime(obj.created_at)
         return local_dt.strftime('%d.%m.%Y %H:%M')
+
+    def get_changeform_initial_data(self, request):
+        initial = super().get_changeform_initial_data(request)
+        initial['use_acquiring'] = False
+        return initial
 
     def save_model(self, request, obj, form, change):
         if obj.recipient:

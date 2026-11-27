@@ -57,31 +57,46 @@ class InvoiceItemForm(forms.ModelForm):
 class InvoiceItemInline(UnfoldTabularInline):
     model = InvoiceItem
     form = InvoiceItemForm
-    extra = 1
+    # min_num уже дає один порожній рядок. extra=1 додавав другий:
+    # total = max(initial, min_num) + extra.
+    extra = 0
     min_num = 1
+    can_delete = True
     fields = ('position', 'title', 'unit', 'quantity', 'price')
     ordering = ('position', 'id')
     verbose_name = _('Послуга')
     verbose_name_plural = _('Послуги')
 
     def get_extra(self, request, obj=None, **kwargs):
-        if obj:
-            return 0
-        return 1
+        return 0
+
+    def get_formset(self, request, obj=None, **kwargs):
+        if obj is None:
+            kwargs.setdefault('validate_min', True)
+        return super().get_formset(request, obj, **kwargs)
+
+    def _lines_locked(self, obj):
+        # Збережений рахунок лише для перегляду і PDF. Окремого статусу
+        # «оплачено» немає: блокування — це сам збережений запис.
+        return obj is not None
 
     def has_add_permission(self, request, obj=None):
-        if obj:
+        if self._lines_locked(obj):
             return False
         return super().has_add_permission(request, obj)
 
     def has_change_permission(self, request, obj=None):
-        if obj:
+        if self._lines_locked(obj):
             return False
         return super().has_change_permission(request, obj)
 
     def has_delete_permission(self, request, obj=None):
-        if obj:
+        if self._lines_locked(obj):
             return False
+        # Рядки послуги в новому рахунку можна прибирати за правом change рахунку,
+        # навіть без payment.delete_invoiceitem.
+        if request.user.has_perm('payment.change_invoice'):
+            return True
         return super().has_delete_permission(request, obj)
 
 
