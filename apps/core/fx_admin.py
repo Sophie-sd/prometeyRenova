@@ -1,12 +1,13 @@
 """Синглтон курсу і чекбокс права в картці користувача."""
 from django import forms
 from django.contrib import admin
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from unfold.admin import ModelAdmin as UnfoldModelAdmin
+from unfold.forms import UserChangeForm, UserCreationForm
 from unfold.widgets import UnfoldBooleanWidget
 
 from apps.core.admin_permissions import (
@@ -31,9 +32,22 @@ class UserFxForm(UserChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['can_set_fx'].initial = user_has_fx_grant(self.instance)
+        password = self.fields.get('password')
+        if password is not None:
+            # Unfold прибирає кнопку з віджета хешу; посилання лишається в help_text.
+            password.help_text = format_html(
+                '{} <a href="../password/" class="text-primary-600 dark:text-primary-500">{}</a>.',
+                _(
+                    'Пароль зберігається у вигляді хешу, тому побачити його не можна. '
+                    'Змінити пароль можна'
+                ),
+                _('цією формою'),
+            )
 
 
 class UserFxAddForm(UserCreationForm):
+    """Форма створення: Unfold UserCreationForm → AdminUserCreationForm (є usable_password)."""
+
     can_set_fx = _fx_grant_field()
 
     def __init__(self, *args, **kwargs):
