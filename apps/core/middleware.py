@@ -11,7 +11,7 @@ third-party services are added.
 """
 import secrets
 
-from apps.demotenant.console import is_console_path
+from apps.demotenant.console import is_console_path, is_studio_admin_path
 
 _PRIVATE_ROOTS = (
     '/proposal',
@@ -75,7 +75,7 @@ class CSPMiddleware:
         # leave the admin out of the CSP entirely. Admin is an internal,
         # authenticated tool and is not exposed to anonymous traffic.
         path = request.path_info or ''
-        if path.startswith('/admin/') or path == '/admin' or is_console_path(path):
+        if is_studio_admin_path(path) or is_console_path(path):
             return response
 
         # Google Fonts load via protocol-relative URLs (//…).

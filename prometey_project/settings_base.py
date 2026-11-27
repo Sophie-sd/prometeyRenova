@@ -13,6 +13,16 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
+
+def _normalize_admin_url(raw):
+    """Без слешів по краях і з одним слешем у кінці. Порожнє значення → 'admin/'."""
+    value = (raw or '').strip().strip('/')
+    return f'{value}/' if value else 'admin/'
+
+
+# Студійна адмінка. Немає ADMIN_URL або значення порожнє — фолбек 'admin/'.
+ADMIN_URL = _normalize_admin_url(os.getenv('ADMIN_URL'))
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',

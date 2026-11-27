@@ -1,8 +1,8 @@
 """Окреме посилання кабінету на кожну КП.
 
-Студійна адмінка лишається на `/admin/`. Клієнт демо туди не сідає:
-його кабінет — це `/k/<console_key>/`, і `reverse('admin:…')` під час
-цього запиту збирає посилання вже з цим префіксом.
+Студійна адмінка лишається на settings.ADMIN_URL (фолбек `admin/`).
+Клієнт демо туди не сідає: його кабінет — це `/k/<console_key>/`, і
+`reverse('admin:…')` під час цього запиту збирає посилання вже з цим префіксом.
 """
 from __future__ import annotations
 
@@ -89,7 +89,7 @@ def is_studio_staff(user) -> bool:
     """Штат агенції, не власник демо.
 
     Кабінет такого користувача не підміняє сесію: інакше після відкриття
-    демо `/admin/` назавжди стає кабінетом магазину.
+    демо адреса студії назавжди стає кабінетом магазину.
     """
     if not getattr(user, 'is_authenticated', False):
         return False
@@ -102,6 +102,22 @@ def _studio_auth_path(path: str) -> str:
     if path.endswith('/'):
         return path
     return path + '/'
+
+
+def studio_admin_prefix() -> str:
+    """Шлях студійної адмінки з початковим слешем і без кінцевого.
+
+    settings.ADMIN_URL уже без початкового слеша і з одним кінцевим.
+    """
+    from django.conf import settings
+
+    cleaned = (settings.ADMIN_URL or '').strip().strip('/') or 'admin'
+    return '/' + cleaned
+
+
+def is_studio_admin_path(path: str) -> bool:
+    prefix = studio_admin_prefix()
+    return path == prefix or path.startswith(prefix + '/')
 
 
 def urlconf_for(token: str):
@@ -117,7 +133,8 @@ def urlconf_for(token: str):
 
 
 def _studio_admin_target(path: str, console_path: str) -> str:
-    rest = path[len('/admin'):]
+    prefix = studio_admin_prefix()
+    rest = path[len(prefix):] if path.startswith(prefix) else ''
     base = console_path.rstrip('/')
     if rest in ('', '/'):
         return console_path
@@ -127,7 +144,7 @@ def _studio_admin_target(path: str, console_path: str) -> str:
 
 
 class ConsoleUrlconfMiddleware:
-    """До Locale/Common: кабінет КП резолвиться своїм urlconf, не `/admin/`."""
+    """До Locale/Common: кабінет КП резолвиться своїм urlconf, не студійною адмінкою."""
 
     def __init__(self, get_response):
         self.get_response = get_response
@@ -143,7 +160,7 @@ class ConsoleUrlconfMiddleware:
 
 
 class ConsoleAuthMiddleware(MiddlewareMixin):
-    """Власник ключа входить у свій кабінет. З `/admin/` клієнта повертає на його URL."""
+    """Власник ключа входить у свій кабінет. Зі студійної адмінки клієнта повертає на його URL."""
 
     def process_request(self, request):
         tenant = getattr(request, 'demo_console_tenant', None)
@@ -151,11 +168,13 @@ class ConsoleAuthMiddleware(MiddlewareMixin):
             return self._enter_console(request, tenant)
 
         path = request.path_info or ''
-        if path != '/admin' and not path.startswith('/admin/'):
+        if not is_studio_admin_path(path):
             return None
         # Застрягла демо-сесія має дійти до форми входу штату, а не по колу в кабінет.
-        if _studio_auth_path(path) in ('/admin/login/', '/admin/logout/'):
-            if _studio_auth_path(path) == '/admin/login/' and tenant_for_user(request.user) is not None:
+        prefix = studio_admin_prefix()
+        normalized = _studio_auth_path(path)
+        if normalized in (f'{prefix}/login/', f'{prefix}/logout/'):
+            if normalized == f'{prefix}/login/' and tenant_for_user(request.user) is not None:
                 auth_logout(request)
             return None
         owner_tenant = tenant_for_user(request.user)
