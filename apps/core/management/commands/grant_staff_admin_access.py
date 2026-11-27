@@ -10,6 +10,12 @@ ENV:
 Приклад:
     python manage.py grant_staff_admin_access
     python manage.py grant_staff_admin_access --username ValeriaKornienko
+    python manage.py grant_staff_admin_access --skip-missing
+
+--skip-missing без явного --username: якщо облікового запису немає, команда
+пише warning і завершується з кодом 0. Явний --username для неіснуючого
+користувача завжди кидає CommandError. Наявного користувача команда як і
+раніше перезаписує повним набором прав; деплой її не викликає.
 """
 import os
 
@@ -35,10 +41,19 @@ class Command(BaseCommand):
             type=str,
             help='Username користувача для надання доступу',
         )
+        parser.add_argument(
+            '--skip-missing',
+            action='store_true',
+            help=(
+                'Якщо --username не задано і користувача немає — warning і код 0. '
+                'Явний --username для відсутнього користувача все одно дає CommandError.'
+            ),
+        )
 
     def handle(self, *args, **options):
         User = get_user_model()
-        username = options.get('username') or os.environ.get(
+        explicit_username = options.get('username') or None
+        username = explicit_username or os.environ.get(
             'DJANGO_STAFF_ADMIN_USERNAME',
             STAFF_ADMIN_USERNAME,
         )
@@ -46,6 +61,14 @@ class Command(BaseCommand):
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist as exc:
+            if options['skip_missing'] and not explicit_username:
+                self.stdout.write(
+                    self.style.WARNING(
+                        f'Користувач "{username}" не знайдений. '
+                        'Надання доступу пропущено.'
+                    )
+                )
+                return
             raise CommandError(
                 f'Користувач "{username}" не знайдений. '
                 'Створіть обліковий запис перед наданням доступу.'

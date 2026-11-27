@@ -1,5 +1,6 @@
 """Тести для grant_staff_admin_access management command."""
 import os
+from io import StringIO
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
@@ -71,6 +72,42 @@ class GrantStaffAdminAccessTests(TestCase):
     def test_fails_for_missing_user(self):
         with self.assertRaises(CommandError):
             call_command('grant_staff_admin_access', username='NonExistentUser')
+
+    def test_skip_missing_warns_when_default_user_absent(self):
+        self.user.delete()
+        out = StringIO()
+        with patch.dict(os.environ, {'DJANGO_STAFF_ADMIN_USERNAME': STAFF_ADMIN_USERNAME}):
+            call_command('grant_staff_admin_access', skip_missing=True, stdout=out)
+
+        message = out.getvalue()
+        self.assertIn(STAFF_ADMIN_USERNAME, message)
+        self.assertIn('не знайдений', message)
+        self.assertIn('пропущено', message)
+        self.assertFalse(
+            get_user_model().objects.filter(username=STAFF_ADMIN_USERNAME).exists()
+        )
+
+    def test_missing_default_user_errors_without_skip_missing(self):
+        self.user.delete()
+        with patch.dict(os.environ, {'DJANGO_STAFF_ADMIN_USERNAME': STAFF_ADMIN_USERNAME}):
+            with self.assertRaises(CommandError):
+                call_command('grant_staff_admin_access')
+
+    def test_explicit_missing_username_errors_even_with_skip_missing(self):
+        with self.assertRaises(CommandError):
+            call_command(
+                'grant_staff_admin_access',
+                username='NonExistentUser',
+                skip_missing=True,
+            )
+
+    def test_skip_missing_still_grants_when_default_user_exists(self):
+        with patch.dict(os.environ, {'DJANGO_STAFF_ADMIN_USERNAME': STAFF_ADMIN_USERNAME}):
+            call_command('grant_staff_admin_access', skip_missing=True)
+
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.is_staff)
+        self.assertTrue(self.user.has_perm('core.view_formsubmission'))
 
     def test_can_manage_admin_users_callback(self):
         from apps.core.admin_permissions import can_manage_admin_users
